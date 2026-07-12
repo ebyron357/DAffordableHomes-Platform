@@ -104,18 +104,23 @@ export type TrustPoint = {
 
 export const TRUST_POINTS: TrustPoint[] = [
   {
-    title: "Education before pressure",
-    description:
-      "You will understand the process before anyone talks about listings or timelines. A prepared buyer is a stronger buyer.",
+    title: "Education-First",
+    description: "Clear guidance so visitors can make informed decisions.",
   },
   {
-    title: "Honest guidance",
-    description:
-      "No guaranteed approvals, no fake urgency, and no shame about credit, savings, or renting. Just clear, realistic information.",
+    title: "Trust & Integrity",
+    description: "Honest answers and realistic expectations.",
   },
   {
-    title: "The right professional",
-    description:
-      "When a question belongs to a lender, attorney, inspector, or tax professional, we say so — and help you get to the right person.",
+    title: "Community Focused",
+    description: "Local knowledge and trusted connections.",
+  },
+  {
+    title: "No Pressure",
+    description: "Visitors learn at their own pace and remain in control.",
+  },
+  {
+    title: "Path to Ownership",
+    description: "A practical step-by-step plan built around individual goals.",
   },
 ]

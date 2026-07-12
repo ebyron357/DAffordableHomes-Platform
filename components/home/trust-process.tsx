@@ -1,9 +1,9 @@
-import { HeartHandshake, ShieldCheck, Users } from "lucide-react"
+import { GraduationCap, Leaf, Route, ShieldCheck, Users } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { TRUST_POINTS } from "@/lib/content/home"
 
-const ICONS = [ShieldCheck, HeartHandshake, Users]
+const ICONS = [GraduationCap, ShieldCheck, Users, Leaf, Route]
 
 export function TrustProcess() {
   return (
@@ -20,7 +20,7 @@ export function TrustProcess() {
           </p>
         </div>
 
-        <ul className="mt-12 grid gap-6 md:grid-cols-3">
+        <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
           {TRUST_POINTS.map((point, i) => {
             const Icon = ICONS[i]
             return (
@@ -28,7 +28,7 @@ export function TrustProcess() {
                 <span className="flex size-11 items-center justify-center rounded-lg bg-primary-foreground/10">
                   <Icon className="size-5" aria-hidden="true" />
                 </span>
-                <h3 className="mt-5 font-serif text-xl">{point.title}</h3>
+                <h3 className="mt-5 font-serif text-lg">{point.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-primary-foreground/85">{point.description}</p>
               </li>
             )
