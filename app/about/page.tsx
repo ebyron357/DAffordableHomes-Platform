@@ -38,7 +38,7 @@ export default function AboutPage() {
       <PageHeader
         eyebrow="About Debra"
         title="A guide who believes preparation is a form of respect"
-        description="Debra Allen is a REALTOR® who built D'Affordable Homes around a simple idea: homeownership has steps, and no one should have to figure them out alone."
+        intro="Debra Allen is a REALTOR® who built D'Affordable Homes around a simple idea: homeownership has steps, and no one should have to figure them out alone."
       />
 
       <Section>
