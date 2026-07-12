@@ -1,5 +1,5 @@
 import Link from "next/link"
-import type { ComponentProps, ReactNode } from "react"
+import { cloneElement, isValidElement, type ComponentProps, type ReactElement, type ReactNode } from "react"
 import { cn } from "@/lib/utils"
 
 type Variant = "primary" | "secondary" | "outline" | "ghost"
@@ -28,15 +28,38 @@ type CommonProps = {
   children: ReactNode
 }
 
-type ButtonAsLink = CommonProps & { href: string } & Omit<ComponentProps<typeof Link>, "href" | "className">
-type ButtonAsButton = CommonProps & { href?: undefined } & Omit<ComponentProps<"button">, "className">
+type ButtonAsChild = CommonProps & {
+  asChild: true
+  children: ReactElement<{ className?: string }>
+  href?: never
+}
 
-export function Button(props: ButtonAsLink | ButtonAsButton) {
+type ButtonAsLink = CommonProps & {
+  href: string
+  asChild?: false
+} & Omit<ComponentProps<typeof Link>, "href" | "className" | "children">
+
+type ButtonAsButton = CommonProps & {
+  href?: undefined
+  asChild?: false
+} & Omit<ComponentProps<"button">, "className" | "children">
+
+export function Button(props: ButtonAsChild | ButtonAsLink | ButtonAsButton) {
   const { variant = "primary", size = "md", className, children } = props
   const classes = cn(base, variants[variant], sizes[size], className)
 
+  if (props.asChild) {
+    if (!isValidElement(children)) {
+      throw new Error("Button with asChild requires exactly one valid React element child.")
+    }
+
+    return cloneElement(children, {
+      className: cn(classes, children.props.className),
+    })
+  }
+
   if (props.href) {
-    const { variant: _v, size: _s, className: _c, children: _ch, href, ...rest } = props
+    const { variant: _v, size: _s, className: _c, children: _ch, href, asChild: _a, ...rest } = props
     return (
       <Link href={href} className={classes} {...rest}>
         {children}
@@ -44,7 +67,16 @@ export function Button(props: ButtonAsLink | ButtonAsButton) {
     )
   }
 
-  const { variant: _v, size: _s, className: _c, children: _ch, href: _h, ...rest } = props as ButtonAsButton
+  const {
+    variant: _v,
+    size: _s,
+    className: _c,
+    children: _ch,
+    href: _h,
+    asChild: _a,
+    ...rest
+  } = props as ButtonAsButton
+
   return (
     <button className={classes} {...rest}>
       {children}
