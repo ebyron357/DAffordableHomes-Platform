@@ -1,0 +1,96 @@
+name: Feature or product work
+description: Plan a user-facing feature, integration, content system, or platform capability
+title: "[Feature]: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Read `AGENTS.md` and the governing product documents before proposing implementation.
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: User outcome
+      description: What should the visitor or operator be able to accomplish?
+      placeholder: Describe the completed end-to-end outcome.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: pillar
+    attributes:
+      label: Primary brand pillar
+      options:
+        - Education
+        - Trust
+        - Expertise
+        - Community
+        - Action
+    validations:
+      required: true
+
+  - type: textarea
+    id: audience
+    attributes:
+      label: Audience and problem
+      description: Who is this for, and what specific confusion or barrier does it address?
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: In scope
+      description: List the smallest complete implementation.
+    validations:
+      required: true
+
+  - type: textarea
+    id: exclusions
+    attributes:
+      label: Out of scope
+      description: State what this work must not expand into.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Use testable statements, including loading, empty, error, and unavailable states.
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: gates
+    attributes:
+      label: Required gates
+      options:
+        - label: WCAG 2.2 AA requirements are included.
+          required: true
+        - label: Real-estate, Fair Housing, brokerage, or IDX requirements are identified where applicable.
+          required: true
+        - label: Privacy, consent, and security impacts are identified.
+          required: true
+        - label: Analytics events and success measures are identified.
+          required: true
+        - label: No fabricated listings, reviews, credentials, statistics, approvals, or testimonials are required.
+          required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: External dependencies and unresolved facts
+      description: List provider access, credentials, approvals, factual content, or decisions still required. Do not invent them.
+
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation plan
+      description: List automated tests, manual accessibility checks, responsive QA, integration tests, and release evidence.
+    validations:
+      required: true
