@@ -18,10 +18,10 @@
 - [x] Add agent execution rules
 - [x] Lock architecture
 - [x] Create product roadmap
-- [ ] Commit brand voice standard
-- [ ] Commit complete product requirements
-- [ ] Commit Clara specification
-- [ ] Commit publishing and quality gate
+- [x] Commit brand voice standard
+- [x] Commit complete product requirements
+- [x] Commit Clara specification
+- [x] Commit publishing and quality gate
 - [ ] Add issue templates and CI plan
 - [ ] Confirm repository visibility and access policy
 
