@@ -22,8 +22,10 @@
 - [x] Commit complete product requirements
 - [x] Commit Clara specification
 - [x] Commit publishing and quality gate
-- [ ] Add issue templates and CI plan
+- [x] Add issue templates and CI plan
 - [ ] Confirm repository visibility and access policy
+- [x] Add production execution logs, risk register, technical debt register, decision log, and changelog
+- [x] Add release, deployment, rollback, post-release monitoring, and production-readiness checklists
 
 **Exit gate:** any development agent can determine the product, architecture, constraints, and definition of done without guessing.
 

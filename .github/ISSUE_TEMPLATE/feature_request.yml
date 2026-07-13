@@ -1,0 +1,45 @@
+name: Feature request
+description: Propose a product, content, integration, or developer-experience improvement.
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: User outcome
+      description: What concern does this address, what will the visitor learn, and what next step will it support?
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - P0 Production blocker
+        - P1 Security vulnerability
+        - P2 Data integrity
+        - P3 Authentication
+        - P4 Build failure
+        - P5 Runtime failure
+        - P6 Performance
+        - P7 Accessibility
+        - P8 SEO
+        - P9 UX
+        - P10 Developer experience
+        - P11 Documentation
+    validations:
+      required: true
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Requirements and boundaries
+      description: Include accessibility, compliance, privacy, analytics, security, and fallback requirements.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Define end-to-end behavior and validation evidence.
+    validations:
+      required: true

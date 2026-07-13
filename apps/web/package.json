@@ -1,0 +1,14 @@
+{
+  "name": "@daffordablehomes/web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "lint": "node ../../tests/static/lint.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@daffordablehomes/integrations": "0.1.0"
+  }
+}

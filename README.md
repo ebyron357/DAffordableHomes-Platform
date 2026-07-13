@@ -79,9 +79,15 @@ See [`ARCHITECTURE.md`](ARCHITECTURE.md) for the system boundary and implementat
 │   ├── 10-seo-analytics/
 │   ├── 11-security/
 │   └── 12-governance/
+├── .github/               # issue templates and initial repository-health workflow
+├── ACTIONS.md             # execution log and validation history
+├── TECH_DEBT.md           # unresolved technical debt register
+├── DECISIONS.md           # architecture decision log
+├── RISKS.md               # production risk register
+├── CHANGELOG.md           # notable repository changes
 └── apps/                  # application code begins in Phase 1
 ```
 
 ## Current status
 
-**Repository foundation in progress.** The governing documentation is being committed first so every development agent works from one source of truth before application code begins.
+**Repository foundation in progress.** Governance documentation, production-readiness registers, issue templates, and an initial repository-health workflow are in place. The repository is **not production ready** until the Next.js application, CI quality gates, provider integrations, compliance approvals, accessibility audit, performance evidence, deployment checklist, rollback checklist, and post-release monitoring evidence are complete. See [`docs/12-governance/PRODUCTION_READINESS.md`](docs/12-governance/PRODUCTION_READINESS.md) for the current gate status.
