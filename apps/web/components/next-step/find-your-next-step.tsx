@@ -56,7 +56,8 @@ export function FindYourNextStep() {
 
   if (phase.kind === "result") {
     const stageKey = answers.stage
-    const stage = stageKey ? STAGE_RESULTS[stageKey] ?? STAGE_RESULTS.curious : STAGE_RESULTS.curious
+    const defaultStage = STAGE_RESULTS.curious!
+    const stage = stageKey ? STAGE_RESULTS[stageKey] ?? defaultStage : defaultStage
     const recs: Recommendation[] = buildRecommendations(answers)
     return (
       <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
