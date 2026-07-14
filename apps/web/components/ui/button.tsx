@@ -53,8 +53,9 @@ export function Button(props: ButtonAsChild | ButtonAsLink | ButtonAsButton) {
       throw new Error("Button with asChild requires exactly one valid React element child.")
     }
 
-    return cloneElement(children, {
-      className: cn(classes, children.props.className),
+    const child = children as ReactElement<{ className?: string }>
+    return cloneElement(child, {
+      className: cn(classes, child.props.className),
     })
   }
 
