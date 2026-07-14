@@ -2,10 +2,9 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Menu, X } from "lucide-react"
 import { PRIMARY_NAV } from "@/lib/navigation"
-import { SITE } from "@/lib/site"
 import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
 import { cn } from "@/lib/utils"
@@ -13,11 +12,6 @@ import { cn } from "@/lib/utils"
 export function SiteHeader() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
-
-  // Close the mobile menu whenever the route changes.
-  useEffect(() => {
-    setOpen(false)
-  }, [pathname])
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
@@ -83,6 +77,7 @@ export function SiteHeader() {
                       <Link
                         href={item.href}
                         aria-current={active ? "page" : undefined}
+                        onClick={() => setOpen(false)}
                         className={cn(
                           "flex flex-col rounded-lg px-3 py-3 transition-colors hover:bg-muted",
                           active && "bg-muted",
