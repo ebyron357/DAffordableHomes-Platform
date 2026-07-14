@@ -2,7 +2,7 @@ import type { ReactNode } from "react"
 import { Info } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-type Tone = "info" | "muted"
+type Tone = "info" | "muted" | "warning"
 
 /**
  * Honest status notice. Used to communicate provider-unavailable and
@@ -24,11 +24,15 @@ export function Notice({
       role="status"
       className={cn(
         "flex gap-4 rounded-xl border p-5",
-        tone === "info" ? "border-primary/25 bg-primary/5" : "border-border bg-muted/50",
+        tone === "info"
+          ? "border-primary/25 bg-primary/5"
+          : tone === "warning"
+            ? "border-accent/40 bg-accent/10"
+            : "border-border bg-muted/50",
         className,
       )}
     >
-      <Info className="mt-0.5 size-5 shrink-0 text-primary" aria-hidden="true" />
+      <Info className={cn("mt-0.5 size-5 shrink-0", tone === "warning" ? "text-accent" : "text-primary")} aria-hidden="true" />
       <div>
         <p className="font-medium text-foreground">{title}</p>
         {children && <div className="mt-2 text-sm leading-relaxed text-muted-foreground">{children}</div>}
