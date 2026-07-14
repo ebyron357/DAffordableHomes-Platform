@@ -1,0 +1,63 @@
+name: Repository Health
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - work
+
+jobs:
+  repository-health:
+    name: Governance and repository integrity
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify required governance files
+        shell: bash
+        run: |
+          set -euo pipefail
+          required_files=(
+            README.md
+            ARCHITECTURE.md
+            PROJECT_ROADMAP.md
+            ACTIONS.md
+            TECH_DEBT.md
+            DECISIONS.md
+            RISKS.md
+            CHANGELOG.md
+            docs/02-brand/BRAND_VOICE.md
+            docs/03-product/PRODUCT_REQUIREMENTS.md
+            docs/09-ai-clara/CLARA_SPEC.md
+            docs/12-governance/PUBLISHING_STANDARD.md
+            docs/12-governance/CI_PLAN.md
+            docs/12-governance/PRODUCTION_READINESS.md
+            docs/12-governance/RELEASE_CHECKLIST.md
+            docs/12-governance/DEPLOYMENT_CHECKLIST.md
+            docs/12-governance/ROLLBACK_CHECKLIST.md
+            docs/12-governance/POST_RELEASE_MONITORING.md
+          )
+
+          for file in "${required_files[@]}"; do
+            test -s "$file" || { echo "Missing or empty required file: $file"; exit 1; }
+          done
+
+      - name: Reject merge-conflict markers
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git grep -n -E '^(<<<<<<<|=======|>>>>>>>)' -- . ':!.git' ':!*.lock'; then
+            echo "Merge-conflict markers found."
+            exit 1
+          fi
+
+      - name: Reject committed environment files
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git ls-files | rg '(^|/)\.env(\..*)?$' | rg -v '(^|/)\.env\.example$'; then
+            echo "Committed environment files are not allowed."
+            exit 1
+          fi

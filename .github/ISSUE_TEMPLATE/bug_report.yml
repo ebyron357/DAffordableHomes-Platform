@@ -1,0 +1,52 @@
+name: Bug report
+description: Report a defect, regression, accessibility issue, security concern, or compliance gap.
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - P0 Production blocker
+        - P1 Security vulnerability
+        - P2 Data integrity
+        - P3 Authentication
+        - P4 Build failure
+        - P5 Runtime failure
+        - P6 Performance
+        - P7 Accessibility
+        - P8 SEO
+        - P9 UX
+        - P10 Developer experience
+        - P11 Documentation
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What happened, who is affected, and where does it occur?
+    validations:
+      required: true
+  - type: textarea
+    id: root-cause
+    attributes:
+      label: Suspected root cause
+      description: If unknown, write what has been ruled out.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and reproduction steps
+      description: Include URLs, commands, screenshots, logs, browser/device details, and assistive technology if relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Required validation
+      description: List the checks that must pass before this can close.
+    validations:
+      required: true

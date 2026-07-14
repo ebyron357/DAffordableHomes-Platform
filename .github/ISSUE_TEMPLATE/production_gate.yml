@@ -1,0 +1,46 @@
+name: Production gate
+description: Track readiness evidence for one production gate.
+title: "[Gate]: "
+labels: ["production-gate", "needs-evidence"]
+body:
+  - type: dropdown
+    id: gate
+    attributes:
+      label: Gate
+      options:
+        - Gate 1 Repository Health
+        - Gate 2 Architecture
+        - Gate 3 Build
+        - Gate 4 Type Safety
+        - Gate 5 Lint
+        - Gate 6 Testing
+        - Gate 7 Accessibility
+        - Gate 8 Performance
+        - Gate 9 SEO
+        - Gate 10 Security
+        - Gate 11 Documentation
+        - Gate 12 Deployment Readiness
+        - Gate 13 Rollback Readiness
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Link reports, commands, screenshots, approvals, logs, or artifacts.
+    validations:
+      required: true
+  - type: textarea
+    id: blockers
+    attributes:
+      label: Blockers
+      description: List missing credentials, approvals, integrations, checks, or unresolved findings.
+    validations:
+      required: true
+  - type: textarea
+    id: next-action
+    attributes:
+      label: Next action
+      description: What is required to move this gate forward?
+    validations:
+      required: true
