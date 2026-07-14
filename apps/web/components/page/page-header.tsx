@@ -10,15 +10,19 @@ export function PageHeader({
   eyebrow,
   title,
   intro,
+  description,
   crumbs,
   children,
 }: {
   eyebrow?: string
   title: string
   intro?: string
+  description?: string
   crumbs?: Crumb[]
   children?: ReactNode
 }) {
+  const summary = intro ?? description
+
   return (
     <section className="border-b border-border bg-muted/40">
       <Container className="py-12 md:py-16">
@@ -52,7 +56,7 @@ export function PageHeader({
         <h1 className="mt-4 max-w-3xl text-balance font-serif text-4xl leading-tight text-foreground sm:text-5xl">
           {title}
         </h1>
-        {intro && <p className="mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground">{intro}</p>}
+        {summary && <p className="mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground">{summary}</p>}
         {children && <div className="mt-8">{children}</div>}
       </Container>
     </section>
