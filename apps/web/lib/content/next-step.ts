@@ -118,15 +118,16 @@ const RESOURCE_LIBRARY: Record<string, Recommendation> = {
 export function buildRecommendations(answers: Record<string, string>): Recommendation[] {
   const recs: Recommendation[] = []
   const focus = answers.focus
-  if (focus && RESOURCE_LIBRARY[focus]) recs.push(RESOURCE_LIBRARY[focus])
+  const focusRecommendation = focus ? RESOURCE_LIBRARY[focus] : undefined
+  if (focusRecommendation) recs.push(focusRecommendation)
 
   // Everyone benefits from understanding the overall process if they didn't pick it.
-  if (focus !== "process") recs.push(RESOURCE_LIBRARY.process)
+  if (focus !== "process") recs.push(RESOURCE_LIBRARY.process!)
 
   if (answers.support === "guided" || answers.support === "soon") {
-    recs.push(RESOURCE_LIBRARY.consult)
+    recs.push(RESOURCE_LIBRARY.consult!)
   } else {
-    recs.push(RESOURCE_LIBRARY.roadmap)
+    recs.push(RESOURCE_LIBRARY.roadmap!)
   }
   // De-duplicate by href.
   return recs.filter((rec, i, arr) => arr.findIndex((r) => r.href === rec.href) === i)
