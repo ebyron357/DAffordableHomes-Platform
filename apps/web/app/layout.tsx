@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -24,14 +25,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <a className="skip-link" href="#main-content">Skip to main content</a>
         <header className="site-header" aria-label="Site header">
-          <a href="/" aria-label="D'Affordable Homes home"><strong>D&apos;Affordable Homes</strong></a>
+          <Link href="/" aria-label="D'Affordable Homes home"><strong>D&apos;Affordable Homes</strong></Link>
           <nav aria-label="Primary navigation">
             <ul className="nav-list">
-              <li><a href="/start">Start Here</a></li>
-              <li><a href="/learn">Learn</a></li>
-              <li><a href="/plan">Plan</a></li>
-              <li><a href="/explore">Explore</a></li>
-              <li><a href="/contact">Contact</a></li>
+              <li><Link href="/start">Start Here</Link></li>
+              <li><Link href="/learn">Learn</Link></li>
+              <li><Link href="/plan">Plan</Link></li>
+              <li><Link href="/explore">Explore</Link></li>
+              <li><Link href="/contact">Contact</Link></li>
             </ul>
           </nav>
         </header>
