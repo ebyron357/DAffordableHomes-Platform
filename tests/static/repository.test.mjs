@@ -8,21 +8,25 @@ const requiredFiles = [
   'apps/web/package.json',
   'apps/web/app/layout.tsx',
   'apps/web/app/page.tsx',
+  'apps/web/components/layout/site-header.tsx',
   'apps/web/next.config.mjs',
   'packages/integrations/src/shopify/index.ts'
 ];
 
-test('production scaffold files exist', () => {
+test('production application files exist', () => {
   for (const file of requiredFiles) {
     assert.equal(existsSync(file), true, `${file} should exist`);
   }
 });
 
-test('home layout includes core accessibility landmarks', () => {
+test('application shell includes core accessibility landmarks', () => {
   const layout = readFileSync('apps/web/app/layout.tsx', 'utf8');
+  const header = readFileSync('apps/web/components/layout/site-header.tsx', 'utf8');
   assert.match(layout, /Skip to main content/);
-  assert.match(layout, /<main id="main-content">/);
-  assert.match(layout, /<nav aria-label="Primary navigation">/);
+  assert.match(layout, /<main id="main-content"/);
+  assert.match(header, /<nav aria-label="Primary"/);
+  assert.match(header, /aria-expanded=/);
+  assert.match(header, /aria-controls="mobile-menu"/);
 });
 
 test('security headers include CSP and anti-sniffing controls', () => {
