@@ -57,7 +57,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if git ls-files | rg '(^|/)\.env(\..*)?$'; then
+          if git ls-files | rg '(^|/)\.env(\..*)?$' | rg -v '(^|/)\.env\.example$'; then
             echo "Committed environment files are not allowed."
             exit 1
           fi
