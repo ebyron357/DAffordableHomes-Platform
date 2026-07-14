@@ -7,7 +7,15 @@ export default defineConfig([
   ...nextTypeScript,
   {
     rules: {
-      'no-console': ['error', { allow: ['warn', 'error'] }]
+      'no-console': ['error', { allow: ['warn', 'error'] }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_'
+        }
+      ]
     }
   },
   globalIgnores(['.next/**', 'next-env.d.ts'])
