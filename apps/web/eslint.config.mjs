@@ -1,19 +1,14 @@
-const config = [
+import { defineConfig, globalIgnores } from 'eslint/config';
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import nextTypeScript from 'eslint-config-next/typescript';
+
+export default defineConfig([
+  ...nextVitals,
+  ...nextTypeScript,
   {
-    ignores: ['.next/**', 'next-env.d.ts']
-  },
-  {
-    files: ['**/*.{ts,tsx,js,mjs}'],
-    languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module'
-    },
     rules: {
-      'no-unused-vars': 'off',
-      'no-undef': 'off',
       'no-console': ['error', { allow: ['warn', 'error'] }]
     }
-  }
-];
-
-export default config;
+  },
+  globalIgnores(['.next/**', 'next-env.d.ts'])
+]);
