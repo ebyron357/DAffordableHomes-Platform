@@ -12,7 +12,7 @@ const securityHeaders = [
       "form-action 'self'",
       "frame-ancestors 'self'",
       "img-src 'self' data: https:",
-      "script-src 'self'",
+      "script-src 'self' 'unsafe-inline'",
       "style-src 'self' 'unsafe-inline'",
       "font-src 'self' data:",
       "connect-src 'self'",

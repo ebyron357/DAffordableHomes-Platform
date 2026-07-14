@@ -22,4 +22,15 @@ This log is retained as project history. Completed items are not deleted.
 - **Solution:** Added issue templates aligned to the priority matrix and production gates, plus a repository-health workflow that checks required governance files, merge-conflict markers, and committed environment files.
 - **Validation:** Ran the same shell checks used by the workflow locally.
 - **Status:** Complete
-- **Next Action:** Expand CI after the Next.js application scaffold exists.
+- **Next Action:** Maintain the full application quality gate and extend it with browser and accessibility evidence.
+
+## ACT-003 — Consolidate the approved website and governed scaffold
+
+- **Priority:** P0 — Production blocker
+- **Problem:** The approved v0 website and the governed monorepo existed on diverged branches, leaving the complete site outside the verified production workflow.
+- **Root Cause:** Visual application work and governance/CI work were developed independently before the repository architecture was consolidated.
+- **Files Changed:** `apps/web/**`, `package.json`, `vercel.json`, `.github/workflows/application-quality.yml`, `tests/static/repository.test.mjs`, and production-readiness records.
+- **Solution:** Moved the complete approved website into `apps/web`, preserved governance and integration packages, upgraded to Next.js 16 and React 19.2.4, repaired strict-type and lint defects, and made the full quality gate mandatory in GitHub Actions and Vercel.
+- **Validation:** Repository Health passes; strict TypeScript passes; ESLint passes with zero warnings; static tests pass; all 22 routes build; Vercel preview deployment is ready.
+- **Status:** Complete
+- **Next Action:** Complete visual, accessibility, performance, compliance, and provider-readiness gates before production launch.

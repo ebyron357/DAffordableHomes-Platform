@@ -1,0 +1,31 @@
+name: Application Quality
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: application-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Typecheck, lint, test, and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Run full quality gate
+        run: npm run test:all

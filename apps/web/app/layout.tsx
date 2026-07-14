@@ -1,46 +1,83 @@
-import type { Metadata } from 'next';
-import Link from 'next/link';
-import './globals.css';
+import type { Metadata, Viewport } from "next"
+import { Fraunces, Inter } from "next/font/google"
+import { SiteHeader } from "@/components/layout/site-header"
+import { SiteFooter } from "@/components/layout/site-footer"
+import { SITE } from "@/lib/site"
+import "./globals.css"
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-fraunces",
+  axes: ["opsz", "SOFT"],
+})
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+})
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
   title: {
-    default: "D'Affordable Homes | Homeownership has steps",
-    template: "%s | D'Affordable Homes"
+    default: `${SITE.name} — Education-first homeownership guidance`,
+    template: `%s — ${SITE.name}`,
   },
-  description:
-    'Education-first homeownership guidance for first-time buyers and renters preparing for a practical next step.',
-  metadataBase: new URL('https://www.daffordablehomes.com'),
-  alternates: { canonical: '/' },
+  description: SITE.description,
+  applicationName: SITE.name,
+  keywords: [
+    "first-time home buyer education",
+    "homeownership guidance",
+    "home buying process",
+    "affordable homeownership",
+    "buyer readiness",
+    "REALTOR",
+    "Debra Allen",
+  ],
+  authors: [{ name: SITE.realtorName }],
   openGraph: {
-    title: "D'Affordable Homes",
-    description: 'Homeownership has steps. You do not have to learn them alone.',
-    type: 'website',
-    url: 'https://www.daffordablehomes.com'
-  }
-};
+    type: "website",
+    title: `${SITE.name} — Homeownership has steps. You don't have to learn them alone.`,
+    description: SITE.description,
+    siteName: SITE.name,
+    url: SITE.url,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE.name}`,
+    description: SITE.description,
+  },
+  robots: { index: true, follow: true },
+}
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export const viewport: Viewport = {
+  themeColor: "#f4f1e8",
+  colorScheme: "light",
+  width: "device-width",
+  initialScale: 1,
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en">
-      <body>
-        <a className="skip-link" href="#main-content">Skip to main content</a>
-        <header className="site-header" aria-label="Site header">
-          <Link href="/" aria-label="D'Affordable Homes home"><strong>D&apos;Affordable Homes</strong></Link>
-          <nav aria-label="Primary navigation">
-            <ul className="nav-list">
-              <li><Link href="/start">Start Here</Link></li>
-              <li><Link href="/learn">Learn</Link></li>
-              <li><Link href="/plan">Plan</Link></li>
-              <li><Link href="/explore">Explore</Link></li>
-              <li><Link href="/contact">Contact</Link></li>
-            </ul>
-          </nav>
-        </header>
-        <main id="main-content">{children}</main>
-        <footer className="site-footer">
-          <p>Debra Allen, REALTOR® — education-first real estate guidance. Brokerage, licensing, and Equal Housing Opportunity details must be approved before launch.</p>
-        </footer>
+    <html lang="en" className={`${fraunces.variable} ${inter.variable} bg-background`}>
+      <body className="flex min-h-dvh flex-col antialiased">
+        <a
+          href="#main-content"
+          className="sr-only rounded-md bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50"
+        >
+          Skip to main content
+        </a>
+        <SiteHeader />
+        <main id="main-content" className="flex-1">
+          {children}
+        </main>
+        <SiteFooter />
       </body>
     </html>
-  );
+  )
 }
