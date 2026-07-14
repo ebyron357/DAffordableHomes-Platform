@@ -22,7 +22,7 @@ export function TrustProcess() {
 
         <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
           {TRUST_POINTS.map((point, i) => {
-            const Icon = ICONS[i]
+            const Icon = ICONS[i] ?? ShieldCheck
             return (
               <li key={point.title} className="rounded-xl border border-primary-foreground/15 bg-primary-foreground/5 p-6">
                 <span className="flex size-11 items-center justify-center rounded-lg bg-primary-foreground/10">
