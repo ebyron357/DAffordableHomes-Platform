@@ -15,7 +15,7 @@
     "test:all": "npm run typecheck && npm run lint && npm run test && npm run build"
   },
   "engines": {
-    "node": ">=20.11.0"
+    "node": "20.x"
   },
   "devDependencies": {
     "@types/node": "^20.19.0",
@@ -23,7 +23,8 @@
     "@types/react-dom": "^19.1.0",
     "eslint": "^9.0.0",
     "eslint-config-next": "^15.0.0",
-    "typescript": "^5.8.0"
+    "typescript": "^5.8.0",
+    "@eslint/eslintrc": "^3.3.1"
   },
   "dependencies": {
     "next": "^15.0.0",
