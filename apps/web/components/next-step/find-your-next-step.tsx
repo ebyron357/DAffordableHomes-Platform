@@ -55,7 +55,8 @@ export function FindYourNextStep() {
   }
 
   if (phase.kind === "result") {
-    const stage = STAGE_RESULTS[answers.stage] ?? STAGE_RESULTS.curious
+    const stageKey = answers.stage
+    const stage = stageKey ? STAGE_RESULTS[stageKey] ?? STAGE_RESULTS.curious : STAGE_RESULTS.curious
     const recs: Recommendation[] = buildRecommendations(answers)
     return (
       <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
@@ -105,7 +106,7 @@ export function FindYourNextStep() {
     )
   }
 
-  const question = NEXT_STEP_QUESTIONS[phase.index]
+  const question = NEXT_STEP_QUESTIONS[phase.index]!
   const current = answers[question.id]
   const stepNumber = phase.index + 1
 
