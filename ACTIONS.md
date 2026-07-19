@@ -34,3 +34,14 @@ This log is retained as project history. Completed items are not deleted.
 - **Validation:** Repository Health passes; strict TypeScript passes; ESLint passes with zero warnings; static tests pass; all 22 routes build; Vercel preview deployment is ready.
 - **Status:** Complete
 - **Next Action:** Complete visual, accessibility, performance, compliance, and provider-readiness gates before production launch.
+
+## ACT-004 — Homebuyer planning calculators
+
+- **Priority:** P0 — Approved revenue-foundation scope
+- **Problem:** The Plan & Resources section explained budgeting and preparation but did not provide functional tools for estimating monthly payment, affordability, cash to close, or down-payment scenarios.
+- **Root Cause:** The approved website foundation prioritized content and navigation before interactive financial planning tools were implemented.
+- **Files Changed:** `apps/web/app/resources/**`, `apps/web/components/calculators/**`, `apps/web/lib/calculators.ts`, and `tests/static/calculators.test.mjs`.
+- **Solution:** Added one shared calculation engine, four responsive calculator experiences, dedicated metadata-enabled routes, consultation pathways, transparent assumptions, and clear estimate disclosures.
+- **Validation:** Repository Health passed; strict TypeScript, ESLint, formula tests, static tests, and the Next.js production build passed; Vercel preview reached READY; preview deployment logs contained no build errors or error/fatal runtime entries.
+- **Status:** Complete in PR #4
+- **Next Action:** Complete final visual review, merge PR #4, and verify the resulting production deployment before starting the next feature scope.
