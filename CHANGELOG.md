@@ -30,3 +30,10 @@ All notable repository changes are documented here.
 - Added GitHub issue templates for bugs, features, and production gates.
 - Added initial repository-health GitHub Actions workflow.
 - Updated README and roadmap to reflect Phase 0 governance progress and remaining blockers.
+## 2026-07-20
+
+- Replaced the homepage hero portrait with a licensed Black-family moving-day photograph.
+- Added three approved Debra Allen photographs to the homepage trust section and About page with responsive image optimization and descriptive alt text.
+- Added an image asset register documenting source filenames, final repository paths, processing limits, and hero provenance.
+- Added the required ClientVerse.io footer attribution.
+- Isolated the pnpm workspace, regenerated the canonical lockfile, and changed CI to use a frozen pnpm install so TypeScript and production builds are reproducible.

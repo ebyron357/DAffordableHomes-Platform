@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
 import { UNVERIFIED_TRUST_FACTS } from "@/lib/site"
 import { PageHeader } from "@/components/page/page-header"
@@ -42,8 +43,19 @@ export default function AboutPage() {
       />
 
       <Section>
-        <Container className="max-w-3xl">
-          <div className="space-y-5 text-pretty text-lg leading-relaxed text-foreground/90">
+        <Container>
+          <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-secondary shadow-sm">
+              <Image
+                src="/images/debra-allen-advisor-desk.webp"
+                alt="Debra Allen seated at her desk with a tablet"
+                fill
+                priority
+                sizes="(min-width: 1024px) 42vw, 100vw"
+                className="object-cover object-[center_38%]"
+              />
+            </div>
+            <div className="space-y-5 text-pretty text-lg leading-relaxed text-foreground/90">
             <p>
               Debra&apos;s approach is patient and practical. She meets people where they are — whether that&apos;s
               renting and dreaming, repairing credit, or ready to make an offer — and helps them see the path in front
@@ -54,9 +66,10 @@ export default function AboutPage() {
               rushing a decision that deserves care. When she teaches line dancing in the community, it&apos;s the same
               spirit: meet the rhythm, learn the steps, and enjoy the movement forward.
             </p>
+            </div>
           </div>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2">
+          <div className="mx-auto mt-12 grid max-w-4xl gap-6 sm:grid-cols-2">
             {values.map((v) => (
               <div key={v.title} className="rounded-xl border border-border bg-card p-6">
                 <h2 className="font-serif text-lg font-semibold text-foreground">{v.title}</h2>
@@ -66,7 +79,7 @@ export default function AboutPage() {
           </div>
 
           {!UNVERIFIED_TRUST_FACTS.brokerageName && (
-            <div className="mt-12">
+            <div className="mx-auto mt-12 max-w-4xl">
               <Notice tone="info" title="Professional details coming soon">
                 <p>
                   Debra&apos;s brokerage affiliation, license number, service areas, and professional certifications
@@ -76,13 +89,31 @@ export default function AboutPage() {
             </div>
           )}
 
-          <div className="mt-12 flex flex-wrap gap-3">
-            <Button asChild>
-              <Link href="/book">Book a consultation</Link>
-            </Button>
-            <Button asChild variant="outline">
-              <Link href="/start">Find your next step</Link>
-            </Button>
+          <div className="mt-12 grid overflow-hidden rounded-2xl border border-border bg-card lg:grid-cols-[0.8fr_1.2fr]">
+            <div className="relative min-h-[28rem] lg:min-h-[36rem]">
+              <Image
+                src="/images/debra-allen-lifestyle-full-body.webp"
+                alt="Debra Allen standing in a bright kitchen wearing a yellow blazer"
+                fill
+                sizes="(min-width: 1024px) 36vw, 100vw"
+                className="object-cover object-[center_35%]"
+              />
+            </div>
+            <div className="flex flex-col justify-center p-8 sm:p-10 lg:p-14">
+              <h2 className="text-3xl text-foreground">Support for the step you are on</h2>
+              <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+                A consultation is a calm place to talk through where you are, understand your options, and identify a
+                practical next step without pressure.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button asChild>
+                  <Link href="/book">Book a consultation</Link>
+                </Button>
+                <Button asChild variant="outline">
+                  <Link href="/start">Find your next step</Link>
+                </Button>
+              </div>
+            </div>
           </div>
         </Container>
       </Section>

@@ -1,40 +1,23 @@
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { SITE } from "@/lib/site"
 
-/*
- * DEBRA'S PORTRAIT — ACTION REQUIRED BEFORE LAUNCH
- * ------------------------------------------------
- * The About/Trust section must use a VERIFIED, real photograph of Debra Allen
- * (see docs/02-brand/PHOTOGRAPHY.md). We must not AI-generate Debra or substitute
- * a stock model. Until the licensed portrait is supplied, we show an honest
- * monogram placeholder (no fabricated face) so Debra remains clearly identified
- * as the guide without misrepresenting her likeness.
- *
- * To add the real photo: place the asset in /public/images (e.g. debra-allen.jpg),
- * then replace the monogram block below with a next/image fill inside the same
- * frame. No other changes required.
- */
 export function AboutDebra() {
   return (
     <section className="py-16 md:py-24" aria-labelledby="about-heading">
       <Container>
         <div className="grid items-start gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-primary shadow-sm">
-              {/* Honest placeholder — real portrait to be dropped in here. */}
-              <div className="flex h-full flex-col items-center justify-center gap-4 p-8 text-center text-primary-foreground">
-                <span
-                  aria-hidden="true"
-                  className="flex size-24 items-center justify-center rounded-full border border-primary-foreground/30 font-serif text-4xl"
-                >
-                  DA
-                </span>
-                <p className="text-sm text-primary-foreground/80">
-                  A verified photo of Debra will be published here — we only share real imagery.
-                </p>
-              </div>
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-secondary shadow-sm">
+              <Image
+                src="/images/debra-allen-primary-about.webp"
+                alt="Debra Allen smiling in a yellow blazer at a kitchen counter"
+                fill
+                sizes="(min-width: 1024px) 36vw, 100vw"
+                className="object-cover object-[48%_center]"
+              />
             </div>
 
             <div className="mt-6">

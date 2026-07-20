@@ -46,6 +46,7 @@
 
 ### Design system
 
+- [x] Integrate approved Debra Allen photography and an authentic Black-family homepage hero with responsive, accessible image treatment
 - [ ] Finalize approved logo assets and usage rules
 - [ ] Lock colors, typography, spacing, radius, elevation, and motion tokens
 - [ ] Build accessible buttons, links, cards, navigation, forms, alerts, dialogs, accordions, tabs, breadcrumbs, and media components

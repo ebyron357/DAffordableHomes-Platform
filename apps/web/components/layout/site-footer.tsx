@@ -72,9 +72,18 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-10 flex flex-col gap-4 border-t border-border pt-8 md:flex-row md:items-center md:justify-between">
-          <p className="text-xs text-muted-foreground">
-            &copy; {year} {SITE.name}. {SITE.realtorName}. All rights reserved.
-          </p>
+          <div className="space-y-2 text-xs text-muted-foreground">
+            <p>&copy; {year} {SITE.name}. {SITE.realtorName}. All rights reserved.</p>
+            <p>
+              Real Estate Technology by{" "}
+              <a
+                href="https://clientverse.io"
+                className="rounded underline decoration-current/50 underline-offset-2 transition-colors hover:text-primary"
+              >
+                ClientVerse.io
+              </a>
+            </p>
+          </div>
           <nav aria-label="Legal and policies">
             <ul className="flex flex-wrap gap-x-5 gap-y-2">
               {LEGAL_NAV.map((link) => (
