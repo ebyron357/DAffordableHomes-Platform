@@ -3,17 +3,30 @@ import { Container } from "@/components/ui/container"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { SITE } from "@/lib/site"
 
+const DEBRA_PHOTO_URL =
+  "https://drive.google.com/uc?export=view&id=1_SfP8687X0jraNsWroo4DK0FvVedpD7h"
+
 export function AboutDebra() {
   return (
     <section className="py-16 md:py-24" aria-labelledby="about-heading">
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="grid items-start gap-12 lg:grid-cols-[0.85fr_1.15fr]">
           <div>
-            <Eyebrow>Your guide</Eyebrow>
-            <h2 id="about-heading" className="mt-4 text-balance font-serif text-3xl text-foreground sm:text-4xl">
-              Meet Debra Allen
-            </h2>
-            <p className="mt-2 text-sm font-medium text-accent">REALTOR&reg;</p>
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-secondary shadow-sm">
+              <img
+                src={DEBRA_PHOTO_URL}
+                alt="Debra Allen, REALTOR and homeownership guide"
+                loading="lazy"
+                className="h-full w-full object-cover object-[69%_center]"
+              />
+            </div>
+            <div className="mt-6">
+              <Eyebrow>Your guide</Eyebrow>
+              <h2 id="about-heading" className="mt-4 text-balance font-serif text-3xl text-foreground sm:text-4xl">
+                Meet Debra Allen
+              </h2>
+              <p className="mt-2 text-sm font-medium text-accent">REALTOR&reg;</p>
+            </div>
           </div>
 
           <div className="text-pretty text-lg leading-relaxed text-muted-foreground">
