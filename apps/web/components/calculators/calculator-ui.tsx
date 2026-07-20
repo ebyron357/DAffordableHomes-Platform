@@ -114,9 +114,9 @@ export function CalculatorPanel({
       <div className="p-6 sm:p-8">
         <h2 className="text-2xl font-semibold text-foreground">{title}</h2>
         <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">{description}</p>
-        <div className="mt-7 grid gap-5 sm:grid-cols-2">{fields}</div>
+        <div className="mt-7 grid gap-5">{fields}</div>
       </div>
-      <div className="border-t border-border bg-muted p-6 text-foreground sm:p-8 lg:border-l lg:border-t-0">
+      <div className="border-t border-border bg-primary p-6 text-primary-foreground sm:p-8 lg:m-8 lg:ml-0 lg:border-0 lg:rounded-sm">
         {results}
       </div>
     </div>
@@ -138,8 +138,8 @@ export function ResultRow({
         emphasized ? "text-lg font-semibold" : "text-sm"
       }`}
     >
-      <span className="text-muted-foreground">{label}</span>
-      <span className="text-right tabular-nums text-foreground">{value}</span>
+      <span className="text-inherit opacity-75">{label}</span>
+      <span className="text-right tabular-nums text-inherit">{value}</span>
     </div>
   )
 }
