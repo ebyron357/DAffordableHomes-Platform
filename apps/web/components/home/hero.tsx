@@ -1,9 +1,11 @@
-import Image from "next/image"
 import { ArrowRight, BookOpen, ShieldCheck } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { SITE } from "@/lib/site"
+
+const DEBRA_PHOTO_URL =
+  "https://drive.google.com/uc?export=view&id=1_SfP8687X0jraNsWroo4DK0FvVedpD7h"
 
 export function Hero() {
   return (
@@ -44,14 +46,13 @@ export function Hero() {
         </div>
 
         <div className="relative">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-border shadow-sm">
-            <Image
-              src="/images/hero-homeowner.png"
-              alt="A woman standing confidently on the front porch of a welcoming, well-kept single-family home in warm natural daylight"
-              fill
-              priority
-              sizes="(min-width: 1024px) 42vw, (min-width: 640px) 70vw, 100vw"
-              className="object-cover object-center"
+          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-secondary shadow-sm">
+            <img
+              src={DEBRA_PHOTO_URL}
+              alt="Debra Allen, REALTOR and founder of D’Affordable Homes"
+              loading="eager"
+              fetchPriority="high"
+              className="h-full w-full object-cover object-[68%_center]"
             />
           </div>
         </div>
