@@ -5,6 +5,24 @@ import { Container } from "@/components/ui/container"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { SITE } from "@/lib/site"
 
+/*
+ * HERO PHOTOGRAPHY — ACTION REQUIRED BEFORE LAUNCH
+ * ------------------------------------------------
+ * The principal hero must feature an AUTHENTIC, PROPERLY LICENSED photograph of
+ * a Black family in a genuine homeownership moment (see docs/02-brand/PHOTOGRAPHY.md).
+ * AI-generated people are prohibited, and a licensed family image cannot be
+ * sourced from within this environment, so we ship an honest, people-free
+ * interim image (a welcoming neighborhood home) rather than fabricate a family.
+ *
+ * To drop in the real photo: place the licensed asset in /public/images, then
+ * update ONLY the `src` and `alt` below. No layout changes are required — the
+ * 4:5 slot, sizing, priority, and responsive `sizes` are already correct.
+ */
+const HERO_IMAGE = {
+  src: "/images/hero-home-exterior.png",
+  alt: "A warm, well-kept single-family home with a welcoming front porch, steps, and a green front door in soft evening light",
+} as const
+
 export function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-border" aria-labelledby="hero-heading">
@@ -28,14 +46,14 @@ export function Hero() {
               Find Your Next Step
               <ArrowRight className="size-4" aria-hidden="true" />
             </Button>
-            <Button href="/first-time-buyers" variant="ghost" size="lg" className="text-foreground/80">
+            <Button href="/first-time-buyers" variant="outline" size="lg">
               <BookOpen className="size-4" aria-hidden="true" />
               Start with the basics
             </Button>
           </div>
 
-          <p className="mt-6 flex items-center gap-2 text-sm font-medium text-foreground/70">
-            <ShieldCheck className="size-4 text-primary" aria-hidden="true" />
+          <p className="mt-8 flex items-center gap-2 text-sm font-medium text-foreground">
+            <ShieldCheck className="size-4 text-accent" aria-hidden="true" />
             Secure. Private. No pressure.
           </p>
           <p className="mt-2 text-sm text-muted-foreground">
@@ -44,10 +62,15 @@ export function Hero() {
         </div>
 
         <div className="relative">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-border shadow-sm">
+          {/* Amber accent frame reinforces warmth behind the photo */}
+          <div
+            aria-hidden="true"
+            className="absolute -right-3 -top-3 bottom-6 left-6 rounded-2xl border border-accent/30 bg-accent/5"
+          />
+          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-border shadow-md">
             <Image
-              src="/images/hero-homeowner.png"
-              alt="A woman standing confidently on the front porch of a welcoming, well-kept single-family home in warm natural daylight"
+              src={HERO_IMAGE.src}
+              alt={HERO_IMAGE.alt}
               fill
               priority
               sizes="(min-width: 1024px) 42vw, (min-width: 640px) 70vw, 100vw"

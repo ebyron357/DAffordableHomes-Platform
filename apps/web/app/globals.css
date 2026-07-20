@@ -1,36 +1,76 @@
 @import "tailwindcss";
 
+/*
+ * ============================================================================
+ * D'AFFORDABLE HOMES — "FOUNDATION" VISUAL SYSTEM (Navy + Amber)
+ * ============================================================================
+ * Positioning: THE TRUSTED HOMEOWNERSHIP GUIDE — trustworthy, warm, practical,
+ * professional, encouraging, community-aware, modern, respectful, clear,
+ * approachable.
+ *
+ * This replaces the rejected green/evergreen system. The palette is documented
+ * in docs/02-brand/VISUAL_SYSTEM.md (token name, hex, role, contrast, approved
+ * and prohibited uses). All essential text and controls meet WCAG AA.
+ *
+ * Prohibited (do not reintroduce): green/sage/teal/emerald, black-and-gold
+ * luxury styling, beige-on-beige surfaces, weak gray body text, arbitrary
+ * purple/aubergine, franchise-style bright red, neon, large decorative
+ * gradients, gold body text, low-contrast controls.
+ *
+ * Meaning is never carried by color alone — icons, labels, and text accompany
+ * every state.
+ * ============================================================================
+ */
+
 @theme {
-  /* Fonts */
+  /* -- Typography ------------------------------------------------------- */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
 
-  /* Warm editorial palette — paper, ink, evergreen, clay */
-  --color-background: oklch(0.968 0.008 85);
-  --color-foreground: oklch(0.24 0.012 60);
+  /* -- Surfaces --------------------------------------------------------- *
+   * Warm paper base with a clearly distinct alternate + near-white cards.
+   * No beige-on-beige: background / muted / card each read as separate. */
+  --color-background: oklch(0.981 0.006 83);   /* #f8f6f1 warm paper       */
+  --color-foreground: oklch(0.24 0.021 258);   /* #21262f navy-ink text    */
 
-  --color-card: oklch(0.985 0.006 85);
-  --color-card-foreground: oklch(0.24 0.012 60);
+  --color-card: oklch(1 0 0);                  /* #ffffff surface          */
+  --color-card-foreground: oklch(0.24 0.021 258);
 
-  --color-muted: oklch(0.94 0.009 85);
-  --color-muted-foreground: oklch(0.47 0.012 65);
+  --color-muted: oklch(0.938 0.009 80);        /* #e9e5dc warm sand alt bg */
+  --color-muted-foreground: oklch(0.438 0.02 258); /* #565f6d secondary txt */
 
-  --color-primary: oklch(0.42 0.062 165);
-  --color-primary-foreground: oklch(0.98 0.008 85);
+  /* -- Primary brand + primary action (deep navy = trust/stability) ----- */
+  --color-primary: oklch(0.355 0.072 256);     /* #1e3a5f foundation navy  */
+  --color-primary-foreground: oklch(0.984 0.005 83);
 
-  --color-accent: oklch(0.62 0.13 48);
-  --color-accent-foreground: oklch(0.98 0.008 85);
+  /* -- Accent / secondary emphasis (caramel amber = warmth/forward hope) -
+   * Deep enough to be AA-legible as text on paper (eyebrows, labels). */
+  --color-accent: oklch(0.53 0.115 62);        /* #97621f caramel amber    */
+  --color-accent-foreground: oklch(0.99 0.004 83);
 
-  --color-secondary: oklch(0.92 0.012 85);
-  --color-secondary-foreground: oklch(0.3 0.012 60);
+  /* -- Secondary action (quiet neutral button) ------------------------- */
+  --color-secondary: oklch(0.928 0.009 80);
+  --color-secondary-foreground: oklch(0.3 0.02 258);
 
-  --color-border: oklch(0.88 0.012 80);
-  --color-input: oklch(0.88 0.012 80);
-  --color-ring: oklch(0.42 0.062 165);
+  /* -- Borders / dividers / inputs / focus ----------------------------- */
+  --color-border: oklch(0.885 0.011 78);       /* #d8d3c8                  */
+  --color-input: oklch(0.885 0.011 78);
+  --color-ring: oklch(0.355 0.072 256);        /* navy focus ring          */
 
-  --color-destructive: oklch(0.52 0.16 28);
-  --color-destructive-foreground: oklch(0.98 0.008 85);
+  /* -- Feedback states (each also paired with icon + text in UI) ------- */
+  --color-destructive: oklch(0.505 0.17 27);   /* controlled brick red     */
+  --color-destructive-foreground: oklch(0.984 0.005 83);
 
+  --color-success: oklch(0.5 0.095 155);       /* forest — status only, not brand */
+  --color-success-foreground: oklch(0.984 0.005 83);
+
+  --color-warning: oklch(0.62 0.135 58);       /* amber-orange caution     */
+  --color-warning-foreground: oklch(0.22 0.02 60);
+
+  --color-info: oklch(0.45 0.088 250);         /* informational blue       */
+  --color-info-foreground: oklch(0.984 0.005 83);
+
+  /* -- Radii ------------------------------------------------------------ */
   --radius-sm: 0.375rem;
   --radius: 0.625rem;
   --radius-lg: 1rem;
