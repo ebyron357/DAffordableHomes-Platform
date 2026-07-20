@@ -19,13 +19,13 @@ export function SiteHeader() {
         <div className="flex h-16 items-center justify-between gap-4 md:h-20">
           <Link
             href="/"
-            className="rounded-md font-serif text-lg font-semibold leading-none tracking-tight text-foreground sm:text-xl"
+            className="rounded-md text-lg font-semibold leading-none tracking-tight text-foreground sm:text-xl"
           >
             <span className="text-primary">D&apos;Affordable</span> Homes
           </Link>
 
-          <nav aria-label="Primary" className="hidden lg:block">
-            <ul className="flex items-center gap-1">
+          <nav aria-label="Primary" className="hidden xl:block">
+            <ul className="flex items-center gap-0.5">
               {PRIMARY_NAV.map((item) => {
                 const active = pathname === item.href
                 return (
@@ -34,7 +34,7 @@ export function SiteHeader() {
                       href={item.href}
                       aria-current={active ? "page" : undefined}
                       className={cn(
-                        "rounded-full px-3 py-2 text-sm font-medium transition-colors hover:bg-muted",
+                        "rounded px-2.5 py-2 text-[13px] font-medium transition-colors hover:bg-muted",
                         active ? "text-primary" : "text-foreground/80",
                       )}
                     >
@@ -46,15 +46,15 @@ export function SiteHeader() {
             </ul>
           </nav>
 
-          <div className="hidden items-center gap-2 lg:flex">
+          <div className="hidden items-center gap-2 xl:flex">
             <Button href="/book" size="sm">
-              Book a consultation
+              Schedule a Homebuyer Consultation
             </Button>
           </div>
 
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-md p-2 text-foreground lg:hidden"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-md p-2 text-foreground xl:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
@@ -66,11 +66,11 @@ export function SiteHeader() {
       </Container>
 
       {open && (
-        <div id="mobile-menu" className="border-t border-border bg-background lg:hidden">
+        <div id="mobile-menu" className="border-t border-border bg-background xl:hidden">
           <Container>
             <nav aria-label="Mobile" className="py-4">
               <ul className="flex flex-col gap-1">
-                {[{ label: "Home", href: "/" }, ...PRIMARY_NAV].map((item) => {
+                {PRIMARY_NAV.map((item) => {
                   const active = pathname === item.href
                   return (
                     <li key={item.href}>
@@ -94,7 +94,7 @@ export function SiteHeader() {
               </ul>
               <div className="mt-4">
                 <Button href="/book" className="w-full">
-                  Book a consultation
+                  Schedule a Homebuyer Consultation
                 </Button>
               </div>
             </nav>

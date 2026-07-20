@@ -46,7 +46,7 @@ export function ContactForm({ context = "general" }: { context?: "general" | "co
           type="text"
           required
           autoComplete="name"
-          className="rounded-lg border border-input bg-card px-4 py-2.5 text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="min-h-12 rounded-md border border-input bg-card px-4 py-2.5 text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
 
@@ -60,7 +60,7 @@ export function ContactForm({ context = "general" }: { context?: "general" | "co
           type="email"
           required
           autoComplete="email"
-          className="rounded-lg border border-input bg-card px-4 py-2.5 text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="min-h-12 rounded-md border border-input bg-card px-4 py-2.5 text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
 
@@ -74,7 +74,7 @@ export function ContactForm({ context = "general" }: { context?: "general" | "co
           name="message"
           required
           rows={5}
-          className="rounded-lg border border-input bg-card px-4 py-2.5 text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="rounded-md border border-input bg-card px-4 py-2.5 text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
 

@@ -180,6 +180,12 @@
 
 ## Future evaluation
 
+### Controlled visual-system rollout
+
+- [x] Establish canonical Figma foundations and controlled source screens
+- [x] Implement homepage, navigation, footer, calculator hub, affordability calculator, and consultation page
+- [ ] Obtain final approval before any full-site visual rollout
+
 These items require a separate business and architecture decision before implementation:
 
 - native mobile application

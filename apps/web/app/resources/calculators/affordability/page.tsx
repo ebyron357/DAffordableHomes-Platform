@@ -13,9 +13,9 @@ export default function AffordabilityCalculatorPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Plan"
-        title="Home affordability calculator"
-        description="Estimate a responsible planning price before searching. This tool is designed to clarify the numbers, not replace lender pre-approval or professional guidance."
+        eyebrow="Affordability planner"
+        title="Explore a purchase range that fits the rest of your life"
+        description="Use income, monthly debts, available down payment, and ownership-cost assumptions to create a conservative planning range. A lender determines qualification and loan terms."
         crumbs={[
           { label: "Plan & Resources", href: "/resources" },
           { label: "Home affordability calculator" },

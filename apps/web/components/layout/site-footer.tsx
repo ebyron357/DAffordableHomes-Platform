@@ -1,36 +1,36 @@
 import Link from "next/link"
 import { Home } from "lucide-react"
-import { CONNECT_LINKS, EXPLORE_LINKS, LEARN_LINKS, LEGAL_NAV } from "@/lib/navigation"
+import { LEGAL_NAV, PRIMARY_NAV } from "@/lib/navigation"
 import { SITE, UNVERIFIED_TRUST_FACTS } from "@/lib/site"
 import { Container } from "@/components/ui/container"
 
 const columns = [
-  { title: "Learn", links: LEARN_LINKS },
-  { title: "Explore", links: EXPLORE_LINKS },
-  { title: "Connect", links: CONNECT_LINKS },
+  { title: "Homebuying", links: PRIMARY_NAV.slice(0, 4) },
+  { title: "Community", links: PRIMARY_NAV.slice(4) },
+  { title: "Connect", links: [{ label: "Schedule a Homebuyer Consultation", href: "/book" }] },
 ]
 
 export function SiteFooter() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="mt-24 border-t border-border bg-muted/40" aria-labelledby="footer-heading">
+    <footer className="border-t border-border bg-primary text-primary-foreground" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
         Site footer
       </h2>
       <Container className="py-14">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div className="max-w-sm">
-            <p className="font-serif text-xl font-semibold text-foreground">
-              <span className="text-primary">D&apos;Affordable</span> Homes
+            <p className="font-serif text-xl font-semibold text-primary-foreground">
+              D&apos;Affordable Homes
             </p>
-            <p className="mt-3 text-pretty text-sm leading-relaxed text-muted-foreground">{SITE.tagline}</p>
-            <p className="mt-4 text-sm font-medium text-foreground">{SITE.realtorName}</p>
+            <p className="mt-3 text-pretty text-sm leading-relaxed text-primary-foreground/75">{SITE.tagline}</p>
+            <p className="mt-4 text-sm font-medium text-primary-foreground">{SITE.realtorName}</p>
           </div>
 
           {columns.map((col) => (
             <nav key={col.title} aria-label={col.title}>
-              <h3 className="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+              <h3 className="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-primary-foreground/65">
                 {col.title}
               </h3>
               <ul className="mt-4 flex flex-col gap-2.5">
@@ -38,7 +38,7 @@ export function SiteFooter() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="rounded text-sm text-foreground/85 transition-colors hover:text-primary"
+                      className="rounded text-sm text-primary-foreground/85 transition-colors hover:text-white hover:underline"
                     >
                       {link.label}
                     </Link>
@@ -72,13 +72,13 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-10 flex flex-col gap-4 border-t border-border pt-8 md:flex-row md:items-center md:justify-between">
-          <div className="space-y-2 text-xs text-muted-foreground">
+          <div className="space-y-2 text-xs text-primary-foreground/70">
             <p>&copy; {year} {SITE.name}. {SITE.realtorName}. All rights reserved.</p>
             <p>
               Real Estate Technology by{" "}
               <a
                 href="https://clientverse.io"
-                className="rounded underline decoration-current/50 underline-offset-2 transition-colors hover:text-primary"
+                className="rounded underline decoration-current/50 underline-offset-2 transition-colors hover:text-white"
               >
                 ClientVerse.io
               </a>
@@ -90,7 +90,7 @@ export function SiteFooter() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="rounded text-xs text-muted-foreground transition-colors hover:text-primary"
+                    className="rounded text-xs text-primary-foreground/70 transition-colors hover:text-white"
                   >
                     {link.label}
                   </Link>

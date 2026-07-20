@@ -38,12 +38,15 @@ test('approved photography and ClientVerse attribution remain wired to public pa
   const hero = readFileSync('apps/web/components/home/hero.tsx', 'utf8');
   const aboutHome = readFileSync('apps/web/components/home/about-debra.tsx', 'utf8');
   const aboutPage = readFileSync('apps/web/app/about/page.tsx', 'utf8');
+  const consultation = readFileSync('apps/web/app/book/page.tsx', 'utf8');
   const footer = readFileSync('apps/web/components/layout/site-footer.tsx', 'utf8');
 
-  assert.match(hero, /black-family-moving-home-hero\.webp/);
+  assert.match(hero, /black-family-home-pexels-7114188\.webp/);
+  assert.doesNotMatch(hero, /moving-home/);
   assert.match(aboutHome, /debra-allen-primary-about\.webp/);
   assert.match(aboutPage, /debra-allen-advisor-desk\.webp/);
   assert.match(aboutPage, /debra-allen-lifestyle-full-body\.webp/);
+  assert.match(consultation, /debra-allen-advisor-desk\.webp/);
   assert.match(footer, /Real Estate Technology by/);
   assert.match(footer, /https:\/\/clientverse\.io/);
 });

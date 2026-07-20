@@ -1,20 +1,12 @@
 # Image asset register
 
-This register records approved source imagery and the optimized repository assets used by the public site. Debra Allen's approved photographs are limited to crop, resize, compression, and format optimization; no generative fill, retouching, face replacement, beauty enhancement, or changes to her appearance are permitted.
+Canonical register for approved public-site imagery. Debra Allen's photographs may receive crop, proportional resize, compression, and format optimization only. No generative fill, AI retouching, face replacement, beauty enhancement, or physical-appearance alteration is permitted.
 
-| Role | Source filename | Final repository path | Usage |
-| --- | --- | --- | --- |
-| Primary About/trust photograph | `DA0EB9C5-1800-4B9B-8A09-0D7D8D18C820.jpeg` | `apps/web/public/images/debra-allen-primary-about.webp` | Homepage About Debra section |
-| Secondary advisor photograph | `ED9EC101-01F5-44BD-BBEB-3DB0AD100A9D.jpeg` | `apps/web/public/images/debra-allen-advisor-desk.webp` | About page introduction |
-| Supporting lifestyle photograph | `855540B8-A31A-4564-8775-1D436040F39D.jpeg` | `apps/web/public/images/debra-allen-lifestyle-full-body.webp` | About page consultation-support composition |
-| Homepage family hero | Pexels photo 4868604 by Ekaterina Bolovtsova | `apps/web/public/images/black-family-moving-home-hero.webp` | Homepage hero; `object-position: 52% center` |
+| Original filename / source | Final filename and repository path | Source / photographer / license | Page and section | Crop and responsive behavior | Alt text | Editing | Approval |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `DA0EB9C5-1800-4B9B-8A09-0D7D8D18C820.jpeg` | `debra-allen-primary-about.webp` — `apps/web/public/images/debra-allen-primary-about.webp` | Client-approved original; photographer/license retained by client | Homepage, Meet Debra | `object-position: 48% center`; face remains visible across breakpoints | Debra Allen smiling in a yellow blazer at a kitchen counter | EXIF orientation, proportional resize, WebP compression | Approved |
+| `ED9EC101-01F5-44BD-BBEB-3DB0AD100A9D.jpeg` | `debra-allen-advisor-desk.webp` — `apps/web/public/images/debra-allen-advisor-desk.webp` | Client-approved original; photographer/license retained by client | Consultation, support image | `object-position: 50% 35%`; responsive 4:5 frame preserves face | Debra Allen seated at her desk with a tablet | EXIF orientation, proportional resize, WebP compression | Approved |
+| `855540B8-A31A-4564-8775-1D436040F39D.jpeg` | `debra-allen-lifestyle-full-body.webp` — `apps/web/public/images/debra-allen-lifestyle-full-body.webp` | Client-approved original; photographer/license retained by client | Reserved for wide lifestyle composition | Full-body composition; `object-position: center 35%` | Debra Allen standing at a kitchen island in a yellow blazer | EXIF orientation, proportional resize, WebP compression | Approved, controlled placement |
+| Pexels photo 7114188 | `black-family-home-pexels-7114188.webp` — `apps/web/public/images/black-family-home-pexels-7114188.webp` | [Pexels photo 7114188](https://www.pexels.com/photo/black-family-holding-hands-in-room-7114188/), Monstera Production / Gabby K, [Pexels license](https://www.pexels.com/license/) | Homepage hero | Centered 4:3 desktop and responsive-width crop; all five faces/bodies remain legible | A Black family of five holding hands together in a bright living room | Proportional resize to 1800px maximum, WebP quality 82; no retouching | Approved for controlled redesign |
 
-The hero was downloaded on 2026-07-20 from [Pexels photo 4868604](https://www.pexels.com/photo/mother-and-children-with-boxes-on-floor-4868604/). The [Pexels license](https://www.pexels.com/license/) permits free website and commercial promotional use; the site does not imply that the pictured family endorses D'Affordable Homes.
-
-## Processing record
-
-- Debra source attachments were mapped to the approved filenames in the order supplied with the request.
-- Images were EXIF-oriented, proportionally resized, and compressed to WebP without content alteration.
-- Responsive presentation uses `next/image` and focal-point-aware `object-position` values to preserve faces and natural proportions.
-- Homepage hero alt text: “A Black mother and her two children packing boxes together in their home.”
-- Primary Debra crop: `48% center`; desk crop: `center 38%`; full-body crop: `center 35%`.
+The hero was downloaded on 2026-07-20. Pexels permits free website and commercial promotional use; the site does not imply that the pictured family endorses D'Affordable Homes.

@@ -55,3 +55,12 @@ This log is retained as project history. Completed items are not deleted.
 - Rollback: revert this commit and remove the four new WebP assets.
 - Validation: `pnpm install --frozen-lockfile`, `pnpm test:all`, and `git diff --check` pass. The complete gate includes TypeScript, zero-warning ESLint, all 11 automated tests (including five calculator formula tests), and a 26-route production build. Browser checks at 375px and desktop widths found no horizontal overflow; all four calculator routes rendered; all four new images loaded through `next/image`; and the footer text/link rendered correctly.
 - **Status:** Complete pending remote CI and preview verification.
+
+## ACT-006 — Figma-first controlled production recovery
+
+- Rejected the prior Fraunces, moving-box hero, icon-card, pill-control, and large navy-panel direction.
+- Created the canonical editable Figma source and implemented only the homepage, navigation, footer, calculator hub, affordability calculator, and consultation page.
+- Preserved all calculator formulas and disclosures; added no financial-data persistence.
+- Added licensed Pexels photo 7114188 and documented provenance, crop, optimization, and alt text in the canonical image register.
+- Validation: strict TypeScript, zero-warning ESLint, 11/11 tests, five calculator formula tests, 27-route production build, `git diff --check`, and browser checks at 375, 430, 768, 1024, and 1440 with zero horizontal overflow.
+- **Status:** Complete locally; pending GitHub Actions and matching Vercel preview verification.

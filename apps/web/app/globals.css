@@ -25,27 +25,27 @@
 @theme {
   /* -- Typography ------------------------------------------------------- */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-serif: var(--font-source-serif), "Libre Baskerville", Georgia, serif;
 
   /* -- Surfaces --------------------------------------------------------- *
    * Warm paper base with a clearly distinct alternate + near-white cards.
    * No beige-on-beige: background / muted / card each read as separate. */
-  --color-background: oklch(0.981 0.006 83);   /* #f8f6f1 warm paper       */
-  --color-foreground: oklch(0.24 0.021 258);   /* #21262f navy-ink text    */
+  --color-background: #faf8f3;
+  --color-foreground: #171a1d;
 
   --color-card: oklch(1 0 0);                  /* #ffffff surface          */
   --color-card-foreground: oklch(0.24 0.021 258);
 
-  --color-muted: oklch(0.938 0.009 80);        /* #e9e5dc warm sand alt bg */
-  --color-muted-foreground: oklch(0.438 0.02 258); /* #565f6d secondary txt */
+  --color-muted: #eef0f2;
+  --color-muted-foreground: #4d565f;
 
   /* -- Primary brand + primary action (deep navy = trust/stability) ----- */
-  --color-primary: oklch(0.355 0.072 256);     /* #1e3a5f foundation navy  */
-  --color-primary-foreground: oklch(0.984 0.005 83);
+  --color-primary: #24384d;
+  --color-primary-foreground: #ffffff;
 
   /* -- Accent / secondary emphasis (caramel amber = warmth/forward hope) -
    * Deep enough to be AA-legible as text on paper (eyebrows, labels). */
-  --color-accent: oklch(0.53 0.115 62);        /* #97621f caramel amber    */
+  --color-accent: #a56b17;
   --color-accent-foreground: oklch(0.99 0.004 83);
 
   /* -- Secondary action (quiet neutral button) ------------------------- */
@@ -53,9 +53,9 @@
   --color-secondary-foreground: oklch(0.3 0.02 258);
 
   /* -- Borders / dividers / inputs / focus ----------------------------- */
-  --color-border: oklch(0.885 0.011 78);       /* #d8d3c8                  */
-  --color-input: oklch(0.885 0.011 78);
-  --color-ring: oklch(0.355 0.072 256);        /* navy focus ring          */
+  --color-border: #cbd0d5;
+  --color-input: #cbd0d5;
+  --color-ring: #a56b17;
 
   /* -- Feedback states (each also paired with icon + text in UI) ------- */
   --color-destructive: oklch(0.505 0.17 27);   /* controlled brick red     */
@@ -72,9 +72,9 @@
 
   /* -- Radii ------------------------------------------------------------ */
   --radius-sm: 0.375rem;
-  --radius: 0.625rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
+  --radius: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 0.75rem;
 }
 
 @layer base {
@@ -104,7 +104,7 @@
 
   h1, h2, h3, h4 {
     font-family: var(--font-serif);
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: -0.01em;
     text-wrap: balance;
   }
