@@ -110,13 +110,13 @@ export function CalculatorPanel({
   results: ReactNode
 }) {
   return (
-    <div className="grid overflow-hidden border-y border-border bg-card lg:grid-cols-[1.05fr_0.95fr] lg:border">
-      <div className="p-6 sm:p-8">
-        <h2 className="text-2xl font-semibold text-foreground">{title}</h2>
+    <div className="grid overflow-hidden rounded-md border border-border bg-card lg:grid-cols-[0.9fr_1.1fr]">
+      <div className="p-6 sm:p-8 lg:p-12">
+        <h2 className="font-serif text-2xl font-normal text-foreground">{title}</h2>
         <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">{description}</p>
-        <div className="mt-7 grid gap-5 sm:grid-cols-2">{fields}</div>
+        <div className="mt-7 grid gap-5">{fields}</div>
       </div>
-      <div className="border-t border-border bg-muted p-6 text-foreground sm:p-8 lg:border-l lg:border-t-0">
+      <div className="m-5 border-t border-border bg-primary p-6 text-primary-foreground sm:m-8 sm:p-8 lg:ml-0 lg:border-0 lg:p-12">
         {results}
       </div>
     </div>
@@ -134,12 +134,12 @@ export function ResultRow({
 }) {
   return (
     <div
-      className={`flex items-start justify-between gap-4 border-b border-border py-3 last:border-b-0 ${
+      className={`flex items-start justify-between gap-4 border-b border-primary-foreground/20 py-4 last:border-b-0 ${
         emphasized ? "text-lg font-semibold" : "text-sm"
       }`}
     >
-      <span className="text-muted-foreground">{label}</span>
-      <span className="text-right tabular-nums text-foreground">{value}</span>
+      <span className="text-primary-foreground/75">{label}</span>
+      <span className="text-right tabular-nums text-primary-foreground">{value}</span>
     </div>
   )
 }
@@ -147,14 +147,14 @@ export function ResultRow({
 export function CalculatorActions({ secondaryHref }: { secondaryHref?: string }) {
   return (
     <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-      <Button href="/book" className="w-full sm:w-auto">
+      <Button href="/book" variant="secondary" className="w-full sm:w-auto">
         Schedule a consultation
       </Button>
       {secondaryHref && (
         <Button
           href={secondaryHref}
           variant="outline"
-          className="w-full sm:w-auto"
+          className="w-full border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 sm:w-auto"
         >
           Continue planning
         </Button>
@@ -165,7 +165,7 @@ export function CalculatorActions({ secondaryHref }: { secondaryHref?: string })
 
 export function EstimateNotice({ children }: { children?: ReactNode }) {
   return (
-    <p className="mt-6 border-t border-border pt-5 text-xs leading-relaxed text-muted-foreground">
+    <p className="mt-6 border-t border-primary-foreground/20 pt-5 text-xs leading-relaxed text-primary-foreground/70">
       {children ??
         "Planning estimate only. Actual loan terms, taxes, insurance, mortgage insurance, fees, and eligibility vary by property, lender, and borrower."}
     </p>

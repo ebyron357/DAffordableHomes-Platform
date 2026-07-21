@@ -53,7 +53,7 @@ export function MortgageCalculator() {
 
   return (
     <CalculatorPanel
-      title="Estimate your monthly housing payment"
+      title="Your estimate"
       description="Adjust the assumptions to see principal, interest, taxes, insurance, mortgage insurance, and HOA costs together."
       fields={
         <>
@@ -88,9 +88,9 @@ export function MortgageCalculator() {
       }
       results={
         <div aria-live="polite">
-          <p className="text-sm font-medium uppercase tracking-[0.16em] text-accent">Estimated payment</p>
-          <p className="mt-2 text-4xl font-semibold tabular-nums text-primary">{formatCurrency(result.totalMonthlyPayment)}</p>
-          <p className="mt-1 text-sm text-muted-foreground">per month</p>
+          <p className="text-sm font-medium text-primary-foreground/80">Estimated monthly payment</p>
+          <p className="mt-3 font-serif text-5xl font-normal tabular-nums text-primary-foreground">{formatCurrency(result.totalMonthlyPayment)}</p>
+          <p className="mt-1 text-sm text-primary-foreground/75">per month</p>
           <div className="mt-6">
             <ResultRow label="Principal and interest" value={formatCurrency(result.principalAndInterest)} />
             <ResultRow label="Property taxes" value={formatCurrency(result.propertyTax)} />

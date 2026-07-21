@@ -14,14 +14,15 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-border bg-card">
       <Container>
-        <div className="flex h-16 items-center justify-between gap-4 md:h-20">
+        <div className="flex min-h-[72px] items-center justify-between gap-5 py-3">
           <Link
             href="/"
-            className="rounded-md text-lg font-semibold leading-none tracking-tight text-foreground sm:text-xl"
+            className="rounded text-[15px] font-semibold leading-tight tracking-tight text-foreground sm:text-lg"
           >
-            <span className="text-primary">D&apos;Affordable</span> Homes
+            <span className="block">D&apos;AFFORDABLE HOMES</span>
+            <span className="mt-0.5 hidden text-xs font-normal tracking-normal text-muted-foreground sm:block">Homeownership guidance</span>
           </Link>
 
           <nav aria-label="Primary" className="hidden xl:block">
@@ -48,13 +49,13 @@ export function SiteHeader() {
 
           <div className="hidden items-center gap-2 xl:flex">
             <Button href="/book" size="sm">
-              Schedule a Homebuyer Consultation
+              Schedule a Consultation
             </Button>
           </div>
 
           <button
             type="button"
-            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-md p-2 text-foreground xl:hidden"
+            className="inline-flex min-h-10 min-w-10 items-center justify-center rounded border border-primary p-2 text-primary xl:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}

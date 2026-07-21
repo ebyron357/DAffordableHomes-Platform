@@ -30,22 +30,22 @@
   /* -- Surfaces --------------------------------------------------------- *
    * Warm paper base with a clearly distinct alternate + near-white cards.
    * No beige-on-beige: background / muted / card each read as separate. */
-  --color-background: #faf8f3;
-  --color-foreground: #171a1d;
+  --color-background: #f6f4ef;
+  --color-foreground: #13171d;
 
   --color-card: oklch(1 0 0);                  /* #ffffff surface          */
   --color-card-foreground: oklch(0.24 0.021 258);
 
-  --color-muted: #eef0f2;
-  --color-muted-foreground: #4d565f;
+  --color-muted: #ecebe5;
+  --color-muted-foreground: #575e6b;
 
   /* -- Primary brand + primary action (deep navy = trust/stability) ----- */
-  --color-primary: #24384d;
+  --color-primary: #13263c;
   --color-primary-foreground: #ffffff;
 
   /* -- Accent / secondary emphasis (caramel amber = warmth/forward hope) -
    * Deep enough to be AA-legible as text on paper (eyebrows, labels). */
-  --color-accent: #a56b17;
+  --color-accent: #b06e1f;
   --color-accent-foreground: oklch(0.99 0.004 83);
 
   /* -- Secondary action (quiet neutral button) ------------------------- */
@@ -53,9 +53,9 @@
   --color-secondary-foreground: oklch(0.3 0.02 258);
 
   /* -- Borders / dividers / inputs / focus ----------------------------- */
-  --color-border: #cbd0d5;
-  --color-input: #cbd0d5;
-  --color-ring: #a56b17;
+  --color-border: #d1d1cc;
+  --color-input: #d1d1cc;
+  --color-ring: #b06e1f;
 
   /* -- Feedback states (each also paired with icon + text in UI) ------- */
   --color-destructive: oklch(0.505 0.17 27);   /* controlled brick red     */
@@ -104,7 +104,7 @@
 
   h1, h2, h3, h4 {
     font-family: var(--font-serif);
-    font-weight: 600;
+    font-weight: 400;
     letter-spacing: -0.01em;
     text-wrap: balance;
   }
