@@ -2,23 +2,21 @@
 
 /*
  * -----------------------------------------------------------------------------
- * D'AFFORDABLE HOMES — "FOUNDATION" VISUAL SYSTEM (Navy + Amber)
+ * D'AFFORDABLE HOMES — APPROVED BRAND COLOR SYSTEM
  * -----------------------------------------------------------------------------
- * Positioning: THE TRUSTED HOMEOWNERSHIP GUIDE — trustworthy, warm, practical,
- * professional, encouraging, community-aware, modern, respectful, clear,
- * approachable.
+ * Source of truth: approved D’Affordable Homes logo direction supplied by the
+ * client. The system uses deep navy, teal, progress green, warm gold, white,
+ * and restrained cool neutrals.
  *
- * This replaces the rejected green/evergreen system. The palette is documented
- * in docs/02-brand/VISUAL_SYSTEM.md (token name, hex, role, contrast, approved
- * and prohibited uses). All essential text and controls meet WCAG AA.
+ * Positioning: affordable, accessible, achievable homeownership presented with
+ * trust, clarity, optimism, professionalism, and forward movement.
  *
- * Prohibited (do not reintroduce): green/sage/teal/emerald, black-and-gold
- * luxury styling, beige-on-beige surfaces, weak gray body text, arbitrary
- * purple/aubergine, franchise-style bright red, neon, large decorative
- * gradients, gold body text, low-contrast controls.
- *
- * Meaning is never carried by color alone — icons, labels, and text accompany
- * every state.
+ * Accessibility rules:
+ * - Navy and dark teal carry essential text and primary controls.
+ * - Bright teal, green, and gold are used primarily for emphasis, progress,
+ *   illustration, borders, badges, and supporting accents.
+ * - Meaning is never communicated by color alone.
+ * - Large decorative gradients are not used in interface surfaces.
  * -----------------------------------------------------------------------------
  */
 
@@ -27,48 +25,51 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-source-serif), "Libre Baskerville", Georgia, serif;
 
-  /* -- Surfaces --------------------------------------------------------- *
-   * Warm paper base with a clearly distinct alternate + near-white cards.
-   * No beige-on-beige: background / muted / card each read as separate. */
-  --color-background: #f6f4ef;
-  --color-foreground: #13171d;
+  /* -- Surfaces --------------------------------------------------------- */
+  --color-background: #f7f9f8;
+  --color-foreground: #10233f;
 
-  --color-card: oklch(1 0 0);                  /* #ffffff surface          */
-  --color-card-foreground: oklch(0.24 0.021 258);
+  --color-card: #ffffff;
+  --color-card-foreground: #10233f;
 
-  --color-muted: #ecebe5;
-  --color-muted-foreground: #575e6b;
+  --color-muted: #edf3f2;
+  --color-muted-foreground: #52616f;
 
-  /* -- Primary brand + primary action (deep navy = trust/stability) ----- */
-  --color-primary: #13263c;
+  /* -- Primary brand + primary action ---------------------------------- */
+  --color-primary: #102b4e;
   --color-primary-foreground: #ffffff;
 
-  /* -- Accent / secondary emphasis (caramel amber = warmth/forward hope) -
-   * Deep enough to be AA-legible as text on paper (eyebrows, labels). */
-  --color-accent: #b06e1f;
-  --color-accent-foreground: oklch(0.99 0.004 83);
+  /* -- Teal brand emphasis --------------------------------------------- */
+  --color-accent: #087f8c;
+  --color-accent-foreground: #ffffff;
 
-  /* -- Secondary action (quiet neutral button) ------------------------- */
-  --color-secondary: oklch(0.928 0.009 80);
-  --color-secondary-foreground: oklch(0.3 0.02 258);
+  /* -- Supporting progress green --------------------------------------- */
+  --color-secondary: #e8f3e5;
+  --color-secondary-foreground: #315f2f;
+
+  /* -- Additional approved brand colors -------------------------------- */
+  --color-brand-teal: #18a9b4;
+  --color-brand-green: #66ad45;
+  --color-brand-gold: #bf922d;
+  --color-brand-navy: #102b4e;
 
   /* -- Borders / dividers / inputs / focus ----------------------------- */
-  --color-border: #d1d1cc;
-  --color-input: #d1d1cc;
-  --color-ring: #b06e1f;
+  --color-border: #cbd7d6;
+  --color-input: #cbd7d6;
+  --color-ring: #bf922d;
 
-  /* -- Feedback states (each also paired with icon + text in UI) ------- */
-  --color-destructive: oklch(0.505 0.17 27);   /* controlled brick red     */
-  --color-destructive-foreground: oklch(0.984 0.005 83);
+  /* -- Feedback states -------------------------------------------------- */
+  --color-destructive: #a63d40;
+  --color-destructive-foreground: #ffffff;
 
-  --color-success: oklch(0.5 0.095 155);       /* forest — status only, not brand */
-  --color-success-foreground: oklch(0.984 0.005 83);
+  --color-success: #3f7d3a;
+  --color-success-foreground: #ffffff;
 
-  --color-warning: oklch(0.62 0.135 58);       /* amber-orange caution     */
-  --color-warning-foreground: oklch(0.22 0.02 60);
+  --color-warning: #bf7a1f;
+  --color-warning-foreground: #23180a;
 
-  --color-info: oklch(0.45 0.088 250);         /* informational blue       */
-  --color-info-foreground: oklch(0.984 0.005 83);
+  --color-info: #176b87;
+  --color-info-foreground: #ffffff;
 
   /* -- Radii ------------------------------------------------------------ */
   --radius-sm: 0.25rem;
@@ -96,14 +97,16 @@
     overflow-x: clip;
   }
 
-  /* Visible focus for keyboard users */
   :focus-visible {
     outline: 2px solid var(--color-ring);
     outline-offset: 2px;
     border-radius: 2px;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-serif);
     font-weight: 400;
     letter-spacing: -0.01em;
@@ -119,6 +122,7 @@
   html {
     scroll-behavior: auto;
   }
+
   *,
   *::before,
   *::after {
