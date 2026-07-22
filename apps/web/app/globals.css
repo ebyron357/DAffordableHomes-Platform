@@ -1,40 +1,81 @@
 @import "tailwindcss";
 
+/*
+ * -----------------------------------------------------------------------------
+ * D'AFFORDABLE HOMES — APPROVED BRAND COLOR SYSTEM
+ * -----------------------------------------------------------------------------
+ * Source of truth: approved D’Affordable Homes logo direction supplied by the
+ * client. The system uses deep navy, teal, progress green, warm gold, white,
+ * and restrained cool neutrals.
+ *
+ * Positioning: affordable, accessible, achievable homeownership presented with
+ * trust, clarity, optimism, professionalism, and forward movement.
+ *
+ * Accessibility rules:
+ * - Navy and dark teal carry essential text and primary controls.
+ * - Bright teal, green, and gold are used primarily for emphasis, progress,
+ *   illustration, borders, badges, and supporting accents.
+ * - Meaning is never communicated by color alone.
+ * - Large decorative gradients are not used in interface surfaces.
+ * -----------------------------------------------------------------------------
+ */
+
 @theme {
-  /* Fonts */
+  /* -- Typography ------------------------------------------------------- */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-serif: var(--font-source-serif), "Libre Baskerville", Georgia, serif;
 
-  /* Warm editorial palette — paper, ink, evergreen, clay */
-  --color-background: oklch(0.968 0.008 85);
-  --color-foreground: oklch(0.24 0.012 60);
+  /* -- Surfaces --------------------------------------------------------- */
+  --color-background: #f7f9f8;
+  --color-foreground: #10233f;
 
-  --color-card: oklch(0.985 0.006 85);
-  --color-card-foreground: oklch(0.24 0.012 60);
+  --color-card: #ffffff;
+  --color-card-foreground: #10233f;
 
-  --color-muted: oklch(0.94 0.009 85);
-  --color-muted-foreground: oklch(0.47 0.012 65);
+  --color-muted: #edf3f2;
+  --color-muted-foreground: #52616f;
 
-  --color-primary: oklch(0.42 0.062 165);
-  --color-primary-foreground: oklch(0.98 0.008 85);
+  /* -- Primary brand + primary action ---------------------------------- */
+  --color-primary: #102b4e;
+  --color-primary-foreground: #ffffff;
 
-  --color-accent: oklch(0.62 0.13 48);
-  --color-accent-foreground: oklch(0.98 0.008 85);
+  /* -- Teal brand emphasis --------------------------------------------- */
+  --color-accent: #087f8c;
+  --color-accent-foreground: #ffffff;
 
-  --color-secondary: oklch(0.92 0.012 85);
-  --color-secondary-foreground: oklch(0.3 0.012 60);
+  /* -- Supporting progress green --------------------------------------- */
+  --color-secondary: #e8f3e5;
+  --color-secondary-foreground: #315f2f;
 
-  --color-border: oklch(0.88 0.012 80);
-  --color-input: oklch(0.88 0.012 80);
-  --color-ring: oklch(0.42 0.062 165);
+  /* -- Additional approved brand colors -------------------------------- */
+  --color-brand-teal: #18a9b4;
+  --color-brand-green: #66ad45;
+  --color-brand-gold: #bf922d;
+  --color-brand-navy: #102b4e;
 
-  --color-destructive: oklch(0.52 0.16 28);
-  --color-destructive-foreground: oklch(0.98 0.008 85);
+  /* -- Borders / dividers / inputs / focus ----------------------------- */
+  --color-border: #cbd7d6;
+  --color-input: #cbd7d6;
+  --color-ring: #bf922d;
 
-  --radius-sm: 0.375rem;
-  --radius: 0.625rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
+  /* -- Feedback states -------------------------------------------------- */
+  --color-destructive: #a63d40;
+  --color-destructive-foreground: #ffffff;
+
+  --color-success: #3f7d3a;
+  --color-success-foreground: #ffffff;
+
+  --color-warning: #bf7a1f;
+  --color-warning-foreground: #23180a;
+
+  --color-info: #176b87;
+  --color-info-foreground: #ffffff;
+
+  /* -- Radii ------------------------------------------------------------ */
+  --radius-sm: 0.25rem;
+  --radius: 0.25rem;
+  --radius-lg: 0.375rem;
+  --radius-xl: 0.5rem;
 }
 
 @layer base {
@@ -53,18 +94,21 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: clip;
   }
 
-  /* Visible focus for keyboard users */
   :focus-visible {
     outline: 2px solid var(--color-ring);
     outline-offset: 2px;
     border-radius: 2px;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-serif);
-    font-weight: 500;
+    font-weight: 400;
     letter-spacing: -0.01em;
     text-wrap: balance;
   }
@@ -78,6 +122,7 @@
   html {
     scroll-behavior: auto;
   }
+
   *,
   *::before,
   *::after {

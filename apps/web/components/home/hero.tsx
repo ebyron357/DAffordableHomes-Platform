@@ -1,38 +1,27 @@
-import { ArrowRight, BookOpen, ShieldCheck } from "lucide-react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
-import { Eyebrow } from "@/components/ui/eyebrow"
-import { SITE } from "@/lib/site"
-
-const DEBRA_PHOTO_URL =
-  "https://drive.google.com/uc?export=view&id=1_SfP8687X0jraNsWroo4DK0FvVedpD7h"
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-border" aria-labelledby="hero-heading">
-      <Container className="grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.1fr_0.9fr]">
+    <section className="border-b border-border" aria-labelledby="hero-heading">
+      <Container className="grid items-center gap-10 py-12 md:py-20 lg:grid-cols-[590px_1fr] lg:gap-16">
         <div>
-          <Eyebrow>Education-first homeownership</Eyebrow>
-          <h1 id="hero-heading" className="mt-5 text-balance font-serif text-4xl leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            Homeownership has steps. You don&apos;t have to learn them alone.
+          <p className="text-xs font-semibold uppercase tracking-[0.1em] text-accent">Practical guidance for homebuyers</p>
+          <h1 id="hero-heading" className="mt-5 max-w-[590px] font-serif text-[42px] font-normal leading-[1.14] tracking-tight sm:text-5xl lg:text-[60px] lg:leading-[1.13]">
+            A clear plan for buying a home—built around your life.
           </h1>
-          <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
-            {SITE.name} helps first-time buyers and renters understand the process, make a realistic plan, and find
-            trustworthy resources — guided by {SITE.realtorName}. Let&apos;s slow this down, look at where you are, and
-            find your next step.
+          <p className="mt-6 max-w-[560px] text-[17px] leading-[1.55] text-muted-foreground lg:text-[19px] lg:leading-[1.58]">
+            Understand where you stand, use practical planning tools, and get personal guidance from Debra Allen when you are ready to move forward.
           </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Button href="/start" size="lg">Find Your Next Step<ArrowRight className="size-4" aria-hidden="true" /></Button>
-            <Button href="/first-time-buyers" variant="ghost" size="lg" className="text-foreground/80"><BookOpen className="size-4" aria-hidden="true" />Start with the basics</Button>
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <Button href="/book" size="lg" className="w-full sm:w-auto">Schedule a Homebuyer Consultation</Button>
+            <Button href="/resources" variant="outline" size="lg" className="w-full sm:w-auto">Explore Homebuyer Resources</Button>
           </div>
-          <p className="mt-6 flex items-center gap-2 text-sm font-medium text-foreground/70"><ShieldCheck className="size-4 text-primary" aria-hidden="true" />Secure. Private. No pressure.</p>
-          <p className="mt-2 text-sm text-muted-foreground">Learn at your own pace. No contact information required to explore.</p>
+          <p className="mt-4 text-[13px] font-medium text-muted-foreground">No pressure. No guesswork. Just clear next steps.</p>
         </div>
-        <div className="relative">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-secondary shadow-sm">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={DEBRA_PHOTO_URL} alt="Debra Allen, REALTOR and founder of D’Affordable Homes" loading="eager" fetchPriority="high" className="h-full w-full object-cover object-[68%_center]" />
-          </div>
+        <div className="relative aspect-[342/300] overflow-hidden border border-border bg-muted lg:h-[520px] lg:aspect-auto">
+          <Image src="/images/black-family-home-pexels-7114188.webp" alt="A Black family of five holding hands together in a bright living room" fill priority sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover object-center" />
         </div>
       </Container>
     </section>

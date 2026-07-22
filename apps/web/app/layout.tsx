@@ -1,15 +1,14 @@
 import type { Metadata, Viewport } from "next"
-import { Fraunces, Inter } from "next/font/google"
+import { Inter, Source_Serif_4 } from "next/font/google"
 import { SiteHeader } from "@/components/layout/site-header"
 import { SiteFooter } from "@/components/layout/site-footer"
 import { SITE } from "@/lib/site"
 import "./globals.css"
 
-const fraunces = Fraunces({
+const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-fraunces",
-  axes: ["opsz", "SOFT"],
+  variable: "--font-source-serif",
 })
 
 const inter = Inter({
@@ -21,7 +20,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — Education-first homeownership guidance`,
+    default: `${SITE.name} — Trusted homeownership guidance`,
     template: `%s — ${SITE.name}`,
   },
   description: SITE.description,
@@ -38,7 +37,7 @@ export const metadata: Metadata = {
   authors: [{ name: SITE.realtorName }],
   openGraph: {
     type: "website",
-    title: `${SITE.name} — Homeownership has steps. You don't have to learn them alone.`,
+    title: `${SITE.name} — Clear guidance for buying a home`,
     description: SITE.description,
     siteName: SITE.name,
     url: SITE.url,
@@ -52,7 +51,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#f4f1e8",
+  themeColor: "#f8f6f1",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
@@ -64,7 +63,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable} bg-background`}>
+    <html lang="en" className={`${sourceSerif.variable} ${inter.variable} bg-background`}>
       <body className="flex min-h-dvh flex-col antialiased">
         <a
           href="#main-content"

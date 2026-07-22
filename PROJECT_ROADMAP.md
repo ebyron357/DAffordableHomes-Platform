@@ -46,6 +46,7 @@
 
 ### Design system
 
+- [x] Integrate approved Debra Allen photography and an authentic Black-family homepage hero with responsive, accessible image treatment
 - [ ] Finalize approved logo assets and usage rules
 - [ ] Lock colors, typography, spacing, radius, elevation, and motion tokens
 - [ ] Build accessible buttons, links, cards, navigation, forms, alerts, dialogs, accordions, tabs, breadcrumbs, and media components
@@ -178,6 +179,12 @@
 - [ ] Seller education resources
 
 ## Future evaluation
+
+### Controlled visual-system rollout
+
+- [x] Establish canonical Figma foundations and controlled source screens
+- [x] Implement homepage, navigation, footer, calculator hub, affordability calculator, and consultation page
+- [ ] Obtain final approval before any full-site visual rollout
 
 These items require a separate business and architecture decision before implementation:
 

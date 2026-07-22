@@ -53,7 +53,7 @@ export function MortgageCalculator() {
 
   return (
     <CalculatorPanel
-      title="Estimate your monthly housing payment"
+      title="Your estimate"
       description="Adjust the assumptions to see principal, interest, taxes, insurance, mortgage insurance, and HOA costs together."
       fields={
         <>
@@ -88,9 +88,9 @@ export function MortgageCalculator() {
       }
       results={
         <div aria-live="polite">
-          <p className="text-sm font-medium uppercase tracking-[0.16em] text-primary-foreground/70">Estimated payment</p>
-          <p className="mt-2 text-4xl font-semibold tabular-nums">{formatCurrency(result.totalMonthlyPayment)}</p>
-          <p className="mt-1 text-sm text-primary-foreground/70">per month</p>
+          <p className="text-sm font-medium text-primary-foreground/80">Estimated monthly payment</p>
+          <p className="mt-3 font-serif text-5xl font-normal tabular-nums text-primary-foreground">{formatCurrency(result.totalMonthlyPayment)}</p>
+          <p className="mt-1 text-sm text-primary-foreground/75">per month</p>
           <div className="mt-6">
             <ResultRow label="Principal and interest" value={formatCurrency(result.principalAndInterest)} />
             <ResultRow label="Property taxes" value={formatCurrency(result.propertyTax)} />
@@ -173,9 +173,9 @@ export function AffordabilityCalculator() {
       }
       results={
         <div aria-live="polite">
-          <p className="text-sm font-medium uppercase tracking-[0.16em] text-primary-foreground/70">Estimated planning price</p>
-          <p className="mt-2 text-4xl font-semibold tabular-nums">{formatCurrency(result.estimatedHomePrice)}</p>
-          <p className="mt-1 text-sm text-primary-foreground/70">not a pre-approval or lending decision</p>
+          <p className="text-sm font-medium uppercase tracking-[0.16em] text-accent">Estimated planning price</p>
+          <p className="mt-2 text-4xl font-semibold tabular-nums text-primary-foreground">{formatCurrency(result.estimatedHomePrice)}</p>
+          <p className="mt-1 text-sm text-muted-foreground">not a pre-approval or lending decision</p>
           <div className="mt-6">
             <ResultRow label="Monthly housing budget" value={formatCurrency(result.monthlyHousingBudget)} />
             <ResultRow label="Estimated monthly housing cost" value={formatCurrency(result.estimatedMonthlyPayment)} />
@@ -226,8 +226,8 @@ export function ClosingCostCalculator() {
       }
       results={
         <div aria-live="polite">
-          <p className="text-sm font-medium uppercase tracking-[0.16em] text-primary-foreground/70">Estimated cash to close</p>
-          <p className="mt-2 text-4xl font-semibold tabular-nums">{formatCurrency(result.estimatedCashToClose)}</p>
+          <p className="text-sm font-medium uppercase tracking-[0.16em] text-accent">Estimated cash to close</p>
+          <p className="mt-2 text-4xl font-semibold tabular-nums text-primary-foreground">{formatCurrency(result.estimatedCashToClose)}</p>
           <div className="mt-6">
             <ResultRow label="Down payment" value={formatCurrency(result.downPayment)} />
             <ResultRow label="Estimated closing costs" value={formatCurrency(result.estimatedClosingCosts)} />
