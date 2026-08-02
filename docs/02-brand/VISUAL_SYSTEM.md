@@ -20,10 +20,10 @@ The visual system communicates the brand promise: **Affordable. Accessible. Achi
 The client-approved D’Affordable Homes logo direction is the source of truth for the website palette.
 
 - Deep navy `#102B4E`: primary navigation, headings, primary buttons, footer, and high-value emphasis.
-- Dark teal `#087F8C`: accessible secondary emphasis, links, selected states, and supporting controls.
+- Dark teal `#077783`: accessible secondary emphasis, links, selected states, and supporting controls.
 - Bright teal `#18A9B4`: decorative brand accents, progress indicators, illustrations, and nonessential highlights.
 - Progress green `#66AD45`: positive movement, milestones, supporting brand graphics, and success-oriented accents.
-- Warm gold `#BF922D`: restrained signature accents, focus rings, badges, dividers, and premium emphasis.
+- Warm gold `#BF922D`: restrained signature accents, focus-ring contrast halos, badges, dividers, and premium emphasis.
 - Near-white `#F7F9F8`: primary page background.
 - White `#FFFFFF`: cards, forms, and content surfaces.
 - Soft green-gray `#EDF3F2`: alternate sections and quiet supporting surfaces.
@@ -38,6 +38,7 @@ The client-approved D’Affordable Homes logo direction is the source of truth f
 - Essential text and controls must use navy, dark teal, or another verified accessible dark color.
 - Bright teal, green, and gold are primarily for accents, progress, illustrations, icons, badges, and borders.
 - Gold is not used for long-form body text.
+- Keyboard focus uses an opaque deep navy inner boundary with a warm gold outer halo. Links, buttons, menus, forms, and calculator controls share this treatment; grouped calculator inputs apply it to the field boundary with `:focus-within` rather than relying on a translucent ring.
 - Green is not used as the only signal for success or completion; pair it with text or an icon.
 - Avoid large decorative gradients in website interface surfaces. Logo artwork may retain its approved blended color treatment when supplied as a final brand asset.
 - Avoid black-and-gold luxury styling, neon colors, unrelated purple or red brand colors, and weak low-contrast text.

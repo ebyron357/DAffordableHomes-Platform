@@ -184,6 +184,7 @@
 
 - [x] Establish canonical Figma foundations and controlled source screens
 - [x] Implement homepage, navigation, footer, calculator hub, affordability calculator, and consultation page
+- [x] Correct release-blocking semantic color and keyboard-focus contrast defects, including form and calculator utility overrides
 - [ ] Obtain final approval before any full-site visual rollout
 
 These items require a separate business and architecture decision before implementation:

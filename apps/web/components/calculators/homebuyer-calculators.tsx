@@ -173,9 +173,9 @@ export function AffordabilityCalculator() {
       }
       results={
         <div aria-live="polite">
-          <p className="text-sm font-medium uppercase tracking-[0.16em] text-accent">Estimated planning price</p>
+          <p className="text-sm font-medium uppercase tracking-[0.16em] text-accent-inverse">Estimated planning price</p>
           <p className="mt-2 text-4xl font-semibold tabular-nums text-primary-foreground">{formatCurrency(result.estimatedHomePrice)}</p>
-          <p className="mt-1 text-sm text-muted-foreground">not a pre-approval or lending decision</p>
+          <p className="mt-1 text-sm text-primary-foreground/75">not a pre-approval or lending decision</p>
           <div className="mt-6">
             <ResultRow label="Monthly housing budget" value={formatCurrency(result.monthlyHousingBudget)} />
             <ResultRow label="Estimated monthly housing cost" value={formatCurrency(result.estimatedMonthlyPayment)} />
@@ -226,7 +226,7 @@ export function ClosingCostCalculator() {
       }
       results={
         <div aria-live="polite">
-          <p className="text-sm font-medium uppercase tracking-[0.16em] text-accent">Estimated cash to close</p>
+          <p className="text-sm font-medium uppercase tracking-[0.16em] text-accent-inverse">Estimated cash to close</p>
           <p className="mt-2 text-4xl font-semibold tabular-nums text-primary-foreground">{formatCurrency(result.estimatedCashToClose)}</p>
           <div className="mt-6">
             <ResultRow label="Down payment" value={formatCurrency(result.downPayment)} />

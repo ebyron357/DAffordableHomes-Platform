@@ -39,7 +39,7 @@ export function NumberField({
       <label htmlFor={id} className="block text-sm font-medium text-foreground">
         {label}
       </label>
-      <div className="mt-2 flex min-h-12 items-center rounded-md border border-input bg-card focus-within:border-primary focus-within:ring-2 focus-within:ring-ring/30">
+      <div className="focus-within-indicator mt-2 flex min-h-12 items-center rounded-md border border-input bg-card focus-within:border-primary">
         {prefix && <span className="pl-3 text-sm text-muted-foreground">{prefix}</span>}
         <input
           id={id}
@@ -86,7 +86,7 @@ export function SelectField({
         id={id}
         value={value}
         onChange={(event) => onValueChange(Number(event.target.value))}
-        className="mt-2 min-h-12 w-full rounded-md border border-input bg-card px-3 py-2.5 text-base text-foreground outline-none focus:border-primary focus:ring-2 focus:ring-ring/30"
+        className="mt-2 min-h-12 w-full rounded-md border border-input bg-card px-3 py-2.5 text-base text-foreground focus:border-primary"
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>

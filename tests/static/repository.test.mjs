@@ -61,6 +61,22 @@ test('application shell includes core accessibility landmarks', () => {
   assert.match(header, /aria-controls="mobile-menu"/);
 });
 
+test('clean-checkout typechecking uses Next-managed route declarations', () => {
+  const rootPackage = JSON.parse(readFileSync('package.json', 'utf8'));
+  const webPackage = JSON.parse(readFileSync('apps/web/package.json', 'utf8'));
+  const gitignore = readFileSync('.gitignore', 'utf8');
+  const workflow = readFileSync('.github/workflows/application-quality.yml', 'utf8');
+  const vercel = JSON.parse(readFileSync('vercel.json', 'utf8'));
+
+  assert.match(webPackage.scripts.typecheck, /(?:^|&&\s*)next typegen(?:\s*&&|$)/);
+  assert.equal('postbuild' in webPackage.scripts, false);
+  assert.match(gitignore, /^apps\/web\/next-env\.d\.ts$/m);
+  assert.equal(existsSync('apps/web/scripts/restore-next-env.mjs'), false);
+  assert.match(rootPackage.scripts['test:all'], /(?:^|&&\s*)npm run typecheck(?:\s*&&|$)/);
+  assert.match(workflow, /pnpm test:all/);
+  assert.equal(vercel.buildCommand, 'npm run test:all');
+});
+
 test('security headers include CSP and anti-sniffing controls', () => {
   const config = readFileSync('apps/web/next.config.mjs', 'utf8');
   assert.match(config, /Content-Security-Policy/);

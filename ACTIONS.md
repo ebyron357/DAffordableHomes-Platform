@@ -64,3 +64,12 @@ This log is retained as project history. Completed items are not deleted.
 - Added licensed Pexels photo 7114188 and documented provenance, crop, optimization, and alt text in the canonical image register.
 - Validation: strict TypeScript, zero-warning ESLint, 11/11 tests, five calculator formula tests, 27-route production build, `git diff --check`, and browser checks at 375, 430, 768, 1024, and 1440 with zero horizontal overflow.
 - **Status:** Complete locally; pending GitHub Actions and matching Vercel preview verification.
+
+## ACT-007 — Phase 1 repository and brand stabilization
+
+- **Priority:** P0 — Release blocker
+- **Problem:** Clean-checkout typechecking depended on generated Next.js route declarations, the browser theme retained a retired cream, and approved accent/focus colors failed contrast on specific light and navy surfaces.
+- **Plan:** Use `next typegen` before TypeScript validation, leave `next-env.d.ts` under Next.js ownership, correct semantic light/inverse accent and focus tokens, update only affected consultation and calculator labels, and add clean-checkout regression coverage without changing layout or calculator logic.
+- **Files Changed:** Type-generation scripts and ignore rules, semantic color and focus consumers, repository tests, and controlled visual-system documentation.
+- **Validation:** Utility-level focus overrides use the shared opaque navy boundary and gold halo. Frozen install, clean-checkout `next typegen` and TypeScript, the full root quality gate, direct app-level and root production builds, post-build typecheck, all 12 automated tests, and all 27 routes pass.
+- **Status:** Complete locally; pending remote CI and preview verification.
