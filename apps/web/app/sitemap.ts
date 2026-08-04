@@ -37,7 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route) => ({
     url: `${SITE.url}${route}`,
     lastModified,
-    changeFrequency: route.startsWith("/programs") || route.startsWith("/areas") ? "monthly" : "quarterly",
+    changeFrequency: route.startsWith("/programs") || route.startsWith("/areas") ? "monthly" : "yearly",
     priority: route === "" ? 1 : route === "/programs" || route === "/areas/garland" ? 0.8 : 0.6,
   }))
 }
