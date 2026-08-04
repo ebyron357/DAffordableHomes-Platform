@@ -9,6 +9,10 @@ import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
 import { cn } from "@/lib/utils"
 
+function isActivePath(pathname: string, href: string): boolean {
+  return pathname === href || (href !== "/" && pathname.startsWith(`${href}/`))
+}
+
 export function SiteHeader() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
@@ -28,7 +32,7 @@ export function SiteHeader() {
           <nav aria-label="Primary" className="hidden xl:block">
             <ul className="flex items-center gap-0.5">
               {PRIMARY_NAV.map((item) => {
-                const active = pathname === item.href
+                const active = isActivePath(pathname, item.href)
                 return (
                   <li key={item.href}>
                     <Link
@@ -48,9 +52,7 @@ export function SiteHeader() {
           </nav>
 
           <div className="hidden items-center gap-2 xl:flex">
-            <Button href="/book" size="sm">
-              Schedule a Consultation
-            </Button>
+            <Button href="/book" size="sm">Schedule a Consultation</Button>
           </div>
 
           <button
@@ -58,7 +60,7 @@ export function SiteHeader() {
             className="inline-flex min-h-10 min-w-10 items-center justify-center rounded border border-primary p-2 text-primary xl:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
-            onClick={() => setOpen((v) => !v)}
+            onClick={() => setOpen((value) => !value)}
           >
             <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
             {open ? <X className="size-6" aria-hidden="true" /> : <Menu className="size-6" aria-hidden="true" />}
@@ -72,7 +74,7 @@ export function SiteHeader() {
             <nav aria-label="Mobile" className="py-4">
               <ul className="flex flex-col gap-1">
                 {PRIMARY_NAV.map((item) => {
-                  const active = pathname === item.href
+                  const active = isActivePath(pathname, item.href)
                   return (
                     <li key={item.href}>
                       <Link
@@ -85,18 +87,14 @@ export function SiteHeader() {
                         )}
                       >
                         <span className="font-medium text-foreground">{item.label}</span>
-                        {"description" in item && item.description ? (
-                          <span className="text-sm text-muted-foreground">{item.description}</span>
-                        ) : null}
+                        {item.description ? <span className="text-sm text-muted-foreground">{item.description}</span> : null}
                       </Link>
                     </li>
                   )
                 })}
               </ul>
               <div className="mt-4">
-                <Button href="/book" className="w-full">
-                  Schedule a Homebuyer Consultation
-                </Button>
+                <Button href="/book" className="w-full">Schedule a Homebuyer Consultation</Button>
               </div>
             </nav>
           </Container>
