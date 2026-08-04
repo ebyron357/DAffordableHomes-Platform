@@ -10,6 +10,7 @@
 
 export const SITE = {
   name: "D'Affordable Homes",
+  realtorLegalName: "Debra Allen",
   /** Debra's professional designation is verified in the repository README. */
   realtorName: "Debra Allen, REALTOR\u00AE",
   realtorFirstName: "Debra",
@@ -17,6 +18,8 @@ export const SITE = {
   description:
     "D'Affordable Homes is an education-first digital homeownership platform led by Debra Allen, REALTOR\u00AE. Clear guidance, planning tools, and trustworthy resources for first-time buyers and renters preparing for ownership.",
   url: "https://daffordablehomes.com",
+  /** Search and editorial focus; this is not a blanket service-area claim. */
+  localContentFocus: ["Garland, Texas", "Dallas–Fort Worth"] as const,
 } as const
 
 /**
@@ -27,6 +30,8 @@ export const UNVERIFIED_TRUST_FACTS = {
   brokerageName: null as string | null,
   licenseNumber: null as string | null,
   licenseState: null as string | null,
+  businessAddress: null as string | null,
+  phoneNumber: null as string | null,
   serviceAreas: [] as string[],
   yearsOfExperience: null as number | null,
   familiesServed: null as number | null,
