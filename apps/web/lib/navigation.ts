@@ -8,6 +8,7 @@ export type NavItem = {
 export const PRIMARY_NAV: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Buy a Home", href: "/homes", description: "Search and prepare to buy" },
+  { label: "Programs", href: "/programs", description: "NACA and Homes for Heroes guidance" },
   { label: "Homebuyer Resources", href: "/resources", description: "Guides and practical resources" },
   { label: "Calculators", href: "/resources/calculators", description: "Plan with real numbers" },
   { label: "Neighborhoods", href: "/neighborhoods", description: "Explore local communities" },
@@ -17,13 +18,17 @@ export const PRIMARY_NAV: NavItem[] = [
 
 export const LEARN_LINKS: NavItem[] = [
   { label: "First-Time Buyers", href: "/first-time-buyers" },
-  { label: "NACA Education", href: "/naca" },
+  { label: "Homebuyer Programs", href: "/programs" },
+  { label: "NACA Homebuyer Help", href: "/programs/naca" },
+  { label: "Homes for Heroes", href: "/programs/homes-for-heroes" },
   { label: "Resource Library", href: "/resources" },
   { label: "Blog & Articles", href: "/blog" },
   { label: "FAQ", href: "/faq" },
 ]
 
 export const EXPLORE_LINKS: NavItem[] = [
+  { label: "Garland Area Guide", href: "/areas/garland" },
+  { label: "North Texas Area Guides", href: "/areas" },
   { label: "Neighborhood Guides", href: "/neighborhoods" },
   { label: "Market Reports", href: "/market-reports" },
   { label: "Home Search", href: "/homes" },
