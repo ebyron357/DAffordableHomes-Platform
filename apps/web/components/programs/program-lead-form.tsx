@@ -57,7 +57,7 @@ export function ProgramLeadForm({
       desiredZip: getText(formData, "desiredZip"),
       timeline: getText(formData, "timeline"),
       preferredContactMethod: getText(formData, "preferredContactMethod"),
-      intent: program === "naca" ? "buying" : getText(formData, "intent"),
+      intent: program === "homes-for-heroes" ? getText(formData, "intent") : "buying",
       programStage: getText(formData, "programStage"),
       serviceCategory: getText(formData, "serviceCategory"),
       questions: getText(formData, "questions"),
@@ -184,16 +184,16 @@ export function ProgramLeadForm({
         </label>
       </div>
 
-      {program === "naca" ? (
+      {program !== "homes-for-heroes" ? (
         <label className="grid gap-2 text-sm font-medium" htmlFor={`${formId}-program-stage`}>
-          Where are you in the NACA process?
+          Where are you in the {program.toUpperCase()} process?
           <select id={`${formId}-program-stage`} name="programStage" className={inputClass} defaultValue="">
             <option value="">Choose the closest answer</option>
-            <option>Researching NACA</option>
-            <option>Workshop scheduled</option>
-            <option>Workshop attended</option>
-            <option>Working toward qualification</option>
-            <option>NACA-qualified and preparing to search</option>
+            <option>Researching the program</option>
+            <option>Preparing to speak with a lender or program</option>
+            <option>Working on readiness</option>
+            <option>Preapproved or program-qualified</option>
+            <option>Actively searching for a home</option>
           </select>
         </label>
       ) : (

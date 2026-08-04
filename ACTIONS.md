@@ -2,6 +2,17 @@
 
 This log is retained as project history. Completed items are not deleted.
 
+## ACT-008 — Production website completion pass
+
+- **Priority:** P0 — Launch foundation
+- **Problem:** The existing production candidate had only two program pages, one city page, incomplete buyer-guide coverage, limited schema and sitemap coverage, placeholder-style legal language, and no current completion evidence.
+- **Scope:** Website content, SEO/AEO/GEO, accessibility hardening, performance-safe analytics hooks, trust/legal pages, error states, automated validation, and deployment evidence. CRM, MLS/IDX, mortgage backends, and automations were expressly excluded.
+- **Solution:** Extended the existing shared architecture to six buyer programs, six buyer resources, and ten differentiated city guides; completed structured metadata and crawl controls; expanded privacy, terms, and Texas consumer information; added optional credential-free analytics configuration; and added regression coverage.
+- **Validation:** Frozen pnpm install, strict TypeScript, zero-warning ESLint, 20/20 automated tests, and a 56-route optimized production build pass locally.
+- **Known Blockers:** Verified brokerage name, Texas license number, public contact details, completed IABS notice, client/brokerage approval, preview browser evidence, manual screen-reader review, and preview Lighthouse evidence.
+- **Rollback:** Revert the completion commit; no database, provider, credential, CRM, or IDX migration is involved.
+- **Status:** Complete as a website code candidate; not approved for production launch until the listed blockers are cleared.
+
 ## ACT-001 — Production governance artifacts
 
 - **Priority:** P0 — Production blocker

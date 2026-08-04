@@ -1,16 +1,19 @@
 import type { MetadataRoute } from "next"
 import { SITE } from "@/lib/site"
+import { AREA_LIST } from "@/lib/areas"
+import { BUYER_RESOURCE_LIST } from "@/lib/buyer-resources"
+import { PROGRAM_CARDS } from "@/lib/programs"
 
 const routes = [
   "",
   "/about",
   "/accessibility",
   "/areas",
-  "/areas/garland",
   "/blog",
   "/book",
   "/contact",
   "/events",
+  "/equal-housing-opportunity",
   "/fair-housing",
   "/faq",
   "/first-time-buyers",
@@ -19,8 +22,6 @@ const routes = [
   "/neighborhoods",
   "/privacy",
   "/programs",
-  "/programs/naca",
-  "/programs/homes-for-heroes",
   "/resources",
   "/resources/calculators",
   "/resources/calculators/affordability",
@@ -30,11 +31,17 @@ const routes = [
   "/start",
   "/terms",
   "/testimonials",
+  "/texas-brokerage-information",
 ] as const
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()
-  return routes.map((route) => ({
+  const dynamicRoutes = [
+    ...AREA_LIST.map((area) => `/areas/${area.slug}`),
+    ...PROGRAM_CARDS.map((program) => `/programs/${program.slug}`),
+    ...BUYER_RESOURCE_LIST.map((resource) => `/resources/${resource.slug}`),
+  ]
+  return [...routes, ...dynamicRoutes].map((route) => ({
     url: `${SITE.url}${route}`,
     lastModified,
     changeFrequency: route.startsWith("/programs") || route.startsWith("/areas") ? "monthly" : "yearly",

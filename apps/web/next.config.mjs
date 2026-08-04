@@ -17,10 +17,10 @@ const securityHeaders = [
       "form-action 'self'",
       "frame-ancestors 'self'",
       "img-src 'self' data: https:",
-      "script-src 'self' 'unsafe-inline'",
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
       "style-src 'self' 'unsafe-inline'",
       "font-src 'self' data:",
-      "connect-src 'self'",
+      "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com",
       "object-src 'none'",
       'upgrade-insecure-requests'
     ].join('; ')

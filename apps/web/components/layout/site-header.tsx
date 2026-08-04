@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Menu, X } from "lucide-react"
 import { PRIMARY_NAV } from "@/lib/navigation"
 import { Button } from "@/components/ui/button"
@@ -16,6 +16,14 @@ function isActivePath(pathname: string, href: string): boolean {
 export function SiteHeader() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false)
+    }
+    document.addEventListener("keydown", closeOnEscape)
+    return () => document.removeEventListener("keydown", closeOnEscape)
+  }, [])
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-card">

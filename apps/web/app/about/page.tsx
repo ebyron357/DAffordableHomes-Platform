@@ -1,10 +1,8 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
-import { UNVERIFIED_TRUST_FACTS } from "@/lib/site"
 import { PageHeader } from "@/components/page/page-header"
 import { Section } from "@/components/page/section"
-import { Notice } from "@/components/states/notice"
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
 
@@ -77,17 +75,6 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
-
-          {!UNVERIFIED_TRUST_FACTS.brokerageName && (
-            <div className="mx-auto mt-12 max-w-4xl">
-              <Notice tone="info" title="Professional details coming soon">
-                <p>
-                  Debra&apos;s brokerage affiliation, license number, service areas, and professional certifications
-                  will be published here once confirmed for release. We only publish credentials we can verify.
-                </p>
-              </Notice>
-            </div>
-          )}
 
           <div className="mt-12 grid overflow-hidden rounded-2xl border border-border bg-card lg:grid-cols-[0.8fr_1.2fr]">
             <div className="relative min-h-[28rem] lg:min-h-[36rem]">
