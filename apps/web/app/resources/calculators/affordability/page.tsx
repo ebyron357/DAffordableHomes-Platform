@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Home Affordability Calculator",
   description:
     "Create a conservative home-price planning estimate using household income, monthly debts, down payment, interest rate, taxes, insurance, and HOA costs.",
+  alternates: { canonical: "/resources/calculators/affordability" },
 }
 
 export default function AffordabilityCalculatorPage() {

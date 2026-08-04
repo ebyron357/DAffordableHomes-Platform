@@ -85,6 +85,56 @@ test('security headers include CSP and anti-sniffing controls', () => {
   assert.doesNotMatch(config, /unsafe-eval/);
 });
 
+test('contact and program lead delivery stay server-side and fail honestly without credentials', () => {
+  const contactForm = readFileSync('apps/web/components/contact/contact-form.tsx', 'utf8');
+  const contactRoute = readFileSync('apps/web/app/api/leads/contact/route.ts', 'utf8');
+  const programRoute = readFileSync('apps/web/app/api/leads/program/route.ts', 'utf8');
+  const leadServer = readFileSync('apps/web/lib/leads/server.ts', 'utf8');
+
+  assert.match(contactForm, /fetch\("\/api\/leads\/contact"/);
+  assert.match(contactRoute, /CONTACT_LEAD_WEBHOOK_URL/);
+  assert.match(contactRoute, /GHL_CONTACT_LEAD_WEBHOOK_URL/);
+  assert.match(programRoute, /PROGRAM_LEAD_WEBHOOK_URL/);
+  assert.match(leadServer, /isTrustedRequestOrigin/);
+  assert.match(leadServer, /isRateLimited/);
+  assert.match(leadServer, /AbortSignal\.timeout/);
+  assert.match(leadServer, /Online delivery is not configured yet/);
+  assert.doesNotMatch(leadServer, /contact details provided/);
+});
+
+test('browser, accessibility, performance, and social metadata gates are executable', () => {
+  const rootPackage = JSON.parse(readFileSync('package.json', 'utf8'));
+  const browserTest = readFileSync('tests/browser/smoke.mjs', 'utf8');
+  const performanceTest = readFileSync('tests/performance/lighthouse.mjs', 'utf8');
+  const layout = readFileSync('apps/web/app/layout.tsx', 'utf8');
+
+  assert.match(rootPackage.scripts['test:all'], /test:browser/);
+  assert.match(rootPackage.scripts['test:all'], /test:performance/);
+  assert.match(browserTest, /AxeBuilder/);
+  assert.match(browserTest, /consultation-mobile-375\.webp/);
+  assert.match(performanceTest, /categories\.performance >= 95/);
+  assert.match(performanceTest, /largestContentfulPaintMs < 2500/);
+  assert.match(layout, /images: \[\{ url: "\/opengraph-image"/);
+  assert.equal(existsSync('apps/web/app/opengraph-image.tsx'), true);
+});
+
+test('indexable page metadata includes canonical URLs', () => {
+  const pageFiles = [
+    'about', 'accessibility', 'areas', 'areas/garland', 'blog', 'book', 'contact',
+    'equal-housing-opportunity', 'events', 'fair-housing', 'faq', 'first-time-buyers',
+    'homes', 'market-reports', 'neighborhoods', 'privacy', 'programs',
+    'programs/homes-for-heroes', 'programs/naca', 'resources', 'resources/calculators',
+    'resources/calculators/affordability', 'resources/calculators/closing-costs',
+    'resources/calculators/down-payment', 'resources/calculators/mortgage-payment',
+    'start', 'terms', 'testimonials',
+  ];
+
+  for (const route of pageFiles) {
+    const source = readFileSync(`apps/web/app/${route}/page.tsx`, 'utf8');
+    assert.match(source, /alternates:\s*\{\s*canonical:/, `/${route} should define a canonical URL`);
+  }
+});
+
 test('Shopify integration fails closed without placeholder products', () => {
   const source = readFileSync('packages/integrations/src/shopify/index.ts', 'utf8');
   assert.match(source, /status: 'unavailable'/);

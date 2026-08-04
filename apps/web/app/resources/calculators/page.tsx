@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { Container } from "@/components/ui/container"
 
-export const metadata: Metadata = { title: "Homebuyer Calculators", description: "Professional planning tools for mortgage payments, affordability, closing costs, and down payments." }
+export const metadata: Metadata = { title: "Homebuyer Calculators", description: "Professional planning tools for mortgage payments, affordability, closing costs, and down payments.", alternates: { canonical: "/resources/calculators" } }
 
 const tools = [
   ["Mortgage payment", "Estimate principal, interest, taxes, insurance, mortgage insurance, and HOA costs.", "/resources/calculators/mortgage-payment"],

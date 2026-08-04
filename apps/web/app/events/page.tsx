@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "Events & Workshops",
   description:
     "Homebuyer education workshops and community events led by Debra Allen. Schedule is published here once dates are confirmed.",
+  alternates: { canonical: "/events" },
 }
 
 const formats = [

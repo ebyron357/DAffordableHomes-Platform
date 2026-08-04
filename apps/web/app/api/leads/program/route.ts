@@ -1,5 +1,14 @@
 import { NextResponse } from "next/server"
 import type { ProgramSlug } from "@/lib/programs"
+import {
+  cleanText,
+  deliverLead,
+  isPlausiblePhone,
+  isRateLimited,
+  isTrustedRequestOrigin,
+  isValidEmail,
+  wasSubmittedTooQuickly,
+} from "@/lib/leads/server"
 
 const ALLOWED_PROGRAMS = new Set<ProgramSlug>(["naca", "homes-for-heroes"])
 const SOURCE_BY_PROGRAM: Record<ProgramSlug, string> = {
@@ -7,15 +16,22 @@ const SOURCE_BY_PROGRAM: Record<ProgramSlug, string> = {
   "homes-for-heroes": "Homes for Heroes Landing Page",
 }
 
-function text(value: unknown, max = 500): string {
-  return typeof value === "string" ? value.trim().slice(0, max) : ""
-}
-
 function isProgram(value: unknown): value is ProgramSlug {
   return typeof value === "string" && ALLOWED_PROGRAMS.has(value as ProgramSlug)
 }
 
 export async function POST(request: Request) {
+  if (!isTrustedRequestOrigin(request)) {
+    return NextResponse.json({ ok: false, error: "Invalid request origin." }, { status: 403 })
+  }
+
+  if (isRateLimited(request)) {
+    return NextResponse.json(
+      { ok: false, error: "Too many requests. Please wait before trying again." },
+      { status: 429 },
+    )
+  }
+
   const raw = await request.json().catch(() => null)
   if (!raw || typeof raw !== "object") {
     return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 })
@@ -26,22 +42,21 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Invalid program." }, { status: 400 })
   }
 
-  if (text(body.website)) {
+  if (cleanText(body.website)) {
     return NextResponse.json({ ok: true }, { status: 200 })
   }
 
-  const startedAt = Number(body.startedAt)
-  if (Number.isFinite(startedAt) && startedAt > 0 && Date.now() - startedAt < 2000) {
+  if (wasSubmittedTooQuickly(body.startedAt)) {
     return NextResponse.json({ ok: false, error: "Please review the form and try again." }, { status: 429 })
   }
 
-  const firstName = text(body.firstName, 80)
-  const lastName = text(body.lastName, 80)
-  const email = text(body.email, 180)
-  const phone = text(body.phone, 40)
+  const firstName = cleanText(body.firstName, 80)
+  const lastName = cleanText(body.lastName, 80)
+  const email = cleanText(body.email, 180)
+  const phone = cleanText(body.phone, 40)
   const consent = body.consent === true
 
-  if (!firstName || !lastName || !email || !phone || !consent) {
+  if (!firstName || !lastName || !isValidEmail(email) || !isPlausiblePhone(phone) || !consent) {
     return NextResponse.json(
       { ok: false, error: "Complete all required fields and provide contact consent." },
       { status: 400 },
@@ -53,7 +68,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         ok: false,
-        error: "Online lead delivery is not configured yet. Please use the main consultation page.",
+        error: "Online lead delivery is not configured yet. Please try again later.",
       },
       { status: 503 },
     )
@@ -67,49 +82,32 @@ export async function POST(request: Request) {
     phone,
     program,
     source: SOURCE_BY_PROGRAM[program],
-    sourcePage: text(body.sourcePage, 240),
-    campaign: text(body.utmCampaign, 160) || "organic",
+    sourcePage: cleanText(body.sourcePage, 240),
+    campaign: cleanText(body.utmCampaign, 160) || "organic",
     submittedAt: new Date().toISOString(),
-    pageUrl: text(body.pageUrl, 500),
-    referrer: text(body.referrer, 500),
-    utmSource: text(body.utmSource, 160),
-    utmMedium: text(body.utmMedium, 160),
-    utmCampaign: text(body.utmCampaign, 160),
-    utmContent: text(body.utmContent, 160),
-    utmTerm: text(body.utmTerm, 160),
-    currentCity: text(body.currentCity, 120),
-    desiredCity: text(body.desiredCity, 120),
-    desiredZip: text(body.desiredZip, 20),
-    timeline: text(body.timeline, 120),
-    preferredContactMethod: text(body.preferredContactMethod, 80),
-    intent: text(body.intent, 80),
-    programStage: text(body.programStage, 160),
-    serviceCategory: text(body.serviceCategory, 160),
-    questions: text(body.questions, 2000),
+    pageUrl: cleanText(body.pageUrl, 500),
+    referrer: cleanText(body.referrer, 500),
+    utmSource: cleanText(body.utmSource, 160),
+    utmMedium: cleanText(body.utmMedium, 160),
+    utmCampaign: cleanText(body.utmCampaign, 160),
+    utmContent: cleanText(body.utmContent, 160),
+    utmTerm: cleanText(body.utmTerm, 160),
+    currentCity: cleanText(body.currentCity, 120),
+    desiredCity: cleanText(body.desiredCity, 120),
+    desiredZip: cleanText(body.desiredZip, 20),
+    timeline: cleanText(body.timeline, 120),
+    preferredContactMethod: cleanText(body.preferredContactMethod, 80),
+    intent: cleanText(body.intent, 80),
+    programStage: cleanText(body.programStage, 160),
+    serviceCategory: cleanText(body.serviceCategory, 160),
+    questions: cleanText(body.questions, 2000),
     consent,
   }
 
-  try {
-    const response = await fetch(webhookUrl, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(payload),
-      signal: AbortSignal.timeout(8000),
-      cache: "no-store",
-    })
-
-    if (!response.ok) {
-      return NextResponse.json(
-        { ok: false, error: "Lead delivery is temporarily unavailable. Please use the consultation page." },
-        { status: 502 },
-      )
-    }
-
-    return NextResponse.json({ ok: true }, { status: 200 })
-  } catch {
-    return NextResponse.json(
-      { ok: false, error: "Lead delivery is temporarily unavailable. Please use the consultation page." },
-      { status: 502 },
-    )
+  const result = await deliverLead(webhookUrl, payload)
+  if (!result.ok) {
+    return NextResponse.json({ ok: false, error: result.error }, { status: result.status })
   }
+
+  return NextResponse.json({ ok: true }, { status: 200 })
 }

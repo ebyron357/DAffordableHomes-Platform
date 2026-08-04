@@ -35,14 +35,14 @@
 
 ### Engineering foundation
 
-- [ ] Initialize Next.js App Router application with TypeScript strict mode
-- [ ] Configure Tailwind CSS and semantic design tokens
-- [ ] Add linting, formatting, type checking, unit tests, browser tests, and accessibility tests
-- [ ] Configure GitHub Actions build and quality checks
-- [ ] Configure Vercel preview deployments
-- [ ] Add environment validation with no public exposure of server credentials
-- [ ] Add secure headers and initial Content Security Policy
-- [ ] Add error, loading, not-found, and maintenance states
+- [x] Initialize Next.js App Router application with TypeScript strict mode
+- [x] Configure Tailwind CSS and semantic design tokens
+- [x] Add linting, type checking, unit tests, browser tests, accessibility tests, and performance tests
+- [x] Configure GitHub Actions build and quality checks
+- [x] Configure Vercel preview deployments
+- [x] Add server-only environment configuration with an approved `.env.example`
+- [x] Add secure headers and initial Content Security Policy
+- [x] Add error, loading, not-found, and provider-unavailable states
 
 ### Design system
 
@@ -55,41 +55,41 @@
 
 ### Core routes
 
-- [ ] Home
-- [ ] About Debra
-- [ ] First-Time Buyers
-- [ ] NACA education
-- [ ] Resources
+- [x] Home
+- [x] About Debra
+- [x] First-Time Buyers
+- [x] NACA education
+- [x] Resources
 - [ ] Blog and article template
 - [ ] Neighborhood Guides and guide template
-- [ ] Featured Listings or property-search entry point
-- [ ] Events and Workshops
-- [ ] Testimonials and success stories
-- [ ] FAQ
-- [ ] Contact and consultation booking
-- [ ] Privacy Policy
-- [ ] Terms of Use
-- [ ] Accessibility Statement
-- [ ] Fair Housing Statement
-- [ ] Equal Housing Opportunity information
+- [x] Featured Listings or property-search entry point with honest provider-unavailable state
+- [x] Events and Workshops route with verified-content publishing guard
+- [x] Testimonials and success stories route with consent guard
+- [x] FAQ
+- [x] Contact and consultation request flow
+- [x] Privacy Policy
+- [x] Terms of Use
+- [x] Accessibility Statement
+- [x] Fair Housing Statement
+- [x] Equal Housing Opportunity information
 
 ### Signature experience
 
-- [ ] Build **Find Your Next Step**
-- [ ] Ask a short set of accessible, non-discriminatory planning questions
-- [ ] Explain the visitor's current stage without claiming qualification
-- [ ] Recommend approved resources
-- [ ] Offer consultation booking when appropriate
+- [x] Build **Find Your Next Step**
+- [x] Ask a short set of accessible, non-discriminatory planning questions
+- [x] Explain the visitor's current stage without claiming qualification
+- [x] Recommend approved resources
+- [x] Offer consultation booking when appropriate
 - [ ] Track completion and conversion events
 
 ### GHL integration
 
 - [ ] Define fields, tags, pipeline stages, and consent requirements
-- [ ] Implement server-side lead submission or approved accessible form embed
+- [x] Implement server-side lead submission with validation, consent, spam controls, rate limiting, timeouts, and honest unavailable states
 - [ ] Connect consultation calendar
 - [ ] Connect workshop registration
 - [ ] Verify email and SMS workflows
-- [ ] Add retry, duplicate prevention, spam protection, and failure reporting
+- [ ] Add durable retry and duplicate prevention after the approved GHL workflow and storage policy are supplied
 - [ ] Test every path with non-production test contacts
 
 ### MLS/IDX integration
@@ -112,9 +112,9 @@
 
 ### SEO and analytics
 
-- [ ] Add metadata, canonical URLs, Open Graph, sitemap, and robots rules
-- [ ] Add structured data appropriate to each route
-- [ ] Create local internal-linking architecture
+- [x] Add metadata, canonical URLs, Open Graph, sitemap, and robots rules
+- [x] Add factually supported entity, FAQ, breadcrumb, and local structured data where appropriate
+- [x] Create local internal-linking architecture
 - [ ] Connect GA4, Search Console, and Microsoft Clarity with consent handling where required
 - [ ] Implement event taxonomy for bookings, form submissions, quiz completions, downloads, CTA clicks, property searches, and video engagement
 - [ ] Create launch dashboard

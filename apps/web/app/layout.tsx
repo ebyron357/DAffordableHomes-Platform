@@ -47,11 +47,13 @@ export const metadata: Metadata = {
     description: SITE.description,
     siteName: SITE.name,
     url: SITE.url,
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "D'Affordable Homes — trusted homeownership guidance" }],
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE.name}`,
     description: SITE.description,
+    images: ["/opengraph-image"],
   },
   robots: { index: true, follow: true },
 }
@@ -108,7 +110,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to main content
         </a>
         <SiteHeader />
-        <main id="main-content" className="flex-1">
+        <main id="main-content" className="flex-1" style={{ minHeight: "100vh" }}>
           {children}
         </main>
         <SiteFooter />

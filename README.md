@@ -90,4 +90,6 @@ See [`ARCHITECTURE.md`](ARCHITECTURE.md) for the system boundary and implementat
 
 ## Current status
 
-**Repository foundation in progress.** Governance documentation, production-readiness registers, issue templates, and an initial repository-health workflow are in place. The repository is **not production ready** until the Next.js application, CI quality gates, provider integrations, compliance approvals, accessibility audit, performance evidence, deployment checklist, rollback checklist, and post-release monitoring evidence are complete. See [`docs/12-governance/PRODUCTION_READINESS.md`](docs/12-governance/PRODUCTION_READINESS.md) for the current gate status.
+**Production completion candidate.** The canonical Next.js implementation includes 29 public pages, two secured lead endpoints, calculators, program and Garland content, compliant provider fallbacks, complete canonical/social metadata, automated browser and WCAG checks, and a Lighthouse performance gate. The full local quality gate passes.
+
+Production publication remains blocked by external inputs: verified brokerage and contact facts, legal/compliance approval, GHL and IDX credentials, analytics consent decisions, final manual assistive-technology review, and deployment authorization. See [`docs/12-governance/PRODUCTION_READINESS.md`](docs/12-governance/PRODUCTION_READINESS.md) for the current evidence and exact remaining work.

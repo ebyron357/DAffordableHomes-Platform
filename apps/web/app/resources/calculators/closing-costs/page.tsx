@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Closing Cost Estimator",
   description:
     "Estimate cash needed at closing, including the down payment, closing costs, prepaid items, escrow funding, and known credits.",
+  alternates: { canonical: "/resources/calculators/closing-costs" },
 }
 
 export default function ClosingCostCalculatorPage() {

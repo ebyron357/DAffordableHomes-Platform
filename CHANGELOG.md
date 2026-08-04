@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-08-04 — Canonical production completion candidate
+
+- Preserved the current `main` visual system while completing the contact and consultation lead workflow through server-only configurable webhooks.
+- Added shared validation, consent enforcement, honeypot protection, same-origin checks, rate limiting, bounded payloads, delivery timeouts, and honest unavailable states across public lead endpoints.
+- Completed canonical metadata coverage and added a generated Open Graph/social image.
+- Added all-route browser smoke checks, automated axe WCAG checks, responsive overflow checks, evidence screenshots, and a Lighthouse production gate.
+- Corrected a down-payment CTA contrast defect, a 375 px consultation overflow defect, and homepage layout-shift risk found by the new gates.
+- Reconciled stale production-readiness and technical-debt records while preserving external provider, compliance, manual accessibility, and deployment blockers.
+
 All notable repository changes are documented here.
 
 ## 2026-07-18

@@ -1,4 +1,8 @@
 node_modules/
+.playwright/
+test-results/
+docs/evidence/production-completion/*.png
+docs/evidence/production-completion/*.html
 .next/
 apps/web/next-env.d.ts
 out/

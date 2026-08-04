@@ -144,17 +144,25 @@ export function ResultRow({
   )
 }
 
-export function CalculatorActions({ secondaryHref }: { secondaryHref?: string }) {
+export function CalculatorActions({
+  secondaryHref,
+  surface = "dark",
+}: {
+  secondaryHref?: string
+  surface?: "dark" | "light"
+}) {
+  const onDark = surface === "dark"
+
   return (
     <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-      <Button href="/book" variant="secondary" className="w-full sm:w-auto">
+      <Button href="/book" variant={onDark ? "secondary" : "primary"} className="w-full sm:w-auto">
         Schedule a consultation
       </Button>
       {secondaryHref && (
         <Button
           href={secondaryHref}
           variant="outline"
-          className="w-full border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 sm:w-auto"
+          className={onDark ? "w-full border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 sm:w-auto" : "w-full sm:w-auto"}
         >
           Continue planning
         </Button>

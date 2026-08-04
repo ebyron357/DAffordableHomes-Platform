@@ -330,7 +330,7 @@ export function DownPaymentPlanner() {
           </table>
         </div>
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-          <CalculatorActions secondaryHref="/resources/calculators/closing-costs" />
+          <CalculatorActions secondaryHref="/resources/calculators/closing-costs" surface="light" />
         </div>
         <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
           Planning estimates only. A 20% down payment often removes conventional mortgage insurance, but program rules vary. Lower-down-payment programs may have different insurance structures and eligibility requirements.
