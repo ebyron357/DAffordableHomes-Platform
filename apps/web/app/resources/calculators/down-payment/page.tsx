@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Down Payment Planner",
   description:
     "Compare common down-payment percentages, upfront cash, estimated loan balances, mortgage insurance, and monthly housing costs.",
+  alternates: { canonical: "/resources/calculators/down-payment" },
 }
 
 export default function DownPaymentPlannerPage() {

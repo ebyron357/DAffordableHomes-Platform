@@ -73,3 +73,13 @@ This log is retained as project history. Completed items are not deleted.
 - **Files Changed:** Type-generation scripts and ignore rules, semantic color and focus consumers, repository tests, and controlled visual-system documentation.
 - **Validation:** Utility-level focus overrides use the shared opaque navy boundary and gold halo. Frozen install, clean-checkout `next typegen` and TypeScript, the full root quality gate, direct app-level and root production builds, post-build typecheck, all 12 automated tests, and all 27 routes pass.
 - **Status:** Complete locally; pending remote CI and preview verification.
+
+## ACT-008 — Canonical production completion and evidence gate
+
+- **Priority:** P0 — Production completion
+- **Problem:** The canonical site built successfully, but contact and consultation used a simulated disconnected form; canonical/social metadata coverage was incomplete; browser, automated accessibility, responsive, and performance gates were not executable; and governing records still listed resolved sitemap, robots, and lockfile work as missing.
+- **Plan:** Preserve the remote `main` visual system, inventory only the current implementation, complete server-side lead delivery wiring, finish metadata, add repeatable browser/WCAG/Lighthouse gates, repair only verified defects, capture evidence, and reconcile the living records.
+- **Files Changed:** Lead routes and form, shared lead security/delivery utilities, canonical metadata, Open Graph image, calculator and consultation responsive fixes, test suites, dependency configuration, environment template, screenshots, Lighthouse evidence, and production-readiness records.
+- **Validation:** Strict TypeScript, zero-warning ESLint, 23 automated tests, 37-entry production build, all 29 public routes returning HTTP 200 with required landmarks and no framework overlay, zero serious/critical axe violations, 1440 px and 375 px responsive screenshots, and desktop Lighthouse scores of 100 Performance, 100 Accessibility, 100 Best Practices, and 100 SEO. LCP measured 619 ms, CLS 0, and Total Blocking Time 0 ms.
+- **Status:** Complete locally; remote CI, provider-configured preview, and external launch approvals remain pending.
+- **Next Action:** Commit and push the completion branch, open a pull request, confirm GitHub Actions and the preview deployment, then obtain the external facts, credentials, approvals, and manual accessibility evidence listed in `PRODUCTION_READINESS.md`.

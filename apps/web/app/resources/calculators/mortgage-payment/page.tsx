@@ -3,7 +3,7 @@ import { MortgageCalculator } from "@/components/calculators/homebuyer-calculato
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
 
-export const metadata: Metadata = { title: "Mortgage Payment Calculator", description: "Estimate a monthly housing payment with principal, interest, property taxes, homeowners insurance, mortgage insurance, and HOA costs." }
+export const metadata: Metadata = { title: "Mortgage Payment Calculator", description: "Estimate a monthly housing payment with principal, interest, property taxes, homeowners insurance, mortgage insurance, and HOA costs.", alternates: { canonical: "/resources/calculators/mortgage-payment" } }
 
 export default function MortgagePaymentCalculatorPage() {
   return <>

@@ -13,19 +13,27 @@
     "lint": "npm --workspace apps/web run lint",
     "typecheck": "npm --workspace apps/web run typecheck && npm --workspace @daffordablehomes/integrations run typecheck",
     "test": "node --test tests/static/*.test.mjs",
-    "test:all": "npm run typecheck && npm run lint && npm run test && npm run build"
+    "test:browser": "node tests/browser/smoke.mjs",
+    "test:performance": "node tests/performance/lighthouse.mjs",
+    "test:all": "npm run typecheck && npm run lint && npm run test && npm run build && npm run test:browser && npm run test:performance"
   },
   "engines": {
     "node": "24.x"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
     "@eslint/eslintrc": "^3.3.1",
+    "@playwright/test": "^1.62.1",
+    "@sparticuz/chromium": "^149.0.0",
     "@tailwindcss/postcss": "^4.1.0",
     "@types/node": "^24.0.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "chrome-launcher": "^1.2.1",
     "eslint": "^9.0.0",
     "eslint-config-next": "^16.0.0",
+    "lighthouse": "^13.4.1",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4.1.0",
     "typescript": "^5.9.0"
   },

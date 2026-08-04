@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "Blog & Articles",
   description:
     "Plain-language articles on credit, budgeting, assistance programs, and the homeownership journey — published as they're ready.",
+  alternates: { canonical: "/blog" },
 }
 
 export default function BlogPage() {

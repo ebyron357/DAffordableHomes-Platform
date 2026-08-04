@@ -1,0 +1,77 @@
+{
+  "url": "http://127.0.0.1:3101",
+  "categories": {
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "largestContentfulPaintMs": 620.0550000000001,
+    "cumulativeLayoutShift": 0,
+    "totalBlockingTimeMs": 0
+  },
+  "performanceAudits": [
+    {
+      "id": "first-contentful-paint",
+      "weight": 10,
+      "score": 1,
+      "displayValue": "0.2 s"
+    },
+    {
+      "id": "largest-contentful-paint",
+      "weight": 25,
+      "score": 0.99,
+      "displayValue": "0.6 s"
+    },
+    {
+      "id": "total-blocking-time",
+      "weight": 30,
+      "score": 1,
+      "displayValue": "0 ms"
+    },
+    {
+      "id": "cumulative-layout-shift",
+      "weight": 25,
+      "score": 1,
+      "displayValue": "0"
+    },
+    {
+      "id": "speed-index",
+      "weight": 10,
+      "score": 1,
+      "displayValue": "0.3 s"
+    }
+  ],
+  "layoutShiftItems": [],
+  "failedAudits": [
+    {
+      "id": "unused-javascript",
+      "title": "Reduce unused JavaScript",
+      "score": 0,
+      "displayValue": "Est savings of 28 KiB"
+    },
+    {
+      "id": "lcp-discovery-insight",
+      "title": "LCP request discovery",
+      "score": 0
+    },
+    {
+      "id": "legacy-javascript-insight",
+      "title": "Legacy JavaScript",
+      "score": 0,
+      "displayValue": "Est savings of 14 KiB"
+    },
+    {
+      "id": "network-dependency-tree-insight",
+      "title": "Network dependency tree",
+      "score": 0
+    },
+    {
+      "id": "render-blocking-insight",
+      "title": "Render-blocking requests",
+      "score": 0.5
+    }
+  ],
+  "auditedAt": "2026-08-04T23:03:40.090Z"
+}
