@@ -45,3 +45,31 @@ This log is retained as project history. Completed items are not deleted.
 - **Validation:** Repository Health passed; strict TypeScript, ESLint, formula tests, static tests, and the Next.js production build passed; Vercel preview reached READY; preview deployment logs contained no build errors or error/fatal runtime entries.
 - **Status:** Complete in PR #4
 - **Next Action:** Complete final visual review, merge PR #4, and verify the resulting production deployment before starting the next feature scope.
+## ACT-005 — Approved photography, attribution, and reproducible workspace validation
+
+- Plan: replace the homepage Debra hero with an authentic Black-family image; place the three approved Debra photographs in the homepage trust and About-page contexts; optimize locally; add descriptive alternative text; document provenance and final paths.
+- Affected routes: `/` and `/about`.
+- Image processing boundary: EXIF orientation, proportional resize, WebP compression, and CSS crop positioning only. No generative fill or appearance edits.
+- Root cause resolved: the clone lacked `pnpm-workspace.yaml`, so pnpm walked into an unrelated parent workspace and the earlier npm-based install created a non-canonical dependency tree. The repository now declares its own workspace boundary, package manager, internal workspace dependency, native-build allowlist, and frozen-lockfile CI install.
+- Footer: added the exact “Real Estate Technology by ClientVerse.io” attribution with a visible-focus, underlined link to `https://clientverse.io`.
+- Rollback: revert this commit and remove the four new WebP assets.
+- Validation: `pnpm install --frozen-lockfile`, `pnpm test:all`, and `git diff --check` pass. The complete gate includes TypeScript, zero-warning ESLint, all 11 automated tests (including five calculator formula tests), and a 26-route production build. Browser checks at 375px and desktop widths found no horizontal overflow; all four calculator routes rendered; all four new images loaded through `next/image`; and the footer text/link rendered correctly.
+- **Status:** Complete pending remote CI and preview verification.
+
+## ACT-006 — Figma-first controlled production recovery
+
+- Rejected the prior Fraunces, moving-box hero, icon-card, pill-control, and large navy-panel direction.
+- Created the canonical editable Figma source and implemented only the homepage, navigation, footer, calculator hub, affordability calculator, and consultation page.
+- Preserved all calculator formulas and disclosures; added no financial-data persistence.
+- Added licensed Pexels photo 7114188 and documented provenance, crop, optimization, and alt text in the canonical image register.
+- Validation: strict TypeScript, zero-warning ESLint, 11/11 tests, five calculator formula tests, 27-route production build, `git diff --check`, and browser checks at 375, 430, 768, 1024, and 1440 with zero horizontal overflow.
+- **Status:** Complete locally; pending GitHub Actions and matching Vercel preview verification.
+
+## ACT-007 — Phase 1 repository and brand stabilization
+
+- **Priority:** P0 — Release blocker
+- **Problem:** Clean-checkout typechecking depended on generated Next.js route declarations, the browser theme retained a retired cream, and approved accent/focus colors failed contrast on specific light and navy surfaces.
+- **Plan:** Use `next typegen` before TypeScript validation, leave `next-env.d.ts` under Next.js ownership, correct semantic light/inverse accent and focus tokens, update only affected consultation and calculator labels, and add clean-checkout regression coverage without changing layout or calculator logic.
+- **Files Changed:** Type-generation scripts and ignore rules, semantic color and focus consumers, repository tests, and controlled visual-system documentation.
+- **Validation:** Utility-level focus overrides use the shared opaque navy boundary and gold halo. Frozen install, clean-checkout `next typegen` and TypeScript, the full root quality gate, direct app-level and root production builds, post-build typecheck, all 12 automated tests, and all 27 routes pass.
+- **Status:** Complete locally; pending remote CI and preview verification.

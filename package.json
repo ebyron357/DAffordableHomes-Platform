@@ -2,6 +2,7 @@
   "name": "daffordablehomes-platform",
   "version": "0.2.0",
   "private": true,
+  "packageManager": "pnpm@11.9.0",
   "workspaces": [
     "apps/*",
     "packages/*"

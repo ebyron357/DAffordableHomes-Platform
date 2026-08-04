@@ -1,18 +1,12 @@
 import type { Metadata } from "next"
 import { Hero } from "@/components/home/hero"
-import { Pathways } from "@/components/home/pathways"
-import { FirstTimeEducation } from "@/components/home/first-time-education"
-import { RoadmapPreview } from "@/components/home/roadmap-preview"
-import { ResourcesWorkshops } from "@/components/home/resources-workshops"
 import { AboutDebra } from "@/components/home/about-debra"
-import { TrustProcess } from "@/components/home/trust-process"
-import { FaqPreview } from "@/components/home/faq-preview"
-import { ConsultationCta } from "@/components/home/consultation-cta"
+import { ControlledHomeSections } from "@/components/home/controlled-home-sections"
 import { SITE } from "@/lib/site"
 import { FAQ_PREVIEW } from "@/lib/content/home"
 
 export const metadata: Metadata = {
-  title: "Education-first homeownership guidance",
+  title: "Trusted homeownership guidance",
   description: SITE.description,
   alternates: { canonical: "/" },
 }
@@ -35,14 +29,9 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <Hero />
-      <TrustProcess />
-      <Pathways />
-      <FirstTimeEducation />
-      <RoadmapPreview />
-      <ResourcesWorkshops />
+      <ControlledHomeSections placement="before-debra" />
       <AboutDebra />
-      <FaqPreview />
-      <ConsultationCta />
+      <ControlledHomeSections placement="after-debra" />
     </>
   )
 }

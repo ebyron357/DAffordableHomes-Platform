@@ -6,12 +6,13 @@ export type NavItem = {
 
 /** Primary navigation per PRODUCT_REQUIREMENTS.md §5. */
 export const PRIMARY_NAV: NavItem[] = [
-  { label: "Start Here", href: "/start", description: "Find your next step" },
-  { label: "Learn", href: "/first-time-buyers", description: "Education for first-time buyers" },
-  { label: "Plan", href: "/resources", description: "Tools and resources" },
-  { label: "Explore", href: "/homes", description: "Neighborhoods and homes" },
+  { label: "Home", href: "/" },
+  { label: "Buy a Home", href: "/homes", description: "Search and prepare to buy" },
+  { label: "Homebuyer Resources", href: "/resources", description: "Guides and practical resources" },
+  { label: "Calculators", href: "/resources/calculators", description: "Plan with real numbers" },
+  { label: "Neighborhoods", href: "/neighborhoods", description: "Explore local communities" },
   { label: "Events", href: "/events", description: "Workshops and community events" },
-  { label: "About Debra", href: "/about", description: "Meet your guide" },
+  { label: "About Debra", href: "/about", description: "Meet your homeownership advisor" },
 ]
 
 export const LEARN_LINKS: NavItem[] = [
