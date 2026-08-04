@@ -33,6 +33,7 @@ test('program values and lead-source labels remain normalized', () => {
   assert.match(programs, /Homes for Heroes Landing Page/);
   assert.match(endpoint, /PROGRAM_LEAD_WEBHOOK_URL/);
   assert.match(endpoint, /GHL_PROGRAM_LEAD_WEBHOOK_URL/);
+  assert.match(form, /program === "naca" \? "buying"/);
   assert.match(form, /utm_source/);
   assert.match(form, /utm_medium/);
   assert.match(form, /utm_campaign/);
