@@ -57,7 +57,7 @@ export function ProgramLeadForm({
       desiredZip: getText(formData, "desiredZip"),
       timeline: getText(formData, "timeline"),
       preferredContactMethod: getText(formData, "preferredContactMethod"),
-      intent: getText(formData, "intent"),
+      intent: program === "naca" ? "buying" : getText(formData, "intent"),
       programStage: getText(formData, "programStage"),
       serviceCategory: getText(formData, "serviceCategory"),
       questions: getText(formData, "questions"),
