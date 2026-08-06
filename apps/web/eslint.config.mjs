@@ -18,5 +18,11 @@ export default defineConfig([
       ]
     }
   },
+  {
+    files: ['app/blog/**/page.tsx'],
+    rules: {
+      'react/no-unescaped-entities': 'off'
+    }
+  },
   globalIgnores(['.next/**', 'next-env.d.ts'])
 ]);
