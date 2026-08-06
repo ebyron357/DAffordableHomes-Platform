@@ -30,6 +30,7 @@ test('features include canonical metadata, visible authorship, reviewed dates, a
 });
 
 test('articles route readers to the existing program, local, calculator, and consultation architecture', () => {
+  const layout = readFileSync('apps/web/components/articles/article-feature.tsx', 'utf8');
   const naca = readFileSync('apps/web/app/blog/naca-homebuying-dallas-fort-worth/page.tsx', 'utf8');
   const heroes = readFileSync('apps/web/app/blog/homes-for-heroes-north-texas/page.tsx', 'utf8');
   const garland = readFileSync('apps/web/app/blog/how-to-buy-home-garland-tx/page.tsx', 'utf8');
@@ -40,7 +41,7 @@ test('articles route readers to the existing program, local, calculator, and con
   assert.match(heroes, /\/resources\/calculators\/closing-costs/);
   assert.match(garland, /\/areas\/garland/);
   assert.match(garland, /\/resources\/calculators\/affordability/);
-  assert.match(garland, /\/book/);
+  assert.match(layout, /href="\/book"/);
 });
 
 test('program boundaries remain explicit and unsupported claims remain absent', () => {
