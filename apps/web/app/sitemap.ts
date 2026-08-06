@@ -8,6 +8,9 @@ const routes = [
   "/areas",
   "/areas/garland",
   "/blog",
+  "/blog/naca-homebuying-dallas-fort-worth",
+  "/blog/homes-for-heroes-north-texas",
+  "/blog/how-to-buy-home-garland-tx",
   "/book",
   "/contact",
   "/events",
@@ -37,7 +40,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route) => ({
     url: `${SITE.url}${route}`,
     lastModified,
-    changeFrequency: route.startsWith("/programs") || route.startsWith("/areas") ? "monthly" : "yearly",
-    priority: route === "" ? 1 : route === "/programs" || route === "/areas/garland" ? 0.8 : 0.6,
+    changeFrequency:
+      route.startsWith("/blog") || route.startsWith("/programs") || route.startsWith("/areas")
+        ? "monthly"
+        : "yearly",
+    priority:
+      route === ""
+        ? 1
+        : route === "/blog" || route === "/programs" || route === "/areas/garland"
+          ? 0.8
+          : route.startsWith("/blog/")
+            ? 0.7
+            : 0.6,
   }))
 }
