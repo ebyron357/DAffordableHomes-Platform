@@ -1,5 +1,5 @@
 {
-  "framework": "nextjs",
-  "buildCommand": "npm run test:all",
-  "outputDirectory": "apps/web/.next"
+  "framework": null,
+  "buildCommand": "cd recovered-manus && node build-blog.mjs",
+  "outputDirectory": "recovered-manus"
 }

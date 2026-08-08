@@ -73,3 +73,14 @@ This log is retained as project history. Completed items are not deleted.
 - **Files Changed:** Type-generation scripts and ignore rules, semantic color and focus consumers, repository tests, and controlled visual-system documentation.
 - **Validation:** Utility-level focus overrides use the shared opaque navy boundary and gold halo. Frozen install, clean-checkout `next typegen` and TypeScript, the full root quality gate, direct app-level and root production builds, post-build typecheck, all 12 automated tests, and all 27 routes pass.
 - **Status:** Complete locally; pending remote CI and preview verification.
+
+## ACT-008 — Recover the client-approved Manus site and add editorial routes
+
+- **Priority:** P0 — Client presentation blocker
+- **Problem:** The repository deployment did not match the approved Manus website, and the Manus deployment had no blog routes.
+- **Root Cause:** The Vercel implementation and the client-approved Manus build had diverged and were incorrectly treated as the same visual source.
+- **Files Changed:** `recovered-manus/**`, `vercel.json`, and this action record.
+- **Solution:** Recovered the exact public Manus HTML, production bundle, stylesheet, logo, and five approved photographs without consuming Manus credits. Preserved the working Home, Calculators, Neighborhoods, About, and Consultation experiences. Added a matching resource hub and the complete NACA, Homes for Heroes, and Garland field guides.
+- **Validation:** JavaScript syntax checks pass for the recovered application and article generator. The Manus headline, all six local visual assets, four editorial routes, semantic main landmarks, consultation calls to action, and complete article bodies were verified locally.
+- **Status:** Complete locally; pending the protected preview/production deployment workflow.
+- **Rollback:** Revert this recovery commit to restore the previous Next.js build configuration.

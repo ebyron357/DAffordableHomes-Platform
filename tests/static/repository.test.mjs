@@ -74,7 +74,8 @@ test('clean-checkout typechecking uses Next-managed route declarations', () => {
   assert.equal(existsSync('apps/web/scripts/restore-next-env.mjs'), false);
   assert.match(rootPackage.scripts['test:all'], /(?:^|&&\s*)npm run typecheck(?:\s*&&|$)/);
   assert.match(workflow, /pnpm test:all/);
-  assert.equal(vercel.buildCommand, 'npm run test:all');
+  assert.equal(vercel.buildCommand, 'cd recovered-manus && node build-blog.mjs');
+  assert.equal(vercel.outputDirectory, 'recovered-manus');
 });
 
 test('security headers include CSP and anti-sniffing controls', () => {
