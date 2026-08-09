@@ -62,6 +62,9 @@ test('recovered navigation exposes resources and editorial routes use Debra phot
   ];
 
   assert.match(recoveredApp, /href:"\/blog",label:"Resources"/);
+  assert.match(recoveredApp, /debra-allen-primary-about\.webp/);
+  assert.doesNotMatch(recoveredApp, /debra-portrait_922a2df0\.jpg/);
+  assert.equal(existsSync('recovered-manus/manus-storage/debra-portrait_922a2df0.jpg'), false);
   assert.match(resourceHub, /debra-allen-primary-about\.webp/);
   assert.match(resourceHub, /alt="Debra Allen smiling in a yellow blazer at a kitchen counter"/);
 
