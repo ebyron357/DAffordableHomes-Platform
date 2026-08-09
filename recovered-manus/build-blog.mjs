@@ -43,9 +43,15 @@ const recoveredApp = await readFile(recoveredAppBundle, "utf8");
 if (!recoveredApp.includes(rejectedPortrait) && !recoveredApp.includes(primaryDebraPhoto)) {
   throw new Error("The recovered homepage portrait reference could not be found");
 }
+const interceptedNavigation = 'S=xg(U=>{U.ctrlKey||U.metaKey||U.altKey||U.shiftKey||U.button!==0||(v?.(U),U.defaultPrevented||(U.preventDefault(),f(x,s)))})';
+const nativeBlogNavigation = 'S=xg(U=>{x==="/blog"||U.ctrlKey||U.metaKey||U.altKey||U.shiftKey||U.button!==0||(v?.(U),U.defaultPrevented||(U.preventDefault(),f(x,s)))})';
+if (!recoveredApp.includes(interceptedNavigation) && !recoveredApp.includes(nativeBlogNavigation)) {
+  throw new Error("The recovered application navigation handler could not be found");
+}
 const normalizedApp = recoveredApp
   .replaceAll(rejectedPortrait, primaryDebraPhoto)
-  .replaceAll('label:"Resources"', 'label:"Blogs"');
+  .replaceAll('label:"Resources"', 'label:"Blogs"')
+  .replaceAll(interceptedNavigation, nativeBlogNavigation);
 await writeFile(recoveredAppBundle, normalizedApp);
 await rm(`manus-storage/${rejectedPortrait}`, { force: true });
 
