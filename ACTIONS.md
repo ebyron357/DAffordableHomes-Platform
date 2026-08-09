@@ -85,6 +85,16 @@ This log is retained as project history. Completed items are not deleted.
 - **Status:** Complete locally; pending the protected preview/production deployment workflow.
 - **Rollback:** Revert this recovery commit to restore the previous Next.js build configuration.
 
+## ACT-009 — Unify site navigation and enforce visual release proof
+
+- **Priority:** P0 — Client trust and presentation blocker
+- **Problem:** Core routes labeled the editorial destination “Resources,” while blog and article routes used a different abbreviated header and footer.
+- **Root Cause:** The recovered single-page application and generated editorial pages maintained separate navigation markup, and release checks validated route existence without validating shared visual chrome.
+- **Solution:** Renamed the public destination to “Blogs” everywhere, made every editorial route use the complete desktop/mobile navigation and full production footer, and added automated shared-shell regression tests.
+- **Process Correction:** Updated the publishing standard so implementation, deployment, and public visual verification are separate gates. Future releases require desktop and mobile checks of every changed route after production deployment.
+- **Validation:** The shared-shell and repository test suites pass 10/10 locally. Public visual verification remains required after deployment before the correction may be reported complete.
+- **Status:** Implemented and locally verified; not yet deployed.
+
 ## ACT-009 — Surface editorial routes and approved Debra photography
 
 - **Priority:** P0 — Client presentation blocker

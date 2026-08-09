@@ -170,6 +170,15 @@ An unchecked required item is a blocker, not a future cleanup task.
 - [ ] Feature flags and environment validation behave correctly
 - [ ] Rollback path is documented
 
+### Shared shell and public-deployment verification
+
+- [ ] One canonical header and footer are used across core, resource, blog, and article routes
+- [ ] Navigation labels and destinations match on desktop, mobile, and footer navigation
+- [ ] Automated tests assert the exact approved navigation labels and required public routes
+- [ ] Every changed route is visually checked at desktop and mobile widths before merge
+- [ ] The public production URL is checked after deployment; preview or build success alone is not publication proof
+- [ ] Release reporting distinguishes implemented, deployed, and visually verified status
+
 ## 10. Performance gate
 
 - [ ] Lighthouse Performance is 95 or higher on representative routes
