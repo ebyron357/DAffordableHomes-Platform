@@ -92,9 +92,9 @@ await writeFile("index.html", index);
 // canonical/social metadata, Programs navigation, and consumer/legal notices.
 const editorialSocialImages = {
   "/blog": "debra-allen-primary-about.webp",
-  "/blog/naca-homebuying-dallas-fort-worth": "couple-consultation_25d3a592.jpg",
-  "/blog/homes-for-heroes-north-texas": "hero-family_b1fab939.jpg",
-  "/blog/how-to-buy-home-garland-tx": "home-keys-moment_20083d77.jpg",
+  "/blog/naca-homebuying-dallas-fort-worth": "couple-consultation_25d3a592.webp",
+  "/blog/homes-for-heroes-north-texas": "hero-family_b1fab939.webp",
+  "/blog/how-to-buy-home-garland-tx": "home-keys-moment_20083d77.webp",
 };
 for (const path of ["/blog", "/blog/naca-homebuying-dallas-fort-worth", "/blog/homes-for-heroes-north-texas", "/blog/how-to-buy-home-garland-tx"]) {
   const route = routes.find(([candidate]) => candidate === path);
