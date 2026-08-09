@@ -104,6 +104,16 @@ This log is retained as project history. Completed items are not deleted.
 - **Validation:** Local generator and route tests must pass before deployment; final proof requires clicking Blogs from the public homepage and opening all three article links.
 - **Status:** Implemented locally; pending deployment and public click-through verification.
 
+## ACT-011 — Connect ClientVerse Website Audit & Release Certification System
+
+- **Priority:** P1 — Release governance integration
+- **Problem:** This repository had no connection to the centralized ClientVerse audit engine, so release certification depended entirely on ad hoc, repository-local checks.
+- **Root Cause:** No integration configuration or workflow existed to hand release discovery, testing, findings normalization, repair policy enforcement, verification, and evidence reporting to the central ClientVerse system.
+- **Solution:** Added `qa-config/clientverse-audit.yaml` describing the project, deployment target, critical routes, journeys, and business/compliance review areas, and added `.github/workflows/clientverse-audit.yml`, which triggers on pull requests and manual dispatch, sends the commit SHA, deployment URL, and audit configuration path to the central engine, and fails when the central release gate returns `BLOCKED`. No scanner logic (Playwright, Lighthouse, axe, Lychee, Semgrep) was duplicated locally.
+- **Files Changed:** `qa-config/clientverse-audit.yaml`, `.github/workflows/clientverse-audit.yml`, `docs/12-governance/CI_PLAN.md`, this action record.
+- **Validation:** Validated YAML syntax of both new files, confirmed existing `application-quality.yml` and `repository-health.yml` workflows were untouched, confirmed no secrets or credentials were committed (values are sourced from repository variables/secrets), and confirmed no duplicate audit tooling exists in the repository.
+- **Status:** Complete; activation requires the repository owner to configure the `CLIENTVERSE_ENDPOINT`/`CLIENTVERSE_DEPLOYMENT_URL` variables and `CLIENTVERSE_TOKEN` secret in GitHub.
+
 ## ACT-009 — Surface editorial routes and approved Debra photography
 
 - **Priority:** P0 — Client presentation blocker

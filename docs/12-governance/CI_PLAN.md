@@ -113,6 +113,15 @@ Artifacts must not contain secrets, full form payloads, chat transcripts, or sen
 
 A failed required check blocks merge. Re-running a job is appropriate only for a confirmed transient failure. Do not repeatedly rerun deterministic failures instead of fixing them.
 
+## Centralized ClientVerse audit connection
+
+Discovery, browser/accessibility/performance/security testing, findings normalization, repair policy enforcement, verification, and evidence reporting are owned by the centralized **ClientVerse Website Audit & Release Certification System**, not by this repository. This repository only provides:
+
+- `qa-config/clientverse-audit.yaml` — project-specific audit configuration (critical routes, journeys, and business/compliance review areas) consumed by the central engine.
+- `.github/workflows/clientverse-audit.yml` — an integration workflow that notifies the central engine with the commit SHA, deployment URL, and audit configuration path, and fails the check when the central release gate returns `BLOCKED`.
+
+Configure the `CLIENTVERSE_ENDPOINT` and `CLIENTVERSE_DEPLOYMENT_URL` repository variables and the `CLIENTVERSE_TOKEN` repository secret to activate this connection. The workflow no-ops with a notice until `CLIENTVERSE_ENDPOINT` is set. Do not reintroduce Playwright, Lighthouse, axe, Lychee, Semgrep, or other scanner logic in this repository — extend the central ClientVerse engine instead.
+
 ## Initial implementation sequence
 
 1. scaffold application and lock package manager

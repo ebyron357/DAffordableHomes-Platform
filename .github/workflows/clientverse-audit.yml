@@ -1,0 +1,112 @@
+name: ClientVerse Audit
+
+# Integration layer only. This workflow does not perform discovery, testing,
+# findings normalization, repair policy enforcement, verification, or
+# evidence reporting. All of that logic lives in the centralized ClientVerse
+# Website Audit & Release Certification System. This workflow only notifies
+# that system and enforces its release gate result.
+#
+# Do not add Playwright, Lighthouse, axe, Lychee, Semgrep, or other scanner
+# logic to this file. Project-specific audit configuration lives in
+# qa-config/clientverse-audit.yaml.
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      deployment_url:
+        description: "Deployment URL to audit (e.g. a Vercel preview or production URL)"
+        required: false
+        default: ""
+
+concurrency:
+  group: clientverse-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  trigger-central-audit:
+    name: Trigger centralized ClientVerse audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Resolve deployment URL
+        id: resolve-url
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="${{ github.event.inputs.deployment_url }}"
+          if [ -z "$url" ]; then
+            url="${{ vars.CLIENTVERSE_DEPLOYMENT_URL }}"
+          fi
+          echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Send audit request to ClientVerse
+        id: request-audit
+        if: ${{ vars.CLIENTVERSE_ENDPOINT != '' }}
+        shell: bash
+        env:
+          CLIENTVERSE_ENDPOINT: ${{ vars.CLIENTVERSE_ENDPOINT }}
+          CLIENTVERSE_TOKEN: ${{ secrets.CLIENTVERSE_TOKEN }}
+          COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          DEPLOYMENT_URL: ${{ steps.resolve-url.outputs.deployment_url }}
+          AUDIT_CONFIG_PATH: qa-config/clientverse-audit.yaml
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          response="$(mktemp)"
+          AUTH_HEADER="Authorization: Bearer ${CLIENTVERSE_TOKEN}"
+          status_code="$(curl -sS -o "$response" -w '%{http_code}' \
+            -X POST "$CLIENTVERSE_ENDPOINT" \
+            -H "$AUTH_HEADER" \
+            -H "Content-Type: application/json" \
+            -d @- <<EOF
+          {
+            "repository": "$REPOSITORY",
+            "commit_sha": "$COMMIT_SHA",
+            "deployment_url": "$DEPLOYMENT_URL",
+            "audit_config_path": "$AUDIT_CONFIG_PATH"
+          }
+          EOF
+          )"
+
+          echo "ClientVerse response (HTTP $status_code):"
+          cat "$response"
+
+          if [ "$status_code" -lt 200 ] || [ "$status_code" -ge 300 ]; then
+            echo "ClientVerse audit request failed with HTTP $status_code"
+            exit 1
+          fi
+
+          gate="$(node -e "
+            const fs = require('fs');
+            try {
+              const body = JSON.parse(fs.readFileSync('$response', 'utf8'));
+              console.log(body.release_gate || body.status || 'UNKNOWN');
+            } catch (e) {
+              console.log('UNKNOWN');
+            }
+          ")"
+          echo "release_gate=$gate" >> "$GITHUB_OUTPUT"
+
+      - name: Skip notice when ClientVerse is not yet configured
+        if: ${{ vars.CLIENTVERSE_ENDPOINT == '' }}
+        shell: bash
+        run: |
+          echo "::notice::CLIENTVERSE_ENDPOINT repository variable is not set. Skipping the central audit call. Configure CLIENTVERSE_ENDPOINT (and CLIENTVERSE_TOKEN secret) to enable this integration."
+
+      - name: Enforce ClientVerse release gate
+        if: ${{ vars.CLIENTVERSE_ENDPOINT != '' }}
+        shell: bash
+        env:
+          RELEASE_GATE: ${{ steps.request-audit.outputs.release_gate }}
+        run: |
+          set -euo pipefail
+          echo "ClientVerse release gate: $RELEASE_GATE"
+          if [ "$RELEASE_GATE" = "BLOCKED" ]; then
+            echo "ClientVerse audit release gate is BLOCKED. Failing this check."
+            exit 1
+          fi
