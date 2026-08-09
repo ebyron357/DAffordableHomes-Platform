@@ -11,3 +11,8 @@ dist/
 !.env.example
 .DS_Store
 npm-debug.log*
+
+# Generated into the recovered static deployment from approved source assets.
+recovered-manus/manus-storage/debra-allen-primary-about.webp
+recovered-manus/manus-storage/debra-allen-advisor-desk.webp
+recovered-manus/manus-storage/debra-allen-lifestyle-full-body.webp
