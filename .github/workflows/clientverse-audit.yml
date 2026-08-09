@@ -58,20 +58,21 @@ jobs:
           set -euo pipefail
 
           response="$(mktemp)"
+          payload="$(mktemp)"
           AUTH_HEADER="Authorization: Bearer ${CLIENTVERSE_TOKEN}"
+          jq -n \
+            --arg repository "$REPOSITORY" \
+            --arg commit_sha "$COMMIT_SHA" \
+            --arg deployment_url "$DEPLOYMENT_URL" \
+            --arg audit_config_path "$AUDIT_CONFIG_PATH" \
+            '{repository: $repository, commit_sha: $commit_sha, deployment_url: $deployment_url, audit_config_path: $audit_config_path}' \
+            > "$payload"
+
           status_code="$(curl -sS -o "$response" -w '%{http_code}' \
             -X POST "$CLIENTVERSE_ENDPOINT" \
             -H "$AUTH_HEADER" \
             -H "Content-Type: application/json" \
-            -d @- <<EOF
-          {
-            "repository": "$REPOSITORY",
-            "commit_sha": "$COMMIT_SHA",
-            "deployment_url": "$DEPLOYMENT_URL",
-            "audit_config_path": "$AUDIT_CONFIG_PATH"
-          }
-          EOF
-          )"
+            -d @"$payload")"
 
           echo "ClientVerse response (HTTP $status_code):"
           cat "$response"
@@ -81,10 +82,10 @@ jobs:
             exit 1
           fi
 
-          gate="$(node -e "
+          gate="$(RESPONSE_FILE="$response" node -e "
             const fs = require('fs');
             try {
-              const body = JSON.parse(fs.readFileSync('$response', 'utf8'));
+              const body = JSON.parse(fs.readFileSync(process.env.RESPONSE_FILE, 'utf8'));
               console.log(body.release_gate || body.status || 'UNKNOWN');
             } catch (e) {
               console.log('UNKNOWN');

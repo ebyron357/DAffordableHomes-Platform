@@ -15,6 +15,9 @@ project:
 
 deployment:
   provider: "Vercel"
+  # Intentionally left blank: the ClientVerse workflow resolves the actual
+  # deployment URL at runtime from the CLIENTVERSE_DEPLOYMENT_URL repository
+  # variable or the workflow_dispatch "deployment_url" input.
   url: ""
 
 application:
