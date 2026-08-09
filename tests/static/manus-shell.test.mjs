@@ -22,3 +22,30 @@ test("every generated internal link resolves to a file or explicit SPA rewrite",
   for (const source of html) for (const match of readFileSync(source, "utf8").matchAll(/href="(\/[^"]*)"/g)) { const route = match[1].split(/[?#]/)[0]; if (route.startsWith("//")) continue; const target = route === "/" ? "recovered-manus/index.html" : join("recovered-manus", route, "index.html"); if (!existsSync(target) && !existsSync(join("recovered-manus", route)) && !rewrites.has(route)) missing.push({ source, route }); }
   assert.deepEqual(missing, []);
 });
+test("blog index uses the premium image-led editorial system", () => {
+  const page = readFileSync(file("/blog"), "utf8");
+  for (const marker of ["journal-hero", "journal-principles", "lead-story", "story-grid", "journal-note", "editorial-cta"]) assert.match(page, new RegExp(`class="[^"]*${marker}`));
+  assert.equal((page.match(/class="story-card"/g) || []).length, 2);
+  for (const image of ["debra-allen-primary-about.webp", "couple-consultation_25d3a592.jpg", "hero-family_b1fab939.jpg", "home-keys-moment_20083d77.jpg", "debra-allen-advisor-desk.webp"]) assert.match(page, new RegExp(image.replace(".", "\\.")));
+  assert.doesNotMatch(page, /neighborhood-community_101d8dfe/);
+});
+test("every article has premium editorial structure, meaningful imagery, and authorship", () => {
+  for (const route of staticRoutes.filter((route) => route.startsWith("/blog/"))) {
+    const page = readFileSync(file(route), "utf8");
+    for (const marker of ["article-masthead", "article-meta", "article-hero-media", "article-toc", "article-break", "advisor-rail", "article-related", "editorial-cta"]) assert.match(page, new RegExp(`class="[^"]*${marker}`), `${route}: ${marker}`);
+    assert.match(page, /By Debra Allen, REALTOR®/);
+    assert.match(page, /Reviewed August 9, 2026/);
+    assert.match(page, /<script type="application\/ld\+json">/);
+    assert.ok((page.match(/<img /g) || []).length >= 3, `${route}: expected at least three meaningful images`);
+    const alternatives = [...page.matchAll(/<img [^>]*alt="([^"]*)"[^>]*>/g)].map((image) => image[1].trim()).filter(Boolean);
+    assert.ok(alternatives.length >= 3, `${route}: expected descriptive alternatives for editorial images`);
+    assert.doesNotMatch(page, /neighborhood-community_101d8dfe/);
+  }
+});
+test("editorial CSS includes responsive and reduced-motion treatments", () => {
+  const css = readFileSync("recovered-manus/blog.css", "utf8");
+  for (const selector of [".journal-hero", ".lead-story", ".article-masthead", ".article-layout", ".advisor-rail", ".article-related"]) assert.match(css, new RegExp(selector.replace(".", "\\.")));
+  assert.match(css, /@media\(max-width:820px\)/);
+  assert.match(css, /@media\(max-width:620px\)/);
+  assert.match(css, /@media\(prefers-reduced-motion:reduce\)/);
+});
