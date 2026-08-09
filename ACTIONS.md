@@ -95,6 +95,15 @@ This log is retained as project history. Completed items are not deleted.
 - **Validation:** The first public visual check confirmed the corrected Blogs label and shared editorial shell, then exposed direct-route 404s for core application pages. Root-level Vercel SPA rewrites and a route regression test were added before closeout.
 - **Status:** Header/footer correction deployed; direct-route repair pending deployment and final public verification.
 
+## ACT-010 — Repair Blogs click-through routing
+
+- **Priority:** P0 — Public navigation blocker
+- **Problem:** Direct blog URLs loaded, but selecting “Blogs” from the recovered Manus header or footer produced the application’s internal 404 page.
+- **Root Cause:** The recovered application router intercepted `/blog` even though the editorial pages are static routes outside that router.
+- **Solution:** Exempt `/blog` from client-side interception so the browser performs a normal request to the static blog hub. Added a regression assertion for the navigation-handler behavior.
+- **Validation:** Local generator and route tests must pass before deployment; final proof requires clicking Blogs from the public homepage and opening all three article links.
+- **Status:** Implemented locally; pending deployment and public click-through verification.
+
 ## ACT-009 — Surface editorial routes and approved Debra photography
 
 - **Priority:** P0 — Client presentation blocker
