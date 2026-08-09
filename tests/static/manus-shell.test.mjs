@@ -26,7 +26,7 @@ test("blog index uses the premium image-led editorial system", () => {
   const page = readFileSync(file("/blog"), "utf8");
   for (const marker of ["journal-hero", "journal-principles", "lead-story", "story-grid", "journal-note", "editorial-cta"]) assert.match(page, new RegExp(`class="[^"]*${marker}`));
   assert.equal((page.match(/class="story-card"/g) || []).length, 2);
-  for (const image of ["debra-allen-primary-about.webp", "couple-consultation_25d3a592.jpg", "hero-family_b1fab939.jpg", "home-keys-moment_20083d77.jpg", "debra-allen-advisor-desk.webp"]) assert.match(page, new RegExp(image.replace(".", "\\.")));
+  for (const image of ["debra-allen-primary-about.webp", "couple-consultation_25d3a592.webp", "hero-family_b1fab939.webp", "home-keys-moment_20083d77.webp", "debra-allen-advisor-desk.webp"]) assert.match(page, new RegExp(image.replace(".", "\\.")));
   assert.doesNotMatch(page, /neighborhood-community_101d8dfe/);
 });
 test("every article has premium editorial structure, meaningful imagery, and authorship", () => {
