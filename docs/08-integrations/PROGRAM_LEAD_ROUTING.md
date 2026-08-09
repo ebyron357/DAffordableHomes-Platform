@@ -7,6 +7,7 @@
 - NACA form: `/programs/naca`
 - Homes for Heroes form: `/programs/homes-for-heroes`
 - Server endpoint: `POST /api/leads/program`
+- Recovered public consultation form: `POST /api/consultation`
 
 ## Normalized values
 
@@ -21,8 +22,9 @@ Configure one of the following in Vercel. Do not expose either value through `NE
 
 - `PROGRAM_LEAD_WEBHOOK_URL` — preferred provider-neutral server webhook
 - `GHL_PROGRAM_LEAD_WEBHOOK_URL` — supported alias for a GoHighLevel workflow webhook
+- `LEAD_WEBHOOK_URL` — optional consultation-specific override used by the recovered public site
 
-`PROGRAM_LEAD_WEBHOOK_URL` takes precedence when both are set.
+The recovered public consultation endpoint first uses `LEAD_WEBHOOK_URL`, then falls back to the existing program webhook variables. It can alternatively deliver through Resend when `RESEND_API_KEY` and `LEAD_NOTIFICATION_EMAIL` are configured.
 
 ## Captured fields
 
