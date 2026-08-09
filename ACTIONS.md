@@ -88,10 +88,10 @@ This log is retained as project history. Completed items are not deleted.
 ## ACT-009 — Surface editorial routes and approved Debra photography
 
 - **Priority:** P0 — Client presentation blocker
-- **Problem:** The recovered homepage shell did not link to the new Resources hub, and the four editorial routes did not visibly feature Debra's approved real photography.
-- **Plan:** Add Resources to desktop, mobile, and footer navigation; use the recovered Debra portrait on the hub and every article; align editorial colors with the approved Manus palette; regenerate the static routes; and add regression coverage.
+- **Problem:** The recovered homepage shell did not link to the new Resources hub, and the four editorial routes did not visibly feature Debra's approved real photography. The first correction reused the older Manus portrait instead of the three approved ClientVerse source photographs.
+- **Plan:** Add Resources to desktop, mobile, and footer navigation; copy the three approved Debra photographs into the deployed static output; use distinct approved photos across the hub and articles; align editorial colors with the approved Manus palette; regenerate the static routes; and add regression coverage.
 - **Files Changed:** `recovered-manus/assets/index-BT_aM9Xt.js`, `recovered-manus/build-blog.mjs`, `recovered-manus/blog.css`, generated `recovered-manus/blog/**`, repository tests, and this action record.
-- **Solution:** Connected the recovered shell to `/blog`, placed the approved Debra portrait and descriptive alternative text on the resource hub and all three field guides, and replaced the divergent editorial palette with the approved Manus plum, coral, gold, cream, and ink colors.
-- **Validation:** Generated all four editorial routes, verified Resources in the recovered navigation and footer, verified Debra's portrait on every editorial route, ran JavaScript syntax checks, repository tests, and the root quality gate.
+- **Solution:** Connected the recovered shell to `/blog`; placed the approved kitchen-counter, advisor-desk, and full-body photographs with their registered crop positions and alternative text across the resource hub and three field guides; and replaced the divergent editorial palette with the approved Manus plum, coral, gold, cream, and ink colors.
+- **Validation:** Generated all four editorial routes, verified Resources in the recovered navigation and footer, verified the correct distinct Debra photograph on every editorial route, ran JavaScript syntax checks, repository tests, and the root quality gate.
 - **Status:** Complete locally; pending public Vercel preview and client visual approval.
 - **Rollback:** Revert this commit to restore the PR #11 resource presentation.
