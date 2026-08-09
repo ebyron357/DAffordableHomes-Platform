@@ -45,7 +45,8 @@ if (!recoveredApp.includes(rejectedPortrait) && !recoveredApp.includes(primaryDe
 }
 const interceptedNavigation = 'S=xg(U=>{U.ctrlKey||U.metaKey||U.altKey||U.shiftKey||U.button!==0||(v?.(U),U.defaultPrevented||(U.preventDefault(),f(x,s)))})';
 const nativeBlogNavigation = 'S=xg(U=>{x==="/blog"||U.ctrlKey||U.metaKey||U.altKey||U.shiftKey||U.button!==0||(v?.(U),U.defaultPrevented||(U.preventDefault(),f(x,s)))})';
-if (!recoveredApp.includes(interceptedNavigation) && !recoveredApp.includes(nativeBlogNavigation)) {
+const nativeStaticNavigation = 'S=xg(U=>{x.startsWith("/blog")||x.startsWith("/programs")||x.startsWith("/calculators/")||x==="/areas/garland"||x==="/privacy"||x==="/terms"||x==="/accessibility"||U.ctrlKey||U.metaKey||U.altKey||U.shiftKey||U.button!==0||(v?.(U),U.defaultPrevented||(U.preventDefault(),f(x,s)))})';
+if (!recoveredApp.includes(interceptedNavigation) && !recoveredApp.includes(nativeBlogNavigation) && !recoveredApp.includes(nativeStaticNavigation)) {
   throw new Error("The recovered application navigation handler could not be found");
 }
 const normalizedApp = recoveredApp
@@ -66,3 +67,6 @@ for (const [slug, eyebrow, title, description, photo, photoAlt, photoPosition] o
 const cards = articles.map(([slug, eyebrow, title, description]) => `<article class="card"><p class="eyebrow">${eyebrow}</p><h2>${title}</h2><p>${description}</p><a href="/blog/${slug}">Read the field guide →</a></article>`).join("");
 const blogBody = `<main id="main-content"><section class="hero"><div class="hero-inner debra-intro"><div><p class="eyebrow">HOMEBUYER RESOURCES</p><h1>Clear answers for the decisions ahead.</h1><p>Practical North Texas guidance to help you understand the process, prepare with confidence, and know what to ask next.</p></div><figure class="debra-photo"><img src="/manus-storage/debra-allen-primary-about.webp" alt="Debra Allen smiling in a yellow blazer at a kitchen counter" width="1536" height="1229"><figcaption>Debra Allen, REALTOR®</figcaption></figure></div></section><section class="content" aria-labelledby="guides"><p class="eyebrow">FEATURED GUIDES</p><h2 id="guides" style="font:600 clamp(2rem,4vw,3.5rem)/1.1 'Playfair Display',serif">Start with the question in front of you.</h2><div class="cards">${cards}</div></section></main>`;
 await writeFile("blog/index.html", document("Homebuyer Resources", "Practical North Texas homebuyer field guides from Debra Allen.", blogBody));
+
+// Apply the maintained production-integrity layer after regenerating the recovered shell.
+await import("./production-repair.mjs");
