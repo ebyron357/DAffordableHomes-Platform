@@ -38,3 +38,11 @@ test('every editorial route uses the complete shared navigation and footer', () 
     assert.doesNotMatch(page, />Resources</);
   }
 });
+
+test('Vercel sends every recovered application route to the SPA shell', () => {
+  const vercel = JSON.parse(readFileSync('vercel.json', 'utf8'));
+  const rewrites = new Map(vercel.rewrites.map(({ source, destination }) => [source, destination]));
+  for (const route of ['/calculators', '/calculator', '/neighborhoods', '/about', '/consultation']) {
+    assert.equal(rewrites.get(route), '/index.html', `${route} must resolve through the recovered application shell`);
+  }
+});
