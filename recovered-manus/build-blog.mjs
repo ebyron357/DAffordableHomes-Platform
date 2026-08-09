@@ -1,4 +1,8 @@
-import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+
+const recoveredAppBundle = "assets/index-BT_aM9Xt.js";
+const rejectedPortrait = "debra-portrait_922a2df0.jpg";
+const primaryDebraPhoto = "debra-allen-primary-about.webp";
 const articles = [
   ["naca-homebuying-dallas-fort-worth", "NACA HOMEBUYER FIELD GUIDE", "Using NACA to Buy a Home in Dallas–Fort Worth", "Learn how the NACA homebuying process works, when to begin a DFW home search, and how Debra Allen supports the real-estate side of a purchase.", "debra-allen-primary-about.webp", "Debra Allen smiling in a yellow blazer at a kitchen counter", "48% center"],
   ["homes-for-heroes-north-texas", "COMMUNITY HERO FIELD GUIDE", "Homes for Heroes Guidance in North Texas", "A clear guide for community heroes planning a North Texas purchase, sale, or move—without unsupported promises about eligibility or benefits.", "debra-allen-advisor-desk.webp", "Debra Allen seated at her desk with a tablet", "50% 35%"],
@@ -33,6 +37,13 @@ await mkdir("manus-storage", { recursive: true });
 for (const photo of approvedPhotos) {
   await copyFile(`../apps/web/public/images/${photo}`, `manus-storage/${photo}`);
 }
+
+const recoveredApp = await readFile(recoveredAppBundle, "utf8");
+if (!recoveredApp.includes(rejectedPortrait) && !recoveredApp.includes(primaryDebraPhoto)) {
+  throw new Error("The recovered homepage portrait reference could not be found");
+}
+await writeFile(recoveredAppBundle, recoveredApp.replaceAll(rejectedPortrait, primaryDebraPhoto));
+await rm(`manus-storage/${rejectedPortrait}`, { force: true });
 
 for (const [slug, eyebrow, title, description, photo, photoAlt, photoPosition] of articles) {
   const source = await readFile(`../apps/web/app/blog/${slug}/page.tsx`, "utf8");
