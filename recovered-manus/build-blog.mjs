@@ -12,10 +12,14 @@ const articles = [
     title: "Using NACA to Buy a Home in Dallas–Fort Worth",
     description: "Learn how the NACA homebuying process works, when to begin a DFW home search, and how Debra Allen supports the real-estate side of a purchase.",
     readingTime: "10 MIN READ",
-    hero: "couple-consultation_25d3a592.jpg",
+    hero: "couple-consultation_25d3a592.webp",
+    heroWidth: 1920,
+    heroHeight: 1440,
     heroAlt: "A couple discussing a home purchase with a housing professional",
     heroCaption: "Preparation first. Property search second. Every approval remains with the responsible program and lending professionals.",
     inline: "planning-table.png",
+    inlineWidth: 1024,
+    inlineHeight: 1024,
     inlineAlt: "An open planning notebook beside a pen and coffee",
     inlineCaption: "A clear paper trail and a realistic household budget make every later decision easier.",
     portrait: "debra-allen-primary-about.webp",
@@ -34,10 +38,14 @@ const articles = [
     title: "Homes for Heroes Guidance in North Texas",
     description: "A clear guide for community heroes planning a North Texas purchase, sale, or move—without unsupported promises about eligibility or benefits.",
     readingTime: "9 MIN READ",
-    hero: "hero-family_b1fab939.jpg",
+    hero: "hero-family_b1fab939.webp",
+    heroWidth: 1920,
+    heroHeight: 1080,
     heroAlt: "A family standing together in front of a home",
     heroCaption: "The strongest plan starts with the household—not a label, slogan, or assumed benefit.",
-    inline: "home-keys-moment_20083d77.jpg",
+    inline: "home-keys-moment_20083d77.webp",
+    inlineWidth: 1920,
+    inlineHeight: 1440,
     inlineAlt: "A homeowner holding house keys near the front door",
     inlineCaption: "Verify eligibility, timing, transaction costs, and the complete terms before relying on any benefit.",
     portrait: "debra-allen-advisor-desk.webp",
@@ -56,10 +64,14 @@ const articles = [
     title: "How to Buy a Home in Garland, Texas",
     description: "A step-by-step guide to budgeting, financing, touring, inspections, and closing on a home in Garland.",
     readingTime: "14 MIN READ",
-    hero: "home-keys-moment_20083d77.jpg",
+    hero: "home-keys-moment_20083d77.webp",
+    heroWidth: 1920,
+    heroHeight: 1440,
     heroAlt: "A new homeowner holding house keys at a front door",
     heroCaption: "A Garland purchase should be evaluated one address, one payment, and one inspection at a time.",
     inline: "black-family-home-pexels-7114188.webp",
+    inlineWidth: 1800,
+    inlineHeight: 1200,
     inlineAlt: "A family standing together inside their home",
     inlineCaption: "The right home supports the household’s daily life as well as its monthly budget.",
     portrait: "debra-allen-lifestyle-full-body.webp",
@@ -80,6 +92,9 @@ const copiedPhotos = [
   ["../apps/web/public/images/debra-allen-lifestyle-full-body.webp", "debra-allen-lifestyle-full-body.webp"],
   ["../apps/web/public/images/black-family-home-pexels-7114188.webp", "black-family-home-pexels-7114188.webp"],
   ["../apps/web/public/images/planning-table.png", "planning-table.png"],
+  ["manus-storage/couple-consultation_25d3a592.jpg", "couple-consultation_25d3a592.webp"],
+  ["manus-storage/hero-family_b1fab939.jpg", "hero-family_b1fab939.webp"],
+  ["manus-storage/home-keys-moment_20083d77.jpg", "home-keys-moment_20083d77.webp"],
 ];
 
 const programMenu = `<details class="program-menu"><summary>Programs</summary><div><a href="/programs">All Programs</a><a href="/programs/naca">NACA</a><a href="/programs/homes-for-heroes">Homes for Heroes</a></div></details>`;
@@ -113,7 +128,7 @@ function enrichArticle(html, data) {
     headings.push([id, stripTags(label)]);
     return `<h2 id="${id}">${label}</h2>`;
   });
-  const figure = `<figure class="article-break"><img src="/manus-storage/${data.inline}" alt="${escapeHtml(data.inlineAlt)}" width="1800" height="1200" loading="lazy" decoding="async"><figcaption>${data.inlineCaption}</figcaption></figure>`;
+  const figure = `<figure class="article-break"><img src="/manus-storage/${data.inline}" alt="${escapeHtml(data.inlineAlt)}" width="${data.inlineWidth}" height="${data.inlineHeight}" loading="lazy" decoding="async"><figcaption>${data.inlineCaption}</figcaption></figure>`;
   enriched = enriched.replace("</section>", `</section>${figure}`);
   return { html: enriched, headings: headings.slice(0, 8) };
 }
@@ -155,15 +170,15 @@ for (const data of articles) {
   const source = await readFile(`../apps/web/app/blog/${data.slug}/page.tsx`, "utf8");
   const enriched = enrichArticle(articleBody(source), data);
   const toc = enriched.headings.map(([id, label]) => `<a href="#${id}">${label}</a>`).join("");
-  const body = `<main id="main-content"><article class="editorial"><header class="article-masthead"><div class="article-masthead-inner"><div class="article-headline"><a class="breadcrumb" href="/blog"><span aria-hidden="true">←</span> Homebuyer journal</a><p class="eyebrow">${data.eyebrow}</p><h1>${data.title}</h1><p class="article-dek">${data.description}</p><div class="article-meta"><span>By Debra Allen, REALTOR®</span><span>Reviewed August 9, 2026</span><span>${data.readingTime}</span></div></div><figure class="article-hero-media"><img src="/manus-storage/${data.hero}" alt="${escapeHtml(data.heroAlt)}" width="1920" height="1440" fetchpriority="high"><figcaption>${data.heroCaption}</figcaption></figure></div></header><div class="article-layout"><aside class="article-toc" aria-label="Article contents"><p>IN THIS GUIDE</p>${toc}<a class="toc-consult" href="/consultation">Ask Debra a question <span aria-hidden="true">→</span></a></aside><div class="article-main"><p class="article-accent">${data.accent}</p><div class="article-body">${enriched.html}</div><section class="article-related" aria-labelledby="related-${data.slug}"><p class="eyebrow">KEEP PLANNING</p><h2 id="related-${data.slug}">Useful next steps</h2><div class="related-grid">${relatedCards(data.related)}</div></section></div><aside class="advisor-rail"><figure class="debra-card"><img src="/manus-storage/${data.portrait}" alt="${escapeHtml(data.portraitAlt)}" width="1153" height="1536" loading="lazy" decoding="async" style="object-position:${data.portraitPosition}"><figcaption>Debra Allen, REALTOR®</figcaption></figure><p class="eyebrow">LOCAL GUIDANCE</p><h2>Make the next decision with a clear plan.</h2><p>Bring your stage, questions, and priorities. Debra will help identify the next responsible real-estate step.</p><a class="button" href="/consultation">Book a Free Consultation</a></aside></div><section class="editorial-cta"><div><p class="eyebrow">READY WHEN YOU ARE</p><h2>Your home search deserves more than guesswork.</h2><p>Start with a conversation about the budget, timing, and daily life your next home needs to support.</p></div><a class="button button-light" href="/consultation">Plan with Debra <span aria-hidden="true">→</span></a></section></article></main>`;
+  const body = `<main id="main-content"><article class="editorial"><header class="article-masthead"><div class="article-masthead-inner"><div class="article-headline"><a class="breadcrumb" href="/blog"><span aria-hidden="true">←</span> Homebuyer journal</a><p class="eyebrow">${data.eyebrow}</p><h1>${data.title}</h1><p class="article-dek">${data.description}</p><div class="article-meta"><span>By Debra Allen, REALTOR®</span><span>Reviewed August 9, 2026</span><span>${data.readingTime}</span></div></div><figure class="article-hero-media"><img src="/manus-storage/${data.hero}" alt="${escapeHtml(data.heroAlt)}" width="${data.heroWidth}" height="${data.heroHeight}" fetchpriority="high"><figcaption>${data.heroCaption}</figcaption></figure></div></header><div class="article-layout"><aside class="article-toc" aria-label="Article contents"><p>IN THIS GUIDE</p>${toc}<a class="toc-consult" href="/consultation">Ask Debra a question <span aria-hidden="true">→</span></a></aside><div class="article-main"><p class="article-accent">${data.accent}</p><div class="article-body">${enriched.html}</div><section class="article-related" aria-labelledby="related-${data.slug}"><p class="eyebrow">KEEP PLANNING</p><h2 id="related-${data.slug}">Useful next steps</h2><div class="related-grid">${relatedCards(data.related)}</div></section></div><aside class="advisor-rail"><figure class="debra-card"><img src="/manus-storage/${data.portrait}" alt="${escapeHtml(data.portraitAlt)}" width="1153" height="1536" loading="lazy" decoding="async" style="object-position:${data.portraitPosition}"><figcaption>Debra Allen, REALTOR®</figcaption></figure><p class="eyebrow">LOCAL GUIDANCE</p><h2>Make the next decision with a clear plan.</h2><p>Bring your stage, questions, and priorities. Debra will help identify the next responsible real-estate step.</p><a class="button" href="/consultation">Book a Free Consultation</a></aside></div><section class="editorial-cta"><div><p class="eyebrow">READY WHEN YOU ARE</p><h2>Your home search deserves more than guesswork.</h2><p>Start with a conversation about the budget, timing, and daily life your next home needs to support.</p></div><a class="button button-light" href="/consultation">Plan with Debra <span aria-hidden="true">→</span></a></section></article></main>`;
   const structuredData = `<script type="application/ld+json">${articleSchema(data)}</script>`;
   await mkdir(`blog/${data.slug}`, { recursive: true });
   await writeFile(`blog/${data.slug}/index.html`, document(data.title, data.description, body, structuredData));
 }
 
 const [lead, ...secondary] = articles;
-const leadStory = `<a class="lead-story" href="/blog/${lead.slug}"><figure><img src="/manus-storage/${lead.hero}" alt="${escapeHtml(lead.heroAlt)}" width="1920" height="1440" fetchpriority="high"></figure><div><p class="eyebrow">FEATURED GUIDE · ${lead.readingTime}</p><h2>${lead.title}</h2><p>${lead.description}</p><strong>Read the complete guide <span aria-hidden="true">→</span></strong></div></a>`;
-const secondaryStories = secondary.map((data) => `<a class="story-card" href="/blog/${data.slug}"><figure><img src="/manus-storage/${data.hero}" alt="${escapeHtml(data.heroAlt)}" width="1920" height="1440" loading="lazy" decoding="async"></figure><div><p class="eyebrow">${data.eyebrow} · ${data.readingTime}</p><h2>${data.title}</h2><p>${data.description}</p><strong>Read the field guide <span aria-hidden="true">→</span></strong></div></a>`).join("");
+const leadStory = `<a class="lead-story" href="/blog/${lead.slug}"><figure><img src="/manus-storage/${lead.hero}" alt="${escapeHtml(lead.heroAlt)}" width="${lead.heroWidth}" height="${lead.heroHeight}" fetchpriority="high"></figure><div><p class="eyebrow">FEATURED GUIDE · ${lead.readingTime}</p><h2>${lead.title}</h2><p>${lead.description}</p><strong>Read the complete guide <span aria-hidden="true">→</span></strong></div></a>`;
+const secondaryStories = secondary.map((data) => `<a class="story-card" href="/blog/${data.slug}"><figure><img src="/manus-storage/${data.hero}" alt="${escapeHtml(data.heroAlt)}" width="${data.heroWidth}" height="${data.heroHeight}" loading="lazy" decoding="async"></figure><div><p class="eyebrow">${data.eyebrow} · ${data.readingTime}</p><h2>${data.title}</h2><p>${data.description}</p><strong>Read the field guide <span aria-hidden="true">→</span></strong></div></a>`).join("");
 const blogBody = `<main id="main-content"><section class="journal-hero"><div class="journal-hero-inner"><div><p class="eyebrow">THE D'AFFORDABLE HOMES JOURNAL</p><h1>Homebuyer clarity,<br><em>beautifully explained.</em></h1><p class="journal-dek">Practical North Texas guidance for the decisions that shape your purchase—from choosing a path to evaluating the property in front of you.</p><div class="journal-actions"><a class="button" href="#featured-guides">Explore the guides</a><a class="text-link" href="/consultation">Ask Debra a question <span aria-hidden="true">→</span></a></div></div><figure class="journal-portrait"><img src="/manus-storage/debra-allen-primary-about.webp" alt="Debra Allen smiling in a yellow blazer at a kitchen counter" width="1536" height="1229" fetchpriority="high"><figcaption><strong>Debra Allen</strong><span>REALTOR® · NORTH TEXAS</span></figcaption></figure></div></section><section class="journal-principles" aria-label="Editorial principles"><span>LOCAL CONTEXT</span><span>PLAIN-LANGUAGE ANSWERS</span><span>NO UNSUPPORTED PROMISES</span></section><section class="journal-content" id="featured-guides" aria-labelledby="featured-title"><div class="section-heading"><div><p class="eyebrow">FEATURED FIELD GUIDES</p><h2 id="featured-title">Start with the decision in front of you.</h2></div><p>Each guide separates what is known, what must be verified, and what you can do next.</p></div>${leadStory}<div class="story-grid">${secondaryStories}</div></section><section class="journal-note"><div class="journal-note-copy"><p class="eyebrow">FROM DEBRA'S DESK</p><blockquote>“A confident buyer is not someone who knows everything. It is someone who knows what to verify—and who is responsible for the answer.”</blockquote><p>These resources are educational. Program rules, property facts, financing, insurance, taxes, and eligibility should always be confirmed with the responsible source.</p><a class="text-link" href="/about">Meet Debra Allen <span aria-hidden="true">→</span></a></div><figure><img src="/manus-storage/debra-allen-advisor-desk.webp" alt="Debra Allen seated at her desk with a tablet" width="1153" height="1536" loading="lazy" decoding="async"></figure></section><section class="editorial-cta"><div><p class="eyebrow">YOUR NEXT CHAPTER</p><h2>Turn what you learned into a responsible plan.</h2><p>Talk through your goals, homebuying stage, and North Texas search priorities with Debra.</p></div><a class="button button-light" href="/consultation">Book a Free Consultation <span aria-hidden="true">→</span></a></section></main>`;
 await writeFile("blog/index.html", document("Homebuyer Resources", "Premium, practical North Texas homebuyer field guides from Debra Allen.", blogBody));
 
