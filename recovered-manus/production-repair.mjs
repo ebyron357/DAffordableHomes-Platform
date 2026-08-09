@@ -90,16 +90,23 @@ await writeFile("index.html", index);
 
 // Upgrade the four editorial pages produced by the recovered generator with
 // canonical/social metadata, Programs navigation, and consumer/legal notices.
+const editorialSocialImages = {
+  "/blog": "debra-allen-primary-about.webp",
+  "/blog/naca-homebuying-dallas-fort-worth": "couple-consultation_25d3a592.jpg",
+  "/blog/homes-for-heroes-north-texas": "hero-family_b1fab939.jpg",
+  "/blog/how-to-buy-home-garland-tx": "home-keys-moment_20083d77.jpg",
+};
 for (const path of ["/blog", "/blog/naca-homebuying-dallas-fort-worth", "/blog/homes-for-heroes-north-texas", "/blog/how-to-buy-home-garland-tx"]) {
   const route = routes.find(([candidate]) => candidate === path);
   const file = `${path.slice(1)}/index.html`;
   let html = await readFile(file, "utf8");
   const [, title, description] = route;
-  const social = `<link rel="canonical" href="${origin}${path}"><meta property="og:type" content="article"><meta property="og:url" content="${origin}${path}"><meta property="og:title" content="${esc(title)} — D'Affordable Homes"><meta property="og:description" content="${esc(description)}"><meta property="og:image" content="${origin}/manus-storage/debra-allen-primary-about.webp"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(title)} — D'Affordable Homes"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="${origin}/manus-storage/debra-allen-primary-about.webp">`;
+  const socialImage = `${origin}/manus-storage/${editorialSocialImages[path]}`;
+  const social = `<link rel="canonical" href="${origin}${path}"><meta property="og:type" content="${path === "/blog" ? "website" : "article"}"><meta property="og:url" content="${origin}${path}"><meta property="og:title" content="${esc(title)} — D'Affordable Homes"><meta property="og:description" content="${esc(description)}"><meta property="og:image" content="${socialImage}"><meta property="og:image:alt" content="${esc(title)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(title)} — D'Affordable Homes"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="${socialImage}">`;
   html = html
     .replace("</head>", `${social}</head>`)
-    .replaceAll('<a href="/neighborhoods">Neighborhoods</a><a href="/blog"', '<a href="/neighborhoods">Neighborhoods</a><a href="/programs">Programs</a><a href="/blog"')
-    .replace("</footer>", `<nav class="runtime-legal" aria-label="Legal and consumer notices">${legalLinks}</nav></footer>`);
+    .replaceAll('<a href="/neighborhoods">Neighborhoods</a><a href="/blog"', '<a href="/neighborhoods">Neighborhoods</a><a href="/programs">Programs</a><a href="/blog"');
+  if (!html.includes('class="runtime-legal"')) html = html.replace("</footer>", `<nav class="runtime-legal" aria-label="Legal and consumer notices">${legalLinks}</nav></footer>`);
   await writeFile(file, html);
 }
 
