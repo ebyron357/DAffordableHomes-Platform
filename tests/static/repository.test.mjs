@@ -54,6 +54,7 @@ test('approved photography and ClientVerse attribution remain wired to public pa
 test('recovered navigation exposes resources and editorial routes use Debra photography', () => {
   const recoveredApp = readFileSync('recovered-manus/assets/index-BT_aM9Xt.js', 'utf8');
   const resourceHub = readFileSync('recovered-manus/blog/index.html', 'utf8');
+  const generator = readFileSync('recovered-manus/build-blog.mjs', 'utf8');
   const articleRoutes = [
     'naca-homebuying-dallas-fort-worth',
     'homes-for-heroes-north-texas',
@@ -61,12 +62,24 @@ test('recovered navigation exposes resources and editorial routes use Debra phot
   ];
 
   assert.match(recoveredApp, /href:"\/blog",label:"Resources"/);
-  assert.match(resourceHub, /debra-portrait_922a2df0\.jpg/);
-  assert.match(resourceHub, /alt="Debra Allen, REALTOR® and D'Affordable Homes guide"/);
+  assert.match(resourceHub, /debra-allen-primary-about\.webp/);
+  assert.match(resourceHub, /alt="Debra Allen smiling in a yellow blazer at a kitchen counter"/);
 
-  for (const route of articleRoutes) {
+  const approvedArticlePhotos = [
+    'debra-allen-primary-about.webp',
+    'debra-allen-advisor-desk.webp',
+    'debra-allen-lifestyle-full-body.webp'
+  ];
+
+  assert.match(generator, /copyFile/);
+  for (const photo of approvedArticlePhotos) {
+    assert.match(generator, new RegExp(photo.replace('.', '\\.')));
+  }
+
+  for (const [index, route] of articleRoutes.entries()) {
     const article = readFileSync(`recovered-manus/blog/${route}/index.html`, 'utf8');
-    assert.match(article, /debra-portrait_922a2df0\.jpg/);
+    assert.match(article, new RegExp(approvedArticlePhotos[index].replace('.', '\\.')));
+    assert.doesNotMatch(article, /debra-portrait_922a2df0\.jpg/);
     assert.match(article, /href="\/blog"/);
   }
 });
