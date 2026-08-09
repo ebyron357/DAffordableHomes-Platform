@@ -90,4 +90,6 @@ See [`ARCHITECTURE.md`](ARCHITECTURE.md) for the system boundary and implementat
 
 ## Current status
 
-**Repository foundation in progress.** Governance documentation, production-readiness registers, issue templates, and an initial repository-health workflow are in place. The repository is **not production ready** until the Next.js application, CI quality gates, provider integrations, compliance approvals, accessibility audit, performance evidence, deployment checklist, rollback checklist, and post-release monitoring evidence are complete. See [`docs/12-governance/PRODUCTION_READINESS.md`](docs/12-governance/PRODUCTION_READINESS.md) for the current gate status.
+**Website completion candidate.** The governed Next.js application includes the core site, calculators, six buyer-program routes, six buyer-resource guides, ten North Texas city guides, legal and trust routes, SEO/AEO/GEO foundations, error states, CI quality gates, and honest unavailable-provider behavior. Strict TypeScript, zero-warning lint, 20 automated tests, and the 56-route production build pass locally.
+
+Production launch remains blocked until Debra's verified brokerage, Texas license, public contact information, and completed IABS notice are supplied; client and brokerage compliance approval is recorded; and preview-based visual, accessibility, and Lighthouse evidence passes. CRM and MLS/IDX integration are outside the 2026-08-04 website completion scope. See [`docs/12-governance/PRODUCTION_READINESS.md`](docs/12-governance/PRODUCTION_READINESS.md) for the current gate status.

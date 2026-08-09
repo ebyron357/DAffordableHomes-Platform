@@ -2,6 +2,17 @@
 
 All notable repository changes are documented here.
 
+## 2026-08-04
+
+- Added complete FHA, VA, USDA, conventional, NACA, and Homes for Heroes education routes using the existing program-page system.
+- Added complete buyer guides for first-time buyers, credit improvement, down payment assistance, homeownership readiness, the Texas closing process, and common questions.
+- Added differentiated Dallas, Garland, Mesquite, Richardson, Plano, Sachse, Rowlett, Forney, Rockwall, and Wylie guides with neutral neighborhood research, school-boundary verification, affordability planning, market context, buying tips, FAQs, and official links.
+- Expanded Article, FAQ, Breadcrumb, Organization, LocalBusiness, and RealEstateAgent structured data plus canonical, Open Graph, Twitter, sitemap, robots, and web-manifest coverage.
+- Added optional GA4, Google Search Console, and Bing verification wiring that remains inactive without approved environment values.
+- Expanded privacy and terms content, added Texas brokerage consumer information, and preserved honest blockers for missing brokerage, license, contact, and completed IABS facts.
+- Added a global error page, Escape-key mobile menu behavior, completion regression tests, and an updated production-readiness record.
+- Passed strict TypeScript, zero-warning ESLint, 20 automated tests, and a 56-route optimized production build.
+
 ## 2026-07-18
 
 - Added a shared calculation engine for mortgage payment, affordability, cash-to-close, and down-payment scenario planning.

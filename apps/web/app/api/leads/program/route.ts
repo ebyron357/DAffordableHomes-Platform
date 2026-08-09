@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server"
 import type { ProgramSlug } from "@/lib/programs"
 
-const ALLOWED_PROGRAMS = new Set<ProgramSlug>(["naca", "homes-for-heroes"])
+const ALLOWED_PROGRAMS = new Set<ProgramSlug>(["fha", "va", "usda", "conventional", "naca", "homes-for-heroes"])
 const SOURCE_BY_PROGRAM: Record<ProgramSlug, string> = {
+  fha: "FHA Program Page",
+  va: "VA Program Page",
+  usda: "USDA Program Page",
+  conventional: "Conventional Program Page",
   naca: "NACA Landing Page",
   "homes-for-heroes": "Homes for Heroes Landing Page",
 }

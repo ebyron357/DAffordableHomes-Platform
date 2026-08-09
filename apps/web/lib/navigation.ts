@@ -8,7 +8,7 @@ export type NavItem = {
 export const PRIMARY_NAV: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Buy a Home", href: "/homes", description: "Search and prepare to buy" },
-  { label: "Programs", href: "/programs", description: "NACA and Homes for Heroes guidance" },
+  { label: "Programs", href: "/programs", description: "FHA, VA, USDA, conventional, NACA, and hero guidance" },
   { label: "Homebuyer Resources", href: "/resources", description: "Guides and practical resources" },
   { label: "Calculators", href: "/resources/calculators", description: "Plan with real numbers" },
   { label: "Neighborhoods", href: "/neighborhoods", description: "Explore local communities" },
@@ -48,4 +48,5 @@ export const LEGAL_NAV: NavItem[] = [
   { label: "Accessibility Statement", href: "/accessibility" },
   { label: "Fair Housing", href: "/fair-housing" },
   { label: "Equal Housing Opportunity", href: "/equal-housing-opportunity" },
+  { label: "Texas Brokerage Information", href: "/texas-brokerage-information" },
 ]

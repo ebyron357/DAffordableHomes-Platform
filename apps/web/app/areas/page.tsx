@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
+import { AREA_LIST } from "@/lib/areas"
 
 export const metadata: Metadata = {
   title: "North Texas Homebuyer Area Guides",
@@ -24,18 +25,15 @@ export default function AreasPage() {
 
       <section className="py-14 md:py-20">
         <Container>
-          <article className="grid gap-7 border border-border bg-card p-7 md:grid-cols-[1fr_auto] md:items-center md:p-10">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">Primary local-content market</p>
-              <h2 className="mt-3 font-serif text-3xl font-normal">Garland, Texas</h2>
-              <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">A practical guide to defining a Garland home search, recognizing common North Texas housing patterns, preparing for property evaluation, and connecting buyer programs with the real-estate process.</p>
-            </div>
-            <Button href="/areas/garland">Explore Garland</Button>
-          </article>
-
-          <div className="mt-10 border-l-4 border-brand-gold bg-muted p-6">
-            <h2 className="font-sans text-lg font-semibold">Future area pages require verification and original content</h2>
-            <p className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">Dallas and other North Texas communities can be added after service coverage and content inputs are verified. The architecture intentionally avoids publishing dozens of near-identical doorway pages.</p>
+          <div className="grid gap-6 md:grid-cols-2">
+            {AREA_LIST.map((area) => (
+              <article key={area.slug} className="flex flex-col border border-border bg-card p-7 md:p-8">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">{area.countyContext}</p>
+                <h2 className="mt-3 font-serif text-3xl font-normal">{area.city}, Texas</h2>
+                <p className="mt-4 flex-1 leading-7 text-muted-foreground">{area.overview}</p>
+                <div className="mt-6"><Button href={`/areas/${area.slug}`}>Explore {area.city}</Button></div>
+              </article>
+            ))}
           </div>
         </Container>
       </section>

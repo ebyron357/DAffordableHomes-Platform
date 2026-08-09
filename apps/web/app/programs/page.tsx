@@ -19,9 +19,9 @@ export const metadata: Metadata = {
   },
 }
 
-const futurePrograms = [
+const programTopics = [
   "First-Time Homebuyer Assistance",
-  "VA Homebuyers",
+  "VA Homebuyers and Veterans",
   "Down Payment Assistance",
   "FHA Buyers",
   "USDA Buyers",
@@ -98,11 +98,11 @@ export default function ProgramsPage() {
       <section className="border-y border-border bg-muted/50 py-14" aria-labelledby="future-programs-heading">
         <Container className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <h2 id="future-programs-heading" className="font-serif text-3xl font-normal">Built to support future programs</h2>
-            <p className="mt-4 leading-7 text-muted-foreground">The shared program-page system can add future offerings without copying entire landing pages or creating disconnected microsites.</p>
+            <h2 id="future-programs-heading" className="font-serif text-3xl font-normal">Questions these guides help you prepare</h2>
+            <p className="mt-4 leading-7 text-muted-foreground">Program rules change. These guides help you organize the right questions while official agencies, programs, and lenders provide current eligibility and financing decisions.</p>
           </div>
           <ul className="grid gap-3 sm:grid-cols-2">
-            {futurePrograms.map((program) => <li key={program} className="border-b border-border py-3 text-sm font-medium">{program}</li>)}
+            {programTopics.map((program) => <li key={program} className="border-b border-border py-3 text-sm font-medium">{program}</li>)}
           </ul>
         </Container>
       </section>

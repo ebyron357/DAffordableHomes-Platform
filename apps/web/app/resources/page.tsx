@@ -58,10 +58,12 @@ const groups = [
 ]
 
 const guideLinks = [
-  { label: "First-Time Buyer Guide", href: "/first-time-buyers" },
-  { label: "NACA Education", href: "/naca" },
-  { label: "Frequently Asked Questions", href: "/faq" },
-  { label: "Find Your Next Step", href: "/start" },
+  { label: "First-Time Homebuyer Guide", href: "/resources/first-time-home-buyers" },
+  { label: "Credit Improvement", href: "/resources/credit-improvement" },
+  { label: "Down Payment Assistance", href: "/resources/down-payment-assistance" },
+  { label: "Homeownership Readiness", href: "/resources/homeownership-readiness" },
+  { label: "Closing Process", href: "/resources/closing-process" },
+  { label: "Homebuyer FAQ", href: "/resources/faq" },
 ]
 
 export default function ResourcesPage() {

@@ -35,14 +35,14 @@
 
 ### Engineering foundation
 
-- [ ] Initialize Next.js App Router application with TypeScript strict mode
-- [ ] Configure Tailwind CSS and semantic design tokens
-- [ ] Add linting, formatting, type checking, unit tests, browser tests, and accessibility tests
-- [ ] Configure GitHub Actions build and quality checks
-- [ ] Configure Vercel preview deployments
+- [x] Initialize Next.js App Router application with TypeScript strict mode
+- [x] Configure Tailwind CSS and semantic design tokens
+- [ ] Add linting, formatting, type checking, unit tests, browser tests, and accessibility tests (lint, typecheck, formula, static, and build tests pass; browser and automated accessibility suites remain)
+- [x] Configure GitHub Actions build and quality checks
+- [x] Configure Vercel preview deployments
 - [ ] Add environment validation with no public exposure of server credentials
-- [ ] Add secure headers and initial Content Security Policy
-- [ ] Add error, loading, not-found, and maintenance states
+- [x] Add secure headers and initial Content Security Policy
+- [x] Add error, loading, not-found, and provider-unavailable states
 
 ### Design system
 
@@ -55,23 +55,24 @@
 
 ### Core routes
 
-- [ ] Home
-- [ ] About Debra
-- [ ] First-Time Buyers
-- [ ] NACA education
-- [ ] Resources
+- [x] Home
+- [x] About Debra
+- [x] First-Time Buyers
+- [x] FHA, VA, USDA, conventional, NACA, and Homes for Heroes education
+- [x] Resources
 - [ ] Blog and article template
-- [ ] Neighborhood Guides and guide template
+- [x] North Texas city guides and reusable guide template
 - [ ] Featured Listings or property-search entry point
 - [ ] Events and Workshops
-- [ ] Testimonials and success stories
-- [ ] FAQ
-- [ ] Contact and consultation booking
-- [ ] Privacy Policy
-- [ ] Terms of Use
-- [ ] Accessibility Statement
-- [ ] Fair Housing Statement
-- [ ] Equal Housing Opportunity information
+- [x] Testimonials route with verified-content guardrail
+- [x] FAQ
+- [x] Contact and consultation routes with honest provider-unavailable state
+- [x] Privacy Policy
+- [x] Terms of Use
+- [x] Accessibility Statement
+- [x] Fair Housing Statement
+- [x] Equal Housing Opportunity information
+- [x] Texas brokerage consumer-information route
 
 ### Signature experience
 
@@ -103,18 +104,18 @@
 
 ### Content and local authority
 
-- [ ] Build initial educational content library
-- [ ] Publish buyer journey and process content
-- [ ] Publish locally relevant neighborhood and market content using verified facts
+- [x] Build initial educational content library
+- [x] Publish buyer journey and process content
+- [x] Publish locally relevant city and market-planning content using verified or clearly bounded facts
 - [ ] Add workshop and community content
 - [ ] Add video transcript and caption workflow
 - [ ] Add accessible downloadable-resource workflow
 
 ### SEO and analytics
 
-- [ ] Add metadata, canonical URLs, Open Graph, sitemap, and robots rules
-- [ ] Add structured data appropriate to each route
-- [ ] Create local internal-linking architecture
+- [x] Add metadata, canonical URLs, Open Graph, sitemap, and robots rules
+- [x] Add structured data appropriate to city, program, resource, and entity routes
+- [x] Create local internal-linking architecture
 - [ ] Connect GA4, Search Console, and Microsoft Clarity with consent handling where required
 - [ ] Implement event taxonomy for bookings, form submissions, quiz completions, downloads, CTA clicks, property searches, and video engagement
 - [ ] Create launch dashboard

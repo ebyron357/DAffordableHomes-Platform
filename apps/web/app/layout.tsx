@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next"
 import { Inter, Source_Serif_4 } from "next/font/google"
 import { SiteHeader } from "@/components/layout/site-header"
 import { SiteFooter } from "@/components/layout/site-footer"
+import { SiteAnalytics } from "@/components/analytics/site-analytics"
 import { SITE } from "@/lib/site"
 import "./globals.css"
 
@@ -24,6 +25,7 @@ export const metadata: Metadata = {
     template: `%s — ${SITE.name}`,
   },
   description: SITE.description,
+  alternates: { canonical: "/" },
   applicationName: SITE.name,
   keywords: [
     "first-time home buyer education",
@@ -47,11 +49,17 @@ export const metadata: Metadata = {
     description: SITE.description,
     siteName: SITE.name,
     url: SITE.url,
+    images: [{ url: "/images/black-family-home-pexels-7114188.webp", width: 1200, height: 800, alt: "A family outside their home" }],
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE.name}`,
     description: SITE.description,
+    images: ["/images/black-family-home-pexels-7114188.webp"],
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION } : undefined,
   },
   robots: { index: true, follow: true },
 }
@@ -75,7 +83,7 @@ const entityGraph = {
       publisher: { "@id": `${SITE.url}/#organization` },
     },
     {
-      "@type": "Organization",
+      "@type": ["Organization", "LocalBusiness", "RealEstateAgent"],
       "@id": `${SITE.url}/#organization`,
       name: SITE.name,
       url: SITE.url,
@@ -112,6 +120,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <SiteFooter />
+        <SiteAnalytics />
       </body>
     </html>
   )

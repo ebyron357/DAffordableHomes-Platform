@@ -7,7 +7,8 @@ const requiredProgramFiles = [
   'apps/web/app/programs/naca/page.tsx',
   'apps/web/app/programs/homes-for-heroes/page.tsx',
   'apps/web/app/areas/page.tsx',
-  'apps/web/app/areas/garland/page.tsx',
+  'apps/web/app/areas/[slug]/page.tsx',
+  'apps/web/lib/areas.ts',
   'apps/web/app/api/leads/program/route.ts',
   'apps/web/components/programs/program-page.tsx',
   'apps/web/components/programs/program-lead-form.tsx',
@@ -28,12 +29,12 @@ test('program values and lead-source labels remain normalized', () => {
   const endpoint = readFileSync('apps/web/app/api/leads/program/route.ts', 'utf8');
   const form = readFileSync('apps/web/components/programs/program-lead-form.tsx', 'utf8');
 
-  assert.match(programs, /type ProgramSlug = "naca" \| "homes-for-heroes"/);
+  assert.match(programs, /"fha" \| "va" \| "usda" \| "conventional" \| "naca" \| "homes-for-heroes"/);
   assert.match(programs, /NACA Landing Page/);
   assert.match(programs, /Homes for Heroes Landing Page/);
   assert.match(endpoint, /PROGRAM_LEAD_WEBHOOK_URL/);
   assert.match(endpoint, /GHL_PROGRAM_LEAD_WEBHOOK_URL/);
-  assert.match(form, /program === "naca" \? "buying"/);
+  assert.match(form, /program === "homes-for-heroes" \? getText\(formData, "intent"\) : "buying"/);
   assert.match(form, /utm_source/);
   assert.match(form, /utm_medium/);
   assert.match(form, /utm_campaign/);
@@ -73,7 +74,7 @@ test('navigation, homepage, redirect, sitemap, and robots integrate the new rout
   assert.match(homepage, /\/programs\/naca/);
   assert.match(homepage, /\/programs\/homes-for-heroes/);
   assert.match(legacyNaca, /permanentRedirect\("\/programs\/naca"\)/);
-  assert.match(sitemap, /\/areas\/garland/);
-  assert.match(sitemap, /\/programs\/homes-for-heroes/);
+  assert.match(sitemap, /AREA_LIST/);
+  assert.match(sitemap, /PROGRAM_CARDS/);
   assert.match(robots, /sitemap\.xml/);
 });
