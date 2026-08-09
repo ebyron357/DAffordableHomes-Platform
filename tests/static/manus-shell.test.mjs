@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { join } from "node:path";
 import test from "node:test";
 
 const spa = ["/calculators", "/calculator", "/neighborhoods", "/about", "/consultation"];
@@ -12,3 +13,12 @@ test("static pages include SEO, navigation, and legal notices", () => { for (con
 test("Vercel rewrites only SPA routes", () => { const v = JSON.parse(readFileSync("vercel.json", "utf8")); const r = new Map(v.rewrites.map((x) => [x.source, x.destination])); for (const route of spa) assert.equal(r.get(route), "/index.html"); for (const route of staticRoutes) assert.ok(!r.has(route)); });
 test("sitemap and robots cover key routes", () => { const s = readFileSync("recovered-manus/sitemap.xml", "utf8"), r = readFileSync("recovered-manus/robots.txt", "utf8"); assert.match(r, /Sitemap: https:\/\/daffordablehomes-platform\.vercel\.app\/sitemap\.xml/); for (const route of ["/programs/naca", "/areas/garland", "/blog/how-to-buy-home-garland-tx", "/privacy"]) assert.match(s, new RegExp(route.replaceAll("/", "\\/"))); });
 test("consultation API reuses production delivery configuration and fails closed", () => { const a = readFileSync("api/consultation.js", "utf8"); for (const env of ["LEAD_WEBHOOK_URL", "PROGRAM_LEAD_WEBHOOK_URL", "GHL_PROGRAM_LEAD_WEBHOOK_URL"]) assert.match(a, new RegExp(env)); assert.match(a, /status\(503\)/); assert.match(a, /AbortSignal\.timeout\(8_000\)/); });
+test("every generated internal link resolves to a file or explicit SPA rewrite", () => {
+  const html = [];
+  const walk = (directory) => { for (const entry of readdirSync(directory, { withFileTypes: true })) { const path = join(directory, entry.name); if (entry.isDirectory()) walk(path); else if (entry.name.endsWith(".html")) html.push(path); } };
+  walk("recovered-manus");
+  const rewrites = new Set(JSON.parse(readFileSync("vercel.json", "utf8")).rewrites.map(({ source }) => source));
+  const missing = [];
+  for (const source of html) for (const match of readFileSync(source, "utf8").matchAll(/href="(\/[^"]*)"/g)) { const route = match[1].split(/[?#]/)[0]; if (route.startsWith("//")) continue; const target = route === "/" ? "recovered-manus/index.html" : join("recovered-manus", route, "index.html"); if (!existsSync(target) && !existsSync(join("recovered-manus", route)) && !rewrites.has(route)) missing.push({ source, route }); }
+  assert.deepEqual(missing, []);
+});
