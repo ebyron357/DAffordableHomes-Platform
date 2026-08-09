@@ -51,6 +51,26 @@ test('approved photography and ClientVerse attribution remain wired to public pa
   assert.match(footer, /https:\/\/clientverse\.io/);
 });
 
+test('recovered navigation exposes resources and editorial routes use Debra photography', () => {
+  const recoveredApp = readFileSync('recovered-manus/assets/index-BT_aM9Xt.js', 'utf8');
+  const resourceHub = readFileSync('recovered-manus/blog/index.html', 'utf8');
+  const articleRoutes = [
+    'naca-homebuying-dallas-fort-worth',
+    'homes-for-heroes-north-texas',
+    'how-to-buy-home-garland-tx'
+  ];
+
+  assert.match(recoveredApp, /href:"\/blog",label:"Resources"/);
+  assert.match(resourceHub, /debra-portrait_922a2df0\.jpg/);
+  assert.match(resourceHub, /alt="Debra Allen, REALTOR® and D'Affordable Homes guide"/);
+
+  for (const route of articleRoutes) {
+    const article = readFileSync(`recovered-manus/blog/${route}/index.html`, 'utf8');
+    assert.match(article, /debra-portrait_922a2df0\.jpg/);
+    assert.match(article, /href="\/blog"/);
+  }
+});
+
 test('application shell includes core accessibility landmarks', () => {
   const layout = readFileSync('apps/web/app/layout.tsx', 'utf8');
   const header = readFileSync('apps/web/components/layout/site-header.tsx', 'utf8');
