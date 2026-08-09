@@ -51,7 +51,7 @@ test('approved photography and ClientVerse attribution remain wired to public pa
   assert.match(footer, /https:\/\/clientverse\.io/);
 });
 
-test('recovered navigation exposes resources and editorial routes use Debra photography', () => {
+test('recovered navigation exposes Blogs and editorial routes use Debra photography', () => {
   const recoveredApp = readFileSync('recovered-manus/assets/index-BT_aM9Xt.js', 'utf8');
   const resourceHub = readFileSync('recovered-manus/blog/index.html', 'utf8');
   const generator = readFileSync('recovered-manus/build-blog.mjs', 'utf8');
@@ -61,7 +61,8 @@ test('recovered navigation exposes resources and editorial routes use Debra phot
     'how-to-buy-home-garland-tx'
   ];
 
-  assert.match(recoveredApp, /href:"\/blog",label:"Resources"/);
+  assert.match(recoveredApp, /href:"\/blog",label:"Blogs"/);
+  assert.doesNotMatch(recoveredApp, /href:"\/blog",label:"Resources"/);
   assert.match(recoveredApp, /debra-allen-primary-about\.webp/);
   assert.doesNotMatch(recoveredApp, /debra-portrait_922a2df0\.jpg/);
   assert.equal(existsSync('recovered-manus/manus-storage/debra-portrait_922a2df0.jpg'), false);

@@ -15,8 +15,9 @@ const approvedPhotos = [
   "debra-allen-lifestyle-full-body.webp",
 ];
 
-const header = `<a class="skip" href="#main-content">Skip to main content</a><header class="site-header"><div class="nav"><a class="brand" href="/"><img src="/manus-storage/dah-logo_ff042b7b.png" alt="D'Affordable Homes"></a><nav aria-label="Primary"><a href="/">Home</a><a href="/calculators">Calculators</a><a href="/neighborhoods">Neighborhoods</a><a href="/blog">Resources</a><a href="/about">About Debra</a><a class="button" href="/consultation">Book Consultation</a></nav></div></header>`;
-const footer = `<footer class="site-footer"><div><strong>D'Affordable Homes</strong><p>Real guidance, plain language, and someone in your corner.</p></div></footer>`;
+const primaryLinks = `<a href="/">Home</a><a href="/calculators">Calculators</a><a href="/neighborhoods">Neighborhoods</a><a href="/blog" aria-current="page">Blogs</a><a href="/about">About Debra</a>`;
+const header = `<a class="skip" href="#main-content">Skip to main content</a><header class="site-header"><div class="nav"><a class="brand" href="/" aria-label="D'Affordable Homes — Home"><img src="/manus-storage/dah-logo_ff042b7b.png" alt=""><span><strong>D'Affordable</strong><small>Homes</small></span></a><nav class="desktop-nav" aria-label="Primary">${primaryLinks}<a class="button" href="/consultation">Book Consultation</a></nav><details class="mobile-nav"><summary aria-label="Open navigation">Menu</summary><nav aria-label="Mobile navigation">${primaryLinks}<a class="button" href="/consultation">Book Consultation</a></nav></details></div></header>`;
+const footer = `<footer class="site-footer"><div class="footer-grid"><section><h2>D'Affordable Homes</h2><p>Real guidance for first-time buyers and families ready to own their future.</p></section><nav aria-label="Footer"><h2>Navigate</h2>${primaryLinks}<a href="/consultation">Book Consultation</a></nav><section><h2>Ready to start?</h2><p>Your first consultation is free. Let's talk.</p><a class="button" href="/consultation">Book a Free Session</a></section></div><div class="footer-bottom"><span>© 2026 D'Affordable Homes. All rights reserved.</span><span>Guidance for first-time buyers &amp; families</span></div></footer>`;
 const document = (title, description, body) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title} — D'Affordable Homes</title><meta name="description" content="${description.replaceAll('"', '&quot;')}"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet"><link rel="stylesheet" href="/blog.css"></head><body>${header}${body}${footer}</body></html>`;
 
 function articleBody(source) {
@@ -42,7 +43,10 @@ const recoveredApp = await readFile(recoveredAppBundle, "utf8");
 if (!recoveredApp.includes(rejectedPortrait) && !recoveredApp.includes(primaryDebraPhoto)) {
   throw new Error("The recovered homepage portrait reference could not be found");
 }
-await writeFile(recoveredAppBundle, recoveredApp.replaceAll(rejectedPortrait, primaryDebraPhoto));
+const normalizedApp = recoveredApp
+  .replaceAll(rejectedPortrait, primaryDebraPhoto)
+  .replaceAll('label:"Resources"', 'label:"Blogs"');
+await writeFile(recoveredAppBundle, normalizedApp);
 await rm(`manus-storage/${rejectedPortrait}`, { force: true });
 
 for (const [slug, eyebrow, title, description, photo, photoAlt, photoPosition] of articles) {
