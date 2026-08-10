@@ -38,10 +38,10 @@ test('articles route readers to the existing program, local, calculator, and con
   assert.match(naca, /\/programs\/naca/);
   assert.match(naca, /\/areas\/garland/);
   assert.match(heroes, /\/programs\/homes-for-heroes/);
-  assert.match(heroes, /\/resources\/calculators\/closing-costs/);
+  assert.match(heroes, /\/resources\/calculators\/closing-costs|\/calculators\/closing-costs/);
   assert.match(garland, /\/areas\/garland/);
-  assert.match(garland, /\/resources\/calculators\/affordability/);
-  assert.match(layout, /href="\/book"/);
+  assert.match(garland, /\/resources\/calculators\/affordability|\/calculators\/affordability/);
+  assert.match(layout, /href="\/consultation"/);
 });
 
 test('program boundaries remain explicit and unsupported claims remain absent', () => {

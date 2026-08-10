@@ -31,7 +31,7 @@ export default function TestimonialsPage() {
           </Notice>
           <div className="mt-8">
             <Button asChild>
-              <Link href="/book">Start your own story</Link>
+              <Link href="/consultation">Start your own story</Link>
             </Button>
           </div>
         </Container>

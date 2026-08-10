@@ -21,7 +21,7 @@ The approved Manus website has been folded back into the governed monorepo as th
 | 7. Accessibility | In progress | Accessible landmarks, skip link, restored shell navigation, and honest fallback states exist; automated WCAG and manual keyboard/screen-reader evidence remain pending. |
 | 8. Performance | Blocked | Lighthouse and Core Web Vitals release evidence have not been recorded against the current production deployment. |
 | 9. SEO | In progress | Canonical calculator and consultation paths are restored in the Next.js app, but live deployment and canonical-domain verification remain pending. |
-| 10. Security | In progress | CSP, redirects, and baseline security headers exist; dependency scanning, rate limiting, form protection, and production environment verification remain pending. |
+| 10. Security | In progress | CSP, redirects, and baseline security headers exist. High-severity `next`, `sharp`, `postcss`, and `nanoid` audit findings were remediated locally through version upgrades and overrides; one moderate audit finding remains. Rate limiting, form protection, and production environment verification remain pending. |
 | 11. Documentation | In progress | Governance and implementation records are current for the integration candidate; provider runbooks remain pending. |
 | 12. Deployment Readiness | In progress | Vercel preview passes the full quality gate; visual approval and production deployment evidence remain pending. |
 | 13. Rollback Readiness | In progress | Rollback checklist exists; the production rollback path must be tested after approval. |

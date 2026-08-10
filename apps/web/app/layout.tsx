@@ -1,21 +1,8 @@
 import type { Metadata, Viewport } from "next"
-import { Inter, Source_Serif_4 } from "next/font/google"
 import { SiteHeader } from "@/components/layout/site-header"
 import { SiteFooter } from "@/components/layout/site-footer"
 import { SITE } from "@/lib/site"
 import "./globals.css"
-
-const sourceSerif = Source_Serif_4({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-source-serif",
-})
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-})
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -95,7 +82,7 @@ const entityGraph = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sourceSerif.variable} ${inter.variable} bg-background`}>
+    <html lang="en" className="bg-background">
       <body className="flex min-h-dvh flex-col antialiased">
         <script
           type="application/ld+json"

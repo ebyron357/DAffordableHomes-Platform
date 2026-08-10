@@ -81,6 +81,11 @@
 }
 
 @layer base {
+  :root {
+    --font-inter: "Segoe UI";
+    --font-source-serif: Georgia;
+  }
+
   * {
     border-color: var(--color-border);
   }

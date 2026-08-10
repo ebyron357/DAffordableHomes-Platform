@@ -89,7 +89,7 @@ export function ArticleFeature({
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
-      { "@type": "ListItem", position: 2, name: "Articles", item: `${SITE.url}/blog` },
+      { "@type": "ListItem", position: 2, name: "Blogs", item: `${SITE.url}/blog` },
       { "@type": "ListItem", position: 3, name: title, item: url },
     ],
   }
@@ -106,7 +106,7 @@ export function ArticleFeature({
             <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
               <Link href="/" className="hover:text-primary hover:underline">Home</Link>
               <span aria-hidden="true"> / </span>
-              <Link href="/blog" className="hover:text-primary hover:underline">Articles</Link>
+              <Link href="/blog" className="hover:text-primary hover:underline">Blogs</Link>
               <span aria-hidden="true"> / </span>
               <span aria-current="page">{title}</span>
             </nav>

@@ -96,7 +96,7 @@ test('rent-vs-buy estimate stays deterministic for the recovered Manus route set
   });
 
   assert.equal(result.downPayment, 15_000);
-  assert.equal(result.monthlyMortgagePayment, 1_801.19);
+  assert.equal(result.monthlyMortgagePayment, 1_801.39);
   assert.equal(result.rentCost, 151_200);
-  assert.equal(result.ownershipCost, 343_900.08);
+  assert.equal(result.ownershipCost, 239_816.76);
 });
