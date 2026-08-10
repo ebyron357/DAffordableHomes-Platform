@@ -60,6 +60,22 @@ export type DownPaymentScenario = MortgageResult & {
   downPayment: number
 }
 
+export type RentVsBuyInput = {
+  monthlyRent: number
+  homePrice: number
+  downPaymentPercentage: number
+  annualInterestRate: number
+  years: number
+  annualOwnershipCostRate: number
+}
+
+export type RentVsBuyResult = {
+  rentCost: number
+  ownershipCost: number
+  downPayment: number
+  monthlyMortgagePayment: number
+}
+
 function finiteOrZero(value: number) {
   return Number.isFinite(value) ? value : 0
 }
@@ -216,4 +232,29 @@ export function calculateDownPaymentScenarios(
       ...mortgage,
     }
   })
+}
+
+export function calculateRentVsBuy(input: RentVsBuyInput): RentVsBuyResult {
+  const monthlyRent = nonNegative(input.monthlyRent)
+  const homePrice = nonNegative(input.homePrice)
+  const downPaymentPercentage = Math.min(100, nonNegative(input.downPaymentPercentage))
+  const years = Math.max(1, Math.round(nonNegative(input.years)))
+  const downPayment = homePrice * (downPaymentPercentage / 100)
+  const monthlyMortgagePayment = calculatePrincipalAndInterest(
+    homePrice - downPayment,
+    input.annualInterestRate,
+    30,
+  )
+  const rentCost = monthlyRent * years * 12
+  const ownershipCost =
+    downPayment +
+    monthlyMortgagePayment * years * 12 +
+    homePrice * (nonNegative(input.annualOwnershipCostRate) / 100) * years
+
+  return {
+    rentCost: roundCurrency(rentCost),
+    ownershipCost: roundCurrency(ownershipCost),
+    downPayment: roundCurrency(downPayment),
+    monthlyMortgagePayment: roundCurrency(monthlyMortgagePayment),
+  }
 }

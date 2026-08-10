@@ -175,7 +175,7 @@ export function ArticleFeature({
                 ))}
               </div>
             </div>
-            <Button href="/book" className="w-full">Schedule a consultation</Button>
+            <Button href="/consultation" className="w-full">Book consultation</Button>
           </aside>
         </Container>
       </article>

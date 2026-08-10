@@ -1,5 +1,5 @@
 import { permanentRedirect } from "next/navigation"
 
-export default function LegacyMortgagePaymentCalculatorPage() {
+export default function LegacyCalculatorPage() {
   permanentRedirect("/calculators/mortgage-payment")
 }

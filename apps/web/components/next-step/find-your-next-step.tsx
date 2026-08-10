@@ -101,7 +101,7 @@ export function FindYourNextStep() {
             <RotateCcw className="size-4" aria-hidden="true" />
             Start over
           </Button>
-          <Button href="/book">Book a consultation</Button>
+          <Button href="/consultation">Book consultation</Button>
         </div>
       </div>
     )

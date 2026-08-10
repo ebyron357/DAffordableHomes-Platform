@@ -3,29 +3,29 @@ import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
 
 const paths = [
-  ["Assess my readiness", "/start", "Use the affordability and payment tools to understand your starting point.", "Check my numbers"],
-  ["Build my homebuyer plan", "/resources", "Learn the steps, documents, financing paths, and decisions ahead.", "Explore resources"],
-  ["Work with Debra", "/book", "Talk through your goals and leave with a clear next action.", "Schedule a consultation"],
+  ["Compare calculators", "/calculators", "Plan affordability, cash needs, mortgage payments, and rent-versus-buy scenarios.", "Open calculators"],
+  ["Explore neighborhoods", "/neighborhoods", "Compare verified DFW areas without fabricated scores, rankings, or price claims.", "View neighborhoods"],
+  ["Work with Debra", "/consultation", "Talk through your goals and leave with a clear next action.", "Book consultation"],
 ] as const
 
 const tools = [
-  ["Mortgage payment", "/resources/calculators/mortgage-payment", "Estimate principal, interest, taxes, insurance, and total monthly housing cost."],
-  ["Home affordability", "/resources/calculators/affordability", "Explore a conservative planning range based on income, debts, and assumptions."],
-  ["Closing costs", "/resources/calculators/closing-costs", "Estimate cash needed beyond the down payment."],
-  ["Down payment planning", "/resources/calculators/down-payment", "Compare common down-payment scenarios and cash-to-close needs."],
+  ["Mortgage payment", "/calculators/mortgage-payment", "Estimate principal, interest, taxes, insurance, and total monthly housing cost."],
+  ["Home affordability", "/calculators/affordability", "Explore a conservative planning range based on income, debts, and assumptions."],
+  ["Closing costs", "/calculators/closing-costs", "Estimate cash needed beyond the down payment."],
+  ["Down payment planning", "/calculators/down-payment", "Compare common down-payment scenarios and cash-to-close needs."],
 ] as const
 
 const programs = [
   {
     title: "NACA homebuyer help",
     href: "/programs/naca",
-    body: "Independent real-estate guidance for North Texas buyers considering or using NACA—from search preparation through inspection and closing coordination.",
-    action: "Explore NACA Homebuyer Help",
+    body: "Understand the process before a DFW search and keep official program requirements visible.",
+    action: "Explore NACA",
   },
   {
     title: "Homes for Heroes guidance",
     href: "/programs/homes-for-heroes",
-    body: "Buying, selling, and move-planning guidance for veterans, military families, teachers, healthcare workers, firefighters, EMS, and law enforcement.",
+    body: "Guidance for community heroes without unsupported promises about eligibility or benefits.",
     action: "Explore Homes for Heroes",
   },
 ] as const
@@ -43,8 +43,8 @@ export function ControlledHomeSections({ placement }: { placement: "before-debra
       <>
         <section className="bg-card py-14 md:py-16" aria-labelledby="pathways-heading">
           <Container>
-            <h2 id="pathways-heading" className="font-serif text-[31px] font-normal sm:text-[38px]">Start with what you need today</h2>
-            <p className="mt-3 max-w-3xl text-muted-foreground">Three direct ways to move forward—without forcing every visitor into the same path.</p>
+            <h2 id="pathways-heading" className="font-serif text-[31px] font-normal sm:text-[38px]">Start with the question in front of you.</h2>
+            <p className="mt-3 max-w-3xl text-muted-foreground">Choose the clearest next step without forcing every visitor into the same path.</p>
             <div className="mt-7 grid md:grid-cols-3">
               {paths.map(([title, href, body, action], index) => (
                 <article key={title} className="border-b border-border py-6 md:border-b-0 md:border-l md:px-7 md:first:border-l-0 md:first:pl-0">
@@ -85,9 +85,9 @@ export function ControlledHomeSections({ placement }: { placement: "before-debra
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">Homebuyer programs</p>
                 <h2 id="programs-heading" className="mt-3 font-serif text-[31px] font-normal sm:text-[38px]">Program-specific help, connected to one clear process</h2>
-                <p className="mt-3 max-w-3xl text-muted-foreground">Dedicated campaign pages for Garland and Dallas–Fort Worth search intent—without separating them from D&apos;Affordable Homes.</p>
+                <p className="mt-3 max-w-3xl text-muted-foreground">Understand the path before choosing it.</p>
               </div>
-              <Link href="/programs" className="shrink-0 text-sm font-semibold text-primary hover:underline">View all programs →</Link>
+              <Link href="/programs" className="shrink-0 text-sm font-semibold text-primary hover:underline">Program overview →</Link>
             </div>
             <div className="mt-8 grid gap-6 lg:grid-cols-2">
               {programs.map((program) => (
@@ -127,7 +127,7 @@ export function ControlledHomeSections({ placement }: { placement: "before-debra
             <h2 className="font-serif text-3xl font-normal">Ready for a clearer next step?</h2>
             <p className="mt-3 max-w-3xl text-primary-foreground/80">Schedule a homebuyer consultation to discuss your goals, questions, and current starting point.</p>
           </div>
-          <Button href="/book" variant="secondary" size="lg">Schedule a Homebuyer Consultation</Button>
+          <Button href="/consultation" variant="secondary" size="lg">Book Consultation</Button>
         </Container>
       </section>
     </>

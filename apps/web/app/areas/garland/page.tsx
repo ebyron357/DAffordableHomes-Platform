@@ -81,7 +81,7 @@ export default function GarlandAreaPage() {
           <p className="mt-8 text-xs font-semibold uppercase tracking-[0.12em] text-accent">Garland, Texas homebuyer guidance</p>
           <h1 className="mt-4 max-w-4xl font-serif text-[42px] font-normal leading-[1.08] sm:text-[56px]">Build a Garland home search around the life you can sustain</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A useful search starts with monthly cost, home condition, location priorities, program status, and the tradeoffs you are willing to make—not a promise that every property or program will fit.</p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row"><Button href="/book">Discuss a Garland home search</Button><Button href="/programs" variant="outline">Explore homebuyer programs</Button></div>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row"><Button href="/consultation">Plan a Garland consultation</Button><Button href="/programs" variant="outline">Explore homebuyer programs</Button></div>
         </Container>
       </section>
 

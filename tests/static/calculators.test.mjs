@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import {
+  calculateRentVsBuy,
   calculateAffordability,
   calculateClosingCosts,
   calculateDownPaymentScenarios,
@@ -82,4 +83,20 @@ test('down-payment scenarios compare common percentages and omit PMI at 20 perce
   );
   assert.ok(scenarios[0].pmi > 0);
   assert.equal(scenarios[4].pmi, 0);
+});
+
+test('rent-vs-buy estimate stays deterministic for the recovered Manus route set', () => {
+  const result = calculateRentVsBuy({
+    monthlyRent: 1_800,
+    homePrice: 300_000,
+    downPaymentPercentage: 5,
+    annualInterestRate: 6.5,
+    years: 7,
+    annualOwnershipCostRate: 3.5
+  });
+
+  assert.equal(result.downPayment, 15_000);
+  assert.equal(result.monthlyMortgagePayment, 1_801.19);
+  assert.equal(result.rentCost, 151_200);
+  assert.equal(result.ownershipCost, 343_900.08);
 });

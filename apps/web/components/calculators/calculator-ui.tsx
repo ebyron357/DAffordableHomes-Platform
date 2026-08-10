@@ -147,8 +147,8 @@ export function ResultRow({
 export function CalculatorActions({ secondaryHref }: { secondaryHref?: string }) {
   return (
     <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-      <Button href="/book" variant="secondary" className="w-full sm:w-auto">
-        Schedule a consultation
+      <Button href="/consultation" variant="secondary" className="w-full sm:w-auto">
+        Book consultation
       </Button>
       {secondaryHref && (
         <Button

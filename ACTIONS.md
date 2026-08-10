@@ -114,3 +114,13 @@ This log is retained as project history. Completed items are not deleted.
 - **Validation:** Generated all four editorial routes, verified Resources in the recovered navigation and footer, verified the correct distinct Debra photograph on every editorial route, ran JavaScript syntax checks, repository tests, and the root quality gate.
 - **Status:** Complete locally; pending public Vercel preview and client visual approval.
 - **Rollback:** Revert this commit to restore the PR #11 resource presentation.
+
+## ACT-011 — Select one authoritative production implementation
+
+- **Priority:** P0 — Production closeout blocker
+- **Problem:** The repository still treated the recovered static Manus export and the Next.js application as competing production definitions, while the public navigation and canonical calculator/consultation routes diverged from the approved Manus experience.
+- **Root Cause:** Recovery work preserved the approved Manus artifact for reference, but deployment and route ownership were not consolidated back onto a single governed implementation.
+- **Files Changed:** `apps/web/app/calculators/**`, `apps/web/app/consultation/page.tsx`, `apps/web/app/book/page.tsx`, `apps/web/app/resources/calculators/**`, `apps/web/components/**`, `apps/web/lib/**`, `apps/web/public/manus-storage/**`, `apps/web/next.config.mjs`, `apps/web/app/sitemap.ts`, `vercel.json`, `tests/static/*.test.mjs`, and production-readiness records.
+- **Solution:** Selected `apps/web` as the single production implementation, moved the approved Manus shell, navigation, canonical calculator routes, consultation route, and restored visual assets into the Next.js application, kept `recovered-manus/` as a reference-only archive, and changed Vercel to build the governed app instead of the static export.
+- **Validation:** `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm test`, and `pnpm build`.
+- **Status:** Complete locally; Vercel root-directory verification, canonical-domain verification, branch-protection changes, external form/CRM wiring, and public browser evidence remain blocked on external access.
