@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
@@ -23,10 +24,20 @@ export function SiteHeader() {
         <div className="flex min-h-[72px] items-center justify-between gap-5 py-3">
           <Link
             href="/"
-            className="rounded text-[15px] font-semibold leading-tight tracking-tight text-foreground sm:text-lg"
+            aria-label="D'Affordable Homes — Home"
+            className="flex items-center gap-3 rounded text-[15px] font-semibold leading-tight tracking-tight text-foreground sm:text-lg"
           >
-            <span className="block">D&apos;AFFORDABLE HOMES</span>
-            <span className="mt-0.5 hidden text-xs font-normal tracking-normal text-muted-foreground sm:block">Homeownership guidance</span>
+            <Image
+              src="/manus-storage/dah-logo_ff042b7b.png"
+              alt=""
+              width={40}
+              height={40}
+              className="h-10 w-10 object-contain"
+            />
+            <span className="leading-none">
+              <span className="block font-semibold">D&apos;Affordable</span>
+              <span className="mt-0.5 block text-xs font-normal tracking-normal text-muted-foreground">Homes</span>
+            </span>
           </Link>
 
           <nav aria-label="Primary" className="hidden xl:block">
@@ -52,7 +63,7 @@ export function SiteHeader() {
           </nav>
 
           <div className="hidden items-center gap-2 xl:flex">
-            <Button href="/book" size="sm">Schedule a Consultation</Button>
+            <Button href="/consultation" size="sm">Book Consultation</Button>
           </div>
 
           <button
@@ -94,7 +105,7 @@ export function SiteHeader() {
                 })}
               </ul>
               <div className="mt-4">
-                <Button href="/book" className="w-full">Schedule a Homebuyer Consultation</Button>
+                <Button href="/consultation" className="w-full">Book Consultation</Button>
               </div>
             </nav>
           </Container>

@@ -7,12 +7,10 @@ export type NavItem = {
 /** Primary navigation per PRODUCT_REQUIREMENTS.md §5. */
 export const PRIMARY_NAV: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "Buy a Home", href: "/homes", description: "Search and prepare to buy" },
+  { label: "Calculators", href: "/calculators", description: "Plan with real numbers" },
+  { label: "Neighborhoods", href: "/neighborhoods", description: "Explore Garland and DFW areas" },
   { label: "Programs", href: "/programs", description: "NACA and Homes for Heroes guidance" },
-  { label: "Homebuyer Resources", href: "/resources", description: "Guides and practical resources" },
-  { label: "Calculators", href: "/resources/calculators", description: "Plan with real numbers" },
-  { label: "Neighborhoods", href: "/neighborhoods", description: "Explore local communities" },
-  { label: "Events", href: "/events", description: "Workshops and community events" },
+  { label: "Blogs", href: "/blog", description: "Read the field guides" },
   { label: "About Debra", href: "/about", description: "Meet your homeownership advisor" },
 ]
 
@@ -36,7 +34,7 @@ export const EXPLORE_LINKS: NavItem[] = [
 
 export const CONNECT_LINKS: NavItem[] = [
   { label: "Contact Debra", href: "/contact" },
-  { label: "Book a Consultation", href: "/book" },
+  { label: "Book a Consultation", href: "/consultation" },
   { label: "Events & Workshops", href: "/events" },
   { label: "Testimonials", href: "/testimonials" },
 ]

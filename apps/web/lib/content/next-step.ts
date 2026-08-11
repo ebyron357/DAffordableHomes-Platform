@@ -109,8 +109,8 @@ const RESOURCE_LIBRARY: Record<string, Recommendation> = {
     description: "See the full journey from exploring to early ownership.",
   },
   consult: {
-    href: "/book",
-    title: "Book a consultation",
+    href: "/consultation",
+    title: "Book consultation",
     description: "A calm conversation with Debra about your next step — no pressure.",
   },
 }

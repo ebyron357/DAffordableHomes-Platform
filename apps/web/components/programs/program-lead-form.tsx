@@ -115,7 +115,7 @@ export function ProgramLeadForm({
       {status === "error" && (
         <Notice tone="warning" title="The request was not sent">
           <p id={errorId} role="alert">{message}</p>
-          <p className="mt-2"><a href="/book" className="font-semibold text-primary underline">Use the main consultation page</a>.</p>
+          <p className="mt-2"><a href="/consultation" className="font-semibold text-primary underline">Use the main consultation page</a>.</p>
         </Notice>
       )}
 

@@ -28,8 +28,8 @@ const PATHS = [
     title: "Get personal guidance",
     description:
       "When you're ready, talk it through with Debra in a no-pressure consultation. Bring your questions and leave with a clear, realistic next step.",
-    cta: "Book a consultation",
-    href: "/book",
+    cta: "Book consultation",
+    href: "/consultation",
   },
 ]
 
