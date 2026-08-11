@@ -8,5 +8,5 @@ allowBuilds:
 
 overrides:
   sharp: 0.35.1
-  postcss: 8.5.20
+  postcss: 8.5.26
   nanoid: 3.3.17

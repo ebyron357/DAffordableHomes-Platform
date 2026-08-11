@@ -122,6 +122,7 @@ test('clean-checkout typechecking uses Next-managed route declarations', () => {
   assert.match(workflow, /pnpm test:all/);
   assert.equal(vercel.framework, 'nextjs');
   assert.equal(vercel.buildCommand, 'pnpm build');
+  assert.equal(vercel.outputDirectory, 'apps/web/.next');
 });
 
 test('public production routes use the Manus-aligned canonical paths and preserve redirects', () => {
