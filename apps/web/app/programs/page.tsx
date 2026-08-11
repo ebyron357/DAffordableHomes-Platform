@@ -113,7 +113,7 @@ export default function ProgramsPage() {
             <h2 className="font-serif text-3xl font-normal">Not sure which path fits?</h2>
             <p className="mt-3 max-w-3xl text-primary-foreground/80">Start with a conversation about your goals, current program status, location, and timeline.</p>
           </div>
-          <Button href="/book" variant="secondary" size="lg">Schedule a Homebuyer Consultation</Button>
+          <Button href="/consultation" variant="secondary" size="lg">Book Consultation</Button>
         </Container>
       </section>
     </>

@@ -15,7 +15,7 @@ export function ConsultationCta() {
             like. No pressure, no obligation — just clarity.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button href="/book" size="lg">
+            <Button href="/consultation" size="lg">
               Book a consultation
               <ArrowRight className="size-4" aria-hidden="true" />
             </Button>

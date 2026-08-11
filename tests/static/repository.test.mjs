@@ -10,6 +10,13 @@ const requiredFiles = [
   'apps/web/package.json',
   'apps/web/app/layout.tsx',
   'apps/web/app/page.tsx',
+  'apps/web/app/consultation/page.tsx',
+  'apps/web/app/calculators/page.tsx',
+  'apps/web/app/calculators/affordability/page.tsx',
+  'apps/web/app/calculators/closing-costs/page.tsx',
+  'apps/web/app/calculators/down-payment/page.tsx',
+  'apps/web/app/calculators/mortgage-payment/page.tsx',
+  'apps/web/app/calculators/rent-vs-buy/page.tsx',
   'apps/web/components/layout/site-header.tsx',
   'apps/web/next.config.mjs',
   'packages/integrations/src/shopify/index.ts'
@@ -38,17 +45,19 @@ test('approved photography and ClientVerse attribution remain wired to public pa
   const hero = readFileSync('apps/web/components/home/hero.tsx', 'utf8');
   const aboutHome = readFileSync('apps/web/components/home/about-debra.tsx', 'utf8');
   const aboutPage = readFileSync('apps/web/app/about/page.tsx', 'utf8');
-  const consultation = readFileSync('apps/web/app/book/page.tsx', 'utf8');
+  const consultation = readFileSync('apps/web/app/consultation/page.tsx', 'utf8');
+  const neighborhoods = readFileSync('apps/web/app/neighborhoods/page.tsx', 'utf8');
+  const header = readFileSync('apps/web/components/layout/site-header.tsx', 'utf8');
   const footer = readFileSync('apps/web/components/layout/site-footer.tsx', 'utf8');
 
-  assert.match(hero, /black-family-home-pexels-7114188\.webp/);
-  assert.doesNotMatch(hero, /moving-home/);
+  assert.match(hero, /hero-family_b1fab939\.jpg/);
+  assert.match(header, /dah-logo_ff042b7b\.png/);
   assert.match(aboutHome, /debra-allen-primary-about\.webp/);
   assert.match(aboutPage, /debra-allen-advisor-desk\.webp/);
   assert.match(aboutPage, /debra-allen-lifestyle-full-body\.webp/);
-  assert.match(consultation, /debra-allen-advisor-desk\.webp/);
-  assert.match(footer, /Real Estate Technology by/);
-  assert.match(footer, /https:\/\/clientverse\.io/);
+  assert.match(consultation, /couple-consultation_25d3a592\.jpg/);
+  assert.match(neighborhoods, /neighborhood-community_101d8dfe\.jpg/);
+  assert.match(footer, /TREC Information About Brokerage Services/);
 });
 
 test('recovered navigation exposes Blogs and editorial routes use Debra photography', () => {
@@ -111,8 +120,29 @@ test('clean-checkout typechecking uses Next-managed route declarations', () => {
   assert.equal(existsSync('apps/web/scripts/restore-next-env.mjs'), false);
   assert.match(rootPackage.scripts['test:all'], /(?:^|&&\s*)npm run typecheck(?:\s*&&|$)/);
   assert.match(workflow, /pnpm test:all/);
-  assert.equal(vercel.buildCommand, 'cd recovered-manus && node build-blog.mjs');
-  assert.equal(vercel.outputDirectory, 'recovered-manus');
+  assert.equal(vercel.framework, 'nextjs');
+  assert.equal(vercel.buildCommand, 'pnpm build');
+});
+
+test('public production routes use the Manus-aligned canonical paths and preserve redirects', () => {
+  const sitemap = readFileSync('apps/web/app/sitemap.ts', 'utf8');
+  const redirects = readFileSync('apps/web/next.config.mjs', 'utf8');
+
+  for (const route of [
+    '/consultation',
+    '/calculators',
+    '/calculators/affordability',
+    '/calculators/closing-costs',
+    '/calculators/down-payment',
+    '/calculators/mortgage-payment',
+    '/calculators/rent-vs-buy'
+  ]) {
+    assert.match(sitemap, new RegExp(route.replaceAll('/', '\\/')));
+  }
+
+  assert.match(redirects, /source: '\/book', destination: '\/consultation'/);
+  assert.match(redirects, /source: '\/resources\/calculators', destination: '\/calculators'/);
+  assert.match(redirects, /source: '\/calculator', destination: '\/calculators\/mortgage-payment'/);
 });
 
 test('security headers include CSP and anti-sniffing controls', () => {

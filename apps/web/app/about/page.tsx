@@ -107,7 +107,7 @@ export default function AboutPage() {
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button asChild>
-                  <Link href="/book">Book a consultation</Link>
+                  <Link href="/consultation">Book consultation</Link>
                 </Button>
                 <Button asChild variant="outline">
                   <Link href="/start">Find your next step</Link>

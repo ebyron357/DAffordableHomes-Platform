@@ -1,15 +1,7 @@
 {
-  "framework": null,
-  "buildCommand": "cd recovered-manus && node build-blog.mjs",
-  "outputDirectory": "recovered-manus",
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/calculators", "destination": "/index.html" },
-    { "source": "/calculator", "destination": "/index.html" },
-    { "source": "/neighborhoods", "destination": "/index.html" },
-    { "source": "/about", "destination": "/index.html" },
-    { "source": "/consultation", "destination": "/index.html" }
-  ],
+  "framework": "nextjs",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "buildCommand": "pnpm build",
   "headers": [
     { "source": "/(.*)", "headers": [
       { "key": "X-Content-Type-Options", "value": "nosniff" },

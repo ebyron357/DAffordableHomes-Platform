@@ -41,6 +41,17 @@ const nextConfig = {
         headers: securityHeaders
       }
     ];
+  },
+  async redirects() {
+    return [
+      { source: '/book', destination: '/consultation', permanent: true },
+      { source: '/resources/calculators', destination: '/calculators', permanent: true },
+      { source: '/resources/calculators/affordability', destination: '/calculators/affordability', permanent: true },
+      { source: '/resources/calculators/closing-costs', destination: '/calculators/closing-costs', permanent: true },
+      { source: '/resources/calculators/down-payment', destination: '/calculators/down-payment', permanent: true },
+      { source: '/resources/calculators/mortgage-payment', destination: '/calculators/mortgage-payment', permanent: true },
+      { source: '/calculator', destination: '/calculators/mortgage-payment', permanent: true }
+    ];
   }
 };
 

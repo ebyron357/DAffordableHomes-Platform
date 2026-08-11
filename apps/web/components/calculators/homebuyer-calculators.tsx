@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react"
 import {
+  calculateRentVsBuy,
   calculateAffordability,
   calculateClosingCosts,
   calculateDownPaymentScenarios,
@@ -337,5 +338,74 @@ export function DownPaymentPlanner() {
         </p>
       </div>
     </div>
+  )
+}
+
+export function RentVsBuyCalculator() {
+  const [monthlyRent, setMonthlyRent] = useState(1_800)
+  const [homePrice, setHomePrice] = useState(300_000)
+  const [downPaymentPercentage, setDownPaymentPercentage] = useState(5)
+  const [annualInterestRate, setAnnualInterestRate] = useState(6.5)
+  const [years, setYears] = useState(7)
+  const [annualOwnershipCostRate, setAnnualOwnershipCostRate] = useState(3.5)
+
+  const result = useMemo(
+    () =>
+      calculateRentVsBuy({
+        monthlyRent,
+        homePrice,
+        downPaymentPercentage,
+        annualInterestRate,
+        years,
+        annualOwnershipCostRate,
+      }),
+    [
+      annualInterestRate,
+      annualOwnershipCostRate,
+      downPaymentPercentage,
+      homePrice,
+      monthlyRent,
+      years,
+    ],
+  )
+
+  return (
+    <CalculatorPanel
+      title="Compare simplified housing cost"
+      description="See a basic rent-versus-own cash comparison over time. This estimate does not subtract resale proceeds, tax effects, or equity."
+      fields={
+        <>
+          <NumberField id="rent-monthly-rent" label="Monthly rent" value={monthlyRent} onValueChange={setMonthlyRent} prefix="$" step={25} />
+          <NumberField id="rent-home-price" label="Home price" value={homePrice} onValueChange={setHomePrice} prefix="$" step={1_000} />
+          <NumberField id="rent-down-payment" label="Down payment" value={downPaymentPercentage} onValueChange={setDownPaymentPercentage} suffix="%" step={0.5} max={100} />
+          <NumberField id="rent-rate" label="Interest rate" value={annualInterestRate} onValueChange={setAnnualInterestRate} suffix="%" step={0.125} max={25} />
+          <NumberField id="rent-years" label="Comparison years" value={years} onValueChange={setYears} step={1} min={1} max={30} />
+          <NumberField
+            id="rent-cost-rate"
+            label="Annual taxes, insurance, and maintenance"
+            value={annualOwnershipCostRate}
+            onValueChange={setAnnualOwnershipCostRate}
+            suffix="%"
+            step={0.1}
+            max={15}
+          />
+        </>
+      }
+      results={
+        <div aria-live="polite">
+          <p className="text-sm font-medium uppercase tracking-[0.16em] text-accent-inverse">Simplified {years}-year cash outflow</p>
+          <div className="mt-6">
+            <ResultRow label="Rent" value={formatCurrency(result.rentCost)} emphasized />
+            <ResultRow label="Ownership" value={formatCurrency(result.ownershipCost)} emphasized />
+            <ResultRow label="Estimated down payment" value={formatCurrency(result.downPayment)} />
+            <ResultRow label="Estimated monthly mortgage only" value={formatCurrency(result.monthlyMortgagePayment)} />
+          </div>
+          <CalculatorActions secondaryHref="/calculators/down-payment" />
+          <EstimateNotice>
+            Ownership includes down payment, principal-and-interest payments, and the annual ownership-cost rate over the comparison period. It does not subtract equity, resale proceeds, rent increases, tax benefits, utilities, HOA changes, or repair surprises.
+          </EstimateNotice>
+        </div>
+      }
+    />
   )
 }

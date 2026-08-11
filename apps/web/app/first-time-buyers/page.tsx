@@ -68,7 +68,7 @@ export default function FirstTimeBuyersPage() {
           <Button href="/resources" variant="outline">
             Browse resources
           </Button>
-          <Button href="/book">Talk with Debra</Button>
+          <Button href="/consultation">Talk with Debra</Button>
         </div>
       </Section>
     </>

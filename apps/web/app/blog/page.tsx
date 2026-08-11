@@ -1,16 +1,17 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = {
-  title: "Homebuyer Field Guides and Articles",
+  title: "Blogs",
   description:
-    "In-depth North Texas homebuyer field guides from Debra Allen covering NACA, community heroes, Garland, affordability, and practical transaction planning.",
+    "Practical North Texas homebuyer field guides from Debra Allen.",
   alternates: { canonical: "/blog" },
   openGraph: {
-    title: "Homebuyer Field Guides | D'Affordable Homes",
-    description: "Original, fact-checked North Texas real-estate guidance from Debra Allen, REALTOR®.",
+    title: "Blogs | D'Affordable Homes",
+    description: "Practical North Texas homebuyer field guides from Debra Allen.",
     url: "/blog",
     type: "website",
   },
@@ -48,16 +49,29 @@ export default function BlogPage() {
     <>
       <header className="border-b border-border bg-card">
         <Container className="py-12 md:py-20">
-          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">D&apos;Affordable Homes editorial</p>
-          <h1 className="mt-4 max-w-5xl font-serif text-[42px] font-normal leading-[1.08] sm:text-[58px]">
-            Homebuyer field guides built for real decisions
-          </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">
-            Original, source-backed guidance from Debra Allen, REALTOR®—written to answer the question first, explain the tradeoffs clearly, and connect North Texas buyers with the right next step.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button href="/book">Schedule a consultation</Button>
-            <Button href="/resources/calculators" variant="outline">Use the planning calculators</Button>
+          <div className="grid gap-8 lg:grid-cols-[1fr_360px] lg:items-center">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">Homebuyer resources</p>
+              <h1 className="mt-4 max-w-5xl font-serif text-[42px] font-normal leading-[1.08] sm:text-[58px]">
+                Clear answers for the decisions ahead.
+              </h1>
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">
+                Practical North Texas guidance to help you understand the process, prepare with confidence, and know what to ask next.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Button href="/consultation">Book Consultation</Button>
+                <Button href="/calculators" variant="outline">Use the calculators</Button>
+              </div>
+            </div>
+            <figure className="relative aspect-[5/6] overflow-hidden border border-border bg-muted">
+              <Image
+                src="/images/debra-allen-primary-about.webp"
+                alt="Debra Allen smiling in a yellow blazer at a kitchen counter"
+                fill
+                sizes="(min-width: 1024px) 360px, 100vw"
+                className="object-cover object-[48%_center]"
+              />
+            </figure>
           </div>
         </Container>
       </header>
@@ -68,8 +82,8 @@ export default function BlogPage() {
             <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">Latest field guides</p>
-                <h2 id="latest-guides-heading" className="mt-3 font-serif text-3xl font-normal sm:text-4xl">Read deeply. Act clearly.</h2>
-                <p className="mt-4 max-w-xl leading-7 text-muted-foreground">Each article includes a direct answer, visible program boundaries, local context, official sources, frequently asked questions, and related planning tools.</p>
+                <h2 id="latest-guides-heading" className="mt-3 font-serif text-3xl font-normal sm:text-4xl">Start with the question in front of you.</h2>
+                <p className="mt-4 max-w-xl leading-7 text-muted-foreground">Practical North Texas guidance to help you understand the process, prepare with confidence, and know what to ask next.</p>
               </div>
               <div className="border-t border-border">
                 {articles.map((article, index) => (

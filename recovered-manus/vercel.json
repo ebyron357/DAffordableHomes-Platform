@@ -3,6 +3,7 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/calculators", "destination": "/index.html" },
+    { "source": "/calculator", "destination": "/index.html" },
     { "source": "/neighborhoods", "destination": "/index.html" },
     { "source": "/about", "destination": "/index.html" },
     { "source": "/consultation", "destination": "/index.html" }
