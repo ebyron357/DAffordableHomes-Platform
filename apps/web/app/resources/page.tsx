@@ -15,25 +15,25 @@ const calculatorLinks = [
   {
     title: "Mortgage payment calculator",
     body: "Estimate principal, interest, taxes, insurance, mortgage insurance, HOA costs, and the total monthly housing payment.",
-    href: "/resources/calculators/mortgage-payment",
+    href: "/calculators/mortgage-payment",
     icon: Calculator,
   },
   {
     title: "Home affordability calculator",
     body: "Create a conservative planning price using household income, monthly debts, down payment, and ownership costs.",
-    href: "/resources/calculators/affordability",
+    href: "/calculators/affordability",
     icon: House,
   },
   {
     title: "Closing cost estimator",
     body: "Plan for the down payment, estimated closing costs, prepaid items, escrow funding, and known credits.",
-    href: "/resources/calculators/closing-costs",
+    href: "/calculators/closing-costs",
     icon: ReceiptText,
   },
   {
     title: "Down payment planner",
     body: "Compare common down-payment percentages, upfront cash, loan balances, mortgage insurance, and monthly costs.",
-    href: "/resources/calculators/down-payment",
+    href: "/calculators/down-payment",
     icon: PiggyBank,
   },
 ]

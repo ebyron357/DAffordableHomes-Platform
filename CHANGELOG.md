@@ -2,6 +2,20 @@
 
 All notable repository changes are documented here.
 
+## 2026-08-15
+
+- Replaced the three hardcoded blog article routes with one CMS-driven `/blog/[slug]` route and a CMS-driven `/blog` index.
+- Implemented a production-grade Sanity CMS: embedded Studio at `/studio`, Content Lake client, GROQ query layer, draft mode with preview enable/exit endpoints, and a signed publish webhook that revalidates cache tags.
+- Added an eighteen-block reusable editorial system with matching Sanity schema types and frontend renderers.
+- Migrated all three published articles into structured CMS content with a reproducible, deterministic generator and an idempotent Sanity import script. All three published URLs are unchanged.
+- Normalised internal calculator links from the `/resources/calculators/*` redirect aliases to their canonical destinations.
+- Fixed the blog article segment to return a real HTTP 404 for unknown slugs instead of a soft 404.
+- Ran a premium design pass across the blog and the shared header, footer, cards, and CTA system.
+- Rebuilt the site footer with full navigation, required legal notices, and the site-wide "Made by ClientVerse" vendor attribution.
+- Scoped a separate Content Security Policy to the Studio route so the public site policy stays strict.
+- Added the apex-domain canonical redirect for `www.daffordablehomes.com`, a default social image, and site icons.
+- Cleared every axe-core WCAG 2.1 AA violation found across the 34 public routes.
+
 ## 2026-07-18
 
 - Added a shared calculation engine for mortgage payment, affordability, cash-to-close, and down-payment scenario planning.

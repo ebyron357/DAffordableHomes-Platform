@@ -6,7 +6,9 @@ import { SITE } from "@/lib/site"
 import { FAQ_PREVIEW } from "@/lib/content/home"
 
 export const metadata: Metadata = {
-  title: "Trusted homeownership guidance",
+  // `absolute` keeps the brand in the title on the site's most important page,
+  // where the "%s — D'Affordable Homes" template would otherwise be skipped.
+  title: { absolute: `${SITE.name} — Trusted homeownership guidance` },
   description: SITE.description,
   alternates: { canonical: "/" },
 }

@@ -65,7 +65,7 @@ export function ControlledHomeSections({ placement }: { placement: "before-debra
                 <h2 id="tools-heading" className="font-serif text-[31px] font-normal sm:text-[38px]">Planning tools that answer real questions</h2>
                 <p className="mt-3 max-w-3xl text-muted-foreground">Use straightforward estimates to prepare better questions for a lender or consultation.</p>
               </div>
-              <Link href="/resources/calculators" className="shrink-0 text-sm font-semibold text-primary hover:underline">View all calculators →</Link>
+              <Link href="/calculators" className="shrink-0 text-sm font-semibold text-primary hover:underline">View all calculators →</Link>
             </div>
             <div className="mt-7 border-t border-border">
               {tools.map(([title, href, body]) => (
