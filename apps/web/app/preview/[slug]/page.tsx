@@ -32,7 +32,7 @@ export default async function ArticlePreviewPage({ params }: { params: Promise<{
   // this Next version, so redirect instead of claiming a status we don't send.
   if (!isDraft) redirect("/blog")
 
-  const article = await getArticle(slug, { draft: true })
+  const article = await getArticle(slug, { draftOnly: true })
   if (!article) {
     return (
       <Container className="py-24">
@@ -40,7 +40,9 @@ export default async function ArticlePreviewPage({ params }: { params: Promise<{
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">Draft preview</p>
           <h1 className="mt-4 text-balance text-4xl leading-tight">No document found for “{slug}”</h1>
           <p className="mt-4 leading-7 text-muted-foreground">
-            Check the slug in the Studio, or confirm the document has been saved at least once.
+            Check the slug in the Studio, confirm the document has been saved at least once, and confirm
+            the preview token is configured. Published content is never shown here, so this page stays empty
+            rather than previewing the wrong document.
           </p>
           <p className="mt-8">
             <Link href="/api/preview/disable" className="font-semibold text-accent underline underline-offset-4">

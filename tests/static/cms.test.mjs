@@ -368,6 +368,39 @@ test('draft previews have a route, are never indexed, and are disallowed', () =>
 });
 
 test('editor-curated related articles are projected and preferred', () => {
-  assert.match(read('apps/web/lib/cms/queries.ts'), /"relatedArticles": relatedArticles\[\]->/);
+  assert.match(read('apps/web/lib/cms/queries.ts'), /"relatedArticles": relatedArticles\[@->status == "published"/);
   assert.match(read('apps/web/lib/cms/articles.ts'), /const curated = \(article\.relatedArticles \?\? \[\]\)/);
+});
+
+test('curated related articles cannot link to unpublished documents', () => {
+  const queries = read('apps/web/lib/cms/queries.ts');
+  assert.match(queries, /relatedArticles\[@->status == "published" && @->publishedAt <= now\(\)\]->/);
+
+  const articles = read('apps/web/lib/cms/articles.ts');
+  assert.match(articles, /candidate\.status === "published"/);
+});
+
+test('a failed draft read never renders published content as a draft', () => {
+  const articles = read('apps/web/lib/cms/articles.ts');
+  assert.match(articles, /draftOnly\?: boolean/);
+  // Every draft-only branch must return null rather than falling through.
+  assert.ok(
+    (articles.match(/if \(options\.draftOnly\) return null/g) ?? []).length >= 3,
+    'draftOnly must short-circuit on missing client, missing document, and read failure'
+  );
+
+  const preview = read('apps/web/app/preview/[slug]/page.tsx');
+  assert.match(preview, /getArticle\(slug, \{ draftOnly: true \}\)/);
+});
+
+test('exit preview never lands on a slug with no public route', () => {
+  const view = read('apps/web/components/blog/article-view.tsx');
+  assert.match(view, /article\.status === "published" \? `\/blog\/\$\{article\.slug\}` : "\/blog"/);
+});
+
+test('every author profile link is hardened', () => {
+  const view = read('apps/web/components/blog/article-view.tsx');
+  const raw = view.match(/href=\{article\.author\.profilePath\}/g) ?? [];
+  assert.deepEqual(raw, [], 'author profile paths must pass through safeInternalPath');
+  assert.ok((view.match(/safeInternalPath\(article\.author\.profilePath\)/g) ?? []).length >= 2);
 });

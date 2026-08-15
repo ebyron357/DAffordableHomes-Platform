@@ -37,7 +37,9 @@ export async function ArticleView({ article, isDraft = false }: { article: Artic
               Draft preview — this page shows unpublished content and is not indexed.
             </p>
             <a
-              href={`/api/preview/disable?path=${encodeURIComponent(`/blog/${article.slug}`)}`}
+              href={`/api/preview/disable?path=${encodeURIComponent(
+                article.status === "published" ? `/blog/${article.slug}` : "/blog"
+              )}`}
               className="font-semibold underline underline-offset-4"
             >
               Exit preview
@@ -92,7 +94,7 @@ export async function ArticleView({ article, isDraft = false }: { article: Artic
                   <span className="font-medium text-foreground">
                     {article.author.profilePath ? (
                       <Link
-                        href={article.author.profilePath}
+                        href={safeInternalPath(article.author.profilePath)}
                         className="inline-flex min-h-11 items-center underline-offset-4 hover:text-accent hover:underline"
                       >
                         {author}

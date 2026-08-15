@@ -40,7 +40,7 @@ const fullFields = `
   seoDescription,
   canonicalOverride,
   "socialImage": socialImage ${imageProjection},
-  "relatedArticles": relatedArticles[]->{ ${summaryFields} },
+  "relatedArticles": relatedArticles[@->status == "published" && @->publishedAt <= now()]->{ ${summaryFields} },
   "programs": programs[]->${termProjection},
   "areas": areas[]->${termProjection},
   faqs[]{ _key, question, answer },

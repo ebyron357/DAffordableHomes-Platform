@@ -99,19 +99,29 @@ export async function getArticleSlugRecords(): Promise<ArticleSlugRecord[]> {
  * work is visible to an authenticated editor only; it never reaches the public
  * cache because draft-mode responses are always dynamic.
  */
-export async function getArticle(slug: string, options: { draft?: boolean } = {}): Promise<Article | null> {
+export async function getArticle(
+  slug: string,
+  options: { draft?: boolean; draftOnly?: boolean } = {}
+): Promise<Article | null> {
   if (!isSanityConfigured()) {
-    return bootstrapArticleBySlug(slug)
+    return options.draftOnly ? null : bootstrapArticleBySlug(slug)
   }
 
-  if (options.draft) {
+  if (options.draft || options.draftOnly) {
     const preview = getSanityPreviewClient()
-    if (preview) {
+    if (!preview) {
+      // No preview client: never present published content as a draft.
+      if (options.draftOnly) return null
+    } else {
       try {
         const draft = (await preview.fetch(anyArticleBySlugQuery, { slug })) as Article | null
         if (draft) return draft
+        if (options.draftOnly) return null
       } catch (error) {
         console.error(`[cms] draft read for "${slug}" failed.`, error)
+        // Falling back to published content here would show the wrong document
+        // under a "draft preview" banner. Fail visibly instead.
+        if (options.draftOnly) return null
       }
     }
   }
@@ -139,8 +149,10 @@ export async function getArticle(slug: string, options: { draft?: boolean } = {}
  * ends with a real next step.
  */
 export async function getRelatedArticles(article: Article, limit = 3): Promise<ArticleSummary[]> {
+  // Defence in depth: the projection already filters to published documents,
+  // but an unpublished slug must never become a public link that 404s.
   const curated = (article.relatedArticles ?? []).filter(
-    (candidate) => candidate?.slug && candidate.slug !== article.slug
+    (candidate) => candidate?.slug && candidate.slug !== article.slug && candidate.status === "published"
   )
   if (curated.length >= limit) return curated.slice(0, limit)
 
