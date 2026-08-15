@@ -31,7 +31,7 @@ export type PortableTextBlock = {
 
 export type ArticleImage = {
   /** Raw Content Lake image value, resolved to a CDN URL at render time. */
-  image?: unknown
+  asset?: unknown
   /** Pre-resolved asset URL, when a projection already produced one. */
   url?: string | null
   /** Approved repository asset path, when the artwork ships with the app. */

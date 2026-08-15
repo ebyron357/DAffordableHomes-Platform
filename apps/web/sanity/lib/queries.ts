@@ -6,14 +6,17 @@ import { defineQuery } from "next-sanity"
  * to plain URLs so the renderers stay source-agnostic.
  */
 /*
- * The uploaded asset lives under the object's own `image` field, so an
- * `asset->url` projection cannot dereference it — the reference is one level
- * deeper. The raw value is projected instead and resolved to a CDN URL at
- * render time by sanity/lib/image.ts, which also covers images nested inside
- * body blocks that this projection never touches.
+ * The uploaded asset lives under the object's own `asset` field, which is an
+ * image object rather than a direct reference, so an `asset->url` projection
+ * cannot dereference it. The raw value is projected through under its real
+ * field name and resolved to a CDN URL at render time by sanity/lib/image.ts.
+ *
+ * Keeping the field name means images nested inside body blocks — which are
+ * projected raw and never pass through this projection — resolve through the
+ * exact same path.
  */
 const IMAGE_PROJECTION = `{
-  "image": asset,
+  asset,
   "dimensions": asset.asset->metadata.dimensions{width, height},
   src,
   alt,

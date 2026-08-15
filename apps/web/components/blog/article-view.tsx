@@ -7,7 +7,7 @@ import { ArticleProse } from "@/components/blog/portable-text"
 import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
 import type { Article } from "@/lib/blog/types"
-import { articleUrl, formatArticleDate, socialImageUrl } from "@/lib/blog/article-meta"
+import { articleUrl, authorProfilePath, formatArticleDate, socialImageUrl } from "@/lib/blog/article-meta"
 import { SITE } from "@/lib/site"
 
 /**
@@ -31,6 +31,7 @@ const formatDate = formatArticleDate
 export function ArticleView({ article, isDraft }: { article: Article; isDraft: boolean }) {
   const url = articleUrl(article.slug)
   const image = socialImageUrl(article)
+  const authorProfile = authorProfilePath(article)
   const authorName = article.author.credential
     ? `${article.author.name}, ${article.author.credential}`
     : article.author.name
@@ -50,7 +51,7 @@ export function ArticleView({ article, isDraft }: { article: Article; isDraft: b
     author: {
       "@type": "Person",
       name: authorName,
-      url: `${SITE.url}${article.author.profileUrl ?? "/about"}`,
+      url: `${SITE.url}${authorProfile}`,
     },
     publisher: {
       "@type": "Organization",
@@ -252,7 +253,7 @@ export function ArticleView({ article, isDraft }: { article: Article; isDraft: b
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">{article.author.bio}</p>
               ) : null}
               <Link
-                href={article.author.profileUrl ?? "/about"}
+                href={authorProfile}
                 className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline decoration-accent/50 underline-offset-4"
               >
                 Meet {article.author.name.split(" ")[0]}

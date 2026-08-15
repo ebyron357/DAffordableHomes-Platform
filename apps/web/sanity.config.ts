@@ -2,7 +2,7 @@
 
 import { visionTool } from "@sanity/vision"
 import { defineConfig } from "sanity"
-import { presentationTool } from "sanity/presentation"
+import { defineLocations, presentationTool } from "sanity/presentation"
 import { structureTool } from "sanity/structure"
 import { apiVersion, dataset, projectId, studioBasePath } from "./sanity/env"
 import { schemaTypes } from "./sanity/schema"
@@ -82,15 +82,25 @@ export default defineConfig({
           disable: "/api/preview/disable",
         },
       },
+      resolve: {
+        locations: {
+          article: defineLocations({
+            select: { title: "title", slug: "slug.current", status: "status" },
+            resolve: (doc) =>
+              doc?.slug
+                ? {
+                    locations: [
+                      { title: doc.title || "Preview", href: `/preview/${doc.slug}` },
+                      ...(doc.status === "published"
+                        ? [{ title: `${doc.title || "Article"} (published)`, href: `/blog/${doc.slug}` }]
+                        : []),
+                    ],
+                  }
+                : null,
+          }),
+        },
+      },
     }),
     visionTool({ defaultApiVersion: apiVersion, defaultDataset: dataset }),
   ],
-  document: {
-    productionUrl: async (previous, { document }) => {
-      const slug = (document as { slug?: { current?: string } }).slug?.current
-      if (!slug) return previous
-      const origin = process.env.NEXT_PUBLIC_SITE_URL ?? ""
-      return `${origin}/preview/${encodeURIComponent(slug)}`
-    },
-  },
 })

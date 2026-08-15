@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import { draftMode } from "next/headers"
 import { ArticleView } from "@/components/blog/article-view"
 import { getArticle, getPublishedArticleSlugs } from "@/lib/blog/source"
-import { socialImageUrl } from "@/lib/blog/article-meta"
+import { authorProfilePath, socialImageUrl } from "@/lib/blog/article-meta"
 import { SITE } from "@/lib/site"
 
 /**
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: article.seoTitle ?? article.title,
     description: article.seoDescription,
     alternates: { canonical: `/blog/${article.slug}` },
-    authors: [{ name: article.author.name, url: article.author.profileUrl ?? `${SITE.url}/about` }],
+    authors: [{ name: article.author.name, url: `${SITE.url}${authorProfilePath(article)}` }],
     openGraph: {
       type: "article",
       title: article.seoTitle ?? article.title,
