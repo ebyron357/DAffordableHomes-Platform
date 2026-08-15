@@ -30,7 +30,6 @@ export function buildArticleSchema(article: Article) {
     dateModified: article.reviewedAt,
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     url,
-    wordCount: undefined,
     articleSection: article.category.title || undefined,
     author: {
       "@type": "Person",
