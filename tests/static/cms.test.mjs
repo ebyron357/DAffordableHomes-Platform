@@ -258,8 +258,14 @@ test('draft mode requires an authenticated Studio preview session', () => {
   assert.match(config, /presentationTool/);
   assert.match(config, /enable: "\/api\/draft-mode\/enable"/);
 
-  // Open-redirect guard on exit.
-  assert.match(disable, /\^\\\/\(\?!\\\/\)/);
+  // Presentation must know where an article renders, or the preview link
+  // exists but opens "/" instead of the article.
+  assert.match(config, /defineLocations/);
+  assert.match(config, /`\/blog\/\$\{doc\.slug\}`/);
+
+  // Open-redirect guard on exit. Behaviour is covered by
+  // tests/static/safe-path.test.mjs.
+  assert.match(disable, /toSafeInternalPath/);
 });
 
 test('no Sanity credentials or project identifiers are committed', () => {

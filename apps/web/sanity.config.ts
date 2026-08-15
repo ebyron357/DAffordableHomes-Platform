@@ -10,7 +10,7 @@
 
 import { visionTool } from "@sanity/vision"
 import { defineConfig } from "sanity"
-import { presentationTool } from "sanity/presentation"
+import { defineLocations, presentationTool } from "sanity/presentation"
 import { structureTool } from "sanity/structure"
 
 import {
@@ -43,6 +43,27 @@ export default defineConfig({
         previewMode: {
           enable: "/api/draft-mode/enable",
           disable: "/api/draft-mode/disable",
+        },
+      },
+      resolve: {
+        /*
+         * Maps an article document to the URL it renders at. Without this,
+         * Presentation opens at "/" and selecting a draft never reaches the
+         * article — the preview link would exist but go nowhere.
+         */
+        locations: {
+          article: defineLocations({
+            select: { title: "title", slug: "slug.current" },
+            resolve: (doc) => ({
+              locations: [
+                {
+                  title: doc?.title || "Untitled article",
+                  href: doc?.slug ? `/blog/${doc.slug}` : "/blog",
+                },
+                { title: "Blog index", href: "/blog" },
+              ],
+            }),
+          }),
         },
       },
     }),
