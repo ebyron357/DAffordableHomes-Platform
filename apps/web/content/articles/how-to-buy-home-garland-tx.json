@@ -1,0 +1,1343 @@
+{
+  "id": "article.how-to-buy-home-garland-tx",
+  "slug": "how-to-buy-home-garland-tx",
+  "title": "How to Buy a Home in Garland, Texas",
+  "eyebrow": "Garland first-time buyer field guide",
+  "excerpt": "A step-by-step guide to budgeting, financing, local assistance boundaries, touring, inspections, offers, underwriting, and closing.",
+  "readingTime": "12 minute read",
+  "publishedAt": "2026-08-05",
+  "reviewedAt": "2026-08-05",
+  "status": "published",
+  "seoTitle": "How to Buy a Home in Garland, Texas",
+  "seoDescription": "A step-by-step first-time buyer guide to budgeting, financing, touring, inspections, and closing on a home in Garland, Texas.",
+  "featuredImageLayout": "photographic",
+  "featuredImage": {
+    "url": null,
+    "src": "/manus-storage/home-keys-moment_20083d77.jpg",
+    "dimensions": null,
+    "alt": "A person holding a set of keys with a small house keyring in front of an open front door at dusk",
+    "caption": "Closing is the last step of a plan that starts long before the listing search.",
+    "credit": null,
+    "focalPoint": "62% 50%"
+  },
+  "socialImage": null,
+  "author": {
+    "name": "Debra Allen",
+    "credential": "REALTOR®",
+    "profileUrl": "/about",
+    "bio": "Homeownership advisor and REALTOR® guiding first-time buyers and families across Garland and Dallas–Fort Worth."
+  },
+  "category": {
+    "title": "Garland field guide",
+    "slug": "garland-field-guide",
+    "description": "Step-by-step local guidance for buying a home in Garland and the surrounding region."
+  },
+  "programs": [
+    {
+      "title": "NACA",
+      "slug": "naca",
+      "href": "/programs/naca",
+      "boundary": "NACA controls its workshops, counseling, qualification, mortgage terms, property requirements, and official approvals."
+    }
+  ],
+  "areas": [
+    {
+      "title": "Garland",
+      "slug": "garland",
+      "href": "/areas/garland",
+      "description": "Editorial and search focus for Garland, Texas and the surrounding North Texas region."
+    }
+  ],
+  "body": [
+    {
+      "_type": "quickAnswerBlock",
+      "_key": "how-5",
+      "heading": "The quick answer",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-2",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-1",
+              "text": "Buying in Garland begins before the listing search. A prepared buyer understands a comfortable monthly payment, cash needs, financing and assistance possibilities, taxes, insurance, association costs, commute, property condition, inspection rights, and the responsibilities of each professional in the transaction.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-4",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-3",
+              "text": "The right Garland home is not simply the property with the lowest price. It is the home whose complete cost, condition, location, and maintenance demands fit the buyer's life.",
+              "marks": [
+                "strong"
+              ]
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "how-g",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-7",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-6",
+              "text": "Why Garland belongs in a DFW home search",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-9",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-8",
+              "text": "Garland is part of the wider Dallas–Fort Worth region, but buyers should not treat every nearby city as interchangeable. Garland offers established residential areas, different home ages and property types, regional access, and the ability to compare multiple ownership possibilities.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-b",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-a",
+              "text": "Those broad qualities do not make every neighborhood or property a match. A useful search evaluates the specific home, commute, taxes, insurance, association requirements, visible condition, likely maintenance, and total ownership cost.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-f",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-d",
+              "text": "Start with the dedicated Garland area guide",
+              "marks": [
+                "how-c"
+              ]
+            },
+            {
+              "_type": "span",
+              "_key": "how-e",
+              "text": ".",
+              "marks": []
+            }
+          ],
+          "markDefs": [
+            {
+              "_type": "link",
+              "_key": "how-c",
+              "href": "/areas/garland"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "how-x",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-i",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-h",
+              "text": "Step 1: Decide whether you are financially ready",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-k",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-j",
+              "text": "Readiness is not determined by one credit score or the largest mortgage a lender will discuss. Review stable and documentable income, every recurring debt, normal household spending, available savings, and the amount that would remain after closing.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-m",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-l",
+              "text": "List the expenses underwriting may not fully capture",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-o",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-n",
+              "text": "Food, childcare, healthcare, and insurance premiums",
+              "marks": []
+            }
+          ],
+          "markDefs": [],
+          "listItem": "bullet",
+          "level": 1
+        },
+        {
+          "_type": "block",
+          "_key": "how-q",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-p",
+              "text": "Transportation, tolls, parking, and vehicle maintenance",
+              "marks": []
+            }
+          ],
+          "markDefs": [],
+          "listItem": "bullet",
+          "level": 1
+        },
+        {
+          "_type": "block",
+          "_key": "how-s",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-r",
+              "text": "Family obligations and savings goals",
+              "marks": []
+            }
+          ],
+          "markDefs": [],
+          "listItem": "bullet",
+          "level": 1
+        },
+        {
+          "_type": "block",
+          "_key": "how-u",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-t",
+              "text": "Utilities, maintenance, and emergency repairs",
+              "marks": []
+            }
+          ],
+          "markDefs": [],
+          "listItem": "bullet",
+          "level": 1
+        },
+        {
+          "_type": "block",
+          "_key": "how-w",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-v",
+              "text": "A household can qualify for a mortgage and still become financially strained. Build the ownership decision around take-home reality, not only gross-income guidelines.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "how-18",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-z",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-y",
+              "text": "Step 2: Set the complete monthly budget",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-11",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-10",
+              "text": "The full housing cost may include principal, interest, property taxes, homeowners insurance, mortgage insurance, association dues, flood insurance when applicable, utilities, maintenance, and assessments.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-13",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-12",
+              "text": "A principal-and-interest quote is not the complete payment. Test several scenarios and preserve room for groceries, transportation, medical costs, retirement, repairs, and emergencies.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-17",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-15",
+              "text": "Use the affordability calculator as a planning tool",
+              "marks": [
+                "how-14"
+              ]
+            },
+            {
+              "_type": "span",
+              "_key": "how-16",
+              "text": ", not as a mortgage approval.",
+              "marks": []
+            }
+          ],
+          "markDefs": [
+            {
+              "_type": "link",
+              "_key": "how-14",
+              "href": "/calculators/affordability"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "how-1f",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-1a",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-19",
+              "text": "Step 3: Review credit and protect the file",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-1c",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-1b",
+              "text": "Review credit reports for unfamiliar accounts, wrong balances, duplicates, outdated records, or identity errors. Do not dispute accurate negative information simply because it is unfavorable; an unnecessary dispute can complicate underwriting.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-1e",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-1d",
+              "text": "During the mortgage process, avoid financing a vehicle, opening furniture or credit accounts, taking personal loans, co-signing, or making unexplained large transactions without discussing the possible effect with the appropriate loan professional.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "how-27",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-1h",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-1g",
+              "text": "Step 4: Compare financing paths by total cost",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-1j",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-1i",
+              "text": "The appropriate mortgage depends on the buyer, property, lender, credit profile, income, savings, and transaction. A low down payment is useful only when the full payment and long-term cost remain manageable.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-1l",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-1k",
+              "text": "FHA-insured financing",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-1n",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-1m",
+              "text": "FHA may offer more flexible underwriting for some borrowers. Compare the down payment, upfront and monthly mortgage insurance, property standards, lender rules, and complete payment.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-1p",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-1o",
+              "text": "Conventional financing",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-1r",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-1q",
+              "text": "Conventional options can include lower-down-payment products and mortgage insurance that may be removable when applicable requirements are met. Pricing can be sensitive to credit, down payment, property type, and occupancy.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-1t",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-1s",
+              "text": "VA-backed financing",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-1v",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-1u",
+              "text": "Eligible veterans, service members, and certain surviving spouses may explore VA-backed financing. A possible zero-down path does not eliminate inspections, fees, moving costs, repairs, underwriting, property standards, or the need for reserves.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-1x",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-1w",
+              "text": "USDA-backed financing",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-1z",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-1y",
+              "text": "USDA requires household and address eligibility. Do not assume a Garland property qualifies; check the current rules for the specific address.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-21",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-20",
+              "text": "NACA",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-26",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-22",
+              "text": "NACA uses its own workshop, counseling, qualification, property, mortgage, and transaction process. Buyers can learn before qualification, but an active search should align with official status and instructions. ",
+              "marks": []
+            },
+            {
+              "_type": "span",
+              "_key": "how-24",
+              "text": "Review NACA home-search guidance",
+              "marks": [
+                "how-23"
+              ]
+            },
+            {
+              "_type": "span",
+              "_key": "how-25",
+              "text": ".",
+              "marks": []
+            }
+          ],
+          "markDefs": [
+            {
+              "_type": "link",
+              "_key": "how-23",
+              "href": "/programs/naca"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "how-2e",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-29",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-28",
+              "text": "Step 5: Investigate assistance without assuming it is free money",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-2b",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-2a",
+              "text": "Texas buyers may be able to explore mortgage, down-payment, or closing-cost assistance through state, local, nonprofit, employer, or other programs. TDHCA's current homebuyer program connects qualifying buyers with approved professionals and requires approved homebuyer education for its assistance.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-2d",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-2c",
+              "text": "Assistance may be a grant, forgivable loan, deferred loan, repayable second mortgage, or benefit tied to a particular first mortgage. Ask whether it creates a lien, affects the rate, must be repaid after a sale or refinance, imposes occupancy rules, or requires a participating lender.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "calloutBlock",
+      "_key": "how-2j",
+      "heading": "Step 6: Understand Garland's specialized voucher option",
+      "tone": "caution",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-2g",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-2f",
+              "text": "Garland operates a Housing Choice Voucher Home Ownership Program for certain qualifying participants. It is not general assistance for every Garland resident or every first-time buyer.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-2i",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-2h",
+              "text": "The City's current criteria include existing voucher participation for at least one year, program-specific first-time-homeowner requirements, income and employment conditions, and other agency rules. Interested participants should contact their Garland Housing Agency caseworker before relying on the program.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "how-2o",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-2l",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-2k",
+              "text": "Step 7: Obtain a meaningful financing review",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-2n",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-2m",
+              "text": "A useful preapproval is based on reviewed financial information rather than a few answers in an online form. Ask what income, credit, debts, assets, funds, payment assumptions, and property restrictions were actually reviewed.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "checklistBlock",
+      "_key": "how-2p",
+      "heading": "Questions to ask about a preapproval",
+      "intro": null,
+      "items": [
+        {
+          "_key": "how-2q",
+          "detail": null,
+          "label": "How long is the preapproval valid?"
+        },
+        {
+          "_key": "how-2r",
+          "detail": null,
+          "label": "What property-tax and insurance assumptions were used?"
+        },
+        {
+          "_key": "how-2s",
+          "detail": null,
+          "label": "Are mortgage insurance and association dues included?"
+        },
+        {
+          "_key": "how-2t",
+          "detail": null,
+          "label": "What changes could affect the result?"
+        },
+        {
+          "_key": "how-2u",
+          "detail": null,
+          "label": "Which documents must remain current?"
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "how-2x",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-2w",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-2v",
+              "text": "A preapproval is not a final approval. The property and transaction must qualify too.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "how-36",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-2z",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-2y",
+              "text": "Step 8: Build the search around daily life",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-31",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-30",
+              "text": "Test work routes during the hours you actually travel. Include tolls, fuel, parking, vehicle wear, and added childcare time. Consider family responsibilities, medical access, community connections, maintenance preferences, and how long you expect to own the home.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-33",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-32",
+              "text": "Separate needs from cosmetic preferences",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-35",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-34",
+              "text": "Non-negotiables may include payment, bedrooms, accessibility, commute, parking, or property type. Strong preferences might include a yard, office, garage, or layout. Paint, fixtures, and decorating choices are usually easier to change than location, structure, or affordability.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "how-3f",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-38",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-37",
+              "text": "Step 9: Evaluate taxes, insurance, dues, and condition",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-3a",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-39",
+              "text": "The seller's current property-tax bill may not equal the buyer's future amount because exemptions, assessed value, ownership changes, and taxing jurisdictions can affect it. Ask how the lender calculated the estimate.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-3c",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-3b",
+              "text": "Request an insurance indication early. Roof age, property condition, construction, claim history, replacement cost, deductible, and insurer requirements can materially change the budget.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-3e",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-3d",
+              "text": "For association properties, review dues, transfer charges, rules, maintenance responsibilities, pending assessments, financial information, and use restrictions rather than evaluating the community by the monthly fee alone.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "how-3m",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-3h",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-3g",
+              "text": "Step 10: Tour with a repeatable system",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-3j",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-3i",
+              "text": "Record price, estimated payment, taxes, insurance, dues, commute, roof and system age, drainage, visible moisture, layout, storage, parking, noise, immediate repairs, and long-term fit. After several tours, details blur.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-3l",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-3k",
+              "text": "Fresh paint, staging, lighting, and furniture improve presentation. They do not prove that the roof, foundation, plumbing, electrical system, drainage, or heating and cooling equipment are sound.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "how-3t",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-3o",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-3n",
+              "text": "Step 11: Prepare a fact-based offer",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-3q",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-3p",
+              "text": "Offer strategy may consider comparable sales, current competition, days on market, seller timing, condition, financing, appraisal risk, inspection terms, requested concessions, and contract deadlines.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-3s",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-3r",
+              "text": "A strong offer is not always the highest number. Clear terms, reliable documentation, practical timing, and manageable risk can matter. No ethical agent can guarantee seller acceptance.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "how-40",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-3v",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-3u",
+              "text": "Step 12: Use inspections and specialists wisely",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-3x",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-3w",
+              "text": "A general inspector may evaluate visible and accessible roofing, foundation, structure, electrical, plumbing, heating and cooling, appliances, drainage, moisture, and safety conditions. Depending on the findings, a buyer may need a structural engineer, roofer, plumber, electrician, HVAC contractor, sewer specialist, pest professional, or another expert.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-3z",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-3y",
+              "text": "An appraisal is not a substitute for an inspection. The appraisal generally supports a lender's value and property review; the inspection helps the buyer understand observed condition.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "how-45",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-42",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-41",
+              "text": "Step 13: Protect the closing",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-44",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-43",
+              "text": "During underwriting, keep income, employment, credit, assets, and requested documents current. Review the final price, loan amount, rate, payment, cash to close, credits, taxes, insurance, association charges, closing date, and possession terms.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "calloutBlock",
+      "_key": "how-49",
+      "heading": "Verify wire instructions before you send money",
+      "tone": "caution",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-48",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-46",
+              "text": "Verify wire instructions through an independently confirmed contact method.",
+              "marks": [
+                "strong"
+              ]
+            },
+            {
+              "_type": "span",
+              "_key": "how-47",
+              "text": " Do not rely only on an unexpected email containing new instructions.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "how-4c",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-4b",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-4a",
+              "text": "Use the final walkthrough to confirm the property remains in expected condition, agreed work appears complete, included items remain, and no new material damage is visible.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "how-4j",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-4e",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-4d",
+              "text": "Step 14: Plan for the first year",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-4g",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-4f",
+              "text": "Prepare for utility transfers, locks, tax exemptions when eligible, routine maintenance, filters, pest control, landscaping, appliance care, association requirements, and emergency repairs. Keep inspection reports, warranties, receipts, closing records, and repair information together.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-4i",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-4h",
+              "text": "A home does not need to look finished in the first month. Protecting reserves is more important than financing furniture for every room.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "how-4q",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "how-4l",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-4k",
+              "text": "How Debra Allen supports a Garland buyer",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-4n",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-4m",
+              "text": "Debra can help clarify goals, organize a location strategy, evaluate options, review comparable information, prepare offers, coordinate inspections, manage contract deadlines, communicate with transaction professionals, and prepare for the final walkthrough and closing.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "how-4p",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "how-4o",
+              "text": "She does not approve mortgages, determine program eligibility, inspect or appraise the property, issue legal or tax advice, guarantee seller acceptance, or guarantee closing. Clear boundaries help buyers know which professional should answer each question.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "areaGuideCtaBlock",
+      "_key": "how-4r",
+      "area": "Garland",
+      "heading": "Turn the Garland search into a plan",
+      "body": "Know the payment you can sustain, the cash you may need, the condition you can handle, the locations that fit your routine, and how much reserve will remain after closing.",
+      "href": "/areas/garland",
+      "label": "Continue with Debra's Garland homebuyer guide"
+    }
+  ],
+  "faqs": [
+    {
+      "_key": "faq-1",
+      "question": "Is Garland a good place for a first-time buyer?",
+      "answer": "Garland may fit buyers who want access to the wider Dallas–Fort Worth region and established housing options. The right answer depends on budget, commute, taxes, insurance, property condition, and long-term goals."
+    },
+    {
+      "_key": "faq-2",
+      "question": "How much money do I need to buy a Garland home?",
+      "answer": "The amount depends on the mortgage, down payment, closing costs, inspections, appraisal, prepaid expenses, assistance, seller credits, moving costs, and the reserves you keep after closing."
+    },
+    {
+      "_key": "faq-3",
+      "question": "Does Garland offer assistance to every first-time buyer?",
+      "answer": "No. Garland's Housing Choice Voucher Home Ownership Program is a specialized option for qualifying voucher participants, not a general citywide benefit for every buyer."
+    },
+    {
+      "_key": "faq-4",
+      "question": "Should I get preapproved before touring?",
+      "answer": "An active search should generally begin after a meaningful financing review so the price, payment, cash requirement, and property restrictions are understood."
+    },
+    {
+      "_key": "faq-5",
+      "question": "Can I use NACA to buy in Garland?",
+      "answer": "A buyer may explore Garland through NACA, subject to current qualification, affordability, property, mortgage, and transaction requirements. Confirm official decisions directly with NACA."
+    }
+  ],
+  "officialSources": [
+    {
+      "_key": "src-1",
+      "publisher": "City of Garland",
+      "label": "City of Garland: Housing Choice Voucher Home Ownership Program",
+      "href": "https://www.garlandtx.gov/478/Home-Ownership-Program"
+    },
+    {
+      "_key": "src-2",
+      "publisher": "Texas Department of Housing and Community Affairs",
+      "label": "Texas Department of Housing and Community Affairs: Homebuyer Program",
+      "href": "https://welcomehome.tdhca.texas.gov/welcome-home"
+    },
+    {
+      "_key": "src-3",
+      "publisher": "NACA",
+      "label": "NACA: Home Purchase Program",
+      "href": "https://www.naca.com/purchase/"
+    }
+  ],
+  "disclaimer": [
+    {
+      "_type": "block",
+      "_key": "how-4t",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "how-4s",
+          "text": "This article provides general real-estate education. It is not a mortgage approval, legal or tax opinion, inspection, appraisal, insurance quote, program decision, or guarantee of eligibility. Confirm current requirements with the professional or organization responsible for the decision.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    }
+  ],
+  "relatedLinks": [
+    {
+      "_key": "rel-1",
+      "label": "Garland area guide",
+      "href": "/areas/garland",
+      "description": "Continue into the site's focused Garland home-search resource."
+    },
+    {
+      "_key": "rel-2",
+      "label": "Affordability calculator",
+      "href": "/calculators/affordability",
+      "description": "Estimate a conservative planning range."
+    },
+    {
+      "_key": "rel-3",
+      "label": "Closing-cost calculator",
+      "href": "/calculators/closing-costs",
+      "description": "Prepare for cash needs beyond the down payment."
+    },
+    {
+      "_key": "rel-4",
+      "label": "NACA home-search guidance",
+      "href": "/programs/naca",
+      "description": "Understand Debra's role when exploring or using NACA."
+    }
+  ],
+  "relatedArticles": [
+    {
+      "slug": "naca-homebuying-dallas-fort-worth",
+      "title": "Using NACA to Buy a Home in Dallas–Fort Worth",
+      "excerpt": "Understand workshops, counseling, qualification, outside-agent procedures, property review, and Debra's role in the real-estate transaction.",
+      "readingTime": "10 minute read",
+      "eyebrow": "NACA homebuyer field guide"
+    },
+    {
+      "slug": "homes-for-heroes-north-texas",
+      "title": "How Debra Allen Helps North Texas Heroes Buy or Sell a Home",
+      "excerpt": "A practical buying, selling, and move-planning guide for military members, veterans, teachers, healthcare workers, firefighters, EMS, and law enforcement.",
+      "readingTime": "9 minute read",
+      "eyebrow": "Real estate for community heroes"
+    }
+  ]
+}

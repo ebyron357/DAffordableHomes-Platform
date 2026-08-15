@@ -1,53 +1,122 @@
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { test } from 'node:test';
 
-const articleFiles = [
-  'apps/web/app/blog/page.tsx',
-  'apps/web/app/blog/naca-homebuying-dallas-fort-worth/page.tsx',
-  'apps/web/app/blog/homes-for-heroes-north-texas/page.tsx',
-  'apps/web/app/blog/how-to-buy-home-garland-tx/page.tsx',
-  'apps/web/components/articles/article-feature.tsx',
+const PRESERVED_SLUGS = [
+  'naca-homebuying-dallas-fort-worth',
+  'homes-for-heroes-north-texas',
+  'how-to-buy-home-garland-tx'
 ];
 
-test('editorial resource center and all three features exist', () => {
-  for (const file of articleFiles) {
-    assert.equal(existsSync(file), true, `${file} should exist`);
+const articles = Object.fromEntries(
+  PRESERVED_SLUGS.map((slug) => [slug, JSON.parse(readFileSync(`apps/web/content/articles/${slug}.json`, 'utf8'))])
+);
+
+function collectText(value, acc = []) {
+  if (typeof value === 'string') acc.push(value);
+  else if (Array.isArray(value)) value.forEach((entry) => collectText(entry, acc));
+  else if (value && typeof value === 'object') Object.values(value).forEach((entry) => collectText(entry, acc));
+  return acc;
+}
+
+test('the blog is served by one CMS-driven route, not per-article route files', () => {
+  assert.equal(existsSync('apps/web/app/blog/[slug]/page.tsx'), true);
+  assert.equal(existsSync('apps/web/app/blog/page.tsx'), true);
+  assert.equal(existsSync('apps/web/components/articles/article-feature.tsx'), false);
+
+  const blogRouteEntries = readdirSync('apps/web/app/blog', { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name);
+
+  assert.deepEqual(blogRouteEntries, ['[slug]'], 'only the dynamic article route may exist under app/blog');
+});
+
+test('all three published article URLs are preserved', () => {
+  for (const slug of PRESERVED_SLUGS) {
+    const article = articles[slug];
+    assert.equal(article.slug, slug, `${slug} must keep its published URL`);
+    assert.equal(article.status, 'published');
+    assert.ok(article.body.length > 0, `${slug} must have body blocks`);
   }
 });
 
-test('features include canonical metadata, visible authorship, reviewed dates, and structured data', () => {
-  const layout = readFileSync('apps/web/components/articles/article-feature.tsx', 'utf8');
-  const pages = articleFiles.slice(1, 4).map((file) => readFileSync(file, 'utf8')).join('\n');
+test('migrated articles keep authorship, dates, reading time, metadata, and excerpts', () => {
+  const expected = {
+    'naca-homebuying-dallas-fort-worth': { readingTime: '10 minute read' },
+    'homes-for-heroes-north-texas': { readingTime: '9 minute read' },
+    'how-to-buy-home-garland-tx': { readingTime: '12 minute read' }
+  };
 
-  assert.match(layout, /"@type": "Article"/);
-  assert.match(layout, /"@type": "FAQPage"/);
-  assert.match(layout, /"@type": "BreadcrumbList"/);
-  assert.match(layout, /SITE\.realtorName/);
-  assert.match(layout, /Reviewed/);
-  assert.match(pages, /alternates: \{ canonical:/);
-  assert.match(pages, /reviewedAt="2026-08-05"/);
+  for (const slug of PRESERVED_SLUGS) {
+    const article = articles[slug];
+    assert.equal(article.author.name, 'Debra Allen');
+    assert.equal(article.author.credential, 'REALTOR®');
+    assert.equal(article.publishedAt, '2026-08-05');
+    assert.equal(article.reviewedAt, '2026-08-05');
+    assert.equal(article.readingTime, expected[slug].readingTime);
+    assert.ok(article.excerpt.length >= 60, `${slug} needs a meaningful excerpt`);
+    assert.ok(article.seoDescription.length >= 70, `${slug} needs an SEO description`);
+    assert.ok(article.category?.title, `${slug} needs a category`);
+  }
 });
 
-test('articles route readers to the existing program, local, calculator, and consultation architecture', () => {
-  const layout = readFileSync('apps/web/components/articles/article-feature.tsx', 'utf8');
-  const naca = readFileSync('apps/web/app/blog/naca-homebuying-dallas-fort-worth/page.tsx', 'utf8');
-  const heroes = readFileSync('apps/web/app/blog/homes-for-heroes-north-texas/page.tsx', 'utf8');
-  const garland = readFileSync('apps/web/app/blog/how-to-buy-home-garland-tx/page.tsx', 'utf8');
+test('migrated articles keep their FAQs, official sources, and compliance disclaimers', () => {
+  for (const slug of PRESERVED_SLUGS) {
+    const article = articles[slug];
+    assert.equal(article.faqs.length, 5, `${slug} must keep all five FAQs`);
+    assert.ok(article.officialSources.length >= 2, `${slug} must keep its official sources`);
+    assert.ok(article.disclaimer?.length, `${slug} must keep its compliance disclaimer`);
+    for (const source of article.officialSources) {
+      assert.match(source.href, /^https:\/\//, `${slug} sources must be absolute https URLs`);
+    }
+  }
+});
+
+test('published articles carry meaningful alt text or the editorial type-only treatment', () => {
+  for (const slug of PRESERVED_SLUGS) {
+    const article = articles[slug];
+    if (article.featuredImageLayout === 'editorial') {
+      assert.equal(article.featuredImage, null, `${slug} declares the type-only hero`);
+      continue;
+    }
+    assert.ok(article.featuredImage, `${slug} needs a featured image`);
+    assert.ok(
+      article.featuredImage.alt.length >= 12,
+      `${slug} featured image needs meaningful alternative text`
+    );
+    assert.ok(
+      article.featuredImage.src || article.featuredImage.url,
+      `${slug} featured image needs a resolvable source`
+    );
+  }
+});
+
+test('articles route readers to the program, local, calculator, and consultation architecture', () => {
+  const naca = collectText(articles['naca-homebuying-dallas-fort-worth']).join(' ');
+  const heroes = collectText(articles['homes-for-heroes-north-texas']).join(' ');
+  const garland = collectText(articles['how-to-buy-home-garland-tx']).join(' ');
+  const articleView = readFileSync('apps/web/components/blog/article-view.tsx', 'utf8');
 
   assert.match(naca, /\/programs\/naca/);
   assert.match(naca, /\/areas\/garland/);
   assert.match(heroes, /\/programs\/homes-for-heroes/);
-  assert.match(heroes, /\/resources\/calculators\/closing-costs|\/calculators\/closing-costs/);
+  assert.match(heroes, /\/calculators\/closing-costs/);
   assert.match(garland, /\/areas\/garland/);
-  assert.match(garland, /\/resources\/calculators\/affordability|\/calculators\/affordability/);
-  assert.match(layout, /href="\/consultation"/);
+  assert.match(garland, /\/calculators\/affordability/);
+  assert.match(articleView, /href="\/consultation"/);
+});
+
+test('internal links in migrated content point at live routes, not redirect aliases', () => {
+  for (const slug of PRESERVED_SLUGS) {
+    const text = collectText(articles[slug]).join(' ');
+    assert.doesNotMatch(text, /\/resources\/calculators/, `${slug} must link to canonical calculator routes`);
+  }
 });
 
 test('program boundaries remain explicit and unsupported claims remain absent', () => {
-  const naca = readFileSync('apps/web/app/blog/naca-homebuying-dallas-fort-worth/page.tsx', 'utf8');
-  const heroes = readFileSync('apps/web/app/blog/homes-for-heroes-north-texas/page.tsx', 'utf8');
-  const all = `${naca}\n${heroes}`;
+  const naca = collectText(articles['naca-homebuying-dallas-fort-worth']).join(' ');
+  const heroes = collectText(articles['homes-for-heroes-north-texas']).join(' ');
+  const all = `${naca}\n${heroes}\n${collectText(articles['how-to-buy-home-garland-tx']).join(' ')}`;
 
   assert.match(naca, /independent from NACA/i);
   assert.match(naca, /NACA controls/i);
@@ -56,9 +125,54 @@ test('program boundaries remain explicit and unsupported claims remain absent', 
   assert.doesNotMatch(all, /guaranteed approval|guaranteed savings|number one realtor|best realtor/i);
 });
 
-test('sitemap exposes the complete editorial collection', () => {
+test('article routes generate structured data, canonicals, and breadcrumbs from CMS data', () => {
+  const route = readFileSync('apps/web/app/blog/[slug]/page.tsx', 'utf8');
+  const view = readFileSync('apps/web/components/blog/article-view.tsx', 'utf8');
+
+  assert.match(view, /"@type": "Article"/);
+  assert.match(view, /"@type": "BreadcrumbList"/);
+  assert.match(view, /"@type": "FAQPage"/);
+  assert.match(view, /aria-label="Breadcrumb"/);
+  assert.match(route, /alternates: \{ canonical: `\/blog\/\$\{article\.slug\}` \}/);
+  assert.match(route, /notFound\(\)/, 'unknown slugs must return a real 404');
+  assert.match(route, /export const dynamicParams = false/, 'static params are what make the 404 real');
+});
+
+test('sitemap generates article entries from published CMS content', () => {
   const sitemap = readFileSync('apps/web/app/sitemap.ts', 'utf8');
-  assert.match(sitemap, /\/blog\/naca-homebuying-dallas-fort-worth/);
-  assert.match(sitemap, /\/blog\/homes-for-heroes-north-texas/);
-  assert.match(sitemap, /\/blog\/how-to-buy-home-garland-tx/);
+  assert.match(sitemap, /getPublishedArticleSlugs/);
+  assert.match(sitemap, /\/blog\/\$\{article\.slug\}/);
+  assert.doesNotMatch(
+    sitemap,
+    /"\/blog\/naca-homebuying-dallas-fort-worth"/,
+    'article URLs must come from the CMS, not a hardcoded list'
+  );
+});
+
+test('renderers contain no migrated article copy', () => {
+  const renderers = [
+    'apps/web/components/blog/article-blocks.tsx',
+    'apps/web/components/blog/article-modules.tsx',
+    'apps/web/components/blog/portable-text.tsx',
+    'apps/web/components/blog/article-view.tsx',
+    'apps/web/app/blog/[slug]/page.tsx'
+  ];
+
+  const distinctiveCopy = [
+    'Homebuyer Workshop is open to everyone',
+    'A payment that leaves no room for an air-conditioning repair',
+    'Housing Choice Voucher Home Ownership Program',
+    'Debra helps North Texas community heroes'
+  ];
+
+  for (const file of renderers) {
+    const source = readFileSync(file, 'utf8');
+    for (const fragment of distinctiveCopy) {
+      assert.equal(
+        source.includes(fragment),
+        false,
+        `${file} must not hardcode migrated article copy: ${fragment}`
+      );
+    }
+  }
 });

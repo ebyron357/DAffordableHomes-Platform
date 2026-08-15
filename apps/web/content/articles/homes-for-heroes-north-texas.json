@@ -1,0 +1,1122 @@
+{
+  "id": "article.homes-for-heroes-north-texas",
+  "slug": "homes-for-heroes-north-texas",
+  "title": "How Debra Allen Helps North Texas Heroes Buy or Sell a Home",
+  "eyebrow": "Real estate for community heroes",
+  "excerpt": "A practical buying, selling, and move-planning guide for military members, veterans, teachers, healthcare workers, firefighters, EMS, and law enforcement.",
+  "readingTime": "9 minute read",
+  "publishedAt": "2026-08-05",
+  "reviewedAt": "2026-08-05",
+  "status": "published",
+  "seoTitle": "How Debra Allen Helps North Texas Heroes Buy or Sell a Home",
+  "seoDescription": "A practical real-estate guide for North Texas military members, veterans, teachers, healthcare workers, firefighters, EMS, and law-enforcement professionals.",
+  "featuredImageLayout": "editorial",
+  "featuredImage": null,
+  "socialImage": null,
+  "author": {
+    "name": "Debra Allen",
+    "credential": "REALTOR®",
+    "profileUrl": "/about",
+    "bio": "Homeownership advisor and REALTOR® guiding first-time buyers and families across Garland and Dallas–Fort Worth."
+  },
+  "category": {
+    "title": "Community heroes",
+    "slug": "community-heroes",
+    "description": "Buying, selling, and coordinated-move planning for service, education, and healthcare households."
+  },
+  "programs": [
+    {
+      "title": "Homes for Heroes",
+      "slug": "homes-for-heroes",
+      "href": "/programs/homes-for-heroes",
+      "boundary": "Homes for Heroes controls its eligibility, enrollment, specialist network, reward structure, terms, and disclosures."
+    }
+  ],
+  "areas": [
+    {
+      "title": "Garland",
+      "slug": "garland",
+      "href": "/areas/garland",
+      "description": "Editorial and search focus for Garland, Texas and the surrounding North Texas region."
+    }
+  ],
+  "body": [
+    {
+      "_type": "quickAnswerBlock",
+      "_key": "homes-5",
+      "heading": "The quick answer",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "homes-2",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-1",
+              "text": "Military members, veterans, teachers, healthcare professionals, firefighters, EMS professionals, and law-enforcement professionals often face schedules and move requirements that generic real-estate advice does not fully address.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-4",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-3",
+              "text": "Debra Allen helps organize the real-estate side of a North Texas purchase, sale, or coordinated move. Homes for Heroes controls its own enrollment, specialist network, eligibility rules, rewards, and disclosures.",
+              "marks": [
+                "strong"
+              ]
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "homes-i",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "homes-7",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-6",
+              "text": "Who is considered a community hero?",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-9",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-8",
+              "text": "Homes for Heroes identifies five principal groups: military members and veterans, firefighters and EMS, law enforcement, healthcare professionals, and teachers. Its current information says eligibility may include current, former, and retired members of those groups and is not limited to first-time buyers.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-b",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-a",
+              "text": "Belonging to one of those groups does not by itself guarantee a reward, rebate, savings amount, or transaction outcome. Separate two questions from the beginning:",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-d",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-c",
+              "text": "Does the official third-party program apply to this person and transaction?",
+              "marks": [
+                "strong"
+              ]
+            }
+          ],
+          "markDefs": [],
+          "listItem": "number",
+          "level": 1
+        },
+        {
+          "_type": "block",
+          "_key": "homes-f",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-e",
+              "text": "What real-estate plan is needed to buy, sell, or move successfully?",
+              "marks": [
+                "strong"
+              ]
+            }
+          ],
+          "markDefs": [],
+          "listItem": "number",
+          "level": 1
+        },
+        {
+          "_type": "block",
+          "_key": "homes-h",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-g",
+              "text": "Homes for Heroes answers the first question. Debra helps with the second.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "homes-11",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "homes-k",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-j",
+              "text": "Why hero households may need a different plan",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-m",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-l",
+              "text": "Military members and veterans",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-o",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-n",
+              "text": "Military households may face relocation orders, deployment, training, remote searches, limited touring time, or a need to sell and move quickly. Veterans may also need to distinguish VA loan eligibility from the larger affordability decision. A possible zero-down transaction does not eliminate inspections, moving expenses, insurance, taxes, repairs, or the need for reserves.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-q",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-p",
+              "text": "Teachers and education professionals",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-s",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-r",
+              "text": "Teachers may coordinate around contract dates, school calendars, summer availability, commute requirements, and family schedules. A desired summer closing still depends on inventory, lender timelines, inspections, appraisal, title, and the seller's needs.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-u",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-t",
+              "text": "Healthcare professionals",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-w",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-v",
+              "text": "Healthcare workers may have overnight shifts, rotating days, on-call responsibilities, multiple work locations, or contract assignments. A search should test commute conditions at the hours the buyer actually travels.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-y",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-x",
+              "text": "Firefighters, EMS, and law enforcement",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-10",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-z",
+              "text": "Extended shifts and callouts can make ordinary scheduling difficult. Concentrated tour blocks, digital document review, clear deadline reminders, parking, commute, and privacy needs may carry unusual weight.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "homes-1s",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "homes-13",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-12",
+              "text": "How Debra helps hero homebuyers",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-15",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-14",
+              "text": "Clarify the goal",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-17",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-16",
+              "text": "The plan begins with why the buyer is moving, preferred timing, current housing, job location, commute limits, property needs, financing status, available savings, and a comfortable monthly cost.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-19",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-18",
+              "text": "Build a realistic location strategy",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-1b",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-1a",
+              "text": "Dallas–Fort Worth is a large region. Debra can help compare communities using commute patterns, toll dependence, taxes, insurance, home age, inventory, association costs, property condition, and proximity to work or family.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-1d",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-1c",
+              "text": "Evaluate the complete cost",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-1f",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-1e",
+              "text": "The ownership budget may include principal, interest, taxes, insurance, mortgage insurance, association dues, utilities, transportation, maintenance, repairs, and special assessments. A lender's maximum approval does not include every expense in the household's life.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-1h",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-1g",
+              "text": "Tour and compare efficiently",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-1j",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-1i",
+              "text": "For buyers with demanding schedules, the goal is not to see the largest number of homes. It is to prioritize the most relevant options, schedule efficient tours, document differences, and investigate concerns before emotion takes over.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-1l",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-1k",
+              "text": "Prepare and manage the transaction",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-1n",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-1m",
+              "text": "Debra can help with comparable information, offer terms, contract deadlines, inspections, repair discussions, appraisal access, title communication, lender coordination, insurance questions, final walkthrough, and closing preparation. Each licensed or authorized professional remains responsible for their own decisions.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-1r",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-1p",
+              "text": "Explore Debra's hero-focused real-estate guidance",
+              "marks": [
+                "homes-1o"
+              ]
+            },
+            {
+              "_type": "span",
+              "_key": "homes-1q",
+              "text": ".",
+              "marks": []
+            }
+          ],
+          "markDefs": [
+            {
+              "_type": "link",
+              "_key": "homes-1o",
+              "href": "/programs/homes-for-heroes"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "homes-27",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "homes-1u",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-1t",
+              "text": "How Debra helps hero home sellers",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-1w",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-1v",
+              "text": "Prepare without renovating blindly",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-1y",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-1x",
+              "text": "Preparation may include decluttering, cleaning, minor repairs, safety concerns, curb appeal, photography readiness, showing access, and documentation. Not every property needs a costly renovation before sale.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-20",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-1z",
+              "text": "Build a fact-based launch",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-22",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-21",
+              "text": "A listing strategy can consider condition, comparable sales, active competition, timing, photography, showings, pricing position, and the seller's objectives. Overpricing can reduce attention and weaken future negotiating leverage.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-24",
+          "style": "h3",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-23",
+              "text": "Compare the whole offer",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-26",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-25",
+              "text": "The highest price is not always the strongest offer. Financing, down payment, deposits, inspection terms, requested concessions, appraisal language, contingencies, closing date, and possession can materially change risk.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "homes-2c",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "homes-29",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-28",
+              "text": "Buying and selling at the same time",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-2b",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-2a",
+              "text": "A coordinated move creates dependencies involving equity, down payment, mortgage qualification, closing dates, possession, temporary housing, storage, contingencies, work schedules, and family logistics.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "comparisonTableBlock",
+      "_key": "homes-2d",
+      "heading": "Sequencing a coordinated move",
+      "caption": "Comparison of sell-first, buy-first, and coordinated sequencing: what each approach may do, and what it can create.",
+      "columns": [
+        "Approach",
+        "What it may do",
+        "What it can create"
+      ],
+      "rows": [
+        {
+          "_key": "homes-2e",
+          "header": "Sell first",
+          "cells": [
+            "May clarify available equity and reduce the risk of carrying two homes",
+            "Can create a temporary-housing need"
+          ]
+        },
+        {
+          "_key": "homes-2f",
+          "header": "Buy first",
+          "cells": [
+            "May reduce moving pressure",
+            "The buyer must qualify while still owning the current home or use another approved structure"
+          ]
+        },
+        {
+          "_key": "homes-2g",
+          "header": "Coordinate both",
+          "cells": [
+            "Can connect the transactions through timing and contract terms",
+            "Every dependency introduces risk"
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "homes-2j",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "homes-2i",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-2h",
+              "text": "Debra's role is to make those dependencies visible before the first contract creates a deadline.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "homes-32",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "homes-2l",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-2k",
+              "text": "Homes for Heroes benefits and real-estate service are separate",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-2n",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-2m",
+              "text": "Homes for Heroes controls its eligibility, enrollment, specialist network, reward structure, calculations, terms, and disclosures. Before relying on a benefit, a consumer should confirm:",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-2p",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-2o",
+              "text": "Whether the profession or service history qualifies",
+              "marks": []
+            }
+          ],
+          "markDefs": [],
+          "listItem": "bullet",
+          "level": 1
+        },
+        {
+          "_type": "block",
+          "_key": "homes-2r",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-2q",
+              "text": "Whether enrollment is required",
+              "marks": []
+            }
+          ],
+          "markDefs": [],
+          "listItem": "bullet",
+          "level": 1
+        },
+        {
+          "_type": "block",
+          "_key": "homes-2t",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-2s",
+              "text": "Whether the selected professional has the required official status",
+              "marks": []
+            }
+          ],
+          "markDefs": [],
+          "listItem": "bullet",
+          "level": 1
+        },
+        {
+          "_type": "block",
+          "_key": "homes-2v",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-2u",
+              "text": "Whether the location and transaction qualify",
+              "marks": []
+            }
+          ],
+          "markDefs": [],
+          "listItem": "bullet",
+          "level": 1
+        },
+        {
+          "_type": "block",
+          "_key": "homes-2x",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-2w",
+              "text": "How any reward is calculated and issued",
+              "marks": []
+            }
+          ],
+          "markDefs": [],
+          "listItem": "bullet",
+          "level": 1
+        },
+        {
+          "_type": "block",
+          "_key": "homes-2z",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-2y",
+              "text": "Whether taxes, lender restrictions, or other conditions apply",
+              "marks": []
+            }
+          ],
+          "markDefs": [],
+          "listItem": "bullet",
+          "level": 1
+        },
+        {
+          "_type": "block",
+          "_key": "homes-31",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-30",
+              "text": "The D'Affordable Homes page provides hero-focused real-estate guidance. It does not publish an unverified affiliation or promise a savings amount.",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        }
+      ]
+    },
+    {
+      "_type": "richTextBlock",
+      "_key": "homes-3j",
+      "content": [
+        {
+          "_type": "block",
+          "_key": "homes-34",
+          "style": "h2",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-33",
+              "text": "Questions to answer before starting",
+              "marks": []
+            }
+          ],
+          "markDefs": []
+        },
+        {
+          "_type": "block",
+          "_key": "homes-36",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-35",
+              "text": "What is the complete estimated monthly payment?",
+              "marks": []
+            }
+          ],
+          "markDefs": [],
+          "listItem": "number",
+          "level": 1
+        },
+        {
+          "_type": "block",
+          "_key": "homes-38",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-37",
+              "text": "How much cash and emergency reserve will remain after closing?",
+              "marks": []
+            }
+          ],
+          "markDefs": [],
+          "listItem": "number",
+          "level": 1
+        },
+        {
+          "_type": "block",
+          "_key": "homes-3a",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-39",
+              "text": "Which communities fit the real commute and shift schedule?",
+              "marks": []
+            }
+          ],
+          "markDefs": [],
+          "listItem": "number",
+          "level": 1
+        },
+        {
+          "_type": "block",
+          "_key": "homes-3c",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-3b",
+              "text": "How much maintenance and repair risk is acceptable?",
+              "marks": []
+            }
+          ],
+          "markDefs": [],
+          "listItem": "number",
+          "level": 1
+        },
+        {
+          "_type": "block",
+          "_key": "homes-3e",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-3d",
+              "text": "Is a home sale required before the purchase can close?",
+              "marks": []
+            }
+          ],
+          "markDefs": [],
+          "listItem": "number",
+          "level": 1
+        },
+        {
+          "_type": "block",
+          "_key": "homes-3g",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-3f",
+              "text": "Does an official Homes for Heroes benefit apply to this transaction?",
+              "marks": []
+            }
+          ],
+          "markDefs": [],
+          "listItem": "number",
+          "level": 1
+        },
+        {
+          "_type": "block",
+          "_key": "homes-3i",
+          "style": "normal",
+          "children": [
+            {
+              "_type": "span",
+              "_key": "homes-3h",
+              "text": "Who is responsible for each financing, program, inspection, appraisal, and legal decision?",
+              "marks": []
+            }
+          ],
+          "markDefs": [],
+          "listItem": "number",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "_type": "checklistBlock",
+      "_key": "homes-3k",
+      "heading": "Common mistakes to avoid",
+      "intro": null,
+      "items": [
+        {
+          "_key": "homes-3l",
+          "detail": null,
+          "label": "Assuming professional status automatically guarantees a reward"
+        },
+        {
+          "_key": "homes-3m",
+          "detail": null,
+          "label": "Choosing a home based only on the lender's maximum approval"
+        },
+        {
+          "_key": "homes-3n",
+          "detail": null,
+          "label": "Testing a commute only during light weekend traffic"
+        },
+        {
+          "_key": "homes-3o",
+          "detail": null,
+          "label": "Waiting until a transfer, lease end, or school break is too close"
+        },
+        {
+          "_key": "homes-3p",
+          "detail": null,
+          "label": "Opening new credit before closing without discussing the effect"
+        },
+        {
+          "_key": "homes-3q",
+          "detail": null,
+          "label": "Spending every available dollar and leaving no repair reserve"
+        },
+        {
+          "_key": "homes-3r",
+          "detail": null,
+          "label": "Treating every hero household as though it has the same priorities"
+        }
+      ]
+    },
+    {
+      "_type": "programCtaBlock",
+      "_key": "homes-3s",
+      "program": "homes-for-heroes",
+      "heading": "Build a real-estate plan around the person—not the label",
+      "body": "A profession may shape the schedule and the move, but it should not reduce the client to a generic category. Debra helps North Texas community heroes create a buying, selling, or coordinated move plan around their goals, timing, budget, and responsibilities.",
+      "href": "/programs/homes-for-heroes",
+      "label": "Start with hero-focused guidance from Debra Allen"
+    }
+  ],
+  "faqs": [
+    {
+      "_key": "faq-1",
+      "question": "Who may qualify for Homes for Heroes?",
+      "answer": "Homes for Heroes primarily identifies military members and veterans, firefighters and EMS, law enforcement, healthcare professionals, and teachers. Current eligibility and enrollment rules must be confirmed directly through the official program."
+    },
+    {
+      "_key": "faq-2",
+      "question": "Is Homes for Heroes only for first-time buyers?",
+      "answer": "No. The official program says eligible participants are not limited to first-time homebuyers."
+    },
+    {
+      "_key": "faq-3",
+      "question": "Does a profession automatically guarantee a reward?",
+      "answer": "No. A professional or service category alone does not guarantee enrollment, eligibility, specialist participation, a particular savings amount, or a transaction benefit."
+    },
+    {
+      "_key": "faq-4",
+      "question": "Can Debra help a North Texas hero buy or sell?",
+      "answer": "Debra can provide real-estate planning and representation, subject to availability and the facts of the transaction. Any official third-party program status or benefit must be confirmed separately."
+    },
+    {
+      "_key": "faq-5",
+      "question": "Can Debra coordinate a sale and purchase?",
+      "answer": "Yes. A coordinated plan can identify equity, financing, timing, contingency, possession, temporary-housing, and moving dependencies before the transactions begin."
+    }
+  ],
+  "officialSources": [
+    {
+      "_key": "src-1",
+      "publisher": "Homes for Heroes",
+      "label": "Homes for Heroes: Who We Serve",
+      "href": "https://www.homesforheroes.com/heroes/"
+    },
+    {
+      "_key": "src-2",
+      "publisher": "Homes for Heroes",
+      "label": "Homes for Heroes: Program Disclosures",
+      "href": "https://www.homesforheroes.com/imprint/"
+    }
+  ],
+  "disclaimer": [
+    {
+      "_type": "block",
+      "_key": "homes-3u",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "homes-3t",
+          "text": "Homes for Heroes is a third-party program. This article does not guarantee enrollment, eligibility, specialist status, rewards, rebates, savings, or transaction results. D'Affordable Homes should not be represented as officially affiliated unless verified documentation is published.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    }
+  ],
+  "relatedLinks": [
+    {
+      "_key": "rel-1",
+      "label": "Hero-focused real-estate guidance",
+      "href": "/programs/homes-for-heroes",
+      "description": "See Debra's buying, selling, and move-planning support."
+    },
+    {
+      "_key": "rel-2",
+      "label": "Garland homebuyer guide",
+      "href": "/areas/garland",
+      "description": "Plan a Garland search around cost, condition, commute, and timing."
+    },
+    {
+      "_key": "rel-3",
+      "label": "Affordability calculator",
+      "href": "/calculators/affordability",
+      "description": "Estimate a comfortable planning range before touring."
+    },
+    {
+      "_key": "rel-4",
+      "label": "Closing-cost calculator",
+      "href": "/calculators/closing-costs",
+      "description": "Prepare for costs beyond the down payment."
+    }
+  ],
+  "relatedArticles": [
+    {
+      "slug": "naca-homebuying-dallas-fort-worth",
+      "title": "Using NACA to Buy a Home in Dallas–Fort Worth",
+      "excerpt": "Understand workshops, counseling, qualification, outside-agent procedures, property review, and Debra's role in the real-estate transaction.",
+      "readingTime": "10 minute read",
+      "eyebrow": "NACA homebuyer field guide"
+    },
+    {
+      "slug": "how-to-buy-home-garland-tx",
+      "title": "How to Buy a Home in Garland, Texas",
+      "excerpt": "A step-by-step guide to budgeting, financing, local assistance boundaries, touring, inspections, offers, underwriting, and closing.",
+      "readingTime": "12 minute read",
+      "eyebrow": "Garland first-time buyer field guide"
+    }
+  ]
+}

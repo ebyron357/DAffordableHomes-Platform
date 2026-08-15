@@ -23,6 +23,21 @@ export const SITE = {
 } as const
 
 /**
+ * Site build and technology attribution.
+ *
+ * ClientVerse is the website design and technology vendor for D'Affordable
+ * Homes. The attribution is a vendor credit only — it is not an endorsement, a
+ * brokerage relationship, or a real-estate affiliation, and the qualification
+ * below keeps that boundary explicit wherever the credit is rendered.
+ */
+export const ATTRIBUTION = {
+  vendorName: "ClientVerse",
+  vendorUrl: "https://clientverse.io",
+  label: "Made by",
+  qualification: "Website design and technology vendor for D'Affordable Homes.",
+} as const
+
+/**
  * Trust facts that require confirmation before publication. Each is `null` until
  * verified. UI must never invent a value to fill these in.
  */

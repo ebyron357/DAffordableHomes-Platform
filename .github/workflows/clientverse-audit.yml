@@ -1,0 +1,175 @@
+name: ClientVerse Audit
+
+# Integration layer only. Discovery, browser/accessibility/performance/security
+# testing, findings normalization, repair policy enforcement, verification, and
+# evidence reporting are owned by the centralized ClientVerse Website Audit &
+# Release Certification System. This workflow only notifies that system, stores
+# the evidence it returns, and enforces its release gate.
+#
+# Do not add Playwright, Lighthouse, axe, Lychee, Semgrep, or other scanner
+# logic to this file. Project-specific audit configuration lives in
+# qa-config/clientverse-audit.yaml.
+#
+# This workflow never reports success when it could not actually audit the
+# release. A missing endpoint, a missing token, a missing deployment URL, an
+# unreadable response, or an unrecognized gate value all fail the check with an
+# explicit BLOCKED result.
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      deployment_url:
+        description: "Deployment URL to audit (e.g. a Vercel preview or production URL)"
+        required: false
+        default: ""
+
+concurrency:
+  group: clientverse-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  central-audit:
+    name: Centralized ClientVerse audit and release gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify audit configuration is present
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s qa-config/clientverse-audit.yaml
+          test -s apps/web/package.json
+          echo "Auditing the canonical Next.js application at apps/web."
+
+      - name: Resolve audit target
+        id: target
+        shell: bash
+        env:
+          INPUT_URL: ${{ github.event.inputs.deployment_url }}
+          VAR_URL: ${{ vars.CLIENTVERSE_DEPLOYMENT_URL }}
+          COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          url="$INPUT_URL"
+          if [ -z "$url" ]; then url="$VAR_URL"; fi
+          {
+            echo "deployment_url=$url"
+            echo "commit_sha=$COMMIT_SHA"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Fail when ClientVerse is not configured
+        if: ${{ vars.CLIENTVERSE_ENDPOINT == '' || steps.target.outputs.deployment_url == '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p clientverse-evidence
+          {
+            echo "release_gate=BLOCKED"
+            echo "reason=missing-configuration"
+            echo "endpoint_configured=${{ vars.CLIENTVERSE_ENDPOINT != '' }}"
+            echo "deployment_url_configured=${{ steps.target.outputs.deployment_url != '' }}"
+            echo "commit_sha=${{ steps.target.outputs.commit_sha }}"
+          } > clientverse-evidence/result.txt
+          cat clientverse-evidence/result.txt
+          echo "::error::ClientVerse audit is BLOCKED. Set the CLIENTVERSE_ENDPOINT and CLIENTVERSE_DEPLOYMENT_URL repository variables and the CLIENTVERSE_TOKEN repository secret. This check reports BLOCKED rather than passing, because no audit was performed."
+          exit 1
+
+      - name: Send audit request to ClientVerse
+        id: audit
+        shell: bash
+        env:
+          CLIENTVERSE_ENDPOINT: ${{ vars.CLIENTVERSE_ENDPOINT }}
+          CLIENTVERSE_TOKEN: ${{ secrets.CLIENTVERSE_TOKEN }}
+          COMMIT_SHA: ${{ steps.target.outputs.commit_sha }}
+          DEPLOYMENT_URL: ${{ steps.target.outputs.deployment_url }}
+          AUDIT_CONFIG_PATH: qa-config/clientverse-audit.yaml
+          REPOSITORY: ${{ github.repository }}
+          REF: ${{ github.event.pull_request.head.ref || github.ref_name }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${CLIENTVERSE_TOKEN:-}" ]; then
+            echo "::error::CLIENTVERSE_TOKEN secret is not set. Reporting BLOCKED without auditing."
+            mkdir -p clientverse-evidence
+            echo "release_gate=BLOCKED" > clientverse-evidence/result.txt
+            echo "reason=missing-token" >> clientverse-evidence/result.txt
+            exit 1
+          fi
+
+          mkdir -p clientverse-evidence
+          payload=clientverse-evidence/request.json
+          response=clientverse-evidence/response.json
+
+          jq -n \
+            --arg repository "$REPOSITORY" \
+            --arg ref "$REF" \
+            --arg commit_sha "$COMMIT_SHA" \
+            --arg deployment_url "$DEPLOYMENT_URL" \
+            --arg audit_config_path "$AUDIT_CONFIG_PATH" \
+            --arg application_path "apps/web" \
+            '{repository: $repository, ref: $ref, commit_sha: $commit_sha, deployment_url: $deployment_url, audit_config_path: $audit_config_path, application_path: $application_path}' \
+            > "$payload"
+
+          status_code="$(curl -sS -o "$response" -w '%{http_code}' \
+            -X POST "$CLIENTVERSE_ENDPOINT" \
+            -H "Authorization: Bearer ${CLIENTVERSE_TOKEN}" \
+            -H "Content-Type: application/json" \
+            --max-time 600 \
+            -d @"$payload")"
+
+          echo "http_status=$status_code" >> clientverse-evidence/result.txt
+          echo "ClientVerse response (HTTP $status_code):"
+          cat "$response" || true
+          echo
+
+          if [ "$status_code" -lt 200 ] || [ "$status_code" -ge 300 ]; then
+            echo "release_gate=BLOCKED" >> clientverse-evidence/result.txt
+            echo "reason=http-$status_code" >> clientverse-evidence/result.txt
+            echo "::error::ClientVerse audit request failed with HTTP $status_code."
+            exit 1
+          fi
+
+          gate="$(RESPONSE_FILE="$response" node -e "
+            const fs = require('fs');
+            try {
+              const body = JSON.parse(fs.readFileSync(process.env.RESPONSE_FILE, 'utf8'));
+              process.stdout.write(String(body.release_gate || body.status || 'UNKNOWN'));
+            } catch (error) {
+              process.stdout.write('UNPARSEABLE');
+            }
+          ")"
+
+          echo "release_gate=$gate" >> clientverse-evidence/result.txt
+          echo "gate=$gate" >> "$GITHUB_OUTPUT"
+
+      - name: Upload audit evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: clientverse-audit-evidence
+          path: clientverse-evidence
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Enforce ClientVerse release gate
+        shell: bash
+        env:
+          RELEASE_GATE: ${{ steps.audit.outputs.gate }}
+        run: |
+          set -euo pipefail
+          echo "ClientVerse release gate: ${RELEASE_GATE:-<empty>}"
+          case "${RELEASE_GATE:-}" in
+            GO|PASS|APPROVED)
+              echo "ClientVerse certified this release."
+              ;;
+            *)
+              echo "::error::ClientVerse release gate is '${RELEASE_GATE:-<empty>}'. Only GO, PASS, or APPROVED may pass this check; anything else is treated as BLOCKED."
+              exit 1
+              ;;
+          esac
