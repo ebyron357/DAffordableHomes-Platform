@@ -1,8 +1,30 @@
 import type { Metadata, Viewport } from "next"
+import { Inter, Source_Serif_4 } from "next/font/google"
 import { SiteHeader } from "@/components/layout/site-header"
 import { SiteFooter } from "@/components/layout/site-footer"
 import { SITE } from "@/lib/site"
 import "./globals.css"
+
+/**
+ * Brand typefaces, self-hosted by Next at build time.
+ *
+ * `globals.css` already declared `--font-inter` and `--font-source-serif` with
+ * system-font placeholders; these bindings supply the real faces without
+ * loosening the `font-src 'self' data:` CSP, because the files are served from
+ * this origin.
+ */
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+})
+
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  display: "swap",
+  style: ["normal", "italic"],
+  variable: "--font-source-serif",
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -12,6 +34,12 @@ export const metadata: Metadata = {
   },
   description: SITE.description,
   applicationName: SITE.name,
+  /**
+   * Default self-referencing canonical. Next resolves "./" against each route's
+   * own path, so every page ships a canonical without repeating it per file;
+   * routes that need a different target still override `alternates.canonical`.
+   */
+  alternates: { canonical: "./" },
   keywords: [
     "first-time home buyer education",
     "homeownership guidance",
@@ -82,7 +110,7 @@ const entityGraph = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="bg-background">
+    <html lang="en" className={`${inter.variable} ${sourceSerif.variable} bg-background`}>
       <body className="flex min-h-dvh flex-col antialiased">
         <script
           type="application/ld+json"

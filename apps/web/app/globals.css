@@ -22,8 +22,13 @@
 
 @theme {
   /* -- Typography ------------------------------------------------------- */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-source-serif), "Libre Baskerville", Georgia, serif;
+  /*
+   * `--font-inter` / `--font-source-serif` are attached to <html> by next/font
+   * in app/layout.tsx. The var() fallbacks keep type sane if a surface renders
+   * outside the root layout, without a specificity fight over :root.
+   */
+  --font-sans: var(--font-inter, "Segoe UI"), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif, "Libre Baskerville"), Georgia, serif;
 
   /* -- Surfaces --------------------------------------------------------- */
   --color-background: #f7f9f8;
@@ -81,11 +86,6 @@
 }
 
 @layer base {
-  :root {
-    --font-inter: "Segoe UI";
-    --font-source-serif: Georgia;
-  }
-
   * {
     border-color: var(--color-border);
   }

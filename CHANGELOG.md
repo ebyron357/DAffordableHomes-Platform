@@ -2,6 +2,18 @@
 
 All notable repository changes are documented here.
 
+## 2026-08-15
+
+- Implemented Sanity CMS: embedded Studio at `/studio`, article/author/category schema, 18 reusable editorial block types, GROQ query layer, draft preview, and a signature-verified publish revalidation webhook.
+- Replaced the three hardcoded article routes with one CMS-driven `/blog/[slug]`; the three published URLs are unchanged and unknown slugs now return a real HTTP 404.
+- Migrated all three articles into a reproducible seed with an NDJSON exporter for `sanity dataset import`.
+- Rebuilt the blog as a premium editorial experience and ran a design pass across the shared system, including real Inter and Source Serif 4 webfonts self-hosted at build time.
+- Added the `Made by ClientVerse` attribution to the shared site footer with an explicit vendor-relationship qualifier and a regression test that asserts it.
+- Reworked the ClientVerse audit workflow so an unconfigured or uncertified audit fails instead of reporting a green no-op, and uploads its evidence as an artifact.
+- Added a Playwright site-audit harness covering route crawl, internal links, canonicals, structured data, accessibility structure, console errors, and responsive behaviour at five viewports.
+- Fixed a horizontal-overflow defect on `/consultation` at 375px and an unanchored overlay in the related-articles module that intercepted clicks.
+- Removed the `recovered-manus` reference bundle from the production test pipeline; it remains in the repository as reference material only.
+
 ## 2026-07-18
 
 - Added a shared calculation engine for mortgage payment, affordability, cash-to-close, and down-payment scenario planning.

@@ -1,0 +1,177 @@
+name: ClientVerse Audit
+
+# Integration layer only. Discovery, browser/accessibility/performance/security
+# testing, findings normalization, repair policy enforcement, verification and
+# evidence reporting are owned by the centralized ClientVerse Website Audit &
+# Release Certification System. This workflow notifies that system, preserves
+# the evidence it returns, and enforces its release gate.
+#
+# Do not add Playwright, Lighthouse, axe, Lychee, Semgrep, or other scanner
+# logic here. Project-specific audit configuration lives in
+# qa-config/clientverse-audit.yaml.
+#
+# Supersedes PR #18. Two corrections to that draft:
+#   1. It exited 0 with a notice when CLIENTVERSE_ENDPOINT was unset, so an
+#      unconfigured integration reported a green check. This workflow reports
+#      BLOCKED and fails instead — an audit that never ran is not a pass.
+#   2. It audited whatever CLIENTVERSE_DEPLOYMENT_URL happened to hold. This
+#      workflow requires a resolved deployment URL and records the exact commit
+#      SHA that URL is expected to serve.
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      deployment_url:
+        description: "Deployment URL to audit (Vercel preview or production URL)"
+        required: false
+        default: ""
+
+concurrency:
+  group: clientverse-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  central-audit:
+    name: Centralized ClientVerse audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Resolve audit target
+        id: target
+        shell: bash
+        env:
+          INPUT_URL: ${{ github.event.inputs.deployment_url }}
+          VAR_URL: ${{ vars.CLIENTVERSE_DEPLOYMENT_URL }}
+          COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          url="${INPUT_URL:-$VAR_URL}"
+          {
+            echo "deployment_url=$url"
+            echo "commit_sha=$COMMIT_SHA"
+          } >> "$GITHUB_OUTPUT"
+          echo "Commit under audit: $COMMIT_SHA"
+          echo "Deployment URL:     ${url:-<unset>}"
+
+      - name: Verify the integration is configured
+        id: preflight
+        shell: bash
+        env:
+          ENDPOINT: ${{ vars.CLIENTVERSE_ENDPOINT }}
+          TOKEN: ${{ secrets.CLIENTVERSE_TOKEN }}
+          DEPLOYMENT_URL: ${{ steps.target.outputs.deployment_url }}
+        run: |
+          set -euo pipefail
+          missing=()
+          [ -n "$ENDPOINT" ]       || missing+=("CLIENTVERSE_ENDPOINT (repository variable)")
+          [ -n "$TOKEN" ]          || missing+=("CLIENTVERSE_TOKEN (repository secret)")
+          [ -n "$DEPLOYMENT_URL" ] || missing+=("CLIENTVERSE_DEPLOYMENT_URL (repository variable) or the deployment_url input")
+
+          if [ ${#missing[@]} -gt 0 ]; then
+            {
+              echo "## ClientVerse audit: BLOCKED"
+              echo ""
+              echo "The centralized audit could not run because the integration is not configured."
+              echo "Missing configuration:"
+              echo ""
+              for item in "${missing[@]}"; do echo "- \`$item\`"; done
+              echo ""
+              echo "Configure these under **Settings → Secrets and variables → Actions**, then re-run."
+              echo "This check fails deliberately: an audit that never executed is not a pass."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::error::ClientVerse audit BLOCKED — missing: ${missing[*]}"
+            exit 1
+          fi
+          echo "All ClientVerse configuration is present."
+
+      - name: Request centralized audit
+        id: audit
+        shell: bash
+        env:
+          CLIENTVERSE_ENDPOINT: ${{ vars.CLIENTVERSE_ENDPOINT }}
+          CLIENTVERSE_TOKEN: ${{ secrets.CLIENTVERSE_TOKEN }}
+          COMMIT_SHA: ${{ steps.target.outputs.commit_sha }}
+          DEPLOYMENT_URL: ${{ steps.target.outputs.deployment_url }}
+          AUDIT_CONFIG_PATH: qa-config/clientverse-audit.yaml
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p clientverse-evidence
+
+          jq -n \
+            --arg repository "$REPOSITORY" \
+            --arg commit_sha "$COMMIT_SHA" \
+            --arg deployment_url "$DEPLOYMENT_URL" \
+            --arg audit_config_path "$AUDIT_CONFIG_PATH" \
+            '{repository: $repository, commit_sha: $commit_sha, deployment_url: $deployment_url, audit_config_path: $audit_config_path}' \
+            > clientverse-evidence/request.json
+
+          status_code="$(curl -sS --max-time 600 \
+            -o clientverse-evidence/response.json -w '%{http_code}' \
+            -X POST "$CLIENTVERSE_ENDPOINT" \
+            -H "Authorization: Bearer ${CLIENTVERSE_TOKEN}" \
+            -H "Content-Type: application/json" \
+            -d @clientverse-evidence/request.json)" || status_code="000"
+
+          echo "$status_code" > clientverse-evidence/http_status.txt
+          echo "ClientVerse responded with HTTP $status_code"
+          cat clientverse-evidence/response.json || true
+
+          if [ "$status_code" -lt 200 ] || [ "$status_code" -ge 300 ]; then
+            echo "::error::ClientVerse audit request failed with HTTP $status_code"
+            echo "gate=REQUEST_FAILED" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
+
+          gate="$(RESPONSE=clientverse-evidence/response.json node -e "
+            const fs = require('node:fs');
+            try {
+              const body = JSON.parse(fs.readFileSync(process.env.RESPONSE, 'utf8'));
+              process.stdout.write(String(body.release_gate ?? body.status ?? 'UNKNOWN'));
+            } catch {
+              process.stdout.write('UNPARSEABLE');
+            }
+          ")"
+          echo "gate=$gate" >> "$GITHUB_OUTPUT"
+          echo "Release gate: $gate"
+
+      - name: Preserve audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clientverse-audit-evidence
+          path: clientverse-evidence/
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Enforce release gate
+        shell: bash
+        env:
+          GATE: ${{ steps.audit.outputs.gate }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## ClientVerse audit"
+            echo ""
+            echo "- Commit: \`${{ steps.target.outputs.commit_sha }}\`"
+            echo "- Deployment: ${{ steps.target.outputs.deployment_url }}"
+            echo "- Release gate: \`$GATE\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          # Only an explicit pass is a pass. UNKNOWN and UNPARSEABLE mean the
+          # central system did not certify this release, so they fail too.
+          case "$GATE" in
+            PASS|PASSED|APPROVED|CERTIFIED|OK)
+              echo "ClientVerse release gate satisfied."
+              ;;
+            *)
+              echo "::error::ClientVerse release gate is '$GATE' — not a certified pass."
+              exit 1
+              ;;
+          esac

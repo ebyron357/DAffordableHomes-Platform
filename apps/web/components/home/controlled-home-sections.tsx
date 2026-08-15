@@ -51,7 +51,7 @@ export function ControlledHomeSections({ placement }: { placement: "before-debra
                   <p className="text-xs font-semibold text-accent">0{index + 1}</p>
                   <h3 className="mt-3 font-sans text-xl font-semibold">{title}</h3>
                   <p className="mt-3 max-w-sm text-[15px] leading-6 text-muted-foreground">{body}</p>
-                  <Link href={href} className="mt-4 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">{action} →</Link>
+                  <Link href={href} className="mt-4 inline-block py-1 text-sm font-semibold text-primary underline-offset-4 hover:underline">{action} →</Link>
                 </article>
               ))}
             </div>
@@ -65,7 +65,7 @@ export function ControlledHomeSections({ placement }: { placement: "before-debra
                 <h2 id="tools-heading" className="font-serif text-[31px] font-normal sm:text-[38px]">Planning tools that answer real questions</h2>
                 <p className="mt-3 max-w-3xl text-muted-foreground">Use straightforward estimates to prepare better questions for a lender or consultation.</p>
               </div>
-              <Link href="/resources/calculators" className="shrink-0 text-sm font-semibold text-primary hover:underline">View all calculators →</Link>
+              <Link href="/resources/calculators" className="inline-block shrink-0 py-1 text-sm font-semibold text-primary hover:underline">View all calculators →</Link>
             </div>
             <div className="mt-7 border-t border-border">
               {tools.map(([title, href, body]) => (
@@ -87,14 +87,14 @@ export function ControlledHomeSections({ placement }: { placement: "before-debra
                 <h2 id="programs-heading" className="mt-3 font-serif text-[31px] font-normal sm:text-[38px]">Program-specific help, connected to one clear process</h2>
                 <p className="mt-3 max-w-3xl text-muted-foreground">Understand the path before choosing it.</p>
               </div>
-              <Link href="/programs" className="shrink-0 text-sm font-semibold text-primary hover:underline">Program overview →</Link>
+              <Link href="/programs" className="inline-block shrink-0 py-1 text-sm font-semibold text-primary hover:underline">Program overview →</Link>
             </div>
             <div className="mt-8 grid gap-6 lg:grid-cols-2">
               {programs.map((program) => (
                 <article key={program.href} className="border border-border bg-background p-7 sm:p-9">
                   <h3 className="font-serif text-3xl font-normal">{program.title}</h3>
                   <p className="mt-4 leading-7 text-muted-foreground">{program.body}</p>
-                  <Link href={program.href} className="mt-6 inline-block text-sm font-semibold text-primary hover:underline">{program.action} →</Link>
+                  <Link href={program.href} className="mt-6 inline-block py-1 text-sm font-semibold text-primary hover:underline">{program.action} →</Link>
                 </article>
               ))}
             </div>
