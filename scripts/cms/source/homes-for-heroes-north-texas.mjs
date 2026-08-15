@@ -255,6 +255,7 @@ export default {
     b.checklist({
       heading: 'Common mistakes to avoid',
       intro: 'Each of these is avoidable with a plan built before the first deadline exists.',
+      variant: 'avoid',
       items: [
         { label: 'Assuming professional status automatically guarantees a reward' },
         { label: "Choosing a home based only on the lender's maximum approval" },

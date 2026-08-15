@@ -91,6 +91,7 @@ export type ChecklistBlock = {
   _key: string
   heading?: string
   intro?: string
+  variant?: "check" | "avoid"
   items: { _key: string; label: string; detail?: string }[]
 }
 

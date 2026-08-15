@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Check, CircleAlert, Info, Quote, Sparkles } from "lucide-react"
+import { ArrowRight, Check, CircleAlert, Info, Quote, Sparkles, X } from "lucide-react"
 
 import { RichText } from "@/components/blog/portable-text"
 import { Button } from "@/components/ui/button"
@@ -291,6 +291,8 @@ function ComplianceDisclaimer({ block }: { block: ComplianceDisclaimerBlock }) {
 }
 
 function Checklist({ block }: { block: ChecklistBlock }) {
+  const avoid = block.variant === "avoid"
+  const Marker = avoid ? X : Check
   return (
     <section className="my-12 rounded-xl border border-border bg-card p-6 sm:p-8" aria-labelledby={`${block._key}-heading`}>
       {block.heading && <BlockHeading id={`${block._key}-heading`}>{block.heading}</BlockHeading>}
@@ -299,10 +301,12 @@ function Checklist({ block }: { block: ChecklistBlock }) {
         {block.items.map((item) => (
           <li key={item._key} className="flex gap-3.5">
             <span
-              className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full border border-accent/35 bg-accent/10"
+              className={`mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full border ${
+                avoid ? "border-destructive/35 bg-destructive/10" : "border-accent/35 bg-accent/10"
+              }`}
               aria-hidden="true"
             >
-              <Check className="size-3.5 text-accent" />
+              <Marker className={`size-3.5 ${avoid ? "text-destructive" : "text-accent"}`} />
             </span>
             <span className="leading-7">
               <span className="font-medium text-foreground">{item.label}</span>

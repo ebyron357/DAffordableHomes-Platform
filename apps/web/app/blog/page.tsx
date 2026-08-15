@@ -141,7 +141,9 @@ export default async function BlogPage() {
                 <h2 id="more-guides-heading" className="text-[1.75rem] leading-tight sm:text-[2.25rem]">
                   Start with the question in front of you.
                 </h2>
-                <ul className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+                <ul
+                  className={`mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 ${rest.length >= 3 ? "lg:grid-cols-3" : "lg:max-w-4xl"}`}
+                >
                   {rest.map((article) => (
                     <li key={article._id}>
                       <Link href={`/blog/${article.slug}`} className="group flex h-full flex-col">

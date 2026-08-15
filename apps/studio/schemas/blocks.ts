@@ -244,6 +244,19 @@ export const checklist = defineType({
     defineField({ name: "heading", type: "string" }),
     defineField({ name: "intro", type: "text", rows: 2 }),
     defineField({
+      name: "variant",
+      type: "string",
+      initialValue: "check",
+      description: "Use \u201cAvoid\u201d for lists of mistakes so the marker does not read as an endorsement.",
+      options: {
+        list: [
+          { title: "Do this", value: "check" },
+          { title: "Avoid this", value: "avoid" },
+        ],
+        layout: "radio",
+      },
+    }),
+    defineField({
       name: "items",
       type: "array",
       of: [

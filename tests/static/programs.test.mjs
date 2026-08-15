@@ -64,7 +64,7 @@ test('program pages avoid unsupported outcome and affiliation claims', () => {
 test('navigation, homepage, redirect, sitemap, and robots integrate the new routes', () => {
   const navigation = readFileSync('apps/web/lib/navigation.ts', 'utf8');
   const homepage = readFileSync('apps/web/components/home/controlled-home-sections.tsx', 'utf8');
-  const legacyNaca = readFileSync('apps/web/app/naca/page.tsx', 'utf8');
+  const nextConfig = readFileSync('apps/web/next.config.mjs', 'utf8');
   const sitemap = readFileSync('apps/web/app/sitemap.ts', 'utf8');
   const robots = readFileSync('apps/web/app/robots.ts', 'utf8');
 
@@ -72,7 +72,8 @@ test('navigation, homepage, redirect, sitemap, and robots integrate the new rout
   assert.match(homepage, /Homebuyer programs/);
   assert.match(homepage, /\/programs\/naca/);
   assert.match(homepage, /\/programs\/homes-for-heroes/);
-  assert.match(legacyNaca, /permanentRedirect\("\/programs\/naca"\)/);
+  // /naca is a configuration-level 308 so crawlers see a real redirect status.
+  assert.match(nextConfig, /source: '\/naca', destination: '\/programs\/naca', permanent: true/);
   assert.match(sitemap, /\/areas\/garland/);
   assert.match(sitemap, /\/programs\/homes-for-heroes/);
   assert.match(robots, /sitemap\.xml/);

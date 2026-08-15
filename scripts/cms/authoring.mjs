@@ -156,11 +156,12 @@ export function blocks(slug) {
       body: paragraphs.map((text) => textBlock('normal', text, next('compliance.p'))),
     }),
 
-    checklist: ({ heading, intro, items }) => ({
+    checklist: ({ heading, intro, items, variant }) => ({
       _type: 'checklist',
       _key: keyFor(next('checklist')),
       ...(heading ? { heading } : {}),
       ...(intro ? { intro } : {}),
+      variant: variant ?? 'check',
       items: items.map((item, position) => ({
         _key: keyFor(`${slug}:checklist:${position}:${item.label}`),
         label: item.label,

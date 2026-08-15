@@ -113,21 +113,27 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         {/* ------------------------------------------------------------- */}
         <header className="border-b border-border bg-card">
           <Container className="py-10 md:py-16">
-            <nav aria-label="Breadcrumb">
-              <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
+            <nav aria-label="Breadcrumb" className="-my-2">
+              <ol className="flex flex-wrap items-center gap-x-1 text-sm text-muted-foreground">
                 <li>
-                  <Link href="/" className="hover:text-accent hover:underline underline-offset-4">
+                  <Link
+                    href="/"
+                    className="inline-flex min-h-11 items-center px-1 underline-offset-4 hover:text-accent hover:underline"
+                  >
                     Home
                   </Link>
                 </li>
                 <li aria-hidden="true">/</li>
                 <li>
-                  <Link href="/blog" className="hover:text-accent hover:underline underline-offset-4">
+                  <Link
+                    href="/blog"
+                    className="inline-flex min-h-11 items-center px-1 underline-offset-4 hover:text-accent hover:underline"
+                  >
                     Blogs
                   </Link>
                 </li>
                 <li aria-hidden="true">/</li>
-                <li className="max-w-full truncate font-medium text-foreground" aria-current="page">
+                <li className="max-w-full truncate py-2 pl-1 font-medium text-foreground" aria-current="page">
                   {article.title}
                 </li>
               </ol>
@@ -146,7 +152,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-border pt-6 text-sm text-muted-foreground">
                   <span className="font-medium text-foreground">
                     {article.author.profilePath ? (
-                      <Link href={article.author.profilePath} className="hover:text-accent hover:underline underline-offset-4">
+                      <Link
+                        href={article.author.profilePath}
+                        className="inline-flex min-h-11 items-center underline-offset-4 hover:text-accent hover:underline"
+                      >
                         {author}
                       </Link>
                     ) : (
@@ -231,7 +240,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <div className="mt-12">
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-accent underline-offset-4 hover:underline"
+                className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-accent underline-offset-4 hover:underline"
               >
                 <ArrowLeft className="size-4" aria-hidden="true" />
                 All field guides
@@ -248,7 +257,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 {article.author.profilePath && (
                   <Link
                     href={article.author.profilePath}
-                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-accent underline-offset-4 hover:underline"
+                    className="mt-3 inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-accent underline-offset-4 hover:underline"
                   >
                     About {article.author.name.split(" ")[0]}
                     <ArrowRight className="size-3.5" aria-hidden="true" />
@@ -302,14 +311,16 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 </div>
                 <Link
                   href="/blog"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-accent underline-offset-4 hover:underline"
+                  className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-accent underline-offset-4 hover:underline"
                 >
                   View all
                   <ArrowRight className="size-4" aria-hidden="true" />
                 </Link>
               </div>
 
-              <ul className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              <ul
+                className={`mt-10 grid gap-8 sm:grid-cols-2 ${related.length >= 3 ? "lg:grid-cols-3" : "lg:max-w-4xl"}`}
+              >
                 {related.map((summary) => (
                   <li key={summary._id}>
                     <Link href={`/blog/${summary.slug}`} className="group flex h-full flex-col">

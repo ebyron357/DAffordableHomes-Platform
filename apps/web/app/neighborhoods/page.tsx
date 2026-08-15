@@ -67,7 +67,7 @@ export default function NeighborhoodsPage() {
               </p>
               <Link
                 href="/areas/garland"
-                className="mt-6 inline-flex items-center gap-2 font-semibold text-accent underline-offset-4 hover:underline"
+                className="mt-4 inline-flex min-h-11 items-center gap-2 font-semibold text-accent underline-offset-4 hover:underline"
               >
                 Read the Garland guide
                 <ArrowRight className="size-4" aria-hidden="true" />

@@ -43,7 +43,7 @@ export function ControlledHomeSections({ placement }: { placement: "before-debra
       <>
         <section className="bg-card py-14 md:py-16" aria-labelledby="pathways-heading">
           <Container>
-            <h2 id="pathways-heading" className="font-serif text-[31px] font-normal sm:text-[38px]">Start with the question in front of you.</h2>
+            <h2 id="pathways-heading" className="text-[1.875rem] leading-tight sm:text-[2.5rem]">Start with the question in front of you.</h2>
             <p className="mt-3 max-w-3xl text-muted-foreground">Choose the clearest next step without forcing every visitor into the same path.</p>
             <div className="mt-7 grid md:grid-cols-3">
               {paths.map(([title, href, body, action], index) => (
@@ -51,7 +51,7 @@ export function ControlledHomeSections({ placement }: { placement: "before-debra
                   <p className="text-xs font-semibold text-accent">0{index + 1}</p>
                   <h3 className="mt-3 font-sans text-xl font-semibold">{title}</h3>
                   <p className="mt-3 max-w-sm text-[15px] leading-6 text-muted-foreground">{body}</p>
-                  <Link href={href} className="mt-4 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">{action} →</Link>
+                  <Link href={href} className="mt-4 inline-block text-sm font-semibold text-accent underline-offset-4 hover:underline">{action} →</Link>
                 </article>
               ))}
             </div>
@@ -62,17 +62,17 @@ export function ControlledHomeSections({ placement }: { placement: "before-debra
           <Container>
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
               <div>
-                <h2 id="tools-heading" className="font-serif text-[31px] font-normal sm:text-[38px]">Planning tools that answer real questions</h2>
+                <h2 id="tools-heading" className="text-[1.875rem] leading-tight sm:text-[2.5rem]">Planning tools that answer real questions</h2>
                 <p className="mt-3 max-w-3xl text-muted-foreground">Use straightforward estimates to prepare better questions for a lender or consultation.</p>
               </div>
-              <Link href="/resources/calculators" className="shrink-0 text-sm font-semibold text-primary hover:underline">View all calculators →</Link>
+              <Link href="/calculators" className="shrink-0 text-sm font-semibold text-accent underline-offset-4 hover:underline">View all calculators →</Link>
             </div>
             <div className="mt-7 border-t border-border">
               {tools.map(([title, href, body]) => (
                 <Link key={href} href={href} className="grid gap-2 border-b border-border py-5 hover:bg-card md:grid-cols-[280px_1fr_auto] md:items-center md:gap-6">
                   <span className="font-semibold">{title}</span>
                   <span className="text-sm leading-6 text-muted-foreground">{body}</span>
-                  <span className="text-sm font-semibold text-primary">Open tool →</span>
+                  <span className="text-sm font-semibold text-accent">Open tool →</span>
                 </Link>
               ))}
             </div>
@@ -83,18 +83,18 @@ export function ControlledHomeSections({ placement }: { placement: "before-debra
           <Container>
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">Homebuyer programs</p>
-                <h2 id="programs-heading" className="mt-3 font-serif text-[31px] font-normal sm:text-[38px]">Program-specific help, connected to one clear process</h2>
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">Homebuyer programs</p>
+                <h2 id="programs-heading" className="mt-3 text-[1.875rem] leading-tight sm:text-[2.5rem]">Program-specific help, connected to one clear process</h2>
                 <p className="mt-3 max-w-3xl text-muted-foreground">Understand the path before choosing it.</p>
               </div>
-              <Link href="/programs" className="shrink-0 text-sm font-semibold text-primary hover:underline">Program overview →</Link>
+              <Link href="/programs" className="shrink-0 text-sm font-semibold text-accent underline-offset-4 hover:underline">Program overview →</Link>
             </div>
             <div className="mt-8 grid gap-6 lg:grid-cols-2">
               {programs.map((program) => (
-                <article key={program.href} className="border border-border bg-background p-7 sm:p-9">
-                  <h3 className="font-serif text-3xl font-normal">{program.title}</h3>
+                <article key={program.href} className="rounded-xl border border-border bg-background p-7 transition-colors hover:border-accent/50 sm:p-9">
+                  <h3 className="text-[1.625rem] leading-snug">{program.title}</h3>
                   <p className="mt-4 leading-7 text-muted-foreground">{program.body}</p>
-                  <Link href={program.href} className="mt-6 inline-block text-sm font-semibold text-primary hover:underline">{program.action} →</Link>
+                  <Link href={program.href} className="mt-6 inline-flex min-h-11 items-center text-sm font-semibold text-accent underline-offset-4 hover:underline">{program.action} →</Link>
                 </article>
               ))}
             </div>
@@ -108,7 +108,7 @@ export function ControlledHomeSections({ placement }: { placement: "before-debra
     <>
       <section className="py-14 md:py-20" aria-labelledby="process-heading">
         <Container>
-          <h2 id="process-heading" className="font-serif text-[31px] font-normal sm:text-[38px]">Four phases. One informed decision at a time.</h2>
+          <h2 id="process-heading" className="text-[1.875rem] leading-tight sm:text-[2.5rem]">Four phases. One informed decision at a time.</h2>
           <p className="mt-3 max-w-3xl text-muted-foreground">A professional overview of the journey—one clear decision at a time.</p>
           <ol className="mt-7 grid md:grid-cols-4">
             {phases.map(([title, body], index) => (
@@ -121,11 +121,11 @@ export function ControlledHomeSections({ placement }: { placement: "before-debra
           </ol>
         </Container>
       </section>
-      <section className="bg-primary py-11 text-primary-foreground">
+      <section className="bg-primary py-16 text-primary-foreground md:py-20">
         <Container className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
           <div>
-            <h2 className="font-serif text-3xl font-normal">Ready for a clearer next step?</h2>
-            <p className="mt-3 max-w-3xl text-primary-foreground/80">Schedule a homebuyer consultation to discuss your goals, questions, and current starting point.</p>
+            <h2 className="text-balance text-[2rem] leading-tight sm:text-[2.5rem]">Ready for a clearer next step?</h2>
+            <p className="mt-5 max-w-2xl leading-8 text-primary-foreground/85">Schedule a homebuyer consultation to discuss your goals, questions, and current starting point.</p>
           </div>
           <Button href="/consultation" variant="secondary" size="lg">Book Consultation</Button>
         </Container>

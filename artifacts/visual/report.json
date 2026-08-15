@@ -1,0 +1,455 @@
+{
+  "report": [
+    {
+      "route": "/",
+      "width": "375-mobile",
+      "file": "artifacts/visual/375-mobile/home.png",
+      "problems": 0
+    },
+    {
+      "route": "/blog",
+      "width": "375-mobile",
+      "file": "artifacts/visual/375-mobile/blog.png",
+      "problems": 0
+    },
+    {
+      "route": "/blog/naca-homebuying-dallas-fort-worth",
+      "width": "375-mobile",
+      "file": "artifacts/visual/375-mobile/blog_naca-homebuying-dallas-fort-worth.png",
+      "problems": 0
+    },
+    {
+      "route": "/blog/homes-for-heroes-north-texas",
+      "width": "375-mobile",
+      "file": "artifacts/visual/375-mobile/blog_homes-for-heroes-north-texas.png",
+      "problems": 0
+    },
+    {
+      "route": "/blog/how-to-buy-home-garland-tx",
+      "width": "375-mobile",
+      "file": "artifacts/visual/375-mobile/blog_how-to-buy-home-garland-tx.png",
+      "problems": 1
+    },
+    {
+      "route": "/programs",
+      "width": "375-mobile",
+      "file": "artifacts/visual/375-mobile/programs.png",
+      "problems": 0
+    },
+    {
+      "route": "/programs/naca",
+      "width": "375-mobile",
+      "file": "artifacts/visual/375-mobile/programs_naca.png",
+      "problems": 0
+    },
+    {
+      "route": "/programs/homes-for-heroes",
+      "width": "375-mobile",
+      "file": "artifacts/visual/375-mobile/programs_homes-for-heroes.png",
+      "problems": 0
+    },
+    {
+      "route": "/areas/garland",
+      "width": "375-mobile",
+      "file": "artifacts/visual/375-mobile/areas_garland.png",
+      "problems": 0
+    },
+    {
+      "route": "/neighborhoods",
+      "width": "375-mobile",
+      "file": "artifacts/visual/375-mobile/neighborhoods.png",
+      "problems": 0
+    },
+    {
+      "route": "/calculators",
+      "width": "375-mobile",
+      "file": "artifacts/visual/375-mobile/calculators.png",
+      "problems": 0
+    },
+    {
+      "route": "/calculators/affordability",
+      "width": "375-mobile",
+      "file": "artifacts/visual/375-mobile/calculators_affordability.png",
+      "problems": 0
+    },
+    {
+      "route": "/consultation",
+      "width": "375-mobile",
+      "file": "artifacts/visual/375-mobile/consultation.png",
+      "problems": 0
+    },
+    {
+      "route": "/about",
+      "width": "375-mobile",
+      "file": "artifacts/visual/375-mobile/about.png",
+      "problems": 0
+    },
+    {
+      "route": "/contact",
+      "width": "375-mobile",
+      "file": "artifacts/visual/375-mobile/contact.png",
+      "problems": 0
+    },
+    {
+      "route": "/",
+      "width": "430-mobile-lg",
+      "file": "artifacts/visual/430-mobile-lg/home.png",
+      "problems": 0
+    },
+    {
+      "route": "/blog",
+      "width": "430-mobile-lg",
+      "file": "artifacts/visual/430-mobile-lg/blog.png",
+      "problems": 0
+    },
+    {
+      "route": "/blog/naca-homebuying-dallas-fort-worth",
+      "width": "430-mobile-lg",
+      "file": "artifacts/visual/430-mobile-lg/blog_naca-homebuying-dallas-fort-worth.png",
+      "problems": 0
+    },
+    {
+      "route": "/blog/homes-for-heroes-north-texas",
+      "width": "430-mobile-lg",
+      "file": "artifacts/visual/430-mobile-lg/blog_homes-for-heroes-north-texas.png",
+      "problems": 0
+    },
+    {
+      "route": "/blog/how-to-buy-home-garland-tx",
+      "width": "430-mobile-lg",
+      "file": "artifacts/visual/430-mobile-lg/blog_how-to-buy-home-garland-tx.png",
+      "problems": 0
+    },
+    {
+      "route": "/programs",
+      "width": "430-mobile-lg",
+      "file": "artifacts/visual/430-mobile-lg/programs.png",
+      "problems": 0
+    },
+    {
+      "route": "/programs/naca",
+      "width": "430-mobile-lg",
+      "file": "artifacts/visual/430-mobile-lg/programs_naca.png",
+      "problems": 0
+    },
+    {
+      "route": "/programs/homes-for-heroes",
+      "width": "430-mobile-lg",
+      "file": "artifacts/visual/430-mobile-lg/programs_homes-for-heroes.png",
+      "problems": 0
+    },
+    {
+      "route": "/areas/garland",
+      "width": "430-mobile-lg",
+      "file": "artifacts/visual/430-mobile-lg/areas_garland.png",
+      "problems": 0
+    },
+    {
+      "route": "/neighborhoods",
+      "width": "430-mobile-lg",
+      "file": "artifacts/visual/430-mobile-lg/neighborhoods.png",
+      "problems": 0
+    },
+    {
+      "route": "/calculators",
+      "width": "430-mobile-lg",
+      "file": "artifacts/visual/430-mobile-lg/calculators.png",
+      "problems": 0
+    },
+    {
+      "route": "/calculators/affordability",
+      "width": "430-mobile-lg",
+      "file": "artifacts/visual/430-mobile-lg/calculators_affordability.png",
+      "problems": 0
+    },
+    {
+      "route": "/consultation",
+      "width": "430-mobile-lg",
+      "file": "artifacts/visual/430-mobile-lg/consultation.png",
+      "problems": 0
+    },
+    {
+      "route": "/about",
+      "width": "430-mobile-lg",
+      "file": "artifacts/visual/430-mobile-lg/about.png",
+      "problems": 0
+    },
+    {
+      "route": "/contact",
+      "width": "430-mobile-lg",
+      "file": "artifacts/visual/430-mobile-lg/contact.png",
+      "problems": 0
+    },
+    {
+      "route": "/",
+      "width": "768-tablet",
+      "file": "artifacts/visual/768-tablet/home.png",
+      "problems": 0
+    },
+    {
+      "route": "/blog",
+      "width": "768-tablet",
+      "file": "artifacts/visual/768-tablet/blog.png",
+      "problems": 0
+    },
+    {
+      "route": "/blog/naca-homebuying-dallas-fort-worth",
+      "width": "768-tablet",
+      "file": "artifacts/visual/768-tablet/blog_naca-homebuying-dallas-fort-worth.png",
+      "problems": 0
+    },
+    {
+      "route": "/blog/homes-for-heroes-north-texas",
+      "width": "768-tablet",
+      "file": "artifacts/visual/768-tablet/blog_homes-for-heroes-north-texas.png",
+      "problems": 0
+    },
+    {
+      "route": "/blog/how-to-buy-home-garland-tx",
+      "width": "768-tablet",
+      "file": "artifacts/visual/768-tablet/blog_how-to-buy-home-garland-tx.png",
+      "problems": 0
+    },
+    {
+      "route": "/programs",
+      "width": "768-tablet",
+      "file": "artifacts/visual/768-tablet/programs.png",
+      "problems": 0
+    },
+    {
+      "route": "/programs/naca",
+      "width": "768-tablet",
+      "file": "artifacts/visual/768-tablet/programs_naca.png",
+      "problems": 0
+    },
+    {
+      "route": "/programs/homes-for-heroes",
+      "width": "768-tablet",
+      "file": "artifacts/visual/768-tablet/programs_homes-for-heroes.png",
+      "problems": 0
+    },
+    {
+      "route": "/areas/garland",
+      "width": "768-tablet",
+      "file": "artifacts/visual/768-tablet/areas_garland.png",
+      "problems": 0
+    },
+    {
+      "route": "/neighborhoods",
+      "width": "768-tablet",
+      "file": "artifacts/visual/768-tablet/neighborhoods.png",
+      "problems": 0
+    },
+    {
+      "route": "/calculators",
+      "width": "768-tablet",
+      "file": "artifacts/visual/768-tablet/calculators.png",
+      "problems": 0
+    },
+    {
+      "route": "/calculators/affordability",
+      "width": "768-tablet",
+      "file": "artifacts/visual/768-tablet/calculators_affordability.png",
+      "problems": 0
+    },
+    {
+      "route": "/consultation",
+      "width": "768-tablet",
+      "file": "artifacts/visual/768-tablet/consultation.png",
+      "problems": 0
+    },
+    {
+      "route": "/about",
+      "width": "768-tablet",
+      "file": "artifacts/visual/768-tablet/about.png",
+      "problems": 0
+    },
+    {
+      "route": "/contact",
+      "width": "768-tablet",
+      "file": "artifacts/visual/768-tablet/contact.png",
+      "problems": 0
+    },
+    {
+      "route": "/",
+      "width": "1024-laptop",
+      "file": "artifacts/visual/1024-laptop/home.png",
+      "problems": 0
+    },
+    {
+      "route": "/blog",
+      "width": "1024-laptop",
+      "file": "artifacts/visual/1024-laptop/blog.png",
+      "problems": 0
+    },
+    {
+      "route": "/blog/naca-homebuying-dallas-fort-worth",
+      "width": "1024-laptop",
+      "file": "artifacts/visual/1024-laptop/blog_naca-homebuying-dallas-fort-worth.png",
+      "problems": 2
+    },
+    {
+      "route": "/blog/homes-for-heroes-north-texas",
+      "width": "1024-laptop",
+      "file": "artifacts/visual/1024-laptop/blog_homes-for-heroes-north-texas.png",
+      "problems": 2
+    },
+    {
+      "route": "/blog/how-to-buy-home-garland-tx",
+      "width": "1024-laptop",
+      "file": "artifacts/visual/1024-laptop/blog_how-to-buy-home-garland-tx.png",
+      "problems": 2
+    },
+    {
+      "route": "/programs",
+      "width": "1024-laptop",
+      "file": "artifacts/visual/1024-laptop/programs.png",
+      "problems": 0
+    },
+    {
+      "route": "/programs/naca",
+      "width": "1024-laptop",
+      "file": "artifacts/visual/1024-laptop/programs_naca.png",
+      "problems": 0
+    },
+    {
+      "route": "/programs/homes-for-heroes",
+      "width": "1024-laptop",
+      "file": "artifacts/visual/1024-laptop/programs_homes-for-heroes.png",
+      "problems": 0
+    },
+    {
+      "route": "/areas/garland",
+      "width": "1024-laptop",
+      "file": "artifacts/visual/1024-laptop/areas_garland.png",
+      "problems": 0
+    },
+    {
+      "route": "/neighborhoods",
+      "width": "1024-laptop",
+      "file": "artifacts/visual/1024-laptop/neighborhoods.png",
+      "problems": 0
+    },
+    {
+      "route": "/calculators",
+      "width": "1024-laptop",
+      "file": "artifacts/visual/1024-laptop/calculators.png",
+      "problems": 0
+    },
+    {
+      "route": "/calculators/affordability",
+      "width": "1024-laptop",
+      "file": "artifacts/visual/1024-laptop/calculators_affordability.png",
+      "problems": 1
+    },
+    {
+      "route": "/consultation",
+      "width": "1024-laptop",
+      "file": "artifacts/visual/1024-laptop/consultation.png",
+      "problems": 0
+    },
+    {
+      "route": "/about",
+      "width": "1024-laptop",
+      "file": "artifacts/visual/1024-laptop/about.png",
+      "problems": 0
+    },
+    {
+      "route": "/contact",
+      "width": "1024-laptop",
+      "file": "artifacts/visual/1024-laptop/contact.png",
+      "problems": 0
+    },
+    {
+      "route": "/",
+      "width": "1440-desktop",
+      "file": "artifacts/visual/1440-desktop/home.png",
+      "problems": 0
+    },
+    {
+      "route": "/blog",
+      "width": "1440-desktop",
+      "file": "artifacts/visual/1440-desktop/blog.png",
+      "problems": 0
+    },
+    {
+      "route": "/blog/naca-homebuying-dallas-fort-worth",
+      "width": "1440-desktop",
+      "file": "artifacts/visual/1440-desktop/blog_naca-homebuying-dallas-fort-worth.png",
+      "problems": 2
+    },
+    {
+      "route": "/blog/homes-for-heroes-north-texas",
+      "width": "1440-desktop",
+      "file": "artifacts/visual/1440-desktop/blog_homes-for-heroes-north-texas.png",
+      "problems": 2
+    },
+    {
+      "route": "/blog/how-to-buy-home-garland-tx",
+      "width": "1440-desktop",
+      "file": "artifacts/visual/1440-desktop/blog_how-to-buy-home-garland-tx.png",
+      "problems": 2
+    },
+    {
+      "route": "/programs",
+      "width": "1440-desktop",
+      "file": "artifacts/visual/1440-desktop/programs.png",
+      "problems": 0
+    },
+    {
+      "route": "/programs/naca",
+      "width": "1440-desktop",
+      "file": "artifacts/visual/1440-desktop/programs_naca.png",
+      "problems": 0
+    },
+    {
+      "route": "/programs/homes-for-heroes",
+      "width": "1440-desktop",
+      "file": "artifacts/visual/1440-desktop/programs_homes-for-heroes.png",
+      "problems": 0
+    },
+    {
+      "route": "/areas/garland",
+      "width": "1440-desktop",
+      "file": "artifacts/visual/1440-desktop/areas_garland.png",
+      "problems": 0
+    },
+    {
+      "route": "/neighborhoods",
+      "width": "1440-desktop",
+      "file": "artifacts/visual/1440-desktop/neighborhoods.png",
+      "problems": 0
+    },
+    {
+      "route": "/calculators",
+      "width": "1440-desktop",
+      "file": "artifacts/visual/1440-desktop/calculators.png",
+      "problems": 0
+    },
+    {
+      "route": "/calculators/affordability",
+      "width": "1440-desktop",
+      "file": "artifacts/visual/1440-desktop/calculators_affordability.png",
+      "problems": 1
+    },
+    {
+      "route": "/consultation",
+      "width": "1440-desktop",
+      "file": "artifacts/visual/1440-desktop/consultation.png",
+      "problems": 0
+    },
+    {
+      "route": "/about",
+      "width": "1440-desktop",
+      "file": "artifacts/visual/1440-desktop/about.png",
+      "problems": 0
+    },
+    {
+      "route": "/contact",
+      "width": "1440-desktop",
+      "file": "artifacts/visual/1440-desktop/contact.png",
+      "problems": 0
+    }
+  ],
+  "findings": []
+}
