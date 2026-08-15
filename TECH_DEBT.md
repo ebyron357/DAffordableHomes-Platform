@@ -30,3 +30,27 @@
 - **Reason:** The governed monorepo was consolidated from npm and pnpm branches without adopting a final workspace lockfile.
 - **Recommended Fix:** Generate and commit the npm lockfile from the consolidated workspace, switch CI to `npm ci`, and validate a clean install.
 - **Status:** Open
+
+## TD-010 — Sanity Content Lake not provisioned
+
+- **Severity:** High
+- **Impact:** The blog is served from the committed bootstrap content source in `apps/web/content/articles`. Editors cannot create, edit, preview, or publish until a Sanity project exists, and the live create/edit/preview/publish workflow cannot be verified.
+- **Reason:** No Sanity account, project ID, or API token is available to this repository.
+- **Recommended Fix:** Follow `docs/12-governance/CMS_ENVIRONMENT.md` §"One-time provisioning", then set the documented variables in Vercel. No rendering code changes are required — the app switches sources on `NEXT_PUBLIC_SANITY_PROJECT_ID`.
+- **Status:** Open
+
+## TD-011 — Production domain not attached to the Vercel project
+
+- **Severity:** High
+- **Impact:** `https://daffordablehomes.com` does not serve this application. Canonicals, Open Graph URLs, JSON-LD, and the sitemap already point at the apex, so search engines are directed to an origin the project does not yet serve.
+- **Reason:** The domain is registered but is not added to the `daffordablehomes-platform` Vercel project, whose only domains are `*.vercel.app`. Adding a domain and creating DNS records requires account access.
+- **Recommended Fix:** Add the apex and `www` in Vercel → Settings → Domains, set `www` to redirect to apex, and create the DNS records Vercel displays. No code change is needed at cutover.
+- **Status:** Open
+
+## TD-012 — Preview deployments are SSO-protected, blocking automated edge verification
+
+- **Severity:** Medium
+- **Impact:** Runtime verification of a preview deployment cannot be automated. Vercel deployment protection is set to `all_except_custom_domains`, so every `*.vercel.app` preview returns a 302 to the Vercel SSO endpoint. Runtime evidence currently comes from the CI `runtime-qa` job, which builds and boots the same commit.
+- **Recommended Fix:** Either attach the production domain (TD-011), which is exempt from the protection rule, or scope deployment protection so automation can reach preview builds.
+- **Status:** Open
+
