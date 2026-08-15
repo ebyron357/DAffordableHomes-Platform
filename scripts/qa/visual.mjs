@@ -19,6 +19,7 @@
  */
 
 import { chromium } from 'playwright';
+import { existsSync } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
@@ -137,7 +138,10 @@ const AUDIT = `() => {
 }`;
 
 async function main() {
-  const browser = await chromium.launch({ executablePath: process.env.PW_CHROMIUM ?? '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+  // Use a preinstalled Chromium when one is present (sandboxes, CI images that
+  // bundle it); otherwise fall back to Playwright's own managed download.
+  const preinstalled = process.env.PW_CHROMIUM ?? '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
+  const browser = await chromium.launch(existsSync(preinstalled) ? { executablePath: preinstalled } : {});
 
   for (const size of WIDTHS) {
     await mkdir(path.join(OUT, size.name), { recursive: true });

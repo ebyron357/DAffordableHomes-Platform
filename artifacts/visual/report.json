@@ -28,7 +28,7 @@
       "route": "/blog/how-to-buy-home-garland-tx",
       "width": "375-mobile",
       "file": "artifacts/visual/375-mobile/blog_how-to-buy-home-garland-tx.png",
-      "problems": 1
+      "problems": 0
     },
     {
       "route": "/programs",
@@ -118,7 +118,7 @@
       "route": "/blog/how-to-buy-home-garland-tx",
       "width": "430-mobile-lg",
       "file": "artifacts/visual/430-mobile-lg/blog_how-to-buy-home-garland-tx.png",
-      "problems": 0
+      "problems": 1
     },
     {
       "route": "/programs",
@@ -382,7 +382,7 @@
       "route": "/blog/homes-for-heroes-north-texas",
       "width": "1440-desktop",
       "file": "artifacts/visual/1440-desktop/blog_homes-for-heroes-north-texas.png",
-      "problems": 2
+      "problems": 0
     },
     {
       "route": "/blog/how-to-buy-home-garland-tx",
