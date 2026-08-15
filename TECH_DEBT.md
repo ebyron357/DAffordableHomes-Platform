@@ -54,3 +54,11 @@
 - **Recommended Fix:** Either attach the production domain (TD-011), which is exempt from the protection rule, or scope deployment protection so automation can reach preview builds.
 - **Status:** Open
 
+## TD-013 — `sanity schema validate` blocked by an upstream dependency skew
+
+- **Severity:** Low
+- **Impact:** The Sanity CLI's `schema validate` command aborts with `SyntaxError: The requested module '@portabletext/sanity-bridge' does not provide an export named 'compileSchemaDefinitionToPortableTextMemberSchemaTypes'`. Schema correctness is instead covered by `apps/studio` typechecking (`tsc --noEmit`, which type-checks every `defineType`/`defineField`) and by `tests/static/cms.test.mjs`, which asserts every required field carries `rule.required()`, that descriptive alt text is enforced, and that every block type has both a schema definition and a frontend renderer.
+- **Reason:** `sanity@4.22` ships `@portabletext/block-tools@4.1.11`, which pins `@portabletext/sanity-bridge@^1`, while the editor path uses v3. A pnpm `overrides` entry forcing a single version was tried and did not resolve it, so it was reverted rather than left in as an ineffective pin.
+- **Recommended Fix:** Re-run `pnpm --filter @daffordablehomes/studio schema:validate` after the next `sanity` release that realigns `block-tools`. The Studio itself, `sanity dev`, and `dataset import` are unaffected.
+- **Status:** Open
+
