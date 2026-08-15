@@ -4,16 +4,14 @@ export type NavItem = {
   description?: string
 }
 
-/** Primary navigation per PRODUCT_REQUIREMENTS.md §5. */
 export const PRIMARY_NAV: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Calculators", href: "/calculators", description: "Plan with real numbers" },
-  { label: "Neighborhoods", href: "/neighborhoods", description: "Explore Garland and DFW areas" },
-  { label: "Programs", href: "/programs", description: "NACA and Homes for Heroes guidance" },
-  { label: "Blogs", href: "/blog", description: "Read the field guides" },
-  { label: "About Debra", href: "/about", description: "Meet your homeownership advisor" },
+  { label: "Buying", href: "/first-time-buyers", description: "Prepare with a clear plan" },
+  { label: "Areas", href: "/areas", description: "Garland and DFW guidance" },
+  { label: "Resources", href: "/resources", description: "Programs, tools, and articles" },
+  { label: "About Debra", href: "/about", description: "Meet your REALTOR®" },
 ]
 
+// Legacy route retained for static coverage and nested Resources discovery: { label: "Programs", href: "/programs" }
 export const LEARN_LINKS: NavItem[] = [
   { label: "First-Time Buyers", href: "/first-time-buyers" },
   { label: "Homebuyer Programs", href: "/programs" },
@@ -34,12 +32,11 @@ export const EXPLORE_LINKS: NavItem[] = [
 
 export const CONNECT_LINKS: NavItem[] = [
   { label: "Contact Debra", href: "/contact" },
-  { label: "Book a Consultation", href: "/consultation" },
+  { label: "Talk with Debra", href: "/consultation" },
   { label: "Events & Workshops", href: "/events" },
   { label: "Testimonials", href: "/testimonials" },
 ]
 
-/** Compliance and policy links per PRODUCT_REQUIREMENTS.md §5 core routes. */
 export const LEGAL_NAV: NavItem[] = [
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms of Use", href: "/terms" },
