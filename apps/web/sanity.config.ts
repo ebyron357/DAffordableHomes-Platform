@@ -2,6 +2,7 @@
 
 import { visionTool } from "@sanity/vision"
 import { defineConfig } from "sanity"
+import { presentationTool } from "sanity/presentation"
 import { structureTool } from "sanity/structure"
 import { apiVersion, dataset, projectId, studioBasePath } from "./sanity/env"
 import { schemaTypes } from "./sanity/schema"
@@ -65,6 +66,23 @@ export default defineConfig({
             S.documentTypeListItem("area").title("Areas"),
           ]),
     }),
+    /*
+     * Presentation drives draft preview. It calls /api/preview/enable, which
+     * delegates authorisation to Sanity before any draft-mode cookie is set,
+     * and previews land on /preview/<slug> — a dynamic, noindex, draft-only
+     * route, so unpublished slugs are viewable without weakening the real 404
+     * that /blog/<slug> returns to the public.
+     */
+    presentationTool({
+      previewUrl: {
+        origin: process.env.NEXT_PUBLIC_SITE_URL || undefined,
+        preview: "/blog",
+        previewMode: {
+          enable: "/api/preview/enable",
+          disable: "/api/preview/disable",
+        },
+      },
+    }),
     visionTool({ defaultApiVersion: apiVersion, defaultDataset: dataset }),
   ],
   document: {
@@ -72,7 +90,7 @@ export default defineConfig({
       const slug = (document as { slug?: { current?: string } }).slug?.current
       if (!slug) return previous
       const origin = process.env.NEXT_PUBLIC_SITE_URL ?? ""
-      return `${origin}/api/preview/enable?slug=${encodeURIComponent(slug)}`
+      return `${origin}/preview/${encodeURIComponent(slug)}`
     },
   },
 })

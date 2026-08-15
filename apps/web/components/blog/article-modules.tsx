@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ArrowUpRight, ExternalLink } from "lucide-react"
+import { safeHref } from "@/lib/blog/safe-href"
 import type { ArticleFaq, ArticleRelatedLink, ArticleSource } from "@/lib/blog/types"
 
 /**
@@ -63,10 +64,15 @@ export function ArticleSources({
           "Program rules and public resources can change. Confirm current requirements with the organization responsible for the decision."}
       </p>
       <ul className="mt-6 space-y-3">
-        {sources.map((source) => (
+        {sources.map((source) => {
+          // CMS-authored href: never rendered as an anchor unless it is a safe
+          // absolute or local URL.
+          const target = safeHref(source.href)
+          if (!target) return null
+          return (
           <li key={source.href}>
             <a
-              href={source.href}
+              href={target.href}
               target="_blank"
               rel="noreferrer"
               className="group flex items-start gap-2.5 rounded-sm text-[0.9375rem] font-medium text-primary underline decoration-accent/40 underline-offset-4 hover:decoration-accent"
@@ -80,7 +86,8 @@ export function ArticleSources({
               </span>
             </a>
           </li>
-        ))}
+          )
+        })}
       </ul>
     </section>
   )
@@ -105,9 +112,12 @@ export function ArticleRelatedLinks({
         {heading ?? "Continue your plan"}
       </h2>
       <ul className="mt-4 divide-y divide-border border-y border-border">
-        {links.map((link) => (
+        {links.map((link) => {
+          const target = safeHref(link.href)
+          if (!target) return null
+          return (
           <li key={`${link.href}-${link.label}`}>
-            <Link href={link.href} className="group flex items-start gap-3 py-4 transition-colors">
+            <Link href={target.href} className="group flex items-start gap-3 py-4 transition-colors">
               <span className="min-w-0">
                 <span className="block font-semibold leading-6 text-foreground group-hover:text-primary">
                   {link.label}
@@ -120,7 +130,8 @@ export function ArticleRelatedLinks({
               />
             </Link>
           </li>
-        ))}
+          )
+        })}
       </ul>
     </section>
   )

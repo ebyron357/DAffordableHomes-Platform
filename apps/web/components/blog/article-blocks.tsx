@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { AlertTriangle, ArrowRight, Calculator, Check, Compass, Lightbulb, MapPin, Play, Quote } from "lucide-react"
+import { safeHref } from "@/lib/blog/safe-href"
 import type { ArticleBodyBlock } from "@/lib/blog/types"
 import { ArticleFigure } from "./article-image"
 import { ArticleFaqs, ArticleRelatedLinks, ArticleSources } from "./article-modules"
@@ -34,6 +35,10 @@ function CtaPanel({
   href: string
   label: string
 }) {
+  // CMS-authored destination: rendered only when it resolves to a safe URL.
+  const target = safeHref(href)
+  if (!target) return null
+
   return (
     <aside className="mt-12 overflow-hidden rounded-2xl border border-border bg-primary text-primary-foreground">
       <div className="px-6 py-8 sm:px-9 sm:py-10">
@@ -44,7 +49,7 @@ function CtaPanel({
         <h2 className="mt-4 max-w-2xl font-serif text-2xl leading-tight sm:text-[1.75rem]">{heading}</h2>
         {body ? <p className="mt-4 max-w-2xl leading-7 text-primary-foreground/85">{body}</p> : null}
         <Link
-          href={href}
+          href={target.href}
           className="mt-7 inline-flex min-h-12 items-center gap-2 rounded-sm bg-primary-foreground px-5 py-3 text-[15px] font-semibold text-primary transition-colors hover:bg-primary-foreground/90"
         >
           {label}
@@ -115,15 +120,17 @@ export function ArticleBlock({ block }: { block: ArticleBodyBlock }) {
           </p>
           <h2 className="mt-3 font-serif text-2xl leading-tight text-foreground">{block.title}</h2>
           {block.description ? <p className="mt-3 leading-7 text-muted-foreground">{block.description}</p> : null}
-          <a
-            href={block.url}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-5 inline-flex items-center gap-2 font-semibold text-primary underline decoration-accent/50 underline-offset-4"
-          >
-            Open the recording
-            <ArrowRight className="size-4" aria-hidden="true" />
-          </a>
+          {safeHref(block.url) ? (
+            <a
+              href={safeHref(block.url)?.href}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-5 inline-flex items-center gap-2 font-semibold text-primary underline decoration-accent/50 underline-offset-4"
+            >
+              Open the recording
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </a>
+          ) : null}
         </section>
       )
 

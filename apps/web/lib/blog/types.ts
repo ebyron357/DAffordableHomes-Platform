@@ -30,7 +30,9 @@ export type PortableTextBlock = {
 }
 
 export type ArticleImage = {
-  /** Resolved Content Lake asset URL, when the image was uploaded to Sanity. */
+  /** Raw Content Lake image value, resolved to a CDN URL at render time. */
+  image?: unknown
+  /** Pre-resolved asset URL, when a projection already produced one. */
   url?: string | null
   /** Approved repository asset path, when the artwork ships with the app. */
   src?: string | null

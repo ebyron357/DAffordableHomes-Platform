@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { PortableText, type PortableTextComponents } from "@portabletext/react"
+import { safeHref } from "@/lib/blog/safe-href"
 import type { PortableTextBlock } from "@/lib/blog/types"
 import { cn } from "@/lib/utils"
 
@@ -50,20 +51,23 @@ const components: PortableTextComponents = {
     strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
     em: ({ children }) => <em className="italic">{children}</em>,
     link: ({ children, value }) => {
-      const href = (value as { href?: string })?.href ?? "#"
-      const isInternal = href.startsWith("/")
+      // CMS-authored href: sanitised before it can become an anchor, so a
+      // `javascript:`, `data:`, or protocol-relative value degrades to text.
+      const target = safeHref((value as { href?: string })?.href)
+      if (!target) return <>{children}</>
+
       const className =
         "font-medium text-primary underline decoration-accent/50 underline-offset-4 transition-colors hover:decoration-accent"
 
-      if (isInternal) {
+      if (target.kind === "internal") {
         return (
-          <Link href={href} className={className}>
+          <Link href={target.href} className={className}>
             {children}
           </Link>
         )
       }
       return (
-        <a href={href} target="_blank" rel="noreferrer" className={className}>
+        <a href={target.href} target="_blank" rel="noreferrer" className={className}>
           {children}
         </a>
       )

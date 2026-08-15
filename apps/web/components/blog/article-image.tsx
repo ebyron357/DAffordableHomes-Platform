@@ -1,11 +1,12 @@
 import Image from "next/image"
+import { resolveImageSrc } from "@/lib/blog/article-meta"
 import type { ArticleImage as ArticleImageValue } from "@/lib/blog/types"
 import { cn } from "@/lib/utils"
 
 /**
- * Renders an article image from either source the CMS supports: a Content Lake
- * asset URL or an approved repository asset path. Alternative text is required
- * by the schema, so it is always present here.
+ * Renders an article image from either source the CMS supports: an uploaded
+ * Content Lake asset or an approved repository asset path. Alternative text is
+ * required by the schema, so it is always present here.
  */
 export function ArticleImage({
   image,
@@ -18,7 +19,7 @@ export function ArticleImage({
   className?: string
   priority?: boolean
 }) {
-  const src = image.url ?? image.src
+  const src = resolveImageSrc(image)
   if (!src) return null
 
   return (
@@ -47,8 +48,7 @@ export function ArticleFigure({
   className?: string
   priority?: boolean
 }) {
-  const src = image.url ?? image.src
-  if (!src) return null
+  if (!resolveImageSrc(image)) return null
 
   return (
     <figure className={className}>

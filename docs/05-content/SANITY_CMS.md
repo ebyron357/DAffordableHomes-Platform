@@ -54,10 +54,16 @@ immediately.
 ## Editorial workflow
 
 1. **Create / edit** — `/studio`, Articles → Drafts.
-2. **Preview** — the document's "Open preview" action calls
-   `/api/preview/enable?slug=<slug>`, which verifies the slug through the
-   token-scoped draft client before enabling Next.js draft mode. A banner marks
-   preview mode; "Exit preview" calls `/api/preview/disable`.
+2. **Preview** — the Presentation tool calls `/api/preview/enable`, which
+   delegates authorisation to Sanity via `defineEnableDraftMode` before any
+   draft-mode cookie is set. Previews render at `/preview/<slug>`, a dynamic,
+   `noindex`, draft-only route, so unpublished slugs are viewable without
+   weakening the real 404 that `/blog/<slug>` returns to the public. "Exit
+   preview" calls `/api/preview/disable`, which accepts only same-origin paths.
+
+   Slug existence is deliberately *not* used as authorisation: published slugs
+   are public, so that alone would let any visitor read unpublished revisions
+   of live articles.
 3. **Publish** — set `status` to `published` and publish the document. Schema
    validation blocks publication without a title, slug, excerpt, author,
    category, reading time, publish date, SEO description, at least one body
@@ -69,6 +75,23 @@ immediately.
 Unpublished documents never appear on the public site: every published read
 filters on `status == "published"` and uses the `published` perspective, and the
 draft-aware client is only constructed inside draft mode with a viewer token.
+
+## Untrusted content
+
+Every href an article carries — Portable Text link marks, CTA destinations,
+related links, official sources, embeds — originates in the Content Lake and is
+sanitised by `lib/blog/safe-href.ts` before it can become an anchor. Only
+same-origin paths, fragments, and `https:` / `mailto:` / `tel:` URLs are
+rendered; anything else degrades to plain text. This keeps a Studio write, or a
+compromised write token, from reaching readers as `javascript:` execution or an
+off-origin redirect.
+
+## Provider failures
+
+A configured-but-failing Content Lake degrades to the committed dataset rather
+than taking down `/blog`, the article routes, and the sitemap. A successful read
+that returns nothing stays authoritative, so unpublishing an article removes it
+rather than resurrecting the seed copy.
 
 ## Migration and seeding
 

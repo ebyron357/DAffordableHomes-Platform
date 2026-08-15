@@ -120,6 +120,14 @@ test('published reads exclude drafts and preview reads require a token', () => {
   assert.match(source, /draftMode/);
 });
 
+test('the Studio previews unpublished work on the draft-only preview route', () => {
+  const config = readFileSync('apps/web/sanity.config.ts', 'utf8');
+  assert.match(config, /presentationTool/);
+  assert.match(config, /enable: "\/api\/preview\/enable"/);
+  assert.match(config, /disable: "\/api\/preview\/disable"/);
+  assert.match(config, /\/preview\/\$\{encodeURIComponent\(slug\)\}/);
+});
+
 test('the publish webhook fails closed without a configured secret', () => {
   const route = readFileSync('apps/web/app/api/revalidate/route.ts', 'utf8');
   assert.match(route, /if \(!revalidateSecret\)/);

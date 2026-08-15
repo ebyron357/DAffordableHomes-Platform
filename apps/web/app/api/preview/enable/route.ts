@@ -1,46 +1,31 @@
-import { draftMode } from "next/headers"
-import { redirect } from "next/navigation"
-import type { NextRequest } from "next/server"
+import { defineEnableDraftMode } from "next-sanity/draft-mode"
 import { getPreviewClient } from "@/sanity/lib/client"
-import { isPreviewConfigured } from "@/sanity/env"
 
 export const dynamic = "force-dynamic"
 
 /**
  * Enables Next.js draft mode for a Studio preview.
  *
- * The requested slug must resolve to a real document through the token-scoped
- * draft client before draft mode is enabled, so the endpoint cannot be used to
- * open preview mode for arbitrary URLs.
+ * Authorisation is delegated to Sanity. `defineEnableDraftMode` validates the
+ * incoming preview URL against the Content Lake before any cookie is set, so
+ * only a caller who holds a valid Studio session or preview secret can turn
+ * draft mode on. Checking that a slug exists would authenticate nothing —
+ * published slugs are public, so that alone would let any visitor read
+ * unpublished revisions of live articles.
+ *
+ * The Studio drives this route through the Presentation tool
+ * (`previewUrl.previewMode.enable` in sanity.config.ts).
  */
-export async function GET(request: NextRequest) {
-  if (!isPreviewConfigured()) {
-    return new Response(
-      "Preview is not configured. Set NEXT_PUBLIC_SANITY_PROJECT_ID and SANITY_API_READ_TOKEN to enable draft preview.",
-      { status: 501, headers: { "content-type": "text/plain; charset=utf-8" } },
-    )
-  }
+const client = getPreviewClient()
 
-  const slug = request.nextUrl.searchParams.get("slug")
-  if (!slug) {
-    return new Response("Missing slug parameter.", { status: 400 })
-  }
+const handler = client
+  ? defineEnableDraftMode({ client })
+  : {
+      GET: async () =>
+        new Response(
+          "Preview is not configured. Set NEXT_PUBLIC_SANITY_PROJECT_ID and SANITY_API_READ_TOKEN to enable draft preview.",
+          { status: 501, headers: { "content-type": "text/plain; charset=utf-8" } },
+        ),
+    }
 
-  const client = getPreviewClient()
-  if (!client) {
-    return new Response("Preview client unavailable.", { status: 501 })
-  }
-
-  const exists = await client.fetch<string | null>(`*[_type == "article" && slug.current == $slug][0].slug.current`, {
-    slug,
-  })
-
-  if (!exists) {
-    return new Response("No article matches that slug.", { status: 404 })
-  }
-
-  const draft = await draftMode()
-  draft.enable()
-
-  redirect(`/blog/${exists}`)
-}
+export const { GET } = handler

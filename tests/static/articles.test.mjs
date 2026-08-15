@@ -95,7 +95,7 @@ test('articles route readers to the program, local, calculator, and consultation
   const naca = collectText(articles['naca-homebuying-dallas-fort-worth']).join(' ');
   const heroes = collectText(articles['homes-for-heroes-north-texas']).join(' ');
   const garland = collectText(articles['how-to-buy-home-garland-tx']).join(' ');
-  const articleRoute = readFileSync('apps/web/app/blog/[slug]/page.tsx', 'utf8');
+  const articleView = readFileSync('apps/web/components/blog/article-view.tsx', 'utf8');
 
   assert.match(naca, /\/programs\/naca/);
   assert.match(naca, /\/areas\/garland/);
@@ -103,7 +103,7 @@ test('articles route readers to the program, local, calculator, and consultation
   assert.match(heroes, /\/calculators\/closing-costs/);
   assert.match(garland, /\/areas\/garland/);
   assert.match(garland, /\/calculators\/affordability/);
-  assert.match(articleRoute, /href="\/consultation"/);
+  assert.match(articleView, /href="\/consultation"/);
 });
 
 test('internal links in migrated content point at live routes, not redirect aliases', () => {
@@ -127,13 +127,15 @@ test('program boundaries remain explicit and unsupported claims remain absent', 
 
 test('article routes generate structured data, canonicals, and breadcrumbs from CMS data', () => {
   const route = readFileSync('apps/web/app/blog/[slug]/page.tsx', 'utf8');
+  const view = readFileSync('apps/web/components/blog/article-view.tsx', 'utf8');
 
-  assert.match(route, /"@type": "Article"/);
-  assert.match(route, /"@type": "BreadcrumbList"/);
-  assert.match(route, /"@type": "FAQPage"/);
+  assert.match(view, /"@type": "Article"/);
+  assert.match(view, /"@type": "BreadcrumbList"/);
+  assert.match(view, /"@type": "FAQPage"/);
+  assert.match(view, /aria-label="Breadcrumb"/);
   assert.match(route, /alternates: \{ canonical: `\/blog\/\$\{article\.slug\}` \}/);
-  assert.match(route, /aria-label="Breadcrumb"/);
   assert.match(route, /notFound\(\)/, 'unknown slugs must return a real 404');
+  assert.match(route, /export const dynamicParams = false/, 'static params are what make the 404 real');
 });
 
 test('sitemap generates article entries from published CMS content', () => {
@@ -152,6 +154,7 @@ test('renderers contain no migrated article copy', () => {
     'apps/web/components/blog/article-blocks.tsx',
     'apps/web/components/blog/article-modules.tsx',
     'apps/web/components/blog/portable-text.tsx',
+    'apps/web/components/blog/article-view.tsx',
     'apps/web/app/blog/[slug]/page.tsx'
   ];
 
