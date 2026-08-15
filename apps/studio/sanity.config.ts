@@ -27,7 +27,7 @@ export default defineConfig({
 
       const url = new URL("/api/preview/enable", previewOrigin)
       url.searchParams.set("secret", secret)
-      url.searchParams.set("path", `/blog/${doc.slug.current}`)
+      url.searchParams.set("path", `/preview/${doc.slug.current}`)
       return url.toString()
     },
   },

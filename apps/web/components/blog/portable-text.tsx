@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { PortableText, type PortableTextComponents } from "@portabletext/react"
 
+import { safeExternalUrl, safeInternalPath } from "@/lib/cms/links"
 import type { PortableTextBlock } from "@/lib/cms/types"
 
 type HeadingValue = { children?: { text?: string }[] }
@@ -58,7 +59,7 @@ export const proseComponents: PortableTextComponents = {
     em: ({ children }) => <em className="italic">{children}</em>,
     link: ({ children, value }) => (
       <a
-        href={String(value?.href ?? "")}
+        href={safeExternalUrl(value?.href as string | undefined) ?? "#"}
         target="_blank"
         rel="noreferrer"
         className="font-medium text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent"
@@ -68,7 +69,7 @@ export const proseComponents: PortableTextComponents = {
     ),
     internalLink: ({ children, value }) => (
       <Link
-        href={String(value?.path ?? "/")}
+        href={safeInternalPath(value?.path as string | undefined)}
         className="font-medium text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent"
       >
         {children}

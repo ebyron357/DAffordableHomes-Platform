@@ -258,6 +258,8 @@ export type Article = {
   sources: ArticleSource[]
   complianceNotice: PortableTextBlock[]
   relatedLinks: ArticleRelatedLink[]
+  /** Editor-curated "keep reading" choices; empty falls back to newest-first. */
+  relatedArticles?: ArticleSummary[]
   body: ArticleBodyBlock[]
 }
 

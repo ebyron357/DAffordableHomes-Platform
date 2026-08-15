@@ -30,7 +30,8 @@ infrastructure, and switching over changes no rendering code.
 | `NEXT_PUBLIC_SANITY_DATASET` | Public | Reading from Sanity | Defaults to `production`. |
 | `NEXT_PUBLIC_SANITY_API_VERSION` | Public | Reading from Sanity | Defaults to `2026-08-01`. |
 | `SANITY_API_READ_TOKEN` | **Server only** | Draft preview | Sanity token with **Viewer** rights. Never expose to the browser. |
-| `SANITY_REVALIDATE_SECRET` | **Server only** | Preview + publish webhook | Shared secret guarding `/api/preview/enable` and `/api/revalidate`. |
+| `SANITY_PREVIEW_SECRET` | **Server only** | Draft preview | Guards `/api/preview/enable`. Travels in a URL, so it must differ from the revalidate secret. |
+| `SANITY_REVALIDATE_SECRET` | **Server only** | Publish webhook | Guards `/api/revalidate`. Send it as the `x-revalidate-secret` header where possible. |
 | `VERCEL_DEPLOY_HOOK_URL` | **Server only** | Publishing brand-new slugs | Optional. See "New article slugs" below. |
 
 ### Studio (`apps/studio`) — set locally or in the Studio host
@@ -40,7 +41,7 @@ infrastructure, and switching over changes no rendering code.
 | `SANITY_STUDIO_PROJECT_ID` | Sanity project ID |
 | `SANITY_STUDIO_DATASET` | Dataset name (default `production`) |
 | `SANITY_STUDIO_PREVIEW_ORIGIN` | Site origin used by "Open preview" (default `https://daffordablehomes.com`) |
-| `SANITY_STUDIO_PREVIEW_SECRET` | Must equal `SANITY_REVALIDATE_SECRET` |
+| `SANITY_STUDIO_PREVIEW_SECRET` | Must equal `SANITY_PREVIEW_SECRET` |
 
 ## One-time provisioning
 
@@ -53,8 +54,9 @@ infrastructure, and switching over changes no rendering code.
    ```bash
    pnpm --filter @daffordablehomes/studio dataset:import -- --replace
    ```
-4. Create a **Viewer** token and a random revalidation secret; set the web
-   variables in Vercel for Production and Preview.
+4. Create a **Viewer** token and **two different** random secrets — one for
+   preview, one for revalidation; set the web variables in Vercel for Production
+   and Preview.
 5. Add a Sanity webhook:
    - URL: `https://daffordablehomes.com/api/revalidate?secret=<SANITY_REVALIDATE_SECRET>`
    - Trigger: create, update, delete on `_type == "article"`
@@ -64,9 +66,11 @@ infrastructure, and switching over changes no rendering code.
 ## Publishing workflow
 
 1. Edit in the Studio. `status` starts at `draft`.
-2. "Open preview" opens `/api/preview/enable`, which validates the shared secret,
-   turns on Next.js draft mode, and renders the draft. The banner's **Exit
-   preview** link calls `/api/preview/disable`.
+2. "Open preview" opens `/api/preview/enable`, which validates `SANITY_PREVIEW_SECRET`,
+   turns on Next.js draft mode, and redirects to `/preview/<slug>`. That route
+   renders only in draft mode, is never cached, is `noindex`, and is disallowed
+   in `robots.txt`; it exists because a brand-new draft has no public URL yet.
+   The banner's **Exit preview** link calls `/api/preview/disable`.
 3. Set `status` to `published` and publish the document.
 4. The webhook calls `/api/revalidate`, which purges the `article` cache tag, the
    per-article tag, `/blog`, the article path, and the sitemap.
@@ -84,6 +88,19 @@ therefore becomes routable when `generateStaticParams` next runs.
 Set `VERCEL_DEPLOY_HOOK_URL` to a Vercel deploy hook and `/api/revalidate` will
 trigger that rebuild automatically, so publishing stays a code-free operation.
 Edits to existing articles go live through cache revalidation alone.
+
+## Uploaded images
+
+Assets uploaded through the Studio are served from `cdn.sanity.io`. That host is
+allowed in `images.remotePatterns` in `apps/web/next.config.mjs`, and the CSP
+permits `api.sanity.io` / `apicdn.sanity.io` for reads. Approved repository
+assets referenced by path stay same-origin.
+
+## Content Lake outages
+
+Every Sanity read is wrapped so a failure logs and falls back to the committed
+bootstrap documents rather than throwing. An editorial outage cannot take down
+the homepage, the blog index, or the sitemap.
 
 ## Regenerating the migration payload
 

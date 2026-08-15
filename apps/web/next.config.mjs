@@ -20,7 +20,9 @@ const securityHeaders = [
       "script-src 'self' 'unsafe-inline'",
       "style-src 'self' 'unsafe-inline'",
       "font-src 'self' data:",
-      "connect-src 'self'",
+      "connect-src 'self' https://*.api.sanity.io https://*.apicdn.sanity.io",
+      "frame-src 'self' https://www.youtube-nocookie.com https://player.vimeo.com",
+      "media-src 'self'",
       "object-src 'none'",
       'upgrade-insecure-requests'
     ].join('; ')
@@ -31,6 +33,11 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  images: {
+    // Images uploaded through the Studio are served from the Sanity CDN. Only
+    // that host is allowed; approved repository assets stay same-origin.
+    remotePatterns: [{ protocol: 'https', hostname: 'cdn.sanity.io', pathname: '/images/**' }]
+  },
   turbopack: {
     root: repositoryRoot
   },

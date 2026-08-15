@@ -2,7 +2,9 @@ import { draftMode } from "next/headers"
 import { redirect } from "next/navigation"
 import type { NextRequest } from "next/server"
 
-import { SANITY_REVALIDATE_SECRET, isSanityPreviewConfigured } from "@/lib/cms/env"
+import { safeInternalPath } from "@/lib/cms/links"
+
+import { SANITY_PREVIEW_SECRET, isSanityPreviewConfigured } from "@/lib/cms/env"
 
 /**
  * Enables Next.js draft mode so an editor can view unpublished Sanity content.
@@ -17,17 +19,16 @@ export async function GET(request: NextRequest) {
     })
   }
 
-  if (!SANITY_REVALIDATE_SECRET) {
-    return new Response("Preview is not configured. Set SANITY_REVALIDATE_SECRET.", { status: 501 })
+  if (!SANITY_PREVIEW_SECRET) {
+    return new Response("Preview is not configured. Set SANITY_PREVIEW_SECRET.", { status: 501 })
   }
 
   const secret = request.nextUrl.searchParams.get("secret")
-  if (secret !== SANITY_REVALIDATE_SECRET) {
+  if (secret !== SANITY_PREVIEW_SECRET) {
     return new Response("Invalid preview secret.", { status: 401 })
   }
 
-  const requested = request.nextUrl.searchParams.get("path") ?? "/blog"
-  const path = requested.startsWith("/") && !requested.startsWith("//") ? requested : "/blog"
+  const path = safeInternalPath(request.nextUrl.searchParams.get("path") ?? undefined, "/blog")
 
   const draft = await draftMode()
   draft.enable()

@@ -4,6 +4,7 @@ import { ArrowRight, Check, CircleAlert, Info, Quote, Sparkles, X } from "lucide
 
 import { RichText } from "@/components/blog/portable-text"
 import { Button } from "@/components/ui/button"
+import { safeExternalUrl, safeInternalPath } from "@/lib/cms/links"
 import type {
   ArticleBodyBlock,
   CalculatorCtaBlock,
@@ -207,9 +208,18 @@ function Embed({ block }: { block: EmbedBlock }) {
     return (
       <Bleed>
         <p className="rounded-lg border border-border bg-muted p-5 text-sm leading-7 text-muted-foreground">
-          <a href={block.url} target="_blank" rel="noreferrer" className="font-semibold text-accent underline underline-offset-4">
-            {block.title}
-          </a>
+          {safeExternalUrl(block.url) ? (
+            <a
+              href={safeExternalUrl(block.url) as string}
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold text-accent underline underline-offset-4"
+            >
+              {block.title}
+            </a>
+          ) : (
+            <span className="font-semibold">{block.title}</span>
+          )}
           {block.description ? ` — ${block.description}` : null}
         </p>
       </Bleed>
@@ -399,19 +409,26 @@ function FaqGroup({ block }: { block: FaqGroupBlock }) {
 export function SourceLinks({ sources }: { sources: SourceListBlock["sources"] }) {
   return (
     <ul className="mt-5 space-y-3.5">
-      {sources.map((source) => (
-        <li key={source._key} className="leading-7">
-          <a
-            href={source.href}
-            target="_blank"
-            rel="noreferrer"
-            className="font-medium text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent"
-          >
-            {source.label}
-          </a>
-          {source.publisher && <span className="ml-2 text-sm text-muted-foreground">{source.publisher}</span>}
-        </li>
-      ))}
+      {sources.map((source) => {
+        const href = safeExternalUrl(source.href)
+        return (
+          <li key={source._key} className="leading-7">
+            {href ? (
+              <a
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                className="font-medium text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent"
+              >
+                {source.label}
+              </a>
+            ) : (
+              <span className="font-medium">{source.label}</span>
+            )}
+            {source.publisher && <span className="ml-2 text-sm text-muted-foreground">{source.publisher}</span>}
+          </li>
+        )
+      })}
     </ul>
   )
 }
@@ -473,7 +490,11 @@ function CalculatorCta({ block }: { block: CalculatorCtaBlock }) {
   return (
     <CtaShell eyebrow="Planning tools" heading={block.heading} body={block.body}>
       {block.calculators.map((calculator, index) => (
-        <Button key={calculator._key} href={calculator.href} variant={index === 0 ? "primary" : "outline"}>
+        <Button
+          key={calculator._key}
+          href={safeInternalPath(calculator.href, "/calculators")}
+          variant={index === 0 ? "primary" : "outline"}
+        >
           {calculator.label}
         </Button>
       ))}
@@ -488,7 +509,7 @@ function LinkCta({ block }: { block: LinkCtaBlock }) {
       heading={block.heading}
       body={block.body}
     >
-      <Button href={block.href} variant="outline">
+      <Button href={safeInternalPath(block.href)} variant="outline">
         {block.label}
         <ArrowRight className="size-4" aria-hidden="true" />
       </Button>
@@ -499,13 +520,13 @@ function LinkCta({ block }: { block: LinkCtaBlock }) {
 function ConsultationCta({ block }: { block: ConsultationCtaBlock }) {
   return (
     <CtaShell eyebrow="Next step" heading={block.heading} body={block.body} emphasis>
-      <Button href={block.href} variant="secondary">
+      <Button href={safeInternalPath(block.href, "/consultation")} variant="secondary">
         {block.label}
         <ArrowRight className="size-4" aria-hidden="true" />
       </Button>
       {block.secondaryHref && block.secondaryLabel && (
         <Button
-          href={block.secondaryHref}
+          href={safeInternalPath(block.secondaryHref)}
           variant="ghost"
           className="border border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
         >
@@ -526,7 +547,7 @@ function RelatedArticleLinks({ block }: { block: RelatedArticlesBlock }) {
           {block.links.map((link) => (
             <li key={link._key}>
               <Link
-                href={link.href}
+                href={safeInternalPath(link.href)}
                 className="group flex h-full flex-col rounded-xl border border-border bg-card p-5 transition-colors hover:border-accent/50"
               >
                 <span className="font-sans font-semibold text-foreground group-hover:text-accent">{link.label}</span>

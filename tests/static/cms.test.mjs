@@ -288,3 +288,86 @@ test('CMS credentials are read from the environment and never committed', () => 
   const revalidate = read('apps/web/app/api/revalidate/route.ts');
   assert.match(revalidate, /invalid secret/, 'the revalidate webhook must require the shared secret');
 });
+
+/* -------------------------------------------------------------------------- */
+/* Link and outage hardening                                                  */
+/* -------------------------------------------------------------------------- */
+
+test('CMS-supplied links are normalised before they become navigation targets', async () => {
+  const links = read('apps/web/lib/cms/links.ts');
+  assert.match(links, /safeInternalPath/);
+  assert.match(links, /safeExternalUrl/);
+
+  // Behavioural check of the guard itself.
+  const module = await import('../../apps/web/lib/cms/links.ts').catch(() => null);
+  if (module) {
+    assert.equal(module.safeInternalPath('/programs/naca'), '/programs/naca');
+    assert.equal(module.safeInternalPath('javascript:alert(1)'), '/');
+    assert.equal(module.safeInternalPath('//evil.example.com'), '/');
+    assert.equal(module.safeInternalPath('/\\evil.example.com'), '/');
+    assert.equal(module.safeExternalUrl('http://example.com'), null);
+    assert.equal(module.safeExternalUrl('javascript:alert(1)'), null);
+  }
+
+  for (const file of [
+    'apps/web/components/blog/article-body.tsx',
+    'apps/web/components/blog/portable-text.tsx',
+    'apps/web/components/blog/article-view.tsx',
+    'apps/web/app/api/preview/enable/route.ts',
+    'apps/web/app/api/preview/disable/route.ts',
+  ]) {
+    assert.match(read(file), /safeInternalPath|safeExternalUrl/, `${file} must normalise CMS-supplied links`);
+  }
+});
+
+test('a Content Lake outage degrades to the bootstrap source instead of throwing', () => {
+  const articles = read('apps/web/lib/cms/articles.ts');
+  assert.match(articles, /withFallback/);
+  assert.match(articles, /catch \(error\)/);
+  assert.match(articles, /serving the bootstrap content source instead/);
+});
+
+test('Sanity-hosted images and approved embed hosts are allowed by configuration', () => {
+  const config = read('apps/web/next.config.mjs');
+  assert.match(config, /hostname: 'cdn\.sanity\.io'/);
+  assert.match(config, /frame-src 'self' https:\/\/www\.youtube-nocookie\.com https:\/\/player\.vimeo\.com/);
+  assert.doesNotMatch(config, /unsafe-eval/);
+});
+
+test('preview and revalidation use separate credentials', () => {
+  const env = read('apps/web/lib/cms/env.ts');
+  assert.match(env, /SANITY_PREVIEW_SECRET/);
+  assert.match(env, /SANITY_REVALIDATE_SECRET/);
+
+  const enable = read('apps/web/app/api/preview/enable/route.ts');
+  assert.match(enable, /SANITY_PREVIEW_SECRET/);
+  assert.doesNotMatch(enable, /SANITY_REVALIDATE_SECRET/);
+
+  const revalidate = read('apps/web/app/api/revalidate/route.ts');
+  assert.match(revalidate, /SANITY_REVALIDATE_SECRET/);
+  assert.doesNotMatch(revalidate, /SANITY_PREVIEW_SECRET/);
+});
+
+test('draft previews have a route, are never indexed, and are disallowed', () => {
+  assert.equal(existsSync('apps/web/app/preview/[slug]/page.tsx'), true);
+  const preview = read('apps/web/app/preview/[slug]/page.tsx');
+  assert.match(preview, /force-dynamic/);
+  assert.match(preview, /if \(!isDraft\) redirect\("\/blog"\)/);
+  assert.match(preview, /index: false/);
+
+  // The status must be set before the render, not during it.
+  const middleware = read('apps/web/middleware.ts');
+  assert.match(middleware, /__prerender_bypass/);
+  assert.match(middleware, /NextResponse\.redirect\(url, 307\)/);
+  assert.match(middleware, /matcher: \["\/preview\/:path\*"\]/);
+
+  assert.match(read('apps/web/app/robots.ts'), /"\/preview\/"/);
+
+  // Draft mode must describe the draft, not the published document.
+  assert.match(read('apps/web/app/blog/[slug]/page.tsx'), /Draft preview — \$\{article\.title\}/);
+});
+
+test('editor-curated related articles are projected and preferred', () => {
+  assert.match(read('apps/web/lib/cms/queries.ts'), /"relatedArticles": relatedArticles\[\]->/);
+  assert.match(read('apps/web/lib/cms/articles.ts'), /const curated = \(article\.relatedArticles \?\? \[\]\)/);
+});

@@ -8,6 +8,14 @@ export const SANITY_DATASET = process.env.NEXT_PUBLIC_SANITY_DATASET ?? "product
 export const SANITY_API_VERSION = process.env.NEXT_PUBLIC_SANITY_API_VERSION ?? "2026-08-01"
 /** Server-only. Required for draft previews and never exposed to the browser. */
 export const SANITY_READ_TOKEN = process.env.SANITY_API_READ_TOKEN ?? ""
+/**
+ * Server-only. Guards `/api/preview/enable`.
+ *
+ * Deliberately separate from `SANITY_REVALIDATE_SECRET`: the preview secret
+ * travels in a URL and can leak through history, logs, or referrers, so it must
+ * never also authorize the publish path.
+ */
+export const SANITY_PREVIEW_SECRET = process.env.SANITY_PREVIEW_SECRET ?? ""
 /** Server-only. Shared secret the Sanity webhook uses to trigger revalidation. */
 export const SANITY_REVALIDATE_SECRET = process.env.SANITY_REVALIDATE_SECRET ?? ""
 

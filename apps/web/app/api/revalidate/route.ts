@@ -21,7 +21,10 @@ export async function POST(request: NextRequest) {
     return Response.json({ revalidated: false, reason: "SANITY_REVALIDATE_SECRET is not configured" }, { status: 501 })
   }
 
-  const secret = request.nextUrl.searchParams.get("secret") ?? request.headers.get("x-revalidate-secret")
+  // Prefer the header. The query parameter remains supported because Sanity's
+  // webhook UI cannot always set custom headers, but it is never the same value
+  // as the preview secret.
+  const secret = request.headers.get("x-revalidate-secret") ?? request.nextUrl.searchParams.get("secret")
   if (secret !== SANITY_REVALIDATE_SECRET) {
     return Response.json({ revalidated: false, reason: "invalid secret" }, { status: 401 })
   }
