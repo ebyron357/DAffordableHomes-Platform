@@ -41,12 +41,11 @@ test('workspace installs are isolated and reproducible', () => {
   assert.match(workflow, /pnpm install --frozen-lockfile/);
 });
 
-test('approved photography and ClientVerse attribution remain wired to public pages', () => {
+test('approved photography remains wired to public pages', () => {
   const hero = readFileSync('apps/web/components/home/hero.tsx', 'utf8');
   const aboutHome = readFileSync('apps/web/components/home/about-debra.tsx', 'utf8');
   const aboutPage = readFileSync('apps/web/app/about/page.tsx', 'utf8');
   const consultation = readFileSync('apps/web/app/consultation/page.tsx', 'utf8');
-  const neighborhoods = readFileSync('apps/web/app/neighborhoods/page.tsx', 'utf8');
   const header = readFileSync('apps/web/components/layout/site-header.tsx', 'utf8');
   const footer = readFileSync('apps/web/components/layout/site-footer.tsx', 'utf8');
 
@@ -56,45 +55,11 @@ test('approved photography and ClientVerse attribution remain wired to public pa
   assert.match(aboutPage, /debra-allen-advisor-desk\.webp/);
   assert.match(aboutPage, /debra-allen-lifestyle-full-body\.webp/);
   assert.match(consultation, /couple-consultation_25d3a592\.jpg/);
-  assert.match(neighborhoods, /neighborhood-community_101d8dfe\.jpg/);
   assert.match(footer, /TREC Information About Brokerage Services/);
-});
 
-test('recovered navigation exposes Blogs and editorial routes use Debra photography', () => {
-  const recoveredApp = readFileSync('recovered-manus/assets/index-BT_aM9Xt.js', 'utf8');
-  const resourceHub = readFileSync('recovered-manus/blog/index.html', 'utf8');
-  const generator = readFileSync('recovered-manus/build-blog.mjs', 'utf8');
-  const articleRoutes = [
-    'naca-homebuying-dallas-fort-worth',
-    'homes-for-heroes-north-texas',
-    'how-to-buy-home-garland-tx'
-  ];
-
-  assert.match(recoveredApp, /href:"\/blog",label:"Blogs"/);
-  assert.doesNotMatch(recoveredApp, /href:"\/blog",label:"Resources"/);
-  assert.match(recoveredApp, /debra-allen-primary-about\.webp/);
-  assert.doesNotMatch(recoveredApp, /debra-portrait_922a2df0\.jpg/);
-  assert.equal(existsSync('recovered-manus/manus-storage/debra-portrait_922a2df0.jpg'), false);
-  assert.match(resourceHub, /debra-allen-primary-about\.webp/);
-  assert.match(resourceHub, /alt="Debra Allen smiling in a yellow blazer at a kitchen counter"/);
-
-  const approvedArticlePhotos = [
-    'debra-allen-primary-about.webp',
-    'debra-allen-advisor-desk.webp',
-    'debra-allen-lifestyle-full-body.webp'
-  ];
-
-  assert.match(generator, /copyFile/);
-  for (const photo of approvedArticlePhotos) {
-    assert.match(generator, new RegExp(photo.replace('.', '\\.')));
-  }
-
-  for (const [index, route] of articleRoutes.entries()) {
-    const article = readFileSync(`recovered-manus/blog/${route}/index.html`, 'utf8');
-    assert.match(article, new RegExp(approvedArticlePhotos[index].replace('.', '\\.')));
-    assert.doesNotMatch(article, /debra-portrait_922a2df0\.jpg/);
-    assert.match(article, /href="\/blog"/);
-  }
+  // Rejected asset: a dense East-Coast streetscape cannot illustrate a North
+  // Texas page. It is removed from the app so it cannot be reused.
+  assert.equal(existsSync('apps/web/public/manus-storage/neighborhood-community_101d8dfe.jpg'), false);
 });
 
 test('application shell includes core accessibility landmarks', () => {

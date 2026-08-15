@@ -1,0 +1,1136 @@
+{
+  "_id": "article.naca-homebuying-dallas-fort-worth",
+  "_type": "article",
+  "title": "Using NACA to Buy a Home in Dallas–Fort Worth",
+  "slug": {
+    "_type": "slug",
+    "current": "naca-homebuying-dallas-fort-worth"
+  },
+  "eyebrow": "NACA homebuyer field guide",
+  "excerpt": "Learn how the NACA homebuying process works, when to begin a DFW home search, and how Debra Allen supports the real-estate side of a purchase.",
+  "seoTitle": "Using NACA to Buy a Home in Dallas–Fort Worth",
+  "seoDescription": "Learn how the NACA homebuying process works, when to begin a DFW home search, and how Debra Allen supports the real-estate side of a purchase.",
+  "status": "published",
+  "publishedAt": "2026-08-05T12:00:00.000Z",
+  "reviewedAt": "2026-08-05T12:00:00.000Z",
+  "readingTimeMinutes": 10,
+  "author": {
+    "_type": "reference",
+    "_ref": "author.debra-allen"
+  },
+  "category": {
+    "_type": "reference",
+    "_ref": "category.program-guides"
+  },
+  "programs": [
+    {
+      "_type": "reference",
+      "_ref": "program.naca",
+      "_key": "program-naca"
+    }
+  ],
+  "areas": [
+    {
+      "_type": "reference",
+      "_ref": "area.dallas-fort-worth",
+      "_key": "area-dfw"
+    }
+  ],
+  "featuredImage": {
+    "_type": "articleImage",
+    "src": "/manus-storage/couple-consultation_25d3a592.jpg",
+    "alt": "Two homebuyers reviewing printed program documents with an advisor across a desk",
+    "focalPoint": "50% 45%"
+  },
+  "socialImage": {
+    "_type": "articleImage",
+    "src": "/manus-storage/couple-consultation_25d3a592.jpg",
+    "alt": "Two homebuyers reviewing printed program documents with an advisor across a desk"
+  },
+  "faqs": [
+    {
+      "_key": "faq-1",
+      "question": "Do I need to be NACA-qualified to attend a workshop?",
+      "answer": "No. NACA says its free Homebuyer Workshop is open to everyone and is the first step for people who want to learn about the purchase process."
+    },
+    {
+      "_key": "faq-2",
+      "question": "Can I start looking at homes before I am qualified?",
+      "answer": "You can research communities and learn about the market, but an active purchase search should be coordinated with your official NACA status, affordability range, and current instructions."
+    },
+    {
+      "_key": "faq-3",
+      "question": "Does Debra Allen approve NACA buyers?",
+      "answer": "No. NACA controls qualification, mortgage requirements, program rules, and official approvals. Debra provides independent real-estate guidance."
+    },
+    {
+      "_key": "faq-4",
+      "question": "Can an outside real-estate agent represent a NACA buyer?",
+      "answer": "NACA permits outside agents under its current procedures. Registration, training, buyer-representation, and portal requirements should be confirmed directly with NACA."
+    },
+    {
+      "_key": "faq-5",
+      "question": "Can NACA be used for any DFW home?",
+      "answer": "No specific property is automatically approved. The buyer, property, contract, condition, appraisal, insurance, mortgage, and other requirements must satisfy the applicable process."
+    }
+  ],
+  "sources": [
+    {
+      "_key": "src-1",
+      "label": "NACA: Steps to Homeownership",
+      "href": "https://www.naca.com/10steps/",
+      "publisher": "NACA"
+    },
+    {
+      "_key": "src-2",
+      "label": "NACA: Home Purchase Program",
+      "href": "https://www.naca.com/purchase/",
+      "publisher": "NACA"
+    },
+    {
+      "_key": "src-3",
+      "label": "NACA: Real Estate Agent Guidance",
+      "href": "https://www.naca.com/real-estate/",
+      "publisher": "NACA"
+    }
+  ],
+  "complianceNotice": [
+    {
+      "_type": "block",
+      "_key": "c31366df44f1",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "5b6d5c08aead",
+          "text": "D'Affordable Homes and Debra Allen are independent from NACA. NACA controls its workshops, counseling, qualification, mortgage terms, property requirements, lender processes, and official approvals. Confirm current program details directly with NACA.",
+          "marks": []
+        }
+      ]
+    }
+  ],
+  "relatedLinks": [
+    {
+      "_key": "rel-1",
+      "label": "NACA home-search guidance",
+      "href": "/programs/naca",
+      "description": "See how Debra supports the search, offer, inspection, and closing side."
+    },
+    {
+      "_key": "rel-2",
+      "label": "Garland homebuyer guide",
+      "href": "/areas/garland",
+      "description": "Explore practical questions for a Garland and North Texas search."
+    },
+    {
+      "_key": "rel-3",
+      "label": "Affordability calculator",
+      "href": "/resources/calculators/affordability",
+      "description": "Test a planning range before comparing properties."
+    },
+    {
+      "_key": "rel-4",
+      "label": "Mortgage-payment calculator",
+      "href": "/resources/calculators/mortgage-payment",
+      "description": "Compare principal, interest, tax, and insurance assumptions."
+    }
+  ],
+  "body": [
+    {
+      "_type": "quickAnswer",
+      "_key": "761fcf383052",
+      "heading": "The quick answer",
+      "body": [
+        {
+          "_type": "block",
+          "_key": "28969f062ece",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "339249dd74b3",
+              "text": "You do not need to be NACA-qualified to begin learning about the program. NACA says its free Homebuyer Workshop is open to everyone. Serious house hunting, however, should be coordinated with your official NACA status, documented affordability range, current requirements, and the professionals responsible for the transaction.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "c18b54d725ef",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "17e2a1f730ef",
+              "text": "NACA controls qualification, financing, and program approvals. Your real-estate agent helps with the search, property evaluation, offer, inspection, and transaction coordination.",
+              "marks": [
+                "strong"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "8e2a956128fd",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "ebb949d97b58",
+          "text": "NACA is a process—not simply a loan application",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "324cae44cde3",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "87b372faed41",
+          "text": "People often first hear about NACA because the organization promotes a mortgage with no down payment, no traditional closing costs, no fees, and no mortgage insurance for qualified members under its current terms. Those headline benefits are only one part of the program.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "e9cb45acca3f",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "721a02e85cfd",
+          "text": "The purchase path includes education, financial-document preparation, housing counseling, budgeting, qualification, purchase education, a home search, property-specific review, mortgage processing, and closing requirements. Buyers do not all move through those stages at the same speed.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "950699abc133",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "528b805e5d61",
+          "text": "One household may already have organized records and stable finances. Another may need time to establish stronger payment habits, reduce debt, document income, or build savings. Preparation is not failure. It is part of building a purchase that can last.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "9398de54e752",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "bb123894ee34",
+          "text": "What happens after the Homebuyer Workshop?",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "419b765b38f5",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "23a893af15ed",
+          "text": "After the workshop, a prospective buyer generally begins completing the member file and preparing for counseling. NACA may request current financial records, including income documents, tax records, bank statements, housing-payment history, debt information, and explanations for unusual transactions.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "32dda02c5348",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "a9c602f45d7a",
+          "text": "The purpose is broader than collecting paperwork. Counseling examines whether the expected housing payment is sustainable after normal household expenses.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "669621fefaad",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "66ad11c3f94e",
+          "text": "Property taxes and homeowners insurance",
+          "marks": []
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "64351adaa20b",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "79b2f9bf4a30",
+          "text": "Association dues when applicable",
+          "marks": []
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "6bd6d73e633b",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "40d6f978ada1",
+          "text": "Utilities, transportation, and childcare",
+          "marks": []
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "236267afdd7c",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "74d5804ba21b",
+          "text": "Maintenance and unexpected repairs",
+          "marks": []
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "1acacdb63b16",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "40b9b01d2167",
+          "text": "Existing debts and emergency savings",
+          "marks": []
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "df98e41461b6",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "4b75b5a24103",
+          "text": "A payment that leaves no room for an air-conditioning repair is not a safe ownership plan in North Texas.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "inlineImage",
+      "_key": "2b6619e00177",
+      "src": "/images/planning-table.png",
+      "alt": "An open notebook, reading glasses, a pen, and a cup of coffee on a wooden table beside a window",
+      "layout": "wide",
+      "caption": "Counseling looks at the payment that survives an ordinary month, not the largest payment on paper."
+    },
+    {
+      "_type": "block",
+      "_key": "9c606d9d3d22",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "872fd53fe4c1",
+          "text": "What NACA qualification does—and does not—mean",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "356daf97c83a",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "4f86e7df302c",
+          "text": "NACA qualification is a major milestone that establishes an approved affordability position under the organization's current process. It is not final permission to close on any property a buyer chooses.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "acd653efc37f",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "1bece1f2733d",
+          "text": "The selected home, contract, property condition, appraisal, inspection, insurance, title work, lender conditions, and mortgage application must still move through the required reviews.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "3f8ee09c0e60",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "61ae79b524e2",
+          "text": "A buyer should also avoid treating the maximum qualified amount as a spending target. The better question is whether the payment leaves room for repairs, tax or insurance changes, transportation, savings, and the buyer's actual life.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "pullQuote",
+      "_key": "6bc7787247c4",
+      "quote": "Qualification is a ceiling, not a command."
+    },
+    {
+      "_type": "block",
+      "_key": "559a3e126852",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "1d9e5c660889",
+          "text": "When should a buyer contact Debra?",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "985c03cf6ff6",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "5ce553db9e8b",
+          "text": "A prospective buyer can speak with Debra while learning about NACA. Early planning can clarify preferred communities, property needs, commute limits, monthly-cost tolerance, repair expectations, and the desired timeline.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "02478d2744cc",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "380fdc5eb98c",
+          "text": "An active property search should align with the buyer's official NACA stage. Tell Debra whether you are researching, have attended a workshop, are in counseling, or are already qualified. Clear status information allows the conversation to focus on the next responsible real-estate step.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "5229e6467e3f",
+      "style": "normal",
+      "markDefs": [
+        {
+          "_type": "internalLink",
+          "_key": "6ac6a79cc2ff",
+          "path": "/programs/naca"
+        }
+      ],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "1d91b924ef4d",
+          "text": "Explore Debra's NACA home-search guidance",
+          "marks": [
+            "6ac6a79cc2ff"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "28dca80e5280",
+          "text": ".",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "f110fe37925c",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "b6734dbec511",
+          "text": "Can a NACA buyer use an outside real-estate agent?",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "b142362f5406",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "e4807e8f3d5a",
+          "text": "NACA's current guidance permits members to work with an outside agent. The organization strongly recommends applicable training and has procedures involving agent registration, buyer-representation documentation, and its real-estate portal.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "467892132f56",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "31c57612e641",
+          "text": "Those details should be confirmed before a buyer and agent rely on a particular arrangement. No agent should claim the ability to bypass the program or control an approval reserved for NACA, a lender, an appraiser, or another authorized professional.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "24f858f85f8a",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "f4c64df181c0",
+          "text": "How Debra supports the real-estate side",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "cab765dece6b",
+      "style": "h3",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "14fb3e89bddc",
+          "text": "Build a focused North Texas search",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "03ef35d8e9ef",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "7e87405c6f03",
+          "text": "Dallas–Fort Worth is too large for a useful search built around “something affordable somewhere.” Debra helps define location priorities, commute needs, home type, property age, space, accessibility, association preferences, repair tolerance, and long-term ownership goals.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "7b28c410109b",
+      "style": "h3",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "1deada2b4a77",
+          "text": "Evaluate complete ownership cost",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "ee19adb2fb01",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "29efe63a5feb",
+          "text": "Two similarly priced homes may carry very different taxes, insurance, dues, utilities, repair needs, and transportation costs. The lower listing price is not automatically the more affordable home.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "f80c69cd1613",
+      "style": "h3",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fc6cdf6bb47d",
+          "text": "Prepare a fact-based offer",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "7678202b5b28",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "e862527984bc",
+          "text": "An offer strategy may consider comparable properties, current competition, days on market, condition, seller priorities, inspection needs, contract protections, and program timing. No responsible agent can guarantee acceptance.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "9c8b3bd14126",
+      "style": "h3",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "8514a86ed5e8",
+          "text": "Coordinate inspections and deadlines",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "0011937fc3d2",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "a7f2bc785426",
+          "text": "Debra can help organize the contract, earnest-money deadline, inspections, repair discussions, program communication, appraisal access, title work, final walkthrough, and closing preparation. Each professional remains responsible for their own expertise and approvals.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "programCta",
+      "_key": "1a2bbb45f95e",
+      "heading": "NACA home-search guidance",
+      "body": "See exactly where an independent real-estate agent fits alongside the program, and where NACA keeps control.",
+      "href": "/programs/naca",
+      "label": "Open the NACA guidance page"
+    },
+    {
+      "_type": "block",
+      "_key": "83ac9e9af3d3",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "2f5798e195e1",
+          "text": "What NACA buyers should know about Dallas–Fort Worth",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "cb17aad33b11",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "8e32253d53c5",
+          "text": "DFW is a region rather than a single housing market. Garland, Mesquite, Richardson, Plano, Rowlett, Rockwall, Wylie, Dallas, and surrounding communities can differ materially in taxes, insurance, housing age, inventory, commute patterns, association dues, and repair risk.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "3a4b6dd6e6fd",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "4204b601c496",
+          "text": "Property taxes:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "e71d2b0d6937",
+          "text": " the seller's current bill may not match the buyer's future obligation because exemptions and assessed values can change.",
+          "marks": []
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "3211d26ee8bc",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "0b6c023e5397",
+          "text": "Insurance:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "db50df91fb9d",
+          "text": " roof age, condition, claims, replacement cost, and insurer rules can alter the payment.",
+          "marks": []
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "fd22304143dd",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "96d294f4512a",
+          "text": "Associations:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "9114459529c2",
+          "text": " dues are only part of the picture; buyers should review restrictions, transfer fees, and potential assessments.",
+          "marks": []
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "76926ce5ed07",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "0ddd0018481c",
+          "text": "Transportation:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "1d86e968f84c",
+          "text": " tolls, fuel, maintenance, parking, and added childcare time belong in the affordability calculation.",
+          "marks": []
+        }
+      ],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "5a877df97aad",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "b732e43e8e25",
+          "text": "Can NACA be used to buy in Garland?",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "ca1f26427a6f",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "84eac728c842",
+          "text": "A qualified buyer may explore Garland as part of a North Texas search, subject to current NACA requirements and the facts of the transaction. No article or agent can promise that a particular Garland home will qualify.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "9072cda61c48",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "ea7b33e1b2af",
+          "text": "The buyer must confirm current qualification, affordability, property condition, appraisal, insurance, contract compliance, mortgage conditions, and property-specific approval. Debra can help evaluate Garland homes and coordinate the real-estate process while the responsible organizations make their own decisions.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "a42f049f18b6",
+      "style": "normal",
+      "markDefs": [
+        {
+          "_type": "internalLink",
+          "_key": "51b1671669c2",
+          "path": "/areas/garland"
+        }
+      ],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "b5943d865d7f",
+          "text": "Use the Garland guide to prepare a local search",
+          "marks": [
+            "51b1671669c2"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "b412f37042af",
+          "text": ".",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "areaCta",
+      "_key": "260d3763a654",
+      "heading": "Garland homebuyer guide",
+      "body": "Cost, condition, commute, and timing questions for a focused Garland and North Texas search.",
+      "href": "/areas/garland",
+      "label": "Open the Garland guide"
+    },
+    {
+      "_type": "block",
+      "_key": "f3a55abc745d",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "727cd6c867da",
+          "text": "Seven mistakes that can disrupt the purchase",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "9378e7c14f03",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "1bbac2542d9b",
+          "text": "Touring seriously before understanding official status.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "c5bcaec181f3",
+          "text": " Research can begin early; an active purchase plan should use verified information.",
+          "marks": []
+        }
+      ],
+      "listItem": "number",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "0987dfd64161",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "b3c82686db6c",
+          "text": "Spending to the maximum.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "1a773921b69f",
+          "text": " Qualification is a ceiling, not a command.",
+          "marks": []
+        }
+      ],
+      "listItem": "number",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "344c62febfd8",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "39c23aed205c",
+          "text": "Opening new credit.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "3e7022a2dd5f",
+          "text": " A vehicle, card, furniture account, personal loan, or co-signed debt can change the file.",
+          "marks": []
+        }
+      ],
+      "listItem": "number",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "e6e0194f3006",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "015838147443",
+          "text": "Moving money without records.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "095c46b84100",
+          "text": " Large deposits and transfers may require documentation.",
+          "marks": []
+        }
+      ],
+      "listItem": "number",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "d24881fb53d4",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "41ad70813143",
+          "text": "Letting documents expire.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "64d80ccbadf9",
+          "text": " Income, asset, debt, and payment records must remain current.",
+          "marks": []
+        }
+      ],
+      "listItem": "number",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "d9e0769dbe9b",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "f1ff4f984645",
+          "text": "Ignoring condition.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "600dc5e6e3cc",
+          "text": " A low price can conceal expensive roof, foundation, drainage, system, or insurance problems.",
+          "marks": []
+        }
+      ],
+      "listItem": "number",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "adfe27fcf9c5",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "8fc73aa113e4",
+          "text": "Missing deadlines.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "c799a999ad69",
+          "text": " A real-estate contract creates time-sensitive obligations that can place the transaction at risk.",
+          "marks": []
+        }
+      ],
+      "listItem": "number",
+      "level": 1
+    },
+    {
+      "_type": "checklist",
+      "_key": "67a0bd08d2fe",
+      "heading": "A practical pre-search checklist",
+      "items": [
+        {
+          "_key": "836fdc96d97c",
+          "label": "Confirm your official NACA status and current affordability range."
+        },
+        {
+          "_key": "2b01725911c1",
+          "label": "Choose a personal payment below the maximum when needed."
+        },
+        {
+          "_key": "61a6fb82f85f",
+          "label": "Keep requested financial records current."
+        },
+        {
+          "_key": "6df681c140bb",
+          "label": "Confirm the current outside-agent process."
+        },
+        {
+          "_key": "5fa2564b1138",
+          "label": "Understand property-review and contract-submission steps."
+        },
+        {
+          "_key": "7709032cea73",
+          "label": "Define preferred communities, commute limits, and property needs."
+        },
+        {
+          "_key": "e6f18ba5d360",
+          "label": "Set a repair tolerance and preserve cash reserves."
+        },
+        {
+          "_key": "4233e273c998",
+          "label": "Know which professional controls each approval."
+        }
+      ]
+    },
+    {
+      "_type": "calculatorCta",
+      "_key": "13668145189c",
+      "heading": "Test the payment before you tour",
+      "body": "Compare a planning range and a full principal, interest, tax, and insurance estimate before comparing properties.",
+      "calculators": [
+        {
+          "_key": "calc-afford",
+          "label": "Affordability calculator",
+          "href": "/calculators/affordability"
+        },
+        {
+          "_key": "calc-payment",
+          "label": "Mortgage-payment calculator",
+          "href": "/calculators/mortgage-payment"
+        }
+      ]
+    },
+    {
+      "_type": "consultationCta",
+      "_key": "5a278b1f2eef",
+      "heading": "Ready to understand the next real-estate step?",
+      "body": "You do not need to pretend you understand the entire process. You need an accurate picture of your current stage and the next responsible action.",
+      "href": "/consultation",
+      "label": "Book a consultation",
+      "secondaryHref": "/programs/naca",
+      "secondaryLabel": "Start with NACA home-search guidance"
+    }
+  ]
+}

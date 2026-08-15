@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Menu, X } from "lucide-react"
 import { PRIMARY_NAV } from "@/lib/navigation"
 import { Button } from "@/components/ui/button"
@@ -17,9 +17,23 @@ function isActivePath(pathname: string, href: string): boolean {
 export function SiteHeader() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const toggleRef = useRef<HTMLButtonElement>(null)
+
+  /** Escape closes the menu and returns focus to the control that opened it. */
+  useEffect(() => {
+    if (!open) return
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setOpen(false)
+        toggleRef.current?.focus()
+      }
+    }
+    document.addEventListener("keydown", onKeyDown)
+    return () => document.removeEventListener("keydown", onKeyDown)
+  }, [open])
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-card">
+    <header className="sticky top-0 z-40 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/85">
       <Container>
         <div className="flex min-h-[72px] items-center justify-between gap-5 py-3">
           <Link
@@ -40,8 +54,8 @@ export function SiteHeader() {
             </span>
           </Link>
 
-          <nav aria-label="Primary" className="hidden xl:block">
-            <ul className="flex items-center gap-0.5">
+          <nav aria-label="Primary" className="hidden lg:block">
+            <ul className="flex items-center gap-1">
               {PRIMARY_NAV.map((item) => {
                 const active = isActivePath(pathname, item.href)
                 return (
@@ -50,8 +64,9 @@ export function SiteHeader() {
                       href={item.href}
                       aria-current={active ? "page" : undefined}
                       className={cn(
-                        "rounded-sm px-2.5 py-2 text-[13px] font-medium transition-colors hover:bg-muted",
-                        active ? "text-primary" : "text-foreground/80",
+                        "relative rounded-sm px-3 py-2 text-[13.5px] font-medium transition-colors hover:bg-muted hover:text-accent",
+                        "after:absolute after:inset-x-3 after:-bottom-px after:h-0.5 after:rounded-full after:transition-colors",
+                        active ? "text-accent after:bg-accent" : "text-foreground/80 after:bg-transparent",
                       )}
                     >
                       {item.label}
@@ -62,13 +77,14 @@ export function SiteHeader() {
             </ul>
           </nav>
 
-          <div className="hidden items-center gap-2 xl:flex">
+          <div className="hidden items-center gap-2 lg:flex">
             <Button href="/consultation" size="sm">Book Consultation</Button>
           </div>
 
           <button
+            ref={toggleRef}
             type="button"
-            className="inline-flex min-h-10 min-w-10 items-center justify-center rounded border border-primary p-2 text-primary xl:hidden"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm border border-primary p-2 text-primary transition-colors hover:bg-muted lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             onClick={() => setOpen((value) => !value)}
@@ -80,7 +96,7 @@ export function SiteHeader() {
       </Container>
 
       {open && (
-        <div id="mobile-menu" className="border-t border-border bg-background xl:hidden">
+        <div id="mobile-menu" className="max-h-[calc(100dvh-72px)] overflow-y-auto border-t border-border bg-background lg:hidden">
           <Container>
             <nav aria-label="Mobile" className="py-4">
               <ul className="flex flex-col gap-1">
@@ -105,7 +121,9 @@ export function SiteHeader() {
                 })}
               </ul>
               <div className="mt-4">
-                <Button href="/consultation" className="w-full">Book Consultation</Button>
+                <Button href="/consultation" className="w-full" onClick={() => setOpen(false)}>
+                  Book Consultation
+                </Button>
               </div>
             </nav>
           </Container>

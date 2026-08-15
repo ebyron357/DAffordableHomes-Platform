@@ -50,7 +50,8 @@ const nextConfig = {
       { source: '/resources/calculators/closing-costs', destination: '/calculators/closing-costs', permanent: true },
       { source: '/resources/calculators/down-payment', destination: '/calculators/down-payment', permanent: true },
       { source: '/resources/calculators/mortgage-payment', destination: '/calculators/mortgage-payment', permanent: true },
-      { source: '/calculator', destination: '/calculators/mortgage-payment', permanent: true }
+      { source: '/calculator', destination: '/calculators/mortgage-payment', permanent: true },
+      { source: '/naca', destination: '/programs/naca', permanent: true }
     ];
   }
 };

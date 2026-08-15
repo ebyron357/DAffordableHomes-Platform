@@ -11,8 +11,11 @@
     "dev": "npm --workspace apps/web run dev",
     "build": "npm --workspace apps/web run build",
     "lint": "npm --workspace apps/web run lint",
-    "typecheck": "npm --workspace apps/web run typecheck && npm --workspace @daffordablehomes/integrations run typecheck",
-    "test": "cd recovered-manus && node build-blog.mjs && cd .. && node --test tests/static/*.test.mjs",
+    "typecheck": "npm --workspace apps/web run typecheck && npm --workspace @daffordablehomes/integrations run typecheck && npm --workspace @daffordablehomes/studio run typecheck",
+    "content:build": "node scripts/cms/build-content.mjs",
+    "content:check": "node scripts/cms/build-content.mjs --check",
+    "test": "npm run content:check && node --test tests/static/*.test.mjs",
+    "qa:crawl": "node scripts/qa/crawl.mjs",
     "test:all": "npm run typecheck && npm run lint && npm run test && npm run build"
   },
   "engines": {
