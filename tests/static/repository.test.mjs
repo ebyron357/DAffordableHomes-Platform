@@ -132,6 +132,13 @@ test('security headers include CSP and anti-sniffing controls', () => {
   );
   assert.match(studioPolicy, /unsafe-eval/);
   assert.match(config, /source: '\/studio\/:path\*'/);
+
+  // The catch-all must exclude /studio. Next keeps the LAST value for a
+  // duplicated response-header key, so a plain `/(.*)` silently replaced the
+  // Studio policy and stopped the Studio from loading. The served header is
+  // asserted for real by scripts/qa/site-audit.mjs.
+  assert.doesNotMatch(config, /source: '\/\(\.\*\)'/);
+  assert.match(config, /source: '\/\(\(\?!studio/);
 });
 
 test('Shopify integration fails closed without placeholder products', () => {

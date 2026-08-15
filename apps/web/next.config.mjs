@@ -90,7 +90,17 @@ const nextConfig = {
         ]
       },
       {
-        source: '/(.*)',
+        /*
+         * Everything except /studio.
+         *
+         * A plain `/(.*)` catch-all also matches /studio, and Next keeps the
+         * LAST value for a duplicated response-header key — so the public
+         * policy silently replaced the Studio policy above and the Studio could
+         * not load at all. The negative lookahead is what keeps the two
+         * policies from colliding. Verified by asserting the served header,
+         * not the config text, in tests/static/repository.test.mjs.
+         */
+        source: '/((?!studio(?:/|$)).*)',
         headers: [
           ...baseSecurityHeaders,
           { key: 'Content-Security-Policy', value: publicContentSecurityPolicy }

@@ -72,22 +72,54 @@ function hydrateRelated(article: Article, all: Article[]): Article {
   }
 }
 
+/**
+ * Runs a Content Lake read, degrading to the migration seed if the provider is
+ * unreachable.
+ *
+ * Sanity being configured is not the same as Sanity being *available*. On a
+ * cold cache miss or a build-time read, a rejected `fetch` would otherwise turn
+ * the blog index, an article, or the sitemap into a 500 or a failed build. The
+ * failure is logged rather than swallowed, so an outage is visible in the
+ * platform logs instead of looking like a quiet content change.
+ */
+async function withSeedFallback<T>(
+  label: string,
+  read: () => Promise<T>,
+  fallback: () => T,
+): Promise<T> {
+  try {
+    return await read()
+  } catch (error) {
+    console.error(
+      `[blog] Sanity read failed (${label}); serving the migration seed instead.`,
+      error,
+    )
+    return fallback()
+  }
+}
+
 /** Lists published articles, newest first. */
 export async function listArticles(): Promise<ArticleSummary[]> {
   const client = getPublishedClient()
   if (!client) return SEED_ARTICLES.map(toSummary)
 
-  const articles = await client.fetch<ArticleSummary[]>(ARTICLES_QUERY, {}, CACHE_OPTIONS)
-  return articles ?? []
+  return withSeedFallback(
+    "listArticles",
+    async () => (await client.fetch<ArticleSummary[]>(ARTICLES_QUERY, {}, CACHE_OPTIONS)) ?? [],
+    () => SEED_ARTICLES.map(toSummary),
+  )
 }
 
-/** Every slug that should be prerendered and listed in the sitemap. */
+/** Every slug listed in the sitemap. */
 export async function listArticleSlugs(): Promise<string[]> {
   const client = getPublishedClient()
   if (!client) return SEED_ARTICLES.map((article) => article.slug)
 
-  const slugs = await client.fetch<string[]>(ARTICLE_SLUGS_QUERY, {}, CACHE_OPTIONS)
-  return slugs ?? []
+  return withSeedFallback(
+    "listArticleSlugs",
+    async () => (await client.fetch<string[]>(ARTICLE_SLUGS_QUERY, {}, CACHE_OPTIONS)) ?? [],
+    () => SEED_ARTICLES.map((article) => article.slug),
+  )
 }
 
 /**
@@ -95,14 +127,18 @@ export async function listArticleSlugs(): Promise<string[]> {
  * documents outside draft mode, so `/blog/[slug]` can render a real 404.
  */
 export async function getArticle(slug: string): Promise<Article | null> {
-  if (!isSanityConfigured) {
-    const seeded = SEED_ARTICLES.find((article) => article.slug === slug)
-    return seeded ? hydrateRelated(seeded, SEED_ARTICLES) : null
+  const seeded = () => {
+    const match = SEED_ARTICLES.find((article) => article.slug === slug)
+    return match ? hydrateRelated(match, SEED_ARTICLES) : null
   }
+
+  if (!isSanityConfigured) return seeded()
 
   if (await isDraftRequest()) {
     const preview = getPreviewClient()
     if (preview) {
+      // A draft read must never fall back to published seed content — that
+      // would show an editor stale copy while claiming to be a preview.
       const draft = await preview.fetch<Article | null>(ARTICLE_BY_SLUG_PREVIEW_QUERY, { slug })
       return draft ?? null
     }
@@ -111,12 +147,12 @@ export async function getArticle(slug: string): Promise<Article | null> {
   const client = getPublishedClient()
   if (!client) return null
 
-  const article = await client.fetch<Article | null>(
-    ARTICLE_BY_SLUG_QUERY,
-    { slug },
-    CACHE_OPTIONS,
+  return withSeedFallback(
+    `getArticle(${slug})`,
+    async () =>
+      (await client.fetch<Article | null>(ARTICLE_BY_SLUG_QUERY, { slug }, CACHE_OPTIONS)) ?? null,
+    seeded,
   )
-  return article ?? null
 }
 
 /** Whether the blog is currently served from the Content Lake or the seed. */

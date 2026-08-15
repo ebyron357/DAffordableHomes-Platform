@@ -229,6 +229,34 @@ async function main() {
   const missing = await fetch(`${BASE}/blog/this-article-does-not-exist`)
   record(missing.status === 404, "unknown article slug returns a real 404", `status ${missing.status}`)
 
+  /* -------------------- served security headers ------------------- */
+
+  // Asserted against the real response, not the config file. Next keeps the
+  // last value for a duplicated header key, so a catch-all rule can silently
+  // replace a more specific one — which a config-text assertion cannot see.
+  {
+    const publicHeaders = await fetch(`${BASE}/blog`, { redirect: "manual" })
+    const publicCsp = publicHeaders.headers.get("content-security-policy") ?? ""
+    record(publicCsp.length > 0, "public pages send a Content-Security-Policy")
+    record(
+      !publicCsp.includes("unsafe-eval"),
+      "public CSP does not allow unsafe-eval",
+      publicCsp,
+    )
+
+    const studioHeaders = await fetch(`${BASE}/studio`, { redirect: "manual" })
+    const studioCsp = studioHeaders.headers.get("content-security-policy") ?? ""
+    record(
+      studioCsp.includes("unsafe-eval") && studioCsp.includes("sanity.io"),
+      "/studio receives the Studio CSP, not the public one",
+      studioCsp,
+    )
+    record(
+      (studioHeaders.headers.get("x-robots-tag") ?? "").includes("noindex"),
+      "/studio is marked noindex",
+    )
+  }
+
   /* -------------------- robots ------------------------------------ */
 
   const robots = await fetch(`${BASE}/robots.txt`)

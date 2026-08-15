@@ -136,12 +136,19 @@ text**, SEO description, and at least one body block.
 
 ### Preview a draft
 
-Use **Open preview** in the Studio, or visit
-`/api/draft-mode/enable?slug=<slug>`. The endpoint verifies the slug exists in
-the Content Lake before enabling draft mode, then redirects to the article. A
-banner marks the page as an unpublished preview; **Exit preview** clears it.
+Open the **Presentation** tool in the Studio and select the article. Presentation
+mints a single-use preview secret in the Content Lake and hands it to
+`/api/draft-mode/enable`, which validates it before turning on draft rendering.
+A banner marks the page as an unpublished preview; **Exit preview** clears it.
 
 Preview requires `SANITY_API_READ_TOKEN`.
+
+> **Do not build your own preview link.** An earlier version of this endpoint
+> accepted `?slug=<slug>` and only checked that the document existed. That is not
+> authentication: any visitor who knew a published slug — all three are public —
+> could obtain a draft-mode cookie and read unpublished editorial content. A
+> preview link an editor can copy is a link anyone can copy; the secret has to
+> come from an authenticated Studio session.
 
 ### Publish
 
@@ -166,7 +173,9 @@ on `/blog`, at `/blog/<slug>`, and in `/sitemap.xml`.
 The route verifies the signature before revalidating, then clears the `article`
 cache tag and revalidates `/blog`, `/sitemap.xml`, and the article path.
 
-Without the webhook, changes still appear within the one-hour ISR window.
+The article route renders on demand, so a published change is visible on the
+next request once the `article` cache tag is cleared. Without the webhook, the
+tag expires on its own within the hour.
 
 ---
 
@@ -230,5 +239,12 @@ have not been verified. See `docs/12-governance/PUBLISHING_STANDARD.md`.
   policy does not, and never receives that header.
 - The read token is server-only. `cms/client.ts` and `lib/blog/source.ts` are
   marked `server-only`, so a client component importing them fails the build.
-- The draft-mode endpoint validates the slug format and verifies the document
-  exists before enabling draft rendering.
+- The draft-mode endpoint requires a single-use secret minted by an
+  authenticated Studio session; an anonymous request cannot enable draft mode.
+- The public CSP is served to every route except `/studio`. The catch-all header
+  rule carries a negative lookahead because Next keeps the *last* value for a
+  duplicated header key — a plain `/(.*)` catch-all silently replaced the Studio
+  policy and stopped the Studio from loading.
+- Do not add a root-level `app/loading.tsx`. Its Suspense boundary lets Next
+  flush the shell and commit HTTP 200 before a page can call `notFound()`,
+  turning every 404 in the application into a soft 404.

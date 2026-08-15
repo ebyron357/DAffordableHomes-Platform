@@ -135,10 +135,35 @@ test('structured data is generated from CMS fields for every article', () => {
 test('an unknown article slug cannot resolve to a soft 404', () => {
   const route = read('apps/web/app/blog/[slug]/page.tsx');
 
-  // `dynamicParams = false` is what makes an unknown slug a real HTTP 404
-  // instead of an ISR-cached not-found page served with 200.
-  assert.match(route, /export const dynamicParams = false/);
+  // Rendering on demand is what makes an unknown slug a real HTTP 404. An
+  // ISR'd route serves the not-found page with 200 instead.
+  assert.match(route, /^export const dynamic = "force-dynamic"$/m);
+  assert.doesNotMatch(route, /^export const revalidate/m);
   assert.match(route, /notFound\(\)/);
+
+  // A root-level loading.tsx wraps every route in a Suspense boundary. Next
+  // flushes that shell — committing HTTP 200 — before the page can call
+  // notFound(), which silently turns every 404 in the app into a 200.
+  // scripts/qa/site-audit.mjs asserts the served status for real.
+  assert.equal(
+    existsSync('apps/web/app/loading.tsx'),
+    false,
+    'a root loading.tsx re-breaks 404 status codes site-wide'
+  );
+});
+
+test('a slug published after the build is routable without a deploy', () => {
+  const route = read('apps/web/app/blog/[slug]/page.tsx');
+
+  // `dynamicParams = false` would pin the routable set to build time, so a
+  // newly published article would 404 until the next deploy and a draft slug
+  // could never be previewed at all.
+  // Match an actual export, not the comment that explains why it is absent.
+  assert.doesNotMatch(route, /^export const dynamicParams/m);
+  assert.doesNotMatch(route, /^export async function generateStaticParams/m);
+
+  // CMS reads stay on the tagged data cache despite dynamic rendering.
+  assert.match(route, /^export const fetchCache = "default-cache"$/m);
 });
 
 test('the sitemap is generated from the CMS, not a hardcoded article list', () => {

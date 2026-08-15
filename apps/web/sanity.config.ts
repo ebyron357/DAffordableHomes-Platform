@@ -10,6 +10,7 @@
 
 import { visionTool } from "@sanity/vision"
 import { defineConfig } from "sanity"
+import { presentationTool } from "sanity/presentation"
 import { structureTool } from "sanity/structure"
 
 import {
@@ -30,13 +31,21 @@ export default defineConfig({
   schema: { types: schemaTypes },
   plugins: [
     structureTool({ structure }),
+    /*
+     * Presentation owns draft preview. It mints a single-use secret in the
+     * Content Lake and hands it to `/api/draft-mode/enable`, so only an
+     * authenticated Studio session can turn on draft rendering. Do not replace
+     * this with a hand-built preview link: a link an editor can copy is a link
+     * anyone can copy.
+     */
+    presentationTool({
+      previewUrl: {
+        previewMode: {
+          enable: "/api/draft-mode/enable",
+          disable: "/api/draft-mode/disable",
+        },
+      },
+    }),
     visionTool({ defaultApiVersion: SANITY_API_VERSION }),
   ],
-  document: {
-    productionUrl: async (previous, { document }) => {
-      const slug = (document as { slug?: { current?: string } }).slug?.current
-      if (document._type !== "article" || !slug) return previous
-      return `/api/draft-mode/enable?slug=${encodeURIComponent(slug)}`
-    },
-  },
 })

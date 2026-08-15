@@ -7,7 +7,7 @@ import { ArticleHeader } from "@/components/blog/article-header"
 import { DraftBanner } from "@/components/blog/draft-banner"
 import { Prose } from "@/components/blog/portable-text"
 import { Container } from "@/components/ui/container"
-import { getArticle, listArticleSlugs } from "@/lib/blog/source"
+import { getArticle } from "@/lib/blog/source"
 import { articleJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/blog/structured-data"
 import type { Article } from "@/lib/blog/types"
 import { SITE } from "@/lib/site"
@@ -22,25 +22,31 @@ import { cn } from "@/lib/utils"
  */
 
 /**
- * Only slugs returned by `generateStaticParams` are routable.
+ * Rendered on demand so that an unknown slug produces a *real* HTTP 404.
  *
- * This is what makes an unknown slug a *real* 404. With `dynamicParams` left
- * at its default, Next treats an unknown slug as a cacheable ISR miss and
- * serves the not-found page with HTTP 200 — which looks right in a browser
- * and is wrong for every crawler.
+ * Getting a genuine 404 here took three attempts, each ruled out by testing the
+ * served status rather than by reading the code:
  *
- * The published slug list is refreshed by ISR (`revalidate` below) and by the
- * Sanity publish webhook, which calls `revalidatePath("/blog")` and the
- * article path. Publishing still needs no new route file.
+ *  1. ISR (a route-level `revalidate`) makes Next treat an unknown slug as a
+ *     cacheable miss and serve the not-found page with HTTP 200.
+ *  2. `dynamicParams = false` does return 404 — at the routing layer, before
+ *     render — but `generateStaticParams` is only evaluated at build time.
+ *     ISR and `revalidatePath` never expand the allowed set, so a newly
+ *     published article would 404 until the next deploy and a draft slug
+ *     (absent from the published list) could never be previewed at all.
+ *  3. `force-dynamic` alone still returned 200, because the app had a root
+ *     `loading.tsx`. That Suspense boundary let Next flush the shell — and
+ *     commit the 200 status — before this component ever called `notFound()`.
+ *     Removing it fixed the status for every route in the app, not just this
+ *     one. Do not reintroduce a root-level `loading.tsx`.
+ *
+ * `fetchCache` keeps the CMS reads on the tagged data cache, so dynamic
+ * rendering does not mean a Content Lake round trip per request — the
+ * `article` tag is invalidated by the publish webhook.
  */
-export const dynamicParams = false
+export const dynamic = "force-dynamic"
 
-export const revalidate = 3600
-
-export async function generateStaticParams() {
-  const slugs = await listArticleSlugs()
-  return slugs.map((slug) => ({ slug }))
-}
+export const fetchCache = "default-cache"
 
 export async function generateMetadata({
   params,
@@ -51,7 +57,11 @@ export async function generateMetadata({
   const article = await getArticle(slug)
 
   if (!article) {
-    return { title: "Article not found", robots: { index: false, follow: false } }
+    // `notFound()` here, not a "not found" title: metadata resolves before the
+    // page renders, and returning a normal Metadata object for a missing
+    // article lets Next settle the response at HTTP 200 even though the page
+    // itself later calls `notFound()`.
+    notFound()
   }
 
   const canonical = `/blog/${article.slug}`

@@ -167,6 +167,66 @@ test('published queries exclude drafts and previews require a server token', () 
   assert.match(source, /^import "server-only"/m);
 });
 
+test('dereferenced related articles cannot leak unpublished documents', () => {
+  const queries = read('apps/web/lib/blog/queries.ts');
+
+  // Every `relatedArticles[]->` dereference must filter on publication state,
+  // or a draft's title, excerpt and image surface on a live article.
+  const dereferences = queries.match(/relatedArticles\[\]->/g) ?? [];
+  assert.ok(dereferences.length >= 2, 'expected related-article dereferences');
+  for (const match of queries.matchAll(/relatedArticles\[\]->[\s\S]{0,160}/g)) {
+    assert.match(
+      match[0],
+      /publicationState == "published"/,
+      'related-article dereference must filter on publicationState'
+    );
+  }
+});
+
+test('optional CMS list fields are never projected as null', () => {
+  const queries = read('apps/web/lib/blog/queries.ts');
+
+  // The page and structured-data builders call .length / .map on these
+  // directly, so a schema-valid article that omits them must not 500.
+  for (const field of ['faqs', 'sources', 'notice', 'relatedLinks', 'programs', 'areas']) {
+    assert.match(
+      queries,
+      new RegExp(`"${field}": coalesce\\(`),
+      `${field} must be coalesced to an empty array`
+    );
+  }
+  assert.match(queries, /"relatedArticleSlugs": coalesce\(/);
+  assert.match(queries, /"body": coalesce\(/);
+});
+
+test('an empty FAQ or sources block falls back to the article-level list', () => {
+  const queries = read('apps/web/lib/blog/queries.ts');
+
+  // The schema tells editors to leave the block's list empty to reuse the
+  // article-level entries. `coalesce` treats [] as present, so the projection
+  // has to test the count instead.
+  assert.match(queries, /"faqs": select\(count\(faqs\) > 0 => faqs, coalesce\(\^\.faqs, \[\]\)\)/);
+  assert.match(
+    queries,
+    /"sources": select\(count\(sources\) > 0 => sources, coalesce\(\^\.sources, \[\]\)\)/
+  );
+});
+
+test('a Content Lake outage degrades to the seed instead of failing the page', () => {
+  const source = read('apps/web/lib/blog/source.ts');
+
+  assert.match(source, /withSeedFallback/);
+  assert.match(source, /console\.error/);
+  for (const caller of ['"listArticles"', '"listArticleSlugs"', '`getArticle(']) {
+    assert.ok(
+      source.includes(caller),
+      `${caller} should be passed to withSeedFallback as its label`
+    );
+  }
+  // A draft read must not fall back to published seed copy.
+  assert.match(source, /must never fall back to published seed content/);
+});
+
 test('the revalidate webhook verifies its signature before revalidating', () => {
   const route = read('apps/web/app/api/revalidate/route.ts');
 
@@ -182,16 +242,22 @@ test('the revalidate webhook verifies its signature before revalidating', () => 
   );
 });
 
-test('draft mode cannot be enabled for an arbitrary path', () => {
+test('draft mode requires an authenticated Studio preview session', () => {
   const enable = read('apps/web/app/api/draft-mode/enable/route.ts');
   const disable = read('apps/web/app/api/draft-mode/disable/route.ts');
+  const config = read('apps/web/sanity.config.ts');
 
-  assert.match(enable, /\/\^\[a-z0-9\]\[a-z0-9-\]\{0,95\}\$\//);
-  assert.match(enable, /No article matches that slug/);
-  assert.ok(
-    enable.indexOf('const exists') < enable.indexOf('draft.enable()'),
-    'the slug must be verified before draft mode is enabled'
-  );
+  // `defineEnableDraftMode` validates a single-use secret minted in the Content
+  // Lake by the Studio's Presentation tool. An existence check on the slug is
+  // NOT authentication: any visitor who knows a published slug would satisfy it
+  // and receive a draft-mode cookie.
+  assert.match(enable, /defineEnableDraftMode/);
+  assert.doesNotMatch(enable, /searchParams\.get\("slug"\)/);
+  assert.doesNotMatch(enable, /draft\.enable\(\)/);
+
+  assert.match(config, /presentationTool/);
+  assert.match(config, /enable: "\/api\/draft-mode\/enable"/);
+
   // Open-redirect guard on exit.
   assert.match(disable, /\^\\\/\(\?!\\\/\)/);
 });
