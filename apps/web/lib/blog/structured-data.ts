@@ -7,7 +7,7 @@
  */
 
 import { SITE } from "@/lib/site"
-import type { Article } from "./types"
+import type { Article, ArticleFaq } from "./types"
 
 function absolute(path: string): string {
   return path.startsWith("http") ? path : `${SITE.url}${path}`
@@ -77,11 +77,42 @@ export function breadcrumbJsonLd(article: Article): Record<string, unknown> {
   }
 }
 
+/**
+ * Every FAQ visible on the page, from the article field and from any `faqBlock`
+ * in the body, deduplicated by question.
+ *
+ * Both sources have to be considered. An editor can leave the article-level
+ * list empty and put the FAQs on a block instead; the block renders them, so
+ * emitting JSON-LD from `article.faqs` alone would ship visible FAQs with no
+ * matching structured data. Blocks that reuse the article-level list resolve to
+ * the same entries, which is why this dedupes rather than concatenates.
+ */
+export function collectFaqs(article: Article): ArticleFaq[] {
+  const seen = new Set<string>()
+  const collected: ArticleFaq[] = []
+
+  const add = (faq: ArticleFaq) => {
+    const key = faq.question.trim().toLowerCase()
+    if (!key || seen.has(key)) return
+    seen.add(key)
+    collected.push(faq)
+  }
+
+  for (const faq of article.faqs) add(faq)
+  for (const block of article.body) {
+    if (block._type === "faqBlock") {
+      for (const faq of block.faqs) add(faq)
+    }
+  }
+
+  return collected
+}
+
 export function faqJsonLd(article: Article): Record<string, unknown> {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: article.faqs.map((faq) => ({
+    mainEntity: collectFaqs(article).map((faq) => ({
       "@type": "Question",
       name: faq.question,
       acceptedAnswer: { "@type": "Answer", text: faq.answer },

@@ -8,7 +8,7 @@ import { DraftBanner } from "@/components/blog/draft-banner"
 import { Prose } from "@/components/blog/portable-text"
 import { Container } from "@/components/ui/container"
 import { getArticle } from "@/lib/blog/source"
-import { articleJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/blog/structured-data"
+import { articleJsonLd, breadcrumbJsonLd, collectFaqs, faqJsonLd } from "@/lib/blog/structured-data"
 import type { Article } from "@/lib/blog/types"
 import { SITE } from "@/lib/site"
 import { cn } from "@/lib/utils"
@@ -121,7 +121,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     <>
       <JsonLd value={articleJsonLd(article)} />
       <JsonLd value={breadcrumbJsonLd(article)} />
-      {article.faqs.length > 0 && <JsonLd value={faqJsonLd(article)} />}
+      {/* Covers FAQs supplied on the article and on any faqBlock in the body. */}
+      {collectFaqs(article).length > 0 && <JsonLd value={faqJsonLd(article)} />}
 
       {isDraft && <DraftBanner slug={article.slug} />}
 
