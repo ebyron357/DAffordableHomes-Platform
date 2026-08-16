@@ -216,7 +216,10 @@
 .consultation-band p:not(.eyebrow) { margin:18px 0 0; color:rgba(255,255,255,.78); font-size:17px; }
 .site-footer { background:var(--color-primary); color:white; padding:64px 0 24px; }
 .footer-grid { display:grid; grid-template-columns:1.4fr .7fr 1fr; gap:60px; }
-.footer-logo { width:190px; height:110px; object-fit:contain; object-position:left center; filter:brightness(0) invert(1); opacity:.95; }
+/* The logo asset is opaque RGB with no alpha channel, so a brightness/invert
+   knock-out fills its whole box with white. Present it on its own light chip
+   instead, which keeps the mark legible on the dark footer. */
+.footer-logo { display:block; width:190px; height:auto; object-fit:contain; object-position:left center; border-radius:4px; }
 .footer-tagline { margin:4px 0 0; color:#e8c77c; font-size:12px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; }
 .footer-copy { max-width:280px; margin:18px 0 22px; color:rgba(255,255,255,.72); font-size:14px; line-height:1.6; }
 .footer-label { margin:0 0 16px; color:#b5dfe0; font-size:12px; font-weight:700; letter-spacing:.13em; text-transform:uppercase; }
