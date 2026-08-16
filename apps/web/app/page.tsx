@@ -1,14 +1,12 @@
 import type { Metadata } from "next"
 import { Hero } from "@/components/home/hero"
-import { AboutDebra } from "@/components/home/about-debra"
-import { ControlledHomeSections } from "@/components/home/controlled-home-sections"
+import { ConsultationBand, ControlledHomeSections } from "@/components/home/controlled-home-sections"
 import { LatestGuides } from "@/components/home/latest-guides"
-import { SITE } from "@/lib/site"
 import { FAQ_PREVIEW } from "@/lib/content/home"
 
 export const metadata: Metadata = {
-  title: "Trusted homeownership guidance",
-  description: SITE.description,
+  title: "Debra Allen, REALTOR® | Garland + DFW Home Guidance",
+  description: "Clear, practical residential real-estate guidance from Debra Allen, REALTOR®, for first-time buyers and families in Garland and Dallas–Fort Worth.",
   alternates: { canonical: "/" },
 }
 
@@ -32,10 +30,9 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }}
       />
       <Hero />
-      <ControlledHomeSections placement="before-debra" />
-      <AboutDebra />
+      <ControlledHomeSections />
       <LatestGuides />
-      <ControlledHomeSections placement="after-debra" />
+      <ConsultationBand />
     </>
   )
 }

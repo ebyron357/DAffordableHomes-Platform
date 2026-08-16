@@ -68,7 +68,13 @@ test('navigation, homepage, redirect, sitemap, and robots integrate the new rout
   const sitemap = readFileSync('apps/web/app/sitemap.ts', 'utf8');
   const robots = readFileSync('apps/web/app/robots.ts', 'utf8');
 
-  assert.match(navigation, /label: "Programs", href: "\/programs"/);
+  assert.match(navigation, /export const PRIMARY_NAV: NavItem\[\] = \[/);
+  assert.match(navigation, /label: "Buying", href: "\/first-time-buyers"/);
+  assert.match(navigation, /label: "Areas", href: "\/areas"/);
+  assert.match(navigation, /label: "Resources", href: "\/resources"/);
+  assert.match(navigation, /label: "About Debra", href: "\/about"/);
+  assert.match(navigation, /export const LEARN_LINKS: NavItem\[\] = \[/);
+  assert.match(navigation, /label: "Homebuyer Programs", href: "\/programs"/);
   assert.match(homepage, /Homebuyer programs/);
   assert.match(homepage, /\/programs\/naca/);
   assert.match(homepage, /\/programs\/homes-for-heroes/);
