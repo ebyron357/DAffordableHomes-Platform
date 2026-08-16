@@ -1,135 +1,16 @@
+import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
 
-const paths = [
-  ["Compare calculators", "/calculators", "Plan affordability, cash needs, mortgage payments, and rent-versus-buy scenarios.", "Open calculators"],
-  ["Explore neighborhoods", "/neighborhoods", "Compare verified DFW areas without fabricated scores, rankings, or price claims.", "View neighborhoods"],
-  ["Work with Debra", "/consultation", "Talk through your goals and leave with a clear next action.", "Book consultation"],
-] as const
-
-const tools = [
-  ["Mortgage payment", "/calculators/mortgage-payment", "Estimate principal, interest, taxes, insurance, and total monthly housing cost."],
-  ["Home affordability", "/calculators/affordability", "Explore a conservative planning range based on income, debts, and assumptions."],
-  ["Closing costs", "/calculators/closing-costs", "Estimate cash needed beyond the down payment."],
-  ["Down payment planning", "/calculators/down-payment", "Compare common down-payment scenarios and cash-to-close needs."],
-] as const
-
-const programs = [
-  {
-    title: "NACA homebuyer help",
-    href: "/programs/naca",
-    body: "Understand the process before a DFW search and keep official program requirements visible.",
-    action: "Explore NACA",
-  },
-  {
-    title: "Homes for Heroes guidance",
-    href: "/programs/homes-for-heroes",
-    body: "Guidance for community heroes without unsupported promises about eligibility or benefits.",
-    action: "Explore Homes for Heroes",
-  },
-] as const
-
-const phases = [
-  ["Assess readiness", "Review goals, timeline, credit, income, debts, and realistic starting options."],
-  ["Prepare finances", "Understand financing paths, documents, savings, and cash-to-close needs."],
-  ["Search and evaluate", "Compare homes, neighborhoods, tradeoffs, and true monthly costs."],
-  ["Offer, close, transition", "Prepare an offer, navigate due diligence, close, and move forward confidently."],
-] as const
-
-export function ControlledHomeSections({ placement }: { placement: "before-debra" | "after-debra" }) {
-  if (placement === "before-debra") {
-    return (
-      <>
-        <section className="bg-card py-14 md:py-16" aria-labelledby="pathways-heading">
-          <Container>
-            <h2 id="pathways-heading" className="font-serif text-[31px] font-normal sm:text-[38px]">Start with the question in front of you.</h2>
-            <p className="mt-3 max-w-3xl text-muted-foreground">Choose the clearest next step without forcing every visitor into the same path.</p>
-            <div className="mt-7 grid md:grid-cols-3">
-              {paths.map(([title, href, body, action], index) => (
-                <article key={title} className="border-b border-border py-6 md:border-b-0 md:border-l md:px-7 md:first:border-l-0 md:first:pl-0">
-                  <p className="text-xs font-semibold text-accent">0{index + 1}</p>
-                  <h3 className="mt-3 font-sans text-xl font-semibold">{title}</h3>
-                  <p className="mt-3 max-w-sm text-[15px] leading-6 text-muted-foreground">{body}</p>
-                  <Link href={href} className="mt-4 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">{action} →</Link>
-                </article>
-              ))}
-            </div>
-          </Container>
-        </section>
-
-        <section className="py-14 md:py-20" aria-labelledby="tools-heading">
-          <Container>
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-              <div>
-                <h2 id="tools-heading" className="font-serif text-[31px] font-normal sm:text-[38px]">Planning tools that answer real questions</h2>
-                <p className="mt-3 max-w-3xl text-muted-foreground">Use straightforward estimates to prepare better questions for a lender or consultation.</p>
-              </div>
-              <Link href="/resources/calculators" className="shrink-0 text-sm font-semibold text-primary hover:underline">View all calculators →</Link>
-            </div>
-            <div className="mt-7 border-t border-border">
-              {tools.map(([title, href, body]) => (
-                <Link key={href} href={href} className="grid gap-2 border-b border-border py-5 hover:bg-card md:grid-cols-[280px_1fr_auto] md:items-center md:gap-6">
-                  <span className="font-semibold">{title}</span>
-                  <span className="text-sm leading-6 text-muted-foreground">{body}</span>
-                  <span className="text-sm font-semibold text-primary">Open tool →</span>
-                </Link>
-              ))}
-            </div>
-          </Container>
-        </section>
-
-        <section className="border-y border-border bg-card py-14 md:py-20" aria-labelledby="programs-heading">
-          <Container>
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">Homebuyer programs</p>
-                <h2 id="programs-heading" className="mt-3 font-serif text-[31px] font-normal sm:text-[38px]">Program-specific help, connected to one clear process</h2>
-                <p className="mt-3 max-w-3xl text-muted-foreground">Understand the path before choosing it.</p>
-              </div>
-              <Link href="/programs" className="shrink-0 text-sm font-semibold text-primary hover:underline">Program overview →</Link>
-            </div>
-            <div className="mt-8 grid gap-6 lg:grid-cols-2">
-              {programs.map((program) => (
-                <article key={program.href} className="border border-border bg-background p-7 sm:p-9">
-                  <h3 className="font-serif text-3xl font-normal">{program.title}</h3>
-                  <p className="mt-4 leading-7 text-muted-foreground">{program.body}</p>
-                  <Link href={program.href} className="mt-6 inline-block text-sm font-semibold text-primary hover:underline">{program.action} →</Link>
-                </article>
-              ))}
-            </div>
-          </Container>
-        </section>
-      </>
-    )
-  }
-
-  return (
-    <>
-      <section className="py-14 md:py-20" aria-labelledby="process-heading">
-        <Container>
-          <h2 id="process-heading" className="font-serif text-[31px] font-normal sm:text-[38px]">Four phases. One informed decision at a time.</h2>
-          <p className="mt-3 max-w-3xl text-muted-foreground">A professional overview of the journey—one clear decision at a time.</p>
-          <ol className="mt-7 grid md:grid-cols-4">
-            {phases.map(([title, body], index) => (
-              <li key={title} className="border-b border-border py-5 md:border-b-0 md:border-r md:px-6 md:first:pl-0 md:last:border-r-0">
-                <span className="text-xs font-semibold text-accent">0{index + 1}</span>
-                <h3 className="mt-3 font-sans text-lg font-semibold">{title}</h3>
-                <p className="mt-2 text-sm leading-[1.6] text-muted-foreground">{body}</p>
-              </li>
-            ))}
-          </ol>
-        </Container>
-      </section>
-      <section className="bg-primary py-11 text-primary-foreground">
-        <Container className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
-          <div>
-            <h2 className="font-serif text-3xl font-normal">Ready for a clearer next step?</h2>
-            <p className="mt-3 max-w-3xl text-primary-foreground/80">Schedule a homebuyer consultation to discuss your goals, questions, and current starting point.</p>
-          </div>
-          <Button href="/consultation" variant="secondary" size="lg">Book Consultation</Button>
-        </Container>
-      </section>
-    </>
-  )
+export function ControlledHomeSections() {
+  return <>
+    <section className="editorial-section" aria-labelledby="who-heading"><Container className="intro-grid"><div><p className="eyebrow">A real person. A practical plan.</p><h2 id="who-heading">Homeownership has steps. You don’t have to learn them alone.</h2></div><div className="section-copy"><p>D’Affordable Homes is led by Debra Allen, REALTOR®. She helps first-time buyers and families slow the process down, understand the decisions in front of them, and move forward when the plan is ready.</p><Link className="text-link" href="/about">Get to know Debra →</Link></div></Container></section>
+    <section className="editorial-section soft-band" aria-labelledby="path-heading"><Container><div className="section-heading-row"><div><p className="eyebrow">Choose your path</p><h2 id="path-heading">Start where you are.</h2></div><p className="section-intro">Whether you are preparing to buy or looking for your next clear step, the conversation begins with what matters to you.</p></div><div className="pathway-row"><Link href="/first-time-buyers" className="pathway-panel"><span className="pathway-kicker">For buyers</span><h3>Prepare to buy with confidence.</h3><p>Understand the process, explore affordability, and build a plan before you search.</p><span className="text-link">Explore buyer guidance →</span></Link><Link href="/contact" className="pathway-panel"><span className="pathway-kicker">For homeowners and sellers</span><h3>Talk through your next move.</h3><p>Bring your questions to Debra and clarify what support is available for your situation.</p><span className="text-link">Start a conversation →</span></Link></div></Container></section>
+    <section className="editorial-section" aria-labelledby="local-heading"><Container className="feature-grid"><div className="feature-image"><Image src="/images/black-family-home-pexels-7114188.webp" alt="A family together in a bright home" fill sizes="(min-width: 1024px) 48vw, 100vw" className="object-cover" /></div><div className="section-copy"><p className="eyebrow">Garland + DFW</p><h2 id="local-heading">Local guidance should feel like local knowledge.</h2><p>From Garland to the wider Dallas–Fort Worth area, the right home decision depends on more than a listing. Debra helps you ask better questions about neighborhoods, timing, preparation, and the life you want to build.</p><Link className="text-link" href="/areas">Explore the areas →</Link></div></Container></section>
+    <section className="editorial-section process-section" aria-labelledby="process-heading"><Container><div className="section-heading-row"><div><p className="eyebrow">How Debra works</p><h2 id="process-heading">Clear guidance, one decision at a time.</h2></div><p className="section-intro">You do not need every answer today. You need a next step you can actually follow.</p></div><ol className="process-list"><li><span>01</span><div><h3>Listen</h3><p>Start with your goals, questions, timeline, and current starting point.</p></div></li><li><span>02</span><div><h3>Plan</h3><p>Make the numbers, preparation, and options easier to understand.</p></div></li><li><span>03</span><div><h3>Explore</h3><p>Evaluate homes, neighborhoods, and tradeoffs with context.</p></div></li><li><span>04</span><div><h3>Move forward</h3><p>Take the next step when it is informed and right for you.</p></div></li></ol></Container></section>
+    <section className="editorial-section soft-band" aria-labelledby="program-heading"><Container className="program-feature"><div><p className="eyebrow">Homebuyer programs + affordability guidance</p><h2 id="program-heading">Understand the path before you choose it.</h2><p className="section-copy">Explore NACA, Homes for Heroes, calculators, and practical resources with official information and clear boundaries.</p></div><div className="open-link-list"><Link href="/programs/naca"><span>NACA homebuyer help</span><b>→</b></Link><Link href="/programs/homes-for-heroes"><span>Homes for Heroes guidance</span><b>→</b></Link><Link href="/calculators"><span>Planning calculators</span><b>→</b></Link></div></Container></section>
+    <section className="editorial-section" aria-labelledby="resources-heading"><Container className="resources-layout"><div><p className="eyebrow">Practical resources</p><h2 id="resources-heading">Useful information for the decision in front of you.</h2></div><div className="open-link-list"><Link href="/calculators"><span>Plan with real numbers</span><b>→</b></Link><Link href="/blog/how-to-buy-home-garland-tx"><span>How to buy a home in Garland</span><b>→</b></Link><Link href="/resources"><span>Browse the resource library</span><b>→</b></Link></div></Container></section>
+    <section className="consultation-band" aria-labelledby="consultation-heading"><Container className="consultation-inner"><div><p className="eyebrow">Your next step</p><h2 id="consultation-heading">You do not need every answer before you talk with Debra.</h2><p>Bring your questions, your goals, or simply your starting point.</p></div><Button href="/consultation" variant="secondary" size="lg">Book a consultation</Button></Container></section>
+  </>
 }
