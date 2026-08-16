@@ -1,5 +1,7 @@
 import { defineArrayMember, defineField, defineType } from "sanity"
 
+import { isSafeInternalPath } from "@/lib/safe-path"
+
 /**
  * Reusable editorial blocks.
  *
@@ -289,11 +291,14 @@ function ctaFields(defaultHref: string, defaultLabel: string) {
       name: "href",
       type: "string",
       initialValue: defaultHref,
+      description: "Site-relative path, e.g. /calculators/affordability.",
       validation: (rule) =>
         rule
           .required()
           .custom((value: string | undefined) =>
-            !value || value.startsWith("/") ? true : "Use a site-relative path.",
+            isSafeInternalPath(value)
+              ? true
+              : "Use a site-relative path. Protocol-relative values such as //example.com leave the site.",
           ),
     }),
     defineField({

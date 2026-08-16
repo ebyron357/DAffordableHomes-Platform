@@ -7,7 +7,7 @@
  */
 
 import { SITE } from "@/lib/site"
-import type { Article, ArticleFaq } from "./types"
+import type { Article, ArticleBlock, ArticleFaq } from "./types"
 
 function absolute(path: string): string {
   return path.startsWith("http") ? path : `${SITE.url}${path}`
@@ -78,31 +78,37 @@ export function breadcrumbJsonLd(article: Article): Record<string, unknown> {
 }
 
 /**
- * Every FAQ visible on the page, from the article field and from any `faqBlock`
- * in the body, deduplicated by question.
+ * The FAQs that are actually rendered on the page.
  *
- * Both sources have to be considered. An editor can leave the article-level
- * list empty and put the FAQs on a block instead; the block renders them, so
- * emitting JSON-LD from `article.faqs` alone would ship visible FAQs with no
- * matching structured data. Blocks that reuse the article-level list resolve to
- * the same entries, which is why this dedupes rather than concatenates.
+ * This has to mirror the article route exactly, because JSON-LD that does not
+ * match the visible page is worse than none:
+ *
+ *  - When the body contains one or more `faqBlock`s, those blocks render and
+ *    the article-level list does not. Collecting the union here would publish
+ *    FAQs that never appear on the page.
+ *  - When the body contains no `faqBlock`, the route falls back to rendering
+ *    the article-level list.
+ *
+ * Blocks that reuse the article-level list resolve to the same entries — the
+ * three migrated articles do exactly that — so this dedupes by question rather
+ * than concatenating.
  */
 export function collectFaqs(article: Article): ArticleFaq[] {
+  const blocks = article.body.filter(
+    (block): block is Extract<ArticleBlock, { _type: "faqBlock" }> =>
+      block._type === "faqBlock",
+  )
+
+  const source = blocks.length > 0 ? blocks.flatMap((block) => block.faqs) : article.faqs
+
   const seen = new Set<string>()
   const collected: ArticleFaq[] = []
 
-  const add = (faq: ArticleFaq) => {
+  for (const faq of source) {
     const key = faq.question.trim().toLowerCase()
-    if (!key || seen.has(key)) return
+    if (!key || seen.has(key)) continue
     seen.add(key)
     collected.push(faq)
-  }
-
-  for (const faq of article.faqs) add(faq)
-  for (const block of article.body) {
-    if (block._type === "faqBlock") {
-      for (const faq of block.faqs) add(faq)
-    }
   }
 
   return collected

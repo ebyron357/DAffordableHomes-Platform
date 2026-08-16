@@ -1,5 +1,7 @@
 import { defineArrayMember, defineType } from "sanity"
 
+import { isSafeInternalPath } from "@/lib/safe-path"
+
 /**
  * Portable Text used by every prose surface.
  *
@@ -44,9 +46,10 @@ export const richText = defineType({
                   rule
                     .required()
                     .custom((value: string | undefined) =>
-                      !value || /^(https?:\/\/|\/|mailto:|tel:)/.test(value)
+                      isSafeInternalPath(value) ||
+                      /^(https?:\/\/|mailto:|tel:)/.test(value ?? "")
                         ? true
-                        : "Use an absolute URL, a site-relative path, mailto: or tel:",
+                        : "Use an absolute URL, a site-relative path, mailto: or tel:. Protocol-relative values such as //example.com leave the site.",
                     ),
               },
             ],

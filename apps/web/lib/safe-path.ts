@@ -28,3 +28,16 @@ export function toSafeInternalPath(requested: string | null | undefined, fallbac
 
   return normalised
 }
+
+/**
+ * Whether a CMS-supplied value is a safe same-origin path.
+ *
+ * Used by the Sanity schema validators so an editor cannot save a CTA or
+ * related-link destination that leaves the origin. `startsWith("/")` is not
+ * sufficient on its own: `//attacker.example` and `/\attacker.example` both
+ * begin with a slash and both navigate off-site.
+ */
+export function isSafeInternalPath(value: string | null | undefined): boolean {
+  if (!value) return false
+  return toSafeInternalPath(value, "") === value
+}

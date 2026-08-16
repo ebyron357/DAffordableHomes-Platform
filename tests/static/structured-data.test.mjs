@@ -43,6 +43,30 @@ test('FAQ JSON-LD covers article-level FAQs with no block', () => {
   assert.deepEqual(collectFaqs(article).map((f) => f.question), ['Article only?']);
 });
 
+test('a populated block wins over a different article-level list', () => {
+  // The route renders the block and NOT the article-level list, so JSON-LD
+  // that included both would publish FAQs no visitor can see.
+  const article = {
+    faqs: [faq('Article question?')],
+    body: [{ _type: 'faqBlock', _key: 'f1', faqs: [faq('Block question?')] }]
+  };
+
+  assert.deepEqual(collectFaqs(article).map((f) => f.question), ['Block question?']);
+});
+
+test('multiple FAQ blocks are combined', () => {
+  const article = {
+    faqs: [],
+    body: [
+      { _type: 'faqBlock', _key: 'f1', faqs: [faq('First?')] },
+      { _type: 'richTextBlock', _key: 'r', content: [] },
+      { _type: 'faqBlock', _key: 'f2', faqs: [faq('Second?')] }
+    ]
+  };
+
+  assert.deepEqual(collectFaqs(article).map((f) => f.question), ['First?', 'Second?']);
+});
+
 test('a block reusing the article FAQs does not duplicate them', () => {
   // The migrated articles do exactly this: article-level faqs plus a faqBlock
   // that resolves to the same list.
