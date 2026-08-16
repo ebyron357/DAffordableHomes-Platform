@@ -2,6 +2,12 @@
 
 All notable repository changes are documented here.
 
+## 2026-08-16
+
+- Merged the warm residential editorial reset from `main` into the CMS closeout. The reset is the current design direction and wins on presentation; the closeout keeps its architecture and re-applies what the reset did not carry — the site-wide ClientVerse attribution, the mobile menu's Escape-to-close, and root scripts that keep the test path off `recovered-manus`.
+- Restyled the homepage CMS field-guide section into the reset's editorial vocabulary and moved it ahead of the closing consultation band.
+- Fixed the footer logo rendering as a solid white block: the knock-out filter inverted the whole box because the logo asset is opaque RGB with no alpha channel.
+
 ## 2026-08-15
 
 - Replaced the three hardcoded blog route files with a single CMS-backed `/blog/[slug]` route; the existing article URLs are unchanged and still prerendered.
