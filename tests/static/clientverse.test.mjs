@@ -75,6 +75,14 @@ test('the ClientVerse audit workflow is configured and fails honestly when uncon
   assert.equal(existsSync(workflowPath), true);
   const workflow = read(workflowPath);
 
+  assert.match(workflow, /workflow_dispatch:/);
+  assert.match(workflow, /push:\s+branches:\s+- main/s);
+  assert.doesNotMatch(
+    workflow,
+    /pull_request:/,
+    'the release certification depends on deployment configuration that is not available on ordinary pull-request validation'
+  );
+
   for (const name of ['CLIENTVERSE_ENDPOINT', 'CLIENTVERSE_DEPLOYMENT_URL', 'CLIENTVERSE_TOKEN']) {
     assert.match(workflow, new RegExp(name), `${name} must be wired into the workflow`);
   }

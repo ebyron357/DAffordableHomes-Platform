@@ -18,7 +18,6 @@ name: ClientVerse Audit
 # An audit that did not run is never reported as a pass.
 
 on:
-  pull_request:
   push:
     branches:
       - main
