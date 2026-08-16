@@ -2,6 +2,27 @@
 
 All notable repository changes are documented here.
 
+## 2026-08-16
+
+- Merged the warm residential editorial reset from `main` into the CMS closeout. The reset is the current design direction and wins on presentation; the closeout keeps its architecture and re-applies what the reset did not carry — the site-wide ClientVerse attribution, the mobile menu's Escape-to-close, and root scripts that keep the test path off `recovered-manus`.
+- Restyled the homepage CMS field-guide section into the reset's editorial vocabulary and moved it ahead of the closing consultation band.
+- Fixed the footer logo rendering as a solid white block: the knock-out filter inverted the whole box because the logo asset is opaque RGB with no alpha channel.
+
+## 2026-08-15
+
+- Replaced the three hardcoded blog route files with a single CMS-backed `/blog/[slug]` route; the existing article URLs are unchanged and still prerendered.
+- Added a Sanity Studio workspace (`apps/studio`) with `article`, `author`, `category`, `program`, and `area` documents and 18 reusable editorial block types, each with required-field and descriptive-alt-text validation.
+- Added the query layer, draft-mode preview, preview exit, and a secret-guarded publish/revalidation webhook.
+- Migrated all three articles into structured CMS documents with a reproducible build (`scripts/cms/build-content.mjs`) that emits both the app payload and the `sanity dataset import` NDJSON.
+- Removed `recovered-manus` from the test path; `pnpm test` had been building it before every check.
+- Fixed 13 pages that shipped without a canonical link.
+- Fixed unknown article URLs returning HTTP 200 with 404 content.
+- Fixed `/naca` rendering a 200 page instead of a 308 redirect, and the missing favicon.
+- Removed a geographically misleading neighborhood photograph and its false alt text.
+- Completed a premium design pass unifying the editorial and core-site systems, plus a responsive and accessibility pass across five widths.
+- Restored the ClientVerse footer attribution with a test that asserts its text and destination, and replaced the audit workflow that passed green when unconfigured with one that reports BLOCKED.
+- Added `scripts/qa/crawl.mjs` and `scripts/qa/visual.mjs`, both gating in CI.
+
 ## 2026-07-18
 
 - Added a shared calculation engine for mortgage payment, affordability, cash-to-close, and down-payment scenario planning.

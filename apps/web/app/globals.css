@@ -216,7 +216,10 @@
 .consultation-band p:not(.eyebrow) { margin:18px 0 0; color:rgba(255,255,255,.78); font-size:17px; }
 .site-footer { background:var(--color-primary); color:white; padding:64px 0 24px; }
 .footer-grid { display:grid; grid-template-columns:1.4fr .7fr 1fr; gap:60px; }
-.footer-logo { width:190px; height:110px; object-fit:contain; object-position:left center; filter:brightness(0) invert(1); opacity:.95; }
+/* The logo asset is opaque RGB with no alpha channel, so a brightness/invert
+   knock-out fills its whole box with white. Present it on its own light chip
+   instead, which keeps the mark legible on the dark footer. */
+.footer-logo { display:block; width:190px; height:auto; object-fit:contain; object-position:left center; border-radius:4px; }
 .footer-tagline { margin:4px 0 0; color:#e8c77c; font-size:12px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; }
 .footer-copy { max-width:280px; margin:18px 0 22px; color:rgba(255,255,255,.72); font-size:14px; line-height:1.6; }
 .footer-label { margin:0 0 16px; color:#b5dfe0; font-size:12px; font-weight:700; letter-spacing:.13em; text-transform:uppercase; }
@@ -241,3 +244,23 @@
   .hero-portrait { min-height: 440px; }
   .hero-caption { max-width: 210px; padding: 14px 16px; }
 }
+
+
+/* CMS field guides on the homepage, in the editorial vocabulary above. */
+.guide-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:40px; margin:52px 0 0; padding:0; list-style:none; }
+.guide-card { display:flex; flex-direction:column; height:100%; color:var(--color-foreground); text-decoration:none; }
+.guide-thumb { position:relative; display:block; aspect-ratio:16/10; overflow:hidden; margin-bottom:20px; background:var(--color-muted); border:1px solid var(--color-border); }
+.guide-card h3 { margin:10px 0 0; color:var(--color-primary); font-family:var(--font-serif); font-size:23px; font-weight:600; line-height:1.2; }
+.guide-card:hover h3 { color:var(--color-accent); }
+.guide-card p { flex:1; margin:12px 0 0; color:var(--color-muted-foreground); font-size:15px; line-height:1.65; }
+.guide-meta { margin-top:18px; color:var(--color-muted-foreground); font-size:13px; }
+.guide-footer { margin:40px 0 0; }
+@media (max-width:900px) { .guide-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:32px; } }
+@media (max-width:760px) { .guide-grid { grid-template-columns:1fr; gap:36px; margin-top:34px; } }
+
+/* ClientVerse attribution in the footer bottom row. */
+.footer-attribution { display:flex; flex-direction:column; gap:3px; text-align:right; }
+.footer-attribution a { color:white; font-weight:700; text-decoration:underline; text-underline-offset:3px; }
+.footer-attribution a:hover { color:#e8c77c; }
+.footer-attribution-note { color:rgba(255,255,255,.5); font-size:11px; }
+@media (max-width:760px) { .footer-attribution { text-align:left; } }

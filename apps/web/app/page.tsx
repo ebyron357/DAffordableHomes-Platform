@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Hero } from "@/components/home/hero"
-import { ControlledHomeSections } from "@/components/home/controlled-home-sections"
+import { ConsultationBand, ControlledHomeSections } from "@/components/home/controlled-home-sections"
+import { LatestGuides } from "@/components/home/latest-guides"
 import { FAQ_PREVIEW } from "@/lib/content/home"
 
 export const metadata: Metadata = {
@@ -9,11 +10,29 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 }
 
-export default function HomePage() {
-  const faqJsonLd = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: FAQ_PREVIEW.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) }
-  return <>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
-    <Hero />
-    <ControlledHomeSections />
-  </>
+export const revalidate = 300
+
+export default async function HomePage() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQ_PREVIEW.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  }
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }}
+      />
+      <Hero />
+      <ControlledHomeSections />
+      <LatestGuides />
+      <ConsultationBand />
+    </>
+  )
 }

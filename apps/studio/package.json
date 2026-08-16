@@ -1,0 +1,23 @@
+{
+  "name": "@daffordablehomes/studio",
+  "version": "0.2.0",
+  "private": true,
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "typecheck": "tsc --noEmit",
+    "schema:validate": "sanity schema validate",
+    "dataset:import": "sanity dataset import ../../content/sanity/articles.ndjson"
+  },
+  "dependencies": {
+    "@sanity/vision": "^4.10.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "sanity": "^4.10.1",
+    "styled-components": "^6.1.19"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0"
+  }
+}

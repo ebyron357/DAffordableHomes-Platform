@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "Market Reports",
   description:
     "Clear, honest market context to help you plan. Reports publish here once the data source is connected — never estimated or fabricated.",
+  alternates: { canonical: "/market-reports" },
 }
 
 export default function MarketReportsPage() {

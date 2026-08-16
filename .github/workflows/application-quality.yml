@@ -35,3 +35,56 @@ jobs:
 
       - name: Run full quality gate
         run: pnpm test:all
+
+  runtime-qa:
+    name: Route crawl and responsive/visual QA
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium for Playwright
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Build
+        run: pnpm build
+
+      - name: Start the production server
+        run: |
+          pnpm --filter @daffordablehomes/web exec next start -p 3000 &
+          for attempt in $(seq 1 30); do
+            if curl -sSf -o /dev/null http://127.0.0.1:3000/; then exit 0; fi
+            sleep 2
+          done
+          echo "::error::the production server did not become ready"
+          exit 1
+
+      - name: Route, link, canonical, and structured-data crawl
+        run: node scripts/qa/crawl.mjs http://127.0.0.1:3000
+
+      - name: Responsive, accessibility, and visual QA
+        run: node scripts/qa/visual.mjs http://127.0.0.1:3000
+
+      - name: Upload visual QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-qa
+          path: artifacts/visual
+          if-no-files-found: warn
+          retention-days: 14
