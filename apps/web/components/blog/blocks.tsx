@@ -4,6 +4,7 @@ import { BlogFigure } from "@/components/blog/blog-image"
 import { Prose } from "@/components/blog/portable-text"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { toSafeHref } from "@/lib/safe-path"
 import type {
   ArticleBlock,
   ArticleFaq,
@@ -256,21 +257,28 @@ export function OfficialSources({
         organization responsible for the decision.
       </p>
       <ul className="mt-6 divide-y divide-border border-t border-border">
-        {sources.map((source) => (
+        {sources.map((source) => {
+          const href = toSafeHref(source.href)
+          return (
           <li key={source._key} className="py-4">
+            {href ? (
             <a
-              href={source.href}
+              href={href}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="font-semibold text-primary underline decoration-accent/50 underline-offset-[3px] hover:decoration-accent"
             >
               {source.label}
             </a>
+            ) : (
+              <span className="font-semibold text-foreground">{source.label}</span>
+            )}
             {source.publisher && (
               <span className="mt-1 block text-sm text-muted-foreground">{source.publisher}</span>
             )}
           </li>
-        ))}
+          )
+        })}
       </ul>
     </section>
   )

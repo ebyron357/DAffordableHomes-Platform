@@ -41,3 +41,34 @@ export function isSafeInternalPath(value: string | null | undefined): boolean {
   if (!value) return false
   return toSafeInternalPath(value, "") === value
 }
+
+/** Schemes a CMS-supplied link is allowed to use. */
+const SAFE_SCHEMES = ["https:", "http:", "mailto:", "tel:"]
+
+/**
+ * Runtime allowlist for a CMS-supplied href, returning `null` when the value
+ * is not safe to put in an `href`.
+ *
+ * Schema validation runs in the Studio, so it only constrains what an editor
+ * can save through the UI. Content can also arrive by direct API mutation or
+ * dataset import, which bypasses it entirely — and a stored `javascript:` or
+ * `data:` URL rendered into an anchor is script execution on click, from the
+ * site's own origin. Renderers call this and fall back to plain text.
+ */
+export function toSafeHref(value: string | null | undefined): string | null {
+  if (!value) return null
+
+  const trimmed = value.trim()
+  if (isSafeInternalPath(trimmed)) return trimmed
+
+  let parsed: URL
+  try {
+    // A relative value that is not a safe internal path is already rejected
+    // above, so anything reaching here must parse as absolute to be usable.
+    parsed = new URL(trimmed)
+  } catch {
+    return null
+  }
+
+  return SAFE_SCHEMES.includes(parsed.protocol) ? trimmed : null
+}

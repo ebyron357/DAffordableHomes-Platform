@@ -10,6 +10,7 @@ import { Container } from "@/components/ui/container"
 import { getArticle } from "@/lib/blog/source"
 import { articleJsonLd, breadcrumbJsonLd, collectFaqs, faqJsonLd } from "@/lib/blog/structured-data"
 import type { Article } from "@/lib/blog/types"
+import { toSafeHref } from "@/lib/safe-path"
 import { SITE } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
@@ -166,19 +167,28 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                   Continue your plan
                 </p>
                 <ul className="mt-5 grid gap-x-8 divide-y divide-border sm:grid-cols-2 sm:divide-y-0">
-                  {article.relatedLinks.map((link) => (
+                  {article.relatedLinks.map((link) => {
+                    // Same runtime allowlist as rich-text links: schema
+                    // validation only covers what the Studio can save.
+                    const href = toSafeHref(link.href)
+                    return (
                     <li key={link._key} className="py-4 sm:py-3">
+                      {href ? (
                       <a
-                        href={link.href}
+                        href={href}
                         className="font-semibold text-foreground underline decoration-transparent underline-offset-[3px] transition-colors hover:text-primary hover:decoration-accent"
                       >
                         {link.label}
                       </a>
+                      ) : (
+                        <span className="font-semibold text-foreground">{link.label}</span>
+                      )}
                       <span className="mt-1 block text-[15px] leading-[1.6] text-muted-foreground">
                         {link.description}
                       </span>
                     </li>
-                  ))}
+                    )
+                  })}
                 </ul>
               </nav>
             )}

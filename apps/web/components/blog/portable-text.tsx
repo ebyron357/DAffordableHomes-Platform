@@ -2,6 +2,7 @@ import { PortableText, type PortableTextComponents } from "next-sanity"
 import Link from "next/link"
 
 import { cn } from "@/lib/utils"
+import { toSafeHref } from "@/lib/safe-path"
 import type { RichText } from "@/lib/blog/types"
 
 /**
@@ -63,7 +64,13 @@ const components: PortableTextComponents = {
     strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
     em: ({ children }) => <em className="italic">{children}</em>,
     link: ({ children, value }) => {
-      const href = String(value?.href ?? "")
+      // Runtime allowlist, not just Studio validation: content can arrive by
+      // direct API mutation, and a stored `javascript:` href rendered into an
+      // anchor is script execution on click. Unsafe values render as plain
+      // text rather than a link that goes somewhere unexpected.
+      const href = toSafeHref(String(value?.href ?? ""))
+      if (!href) return <>{children}</>
+
       const linkClass =
         "font-medium text-primary underline decoration-accent/50 underline-offset-[3px] transition-colors hover:decoration-accent focus-visible:decoration-accent"
 
@@ -75,7 +82,7 @@ const components: PortableTextComponents = {
         )
       }
       return (
-        <a href={href} target="_blank" rel="noreferrer" className={linkClass}>
+        <a href={href} target="_blank" rel="noopener noreferrer" className={linkClass}>
           {children}
         </a>
       )
