@@ -1,105 +1,119 @@
+import Image from "next/image"
 import Link from "next/link"
 
+import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
 import { CLIENTVERSE } from "@/lib/clientverse"
 import { LEGAL_NAV, PRIMARY_NAV } from "@/lib/navigation"
 import { SITE } from "@/lib/site"
 
-const TREC_LINKS = [
-  {
-    label: "TREC Information About Brokerage Services",
-    href: "https://www.trec.texas.gov/information-about-brokerage-services-form",
-  },
-  {
-    label: "TREC Consumer Protection Notice",
-    href: "https://www.trec.texas.gov/forms/consumer-protection-notice",
-  },
-]
-
-// `inline-block py-1` keeps each footer link at least 24px tall, which is the
-// WCAG 2.2 target-size minimum for a standalone (non-inline-in-text) control.
-const linkClass =
-  "inline-block py-1 text-sm leading-6 text-muted-foreground transition-colors hover:text-primary hover:underline underline-offset-[3px]"
-
+/**
+ * Shared site footer.
+ *
+ * Structure and styling follow the Warm Residential Editorial design that
+ * landed on `main` in PR #23. The vendor attribution is carried forward from
+ * this branch: it is a release requirement, it belongs in the shared footer so
+ * it appears site-wide, and `tests/static/clientverse.test.mjs` asserts its
+ * text, destination and single placement.
+ */
 export function SiteFooter() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-border bg-card text-foreground" aria-labelledby="footer-heading">
+    <footer className="site-footer" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
         Site footer
       </h2>
 
-      <Container className="py-14 md:py-16">
-        <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr] md:gap-12">
-          <div>
-            <p className="font-serif text-2xl leading-tight">{SITE.name}</p>
-            <p className="mt-4 max-w-sm text-[15px] leading-[1.7] text-muted-foreground">
-              Real guidance for first-time buyers and families ready to own their future.
-            </p>
-            <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-              Equal Housing Opportunity
-            </p>
-          </div>
+      <Container className="footer-grid">
+        <div>
+          <Image
+            src="/images/daffordable-homes-official-logo.png"
+            alt="D'Affordable Homes"
+            width={640}
+            height={427}
+            className="footer-logo"
+          />
+          <p className="footer-tagline">Affordable. Accessible. Achievable.</p>
+          <p className="footer-copy">
+            Clear, practical guidance for the homeownership decisions in front of you.
+          </p>
+          <Button href="/consultation" variant="secondary" size="sm">
+            Talk with Debra
+          </Button>
+        </div>
 
+        <div>
+          <p className="footer-label">Explore</p>
           <nav aria-label="Footer navigation">
-            <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              Explore
-            </h3>
-            <ul className="mt-4 space-y-2.5">
+            <ul className="footer-links">
               {PRIMARY_NAV.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className={linkClass}>
-                    {link.label}
-                  </Link>
+                  <Link href={link.href}>{link.label}</Link>
                 </li>
               ))}
+              <li>
+                <Link href="/blog">Blog &amp; Articles</Link>
+              </li>
+              <li>
+                <Link href="/contact">Contact Debra</Link>
+              </li>
             </ul>
           </nav>
+        </div>
 
+        <div>
+          <p className="footer-label">Legal + accessibility</p>
           <nav aria-label="Legal and policies">
-            <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              Policies &amp; disclosures
-            </h3>
-            <ul className="mt-4 space-y-2.5">
-              {TREC_LINKS.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href} target="_blank" rel="noreferrer" className={linkClass}>
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+            <ul className="footer-links">
+              <li>
+                <a
+                  href="https://www.trec.texas.gov/information-about-brokerage-services-form"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  TREC Information About Brokerage Services
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.trec.texas.gov/forms/consumer-protection-notice"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  TREC Consumer Protection Notice
+                </a>
+              </li>
               {LEGAL_NAV.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className={linkClass}>
-                    {link.label}
-                  </Link>
+                  <Link href={link.href}>{link.label}</Link>
                 </li>
               ))}
             </ul>
           </nav>
         </div>
+      </Container>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-border pt-7 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            &copy; {year} {SITE.name}. All rights reserved.
-          </p>
-          {/*
-            Vendor attribution. The relationship is stated explicitly rather than
-            implied, and `rel="noopener"` plus an outbound label keeps it honest.
-          */}
-          <p className="text-sm">
-            <a
-              href={CLIENTVERSE.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-foreground underline decoration-accent/50 underline-offset-[3px] transition-colors hover:text-primary hover:decoration-accent"
-            >
-              {CLIENTVERSE.attributionText}
-            </a>
-            <span className="ml-2 text-muted-foreground">{CLIENTVERSE.relationshipNote}</span>
-          </p>
-        </div>
+      <Container className="footer-bottom">
+        <span>
+          &copy; {year} {SITE.name}. All rights reserved.
+        </span>
+        <span>Guidance led by Debra Allen, REALTOR&reg;</span>
+        {/*
+          Vendor attribution. The relationship is stated explicitly rather than
+          implied, and `rel="noopener"` keeps the outbound link safe.
+        */}
+        <span>
+          <a
+            href={CLIENTVERSE.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-attribution"
+          >
+            {CLIENTVERSE.attributionText}
+          </a>{" "}
+          {CLIENTVERSE.relationshipNote}
+        </span>
       </Container>
     </footer>
   )
