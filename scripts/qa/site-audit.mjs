@@ -132,16 +132,26 @@ async function main() {
       const links = allHrefs.filter((href) => href.startsWith("/"))
       // Behavioural counterpart to the render-time allowlist: whatever a
       // renderer *meant* to emit, no anchor on a served page may carry a
-      // scheme that executes script or embeds a document. This catches a
-      // render site the unit tests do not know about.
+      // scheme that executes script, embeds a document, or silently leaves
+      // the origin. This catches a render site the unit tests do not know
+      // about, so it mirrors `toSafeHref` rather than approximating it.
+      //
+      // Two traps, both of which a looser check walks into:
+      //  - "/\evil.example" starts with "/" but the browser normalises the
+      //    backslash to a slash, making it protocol-relative.
+      //  - resolving "//evil.example" against the page URL yields an
+      //    "https:" protocol, so a scheme test on the *resolved* URL calls
+      //    an off-origin destination safe. The raw value has to be judged
+      //    first, and absolutes parsed with no base.
       const allowedSchemes = ["https:", "http:", "mailto:", "tel:"]
       const unsafeHrefs = allHrefs.filter((href) => {
         const value = href.trim()
         if (!value) return false
         if (value.startsWith("#")) return false
-        if (value.startsWith("/") && !value.startsWith("//")) return false
+        const normalised = value.replace(/\\/g, "/").replace(/[\u0000-\u001f\u007f]/g, "")
+        if (normalised.startsWith("/")) return normalised.startsWith("//")
         try {
-          return !allowedSchemes.includes(new URL(value, location.href).protocol)
+          return !allowedSchemes.includes(new URL(value).protocol)
         } catch {
           return true
         }
