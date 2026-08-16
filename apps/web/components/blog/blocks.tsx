@@ -367,6 +367,11 @@ function InlineCta({
 }) {
   const headingId = `cta-${slugify(heading)}`
   const prominent = variant === "prominent"
+  // Sanitised here rather than at each call site: a CTA is the most prominent
+  // link in an article, and a fourth CTA block type would otherwise reintroduce
+  // the gap. An unsafe destination drops the button and keeps the editorial
+  // copy — a dead-end card beats a button that leaves the origin.
+  const safeHref = toSafeHref(href)
   return (
     <section
       aria-labelledby={headingId}
@@ -403,14 +408,16 @@ function InlineCta({
       >
         {description}
       </p>
-      <Button
-        href={href}
-        variant={prominent ? "secondary" : "primary"}
-        size="lg"
-        className="mt-7"
-      >
-        {buttonLabel}
-      </Button>
+      {safeHref && (
+        <Button
+          href={safeHref}
+          variant={prominent ? "secondary" : "primary"}
+          size="lg"
+          className="mt-7"
+        >
+          {buttonLabel}
+        </Button>
+      )}
     </section>
   )
 }

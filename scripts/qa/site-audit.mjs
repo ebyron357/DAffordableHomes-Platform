@@ -126,9 +126,26 @@ async function main() {
       const imagesMissingAlt = [...document.querySelectorAll("img")].filter(
         (img) => img.getAttribute("alt") === null,
       ).length
-      const links = [...document.querySelectorAll("a[href]")]
-        .map((a) => a.getAttribute("href") ?? "")
-        .filter((href) => href.startsWith("/"))
+      const allHrefs = [...document.querySelectorAll("a[href]")].map(
+        (a) => a.getAttribute("href") ?? "",
+      )
+      const links = allHrefs.filter((href) => href.startsWith("/"))
+      // Behavioural counterpart to the render-time allowlist: whatever a
+      // renderer *meant* to emit, no anchor on a served page may carry a
+      // scheme that executes script or embeds a document. This catches a
+      // render site the unit tests do not know about.
+      const allowedSchemes = ["https:", "http:", "mailto:", "tel:"]
+      const unsafeHrefs = allHrefs.filter((href) => {
+        const value = href.trim()
+        if (!value) return false
+        if (value.startsWith("#")) return false
+        if (value.startsWith("/") && !value.startsWith("//")) return false
+        try {
+          return !allowedSchemes.includes(new URL(value, location.href).protocol)
+        } catch {
+          return true
+        }
+      })
       const landmarks = {
         header: document.querySelectorAll("header").length,
         nav: document.querySelectorAll("nav").length,
@@ -157,6 +174,7 @@ async function main() {
         headings,
         imagesMissingAlt,
         links,
+        unsafeHrefs,
         landmarks,
         inputsMissingLabel,
         nestedInteractive,
@@ -174,6 +192,11 @@ async function main() {
     record(data.landmarks.footer >= 1, `${route} has a footer landmark`)
     record(data.inputsMissingLabel === 0, `${route} form fields are labelled`, `${data.inputsMissingLabel} unlabelled`)
     record(data.nestedInteractive === 0, `${route} has no nested interactive controls`, `${data.nestedInteractive} found`)
+    record(
+      data.unsafeHrefs.length === 0,
+      `${route} anchors all use an allowlisted scheme`,
+      data.unsafeHrefs.slice(0, 3).join(" | "),
+    )
     record(Boolean(data.canonical), `${route} declares a canonical URL`)
     record(
       !data.jsonLd.some((entry) => entry.__invalid),
