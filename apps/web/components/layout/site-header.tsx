@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Menu, X } from "lucide-react"
 import { PRIMARY_NAV } from "@/lib/navigation"
 import { Button } from "@/components/ui/button"
@@ -18,6 +18,16 @@ function isActivePath(pathname: string, href: string): boolean {
 export function SiteHeader() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    const desktopQuery = window.matchMedia("(min-width: 1101px)")
+    const closeOnDesktop = () => {
+      if (desktopQuery.matches) setOpen(false)
+    }
+    closeOnDesktop()
+    desktopQuery.addEventListener("change", closeOnDesktop)
+    return () => desktopQuery.removeEventListener("change", closeOnDesktop)
+  }, [])
 
   return (
     <header className="site-header">

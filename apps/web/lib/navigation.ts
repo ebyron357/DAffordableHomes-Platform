@@ -11,7 +11,6 @@ export const PRIMARY_NAV: NavItem[] = [
   { label: "About Debra", href: "/about", description: "Meet your REALTOR®" },
 ]
 
-// Legacy route retained for static coverage and nested Resources discovery: { label: "Programs", href: "/programs" }
 export const LEARN_LINKS: NavItem[] = [
   { label: "First-Time Buyers", href: "/first-time-buyers" },
   { label: "Homebuyer Programs", href: "/programs" },
