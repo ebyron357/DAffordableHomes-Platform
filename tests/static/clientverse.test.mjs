@@ -98,6 +98,18 @@ test('the audit workflow targets the canonical app and preserves evidence', () =
   }
 });
 
+test('the ClientVerse certification runs only in release contexts', () => {
+  const workflow = read('.github/workflows/clientverse-audit.yml');
+
+  assert.match(workflow, /push:\s+branches:\s+- main/s);
+  assert.match(workflow, /workflow_dispatch:/);
+  assert.doesNotMatch(
+    workflow,
+    /pull_request:/,
+    'the release certification depends on deployment configuration unavailable to ordinary PR checks'
+  );
+});
+
 test('an unconfigured or uncertified audit fails instead of reporting success', () => {
   const workflow = read('.github/workflows/clientverse-audit.yml');
 

@@ -10,7 +10,8 @@ name: ClientVerse Audit
 # logic here. Project-specific audit configuration lives in
 # qa-config/clientverse-audit.yaml.
 #
-# Supersedes PR #18. Two corrections to that draft:
+# Supersedes PR #18 and incorporates PR #24's release-only trigger contract.
+# Two corrections to the original draft:
 #   1. It exited 0 with a notice when CLIENTVERSE_ENDPOINT was unset, so an
 #      unconfigured integration reported a green check. This workflow reports
 #      BLOCKED and fails instead — an audit that never ran is not a pass.
@@ -19,7 +20,11 @@ name: ClientVerse Audit
 #      SHA that URL is expected to serve.
 
 on:
-  pull_request:
+  # ClientVerse certifies a deployable release target. Ordinary PR validation
+  # must not fail merely because production-only credentials are unavailable.
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       deployment_url:
