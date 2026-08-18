@@ -263,17 +263,32 @@ async function main() {
       return { path: new URL(loc).pathname, lastmod }
     })
 
+    // Derived from the sitemap, never from the hard-coded visual-QA list.
+    // `sitemap.ts` dates every article `listArticles()` returns, so pinning
+    // this to the three preserved slugs would fail the moment a fourth article
+    // is published in the CMS — the no-deploy publish path this whole PR
+    // exists to provide. It would also mean that fourth article never got the
+    // date-parity assertion below.
+    const isArticlePath = (path) => path.startsWith("/blog/")
+    const articlePaths = entries.map((entry) => entry.path).filter(isArticlePath)
     const stamped = entries.filter((entry) => entry.lastmod)
+
     record(
-      stamped.length > 0 && stamped.every((entry) => ARTICLE_ROUTES.includes(entry.path)),
-      "only CMS-dated routes carry a lastmod",
+      stamped.length > 0 && stamped.every((entry) => isArticlePath(entry.path)),
+      "only article routes carry a lastmod",
       stamped
         .map((entry) => entry.path)
-        .filter((path) => !ARTICLE_ROUTES.includes(path))
+        .filter((path) => !isArticlePath(path))
         .join(" | "),
     )
 
-    for (const route of ARTICLE_ROUTES) {
+    record(
+      articlePaths.length > 0 && articlePaths.every((path) => stamped.some((entry) => entry.path === path)),
+      "every article in the sitemap carries a lastmod",
+      articlePaths.filter((path) => !stamped.some((entry) => entry.path === path)).join(" | "),
+    )
+
+    for (const route of articlePaths) {
       const entry = entries.find((item) => item.path === route)
       if (!entry) continue
 
