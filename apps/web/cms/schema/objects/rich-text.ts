@@ -1,6 +1,6 @@
 import { defineArrayMember, defineType } from "sanity"
 
-import { isSafeInternalPath } from "@/lib/safe-path"
+import { toSafeHref } from "@/lib/safe-path"
 
 /**
  * Portable Text used by every prose surface.
@@ -42,14 +42,24 @@ export const richText = defineType({
                 name: "href",
                 type: "string",
                 title: "URL",
+                /**
+                 * Delegates to the renderer's own allowlist.
+                 *
+                 * This used to be a separate `https?://|mailto:|tel:` regex, and
+                 * the two contracts drifted: the renderer stopped accepting
+                 * `http:`, while this still let an editor save one. The link then
+                 * rendered as plain text with nothing in the Studio to explain
+                 * why. Calling `toSafeHref` means "the Studio accepts it" and
+                 * "the renderer will render it" are the same predicate by
+                 * construction, so they cannot disagree again.
+                 */
                 validation: (rule) =>
                   rule
                     .required()
                     .custom((value: string | undefined) =>
-                      isSafeInternalPath(value) ||
-                      /^(https?:\/\/|mailto:|tel:)/.test(value ?? "")
+                      toSafeHref(value) !== null
                         ? true
-                        : "Use an absolute URL, a site-relative path, mailto: or tel:. Protocol-relative values such as //example.com leave the site.",
+                        : "Use an https URL, a site-relative path, mailto: or tel:. Plain http and protocol-relative values such as //example.com are not rendered as links.",
                     ),
               },
             ],
