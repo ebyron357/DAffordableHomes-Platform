@@ -23,6 +23,7 @@
       "canonical": "https://daffordablehomes.com",
       "jsonLd": [
         null,
+        "WebPage",
         "FAQPage"
       ],
       "h1s": [
@@ -149,7 +150,8 @@
       "status": 200,
       "canonical": "https://daffordablehomes.com/blog",
       "jsonLd": [
-        null
+        null,
+        "CollectionPage"
       ],
       "h1s": [
         "Clear answers for the decisions ahead."
@@ -158,16 +160,16 @@
       "unsafeHrefs": [],
       "landmarks": {
         "header": 2,
-        "nav": 3,
+        "nav": 4,
         "main": 1,
         "footer": 1
       },
       "inputsMissingLabel": 0,
       "nestedInteractive": 0,
-      "title": "Blogs — D'Affordable Homes",
+      "title": "North Texas Homebuyer Field Guides — D'Affordable Homes",
       "description": "Practical North Texas homebuyer field guides from Debra Allen — answer-first guidance with visible sources and clear program boundaries.",
-      "internalLinkCount": 23,
-      "headingCount": 8
+      "internalLinkCount": 27,
+      "headingCount": 9
     },
     {
       "route": "/calculators",
@@ -699,7 +701,7 @@
       "nestedInteractive": 0,
       "title": "Plan & Resources — D'Affordable Homes",
       "description": "Free homebuyer calculators and trustworthy resources for understanding monthly payments, affordability, closing costs, down payments, credit, and the buying process.",
-      "internalLinkCount": 26,
+      "internalLinkCount": 32,
       "headingCount": 14
     },
     {
