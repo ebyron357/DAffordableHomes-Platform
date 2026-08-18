@@ -87,6 +87,12 @@ const entityGraph = {
       url: SITE.url,
       name: SITE.name,
       description: SITE.description,
+      inLanguage: "en-US",
+      about: [
+        { "@type": "Thing", name: "First-time home buying" },
+        { "@type": "Thing", name: "Homeownership planning" },
+        { "@type": "Thing", name: "Homebuyer education" },
+      ],
       publisher: { "@id": `${SITE.url}/#organization` },
     },
     {
@@ -95,6 +101,7 @@ const entityGraph = {
       name: SITE.name,
       url: SITE.url,
       description: SITE.description,
+      logo: `${SITE.url}/images/daffordable-homes-official-logo.png`,
       founder: { "@id": `${SITE.url}/#debra-allen` },
     },
     {

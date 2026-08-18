@@ -9,31 +9,39 @@ export const metadata: Metadata = {
   title: "Plan & Resources",
   description:
     "Free homebuyer calculators and trustworthy resources for understanding monthly payments, affordability, closing costs, down payments, credit, and the buying process.",
+  alternates: { canonical: "/resources" },
+  openGraph: {
+    title: "Homebuyer Planning Tools & Resources | D'Affordable Homes",
+    description:
+      "Use practical calculators and trustworthy guides to plan monthly costs, affordability, cash to close, and your next homebuyer step.",
+    url: "/resources",
+    type: "website",
+  },
 }
 
 const calculatorLinks = [
   {
     title: "Mortgage payment calculator",
     body: "Estimate principal, interest, taxes, insurance, mortgage insurance, HOA costs, and the total monthly housing payment.",
-    href: "/resources/calculators/mortgage-payment",
+    href: "/calculators/mortgage-payment",
     icon: Calculator,
   },
   {
     title: "Home affordability calculator",
     body: "Create a conservative planning price using household income, monthly debts, down payment, and ownership costs.",
-    href: "/resources/calculators/affordability",
+    href: "/calculators/affordability",
     icon: House,
   },
   {
     title: "Closing cost estimator",
     body: "Plan for the down payment, estimated closing costs, prepaid items, escrow funding, and known credits.",
-    href: "/resources/calculators/closing-costs",
+    href: "/calculators/closing-costs",
     icon: ReceiptText,
   },
   {
     title: "Down payment planner",
     body: "Compare common down-payment percentages, upfront cash, loan balances, mortgage insurance, and monthly costs.",
-    href: "/resources/calculators/down-payment",
+    href: "/calculators/down-payment",
     icon: PiggyBank,
   },
 ]
@@ -42,24 +50,48 @@ const groups = [
   {
     heading: "Understand your money",
     items: [
-      { title: "Budgeting for a home", body: "See how monthly housing costs really work — beyond just the price tag." },
-      { title: "Building and repairing credit", body: "What lenders review, and steady ways to strengthen your profile." },
-      { title: "Saving for a down payment", body: "Realistic saving strategies and what assistance programs may do." },
+      {
+        title: "Budgeting for a home",
+        body: "See how monthly housing costs really work — beyond just the price tag.",
+        href: "/calculators/affordability",
+      },
+      {
+        title: "Building and repairing credit",
+        body: "What lenders review, and steady ways to strengthen your profile.",
+        href: "/first-time-buyers",
+      },
+      {
+        title: "Saving for a down payment",
+        body: "Realistic saving strategies and what assistance programs may do.",
+        href: "/calculators/down-payment",
+      },
     ],
   },
   {
     heading: "Understand the process",
     items: [
-      { title: "The homeownership roadmap", body: "Every step from renting to keys, explained in plain language." },
-      { title: "Assistance and special programs", body: "How programs such as NACA and first-time buyer support work." },
-      { title: "Working with a REALTOR®", body: "What guidance looks like and what to expect at each stage." },
+      {
+        title: "The homeownership roadmap",
+        body: "Every step from renting to keys, explained in plain language.",
+        href: "/start",
+      },
+      {
+        title: "Assistance and special programs",
+        body: "How programs such as NACA and first-time buyer support work.",
+        href: "/programs",
+      },
+      {
+        title: "Working with a REALTOR®",
+        body: "What guidance looks like and what to expect at each stage.",
+        href: "/about",
+      },
     ],
   },
 ]
 
 const guideLinks = [
   { label: "First-Time Buyer Guide", href: "/first-time-buyers" },
-  { label: "NACA Education", href: "/naca" },
+  { label: "NACA Education", href: "/programs/naca" },
   { label: "Frequently Asked Questions", href: "/faq" },
   { label: "Find Your Next Step", href: "/start" },
 ]
@@ -124,10 +156,18 @@ export default function ResourcesPage() {
               <Eyebrow>{group.heading}</Eyebrow>
               <div className="mt-5 flex flex-col gap-4">
                 {group.items.map((item) => (
-                  <div key={item.title} className="rounded-xl border border-border bg-card p-6">
+                  <Link
+                    key={item.title}
+                    href={item.href}
+                    className="group rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary hover:bg-background focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                  >
                     <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
-                  </div>
+                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                      Explore this step
+                      <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                    </span>
+                  </Link>
                 ))}
               </div>
             </div>

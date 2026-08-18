@@ -169,7 +169,8 @@ test('a slug published after the build is routable without a deploy', () => {
 test('the sitemap is generated from the CMS, not a hardcoded article list', () => {
   const sitemap = read('apps/web/app/sitemap.ts');
 
-  assert.match(sitemap, /listArticleSlugs/);
+  assert.match(sitemap, /listArticles/);
+  assert.match(sitemap, /article\.reviewedAt \?\? article\.publishedAt/);
   for (const slug of PRESERVED_SLUGS) {
     assert.doesNotMatch(
       sitemap,

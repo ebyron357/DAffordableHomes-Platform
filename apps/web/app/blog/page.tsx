@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/container"
 import { formatArticleDate } from "@/lib/blog/format"
 import { listArticles } from "@/lib/blog/source"
 import type { ArticleSummary } from "@/lib/blog/types"
+import { SITE } from "@/lib/site"
 
 /**
  * Blog index, driven entirely by the CMS.
@@ -18,17 +19,24 @@ import type { ArticleSummary } from "@/lib/blog/types"
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: "Blogs",
+  title: "North Texas Homebuyer Field Guides",
   description:
     "Practical North Texas homebuyer field guides from Debra Allen — answer-first guidance with visible sources and clear program boundaries.",
   alternates: { canonical: "/blog" },
   openGraph: {
-    title: "Blogs | D'Affordable Homes",
-    description: "Practical North Texas homebuyer field guides from Debra Allen.",
+    title: "North Texas Homebuyer Field Guides | D'Affordable Homes",
+    description: "Answer-first homebuyer field guides for Garland and Dallas–Fort Worth, with visible sources and clear program boundaries.",
     url: "/blog",
     type: "website",
   },
 }
+
+const nextStepLinks = [
+  { href: "/first-time-buyers", label: "First-time buyer roadmap", detail: "Understand the sequence before you start touring homes." },
+  { href: "/programs", label: "Homebuyer programs", detail: "Learn what program information to verify before applying." },
+  { href: "/calculators", label: "Planning calculators", detail: "Test monthly-payment and cash-to-close scenarios." },
+  { href: "/areas/garland", label: "Garland area guide", detail: "Explore a local starting point with practical questions in view." },
+]
 
 function LeadArticle({ article }: { article: ArticleSummary }) {
   return (
@@ -114,9 +122,40 @@ function ArticleCard({ article, index }: { article: ArticleSummary; index: numbe
 export default async function BlogIndexPage() {
   const articles = await listArticles()
   const [lead, ...rest] = articles
+  const blogJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${SITE.url}/blog#webpage`,
+    url: `${SITE.url}/blog`,
+    name: "North Texas Homebuyer Field Guides",
+    description: metadata.description,
+    inLanguage: "en-US",
+    isPartOf: { "@id": `${SITE.url}/#website` },
+    about: [
+      { "@type": "Thing", name: "First-time home buying" },
+      { "@type": "Thing", name: "Homebuyer programs" },
+      { "@type": "Place", name: "Garland, Texas" },
+      { "@type": "Place", name: "Dallas–Fort Worth" },
+    ],
+    mainEntity: {
+      "@type": "ItemList",
+      itemListOrder: "https://schema.org/ItemListOrderDescending",
+      numberOfItems: articles.length,
+      itemListElement: articles.map((article, position) => ({
+        "@type": "ListItem",
+        position: position + 1,
+        url: `${SITE.url}/blog/${article.slug}`,
+        name: article.title,
+      })),
+    },
+  }
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd).replace(/</g, "\\u003c") }}
+      />
       <header className="border-b border-border bg-card">
         <Container className="py-14 md:py-20">
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
@@ -188,6 +227,33 @@ export default async function BlogIndexPage() {
           )}
         </>
       )}
+
+      <section className="border-t border-border bg-card py-14 md:py-20" aria-labelledby="continue-planning-heading">
+        <Container>
+          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+                Continue planning
+              </p>
+              <h2 id="continue-planning-heading" className="mt-3 font-serif text-[30px] leading-tight sm:text-[36px]">
+                Turn a useful answer into a clear next step.
+              </h2>
+            </div>
+            <nav aria-label="Related homebuyer resources" className="grid gap-3 sm:grid-cols-2">
+              {nextStepLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-xl border border-border bg-background p-5 transition-colors hover:border-primary hover:bg-muted/40 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                >
+                  <span className="block text-base font-semibold text-foreground">{item.label}</span>
+                  <span className="mt-2 block text-sm leading-relaxed text-muted-foreground">{item.detail}</span>
+                </Link>
+              ))}
+            </nav>
+          </div>
+        </Container>
+      </section>
 
       <section className="border-t border-border bg-muted/50 py-14" aria-labelledby="editorial-standard">
         <Container className="grid gap-8 md:grid-cols-3 md:gap-12">

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next"
 
-import { listArticleSlugs } from "@/lib/blog/source"
+import { listArticles } from "@/lib/blog/source"
 import { SITE } from "@/lib/site"
 
 /**
@@ -46,12 +46,10 @@ const staticRoutes = [
 ] as const
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const lastModified = new Date()
-  const articleSlugs = await listArticleSlugs()
+  const articles = await listArticles()
 
   const staticEntries = staticRoutes.map((route) => ({
     url: `${SITE.url}${route}`,
-    lastModified,
     changeFrequency:
       route.startsWith("/blog") || route.startsWith("/programs") || route.startsWith("/areas")
         ? ("monthly" as const)
@@ -64,9 +62,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           : 0.6,
   }))
 
-  const articleEntries = articleSlugs.map((slug) => ({
-    url: `${SITE.url}/blog/${slug}`,
-    lastModified,
+  const articleEntries = articles.map((article) => ({
+    url: `${SITE.url}/blog/${article.slug}`,
+    lastModified: article.reviewedAt ?? article.publishedAt,
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }))
