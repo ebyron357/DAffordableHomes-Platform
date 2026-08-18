@@ -43,7 +43,17 @@ export function isSafeInternalPath(value: string | null | undefined): boolean {
 }
 
 /** Schemes a CMS-supplied link is allowed to use. */
-const SAFE_SCHEMES = ["https:", "http:", "mailto:", "tel:"]
+/**
+ * `http:` is deliberately absent.
+ *
+ * The Studio already refuses to save an absolute destination that is not
+ * `https://`, so a plain-http link can only reach the renderers by bypassing
+ * schema validation — and shipping one from an HTTPS page is a downgrade that
+ * browsers increasingly block outright. Leaving `http:` in the render allowlist
+ * meant the two contracts disagreed. No destination in the migrated content
+ * uses it: the seed carries seven absolute URLs, all https.
+ */
+const SAFE_SCHEMES = ["https:", "mailto:", "tel:"]
 
 /**
  * Runtime allowlist for a CMS-supplied href, returning `null` when the value

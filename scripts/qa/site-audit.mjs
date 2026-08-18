@@ -143,7 +143,7 @@ async function main() {
       //    "https:" protocol, so a scheme test on the *resolved* URL calls
       //    an off-origin destination safe. The raw value has to be judged
       //    first, and absolutes parsed with no base.
-      const allowedSchemes = ["https:", "http:", "mailto:", "tel:"]
+      const allowedSchemes = ["https:", "mailto:", "tel:"]
       const unsafeHrefs = allHrefs.filter((href) => {
         const value = href.trim()
         if (!value) return false
