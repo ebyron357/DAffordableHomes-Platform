@@ -42,16 +42,22 @@ export function isSafeInternalPath(value: string | null | undefined): boolean {
   return toSafeInternalPath(value, "") === value
 }
 
-/** Schemes a CMS-supplied link is allowed to use. */
 /**
- * `http:` is deliberately absent.
+ * Schemes a CMS-supplied link is allowed to use.
  *
- * The Studio already refuses to save an absolute destination that is not
- * `https://`, so a plain-http link can only reach the renderers by bypassing
- * schema validation — and shipping one from an HTTPS page is a downgrade that
- * browsers increasingly block outright. Leaving `http:` in the render allowlist
- * meant the two contracts disagreed. No destination in the migrated content
- * uses it: the seed carries seven absolute URLs, all https.
+ * `http:` is deliberately absent: shipping a plain-http link from an HTTPS page
+ * is a downgrade that browsers increasingly block outright, and no destination
+ * in the migrated content uses one — the seed carries seven absolute URLs, all
+ * https.
+ *
+ * This list is the single source of truth. An earlier version of this comment
+ * argued the other way round — that `http:` was safe to drop *because* the
+ * Studio already refused it — which was true of related links, official sources
+ * and video URLs but not of portable-text marks, whose validator still had its
+ * own `https?://` regex. Editors could save a plain-http link in body prose and
+ * watch it render as unlinked text with nothing explaining why. The rich-text
+ * validator now calls `toSafeHref`, so changing this array changes what the
+ * Studio accepts too, and the two cannot drift apart again.
  */
 const SAFE_SCHEMES = ["https:", "mailto:", "tel:"]
 
