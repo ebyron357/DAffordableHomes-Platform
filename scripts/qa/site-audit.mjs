@@ -245,6 +245,62 @@ async function main() {
     }
   }
 
+  /* -------------------- sitemap freshness ------------------------- */
+
+  // The sitemap used to stamp every route with `new Date()`, telling search
+  // engines that all 33 URLs changed on every deploy. The replacement is
+  // guarded in the unit tests by a regex asserting `new Date()` is absent —
+  // which cannot show the new value is *right*: any other build-time source
+  // would satisfy it just as well. This compares the served sitemap against
+  // the date each article publishes about itself, so two independent surfaces
+  // have to agree on a real content date before this passes.
+  {
+    const xml = await (await fetch(`${BASE}/sitemap.xml`)).text()
+    const entries = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => {
+      const block = match[1]
+      const loc = block.match(/<loc>([^<]+)<\/loc>/)?.[1] ?? ""
+      const lastmod = block.match(/<lastmod>([^<]+)<\/lastmod>/)?.[1] ?? null
+      return { path: new URL(loc).pathname, lastmod }
+    })
+
+    const stamped = entries.filter((entry) => entry.lastmod)
+    record(
+      stamped.length > 0 && stamped.every((entry) => ARTICLE_ROUTES.includes(entry.path)),
+      "only CMS-dated routes carry a lastmod",
+      stamped
+        .map((entry) => entry.path)
+        .filter((path) => !ARTICLE_ROUTES.includes(path))
+        .join(" | "),
+    )
+
+    for (const route of ARTICLE_ROUTES) {
+      const entry = entries.find((item) => item.path === route)
+      if (!entry) continue
+
+      const html = await (await fetch(`${BASE}${route}`)).text()
+      let published = null
+      for (const found of html.matchAll(
+        /<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g,
+      )) {
+        try {
+          const parsed = JSON.parse(found[1])
+          if (parsed["@type"] === "Article") published = parsed.dateModified ?? parsed.datePublished
+        } catch {
+          // A JSON-LD block that does not parse is already recorded as a
+          // failure by the crawl above; do not double-report it here.
+        }
+      }
+
+      record(
+        Boolean(entry.lastmod) &&
+          Boolean(published) &&
+          entry.lastmod.slice(0, 10) === String(published).slice(0, 10),
+        `${route} sitemap lastmod matches the date the article publishes`,
+        `sitemap=${entry.lastmod} article=${published}`,
+      )
+    }
+  }
+
   /* -------------------- internal link validation ------------------ */
 
   const linkResults = []
