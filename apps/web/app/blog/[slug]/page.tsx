@@ -8,7 +8,13 @@ import { DraftBanner } from "@/components/blog/draft-banner"
 import { Prose } from "@/components/blog/portable-text"
 import { Container } from "@/components/ui/container"
 import { getArticle } from "@/lib/blog/source"
-import { articleJsonLd, breadcrumbJsonLd, collectFaqs, faqJsonLd } from "@/lib/blog/structured-data"
+import {
+  articleJsonLd,
+  authorProfilePath,
+  breadcrumbJsonLd,
+  collectFaqs,
+  faqJsonLd,
+} from "@/lib/blog/structured-data"
 import type { Article } from "@/lib/blog/types"
 import { toSafeHref } from "@/lib/safe-path"
 import { SITE } from "@/lib/site"
@@ -72,7 +78,10 @@ export async function generateMetadata({
     title: article.seoTitle ?? article.title,
     description: article.seoDescription,
     alternates: { canonical },
-    authors: [{ name: article.author.name, url: `${SITE.url}${article.author.url ?? "/about"}` }],
+    // Sanitised for the same reason as the JSON-LD author node: `author.url` is
+    // free-form CMS text, and concatenating it raw both corrupts the URL and
+    // publishes an off-site author identity.
+    authors: [{ name: article.author.name, url: `${SITE.url}${authorProfilePath(article)}` }],
     openGraph: {
       type: "article",
       title: article.seoTitle ?? article.title,

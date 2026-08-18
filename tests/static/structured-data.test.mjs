@@ -86,3 +86,61 @@ test('an article with no FAQs anywhere collects none', () => {
     []
   );
 });
+
+/**
+ * `author.url` is free-form CMS text that is published as the author's identity
+ * in Article JSON-LD and in Open Graph metadata. Before this was sanitised, an
+ * absolute value passed straight through `absolute()` and attributed the
+ * article to another site, while `javascript:` and `//host` values produced a
+ * corrupt URL by string concatenation.
+ */
+test('the author profile path is constrained to this origin', async () => {
+  const { authorProfilePath, articleJsonLd } = await import(
+    pathToFileURL('apps/web/lib/blog/structured-data.ts').href
+  );
+
+  const withAuthorUrl = (url) => ({ author: { name: 'Debra Allen', url } });
+
+  assert.equal(authorProfilePath(withAuthorUrl('/about')), '/about');
+  assert.equal(authorProfilePath(withAuthorUrl('/team/debra')), '/team/debra');
+
+  for (const hostile of [
+    'https://attacker.example/profile',
+    'http://attacker.example',
+    'javascript:alert(1)',
+    '//attacker.example',
+    '/\\attacker.example',
+    'about',
+    '',
+    null,
+    undefined
+  ]) {
+    assert.equal(
+      authorProfilePath(withAuthorUrl(hostile)),
+      '/about',
+      `author.url ${JSON.stringify(hostile)} must fall back to /about`
+    );
+  }
+
+  // End to end: the emitted JSON-LD author node never leaves the origin.
+  const article = {
+    slug: 'x',
+    title: 'T',
+    seoDescription: 'd',
+    publishedAt: '2026-01-01',
+    reviewedAt: null,
+    category: { title: 'C' },
+    featuredImage: { src: '/i.jpg', alt: 'a' },
+    socialImage: null,
+    programs: [],
+    areas: [],
+    sources: [],
+    author: { name: 'Debra Allen', role: null, url: 'https://attacker.example/profile' }
+  };
+  const emitted = articleJsonLd(article).author.url;
+  assert.ok(
+    emitted.startsWith('https://daffordablehomes.com/'),
+    `author JSON-LD url must stay on-origin, got ${emitted}`
+  );
+  assert.ok(!emitted.includes('attacker.example'), emitted);
+});

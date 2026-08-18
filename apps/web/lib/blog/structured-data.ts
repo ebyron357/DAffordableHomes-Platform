@@ -6,11 +6,26 @@
  * without a code change.
  */
 
+import { toSafeInternalPath } from "@/lib/safe-path"
 import { SITE } from "@/lib/site"
 import type { Article, ArticleBlock, ArticleFaq } from "./types"
 
 function absolute(path: string): string {
   return path.startsWith("http") ? path : `${SITE.url}${path}`
+}
+
+/**
+ * The author's profile path, constrained to this origin.
+ *
+ * `author.url` is a free-form CMS string that is published as the author's
+ * identity in Article JSON-LD and in Open Graph metadata. Left unsanitised, an
+ * absolute value passes straight through `absolute()` and attributes the
+ * article to another site, and a protocol-relative one becomes a path that
+ * leaves the origin. Anything that is not already a safe same-origin path falls
+ * back to `/about`.
+ */
+export function authorProfilePath(article: Article): string {
+  return toSafeInternalPath(article.author.url, "/about")
 }
 
 export function articleJsonLd(article: Article): Record<string, unknown> {
@@ -34,7 +49,7 @@ export function articleJsonLd(article: Article): Record<string, unknown> {
       name: article.author.role
         ? `${article.author.name}, ${article.author.role}`
         : article.author.name,
-      url: absolute(article.author.url ?? "/about"),
+      url: absolute(authorProfilePath(article)),
     },
     publisher: {
       "@type": "Organization",
