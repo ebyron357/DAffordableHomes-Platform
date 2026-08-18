@@ -16,3 +16,8 @@ npm-debug.log*
 recovered-manus/manus-storage/debra-allen-primary-about.webp
 recovered-manus/manus-storage/debra-allen-advisor-desk.webp
 recovered-manus/manus-storage/debra-allen-lifestyle-full-body.webp
+
+# Full-resolution QA screenshots are reproducible with `pnpm qa:audit --screenshots`.
+# The committed evidence set lives in qa-evidence/visual (compressed) alongside
+# the machine-readable report in qa-evidence/site-audit.json.
+qa-evidence/screenshots/

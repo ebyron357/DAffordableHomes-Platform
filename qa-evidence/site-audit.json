@@ -1,0 +1,1459 @@
+{
+  "base": "http://127.0.0.1:3111",
+  "generatedFrom": "scripts/qa/site-audit.mjs",
+  "routesCrawled": 33,
+  "internalLinksChecked": 33,
+  "viewports": [
+    "mobile-375",
+    "mobile-430",
+    "tablet-768",
+    "laptop-1024",
+    "desktop-1440"
+  ],
+  "consoleErrors": [],
+  "failures": [],
+  "notes": [
+    "sitemap routes: 33",
+    "internal links checked: 33"
+  ],
+  "routes": [
+    {
+      "route": "/",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com",
+      "jsonLd": [
+        null,
+        "WebPage",
+        "FAQPage"
+      ],
+      "h1s": [
+        "A clear path to the home that fits your life."
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Debra Allen, REALTOR® | Garland + DFW Home Guidance",
+      "description": "Clear, practical residential real-estate guidance from Debra Allen, REALTOR®, for first-time buyers and families in Garland and Dallas–Fort Worth.",
+      "internalLinkCount": 31,
+      "headingCount": 15
+    },
+    {
+      "route": "/about",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/about",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "A guide who believes preparation is a form of respect"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "About Debra Allen — D'Affordable Homes",
+      "description": "Meet Debra Allen, REALTOR® — an education-first guide who believes homeownership has steps and no one should have to learn them alone.",
+      "internalLinkCount": 20,
+      "headingCount": 7
+    },
+    {
+      "route": "/accessibility",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/accessibility",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Accessibility Statement"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Accessibility Statement — D'Affordable Homes",
+      "description": "D'Affordable Homes is committed to WCAG 2.2 AA accessibility so everyone can use our education and planning tools.",
+      "internalLinkCount": 19,
+      "headingCount": 5
+    },
+    {
+      "route": "/areas",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/areas",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "North Texas area guides built for real buyer questions"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 4,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "North Texas Homebuyer Area Guides — D'Affordable Homes",
+      "description": "Useful, differentiated homebuyer guidance for Garland and future verified Dallas–Fort Worth communities without copied city pages or unsupported market statistics.",
+      "internalLinkCount": 20,
+      "headingCount": 4
+    },
+    {
+      "route": "/areas/garland",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/areas/garland",
+      "jsonLd": [
+        null,
+        null
+      ],
+      "h1s": [
+        "Build a Garland home search around the life you can sustain"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 4,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Garland Texas Homebuyer Guide and Affordable-Homeownership Help — D'Affordable Homes",
+      "description": "A practical Garland, Texas homebuyer guide covering search preparation, attainable North Texas home styles, NACA and Homes for Heroes guidance, property evaluation, and next steps with Debra.",
+      "internalLinkCount": 24,
+      "headingCount": 12
+    },
+    {
+      "route": "/blog",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/blog",
+      "jsonLd": [
+        null,
+        "CollectionPage"
+      ],
+      "h1s": [
+        "Clear answers for the decisions ahead."
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 2,
+        "nav": 4,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "North Texas Homebuyer Field Guides — D'Affordable Homes",
+      "description": "Practical North Texas homebuyer field guides from Debra Allen — answer-first guidance with visible sources and clear program boundaries.",
+      "internalLinkCount": 27,
+      "headingCount": 9
+    },
+    {
+      "route": "/calculators",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/calculators",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Plan with real numbers before you make a move."
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Homebuyer Calculators — D'Affordable Homes",
+      "description": "Plan affordability, cash needs, mortgage payments, and rent-versus-buy scenarios.",
+      "internalLinkCount": 22,
+      "headingCount": 6
+    },
+    {
+      "route": "/calculators/affordability",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/calculators/affordability",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Affordability calculator"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Affordability Calculator — D'Affordable Homes",
+      "description": "Estimate a responsible planning range from income, debts, rate, and cash available.",
+      "internalLinkCount": 20,
+      "headingCount": 3
+    },
+    {
+      "route": "/calculators/closing-costs",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/calculators/closing-costs",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Closing cost estimator"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Closing Cost Estimator — D'Affordable Homes",
+      "description": "Estimate cash needed at closing, including the down payment, closing costs, prepaid items, escrow funding, and known credits.",
+      "internalLinkCount": 20,
+      "headingCount": 3
+    },
+    {
+      "route": "/calculators/down-payment",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/calculators/down-payment",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Down payment & closing cost planner"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Down Payment & Closing Cost Planner — D'Affordable Homes",
+      "description": "Estimate down payment, closing costs, and other cash needed.",
+      "internalLinkCount": 20,
+      "headingCount": 3
+    },
+    {
+      "route": "/calculators/mortgage-payment",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/calculators/mortgage-payment",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Mortgage payment calculator"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Mortgage Payment Calculator — D'Affordable Homes",
+      "description": "Estimate mortgage principal, interest, PMI, taxes, and insurance.",
+      "internalLinkCount": 21,
+      "headingCount": 5
+    },
+    {
+      "route": "/calculators/rent-vs-buy",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/calculators/rent-vs-buy",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Rent vs. buy calculator"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Rent vs. Buy Calculator — D'Affordable Homes",
+      "description": "Compare simplified renting and homeownership costs over time.",
+      "internalLinkCount": 20,
+      "headingCount": 3
+    },
+    {
+      "route": "/consultation",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/consultation",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Start with a conversation—not a sales pitch."
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Book a Free Consultation — D'Affordable Homes",
+      "description": "Request a free homebuyer consultation with Debra Allen.",
+      "internalLinkCount": 20,
+      "headingCount": 5
+    },
+    {
+      "route": "/contact",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/contact",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Reach out — wherever you are in the process"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Contact Debra — D'Affordable Homes",
+      "description": "Reach out to Debra Allen, REALTOR®. Ask a question, share where you are in the process, or just say hello — no pressure.",
+      "internalLinkCount": 18,
+      "headingCount": 2
+    },
+    {
+      "route": "/equal-housing-opportunity",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/equal-housing-opportunity",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Equal Housing Opportunity"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Equal Housing Opportunity — D'Affordable Homes",
+      "description": "D'Affordable Homes proudly supports Equal Housing Opportunity and the fair treatment of every person seeking a home.",
+      "internalLinkCount": 19,
+      "headingCount": 2
+    },
+    {
+      "route": "/events",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/events",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Learn together, in person and online"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Events & Workshops — D'Affordable Homes",
+      "description": "Homebuyer education workshops and community events led by Debra Allen. Schedule is published here once dates are confirmed.",
+      "internalLinkCount": 20,
+      "headingCount": 6
+    },
+    {
+      "route": "/fair-housing",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/fair-housing",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Fair Housing Statement"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Fair Housing Statement — D'Affordable Homes",
+      "description": "D'Affordable Homes is committed to fair housing for all. We do not discriminate and we support equal opportunity in housing.",
+      "internalLinkCount": 18,
+      "headingCount": 5
+    },
+    {
+      "route": "/faq",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/faq",
+      "jsonLd": [
+        null,
+        "FAQPage"
+      ],
+      "h1s": [
+        "Questions are a good sign"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 4,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Frequently Asked Questions — D'Affordable Homes",
+      "description": "Answers to common questions about getting started with homeownership, the homebuying process, and working with Debra Allen, REALTOR.",
+      "internalLinkCount": 21,
+      "headingCount": 6
+    },
+    {
+      "route": "/first-time-buyers",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/first-time-buyers",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Understand the process before you step into it"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 4,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "First-Time Buyer Education — D'Affordable Homes",
+      "description": "A plain-language introduction to the homebuying process for first-time buyers and renters. Understand the steps before you take them — no pressure, no jargon.",
+      "internalLinkCount": 23,
+      "headingCount": 6
+    },
+    {
+      "route": "/homes",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/homes",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Explore homes with a plan, not pressure"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Explore Homes — D'Affordable Homes",
+      "description": "Explore homes and neighborhoods with guidance. When live listings aren't connected, we tell you honestly instead of showing placeholder homes.",
+      "internalLinkCount": 20,
+      "headingCount": 3
+    },
+    {
+      "route": "/market-reports",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/market-reports",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Market context, explained simply"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Market Reports — D'Affordable Homes",
+      "description": "Clear, honest market context to help you plan. Reports publish here once the data source is connected — never estimated or fabricated.",
+      "internalLinkCount": 19,
+      "headingCount": 2
+    },
+    {
+      "route": "/neighborhoods",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/neighborhoods",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Garland & DFW areas"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Neighborhood Guides — D'Affordable Homes",
+      "description": "Honest neighborhood guides to help you understand communities, not just listings. Published as guides are researched and verified.",
+      "internalLinkCount": 21,
+      "headingCount": 4
+    },
+    {
+      "route": "/privacy",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/privacy",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Privacy Policy"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Privacy Policy — D'Affordable Homes",
+      "description": "How D'Affordable Homes collects, uses, and protects your information. We only use what you share to help you, and never sell your data.",
+      "internalLinkCount": 19,
+      "headingCount": 6
+    },
+    {
+      "route": "/programs",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/programs",
+      "jsonLd": [
+        null,
+        "BreadcrumbList"
+      ],
+      "h1s": [
+        "Find the homeownership path that fits your situation"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 4,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Homebuyer Programs for Garland and Dallas–Fort Worth — D'Affordable Homes",
+      "description": "Explore independent NACA homebuyer guidance and Homes for Heroes real-estate support from D'Affordable Homes, with a practical North Texas focus.",
+      "internalLinkCount": 23,
+      "headingCount": 7
+    },
+    {
+      "route": "/programs/naca",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/programs/naca",
+      "jsonLd": [
+        null,
+        "Service",
+        "FAQPage",
+        "BreadcrumbList"
+      ],
+      "h1s": [
+        "Real-estate guidance for Dallas–Fort Worth buyers using NACA"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 4,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "NACA Homebuyer Help in Garland and Dallas–Fort Worth — D'Affordable Homes",
+      "description": "Independent real-estate guidance for buyers using the NACA homebuying program in Garland and the Dallas–Fort Worth area. Search, offer, inspection, and closing support without unsupported program promises.",
+      "internalLinkCount": 22,
+      "headingCount": 16
+    },
+    {
+      "route": "/programs/homes-for-heroes",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/programs/homes-for-heroes",
+      "jsonLd": [
+        null,
+        "Service",
+        "FAQPage",
+        "BreadcrumbList"
+      ],
+      "h1s": [
+        "Buying and selling guidance for North Texas community heroes"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 4,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Homes for Heroes Real-Estate Guidance in North Texas — D'Affordable Homes",
+      "description": "Buying, selling, and move-planning guidance for veterans, military families, teachers, healthcare workers, firefighters, EMS, and law-enforcement professionals exploring Garland and Dallas–Fort Worth.",
+      "internalLinkCount": 22,
+      "headingCount": 16
+    },
+    {
+      "route": "/resources",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/resources",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Make the numbers clear before making a move"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Plan & Resources — D'Affordable Homes",
+      "description": "Free homebuyer calculators and trustworthy resources for understanding monthly payments, affordability, closing costs, down payments, credit, and the buying process.",
+      "internalLinkCount": 32,
+      "headingCount": 14
+    },
+    {
+      "route": "/start",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/start",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Let's find your next step together"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 4,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Find Your Next Step — D'Affordable Homes",
+      "description": "Answer a few short questions to understand where you are in the homeownership journey and find educational resources for your next step. No contact information required.",
+      "internalLinkCount": 19,
+      "headingCount": 3
+    },
+    {
+      "route": "/terms",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/terms",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Terms of Use"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Terms of Use — D'Affordable Homes",
+      "description": "The terms for using the D'Affordable Homes website. Our content is educational and not legal, financial, or lending advice.",
+      "internalLinkCount": 19,
+      "headingCount": 6
+    },
+    {
+      "route": "/testimonials",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/testimonials",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Stories from the people Debra has guided"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 3,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Testimonials — D'Affordable Homes",
+      "description": "Real stories from people Debra has guided toward homeownership. We publish only verified, consented reviews — never invented ones.",
+      "internalLinkCount": 19,
+      "headingCount": 2
+    },
+    {
+      "route": "/blog/naca-homebuying-dallas-fort-worth",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/blog/naca-homebuying-dallas-fort-worth",
+      "jsonLd": [
+        null,
+        "Article",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "h1s": [
+        "Using NACA to Buy a Home in Dallas–Fort Worth"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 2,
+        "nav": 5,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "Using NACA to Buy a Home in Dallas–Fort Worth — D'Affordable Homes",
+      "description": "Learn how the NACA homebuying process works, when to begin a DFW home search, and how Debra Allen supports the real-estate side of a purchase.",
+      "internalLinkCount": 32,
+      "headingCount": 26
+    },
+    {
+      "route": "/blog/homes-for-heroes-north-texas",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/blog/homes-for-heroes-north-texas",
+      "jsonLd": [
+        null,
+        "Article",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "h1s": [
+        "How Debra Allen Helps North Texas Heroes Buy or Sell a Home"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 2,
+        "nav": 5,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "How Debra Allen Helps North Texas Heroes Buy or Sell a Home — D'Affordable Homes",
+      "description": "A practical real-estate guide for North Texas military members, veterans, teachers, healthcare workers, firefighters, EMS, and law-enforcement professionals.",
+      "internalLinkCount": 31,
+      "headingCount": 32
+    },
+    {
+      "route": "/blog/how-to-buy-home-garland-tx",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/blog/how-to-buy-home-garland-tx",
+      "jsonLd": [
+        null,
+        "Article",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "h1s": [
+        "How to Buy a Home in Garland, Texas"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 2,
+        "nav": 5,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "title": "How to Buy a Home in Garland, Texas — D'Affordable Homes",
+      "description": "A step-by-step first-time buyer guide to budgeting, financing, touring, inspections, and closing on a home in Garland, Texas.",
+      "internalLinkCount": 33,
+      "headingCount": 35
+    }
+  ],
+  "internalLinks": [
+    {
+      "link": "/",
+      "status": 200
+    },
+    {
+      "link": "/about",
+      "status": 200
+    },
+    {
+      "link": "/accessibility",
+      "status": 200
+    },
+    {
+      "link": "/areas",
+      "status": 200
+    },
+    {
+      "link": "/areas/garland",
+      "status": 200
+    },
+    {
+      "link": "/blog",
+      "status": 200
+    },
+    {
+      "link": "/blog/homes-for-heroes-north-texas",
+      "status": 200
+    },
+    {
+      "link": "/blog/how-to-buy-home-garland-tx",
+      "status": 200
+    },
+    {
+      "link": "/blog/naca-homebuying-dallas-fort-worth",
+      "status": 200
+    },
+    {
+      "link": "/calculators",
+      "status": 200
+    },
+    {
+      "link": "/calculators/affordability",
+      "status": 200
+    },
+    {
+      "link": "/calculators/closing-costs",
+      "status": 200
+    },
+    {
+      "link": "/calculators/down-payment",
+      "status": 200
+    },
+    {
+      "link": "/calculators/mortgage-payment",
+      "status": 200
+    },
+    {
+      "link": "/calculators/rent-vs-buy",
+      "status": 200
+    },
+    {
+      "link": "/consultation",
+      "status": 200
+    },
+    {
+      "link": "/contact",
+      "status": 200
+    },
+    {
+      "link": "/equal-housing-opportunity",
+      "status": 200
+    },
+    {
+      "link": "/fair-housing",
+      "status": 200
+    },
+    {
+      "link": "/faq",
+      "status": 200
+    },
+    {
+      "link": "/first-time-buyers",
+      "status": 200
+    },
+    {
+      "link": "/naca",
+      "status": 308
+    },
+    {
+      "link": "/privacy",
+      "status": 200
+    },
+    {
+      "link": "/programs",
+      "status": 200
+    },
+    {
+      "link": "/programs/homes-for-heroes",
+      "status": 200
+    },
+    {
+      "link": "/programs/naca",
+      "status": 200
+    },
+    {
+      "link": "/resources",
+      "status": 200
+    },
+    {
+      "link": "/resources/calculators/affordability",
+      "status": 308
+    },
+    {
+      "link": "/resources/calculators/closing-costs",
+      "status": 308
+    },
+    {
+      "link": "/resources/calculators/down-payment",
+      "status": 308
+    },
+    {
+      "link": "/resources/calculators/mortgage-payment",
+      "status": 308
+    },
+    {
+      "link": "/start",
+      "status": 200
+    },
+    {
+      "link": "/terms",
+      "status": 200
+    }
+  ],
+  "responsive": [
+    {
+      "route": "/",
+      "viewport": "mobile-375",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/blog",
+      "viewport": "mobile-375",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/blog/naca-homebuying-dallas-fort-worth",
+      "viewport": "mobile-375",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "culprits": [
+        "table.w-full min-w-[34rem] border-collapse tex",
+        "caption.caption-bottom pt-4 text-left text-sm le",
+        "thead."
+      ],
+      "ok": true
+    },
+    {
+      "route": "/blog/homes-for-heroes-north-texas",
+      "viewport": "mobile-375",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "culprits": [
+        "table.w-full min-w-[34rem] border-collapse tex",
+        "caption.caption-bottom pt-4 text-left text-sm le",
+        "thead."
+      ],
+      "ok": true
+    },
+    {
+      "route": "/blog/how-to-buy-home-garland-tx",
+      "viewport": "mobile-375",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/programs",
+      "viewport": "mobile-375",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/areas/garland",
+      "viewport": "mobile-375",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/calculators",
+      "viewport": "mobile-375",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/consultation",
+      "viewport": "mobile-375",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/about",
+      "viewport": "mobile-375",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/contact",
+      "viewport": "mobile-375",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/",
+      "viewport": "mobile-430",
+      "scrollWidth": 430,
+      "clientWidth": 430,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/blog",
+      "viewport": "mobile-430",
+      "scrollWidth": 430,
+      "clientWidth": 430,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/blog/naca-homebuying-dallas-fort-worth",
+      "viewport": "mobile-430",
+      "scrollWidth": 430,
+      "clientWidth": 430,
+      "culprits": [
+        "table.w-full min-w-[34rem] border-collapse tex",
+        "caption.caption-bottom pt-4 text-left text-sm le",
+        "thead."
+      ],
+      "ok": true
+    },
+    {
+      "route": "/blog/homes-for-heroes-north-texas",
+      "viewport": "mobile-430",
+      "scrollWidth": 430,
+      "clientWidth": 430,
+      "culprits": [
+        "table.w-full min-w-[34rem] border-collapse tex",
+        "caption.caption-bottom pt-4 text-left text-sm le",
+        "thead."
+      ],
+      "ok": true
+    },
+    {
+      "route": "/blog/how-to-buy-home-garland-tx",
+      "viewport": "mobile-430",
+      "scrollWidth": 430,
+      "clientWidth": 430,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/programs",
+      "viewport": "mobile-430",
+      "scrollWidth": 430,
+      "clientWidth": 430,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/areas/garland",
+      "viewport": "mobile-430",
+      "scrollWidth": 430,
+      "clientWidth": 430,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/calculators",
+      "viewport": "mobile-430",
+      "scrollWidth": 430,
+      "clientWidth": 430,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/consultation",
+      "viewport": "mobile-430",
+      "scrollWidth": 430,
+      "clientWidth": 430,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/about",
+      "viewport": "mobile-430",
+      "scrollWidth": 430,
+      "clientWidth": 430,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/contact",
+      "viewport": "mobile-430",
+      "scrollWidth": 430,
+      "clientWidth": 430,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/",
+      "viewport": "tablet-768",
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/blog",
+      "viewport": "tablet-768",
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/blog/naca-homebuying-dallas-fort-worth",
+      "viewport": "tablet-768",
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/blog/homes-for-heroes-north-texas",
+      "viewport": "tablet-768",
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/blog/how-to-buy-home-garland-tx",
+      "viewport": "tablet-768",
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/programs",
+      "viewport": "tablet-768",
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/areas/garland",
+      "viewport": "tablet-768",
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/calculators",
+      "viewport": "tablet-768",
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/consultation",
+      "viewport": "tablet-768",
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/about",
+      "viewport": "tablet-768",
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/contact",
+      "viewport": "tablet-768",
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/",
+      "viewport": "laptop-1024",
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/blog",
+      "viewport": "laptop-1024",
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/blog/naca-homebuying-dallas-fort-worth",
+      "viewport": "laptop-1024",
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/blog/homes-for-heroes-north-texas",
+      "viewport": "laptop-1024",
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/blog/how-to-buy-home-garland-tx",
+      "viewport": "laptop-1024",
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/programs",
+      "viewport": "laptop-1024",
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/areas/garland",
+      "viewport": "laptop-1024",
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/calculators",
+      "viewport": "laptop-1024",
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/consultation",
+      "viewport": "laptop-1024",
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/about",
+      "viewport": "laptop-1024",
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/contact",
+      "viewport": "laptop-1024",
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/",
+      "viewport": "desktop-1440",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/blog",
+      "viewport": "desktop-1440",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/blog/naca-homebuying-dallas-fort-worth",
+      "viewport": "desktop-1440",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/blog/homes-for-heroes-north-texas",
+      "viewport": "desktop-1440",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/blog/how-to-buy-home-garland-tx",
+      "viewport": "desktop-1440",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/programs",
+      "viewport": "desktop-1440",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/areas/garland",
+      "viewport": "desktop-1440",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/calculators",
+      "viewport": "desktop-1440",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/consultation",
+      "viewport": "desktop-1440",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/about",
+      "viewport": "desktop-1440",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/contact",
+      "viewport": "desktop-1440",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "culprits": [],
+      "ok": true
+    }
+  ]
+}

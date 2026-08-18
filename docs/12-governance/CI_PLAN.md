@@ -113,6 +113,23 @@ Artifacts must not contain secrets, full form payloads, chat transcripts, or sen
 
 A failed required check blocks merge. Re-running a job is appropriate only for a confirmed transient failure. Do not repeatedly rerun deterministic failures instead of fixing them.
 
+## Centralized ClientVerse audit connection
+
+Discovery, browser/accessibility/performance/security testing, findings normalization, repair policy enforcement, verification, and evidence reporting are owned by the centralized **ClientVerse Website Audit & Release Certification System**, not by this repository. This repository provides:
+
+- `qa-config/clientverse-audit.yaml` — project-specific audit configuration (critical routes, the three preserved article URLs, expected-404 route, journeys, viewports, and business/compliance review areas) consumed by the central engine.
+- `.github/workflows/clientverse-audit.yml` — an integration workflow that sends the commit SHA, deployment URL, and audit configuration path to the central engine, uploads the request/response as a `clientverse-audit-evidence` artifact, and enforces the returned release gate.
+
+Configure the `CLIENTVERSE_ENDPOINT` and `CLIENTVERSE_DEPLOYMENT_URL` repository variables and the `CLIENTVERSE_TOKEN` repository secret under **Settings → Secrets and variables → Actions** to activate the connection.
+
+**Until all three are configured the check reports `BLOCKED` and fails.** This is deliberate. An earlier draft of this workflow exited 0 with a notice when unconfigured, which reported a green check for an audit that had never executed. A release gate that cannot distinguish "passed" from "never ran" is not a gate. `UNKNOWN` and unparseable responses fail for the same reason.
+
+Do not reintroduce Playwright, Lighthouse, axe, Lychee, Semgrep, or other scanner logic in this repository — extend the central ClientVerse engine instead. The one exception is `scripts/qa/site-audit.mjs`, which is a local pre-flight harness for developers and is not a substitute for the central audit.
+
+## Local browser QA harness
+
+`pnpm qa:audit --base <url> [--screenshots]` drives a real Chromium browser over the running application and fails non-zero on any defect. It covers the route crawl, internal-link resolution, canonical tags, Article/Breadcrumb/FAQ structured data, heading hierarchy, alt text, landmarks, form labels, nested interactive controls, focus visibility, touch-target size, the real 404 for an unknown article slug, consultation-CTA navigation, console errors, and horizontal overflow at 375/430/768/1024/1440. Output lands in `qa-evidence/site-audit.json`.
+
 ## Initial implementation sequence
 
 1. scaffold application and lock package manager

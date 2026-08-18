@@ -6,7 +6,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/"],
+      // The Studio and the API surface are operational, not editorial.
+      disallow: ["/api/", "/studio", "/studio/"],
     },
     sitemap: `${SITE.url}/sitemap.xml`,
     host: SITE.url,

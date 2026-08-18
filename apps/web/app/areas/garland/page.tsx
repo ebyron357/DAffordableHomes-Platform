@@ -77,7 +77,7 @@ export default function GarlandAreaPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
       <section className="border-b border-border bg-card">
         <Container className="py-12 md:py-20">
-          <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground"><Link href="/" className="hover:underline">Home</Link> / <Link href="/areas" className="hover:underline">Area guides</Link> / <span aria-current="page">Garland</span></nav>
+          <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground"><Link href="/" className="inline-block py-1 hover:underline">Home</Link> / <Link href="/areas" className="inline-block py-1 hover:underline">Area guides</Link> / <span aria-current="page">Garland</span></nav>
           <p className="mt-8 text-xs font-semibold uppercase tracking-[0.12em] text-accent">Garland, Texas homebuyer guidance</p>
           <h1 className="mt-4 max-w-4xl font-serif text-[42px] font-normal leading-[1.08] sm:text-[56px]">Build a Garland home search around the life you can sustain</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A useful search starts with monthly cost, home condition, location priorities, program status, and the tradeoffs you are willing to make—not a promise that every property or program will fit.</p>
@@ -114,8 +114,8 @@ export default function GarlandAreaPage() {
         <Container>
           <h2 id="programs-heading" className="font-serif text-3xl font-normal sm:text-4xl">Connect the location to your homebuyer path</h2>
           <div className="mt-8 grid gap-6 md:grid-cols-2">
-            <article className="border border-border bg-card p-7"><h3 className="font-sans text-xl font-semibold">Using NACA?</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">Understand how Debra supports the search, offer, inspection, and closing process while NACA controls official program requirements.</p><Link href="/programs/naca" className="mt-5 inline-block font-semibold text-primary hover:underline">Explore NACA homebuyer help →</Link></article>
-            <article className="border border-border bg-card p-7"><h3 className="font-sans text-xl font-semibold">A community hero?</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">Build a buying, selling, or coordinated move plan without unsupported promises about eligibility, savings, rebates, or provider status.</p><Link href="/programs/homes-for-heroes" className="mt-5 inline-block font-semibold text-primary hover:underline">Explore Homes for Heroes guidance →</Link></article>
+            <article className="border border-border bg-card p-7"><h3 className="font-sans text-xl font-semibold">Using NACA?</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">Understand how Debra supports the search, offer, inspection, and closing process while NACA controls official program requirements.</p><Link href="/programs/naca" className="mt-5 inline-block py-1 font-semibold text-primary hover:underline">Explore NACA homebuyer help →</Link></article>
+            <article className="border border-border bg-card p-7"><h3 className="font-sans text-xl font-semibold">A community hero?</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">Build a buying, selling, or coordinated move plan without unsupported promises about eligibility, savings, rebates, or provider status.</p><Link href="/programs/homes-for-heroes" className="mt-5 inline-block py-1 font-semibold text-primary hover:underline">Explore Homes for Heroes guidance →</Link></article>
           </div>
         </Container>
       </section>

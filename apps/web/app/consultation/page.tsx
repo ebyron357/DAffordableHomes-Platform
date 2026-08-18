@@ -33,7 +33,7 @@ export default function ConsultationPage() {
       </section>
       <section className="py-12 md:py-16">
         <Container className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-12">
-          <div>
+          <div className="min-w-0">
             <div className="bg-primary p-7 text-primary-foreground sm:p-9">
               <h2 className="font-serif text-3xl font-normal">What to expect</h2>
               <ol className="mt-6">
@@ -62,13 +62,18 @@ export default function ConsultationPage() {
               <p className="mt-3 leading-7 text-muted-foreground">
                 Use the free calculators and field guides first. Come back when you have a question worth discussing.
               </p>
-              <div className="mt-5 flex gap-6 text-sm font-semibold text-primary">
-                <Link href="/calculators/mortgage-payment" className="hover:underline">Mortgage calculator →</Link>
-                <Link href="/calculators/affordability" className="hover:underline">Affordability calculator →</Link>
+              {/* Wraps at narrow widths; without this the pair sets a
+                  min-content width that widened the whole grid column. */}
+              <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-primary">
+                <Link href="/calculators/mortgage-payment" className="inline-block py-1 hover:underline">Mortgage calculator →</Link>
+                <Link href="/calculators/affordability" className="inline-block py-1 hover:underline">Affordability calculator →</Link>
               </div>
             </div>
           </div>
-          <div className="self-start border border-border bg-card p-6 sm:p-8">
+          {/* `min-w-0`: a grid item's default `min-width: auto` let the form's
+              min-content size widen the whole track past the container padding,
+              which pushed the page into horizontal scroll at 375px. */}
+          <div className="min-w-0 self-start border border-border bg-card p-6 sm:p-8">
             <h2 className="font-serif text-3xl font-normal">Request a consultation</h2>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">
               Complete the short form so Debra can understand what you would like to discuss. Do not include Social Security numbers, account numbers, or other sensitive financial information.

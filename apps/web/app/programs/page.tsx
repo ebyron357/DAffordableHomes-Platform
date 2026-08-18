@@ -48,7 +48,7 @@ export default function ProgramsPage() {
       <section className="border-b border-border bg-card" aria-labelledby="programs-title">
         <Container className="py-12 md:py-20">
           <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-primary hover:underline">Home</Link>
+            <Link href="/" className="inline-block py-1 hover:text-primary hover:underline">Home</Link>
             <span aria-hidden="true"> / </span>
             <span aria-current="page">Programs</span>
           </nav>
@@ -72,7 +72,7 @@ export default function ProgramsPage() {
               <h2 id="current-programs-heading" className="font-serif text-3xl font-normal sm:text-4xl">Choose your starting point</h2>
               <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Each program page explains Debra&apos;s role, the real-estate process, questions to prepare, and what must be verified with the official program.</p>
             </div>
-            <Link href="/areas/garland" className="text-sm font-semibold text-primary hover:underline">Explore Garland homebuyer guidance →</Link>
+            <Link href="/areas/garland" className="inline-block py-1 text-sm font-semibold text-primary hover:underline">Explore Garland homebuyer guidance →</Link>
           </div>
 
           <div className="mt-8 grid gap-6 lg:grid-cols-2">
