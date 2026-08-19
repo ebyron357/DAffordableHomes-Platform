@@ -113,3 +113,19 @@ These are external release gates, not reasons to weaken the repository controls 
 **Repository-side canonicalization: PASS.** The project has one production app, one consultation owner, one calculator owner, one NACA owner, one article route, explicit legacy redirects, canonical metadata, and a documented CMS fallback.
 
 **Client handoff / production launch: NO-GO until the external blockers are completed.** The correct next action is to configure and import Sanity, run the ClientVerse audit, verify the deployed SHA and domain, then repeat the live browser and performance checks against the actual public deployment.
+
+## Vercel deployment evidence
+
+The pushed reconciliation commit was received by the linked Vercel project and reached `READY`:
+
+| Field | Evidence |
+|---|---|
+| Project | `daffordablehomes-platform` (`prj_Frv8mBWD4VUITT18qP0yCK4TBKpV`) |
+| Deployment | `dpl_8UmZmxxiVCg7ABKRew6mncCTZwfT` |
+| Commit SHA | `92feaf278f4db1a09b15fa511457bdb827a98e25` |
+| Branch | `manus/daffordable-canonical-reconciliation` |
+| Deployment state | `READY` |
+| Preview alias | `https://daffordablehomes-platform-git-manus-daffordable-3a9d6b-tradeiq.vercel.app` |
+| GitHub author email observed by Vercel | `26610300+ebyron357@users.noreply.github.com` |
+
+The deployment URL remains protected by Vercel Authentication. Direct unauthenticated HTTP requests return a Vercel SSO redirect, and the temporary share URL also redirected to SSO in the available browser session. Therefore the deployment state and SHA are verified, but authenticated visual/browser inspection of the deployed application remains an external-access blocker. Local production-browser evidence is retained separately from the Vercel deployment metadata.
