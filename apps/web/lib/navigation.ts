@@ -8,6 +8,7 @@ export const PRIMARY_NAV: NavItem[] = [
   { label: "Buying", href: "/first-time-buyers", description: "Prepare with a clear plan" },
   { label: "Areas", href: "/areas", description: "Garland and DFW guidance" },
   { label: "Resources", href: "/resources", description: "Programs, tools, and articles" },
+  { label: "Blog", href: "/blog", description: "Field guides and articles" },
   { label: "About Debra", href: "/about", description: "Meet your REALTOR®" },
 ]
 
