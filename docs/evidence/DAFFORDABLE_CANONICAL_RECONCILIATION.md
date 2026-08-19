@@ -121,11 +121,11 @@ The pushed reconciliation commit was received by the linked Vercel project and r
 | Field | Evidence |
 |---|---|
 | Project | `daffordablehomes-platform` (`prj_Frv8mBWD4VUITT18qP0yCK4TBKpV`) |
-| Deployment | `dpl_8UmZmxxiVCg7ABKRew6mncCTZwfT` |
-| Commit SHA | `92feaf278f4db1a09b15fa511457bdb827a98e25` |
+| Deployment | `dpl_B6abjnERVMUyZpL85Vxos6WXdwdR` |
+| Commit SHA | `3f41939b264e95148d557f17da99e9bbb4fd3422` |
 | Branch | `manus/daffordable-canonical-reconciliation` |
 | Deployment state | `READY` |
-| Preview alias | `https://daffordablehomes-platform-git-manus-daffordable-3a9d6b-tradeiq.vercel.app` |
+| Preview alias | `https://daffordablehomes-platform-lde2y84or-tradeiq.vercel.app` (branch alias: `https://daffordablehomes-platform-git-manus-daffordable-3a9d6b-tradeiq.vercel.app`) |
 | GitHub author email observed by Vercel | `26610300+ebyron357@users.noreply.github.com` |
 
 The deployment URL remains protected by Vercel Authentication. Direct unauthenticated HTTP requests return a Vercel SSO redirect, and the temporary share URL also redirected to SSO in the available browser session. Therefore the deployment state and SHA are verified, but authenticated visual/browser inspection of the deployed application remains an external-access blocker. Local production-browser evidence is retained separately from the Vercel deployment metadata.
