@@ -1,0 +1,100 @@
+# ClientVerse Website Audit & Release Certification System
+#
+# This file is project-specific configuration only. It does not implement any
+# audit logic. All discovery, testing, findings normalization, repair policy
+# enforcement, verification, and evidence reporting are performed by the
+# centralized ClientVerse audit engine, which reads this file.
+#
+# Do not add scanner, Playwright, Lighthouse, axe, Lychee, or Semgrep logic here
+# or in this repository. See .github/workflows/clientverse-audit.yml for the
+# trigger that hands off to the central audit engine.
+
+project:
+  name: "D'Affordable Homes Platform"
+  repository: "ebyron357/DAffordableHomes-Platform"
+
+deployment:
+  provider: "Vercel"
+  # Intentionally left blank: the ClientVerse workflow resolves the actual
+  # deployment URL at runtime from the CLIENTVERSE_DEPLOYMENT_URL repository
+  # variable or the workflow_dispatch "deployment_url" input. The workflow
+  # reports BLOCKED rather than passing when neither is set.
+  url: ""
+  canonical_production_origin: "https://daffordablehomes.com"
+
+application:
+  framework: "Next.js"
+  type: "website"
+  # The canonical production application. recovered-manus/ is historical
+  # reference material and is not the release artefact.
+  path: "apps/web"
+  cms: "Sanity"
+
+audit:
+  critical_routes:
+    - "/"
+    - "/about"
+    - "/contact"
+    - "/consultation"
+    - "/programs"
+    - "/programs/naca"
+    - "/programs/homes-for-heroes"
+    - "/areas"
+    - "/areas/garland"
+    - "/neighborhoods"
+    - "/calculators"
+    - "/calculators/affordability"
+    - "/calculators/closing-costs"
+    - "/calculators/down-payment"
+    - "/calculators/mortgage-payment"
+    - "/calculators/rent-vs-buy"
+    - "/blog"
+    - "/blog/naca-homebuying-dallas-fort-worth"
+    - "/blog/homes-for-heroes-north-texas"
+    - "/blog/how-to-buy-home-garland-tx"
+    - "/faq"
+    - "/first-time-buyers"
+    - "/resources"
+    - "/start"
+    - "/privacy"
+    - "/terms"
+    - "/accessibility"
+    - "/fair-housing"
+    - "/equal-housing-opportunity"
+
+  discovery:
+    sitemap: "/sitemap.xml"
+    robots: "/robots.txt"
+
+  journeys:
+    - homepage_navigation
+    - consultation_flow
+    - mobile_navigation
+    - lead_capture
+    - blog_discovery
+    - article_reading
+    - calculator_usage
+
+  viewports:
+    - 375
+    - 430
+    - 768
+    - 1024
+    - 1440
+
+review_required:
+  - business_claims
+  - testimonials
+  - compliance_content
+  - integrations
+  - imagery_accuracy
+  - structured_data
+  - canonical_urls
+  - accessibility
+
+excluded_paths:
+  # Authenticated content tooling, intentionally noindex.
+  - "/studio"
+  - "/api/preview/enable"
+  - "/api/preview/disable"
+  - "/api/revalidate"

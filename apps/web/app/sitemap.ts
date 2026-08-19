@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next"
+import { getPublishedArticleSlugs } from "@/lib/blog/source"
 import { SITE } from "@/lib/site"
 
+/** Static routes. Article routes are generated from published CMS content. */
 const routes = [
   "",
   "/about",
@@ -8,9 +10,6 @@ const routes = [
   "/areas",
   "/areas/garland",
   "/blog",
-  "/blog/naca-homebuying-dallas-fort-worth",
-  "/blog/homes-for-heroes-north-texas",
-  "/blog/how-to-buy-home-garland-tx",
   "/calculators",
   "/calculators/affordability",
   "/calculators/closing-costs",
@@ -19,6 +18,7 @@ const routes = [
   "/calculators/rent-vs-buy",
   "/consultation",
   "/contact",
+  "/equal-housing-opportunity",
   "/events",
   "/fair-housing",
   "/faq",
@@ -36,9 +36,11 @@ const routes = [
   "/testimonials",
 ] as const
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date()
-  return routes.map((route) => ({
+  const articles = await getPublishedArticleSlugs()
+
+  const staticEntries: MetadataRoute.Sitemap = routes.map((route) => ({
     url: `${SITE.url}${route}`,
     lastModified,
     changeFrequency:
@@ -50,8 +52,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ? 1
         : route === "/blog" || route === "/programs" || route === "/areas/garland"
           ? 0.8
-          : route.startsWith("/blog/")
-            ? 0.7
-            : 0.6,
+          : 0.6,
   }))
+
+  const articleEntries: MetadataRoute.Sitemap = articles.map((article) => ({
+    url: `${SITE.url}/blog/${article.slug}`,
+    lastModified: new Date(`${article.reviewedAt}T12:00:00Z`),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }))
+
+  return [...staticEntries, ...articleEntries]
 }

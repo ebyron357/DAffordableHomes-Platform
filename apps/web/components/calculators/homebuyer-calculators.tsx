@@ -100,7 +100,7 @@ export function MortgageCalculator() {
             <ResultRow label="HOA" value={formatCurrency(result.hoa)} />
             <ResultRow label="Estimated loan amount" value={formatCurrency(result.loanAmount)} emphasized />
           </div>
-          <CalculatorActions secondaryHref="/resources/calculators/affordability" />
+          <CalculatorActions secondaryHref="/calculators/affordability" />
           <EstimateNotice />
         </div>
       }
@@ -183,7 +183,7 @@ export function AffordabilityCalculator() {
             <ResultRow label="Estimated loan amount" value={formatCurrency(result.estimatedLoanAmount)} />
             <ResultRow label="Estimated total debt-to-income" value={`${result.estimatedDebtToIncomeRatio.toFixed(1)}%`} emphasized />
           </div>
-          <CalculatorActions secondaryHref="/resources/calculators/down-payment" />
+          <CalculatorActions secondaryHref="/calculators/down-payment" />
           <EstimateNotice>
             Uses 28% housing and 36% total-debt planning limits. Lenders use their own underwriting rules, verified income, credit, reserves, program requirements, and property data.
           </EstimateNotice>
@@ -235,7 +235,7 @@ export function ClosingCostCalculator() {
             <ResultRow label="Estimated prepaids and escrow" value={formatCurrency(result.estimatedPrepaidsAndEscrow)} />
             <ResultRow label="Credits applied" value={`−${formatCurrency(result.credits)}`} emphasized />
           </div>
-          <CalculatorActions secondaryHref="/resources/calculators/mortgage-payment" />
+          <CalculatorActions secondaryHref="/calculators/mortgage-payment" />
           <EstimateNotice>
             This is not a Loan Estimate. Actual cash to close can include program-specific fees, inspections, deposits, title charges, tax adjustments, insurance, and other transaction costs.
           </EstimateNotice>
@@ -331,7 +331,7 @@ export function DownPaymentPlanner() {
           </table>
         </div>
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-          <CalculatorActions secondaryHref="/resources/calculators/closing-costs" />
+          <CalculatorActions secondaryHref="/calculators/closing-costs" />
         </div>
         <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
           Planning estimates only. A 20% down payment often removes conventional mortgage insurance, but program rules vary. Lower-down-payment programs may have different insurance structures and eligibility requirements.

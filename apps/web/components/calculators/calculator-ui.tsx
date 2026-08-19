@@ -154,7 +154,7 @@ export function CalculatorActions({ secondaryHref }: { secondaryHref?: string })
         <Button
           href={secondaryHref}
           variant="outline"
-          className="w-full border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 sm:w-auto"
+          className="w-full border-current text-current hover:bg-current/10 sm:w-auto"
         >
           Continue planning
         </Button>

@@ -32,7 +32,7 @@ export default function ConsultationPage() {
         </Container>
       </section>
       <section className="py-12 md:py-16">
-        <Container className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-12">
+        <Container className="grid gap-10 [&>*]:min-w-0 lg:grid-cols-[0.82fr_1.18fr] lg:gap-12">
           <div>
             <div className="bg-primary p-7 text-primary-foreground sm:p-9">
               <h2 className="font-serif text-3xl font-normal">What to expect</h2>

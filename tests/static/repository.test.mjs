@@ -41,7 +41,8 @@ test('workspace installs are isolated and reproducible', () => {
   assert.match(workflow, /pnpm install --frozen-lockfile/);
 });
 
-test('approved photography and ClientVerse attribution remain wired to public pages', () => {
+// ClientVerse attribution and audit coverage lives in tests/static/clientverse.test.mjs.
+test('approved photography and required legal notices remain wired to public pages', () => {
   const hero = readFileSync('apps/web/components/home/hero.tsx', 'utf8');
   const aboutHome = readFileSync('apps/web/components/home/about-debra.tsx', 'utf8');
   const aboutPage = readFileSync('apps/web/app/about/page.tsx', 'utf8');
@@ -151,7 +152,22 @@ test('security headers include CSP and anti-sniffing controls', () => {
   assert.match(config, /Content-Security-Policy/);
   assert.match(config, /X-Content-Type-Options/);
   assert.match(config, /Permissions-Policy/);
-  assert.doesNotMatch(config, /unsafe-eval/);
+
+  // The public site policy must stay strict. The embedded Sanity Studio is a
+  // separate, noindexed route with its own scoped policy.
+  const siteCsp = config.slice(config.indexOf('const siteCsp'), config.indexOf('const studioCsp'));
+  assert.ok(siteCsp.length > 0, 'the public site CSP must be defined separately from the Studio CSP');
+  assert.doesNotMatch(siteCsp, /unsafe-eval/);
+  assert.match(config, /source: '\/studio\/:path\*'/);
+});
+
+test('the canonical production origin is the apex domain and www redirects to it', () => {
+  const site = readFileSync('apps/web/lib/site.ts', 'utf8');
+  const config = readFileSync('apps/web/next.config.mjs', 'utf8');
+
+  assert.match(site, /url: "https:\/\/daffordablehomes\.com"/);
+  assert.match(config, /value: 'www\.daffordablehomes\.com'/);
+  assert.match(config, /destination: 'https:\/\/daffordablehomes\.com\/:path\*'/);
 });
 
 test('Shopify integration fails closed without placeholder products', () => {
