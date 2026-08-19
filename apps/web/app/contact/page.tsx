@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Contact Debra",
   description:
     "Reach out to Debra Allen, REALTOR®. Ask a question, share where you are in the process, or just say hello — no pressure.",
+  alternates: { canonical: "/contact" },
 }
 
 export default function ContactPage() {

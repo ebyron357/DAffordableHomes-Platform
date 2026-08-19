@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Accessibility Statement",
   description:
     "D'Affordable Homes is committed to WCAG 2.2 AA accessibility so everyone can use our education and planning tools.",
+  alternates: { canonical: "/accessibility" },
 }
 
 export default function AccessibilityPage() {

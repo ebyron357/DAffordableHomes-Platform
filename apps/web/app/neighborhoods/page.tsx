@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Neighborhood Guides",
   description:
     "Honest neighborhood guides to help you understand communities, not just listings. Published as guides are researched and verified.",
+  alternates: { canonical: "/neighborhoods" },
 }
 
 export default function NeighborhoodsPage() {
