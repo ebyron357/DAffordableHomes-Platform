@@ -544,6 +544,7 @@
 .fh-city-card {
   display: flex;
   flex-direction: column;
+  gap: 16px;
   overflow: hidden;
   border: 1px solid var(--fh-border);
   border-radius: 12px;
@@ -551,13 +552,15 @@
 }
 .fh-city-well {
   display: flex;
+  flex: 0 0 180px;
   align-items: center;
   justify-content: center;
   height: 180px;
+  min-height: 180px;
   padding: 24px;
   background: var(--fh-well);
 }
-.fh-city-copy { display: flex; flex-direction: column; gap: 4px; padding: 16px 20px 20px; }
+.fh-city-copy { display: flex; flex-direction: column; gap: 4px; padding: 0 20px 20px; }
 .fh-city-card h3 { margin: 0; font-size: 20px; }
 .fh-city-card a { color: var(--fh-body); font-size: 14px; font-weight: 500; text-decoration: none; }
 .fh-city-card a:hover { text-decoration: underline; text-underline-offset: 3px; }
@@ -636,6 +639,7 @@
 .fh-split-card li svg { flex: 0 0 auto; margin-top: 2px; color: var(--fh-teal); }
 .fh-split-card .fh-btn { margin-top: 12px; }
 
+.fh-knowledge { background: var(--fh-page); }
 .fh-knowledge-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; align-items: start; }
 .fh-knowledge-card {
   height: auto;
