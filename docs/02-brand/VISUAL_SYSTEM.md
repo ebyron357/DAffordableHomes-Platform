@@ -70,9 +70,13 @@ The production homepage (`11:4`) uses the Figma screen tokens rather than invent
 - Navy `#0b1f33`
 - Body `#203042`
 - Teal `#077783`
+- Gold `#d6a743`
+- Buyer card `#f1faf9`
+- Seller card `#ecf9f8`
 - Borders `#eae6df`
 - Image wells `#efece6`
 - Icon wells `#ecf9f8`
+- Desktop frame lock: `1440 × 6183`, content width `1256`, side margins `92`
 
 Interior routes still use the approved logo-derived system above until a full-site rollout is approved.
 

@@ -1,4 +1,3 @@
-import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Check, House } from "lucide-react"
 import {
@@ -37,15 +36,17 @@ export function FigmaHomePage({ listings }: { listings: PropertySearchResult }) 
 function Hero() {
   return (
     <section className="fh-hero" aria-labelledby="figma-hero-heading">
-      <div className="fh-shell fh-hero-grid">
+      <div className="fh-hero-grid">
         <div className="fh-hero-copy">
-          <p className="fh-eyebrow">Dallas–Fort Worth Real Estate</p>
-          <h1 id="figma-hero-heading">Professional representation. Trusted guidance for your next move.</h1>
-          <p className="fh-lede">
-            Navigating the competitive DFW market doesn&apos;t have to be overwhelming. We pair premier local
-            real-estate expertise with accessible, approachable guidance so you can buy or sell with absolute
-            confidence.
-          </p>
+          <div className="fh-hero-text">
+            <p className="fh-eyebrow">Dallas–Fort Worth Real Estate</p>
+            <h1 id="figma-hero-heading">Professional representation. Trusted guidance for your next move.</h1>
+            <p className="fh-lede">
+              Navigating the competitive DFW market doesn&apos;t have to be overwhelming. We pair premier local
+              real-estate expertise with accessible, approachable guidance so you can buy or sell with absolute
+              confidence.
+            </p>
+          </div>
           <div className="fh-hero-actions">
             <Link href={FIGMA_HOME_CTA.searchHomes.href} className="fh-btn fh-btn-navy">
               {FIGMA_HOME_CTA.searchHomes.label}
@@ -58,15 +59,12 @@ function Hero() {
             </Link>
           </div>
         </div>
-        <div className="fh-hero-media">
-          <Image
-            src="/images/black-family-home-pexels-7114188.webp"
-            alt="A Black family of five holding hands together in a bright living room"
-            fill
-            priority
-            sizes="(min-width: 1024px) 548px, 100vw"
-            className="object-cover"
-          />
+        <div className="fh-hero-right">
+          <div className="fh-hero-media">
+            <p className="fh-placeholder">
+              [Premium Dallas–Fort Worth Real Estate Architectural Photography Placeholder]
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -75,7 +73,7 @@ function Hero() {
 
 function Services() {
   return (
-    <section className="fh-section fh-section-white" aria-labelledby="figma-services-heading">
+    <section className="fh-section fh-section-white fh-services" aria-labelledby="figma-services-heading">
       <div className="fh-shell">
         <div className="fh-section-intro">
           <p className="fh-eyebrow">Our capabilities</p>
@@ -104,29 +102,28 @@ function Services() {
 
 function MeetDebra() {
   return (
-    <section className="fh-section fh-meet" aria-labelledby="figma-debra-heading">
+    <section className="fh-meet" aria-labelledby="figma-debra-heading">
       <div className="fh-shell fh-meet-grid">
         <div className="fh-meet-portrait">
-          <Image
-            src="/images/debra-allen-primary-about.webp"
-            alt="Debra Allen smiling in a yellow blazer at a kitchen counter"
-            fill
-            sizes="(min-width: 1024px) 440px, 100vw"
-            className="object-cover object-[48%_center]"
-          />
+          <p className="fh-placeholder">
+            [Debra Allen Portrait Placeholder — Warm, professional real-estate advisor portrait]
+          </p>
         </div>
         <div className="fh-meet-copy">
-          <p className="fh-eyebrow">Your REALTOR® &amp; local guide</p>
-          <h2 id="figma-debra-heading">Guidance first, pressure never. Meet Debra Allen.</h2>
-          <p>
-            As a REALTOR® serving Garland and the Dallas–Fort Worth metroplex, Debra Allen helps buyers and sellers
-            slow the process down. Built on professional advocacy, clear education, and community commitment, she
-            guides people through complex transactions without high-pressure sales tactics.
-          </p>
-          <p>
-            Whether you are looking to purchase your first home, transition your equity, or navigate a custom build,
-            Debra delivers strategic support that honors your unique timeline.
-          </p>
+          <div className="fh-meet-text">
+            <p className="fh-eyebrow">Your REALTOR® &amp; local guide</p>
+            <h2 id="figma-debra-heading">Guidance first, pressure never. Meet Debra Allen.</h2>
+            <p>
+              As an established REALTOR® serving the Dallas–Fort Worth metroplex, Debra Allen has spent her career
+              redefining what a real-estate relationship looks like. Built on a foundation of professional advocacy,
+              clear education, and lifelong community commitment, she guides buyers and sellers through complex
+              transactions without high-pressure sales tactics.
+            </p>
+            <p>
+              Whether you are looking to purchase your first home, transition your equity, or navigate the custom build
+              process, Debra delivers strategic support that honors your unique timeline.
+            </p>
+          </div>
           <div className="fh-meet-actions">
             <Link href={FIGMA_HOME_CTA.aboutDebra.href} className="fh-btn fh-btn-navy">
               {FIGMA_HOME_CTA.aboutDebra.label}
@@ -143,7 +140,7 @@ function MeetDebra() {
 
 function Markets() {
   return (
-    <section className="fh-section fh-section-white" aria-labelledby="figma-markets-heading">
+    <section className="fh-section fh-section-white fh-markets" aria-labelledby="figma-markets-heading">
       <div className="fh-shell">
         <div className="fh-section-intro">
           <p className="fh-eyebrow">Locations we serve</p>
@@ -153,11 +150,13 @@ function Markets() {
           {FIGMA_CITIES.map((city) => (
             <li key={city.name}>
               <article className="fh-city-card">
-                <div className="fh-city-well" aria-hidden="true" />
-                <h3>{city.name}</h3>
-                <Link href={city.href}>
-                  {city.name === "Garland" ? "Read the Garland area guide →" : "Explore North Texas area guides →"}
-                </Link>
+                <div className="fh-city-well">
+                  <p className="fh-placeholder">{city.well}</p>
+                </div>
+                <div className="fh-city-copy">
+                  <h3>{city.name}</h3>
+                  <Link href={city.href}>Explore active MLS listings →</Link>
+                </div>
               </article>
             </li>
           ))}
@@ -167,11 +166,35 @@ function Markets() {
   )
 }
 
+function ListingPlaceholderCard() {
+  return (
+    <article className="fh-listing-card">
+      <div className="fh-listing-photo">
+        <p className="fh-placeholder">
+          [Featured Property Photography Area — Active MLS Feed Integration Point]
+        </p>
+      </div>
+      <div className="fh-listing-body">
+        <div className="fh-listing-copy">
+          <p className="fh-listing-price">[Price Placeholder]</p>
+          <p className="fh-listing-address">[Property Address Placeholder]</p>
+          <p className="fh-listing-meta">[City, TX] · Dallas–Fort Worth MLS</p>
+        </div>
+        <p className="fh-listing-stats">
+          <span>[X] Beds</span>
+          <span>[Y] Baths</span>
+          <span>[Sq Ft] Sq Ft</span>
+        </p>
+      </div>
+    </article>
+  )
+}
+
 function FeaturedListings({ listings }: { listings: PropertySearchResult }) {
   const connected = listings.status === "connected" ? listings.listings.slice(0, 3) : []
 
   return (
-    <section className="fh-section" aria-labelledby="figma-listings-heading">
+    <section className="fh-section fh-listings" aria-labelledby="figma-listings-heading">
       <div className="fh-shell">
         <div className="fh-listings-head">
           <div>
@@ -190,11 +213,11 @@ function FeaturedListings({ listings }: { listings: PropertySearchResult }) {
                 <article className="fh-listing-card">
                   <div className="fh-listing-photo" aria-hidden="true" />
                   <div className="fh-listing-body">
-                    <p className="fh-listing-price">{formatPrice(listing.price)}</p>
-                    <p className="fh-listing-address">{listing.address}</p>
-                    <p className="fh-listing-meta">
-                      {listing.city} · Dallas–Fort Worth MLS
-                    </p>
+                    <div className="fh-listing-copy">
+                      <p className="fh-listing-price">{formatPrice(listing.price)}</p>
+                      <p className="fh-listing-address">{listing.address}</p>
+                      <p className="fh-listing-meta">{listing.city} · Dallas–Fort Worth MLS</p>
+                    </div>
                     <p className="fh-listing-stats">
                       <span>{listing.beds} Beds</span>
                       <span>{listing.baths} Baths</span>
@@ -207,42 +230,16 @@ function FeaturedListings({ listings }: { listings: PropertySearchResult }) {
           </ul>
         ) : (
           <div className="fh-listing-empty">
-            <div className="fh-listing-grid fh-listing-grid-empty" aria-hidden="true">
-              <div className="fh-listing-card">
-                <div className="fh-listing-photo" />
-                <div className="fh-listing-body">
-                  <p className="fh-listing-slot">Listing slot</p>
-                  <p className="fh-listing-meta">Waiting for an approved MLS/IDX feed</p>
-                </div>
-              </div>
-              <div className="fh-listing-card">
-                <div className="fh-listing-photo" />
-                <div className="fh-listing-body">
-                  <p className="fh-listing-slot">Listing slot</p>
-                  <p className="fh-listing-meta">No invented prices or addresses</p>
-                </div>
-              </div>
-              <div className="fh-listing-card">
-                <div className="fh-listing-photo" />
-                <div className="fh-listing-body">
-                  <p className="fh-listing-slot">Listing slot</p>
-                  <p className="fh-listing-meta">Real homes appear here when connected</p>
-                </div>
-              </div>
-            </div>
-            <div className="fh-listing-notice" role="status">
-              <h3>
-                {listings.status === "error"
-                  ? "Search is temporarily unavailable"
-                  : "Live listings aren’t connected yet"}
-              </h3>
-              <p>
-                {listings.status === "connected"
-                  ? "The feed is connected, but no listings are available to display right now."
-                  : listings.reason}
-              </p>
-              <Link href="/homes">See the homes search status</Link>
-            </div>
+            <p className="sr-only" role="status">
+              {listings.status === "error"
+                ? "Search is temporarily unavailable"
+                : "Live listings aren’t connected yet"}
+            </p>
+            <ul className="fh-listing-grid">
+              <li><ListingPlaceholderCard /></li>
+              <li><ListingPlaceholderCard /></li>
+              <li><ListingPlaceholderCard /></li>
+            </ul>
           </div>
         )}
       </div>
@@ -252,9 +249,9 @@ function FeaturedListings({ listings }: { listings: PropertySearchResult }) {
 
 function GuidanceSplit() {
   return (
-    <section className="fh-section fh-section-white" aria-labelledby="figma-guidance-heading">
+    <section className="fh-section fh-section-white fh-guidance" aria-labelledby="figma-guidance-heading">
       <div className="fh-shell fh-split">
-        <article className="fh-split-card">
+        <article className="fh-split-card fh-split-buyer">
           <p className="fh-eyebrow">Buyer strategy</p>
           <h2 id="figma-guidance-heading">Buying with absolute clarity</h2>
           <ul>
@@ -265,11 +262,11 @@ function GuidanceSplit() {
               </li>
             ))}
           </ul>
-          <Link href={FIGMA_HOME_CTA.buyerResources.href} className="fh-btn fh-btn-navy">
+          <Link href={FIGMA_HOME_CTA.buyerResources.href} className="fh-btn fh-btn-teal">
             {FIGMA_HOME_CTA.buyerResources.label}
           </Link>
         </article>
-        <article className="fh-split-card">
+        <article className="fh-split-card fh-split-seller">
           <p className="fh-eyebrow">Seller pathway</p>
           <h2>Maximize value, minimize stress</h2>
           <ul>
@@ -280,7 +277,7 @@ function GuidanceSplit() {
               </li>
             ))}
           </ul>
-          <Link href={FIGMA_HOME_CTA.homeValuation.href} className="fh-btn fh-btn-navy">
+          <Link href={FIGMA_HOME_CTA.homeValuation.href} className="fh-btn fh-btn-navy-outline">
             {FIGMA_HOME_CTA.homeValuation.label}
           </Link>
         </article>
@@ -291,7 +288,7 @@ function GuidanceSplit() {
 
 function KnowledgeBase() {
   return (
-    <section className="fh-section" aria-labelledby="figma-knowledge-heading">
+    <section className="fh-section fh-knowledge" aria-labelledby="figma-knowledge-heading">
       <div className="fh-shell">
         <div className="fh-section-intro">
           <p className="fh-eyebrow">Knowledge base</p>
@@ -303,19 +300,13 @@ function KnowledgeBase() {
               <article className="fh-knowledge-card">
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
-                <Link href={item.href} className="fh-text-link">
+                <Link href={item.href} className="fh-text-link fh-access-link">
                   Access Guide <ArrowRight className="size-3" aria-hidden="true" />
                 </Link>
               </article>
             </li>
           ))}
         </ul>
-        <p className="fh-knowledge-more">
-          Homebuyer programs continue on the site:{" "}
-          <Link href="/programs/naca">NACA homebuyer help</Link>
-          {" · "}
-          <Link href="/programs/homes-for-heroes">Homes for Heroes guidance</Link>
-        </p>
       </div>
     </section>
   )
@@ -324,18 +315,18 @@ function KnowledgeBase() {
 function FinalCta() {
   return (
     <section className="fh-final" aria-labelledby="figma-final-heading">
-      <div className="fh-shell fh-final-inner">
+      <div className="fh-final-inner">
         <p className="fh-eyebrow fh-eyebrow-on-dark">Ready to take the next step?</p>
         <h2 id="figma-final-heading">Let’s build a clear, pressure-free path to homeownership</h2>
         <p>
-          Debra Allen is ready to deliver professional representation in the DFW metroplex. Start planning your
-          transaction when you are ready—no invented urgency, and no fabricated promises.
+          Our dedicated team is ready to deliver the high-level professional representation you deserve in the DFW
+          metroplex. Contact Debra Allen to start planning your transaction.
         </p>
         <div className="fh-final-actions">
           <Link href={FIGMA_HOME_CTA.searchHomes.href} className="fh-btn fh-btn-light">
             {FIGMA_HOME_CTA.searchHomes.label}
           </Link>
-          <Link href={FIGMA_HOME_CTA.startBuying.href} className="fh-btn fh-btn-light-outline">
+          <Link href={FIGMA_HOME_CTA.startBuying.href} className="fh-btn fh-btn-gold-outline">
             {FIGMA_HOME_CTA.startBuying.label}
           </Link>
           <Link href={FIGMA_HOME_CTA.sellMyHome.href} className="fh-btn fh-btn-light-outline">

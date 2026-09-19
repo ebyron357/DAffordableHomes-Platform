@@ -52,14 +52,14 @@ export const FIGMA_SERVICES = [
 ] as const
 
 export const FIGMA_CITIES = [
-  { name: "Dallas", href: "/areas" },
-  { name: "Fort Worth", href: "/areas" },
-  { name: "Arlington", href: "/areas" },
-  { name: "Plano", href: "/areas" },
-  { name: "Frisco", href: "/areas" },
-  { name: "McKinney", href: "/areas" },
-  { name: "Irving", href: "/areas" },
-  { name: "Garland", href: "/areas/garland" },
+  { name: "Dallas", href: "/homes", well: "[Dallas Neighborhood Image Placeholder]" },
+  { name: "Fort Worth", href: "/homes", well: "[Fort Worth Neighborhood Image Placeholder]" },
+  { name: "Arlington", href: "/homes", well: "[Arlington Neighborhood Image Placeholder]" },
+  { name: "Plano", href: "/homes", well: "[Plano Neighborhood Image Placeholder]" },
+  { name: "Frisco", href: "/homes", well: "[Frisco Neighborhood Image Placeholder]" },
+  { name: "McKinney", href: "/homes", well: "[McKinney Neighborhood Image Placeholder]" },
+  { name: "Irving", href: "/homes", well: "[Irving Neighborhood Image Placeholder]" },
+  { name: "Garland", href: "/areas/garland", well: "[Garland Neighborhood Image Placeholder]" },
 ] as const
 
 export const FIGMA_BUYER_POINTS = [

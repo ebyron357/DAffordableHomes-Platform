@@ -64,6 +64,7 @@ test('program pages avoid unsupported outcome and affiliation claims', () => {
 test('navigation, homepage, redirect, sitemap, and robots integrate the new routes', () => {
   const navigation = readFileSync('apps/web/lib/navigation.ts', 'utf8');
   const homepage = readFileSync('apps/web/components/home/figma-home-page.tsx', 'utf8');
+  const figmaMap = readFileSync('apps/web/lib/figma-home.ts', 'utf8');
   const legacyNaca = readFileSync('apps/web/app/naca/page.tsx', 'utf8');
   const sitemap = readFileSync('apps/web/app/sitemap.ts', 'utf8');
   const robots = readFileSync('apps/web/app/robots.ts', 'utf8');
@@ -75,9 +76,10 @@ test('navigation, homepage, redirect, sitemap, and robots integrate the new rout
   assert.match(navigation, /label: "About Debra", href: "\/about"/);
   assert.match(navigation, /export const LEARN_LINKS: NavItem\[\] = \[/);
   assert.match(navigation, /label: "Homebuyer Programs", href: "\/programs"/);
-  assert.match(homepage, /Homebuyer programs/);
-  assert.match(homepage, /\/programs\/naca/);
-  assert.match(homepage, /\/programs\/homes-for-heroes/);
+  assert.match(figmaMap, /NACA Information/);
+  assert.match(figmaMap, /\/programs\/naca/);
+  assert.match(homepage, /FIGMA_KNOWLEDGE/);
+  assert.match(navigation, /\/programs\/homes-for-heroes/);
   assert.match(legacyNaca, /permanentRedirect\("\/programs\/naca"\)/);
   assert.match(sitemap, /\/areas\/garland/);
   assert.match(sitemap, /\/programs\/homes-for-heroes/);
