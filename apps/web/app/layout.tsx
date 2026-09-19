@@ -1,8 +1,23 @@
 import type { Metadata, Viewport } from "next"
+import { Inter, Source_Serif_4 } from "next/font/google"
+import { HideOnHome } from "@/components/layout/hide-on-home"
 import { SiteHeader } from "@/components/layout/site-header"
 import { SiteFooter } from "@/components/layout/site-footer"
 import { SITE } from "@/lib/site"
 import "./globals.css"
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+})
+
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  variable: "--font-source-serif",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -82,7 +97,7 @@ const entityGraph = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="bg-background">
+    <html lang="en" className={`${inter.variable} ${sourceSerif.variable} bg-background`}>
       <body className="flex min-h-dvh flex-col antialiased">
         <script
           type="application/ld+json"
@@ -94,11 +109,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to main content
         </a>
-        <SiteHeader />
+        <HideOnHome>
+          <SiteHeader />
+        </HideOnHome>
         <main id="main-content" className="flex-1">
           {children}
         </main>
-        <SiteFooter />
+        <HideOnHome>
+          <SiteFooter />
+        </HideOnHome>
       </body>
     </html>
   )

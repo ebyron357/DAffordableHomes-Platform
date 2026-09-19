@@ -2,6 +2,14 @@
 
 All notable repository changes are documented here.
 
+## 2026-09-19
+
+- Implemented Figma homepage frame `11:4` (`daffordable-homes-home-page`) from file `x8TpOO9gK5tsbcjkEsK18A` as the production homepage.
+- Matched the Figma homepage tokens (page `#faf7f2`, navy `#0b1f33`, body `#203042`, teal `#077783`, borders `#eae6df`) without changing unrelated interior pages.
+- Mapped every homepage CTA to an existing route and kept featured listings as an honest MLS-unavailable state.
+- Removed Studio Clarity, fabricated contact facts, fake listing placeholders, and the outdated 2024 copyright from the homepage chrome.
+- Loaded Inter and Source Serif 4 through `next/font` so the homepage typography can match the Figma file.
+
 ## 2026-07-18
 
 - Added a shared calculation engine for mortgage payment, affordability, cash-to-close, and down-payment scenario planning.

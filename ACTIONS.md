@@ -2,6 +2,16 @@
 
 This log is retained as project history. Completed items are not deleted.
 
+## ACT-012 — Implement Figma homepage frame 11:4
+
+- **Priority:** P0 — Public homepage implementation
+- **Problem:** The production homepage did not match the verified Figma frame `daffordable-homes-home-page`.
+- **Plan:** Implement the full Figma homepage structure with approved assets, honest listing/contact empty states, and existing route mappings. Do not change unrelated interior pages.
+- **Files Changed:** `apps/web/app/page.tsx`, `apps/web/app/layout.tsx`, `apps/web/app/globals.css`, `apps/web/components/home/figma-home-*.tsx`, `apps/web/lib/figma-home.ts`, tests, visual-system and roadmap records.
+- **Validation:** Lint, typecheck, tests, production build, and visual comparison against Figma node `11:4`.
+- **Status:** Complete locally; MLS/IDX listing cards remain empty until an approved feed is connected.
+
+
 ## ACT-001 — Production governance artifacts
 
 - **Priority:** P0 — Production blocker

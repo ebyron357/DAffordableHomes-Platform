@@ -1,5 +1,13 @@
 # Architecture Decision Log
 
+## 2026-09-19 — Use Figma frame 11:4 as the production homepage
+
+- **Decision:** Implement `daffordable-homes-home-page` from Figma file `x8TpOO9gK5tsbcjkEsK18A` as the live homepage, while leaving interior page chrome unchanged.
+- **Reason:** The verified Figma file is the current visual source of truth for the public first impression. The previous file key `lHNOSrbAi46SccUZBrYpIF` is stale.
+- **Alternatives Considered:** Keep the education-first editorial homepage; apply the Figma chrome site-wide immediately.
+- **Trade-offs:** The homepage now leads with search and service pathways. Education remains available through mapped routes. Featured listings stay empty until an approved IDX feed exists. Contact facts stay unpublished until verified.
+- **Affected Components:** `apps/web/app/page.tsx`, homepage-only header/footer, `apps/web/app/globals.css`, `docs/02-brand/VISUAL_SYSTEM.md`.
+
 ## 2026-07-13 — Add durable production-readiness governance artifacts
 
 - **Decision:** Maintain `ACTIONS.md`, `TECH_DEBT.md`, `DECISIONS.md`, `RISKS.md`, `CHANGELOG.md`, and release/deployment/rollback/monitoring checklists in the repository.

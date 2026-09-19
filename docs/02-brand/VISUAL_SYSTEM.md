@@ -1,6 +1,6 @@
 # D’Affordable Homes controlled production visual system
 
-Canonical editable source: [D’Affordable Homes — Controlled Production Redesign](https://www.figma.com/design/lHNOSrbAi46SccUZBrYpIF).
+Canonical editable source: [D’Affordable Homes — Final 3 Screens](https://www.figma.com/design/x8TpOO9gK5tsbcjkEsK18A/D%E2%80%99Affordable-Homes-%E2%80%94-Final-3-Screens?node-id=11-4). Production homepage frame: `daffordable-homes-home-page` (`11:4`).
 
 ## Positioning
 
@@ -62,6 +62,20 @@ Primary buttons use deep navy with white text. Secondary emphasis may use dark t
 
 The homepage hero uses licensed Pexels photo 7114188 by Monstera Production / Gabby K. Debra’s approved yellow-blazer portrait anchors the homepage trust section; the approved desk portrait supports consultation. No AI imagery or appearance alteration is permitted. See `docs/05-content/IMAGE_ASSET_REGISTER.md` for canonical provenance, licensing, crops, alt text, and repository paths.
 
+## Homepage frame tokens
+
+The production homepage (`11:4`) uses the Figma screen tokens rather than inventing a second palette:
+
+- Page background `#faf7f2`
+- Navy `#0b1f33`
+- Body `#203042`
+- Teal `#077783`
+- Borders `#eae6df`
+- Image wells `#efece6`
+- Icon wells `#ecf9f8`
+
+Interior routes still use the approved logo-derived system above until a full-site rollout is approved.
+
 ## Controlled rollout
 
-This system currently governs the homepage, desktop/mobile navigation, footer, calculator hub, affordability calculator, and consultation page. Full-site rollout remains a separate approved implementation phase.
+The Figma homepage frame now governs the public homepage header, sections, and footer. Other routes retain the previous site chrome. Full-site rollout remains a separate approved implementation phase.

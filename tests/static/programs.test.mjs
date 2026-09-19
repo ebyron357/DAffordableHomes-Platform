@@ -63,7 +63,7 @@ test('program pages avoid unsupported outcome and affiliation claims', () => {
 
 test('navigation, homepage, redirect, sitemap, and robots integrate the new routes', () => {
   const navigation = readFileSync('apps/web/lib/navigation.ts', 'utf8');
-  const homepage = readFileSync('apps/web/components/home/controlled-home-sections.tsx', 'utf8');
+  const homepage = readFileSync('apps/web/components/home/figma-home-page.tsx', 'utf8');
   const legacyNaca = readFileSync('apps/web/app/naca/page.tsx', 'utf8');
   const sitemap = readFileSync('apps/web/app/sitemap.ts', 'utf8');
   const robots = readFileSync('apps/web/app/robots.ts', 'utf8');
