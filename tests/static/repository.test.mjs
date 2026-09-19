@@ -50,9 +50,15 @@ test('approved photography and ClientVerse attribution remain wired to public pa
   const header = readFileSync('apps/web/components/layout/site-header.tsx', 'utf8');
   const footer = readFileSync('apps/web/components/layout/site-footer.tsx', 'utf8');
 
+  const figmaHome = readFileSync('apps/web/components/home/figma-home-page.tsx', 'utf8');
+
   assert.match(hero, /hero-family_b1fab939\.jpg/);
   assert.match(header, /dah-logo_ff042b7b\.png/);
   assert.match(aboutHome, /debra-allen-primary-about\.webp/);
+  assert.match(figmaHome, /\[Debra Allen Portrait Placeholder/);
+  assert.match(figmaHome, /\[Premium Dallas–Fort Worth Real Estate Architectural Photography Placeholder\]/);
+  assert.doesNotMatch(figmaHome, /debra-allen-primary-about\.webp/);
+  assert.doesNotMatch(figmaHome, /black-family-home-pexels-7114188\.webp/);
   assert.match(aboutPage, /debra-allen-advisor-desk\.webp/);
   assert.match(aboutPage, /debra-allen-lifestyle-full-body\.webp/);
   assert.match(consultation, /couple-consultation_25d3a592\.jpg/);

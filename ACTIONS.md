@@ -2,6 +2,16 @@
 
 This log is retained as project history. Completed items are not deleted.
 
+## ACT-012 — Implement Figma homepage frame 11:4
+
+- **Priority:** P0 — Public homepage implementation
+- **Problem:** The production homepage did not match the verified Figma frame `daffordable-homes-home-page`.
+- **Plan:** Re-read Figma node `11:4` via official MCP (`get_metadata`, `get_design_context`, `get_screenshot`) and lock the homepage to that geometry. Preserve Figma placeholder wells. Do not change unrelated interior pages. Preview-only redeploy.
+- **Files Changed:** `apps/web/app/globals.css`, `apps/web/components/home/figma-home-page.tsx`, `apps/web/components/home/figma-home-footer.tsx`, `apps/web/lib/figma-home.ts`, tests, visual-system and changelog records.
+- **Validation:** Lint, typecheck, static homepage tests, production build, and a second visual comparison against the Figma 11:4 screenshot.
+- **Status:** Visual reconciliation in preview; not approved for production. MLS/IDX cards remain Figma placeholders until an approved feed is connected.
+
+
 ## ACT-001 — Production governance artifacts
 
 - **Priority:** P0 — Production blocker

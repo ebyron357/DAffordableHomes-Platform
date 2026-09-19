@@ -55,7 +55,7 @@
 
 ### Core routes
 
-- [ ] Home
+- [x] Home
 - [ ] About Debra
 - [ ] First-Time Buyers
 - [ ] NACA education

@@ -2,6 +2,16 @@
 
 All notable repository changes are documented here.
 
+## 2026-09-19
+
+- Reconciled the homepage to Figma node `11:4` geometry: 1440 desktop lock, placeholder image wells, 296×337 service cards, 440×520 Meet Debra well, 296×264 market cards, teal listing prices, buyer/seller card colors, 5-column knowledge cards, Follow Us footer.
+- Kept Figma placeholder composition instead of substituting unapproved production photographs that change the layout.
+- Omitted Figma’s “Studio Clarity” contact line because it is a vendor name, not a published client contact path.
+- Implemented Figma homepage frame `11:4` (`daffordable-homes-home-page`) from file `x8TpOO9gK5tsbcjkEsK18A` as the homepage.
+- Matched the Figma homepage tokens (page `#faf7f2`, navy `#0b1f33`, body `#203042`, teal `#077783`, gold `#d6a743`, borders `#eae6df`) without changing unrelated interior pages.
+- Mapped every homepage CTA to an existing route and kept featured listings as Figma placeholder cards until an approved MLS feed is connected.
+- Loaded Inter and Source Serif 4 through `next/font` so the homepage typography can match the Figma file.
+
 ## 2026-07-18
 
 - Added a shared calculation engine for mortgage payment, affordability, cash-to-close, and down-payment scenario planning.
