@@ -1,5 +1,29 @@
 # Architecture Decision Log
 
+## 2026-09-20 — PR #27 controls the look; PR #21 and PR #26 are merged underneath it
+
+- **Decision:** Build the final preview from the `preview/figma-homepage-11-4` head, then merge `claude/daffordable-homes-closeout-atajpq` (PR #21) and `feature/dfw-conversion-landing` (PR #26) onto it. Every conflict on the homepage (`app/page.tsx`, `app/layout.tsx`, `globals.css`) resolves in favour of the Figma implementation; non-visual additions from the other branches (JSON-LD, social metadata, self-hosted fonts, canonical defaults) are kept.
+- **Reason:** The Stitch → Figma homepage is the approved visual direction. The CMS, security, SEO, and conversion work is orthogonal to it and would otherwise be lost or re-implemented.
+- **Alternatives Considered:** Merge PR #21 to `main` first and rebase PR #27; cherry-pick selected files.
+- **Trade-offs:** Three merge commits instead of one clean history, but each branch's review record stays intact and reviewable.
+- **Affected Components:** homepage route and chrome, `apps/web/cms/**`, `apps/web/lib/blog/**`, `apps/web/components/landing/**`, QA harness.
+
+## 2026-09-20 — The approved logo asset replaces the Figma text wordmark in the homepage header
+
+- **Decision:** The homepage header renders `public/images/daffordable-homes-official-logo.png` (640×427) at 66px tall on desktop and 56px on small screens, with `width: auto`, instead of the serif text “D’Affordable Homes” drawn in Figma node `11:6`.
+- **Reason:** The real brand asset exists and is already used by the interior header, footer, and Organization JSON-LD; recreating the logo as text is not permitted. `manus-storage/dah-logo_ff042b7b.png` is a Manus placeholder glyph, not the brand mark, and is retained only as a historical reference.
+- **Alternatives Considered:** Keep the text wordmark; show logo and wordmark together (overlaps the Figma nav column at 1440).
+- **Trade-offs:** The brand slot is a mark rather than serif type, occupying the same left column and header height as the Figma frame. Everything else in the header is unchanged.
+- **Affected Components:** `apps/web/components/home/figma-home-header.tsx`, `apps/web/app/globals.css`.
+
+## 2026-09-20 — Vendor attribution appears in both footers
+
+- **Decision:** The homepage footer (Figma `11:274`) carries the `Made by ClientVerse` attribution in its bottom bar next to the copyright, because the root layout hides the shared footer on `/`.
+- **Reason:** The attribution is a site-wide release requirement recorded on 2026-08-15; a homepage without it would silently drop the requirement on the most visited page.
+- **Alternatives Considered:** Show the shared footer beneath the Figma footer (duplicate footers); leave the homepage without attribution.
+- **Trade-offs:** One extra small text item in the footer bottom bar. `tests/static/clientverse.test.mjs` now allows exactly the two footer components and still rejects any other placement.
+- **Affected Components:** `apps/web/components/home/figma-home-footer.tsx`, `tests/static/clientverse.test.mjs`.
+
 ## 2026-09-19 — Figma 11:4 geometry wins over substituted production assets
 
 - **Decision:** On the homepage, keep Figma placeholder wells, listing cards, contact placeholders, and 1440-frame geometry until replacement assets are separately approved. Do not let repository photographs change the Figma composition.

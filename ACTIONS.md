@@ -2,6 +2,16 @@
 
 This log is retained as project history. Completed items are not deleted.
 
+## ACT-013 — Consolidate the final preview: Figma 11:4 homepage + CMS/SEO/security + /start conversion flow
+
+- **Priority:** P0 — Single verified preview for owner review
+- **Problem:** The approved Figma homepage (PR #27), the Sanity CMS / security / SEO closeout (PR #21), and the `/start` conversion landing (PR #26) lived on three diverging branches. The Figma header rendered the brand as plain text although the approved logo asset exists, and the homepage footer dropped the site-wide ClientVerse attribution.
+- **Plan:** Start from PR #27 as the visual source of truth (Figma file `x8TpOO9gK5tsbcjkEsK18A`, node `11:4`), merge PR #21 and PR #26 on top with conflict resolution instead of blind merges, keep the Figma composition untouched, place the approved logo in the homepage header, carry the vendor attribution into the homepage footer, extend the QA audit to `/start`, and re-run the full gate.
+- **Files Changed:** `apps/web/app/page.tsx`, `apps/web/app/layout.tsx`, `apps/web/app/globals.css`, `apps/web/components/home/figma-home-header.tsx`, `apps/web/components/home/figma-home-footer.tsx`, `scripts/qa/site-audit.mjs`, `.env.example`, `tests/static/{figma-homepage,clientverse,repository}.test.mjs`, plus everything carried from PR #21 and PR #26.
+- **Reconciliation:** PR #21 — carried in full (CMS, blog `[slug]` route, draft mode, revalidation webhook, safe-href allowlist, scoped Studio CSP, sitemap `lastmod`, structured data, ClientVerse workflow, QA harness, app icons); its homepage-only edits (old hero/section JSON-LD wiring) were superseded by the Figma page while its WebPage JSON-LD and social metadata were kept. PR #26 — carried in full (`/start` landing, intent paths, assessment, UTM attribution, analytics seam, `/api/leads/next-step`); `NEXT_STEP_LEAD_WEBHOOK_URL` documented. PR #20 / #22 — already dispositioned file-by-file in PR #21; no unique validated delta remains outside the two owner decisions recorded there (`latest-guides.tsx`, `og-default.jpg`).
+- **Validation:** `pnpm typecheck`, `pnpm lint`, `pnpm test` (78 tests), `pnpm build`, and `pnpm qa:audit` against a local production server of the same commit; results recorded in the pull request.
+- **Status:** Preview candidate; not merged. Hosted preview inspection is subject to Vercel Deployment Protection (see pull request).
+
 ## ACT-012 — Implement Figma homepage frame 11:4
 
 - **Priority:** P0 — Public homepage implementation

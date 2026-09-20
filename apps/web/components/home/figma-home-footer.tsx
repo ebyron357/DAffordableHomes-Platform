@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { CLIENTVERSE } from "@/lib/clientverse"
 import { FIGMA_FOOTER_LEGAL, FIGMA_FOOTER_LINKS } from "@/lib/figma-home"
 import { SITE } from "@/lib/site"
 
@@ -25,6 +26,8 @@ function SocialGlyph({ label }: { label: "LinkedIn" | "Facebook" | "Instagram" }
 }
 
 export function FigmaHomeFooter() {
+  const year = new Date().getFullYear()
+
   return (
     <footer className="fh-footer" aria-labelledby="figma-footer-heading">
       <h2 id="figma-footer-heading" className="sr-only">
@@ -81,7 +84,20 @@ export function FigmaHomeFooter() {
         </div>
       </div>
       <div className="fh-shell fh-footer-bottom">
-        <p>{"© "}2024 {SITE.name}. All rights reserved.</p>
+        <p className="fh-footer-copy">
+          <span>
+            {"© "}
+            {year} {SITE.name}. All rights reserved.
+          </span>
+          {/* Vendor attribution is a site-wide release requirement (see lib/clientverse.ts);
+              the homepage renders its own footer, so it is carried here as well. */}
+          <span className="fh-footer-attribution">
+            <a href={CLIENTVERSE.href} target="_blank" rel="noopener noreferrer">
+              {CLIENTVERSE.attributionText}
+            </a>{" "}
+            {CLIENTVERSE.relationshipNote}
+          </span>
+        </p>
         <nav aria-label="Legal">
           <ul>
             {FIGMA_FOOTER_LEGAL.map((link) => (

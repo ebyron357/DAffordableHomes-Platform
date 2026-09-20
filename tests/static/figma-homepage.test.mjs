@@ -7,6 +7,7 @@ test("Figma homepage frame 11:4 is wired without fabricated listings or contact 
   const home = readFileSync("apps/web/components/home/figma-home-page.tsx", "utf8");
   const footer = readFileSync("apps/web/components/home/figma-home-footer.tsx", "utf8");
   const map = readFileSync("apps/web/lib/figma-home.ts", "utf8");
+  const header = readFileSync("apps/web/components/home/figma-home-header.tsx", "utf8");
   const css = readFileSync("apps/web/app/globals.css", "utf8");
 
   assert.match(page, /FigmaHomePage/);
@@ -17,6 +18,15 @@ test("Figma homepage frame 11:4 is wired without fabricated listings or contact 
   assert.match(home, /\[Premium Dallas–Fort Worth Real Estate Architectural Photography Placeholder\]/);
   assert.match(home, /Live listings aren’t connected yet|Live listings aren't connected yet/);
   assert.match(footer, /Follow Us/);
+  assert.match(footer, /new Date\(\)\.getFullYear\(\)/);
+  assert.match(footer, /CLIENTVERSE\.attributionText/);
+  // The header must use the current approved logo asset, not a text wordmark.
+  assert.match(header, /\/images\/daffordable-homes-official-logo\.png/);
+  assert.match(header, /width=\{640\}/);
+  assert.match(header, /height=\{427\}/);
+  assert.doesNotMatch(header, /fh-wordmark/);
+  assert.doesNotMatch(header, /dah-logo_ff042b7b/);
+  assert.match(css, /\.fh-logo \{[^}]*height: 66px;[^}]*width: auto;/);
   assert.match(footer, /\[Phone Placeholder\]/);
   assert.match(footer, /\[Email Placeholder\]/);
   assert.doesNotMatch(home, /Studio Clarity/);

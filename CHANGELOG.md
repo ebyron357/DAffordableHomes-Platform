@@ -2,6 +2,13 @@
 
 All notable repository changes are documented here.
 
+## 2026-09-20
+
+- Consolidated one preview candidate: the Figma `11:4` homepage (PR #27) as the visual base, with the Sanity CMS / security / SEO closeout (PR #21) and the `/start` conversion landing (PR #26) merged on top and conflicts resolved by hand.
+- Replaced the text wordmark in the Figma homepage header with the approved `daffordable-homes-official-logo.png`, rendered at a fixed height with its native aspect ratio on desktop and mobile.
+- Carried the site-wide `Made by ClientVerse` attribution into the homepage footer bottom bar and made the footer copyright year dynamic.
+- Added `/start` to the browser QA visual routes and documented `NEXT_STEP_LEAD_WEBHOOK_URL`.
+
 ## 2026-09-19
 
 - Reconciled the homepage to Figma node `11:4` geometry: 1440 desktop lock, placeholder image wells, 296×337 service cards, 440×520 Meet Debra well, 296×264 market cards, teal listing prices, buyer/seller card colors, 5-column knowledge cards, Follow Us footer.

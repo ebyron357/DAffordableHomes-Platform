@@ -25,15 +25,33 @@ test('the attribution constants hold the approved text and destination', () => {
   assert.match(source, /relationshipNote: "[^"]+"/);
 });
 
-test('the attribution renders in the shared site footer', () => {
-  const footer = read('apps/web/components/layout/site-footer.tsx');
+const FOOTER_FILES = [
+  // Shared footer, mounted by the root layout on every interior route.
+  'apps/web/components/layout/site-footer.tsx',
+  // Homepage footer from Figma frame 11:4; the root layout hides the shared
+  // footer on `/`, so the attribution has to be carried here as well.
+  'apps/web/components/home/figma-home-footer.tsx',
+];
 
-  assert.match(footer, /import \{ CLIENTVERSE \} from "@\/lib\/clientverse"/);
-  assert.match(footer, /href=\{CLIENTVERSE\.href\}/);
-  assert.match(footer, /\{CLIENTVERSE\.attributionText\}/);
-  assert.match(footer, /\{CLIENTVERSE\.relationshipNote\}/);
-  // Outbound vendor link hygiene.
-  assert.match(footer, /rel="noopener noreferrer"/);
+test('the attribution renders in both site footers', () => {
+  for (const file of FOOTER_FILES) {
+    const footer = read(file);
+
+    assert.match(footer, /import \{ CLIENTVERSE \} from "@\/lib\/clientverse"/, file);
+    assert.match(footer, /href=\{CLIENTVERSE\.href\}/, file);
+    assert.match(footer, /\{CLIENTVERSE\.attributionText\}/, file);
+    assert.match(footer, /\{CLIENTVERSE\.relationshipNote\}/, file);
+    // Outbound vendor link hygiene.
+    assert.match(footer, /rel="noopener noreferrer"/, file);
+  }
+});
+
+test('the homepage mounts the Figma footer and hides the shared one', () => {
+  const layout = read('apps/web/app/layout.tsx');
+  const home = read('apps/web/components/home/figma-home-page.tsx');
+
+  assert.match(layout, /<HideOnHome>\s*<SiteFooter \/>\s*<\/HideOnHome>/);
+  assert.match(home, /<FigmaHomeFooter \/>/);
 });
 
 test('the shared footer is mounted site-wide by the root layout', () => {
@@ -62,9 +80,9 @@ test('the attribution appears once and never inside article content', () => {
   });
 
   assert.deepEqual(
-    rendering,
-    ['apps/web/components/layout/site-footer.tsx'],
-    'the attribution must render only from the shared footer'
+    rendering.sort(),
+    [...FOOTER_FILES].sort(),
+    'the attribution must render only from the two site footers'
   );
 
   // Article bodies come from the CMS seed; no promotional vendor links there.

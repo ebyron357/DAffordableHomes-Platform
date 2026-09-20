@@ -2,6 +2,10 @@
 
 Canonical editable source: [D’Affordable Homes — Final 3 Screens](https://www.figma.com/design/x8TpOO9gK5tsbcjkEsK18A/D%E2%80%99Affordable-Homes-%E2%80%94-Final-3-Screens?node-id=11-4). Production homepage frame: `daffordable-homes-home-page` (`11:4`).
 
+## Brand mark
+
+The current approved logo is `apps/web/public/images/daffordable-homes-official-logo.png` (640×427, opaque white background). It is the only logo asset that may appear in the UI: the homepage header (Figma frame `11:4`, brand slot at the left of the 94px header), the interior header, the interior footer, and the Organization JSON-LD. Render it at a fixed height with `width: auto`; never stretch, crop, invert, or redraw it as text. `apps/web/public/manus-storage/dah-logo_ff042b7b.png` is a Manus placeholder and is not the brand.
+
 ## Positioning
 
 The trusted homeownership advisor: professional, practical, warm, community-aware, financially serious, optimistic, and clear without pressure.

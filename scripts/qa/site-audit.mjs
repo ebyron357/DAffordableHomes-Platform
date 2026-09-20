@@ -49,6 +49,7 @@ const VISUAL_ROUTES = [
   "/consultation",
   "/about",
   "/contact",
+  "/start",
 ]
 
 const ARTICLE_ROUTES = VISUAL_ROUTES.filter((route) => route.startsWith("/blog/"))

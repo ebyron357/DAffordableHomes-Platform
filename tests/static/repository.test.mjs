@@ -51,9 +51,12 @@ test('approved photography remains wired to public pages', () => {
   const footer = readFileSync('apps/web/components/layout/site-footer.tsx', 'utf8');
 
   const figmaHome = readFileSync('apps/web/components/home/figma-home-page.tsx', 'utf8');
+  const figmaHeader = readFileSync('apps/web/components/home/figma-home-header.tsx', 'utf8');
 
   assert.match(hero, /hero-family_b1fab939\.jpg/);
   assert.match(header, /dah-logo_ff042b7b\.png/);
+  assert.match(header, /daffordable-homes-official-logo\.png/);
+  assert.match(figmaHeader, /daffordable-homes-official-logo\.png/);
   assert.match(aboutHome, /debra-allen-primary-about\.webp/);
   assert.match(figmaHome, /\[Debra Allen Portrait Placeholder/);
   assert.match(figmaHome, /\[Premium Dallas–Fort Worth Real Estate Architectural Photography Placeholder\]/);

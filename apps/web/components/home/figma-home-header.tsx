@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -34,8 +35,20 @@ export function FigmaHomeHeader() {
   return (
     <header className="fh-header">
       <div className="fh-shell fh-header-inner">
-        <Link href="/" className="fh-wordmark" aria-label="D'Affordable Homes — Home">
-          D’Affordable Homes
+        <Link href="/" className="fh-brand" aria-label="D'Affordable Homes — Home">
+          {/* Current approved brand asset (640×427). Rendered at a fixed height so the
+              aspect ratio is preserved; `sizes` keeps next/image from serving a blurry
+              downscale on high-DPI screens. */}
+          <Image
+            src="/images/daffordable-homes-official-logo.png"
+            alt="D'Affordable Homes — Affordable, Accessible, Achievable"
+            width={640}
+            height={427}
+            sizes="(max-width: 760px) 84px, 99px"
+            quality={90}
+            className="fh-logo"
+            priority
+          />
         </Link>
 
         <nav aria-label="Primary" className="fh-desktop-nav">
