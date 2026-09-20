@@ -2,7 +2,7 @@
   "base": "http://127.0.0.1:3111",
   "generatedFrom": "scripts/qa/site-audit.mjs",
   "routesCrawled": 33,
-  "internalLinksChecked": 33,
+  "internalLinksChecked": 35,
   "viewports": [
     "mobile-375",
     "mobile-430",
@@ -14,7 +14,7 @@
   "failures": [],
   "notes": [
     "sitemap routes: 33",
-    "internal links checked: 33"
+    "internal links checked: 35"
   ],
   "routes": [
     {
@@ -27,7 +27,7 @@
         "FAQPage"
       ],
       "h1s": [
-        "A clear path to the home that fits your life."
+        "Professional representation. Trusted guidance for your next move."
       ],
       "imagesMissingAlt": 0,
       "unsafeHrefs": [],
@@ -41,8 +41,8 @@
       "nestedInteractive": 0,
       "title": "Debra Allen, REALTOR® | Garland + DFW Home Guidance",
       "description": "Clear, practical residential real-estate guidance from Debra Allen, REALTOR®, for first-time buyers and families in Garland and Dallas–Fort Worth.",
-      "internalLinkCount": 31,
-      "headingCount": 15
+      "internalLinkCount": 47,
+      "headingCount": 27
     },
     {
       "route": "/about",
@@ -712,22 +712,22 @@
         null
       ],
       "h1s": [
-        "Let's find your next step together"
+        "Not sure if homeownership is within reach?"
       ],
       "imagesMissingAlt": 0,
       "unsafeHrefs": [],
       "landmarks": {
         "header": 1,
-        "nav": 4,
+        "nav": 3,
         "main": 1,
         "footer": 1
       },
       "inputsMissingLabel": 0,
       "nestedInteractive": 0,
-      "title": "Find Your Next Step — D'Affordable Homes",
-      "description": "Answer a few short questions to understand where you are in the homeownership journey and find educational resources for your next step. No contact information required.",
-      "internalLinkCount": 19,
-      "headingCount": 3
+      "title": "Find Your Next Step | DFW Homeownership Guidance — D'Affordable Homes",
+      "description": "Not sure where to start with homeownership in Dallas–Fort Worth? Explore your options, learn about NACA and homebuyer pathways, and find an educational next step with D’Affordable Homes.",
+      "internalLinkCount": 22,
+      "headingCount": 20
     },
     {
       "route": "/terms",
@@ -902,6 +902,10 @@
       "status": 200
     },
     {
+      "link": "/book",
+      "status": 308
+    },
+    {
       "link": "/calculators",
       "status": 200
     },
@@ -947,6 +951,10 @@
     },
     {
       "link": "/first-time-buyers",
+      "status": 200
+    },
+    {
+      "link": "/homes",
       "status": 200
     },
     {
@@ -1096,6 +1104,14 @@
       "ok": true
     },
     {
+      "route": "/start",
+      "viewport": "mobile-375",
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "culprits": [],
+      "ok": true
+    },
+    {
       "route": "/",
       "viewport": "mobile-430",
       "scrollWidth": 430,
@@ -1192,6 +1208,14 @@
       "ok": true
     },
     {
+      "route": "/start",
+      "viewport": "mobile-430",
+      "scrollWidth": 430,
+      "clientWidth": 430,
+      "culprits": [],
+      "ok": true
+    },
+    {
       "route": "/",
       "viewport": "tablet-768",
       "scrollWidth": 768,
@@ -1280,6 +1304,14 @@
       "ok": true
     },
     {
+      "route": "/start",
+      "viewport": "tablet-768",
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "culprits": [],
+      "ok": true
+    },
+    {
       "route": "/",
       "viewport": "laptop-1024",
       "scrollWidth": 1024,
@@ -1368,6 +1400,14 @@
       "ok": true
     },
     {
+      "route": "/start",
+      "viewport": "laptop-1024",
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "culprits": [],
+      "ok": true
+    },
+    {
       "route": "/",
       "viewport": "desktop-1440",
       "scrollWidth": 1440,
@@ -1449,6 +1489,14 @@
     },
     {
       "route": "/contact",
+      "viewport": "desktop-1440",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "culprits": [],
+      "ok": true
+    },
+    {
+      "route": "/start",
       "viewport": "desktop-1440",
       "scrollWidth": 1440,
       "clientWidth": 1440,

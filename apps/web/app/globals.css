@@ -694,6 +694,10 @@
 .fh-footer-blurb { margin: 20px 0 0; max-width: 320px; color: #faf7f2; font-size: 14px; line-height: 1.6; opacity: 0.75; }
 .fh-footer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
 .fh-footer a { color: rgba(255,255,255,.8); text-decoration: none; }
+/* Footer nav links: 4px vertical padding lifts each 17px line to the WCAG 2.2
+   24px target size; the list gap drops by the same 8px so the rhythm is unchanged. */
+.fh-footer-columns nav ul { gap: 8px; }
+.fh-footer nav a { display: inline-block; padding: 4px 0; }
 .fh-footer a:hover { color: var(--fh-white); text-decoration: underline; text-underline-offset: 3px; }
 .fh-footer-contact { color: rgba(255,255,255,.8); font-size: 14px; }
 .fh-social { flex-direction: row !important; gap: 12px !important; }
