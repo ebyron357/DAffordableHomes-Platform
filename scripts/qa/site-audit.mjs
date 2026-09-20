@@ -99,7 +99,17 @@ async function main() {
     const page = await context.newPage()
     const pageErrors = []
     page.on("console", (message) => {
-      if (message.type() === "error") pageErrors.push(`${route}: ${message.text()}`)
+      if (message.type() !== "error") return
+      // The public CSP carries `upgrade-insecure-requests`. Against a plain-http
+      // test origin Chromium upgrades same-origin prefetches to https://127.0.0.1,
+      // which nothing serves locally. That is a property of the rig, not the
+      // page, so it is recorded as a note rather than a failure. On an https
+      // origin the same message would be a real error and still fails the run.
+      if (BASE.startsWith("http://") && /ERR_SSL_PROTOCOL_ERROR/.test(message.text())) {
+        notes.push(`${route}: ignored upgrade-insecure-requests artifact on http test origin — ${message.text()}`)
+        return
+      }
+      pageErrors.push(`${route}: ${message.text()}`)
     })
     page.on("pageerror", (error) => pageErrors.push(`${route}: ${error.message}`))
 

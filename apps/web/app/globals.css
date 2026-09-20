@@ -345,6 +345,7 @@
 .fh-text-link {
   display: inline-flex;
   align-items: center;
+  min-height: 24px; /* WCAG 2.2 SC 2.5.8 target size; no visible change */
   gap: 8px;
   color: var(--fh-teal);
   font-size: 14px;
@@ -415,6 +416,9 @@
 .fh-mobile-menu nav { padding: 16px 24px 28px; }
 .fh-mobile-menu ul { list-style: none; margin: 0 0 20px; padding: 0; }
 .fh-mobile-menu a { display: block; padding: 14px 0; color: var(--fh-navy); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--fh-border); }
+/* The menu's Search Homes CTA reuses .fh-btn-navy; the rule above would otherwise
+   win on specificity and paint navy text on the navy button. */
+.fh-mobile-menu a.fh-btn { display: inline-flex; padding: 14px 28px; border-bottom: 0; color: var(--fh-white); }
 
 .fh-hero { background: var(--fh-page); }
 .fh-hero-grid {
@@ -578,7 +582,7 @@
 }
 .fh-city-copy { display: flex; flex-direction: column; gap: 4px; padding: 0 20px 20px; }
 .fh-city-card h3 { margin: 0; font-size: 20px; }
-.fh-city-card a { color: var(--fh-body); font-size: 14px; font-weight: 500; text-decoration: none; }
+.fh-city-card a { display: inline-block; padding: 4px 0; color: var(--fh-body); font-size: 14px; font-weight: 500; text-decoration: none; } /* padding keeps the 24px target size */
 .fh-city-card a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 .fh-listings { background: var(--fh-page); }
@@ -863,7 +867,7 @@
 .dah-landing-path-topline span { color:#899299; font-size:12px; font-weight:800; letter-spacing:.12em; }
 .dah-landing-path-card h3 { margin:34px 0 12px; color:var(--dah-navy); font-size:26px; font-weight:500; line-height:1.1; }
 .dah-landing-path-card p { min-height:132px; margin:0; color:#606b72; font-size:14px; line-height:1.65; }
-.dah-landing-text-button { display:inline-flex; align-items:center; gap:8px; border:0; padding:0; color:#087c8a; background:transparent; font-family:var(--font-sans); font-size:13px; font-weight:800; text-decoration:none; cursor:pointer; }
+.dah-landing-text-button { display:inline-flex; align-items:center; min-height:24px; gap:8px; border:0; padding:0; color:#087c8a; background:transparent; font-family:var(--font-sans); font-size:13px; font-weight:800; text-decoration:none; cursor:pointer; }
 .dah-landing-text-button:hover { color:var(--dah-navy); text-decoration:underline; text-underline-offset:4px; }
 .dah-landing-assessment-layout { display:grid; grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr); align-items:start; gap:clamp(42px,8vw,116px); }
 .dah-landing-assessment-intro h2 { margin-top:16px; }
