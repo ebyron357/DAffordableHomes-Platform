@@ -93,9 +93,12 @@ export function BlogFigure({
  * article's own category in type. It claims nothing, it is not a labelled empty
  * well, and it disappears the moment an editor sets `featuredImage` in Sanity.
  *
- * Ornamental only — the motif is `aria-hidden` and the label repeats the
- * category that the card already states in text, so nothing here is the sole
- * carrier of meaning.
+ * The motif is `aria-hidden`: it is ornament, and nothing it draws is the sole
+ * carrier of any meaning. The category label is real text, because on the
+ * article masthead it is the only place the category is stated — the eyebrow
+ * there is the article's own, not the category's. On a card it repeats the
+ * category the card already shows, which is a short duplicate rather than a
+ * barrier.
  */
 export function ArticlePlate({
   category,
