@@ -271,23 +271,24 @@ function FindYourPath() {
       <div className="fh-shell fh-pathquiz-grid">
         <div className="fh-pathquiz-intro">
           <p className="fh-eyebrow">Find your homebuying path</p>
-          <h2 id="figma-path-heading">Not sure which pathway is yours?</h2>
+          <h2 id="figma-path-heading">Not sure what your next move in DFW should be?</h2>
           <p className="fh-pathquiz-lede">
-            Five quick questions about where you are and what you&apos;re hoping to do. You get a recommended
-            starting point on this site right away, and nothing is asked for in return.
+            Buying a first home in Garland, selling in Plano, relocating to Dallas–Fort Worth from out of state, or
+            checking whether a Homes for Heroes program applies: each starts in a different place. Answer a few
+            questions the way you would answer Debra, and the quiz tells you where to begin on this site.
           </p>
           <ul className="fh-pathquiz-facts">
             <li>
               <Check className="size-4" aria-hidden="true" />
-              <span>Takes about a minute</span>
+              <span>Five or six questions, about a minute</span>
             </li>
             <li>
               <Check className="size-4" aria-hidden="true" />
-              <span>No email or phone number required</span>
+              <span>Your result appears immediately; no email or phone number</span>
             </li>
             <li>
               <Check className="size-4" aria-hidden="true" />
-              <span>Educational only, never a qualification check</span>
+              <span>Educational only: not a pre-approval, valuation or eligibility decision</span>
             </li>
           </ul>
         </div>
@@ -477,7 +478,7 @@ function GuidanceSplit() {
       <div className="fh-shell fh-split">
         <article className="fh-split-card fh-split-buyer">
           <p className="fh-eyebrow fh-eyebrow-on-dark">Buyer strategy</p>
-          <h2 id="figma-guidance-heading">Buying with absolute clarity</h2>
+          <h2 id="figma-guidance-heading">Buying in Dallas–Fort Worth with the numbers in front of you</h2>
           <ul>
             {FIGMA_BUYER_POINTS.map((point) => (
               <li key={point}>
@@ -492,7 +493,7 @@ function GuidanceSplit() {
         </article>
         <article className="fh-split-card fh-split-seller">
           <p className="fh-eyebrow">Seller pathway</p>
-          <h2>Maximize value, minimize stress</h2>
+          <h2>Selling a home in North Texas without the guesswork</h2>
           <ul>
             {FIGMA_SELLER_POINTS.map((point) => (
               <li key={point}>
@@ -527,7 +528,7 @@ function KnowledgeBase({ articles }: { articles: ArticleSummary[] }) {
       <div className="fh-shell">
         <div className="fh-section-intro fh-section-intro-left">
           <p className="fh-eyebrow">Learn before you commit</p>
-          <h2 id="figma-knowledge-heading">Empower your decisions</h2>
+          <h2 id="figma-knowledge-heading">Homebuyer guides and tools for Dallas–Fort Worth</h2>
         </div>
 
         {articles.length > 0 && (
@@ -595,8 +596,8 @@ function FinalCta() {
       />
       <span className="fh-final-scrim" aria-hidden="true" />
       <div className="fh-final-inner">
-        <p className="fh-eyebrow fh-eyebrow-on-dark">Ready to take the next step?</p>
-        <h2 id="figma-final-heading">Let’s build a clear, pressure-free path to homeownership</h2>
+        <p className="fh-eyebrow fh-eyebrow-on-dark">Talk it through</p>
+        <h2 id="figma-final-heading">Talk through your Dallas–Fort Worth move before you commit to it</h2>
         <p>
           Bring the question you have been sitting on. Debra will tell you what the next step actually is — and what
           it is not — so you can decide with the whole picture in front of you.

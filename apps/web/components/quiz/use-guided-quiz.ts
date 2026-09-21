@@ -48,9 +48,15 @@ export function useGuidedQuiz<Id extends string>(total: number, startAt: GuidedQ
     focusHeading()
   }, [focusHeading, total])
 
-  const goBack = useCallback(() => {
+  /** Jump straight to the result; used by flows whose step count is branched. */
+  const finish = useCallback(() => {
+    setPhase({ kind: "result" })
+    focusHeading()
+  }, [focusHeading])
+
+  const goBack = useCallback((lastIndex: number = total - 1) => {
     setPhase((current) => {
-      if (current.kind === "result") return { kind: "question", index: total - 1 }
+      if (current.kind === "result") return { kind: "question", index: lastIndex }
       if (current.kind === "question" && current.index > 0) return { kind: "question", index: current.index - 1 }
       return current
     })
@@ -63,5 +69,5 @@ export function useGuidedQuiz<Id extends string>(total: number, startAt: GuidedQ
     focusHeading()
   }, [focusHeading, startAt])
 
-  return { answers, phase, headingRef, selectAnswer, start, goNext, goBack, restart }
+  return { answers, phase, headingRef, selectAnswer, start, goNext, finish, goBack, restart }
 }

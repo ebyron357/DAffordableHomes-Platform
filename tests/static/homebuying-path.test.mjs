@@ -7,9 +7,9 @@ import { pathToFileURL } from "node:url"
 /**
  * "Find Your Homebuying Path" — the homepage guided quiz.
  *
- * The behavioural checks import the real content module, so the resolver is
- * exercised rather than pattern-matched. Every destination it can send a
- * visitor to must be a route that exists in this repository.
+ * The behavioural checks import the real content module, so the branching and
+ * the resolver are exercised rather than pattern-matched. Every destination a
+ * result can point to must be a route that exists in this repository.
  */
 
 register("../../scripts/sanity/ts-resolver.mjs", import.meta.url)
@@ -17,7 +17,8 @@ register("../../scripts/sanity/ts-resolver.mjs", import.meta.url)
 const read = (file) => readFileSync(file, "utf8")
 
 const content = await import(pathToFileURL("apps/web/lib/content/homebuying-path.ts").href)
-const { PATH_QUESTIONS, PATH_RESULTS, PATH_ORDER, resolvePath, timelineNote } = content
+const { PATH_QUESTIONS, PATH_ORDER, PATH_NAMES, HEROES_HINT, visibleQuestions, resolvePath, buildResult, timelineNote } =
+  content
 
 /** A site route exists when its App Router page file does, or it is a seeded article slug. */
 function routeExists(href) {
@@ -28,64 +29,123 @@ function routeExists(href) {
   return existsSync(`apps/web/app${clean}/page.tsx`)
 }
 
-test("the quiz is five short questions with no qualification or protected-class content", () => {
-  assert.equal(PATH_QUESTIONS.length, 5)
-  const ids = PATH_QUESTIONS.map((question) => question.id)
-  assert.deepEqual(ids, ["situation", "goal", "location", "service", "timeline"])
+const choices = (id) => PATH_QUESTIONS.find((question) => question.id === id).choices.map((choice) => choice.value)
+
+/** Every answer set a visitor can actually produce, following the branching. */
+function* answerSets() {
+  for (const goal of choices("goal"))
+    for (const area of choices("area"))
+      for (const timeline of choices("timeline"))
+        for (const service of choices("service")) {
+          const base = { goal, area, timeline, service }
+          const ids = visibleQuestions(base).map((question) => question.id)
+          if (ids.includes("buyerPosition")) {
+            for (const buyerPosition of choices("buyerPosition")) yield { ...base, buyerPosition }
+          } else if (ids.includes("sellerPosition")) {
+            for (const sellerPosition of choices("sellerPosition")) yield { ...base, sellerPosition }
+          } else {
+            yield base
+          }
+        }
+}
+
+test("the quiz asks real-estate intent, branches on goal, and never asks a qualification or protected-class question", () => {
+  assert.deepEqual(
+    PATH_QUESTIONS.map((question) => question.id),
+    ["goal", "area", "timeline", "buyerPosition", "sellerPosition", "service"],
+  )
+  // Buyers see the buyer-position question; sellers see the seller one; nobody sees both.
+  assert.deepEqual(visibleQuestions({ goal: "first" }).map((q) => q.id), ["goal", "area", "timeline", "buyerPosition", "service"])
+  assert.deepEqual(visibleQuestions({ goal: "sell" }).map((q) => q.id), ["goal", "area", "timeline", "sellerPosition", "service"])
+  assert.deepEqual(visibleQuestions({}).map((q) => q.id), ["goal", "area", "timeline", "service"])
+  for (const answers of [{ goal: "first" }, { goal: "sell" }, { goal: "explore" }]) {
+    const count = visibleQuestions(answers).length
+    assert.ok(count >= 4 && count <= 6, `${answers.goal}: ${count} questions`)
+  }
+
   for (const question of PATH_QUESTIONS) {
-    assert.ok(question.choices.length >= 3 && question.choices.length <= 5, `${question.id} has 3–5 choices`)
+    assert.ok(question.choices.length >= 4 && question.choices.length <= 6, `${question.id} has 4–6 choices`)
     const text = [question.legend, question.help ?? "", ...question.choices.map((choice) => choice.label)].join(" ")
-    assert.doesNotMatch(text, /income|credit score|approve|qualif|race|religion|disab|marital|children|national origin/i)
+    assert.doesNotMatch(text, /income|credit score|approve you|qualif(y|ies) you|race|religion|disab|marital|children|national origin/i)
+    assert.match(question.legend, /\?$/)
+  }
+
+  // The area choices are cities the homepage already publishes as markets.
+  const cities = read("apps/web/lib/figma-home.ts")
+  for (const name of ["Garland", "Dallas", "Plano", "Frisco", "McKinney", "Fort Worth", "Arlington", "Irving"]) {
+    assert.match(cities, new RegExp(`name: "${name}"`), `${name} is a published market`)
+  }
+  // The Heroes groups are the ones the program page publishes.
+  const programs = read("apps/web/lib/programs.ts")
+  for (const group of ["military", "Veterans", "Teachers", "Healthcare", "Firefighters", "law-enforcement"]) {
+    assert.match(programs, new RegExp(group), `${group} is a published Homes for Heroes group`)
   }
 })
 
-test("all five required result paths exist and every destination is a real route", () => {
-  assert.deepEqual(PATH_ORDER, ["first-time", "hero", "relocating", "sell-buy", "unsure"])
-  for (const key of PATH_ORDER) {
-    const result = PATH_RESULTS[key]
-    assert.ok(result, `${key} result exists`)
-    assert.equal(result.key, key)
-    assert.ok(result.name && result.summary && result.nextStep, `${key} has copy`)
-    for (const link of [result.primary, result.secondary, result.consultation]) {
-      assert.ok(routeExists(link.href), `${key}: ${link.href} is not an existing route`)
+test("all eight result paths exist, every destination is a real route, and results carry the required parts", () => {
+  assert.deepEqual(PATH_ORDER, [
+    "first-time",
+    "hero",
+    "relocating",
+    "selling",
+    "sell-buy",
+    "ready-search",
+    "researcher",
+    "unsure",
+  ])
+  for (const key of PATH_ORDER) assert.ok(PATH_NAMES[key], `${key} has a name`)
+  assert.ok(routeExists(HEROES_HINT.href))
+
+  const seen = new Map()
+  for (const answers of answerSets()) {
+    const result = buildResult(answers)
+    assert.equal(result.key, resolvePath(answers))
+    assert.ok(PATH_ORDER.includes(result.key), `unknown path ${result.key}`)
+    seen.set(result.key, (seen.get(result.key) ?? 0) + 1)
+
+    assert.match(result.heading, /^Your next move: .+\.$/)
+    assert.ok(result.summary.length > 60, `${result.key} summary is substantive`)
+    assert.ok(result.nextStep.length > 40, `${result.key} next step is substantive`)
+    for (const link of [result.primary, result.resource, result.consultation]) {
+      assert.ok(routeExists(link.href), `${result.key}: ${link.href} is not an existing route`)
       assert.ok(link.label.length > 0)
     }
     assert.equal(result.consultation.href, "/consultation")
-    // No bracketed placeholder copy, and no fabricated contact facts.
-    assert.doesNotMatch(JSON.stringify(result), /\[[^\]]*(Placeholder|TBD|TODO)[^\]]*\]|\(\d{3}\) \d{3}-\d{4}/)
+    assert.notEqual(result.primary.href, result.resource.href, `${result.key}: primary and resource differ`)
+
+    // No bracketed placeholder copy, no fabricated facts, no promises.
+    const text = JSON.stringify(result)
+    assert.doesNotMatch(text, /\[[^\]]*(Placeholder|TBD|TODO)[^\]]*\]|\(\d{3}\) \d{3}-\d{4}/)
+    assert.doesNotMatch(text, /you qualify|guaranteed|you will save|dream home|unlock your|embark/i)
   }
+  assert.deepEqual([...seen.keys()].sort(), [...PATH_ORDER].sort(), "every path is reachable")
 })
 
-test("the resolver reaches every path and never returns an unknown one", () => {
-  const reached = new Set()
-  const choices = (id) => PATH_QUESTIONS.find((question) => question.id === id).choices.map((choice) => choice.value)
-  for (const situation of choices("situation"))
-    for (const goal of choices("goal"))
-      for (const location of choices("location"))
-        for (const service of choices("service"))
-          for (const timeline of choices("timeline")) {
-            const key = resolvePath({ situation, goal, location, service, timeline })
-            assert.ok(key in PATH_RESULTS, `unknown path ${key}`)
-            reached.add(key)
-          }
-  assert.deepEqual([...reached].sort(), [...PATH_ORDER].sort())
-
-  // The documented priority order.
-  assert.equal(resolvePath({ service: "military", goal: "first", location: "relocating" }), "hero")
-  assert.equal(resolvePath({ service: "none", goal: "first", location: "relocating" }), "relocating")
-  assert.equal(resolvePath({ service: "none", goal: "sellbuy", location: "local" }), "sell-buy")
-  assert.equal(resolvePath({ service: "none", situation: "own", goal: "next", location: "local" }), "sell-buy")
-  assert.equal(resolvePath({ service: "none", situation: "rent", goal: "first", location: "local" }), "first-time")
-  assert.equal(resolvePath({ service: "none", situation: "rent", goal: "next", location: "local" }), "first-time")
-  assert.equal(resolvePath({ service: "none", situation: "other", goal: "explore", location: "undecided" }), "unsure")
+test("the resolver follows the documented priority order", () => {
+  assert.equal(resolvePath({ goal: "first", service: "military", buyerPosition: "preapproved" }), "hero")
+  assert.equal(resolvePath({ goal: "sell", service: "educator" }), "hero")
+  assert.equal(resolvePath({ goal: "relocate", service: "none", buyerPosition: "search" }), "relocating")
+  assert.equal(resolvePath({ goal: "sellbuy", service: "none" }), "sell-buy")
+  assert.equal(resolvePath({ goal: "next", buyerPosition: "sellfirst", service: "none" }), "sell-buy")
+  assert.equal(resolvePath({ goal: "sell", sellerPosition: "value", service: "none" }), "selling")
+  assert.equal(resolvePath({ goal: "first", buyerPosition: "preapproved", service: "none" }), "ready-search")
+  assert.equal(resolvePath({ goal: "next", buyerPosition: "search", service: "notsure" }), "ready-search")
+  assert.equal(resolvePath({ goal: "first", buyerPosition: "financing", service: "none" }), "first-time")
+  assert.equal(resolvePath({ goal: "next", buyerPosition: "financing", service: "none" }), "researcher")
+  assert.equal(resolvePath({ goal: "explore", buyerPosition: "scratch", timeline: "later", service: "none" }), "researcher")
+  assert.equal(resolvePath({ goal: "explore", buyerPosition: "scratch", timeline: "3mo", service: "none" }), "unsure")
   assert.equal(resolvePath({}), "unsure")
 
-  for (const timeline of ["soon", "year", "later", "unsure", undefined]) {
-    assert.ok(timelineNote(timeline).length > 20)
+  // Answers shape the copy: Garland gets its guide, timelines get their own line.
+  assert.equal(buildResult({ goal: "first", area: "garland", service: "none" }).resource.href, "/blog/how-to-buy-home-garland-tx")
+  assert.equal(buildResult({ goal: "first", area: "dallas", service: "none" }).resource.href, "/calculators/affordability")
+  assert.match(buildResult({ goal: "sell", area: "collin", service: "none" }).summary, /Plano, Frisco and McKinney/)
+  for (const timeline of ["asap", "3mo", "6mo", "12mo", "later", "researching", undefined]) {
+    assert.ok(timelineNote(timeline).length > 40)
   }
 })
 
-test("the homepage mounts the quiz and both quizzes share one state machine", () => {
+test("the homepage mounts the quiz, both quizzes share one state machine, and nothing gates the result", () => {
   const home = read("apps/web/components/home/figma-home-page.tsx")
   const quiz = read("apps/web/components/home/homebuying-path-quiz.tsx")
   const nextStep = read("apps/web/components/next-step/find-your-next-step.tsx")
@@ -98,15 +158,18 @@ test("the homepage mounts the quiz and both quizzes share one state machine", ()
   assert.match(nextStep, /useGuidedQuiz/)
   assert.doesNotMatch(nextStep, /useState|useRef/)
 
-  // Entry CTA, immediate result, no lead capture inside the quiz.
+  // Entry CTA, immediate result, optional consultation afterwards, no lead capture inside the quiz.
   assert.match(quiz, /Find Your Homebuying Path/)
+  assert.match(quiz, /Want Debra to review your plan\?/)
   assert.doesNotMatch(quiz, /<input[^>]*type="(email|tel|text)"/)
   assert.doesNotMatch(quiz, /fetch\(/)
+  assert.match(quiz, /not loan approval, a program eligibility\s+decision, a home valuation/)
 
-  // Accessibility hooks: real radios in a fieldset, focus-managed heading, progressbar.
+  // Accessibility hooks: real radios in a fieldset, focus-managed heading, progressbar, live step label.
   assert.match(quiz, /<fieldset/)
   assert.match(quiz, /type="radio"/)
   assert.match(quiz, /role="progressbar"/)
+  assert.match(quiz, /aria-live="polite"/)
   assert.match(quiz, /ref=\{headingRef\} tabIndex=\{-1\}/)
 
   // Styling stays inside the homepage design system and honours reduced motion.
@@ -116,4 +179,31 @@ test("the homepage mounts the quiz and both quizzes share one state machine", ()
   const quizCss = css.slice(css.indexOf(".fh-pathquiz {"), css.indexOf(".fh-final {"))
   assert.ok(quizCss.length > 1000, "the quiz styles sit before the final CTA block")
   assert.doesNotMatch(quizCss, /linear-gradient/)
+})
+
+test("homepage copy is specific to Dallas–Fort Worth and free of generic marketing filler", () => {
+  const home = read("apps/web/components/home/figma-home-page.tsx")
+  const map = read("apps/web/lib/figma-home.ts")
+  const visible = `${home}\n${map}`
+
+  for (const phrase of [
+    /dream home/i,
+    /dreams come true/i,
+    /unlock your/i,
+    /embark on/i,
+    /perfect home/i,
+    /journey begins/i,
+    /real-time regional DFW search tools/,
+    /Accurate Valuation Analytics/,
+    /Empower your decisions/,
+    /Maximize value, minimize stress/,
+    /Buying with absolute clarity/,
+  ]) {
+    assert.doesNotMatch(visible, phrase)
+  }
+  for (const phrase of [/Dallas–Fort Worth/, /Garland/, /Plano/, /Frisco/, /North Texas/]) {
+    assert.match(visible, phrase)
+  }
+  // The listings band never claims a live MLS feed exists.
+  assert.doesNotMatch(map, /MLS listings/)
 })

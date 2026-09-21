@@ -141,7 +141,7 @@ export function FindYourNextStep() {
       </fieldset>
 
       <div className="mt-8 flex items-center justify-between gap-3">
-        <Button onClick={goBack} variant="ghost" disabled={phase.index === 0}>
+        <Button onClick={() => goBack()} variant="ghost" disabled={phase.index === 0}>
           <ArrowLeft className="size-4" aria-hidden="true" />
           Back
         </Button>

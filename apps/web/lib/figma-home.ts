@@ -40,22 +40,22 @@ export const FIGMA_HOME_CTA = {
 export const FIGMA_SERVICES = [
   {
     title: "Buy a Home",
-    body: "Complete buyer representation from custom home search criteria to contract and closing negotiation.",
+    body: "Representation from the first search criteria to the closing table, with each step in a Dallas–Fort Worth purchase explained before you commit to it.",
     href: "/first-time-buyers",
   },
   {
     title: "Sell a Home",
-    body: "Strategic marketing plans, accurate home valuation models, and dedicated advocate representation to maximize your equity.",
+    body: "Pricing built from recent comparable sales in your North Texas neighborhood, a preparation plan you approve, and negotiation handled as your advocate.",
     href: "/contact",
   },
   {
     title: "Search Homes",
-    body: "Access our real-time regional DFW search tools to view MLS listings, property details, and active neighborhood inventories.",
+    body: "Search by city across DFW, from Garland and Dallas to Plano and Frisco, and ask Debra what is actually on the market before you tour.",
     href: "/homes",
   },
   {
     title: "New Construction",
-    body: "Partner with a professional agent to negotiate builder terms, select options, and oversee custom builds from foundation to key-turn.",
+    body: "Builder contracts, option selections and construction timelines in the North Texas growth corridors, negotiated with someone on your side of the table.",
     href: "/consultation",
   },
 ] as const
@@ -101,42 +101,47 @@ export const FIGMA_PATHWAY_HIGHLIGHTS = {
   ],
 } as const
 
+/**
+ * Buyer and seller strategy points. Each names work Debra does in a DFW
+ * transaction, in plain language; none promises a price, a saving or an
+ * outcome (PUBLISHING_STANDARD.md).
+ */
 export const FIGMA_BUYER_POINTS = [
-  "Personalized Financial Evaluation: Understand debt-to-income and actual purchase power.",
-  "Comprehensive Neighborhood Match: Identify DFW communities aligned with your daily routines.",
-  "Builder & Vendor Liaison: Navigate standard and newly constructed contract negotiations safely.",
+  "Your monthly number tested with the payment and affordability calculators before you tour a single home.",
+  "Neighborhood fit across Dallas, Garland, Plano, Frisco, Fort Worth and the cities between, matched to your commute and routine.",
+  "Offers, inspections, repair requests and builder contracts explained in full and negotiated as your advocate.",
 ] as const
 
 export const FIGMA_SELLER_POINTS = [
-  "Accurate Valuation Analytics: Comprehensive comparative market reports built on verified real sales.",
-  "High-Value Strategic Listing Prep: Targeted updates that maximize return on your equity.",
-  "Advocate-Level Representation: Strong negotiation of inspector requests, appraisals, and timelines.",
+  "Pricing built from recent comparable sales in your neighborhood, with the evidence in front of you.",
+  "A preparation plan aimed at what North Texas buyers actually pay for, not a renovation for its own sake.",
+  "Inspection requests, the appraisal and the closing timeline negotiated so you keep the equity you have built.",
 ] as const
 
 export const FIGMA_KNOWLEDGE = [
   {
-    title: "First-Time Buyer Resources",
-    body: "Guides and educational plans dedicated to demystifying the local buying timeline.",
+    title: "First-Time Buyer Guide",
+    body: "How a first purchase works in Dallas–Fort Worth, from the first budget conversation to the day you get keys.",
     href: "/first-time-buyers",
   },
   {
-    title: "Affordability Planning",
-    body: "Practical evaluation calculators designed to map gross income to comfortable monthly bounds.",
+    title: "Planning Calculators",
+    body: "Test a monthly payment, cash to close, a down payment, and rent versus buy at North Texas prices.",
     href: "/calculators",
   },
   {
-    title: "Financing Resources",
-    body: "Overview of conventional loans, down payment grants, and qualification benchmarks.",
+    title: "Financing Basics",
+    body: "Plain-language notes on loan types, down-payment assistance, and what lenders look at before they say yes.",
     href: "/resources",
   },
   {
-    title: "Homebuyer Roadmap",
-    body: "Explore a clear 10-stage preparation framework covering education to final key-turn.",
+    title: "Readiness Check",
+    body: "A short assessment that suggests where to start, followed by a stage-by-stage plan you can work through.",
     href: "/start",
   },
   {
     title: "NACA Information",
-    body: "A brief optional reference showing alternative program timelines and requirements.",
+    body: "What the NACA program is, how its timeline differs from a conventional purchase, and where to verify the requirements.",
     href: "/programs/naca",
   },
 ] as const

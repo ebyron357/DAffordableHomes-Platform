@@ -21,3 +21,7 @@ recovered-manus/manus-storage/debra-allen-lifestyle-full-body.webp
 # The committed evidence set lives in qa-evidence/visual (compressed) alongside
 # the machine-readable report in qa-evidence/site-audit.json.
 qa-evidence/screenshots/
+
+# Raw Chromium captures; the compressed set in qa-evidence/visual is committed.
+qa-evidence/quiz/
+qa-evidence/shots/

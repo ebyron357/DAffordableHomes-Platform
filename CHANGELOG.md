@@ -6,7 +6,8 @@ All notable repository changes are documented here.
 
 ### Homepage quiz
 
-- "Find Your Homebuying Path": five questions, one at a time, with a progress indicator, keyboard-operable radio choices, focus-managed steps, and an immediate result for one of five paths (First-Time Buyer, North Texas Hero, Moving to Dallas–Fort Worth, Selling and Buying, Not Sure Yet) that links to existing routes. No contact details are collected. It replaces the interim homepage entry to the `/start` assessment.
+- "Find Your Homebuying Path": five or six questions branched on the visitor's goal (goal, DFW area, timeline, buyer or seller position, Homes for Heroes group), with a progress indicator, keyboard-operable radio choices and focus-managed steps. The result is one of eight paths (First-Time Buyer, North Texas Hero, Moving to DFW, Selling a Home, Selling and Buying, Ready to Search, Early-Stage Researcher, Not Sure Yet) with a "Your next move" heading, an explanation written from the answers, a next step, an existing resource, a primary CTA and an optional consultation. No contact details are collected. It replaces the interim homepage entry to the `/start` assessment.
+- Homepage copy: services, buyer and seller strategy points, knowledge cards and three section headings rewritten as specific Dallas–Fort Worth language; the claim of a "real-time MLS search" that the site does not have is gone.
 - The guided-quiz state machine is shared (`useGuidedQuiz`) by the homepage quiz and the interior Find Your Next Step check; funnel events flow through the existing analytics seam.
 
 ### Interior visual system
