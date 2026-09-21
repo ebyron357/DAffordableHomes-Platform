@@ -2,6 +2,15 @@
 
 This log is retained as project history. Completed items are not deleted.
 
+## ACT-014 — Homepage "Find Your Homebuying Path" quiz and guide-card imagery
+
+- **Priority:** P1 — Owner directive 2026-09-21
+- **Problem:** The homepage needed one meaningful interactive experience that identifies a visitor's path (First-Time Buyer, North Texas Hero, Moving to Dallas–Fort Worth, Selling and Buying, Not Sure Yet) and recommends existing destinations immediately, and the Heroes and Garland guide cards reused Debra Allen's portraits as generic editorial imagery.
+- **Plan:** Replace the interim homepage entry to the `/start` assessment (four result keys, all handing off to `/start`) with a five-question guided quiz whose results are the five required paths, each pointing at an existing guide, tool, program page, search, or the consultation route, with no contact capture. Share one state machine (`useGuidedQuiz`) with the interior readiness check and emit funnel events through the existing analytics seam. Replace the two card images through the CMS `featuredImage` field (seed + Studio), not hard-coded markup.
+- **Files Changed:** `apps/web/lib/content/homebuying-path.ts`, `apps/web/components/quiz/use-guided-quiz.ts`, `apps/web/components/home/homebuying-path-quiz.tsx`, `apps/web/components/home/figma-home-page.tsx`, `apps/web/components/next-step/find-your-next-step.tsx`, `apps/web/lib/analytics.ts`, `apps/web/app/globals.css`, `tests/static/homebuying-path.test.mjs`, `tests/static/debra-card-crop.test.mjs` (crop assertions kept from the retired quiz test); removed `apps/web/components/home/home-quiz.tsx`.
+- **Validation:** Static tests, typecheck, lint, production build, browser audit, and a Chromium run that drives all five result paths, keyboard-only completion, mobile touch input, 24px targets, and confirms every result CTA returns 200.
+- **Status:** Quiz complete. Card imagery blocked: every image host (stock sites, Wikimedia Commons, and the CDN holding the two generated exterior photographs) is denied by the maintenance sandbox's egress policy, so the two `featuredImage` replacements wait on the owner action recorded in the pull request.
+
 ## ACT-013 — Consolidate the final preview: Figma 11:4 homepage + CMS/SEO/security + /start conversion flow
 
 - **Priority:** P0 — Single verified preview for owner review

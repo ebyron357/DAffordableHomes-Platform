@@ -669,184 +669,6 @@
 .fh-service-link:hover .fh-service-title { color: var(--fh-teal); text-decoration: underline; text-underline-offset: 4px; }
 .fh-service-link:hover .fh-service-arrow { transform: translateX(3px); }
 
-/* --------------------------------------------------------------------- quiz */
-/* Homepage entry to the /start readiness assessment. Asymmetric on purpose:
-   a narrow navy intro column against a wide white card, so the section reads
-   as an interactive panel rather than another full-width band. */
-.fh-quiz {
-  background: var(--fh-navy);
-  border-top: 4px solid var(--fh-gold);
-  padding: 88px 0;
-}
-.fh-quiz-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
-  gap: 64px;
-  align-items: start;
-}
-.fh-quiz-intro { display: flex; flex-direction: column; gap: 16px; }
-.fh-quiz-intro h2 {
-  margin: 0;
-  color: var(--fh-white);
-  font-family: var(--font-serif);
-  font-size: clamp(30px, 3.2vw, 42px);
-  font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -0.015em;
-}
-.fh-quiz-intro > p { margin: 0; max-width: 46ch; color: #dbe6ef; font-size: 17px; line-height: 1.65; }
-.fh-quiz-assurances { display: flex; flex-direction: column; gap: 10px; margin: 8px 0 0; padding: 0; list-style: none; }
-.fh-quiz-assurances li {
-  position: relative;
-  padding-left: 22px;
-  color: #a9c0d3;
-  font-size: 14px;
-  line-height: 1.5;
-}
-.fh-quiz-assurances li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 8px;
-  width: 8px;
-  height: 8px;
-  border-radius: 2px;
-  background: var(--fh-teal-bright);
-}
-
-.fh-quiz-card {
-  min-height: 420px;
-  padding: 40px;
-  border-radius: 14px;
-  background: var(--fh-white);
-  border-top: 4px solid var(--fh-teal-bright);
-  box-shadow: 0 28px 60px -40px rgba(0,0,0,.6);
-}
-.fh-quiz-kicker {
-  margin: 0 0 10px;
-  color: var(--fh-teal);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-.fh-quiz-start { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
-.fh-quiz-start-copy { margin: 0; max-width: 48ch; color: var(--fh-muted); font-size: 16px; line-height: 1.6; }
-.fh-quiz-begin { margin-top: 8px; gap: 10px; }
-/* Topic preview: two columns of the real question labels. */
-.fh-quiz-preview {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px 28px;
-  width: 100%;
-  margin: 10px 0 4px;
-  padding: 18px 0 0;
-  border-top: 1px solid var(--fh-border);
-  list-style: none;
-  counter-reset: none;
-}
-.fh-quiz-preview li {
-  display: grid;
-  grid-template-columns: 26px minmax(0, 1fr);
-  gap: 10px;
-  align-items: baseline;
-  color: var(--fh-body);
-  font-size: 14px;
-  line-height: 1.45;
-}
-.fh-quiz-preview span {
-  color: var(--fh-teal);
-  font-family: var(--font-serif);
-  font-size: 14px;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-}
-
-.fh-quiz-progress-label {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  color: var(--fh-muted);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-.fh-quiz-progress { height: 6px; margin-top: 10px; overflow: hidden; border-radius: 999px; background: var(--fh-alt); }
-.fh-quiz-progress span { display: block; height: 100%; border-radius: inherit; background: var(--fh-teal); transition: width .25s ease; }
-
-.fh-quiz-question fieldset { min-width: 0; margin: 28px 0 0; padding: 0; border: 0; }
-.fh-quiz-question legend {
-  padding: 0;
-  color: var(--fh-navy);
-  font-family: var(--font-serif);
-  font-size: clamp(24px, 2.6vw, 32px);
-  font-weight: 600;
-  line-height: 1.15;
-}
-.fh-quiz-help { margin: 10px 0 0; color: var(--fh-muted); font-size: 14px; }
-.fh-quiz-answers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 22px; }
-.fh-quiz-answer {
-  display: flex;
-  min-height: 56px;
-  align-items: center;
-  padding: 12px 16px;
-  border: 1px solid var(--fh-border);
-  border-radius: 8px;
-  background: var(--fh-white);
-  color: var(--fh-body);
-  font: inherit;
-  font-size: 15px;
-  line-height: 1.35;
-  text-align: left;
-  cursor: pointer;
-  transition: border-color .18s ease, background-color .18s ease, transform .18s ease;
-}
-.fh-quiz-answer:hover { border-color: var(--fh-teal); background: var(--fh-alt); transform: translateY(-1px); }
-.fh-quiz-answer.is-selected { border-color: var(--fh-teal); background: var(--fh-alt); box-shadow: inset 3px 0 0 var(--fh-teal); }
-.fh-quiz-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 44px;
-  margin-top: 20px;
-  padding: 8px 0;
-  border: 0;
-  background: transparent;
-  color: var(--fh-muted);
-  font: inherit;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-}
-.fh-quiz-back:hover { color: var(--fh-navy); text-decoration: underline; text-underline-offset: 4px; }
-
-.fh-quiz-result h3 {
-  margin: 0;
-  color: var(--fh-navy);
-  font-family: var(--font-serif);
-  font-size: clamp(26px, 2.8vw, 34px);
-  font-weight: 600;
-  line-height: 1.15;
-}
-.fh-quiz-result h3:focus-visible { outline: 2px solid var(--fh-navy); outline-offset: 4px; }
-.fh-quiz-result-body { margin: 14px 0 0; max-width: 62ch; color: var(--fh-muted); font-size: 16px; line-height: 1.7; }
-.fh-quiz-also { margin: 12px 0 0; color: var(--fh-teal); font-size: 14px; font-weight: 700; }
-/* The boundary statement is part of the result, not fine print tucked away. */
-.fh-quiz-disclosure {
-  margin: 18px 0 0;
-  max-width: 62ch;
-  padding: 12px 14px;
-  border-left: 3px solid var(--fh-gold);
-  background: var(--fh-alt);
-  color: var(--fh-muted);
-  font-size: 13px;
-  line-height: 1.55;
-}
-.fh-quiz-result-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
-.fh-quiz-result-actions .fh-btn-light-outline { color: var(--fh-navy); border-color: var(--fh-navy); }
-.fh-quiz-result-actions .fh-btn-light-outline:hover { background: var(--fh-alt); }
-
 /* ---------------------------------------------------------------- meet debra */
 /* Debra's portrait is the composition, not an inset beside it. The frame is
    4:5 at desktop and the image covers it from `48% center` — the crop rule in
@@ -1112,6 +934,200 @@
    reduce her to a silhouette — an image-led band with no legible image in it.
    The copy now holds the left, the scrim releases across the width, and she
    reads on the right. */
+/* -------------------------------------------------------------------------- */
+/* Find Your Homebuying Path — homepage guided quiz                           */
+/* -------------------------------------------------------------------------- */
+.fh-pathquiz { background: var(--fh-alt); border-top: 1px solid var(--fh-border); }
+.fh-pathquiz-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 64px;
+  align-items: start;
+}
+.fh-pathquiz-intro { display: flex; flex-direction: column; gap: 18px; position: sticky; top: 32px; }
+.fh-pathquiz-intro h2 {
+  margin: 0;
+  color: var(--fh-navy);
+  font-family: var(--font-serif);
+  font-size: clamp(30px, 3vw, 40px);
+  font-weight: 700;
+  line-height: 1.12;
+  text-align: left;
+}
+.fh-pathquiz-intro .fh-lede { font-size: 17px; }
+.fh-pathquiz-facts { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.fh-pathquiz-facts li { display: flex; align-items: center; gap: 10px; color: var(--fh-body); font-size: 15px; }
+.fh-pathquiz-facts svg { flex: 0 0 auto; color: var(--fh-green); }
+
+.fh-pathquiz-panel {
+  position: relative;
+  min-width: 0;
+  background: var(--fh-white);
+  border: 1px solid var(--fh-border);
+  border-top: 3px solid var(--fh-gold);
+  border-radius: 12px;
+  padding: 36px 40px 32px;
+  box-shadow: 0 24px 48px -36px rgba(16, 43, 78, 0.45);
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.fh-pathquiz-title {
+  margin: 0;
+  color: var(--fh-navy);
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.fh-pathquiz-title:focus { outline: none; }
+.fh-pathquiz-title:focus-visible { outline: 2px solid var(--fh-navy); outline-offset: 6px; box-shadow: 0 0 0 6px var(--fh-gold); border-radius: 2px; }
+.fh-pathquiz-copy { margin: 0; color: var(--fh-body); font-size: 16px; line-height: 1.6; }
+.fh-pathquiz-help { margin: 8px 0 0; color: var(--fh-muted); font-size: 14px; line-height: 1.5; }
+.fh-pathquiz-hint { color: var(--fh-muted); font-size: 13px; }
+
+.fh-pathquiz-chips { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.fh-pathquiz-chips li {
+  padding: 6px 12px;
+  border: 1px solid var(--fh-border);
+  border-radius: 999px;
+  color: var(--fh-navy);
+  background: var(--fh-page);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Progress: a step counter plus one segment per question. */
+.fh-pathquiz-progress-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.fh-pathquiz-step { margin: 0; color: var(--fh-muted); font-size: 13px; font-weight: 600; letter-spacing: 0.02em; }
+.fh-pathquiz-progress { display: flex; gap: 6px; width: min(240px, 45%); }
+.fh-pathquiz-progress span { flex: 1; height: 4px; border-radius: 2px; background: var(--fh-border); transition: background-color .25s ease; }
+.fh-pathquiz-progress span.is-done { background: var(--fh-teal); }
+
+.fh-pathquiz-question { margin: 0; padding: 0; border: 0; min-width: 0; }
+.fh-pathquiz-question legend { padding: 0; }
+.fh-pathquiz-options { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+.fh-pathquiz-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 56px;
+  padding: 14px 18px;
+  border: 1px solid var(--fh-border);
+  border-radius: 8px;
+  background: var(--fh-white);
+  color: var(--fh-body);
+  font-size: 16px;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: border-color .18s ease, background-color .18s ease, transform .18s ease;
+}
+.fh-pathquiz-option:hover { border-color: var(--fh-teal); background: var(--fh-page); }
+.fh-pathquiz-option[data-checked="true"] {
+  border-color: var(--fh-navy);
+  background: var(--fh-alt);
+  box-shadow: inset 0 0 0 1px var(--fh-navy);
+  color: var(--fh-navy);
+  font-weight: 600;
+}
+/* Brand focus: opaque navy boundary with a gold halo, on the whole option. */
+.fh-pathquiz-option:has(.fh-pathquiz-radio:focus-visible) {
+  outline: 2px solid var(--fh-navy);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--fh-gold);
+}
+.fh-pathquiz-radio { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+.fh-pathquiz-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--fh-border);
+  border-radius: 50%;
+  color: var(--fh-white);
+  background: var(--fh-white);
+  transition: border-color .18s ease, background-color .18s ease;
+}
+.fh-pathquiz-option:hover .fh-pathquiz-mark { border-color: var(--fh-teal); }
+.fh-pathquiz-option[data-checked="true"] .fh-pathquiz-mark { border-color: var(--fh-navy); background: var(--fh-navy); }
+.fh-pathquiz-option-label { flex: 1 1 auto; }
+
+.fh-pathquiz-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 8px; }
+.fh-pathquiz-nav-start { justify-content: flex-start; gap: 18px; }
+.fh-pathquiz-nav .fh-btn { gap: 8px; }
+button.fh-btn { cursor: pointer; appearance: none; }
+button.fh-btn:disabled { cursor: not-allowed; opacity: 0.45; }
+button.fh-btn:disabled:hover { background: var(--fh-navy); }
+
+/* Result */
+.fh-pathquiz-result { gap: 20px; }
+.fh-pathquiz-result .fh-pathquiz-title { font-size: 32px; }
+.fh-pathquiz-next {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px 20px;
+  border-left: 3px solid var(--fh-teal);
+  background: var(--fh-page);
+  border-radius: 0 8px 8px 0;
+}
+.fh-pathquiz-next p { margin: 0; color: var(--fh-body); font-size: 15px; line-height: 1.55; }
+.fh-pathquiz-next-label { color: var(--fh-teal); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+.fh-pathquiz-timeline { color: var(--fh-muted) !important; font-size: 14px !important; }
+.fh-pathquiz-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.fh-pathquiz-secondary { margin: 0; }
+.fh-pathquiz-footer { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px 24px; padding-top: 16px; border-top: 1px solid var(--fh-border); }
+.fh-pathquiz-note { margin: 0; max-width: 52ch; color: var(--fh-muted); font-size: 13px; line-height: 1.5; }
+.fh-pathquiz-restart {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 24px;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: var(--fh-teal);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.fh-pathquiz-restart:hover { text-decoration: underline; text-underline-offset: 3px; }
+.fh-pathquiz-restart:focus-visible { outline: 2px solid var(--fh-navy); outline-offset: 3px; box-shadow: 0 0 0 5px var(--fh-gold); border-radius: 2px; }
+
+/* Motion: one short entrance; the global prefers-reduced-motion rule reduces
+   every animation to a single 0.01ms frame, so nothing moves for those users. */
+@keyframes fh-pathquiz-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.fh-pathquiz-enter { animation: fh-pathquiz-in .32s cubic-bezier(.2,.7,.2,1) both; }
+
+@media (max-width: 1100px) {
+  .fh-pathquiz-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .fh-pathquiz-intro { position: static; }
+  .fh-pathquiz-panel { min-height: 0; }
+}
+@media (max-width: 760px) {
+  .fh-pathquiz { padding: 64px 0; }
+  .fh-pathquiz-panel { padding: 24px 18px 22px; border-radius: 10px; }
+  .fh-pathquiz-title { font-size: 22px; }
+  .fh-pathquiz-result .fh-pathquiz-title { font-size: 26px; }
+  .fh-pathquiz-progress-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .fh-pathquiz-progress { width: 100%; }
+  .fh-pathquiz-option { padding: 14px 14px; font-size: 15px; }
+  .fh-pathquiz-nav { flex-direction: column-reverse; align-items: stretch; }
+  .fh-pathquiz-nav .fh-btn,
+  .fh-pathquiz-actions .fh-btn { width: 100%; white-space: normal; text-align: center; line-height: 1.25; }
+  .fh-pathquiz-nav-start { flex-direction: column; align-items: flex-start; }
+  .fh-pathquiz-actions .fh-btn { width: 100%; }
+}
+
 .fh-final {
   position: relative;
   isolation: isolate;
@@ -1255,8 +1271,6 @@
 }
 
 @media (max-width: 1100px) {
-  .fh-quiz-grid { grid-template-columns: 1fr; gap: 36px; }
-  .fh-quiz { padding: 72px 0; }
   .fh-hero { grid-template-columns: 1fr; }
   /* Photograph above the copy when stacked, so the first thing on a phone is
      still a picture of a family in a home rather than a wall of navy. */
@@ -1324,11 +1338,6 @@
   .fh-final-actions .fh-btn { width: 100%; }
   .fh-trust-list { grid-template-columns: 1fr; }
   .fh-trust-list li { border-left: 0; padding-left: 0; }
-  .fh-quiz-card { padding: 24px; min-height: 0; }
-  .fh-quiz-answers { grid-template-columns: 1fr; }
-  .fh-quiz-preview { grid-template-columns: 1fr; }
-  .fh-quiz-result-actions { flex-direction: column; align-items: stretch; }
-  .fh-quiz-result-actions .fh-btn { width: 100%; }
   .fh-listing-grid,
   .fh-knowledge-grid { grid-template-columns: 1fr; }
   .fh-listings-head { flex-direction: column; align-items: flex-start; }
@@ -1352,14 +1361,11 @@
   .figma-home * { scroll-behavior: auto; }
   .fh-market-arrow,
   .fh-service-arrow,
-  .fh-quiz-answer,
-  .fh-quiz-progress span,
   .fh-path,
   .fh-market-feature,
   .fh-knowledge-card,
   .fh-meet-image { transition: none; }
   .fh-hero-image { animation: none; }
-  .fh-quiz-answer:hover,
   .fh-path:hover,
   .fh-path:hover .fh-path-art,
   .fh-market-feature:hover,

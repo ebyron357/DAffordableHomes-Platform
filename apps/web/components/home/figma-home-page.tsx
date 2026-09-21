@@ -16,8 +16,8 @@ import type { PropertySearchResult } from "@/lib/mls/provider"
 import { DEBRA_DESK_BAND } from "@/lib/content/imagery"
 import { BrandMotif } from "@/components/page/brand-motif"
 import { FigmaHomeFooter } from "@/components/home/figma-home-footer"
-import { HomeQuiz } from "@/components/home/home-quiz"
 import { FigmaHomeHeader } from "@/components/home/figma-home-header"
+import { HomebuyingPathQuiz } from "@/components/home/homebuying-path-quiz"
 
 /**
  * Approved homepage imagery.
@@ -78,7 +78,7 @@ export function FigmaHomePage({
       <Hero />
       <TrustBand />
       <Pathways />
-      <HomeQuiz />
+      <FindYourPath />
       <MeetDebra />
       <Markets />
       <FeaturedListings listings={listings} />
@@ -258,6 +258,45 @@ function Pathways() {
  * that is the composition rather than an inset beside it, with a navy panel
  * carrying the copy and a gold rule tying it to the system.
  */
+/**
+ * "Find Your Homebuying Path" — the homepage's one interactive module.
+ *
+ * Sits directly after the pathway panels so a visitor who is not sure which
+ * of them applies can find out in five questions. The quiz is a client
+ * component; this wrapper is server-rendered copy.
+ */
+function FindYourPath() {
+  return (
+    <section id="find-your-path" className="fh-section fh-pathquiz" aria-labelledby="figma-path-heading">
+      <div className="fh-shell fh-pathquiz-grid">
+        <div className="fh-pathquiz-intro">
+          <p className="fh-eyebrow">Find your homebuying path</p>
+          <h2 id="figma-path-heading">Not sure which pathway is yours?</h2>
+          <p className="fh-lede">
+            Five quick questions about where you are and what you&apos;re hoping to do. You get a recommended
+            starting point on this site right away, and nothing is asked for in return.
+          </p>
+          <ul className="fh-pathquiz-facts">
+            <li>
+              <Check className="size-4" aria-hidden="true" />
+              <span>Takes about a minute</span>
+            </li>
+            <li>
+              <Check className="size-4" aria-hidden="true" />
+              <span>No email or phone number required</span>
+            </li>
+            <li>
+              <Check className="size-4" aria-hidden="true" />
+              <span>Educational only, never a qualification check</span>
+            </li>
+          </ul>
+        </div>
+        <HomebuyingPathQuiz />
+      </div>
+    </section>
+  )
+}
+
 function MeetDebra() {
   return (
     <section className="fh-meet" aria-labelledby="figma-debra-heading">

@@ -4,6 +4,11 @@ All notable repository changes are documented here.
 
 ## 2026-09-21
 
+### Homepage quiz
+
+- "Find Your Homebuying Path": five questions, one at a time, with a progress indicator, keyboard-operable radio choices, focus-managed steps, and an immediate result for one of five paths (First-Time Buyer, North Texas Hero, Moving to Dallas–Fort Worth, Selling and Buying, Not Sure Yet) that links to existing routes. No contact details are collected. It replaces the interim homepage entry to the `/start` assessment.
+- The guided-quiz state machine is shared (`useGuidedQuiz`) by the homepage quiz and the interior Find Your Next Step check; funnel events flow through the existing analytics seam.
+
 ### Interior visual system
 
 - Added a `.dh-*` interior composition layer (`app/globals.css`) plus
