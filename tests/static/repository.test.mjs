@@ -58,10 +58,13 @@ test('approved photography remains wired to public pages', () => {
   assert.match(header, /daffordable-homes-official-logo\.png/);
   assert.match(figmaHeader, /daffordable-homes-official-logo\.png/);
   assert.match(aboutHome, /debra-allen-primary-about\.webp/);
-  assert.match(figmaHome, /\[Debra Allen Portrait Placeholder/);
-  assert.match(figmaHome, /\[Premium Dallas–Fort Worth Real Estate Architectural Photography Placeholder\]/);
-  assert.doesNotMatch(figmaHome, /debra-allen-primary-about\.webp/);
-  assert.doesNotMatch(figmaHome, /black-family-home-pexels-7114188\.webp/);
+  // The homepage renders the approved assets themselves. It used to render
+  // bracketed labels where the photographs belong, and this test asserted
+  // that it did — which is how an audit passed over visible placeholders.
+  assert.match(figmaHome, /debra-allen-primary-about\.webp/);
+  assert.match(figmaHome, /black-family-home-pexels-7114188\.webp/);
+  assert.doesNotMatch(figmaHome, /Portrait Placeholder/);
+  assert.doesNotMatch(figmaHome, /Photography Placeholder/);
   assert.match(aboutPage, /debra-allen-advisor-desk\.webp/);
   assert.match(aboutPage, /debra-allen-lifestyle-full-body\.webp/);
   assert.match(consultation, /couple-consultation_25d3a592\.jpg/);

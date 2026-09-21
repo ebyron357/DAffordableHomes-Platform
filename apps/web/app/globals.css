@@ -222,7 +222,7 @@
    the whole rectangle solid, and a white plate on the navy band reads as a
    sticker. Giving the band itself the light page surface lets the mark sit on
    the background it was drawn for — no plate, no border, no card. */
-.footer-brand-band { background:var(--color-background); color:var(--color-foreground); border-bottom:3px solid #bf922d; }
+.footer-brand-band { background:#ffffff; color:var(--color-foreground); border-bottom:3px solid #bf922d; }
 .footer-brand-inner { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr); align-items:start; gap:56px; padding-top:48px; padding-bottom:48px; }
 .footer-identity { display:flex; flex-direction:column; gap:18px; }
 .footer-logo { display:block; width:220px; height:auto; object-fit:contain; }
@@ -399,7 +399,7 @@
    is never stretched. 66px fits the 94px Figma header with 14px breathing room. */
 .fh-logo {
   display: block;
-  height: 66px;
+  height: 74px;
   width: auto;
   object-fit: contain;
 }
@@ -835,7 +835,7 @@
    colour lets the mark sit on the surface it was drawn for — no plate, no
    border, no card. */
 .fh-footer-brand-band {
-  background: var(--fh-page);
+  background: var(--fh-white);
   color: var(--fh-body);
   border-bottom: 3px solid var(--fh-gold);
 }
@@ -953,7 +953,7 @@
   .fh-split,
   .fh-knowledge-grid { grid-template-columns: 1fr 1fr; }
   .fh-meet-grid { grid-template-columns: 1fr; gap: 40px; }
-  .fh-meet-portrait { min-height: 420px; }
+  .fh-meet-portrait { aspect-ratio: 4 / 3; min-height: 380px; max-height: 480px; max-width: 620px; }
   .fh-section { padding: 72px 0; }
   .fh-section-intro h2,
   .fh-meet-copy h2,
@@ -963,7 +963,7 @@
 
 @media (max-width: 760px) {
   .fh-header-inner { min-height: 76px; }
-  .fh-logo { height: 56px; }
+  .fh-logo { height: 60px; }
   .fh-hero-actions,
   .fh-meet-actions,
   .fh-final-actions { flex-direction: column; align-items: stretch; }
@@ -978,10 +978,11 @@
   .fh-listing-empty-actions { flex-direction: column; }
   .fh-listing-empty-actions .fh-btn { width: 100%; }
   .fh-footer-logo { width: 180px; }
-  .fh-portrait-plate { max-width: 100%; right: 0; padding: 14px 18px; }
+  .fh-portrait-plate { max-width: 200px; padding: 12px 16px; }
+  .fh-portrait-plate strong { font-size: 19px; }
   .fh-listings-head { flex-direction: column; align-items: flex-start; }
-  .fh-hero-media,
-  .fh-meet-portrait { min-height: 320px; }
+  .fh-hero-media { min-height: 300px; }
+  .fh-meet-portrait { aspect-ratio: 4 / 3; min-height: 280px; max-height: 360px; }
   .fh-split-card { padding: 28px; }
   .fh-final { padding: 80px 0; }
   .fh-footer-bottom { flex-direction: column; }

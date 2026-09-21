@@ -44,7 +44,7 @@ export function FigmaHomeHeader() {
             alt="D'Affordable Homes — Affordable, Accessible, Achievable"
             width={640}
             height={427}
-            sizes="(max-width: 760px) 84px, 99px"
+            sizes="(max-width: 760px) 90px, 111px"
             quality={90}
             className="fh-logo"
             priority

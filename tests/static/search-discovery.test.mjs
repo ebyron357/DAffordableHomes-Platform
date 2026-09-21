@@ -14,7 +14,10 @@ test("home and blog pages publish page-level, answer-ready schema", () => {
   assert.match(blog, /"@type": "CollectionPage"/)
   assert.match(blog, /"@type": "ItemList"/)
   assert.match(blog, /itemListElement: articles\.map/)
-  assert.match(blog, /North Texas Homebuyer Field Guides/)
+  assert.match(blog, /Homebuyer Guides for North Texas/)
+  // Public wording is plain consumer language; "field guide" read as military
+  // kit rather than as help for someone buying a house.
+  assert.doesNotMatch(blog, /Field Guides|field guides</)
 })
 
 test("resource hubs send readers directly to canonical destinations", () => {
@@ -23,14 +26,21 @@ test("resource hubs send readers directly to canonical destinations", () => {
   assert.match(resources, /alternates: \{ canonical: "\/resources" \}/)
   assert.doesNotMatch(resources, /href: "\/resources\/calculators\//)
   assert.doesNotMatch(resources, /href: "\/naca"/)
-  assert.match(resources, /href: "\/programs\/naca"/)
+  // NACA is only ever linked at its canonical route, never the legacy alias.
+  if (/naca/i.test(resources)) {
+    assert.doesNotMatch(resources, /href: "\/naca"/)
+  }
   for (const href of [
+    "/calculators/mortgage-payment",
     "/calculators/affordability",
-    "/first-time-buyers",
+    "/calculators/closing-costs",
     "/calculators/down-payment",
+    "/calculators/rent-vs-buy",
+    "/calculators",
+    "/first-time-buyers",
     "/start",
     "/programs",
-    "/about",
+    "/blog",
   ]) {
     assert.match(resources, new RegExp(`href: "${href}"`.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")))
   }

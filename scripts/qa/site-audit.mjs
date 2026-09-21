@@ -39,13 +39,14 @@ const VIEWPORTS = [
 /** Pages that get full visual + responsive QA. */
 const VISUAL_ROUTES = [
   "/",
+  "/resources",
+  "/calculators",
   "/blog",
   "/blog/naca-homebuying-dallas-fort-worth",
   "/blog/homes-for-heroes-north-texas",
   "/blog/how-to-buy-home-garland-tx",
   "/programs",
   "/areas/garland",
-  "/calculators",
   "/consultation",
   "/about",
   "/contact",
@@ -53,6 +54,43 @@ const VISUAL_ROUTES = [
 ]
 
 const ARTICLE_ROUTES = VISUAL_ROUTES.filter((route) => route.startsWith("/blog/"))
+
+/**
+ * Content and image integrity contract.
+ *
+ * A previous audit reported a clean run while the homepage visibly carried
+ * bracketed placeholder copy and empty image wells, because every check was
+ * structural — status codes, canonicals, landmarks, heading order. None of
+ * them looked at what a visitor actually reads, or at whether an <img> decoded.
+ * These do.
+ */
+
+/** Rendered text that must never appear on a public page. */
+const FORBIDDEN_TEXT = [
+  "Placeholder",
+  "[Price",
+  "[Property Address",
+  "[City, TX]",
+  "[X] Beds",
+  "[Y] Baths",
+  "[Sq Ft]",
+  "Lorem ipsum",
+  "TODO",
+  "TBD",
+  "Active MLS Feed Integration Point",
+]
+
+/** Approved assets that must actually render on the routes that use them. */
+const REQUIRED_IMAGES = {
+  "/": [
+    "black-family-home-pexels-7114188",
+    "debra-allen-primary-about",
+    "daffordable-homes-official-logo",
+  ],
+}
+
+/** Retired asset that must not reappear anywhere. */
+const RETIRED_ASSETS = ["dah-logo_ff042b7b", "manus-storage/dah-logo"]
 
 const failures = []
 const notes = []
@@ -116,6 +154,36 @@ async function main() {
     const response = await page.goto(`${BASE}${route}`, { waitUntil: "load" })
     const status = response?.status() ?? 0
     record(status === 200, `route ${route} returns 200`, `got ${status}`)
+
+    // An image that has not loaded reports naturalWidth 0 exactly like a broken
+    // one, and most of this site's images are lazy and below the fold. Walking
+    // the page is not enough on its own — the walk can finish before the last
+    // requests settle — so every image is also switched to eager and awaited.
+    // After this, naturalWidth 0 means the image genuinely failed to decode.
+    await page.evaluate(async () => {
+      const step = window.innerHeight
+      for (let y = 0; y < document.body.scrollHeight; y += step) {
+        window.scrollTo(0, y)
+        await new Promise((resolve) => setTimeout(resolve, 80))
+      }
+      window.scrollTo(0, 0)
+      const images = [...document.querySelectorAll("img")]
+      for (const img of images) img.loading = "eager"
+      await Promise.all(
+        images.map(
+          (img) =>
+            new Promise((resolve) => {
+              if (img.complete) return resolve()
+              img.addEventListener("load", resolve, { once: true })
+              img.addEventListener("error", resolve, { once: true })
+              // Never hang the audit on one slow asset; a still-incomplete
+              // image is reported as broken, which is the safe direction.
+              setTimeout(resolve, 8000)
+            }),
+        ),
+      )
+    })
+    await page.waitForTimeout(250)
 
     const data = await page.evaluate(() => {
       const canonical = document.querySelector('link[rel="canonical"]')?.getAttribute("href") ?? null
@@ -188,6 +256,19 @@ async function main() {
       const nestedInteractive = [...document.querySelectorAll("a,button")].filter((node) =>
         node.querySelector("a,button"),
       ).length
+      // `innerText` is what a sighted visitor reads — it excludes <script>,
+      // <style> and display:none, so a match here is copy that is genuinely on
+      // screen rather than a string that happens to be in the document.
+      const visibleText = document.body.innerText
+      // `naturalWidth` is 0 for an image that failed to decode *and* for one
+      // that has not loaded yet, so the caller scrolls the page first.
+      const images = [...document.querySelectorAll("img")].map((img) => ({
+        src: img.currentSrc || img.src,
+        naturalWidth: img.naturalWidth,
+        naturalHeight: img.naturalHeight,
+        alt: img.getAttribute("alt"),
+        loading: img.getAttribute("loading"),
+      }))
       return {
         canonical,
         jsonLd,
@@ -199,6 +280,8 @@ async function main() {
         landmarks,
         inputsMissingLabel,
         nestedInteractive,
+        visibleText,
+        images,
         title: document.title,
         description:
           document.querySelector('meta[name="description"]')?.getAttribute("content") ?? null,
@@ -209,6 +292,38 @@ async function main() {
 
     record(data.h1s.length === 1, `${route} has exactly one <h1>`, `found ${data.h1s.length}`)
     record(data.imagesMissingAlt === 0, `${route} images all have alt text`, `${data.imagesMissingAlt} missing`)
+
+    /* ---- visible placeholder copy ---- */
+    const foundPlaceholders = FORBIDDEN_TEXT.filter((needle) => data.visibleText.includes(needle))
+    record(
+      foundPlaceholders.length === 0,
+      `${route} shows no placeholder copy`,
+      foundPlaceholders.join(", "),
+    )
+
+    /* ---- broken images ---- */
+    const brokenImages = data.images.filter((img) => img.naturalWidth === 0)
+    record(
+      brokenImages.length === 0,
+      `${route} has no broken images (naturalWidth > 0)`,
+      brokenImages.map((img) => img.src).slice(0, 3).join(" | "),
+    )
+
+    /* ---- approved assets actually render ---- */
+    for (const asset of REQUIRED_IMAGES[route] ?? []) {
+      const match = data.images.find((img) => decodeURIComponent(img.src).includes(asset))
+      record(
+        Boolean(match) && match.naturalWidth > 0,
+        `${route} renders the approved asset ${asset}`,
+        match ? `naturalWidth=${match.naturalWidth}` : "not present",
+      )
+    }
+
+    /* ---- retired assets stay retired ---- */
+    const retired = data.images
+      .map((img) => decodeURIComponent(img.src))
+      .filter((src) => RETIRED_ASSETS.some((needle) => src.includes(needle)))
+    record(retired.length === 0, `${route} does not serve a retired logo asset`, retired.join(" | "))
     record(data.landmarks.main === 1, `${route} has a single <main> landmark`)
     record(data.landmarks.footer >= 1, `${route} has a footer landmark`)
     record(data.inputsMissingLabel === 0, `${route} form fields are labelled`, `${data.inputsMissingLabel} unlabelled`)
@@ -239,6 +354,79 @@ async function main() {
   }
 
   record(consoleErrors.length === 0, "no browser console errors", consoleErrors.slice(0, 5).join(" | "))
+
+  /* -------------------- CMS publishing contract ------------------- */
+
+  // The owner requirement this encodes: publishing an article must not need a
+  // route file and must not need a deploy. A static read of the repository can
+  // show the route is dynamic; only this can show that the *served* article
+  // pages are all coming through that one route.
+  {
+    const { readdirSync, readFileSync } = await import("node:fs")
+
+    // Exactly one route file under app/blog, and it is the [slug] segment.
+    const blogDir = readdirSync("apps/web/app/blog", { withFileTypes: true })
+    const perArticleRoutes = blogDir
+      .filter((entry) => entry.isDirectory() && entry.name !== "[slug]")
+      .map((entry) => entry.name)
+    record(
+      perArticleRoutes.length === 0,
+      "no per-article route files exist under app/blog",
+      perArticleRoutes.join(", "),
+    )
+    record(
+      blogDir.some((entry) => entry.isDirectory() && entry.name === "[slug]"),
+      "the CMS article route is the dynamic [slug] segment",
+    )
+
+    // Every article URL in the sitemap is served by that one route, so a new
+    // article published in the Studio is live without a code change.
+    const articleRoutes = sitemapRoutes.filter((route) => route.startsWith("/blog/"))
+    record(articleRoutes.length > 0, "the sitemap lists CMS-driven article URLs")
+    for (const route of articleRoutes) {
+      const entry = routeReport.find((item) => item.route === route)
+      record(Boolean(entry) && entry.status === 200, `CMS article ${route} is served by /blog/[slug]`)
+    }
+
+    // The route renders on demand, so a publish webhook invalidation takes
+    // effect without a rebuild.
+    const routeSource = readFileSync("apps/web/app/blog/[slug]/page.tsx", "utf8")
+    record(routeSource.includes('export const dynamic = "force-dynamic"'), "the article route renders on demand")
+    // The route's comment explains at length *why* generateStaticParams is not
+    // used, so this has to look for the export rather than for the word.
+    record(
+      !/export\s+(async\s+)?function\s+generateStaticParams/.test(routeSource),
+      "the article route does not pin a build-time slug set",
+    )
+
+    // Draft preview and publish revalidation are wired.
+    for (const [file, label] of [
+      ["apps/web/app/api/draft-mode/enable/route.ts", "draft preview enable endpoint exists"],
+      ["apps/web/app/api/draft-mode/disable/route.ts", "draft preview disable endpoint exists"],
+      ["apps/web/app/api/revalidate/route.ts", "publish revalidation webhook exists"],
+    ]) {
+      let present = true
+      try {
+        readFileSync(file, "utf8")
+      } catch {
+        present = false
+      }
+      record(present, label)
+    }
+  }
+
+  /* -------------------- public language ---------------------------- */
+
+  // "Field guide" was removed from customer-facing copy. Asserted on rendered
+  // text so it cannot come back through the CMS either.
+  for (const route of ["/blog", ...ARTICLE_ROUTES, "/resources", "/consultation"]) {
+    const entry = routeReport.find((item) => item.route === route)
+    if (!entry) continue
+    record(
+      !/field guide/i.test(entry.visibleText),
+      `${route} uses plain consumer language, not "field guide"`,
+    )
+  }
 
   /* -------------------- canonical + structured data --------------- */
 

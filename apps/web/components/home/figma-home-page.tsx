@@ -24,7 +24,11 @@ import { FigmaHomeHeader } from "@/components/home/figma-home-header"
 const HERO_IMAGE = {
   src: "/images/black-family-home-pexels-7114188.webp",
   alt: "A Black family of five holding hands together in a bright living room",
-  objectPosition: "center",
+  // The register calls for a centred crop that keeps all five people legible.
+  // The group sits slightly right of centre in the 3:2 source, so 52% is the
+  // value that actually centres *them* inside the near-square well; a literal
+  // 50% clips the father's shoulder at narrow widths.
+  objectPosition: "52% center",
 } as const
 
 const DEBRA_PORTRAIT = {
@@ -86,7 +90,7 @@ function Hero() {
               src={HERO_IMAGE.src}
               alt={HERO_IMAGE.alt}
               fill
-              sizes="(max-width: 1100px) 100vw, 548px"
+              sizes="(max-width: 1100px) 150vw, 850px"
               style={{ objectPosition: HERO_IMAGE.objectPosition }}
               priority
               className="fh-hero-image"
@@ -136,7 +140,7 @@ function MeetDebra() {
             src={DEBRA_PORTRAIT.src}
             alt={DEBRA_PORTRAIT.alt}
             fill
-            sizes="(max-width: 1100px) 100vw, 440px"
+            sizes="(max-width: 1100px) 140vw, 660px"
             style={{ objectPosition: DEBRA_PORTRAIT.objectPosition }}
             className="fh-meet-image"
           />

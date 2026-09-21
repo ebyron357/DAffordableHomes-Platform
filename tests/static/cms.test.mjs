@@ -212,19 +212,52 @@ test('an empty FAQ or sources block falls back to the article-level list', () =>
   );
 });
 
-test('a Content Lake outage degrades to the seed instead of failing the page', () => {
+test('Sanity is the sole production authority and outages degrade honestly', () => {
   const source = read('apps/web/lib/blog/source.ts');
 
-  assert.match(source, /withSeedFallback/);
+  // The silent seed fallback is gone. It meant a Content Lake outage served
+  // pre-migration copy as if it were current — an editor's correction or
+  // unpublish would appear to have been reverted, with nothing saying so.
+  assert.ok(
+    !source.includes('withSeedFallback'),
+    'the silent seed fallback must not return'
+  );
   assert.match(source, /console\.error/);
-  for (const caller of ['"listArticles"', '"listArticleSlugs"', '`getArticle(']) {
-    assert.ok(
-      source.includes(caller),
-      `${caller} should be passed to withSeedFallback as its label`
-    );
+
+  // The replacement ladder, in order.
+  for (const marker of [
+    // 1. unconfigured -> seed (bootstrap and migration only)
+    /if \(!client\) \{\s*return \{ articles: SEED_ARTICLES\.map\(toSummary\)/,
+    // 2 + 3. configured -> Content Lake, with the last good response as the
+    // only degradation, explicitly flagged.
+    /status: "stale", source: "sanity", fetchedAt/,
+    // 4. nothing cached -> an honest unavailable state, never seed copy.
+    /status: "unavailable", source: "sanity"/,
+  ]) {
+    assert.match(source, marker);
   }
-  // A draft read must not fall back to published seed copy.
-  assert.match(source, /must never fall back to published seed content/);
+
+  // Every read is labelled so an outage is attributable in the logs.
+  for (const label of ['"listArticles"', '"listArticleSlugs"', '`getArticle(']) {
+    assert.ok(source.includes(label), `${label} should label its Content Lake read`);
+  }
+
+  // A draft read must not fall back to published or cached content.
+  assert.match(source, /must never fall back to published or cached content/);
+});
+
+test('an unreachable CMS never renders a 404 for a published article', () => {
+  const route = read('apps/web/app/blog/[slug]/page.tsx');
+  const index = read('apps/web/app/blog/page.tsx');
+
+  // A 404 would tell readers and crawlers the article had been withdrawn.
+  assert.match(route, /if \(state\.status === "unavailable"\) return <ArticleUnavailable \/>/);
+  assert.match(route, /ArticleUnavailable/);
+  // Metadata resolves first, so it needs the same guard.
+  assert.match(route, /title: "Article temporarily unavailable"/);
+  assert.match(route, /robots: \{ index: false, follow: true \}/);
+  // The index says so too rather than rendering an empty library.
+  assert.match(index, /state\.status === "unavailable"/);
 });
 
 test('the revalidate webhook verifies its signature before revalidating', () => {
