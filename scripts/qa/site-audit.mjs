@@ -161,12 +161,19 @@ async function main() {
     // requests settle — so every image is also switched to eager and awaited.
     // After this, naturalWidth 0 means the image genuinely failed to decode.
     await page.evaluate(async () => {
+      // `scroll-behavior: smooth` is set on <html>, so scrollTo() animates and
+      // a fixed wait lands mid-animation on a long page. Disable it for the
+      // duration of the measurement and restore it afterwards.
+      const root = document.documentElement
+      const previousBehavior = root.style.scrollBehavior
+      root.style.scrollBehavior = "auto"
       const step = window.innerHeight
       for (let y = 0; y < document.body.scrollHeight; y += step) {
         window.scrollTo(0, y)
         await new Promise((resolve) => setTimeout(resolve, 80))
       }
       window.scrollTo(0, 0)
+      root.style.scrollBehavior = previousBehavior
       const images = [...document.querySelectorAll("img")]
       for (const img of images) img.loading = "eager"
       await Promise.all(

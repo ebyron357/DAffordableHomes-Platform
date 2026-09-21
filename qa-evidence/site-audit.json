@@ -16,6 +16,7 @@
     "sitemap routes: 33",
     "/calculators/affordability: ignored upgrade-insecure-requests artifact on http test origin — Failed to load resource: net::ERR_SSL_PROTOCOL_ERROR",
     "/calculators/closing-costs: ignored upgrade-insecure-requests artifact on http test origin — Failed to load resource: net::ERR_SSL_PROTOCOL_ERROR",
+    "/calculators/down-payment: ignored upgrade-insecure-requests artifact on http test origin — Failed to load resource: net::ERR_SSL_PROTOCOL_ERROR",
     "/calculators/mortgage-payment: ignored upgrade-insecure-requests artifact on http test origin — Failed to load resource: net::ERR_SSL_PROTOCOL_ERROR",
     "/start: ignored upgrade-insecure-requests artifact on http test origin — Failed to load resource: net::ERR_SSL_PROTOCOL_ERROR",
     "internal links checked: 35"
@@ -741,7 +742,7 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
           "naturalWidth": 220,
           "naturalHeight": 146,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",

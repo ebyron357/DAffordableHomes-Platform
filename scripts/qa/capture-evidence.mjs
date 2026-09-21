@@ -86,12 +86,19 @@ async function main() {
       // Lazy images below the fold would otherwise be captured mid-load and
       // would report naturalWidth 0, which is indistinguishable from broken.
       await page.evaluate(async () => {
+        // `scroll-behavior: smooth` is set on <html>, so scrollTo() animates and
+        // a fixed wait lands mid-animation on a 15,000px article page. Disable
+        // it for the duration of the measurement and restore it afterwards.
+        const root = document.documentElement
+        const previousBehavior = root.style.scrollBehavior
+        root.style.scrollBehavior = "auto"
         const step = window.innerHeight
         for (let y = 0; y < document.body.scrollHeight; y += step) {
           window.scrollTo(0, y)
           await new Promise((resolve) => setTimeout(resolve, 70))
         }
         window.scrollTo(0, 0)
+        root.style.scrollBehavior = previousBehavior
         const images = [...document.querySelectorAll("img")]
         for (const img of images) img.loading = "eager"
         await Promise.all(
@@ -129,6 +136,20 @@ async function main() {
       if (audit.horizontalScroll) {
         failures.push(`${route} @${viewportName} scrolls horizontally`)
       }
+
+      // Eager-loading the images above reflows the page, which can leave the
+      // viewport part-way down. A viewport-height capture has to start at the
+      // masthead, so return to the top instantly and confirm it landed.
+      await page.evaluate(() => {
+        const root = document.documentElement
+        const previousBehavior = root.style.scrollBehavior
+        root.style.scrollBehavior = "auto"
+        window.scrollTo(0, 0)
+        root.style.scrollBehavior = previousBehavior
+      })
+      await page.waitForTimeout(150)
+      const scrollY = await page.evaluate(() => window.scrollY)
+      if (scrollY !== 0) failures.push(`${route} @${viewportName} did not return to the top (scrollY=${scrollY})`)
 
       // Articles are 8,000-15,000px tall; a full-page capture of each at five
       // viewports is most of the committed evidence weight and adds little a
