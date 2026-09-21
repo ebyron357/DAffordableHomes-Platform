@@ -1836,7 +1836,10 @@
 .dh-band-teal .dh-place-county { color: rgba(255,255,255,.75); }
 
 /* Feature place: the one market with a real guide behind it. */
-.dh-place-feature { display: flex; flex-direction: column; gap: 10px; justify-content: flex-end; min-height: 100%; padding: 30px 30px 28px; background: linear-gradient(145deg, var(--dh-teal) 0%, var(--dh-teal-deep) 100%); border-bottom: 5px solid var(--dh-gold); color: #fff; text-decoration: none; transition: transform .22s ease; }
+/* Centred, not bottom-anchored: the panel stretches to whatever the grid
+   beside it needs, and anchoring the copy to the bottom left a tall field of
+   empty teal above it. */
+.dh-place-feature { display: flex; flex-direction: column; gap: 10px; justify-content: center; min-height: 100%; padding: 30px 30px 28px; background: linear-gradient(145deg, var(--dh-teal) 0%, var(--dh-teal-deep) 100%); border-bottom: 5px solid var(--dh-gold); color: #fff; text-decoration: none; transition: transform .22s ease; }
 .dh-place-feature:hover { transform: translateY(-3px); }
 .dh-place-feature-label { display: inline-flex; align-items: center; gap: 8px; color: var(--dh-gold-light); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
 .dh-place-feature-name { font-family: var(--font-serif); font-size: clamp(30px, 3.4vw, 42px); font-weight: 600; line-height: 1.05; }

@@ -2046,8 +2046,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
