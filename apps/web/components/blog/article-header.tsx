@@ -28,7 +28,7 @@ export function ArticleHeader({ article }: { article: Article }) {
             <li aria-hidden="true">/</li>
             <li>
               <Link href="/blog" className="inline-block py-1 hover:text-primary hover:underline">
-                Blogs
+                Guides
               </Link>
             </li>
             <li aria-hidden="true">/</li>
@@ -56,7 +56,12 @@ export function ArticleHeader({ article }: { article: Article }) {
               <time dateTime={article.publishedAt}>
                 Published {formatArticleDate(article.publishedAt)}
               </time>
-              {article.reviewedAt && article.reviewedAt !== article.publishedAt && (
+              {/* Shown whenever the editor has set one, including when it
+                  matches the publish date. A reviewed date is what tells a
+                  reader the page is maintained; hiding it on the articles
+                  where it equals publication made the newest guides look the
+                  least cared for, and it disagreed with the blog index. */}
+              {article.reviewedAt && (
                 <time dateTime={article.reviewedAt}>
                   Reviewed {formatArticleDate(article.reviewedAt)}
                 </time>

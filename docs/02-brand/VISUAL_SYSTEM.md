@@ -66,23 +66,54 @@ Primary buttons use deep navy with white text. Secondary emphasis may use dark t
 
 The homepage hero uses licensed Pexels photo 7114188 by Monstera Production / Gabby K. Debra’s approved yellow-blazer portrait anchors the homepage trust section; the approved desk portrait supports consultation. No AI imagery or appearance alteration is permitted. See `docs/05-content/IMAGE_ASSET_REGISTER.md` for canonical provenance, licensing, crops, alt text, and repository paths.
 
-## Homepage frame tokens
+## Homepage palette
 
-The production homepage (`11:4`) uses the Figma screen tokens rather than inventing a second palette:
+The production homepage (`11:4`) keeps the Figma frame's composition, spacing,
+section order and geometry, but is painted with the approved logo-derived
+system above rather than the frame's warm-cream screen tokens. Running two
+palettes meant the homepage read as a different brand from every interior
+route; there is now one system.
 
-- Page background `#faf7f2`
-- Navy `#0b1f33`
-- Body `#203042`
-- Teal `#077783`
-- Gold `#d6a743`
-- Buyer card `#f1faf9`
-- Seller card `#ecf9f8`
-- Borders `#eae6df`
-- Image wells `#efece6`
-- Icon wells `#ecf9f8`
-- Desktop frame lock: `1440 × 6183`, content width `1256`, side margins `92`
+The scoped tokens on `.figma-home`:
 
-Interior routes still use the approved logo-derived system above until a full-site rollout is approved.
+| Token | Value | Role |
+| --- | --- | --- |
+| `--fh-page` | `#F7F9F8` | Near-white page background |
+| `--fh-alt` | `#EDF3F2` | Soft green-gray alternate sections |
+| `--fh-navy` | `#102B4E` | Navigation, headings, primary buttons, footer, CTA band |
+| `--fh-body` | `#10233F` | Body and heading text |
+| `--fh-muted` | `#52616F` | Secondary body text |
+| `--fh-teal` | `#077783` | Links, eyebrows, active nav, secondary buttons |
+| `--fh-teal-bright` | `#18A9B4` | Decorative accents and hover rules only |
+| `--fh-green` | `#66AD45` | Seller-pathway accent; paired with text, never alone |
+| `--fh-gold` | `#BF922D` | Header hairline, section rules, empty-state edge, footer divider |
+| `--fh-border` | `#CBD7D6` | Dividers and boundaries |
+| `--fh-white` | `#FFFFFF` | Cards, content surfaces, footer brand band |
+
+Desktop frame lock: `1440` content width with `1256` inner content and `92px`
+side margins. Per-section heights from the frame are `min-height` rather than
+`height`, because two sections no longer match the static mock — see below.
+
+Gold at its brand value clears 4.5:1 against white but not against navy, so
+the outlined CTA on the navy band uses a lightened `#E6BD55` for its label and
+border while the brand value is kept for rules and dividers.
+
+## Sections that intentionally diverge from the frame
+
+The frame reserved image wells the approved asset library cannot fill, and
+reserved listing cards no MLS feed backs. Shipping either as a labelled empty
+box is a placeholder on a live site, so:
+
+- **Markets** is an editorial two-column list of DFW cities with each city's
+  county, replacing eight photo cards. It carries real local context and
+  invents no market statistic, price or inventory claim.
+- **Featured listings** renders a designed empty state when no MLS/IDX feed is
+  connected: the situation stated plainly plus the two actions that exist. It
+  never renders a listing-shaped card with bracketed price and address.
+- **Footers** (homepage and interior) are composed brand band → navigation →
+  vendor credit → small compliance row. The brand band is white so the opaque
+  logo PNG sits flush; on the navy band it could only ever be presented on a
+  white card.
 
 ## Controlled rollout
 

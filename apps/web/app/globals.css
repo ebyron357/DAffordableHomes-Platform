@@ -796,17 +796,65 @@
 .fh-split-card .fh-btn { margin-top: 12px; }
 
 .fh-knowledge { background: var(--fh-alt); }
-.fh-knowledge-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; align-items: start; }
+.fh-knowledge-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
 .fh-knowledge-card {
-  height: auto;
+  height: 100%;
   gap: 16px;
   padding: 24px;
   border-radius: 10px;
   background: var(--fh-white);
   border-top: 3px solid var(--fh-teal-bright);
 }
-.fh-knowledge-card h3 { margin: 0; font-size: 18px; line-height: 1.25; }
+.fh-knowledge-card h4 { margin: 0; color: var(--fh-navy); font-family: var(--font-serif); font-size: 18px; font-weight: 600; line-height: 1.25; }
 .fh-knowledge-card p { margin: 0; font-size: 14px; line-height: 1.5; }
+
+/* CMS-driven latest guides.
+   Editorial rows rather than a second card grid: the evergreen cards below
+   already carry that weight, and two card walls in one section is exactly the
+   component-library look the design blueprint asked us to stop repeating. */
+.fh-latest { margin-bottom: 64px; }
+.fh-latest-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 16px;
+}
+.fh-latest-head h3,
+.fh-knowledge-evergreen h3 {
+  margin: 0;
+  color: var(--fh-navy);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.fh-knowledge-evergreen h3 { margin-bottom: 20px; }
+.fh-latest-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--fh-border); }
+.fh-latest-list li { border-bottom: 1px solid var(--fh-border); }
+.fh-latest-row {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 8px 28px;
+  min-height: 44px;
+  padding: 20px 4px 20px 0;
+  color: var(--fh-navy);
+  text-decoration: none;
+}
+.fh-latest-category {
+  color: var(--fh-teal);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.fh-latest-title { font-family: var(--font-serif); font-size: 22px; font-weight: 600; line-height: 1.25; }
+.fh-latest-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; color: var(--fh-muted); font-size: 13px; }
+.fh-latest-row:hover { background: var(--fh-white); }
+.fh-latest-row:hover .fh-latest-title { color: var(--fh-teal); text-decoration: underline; text-underline-offset: 4px; }
 .fh-access-link { font-size: 13px; gap: 4px; padding-top: 12px; }
 
 .fh-final {
@@ -952,6 +1000,8 @@
   .fh-listing-grid,
   .fh-split,
   .fh-knowledge-grid { grid-template-columns: 1fr 1fr; }
+  .fh-latest-row { grid-template-columns: 150px minmax(0, 1fr); }
+  .fh-latest-meta { grid-column: 2; }
   .fh-meet-grid { grid-template-columns: 1fr; gap: 40px; }
   .fh-meet-portrait { aspect-ratio: 4 / 3; min-height: 380px; max-height: 480px; max-width: 620px; }
   .fh-section { padding: 72px 0; }
@@ -974,6 +1024,8 @@
   .fh-market-list,
   .fh-footer-columns { grid-template-columns: 1fr; }
   .fh-market-name { font-size: 21px; }
+  .fh-latest-row { grid-template-columns: 1fr; gap: 6px; padding: 18px 0; }
+  .fh-latest-title { font-size: 20px; }
   .fh-listing-empty { padding: 28px 24px; }
   .fh-listing-empty-actions { flex-direction: column; }
   .fh-listing-empty-actions .fh-btn { width: 100%; }

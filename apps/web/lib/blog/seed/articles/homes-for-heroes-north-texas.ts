@@ -9,8 +9,6 @@
 
 import type { Article } from "../../types"
 import {
-  areaGuideCta,
-  calculatorCta,
   checklist,
   comparisonTable,
   complianceDisclaimer,
@@ -20,7 +18,6 @@ import {
   heroImage,
   inlineImage,
   officialSourcesBlock,
-  programCta,
   quickAnswer,
   relatedArticlesBlock,
   resetKeys,
@@ -326,14 +323,6 @@ export const heroesArticle: Article = {
       ),
     ),
 
-    calculatorCta({
-      heading: "Prepare for the cash you need beyond the down payment",
-      description:
-        "The closing-cost calculator is a planning tool. It is not a loan estimate or a program decision.",
-      href: "/calculators/closing-costs",
-      buttonLabel: "Open the closing-cost calculator",
-    }),
-
     faqBlock("Frequently asked questions", articleFaqs),
 
     officialSourcesBlock("Official sources and review notes", articleSources),
@@ -346,21 +335,6 @@ export const heroesArticle: Article = {
         ),
       ),
     ),
-
-    programCta({
-      heading: "Build a real-estate plan around the person—not the label",
-      description:
-        "A profession may shape the schedule and the move, but it should not reduce the client to a generic category. Debra helps North Texas community heroes create a buying, selling, or coordinated move plan around their goals, timing, budget, and responsibilities.",
-      href: "/programs/homes-for-heroes",
-      buttonLabel: "Start with hero-focused guidance",
-    }),
-
-    areaGuideCta({
-      heading: "Searching in Garland?",
-      description: "Plan a Garland search around cost, condition, commute, and timing.",
-      href: "/areas/garland",
-      buttonLabel: "Open the Garland guide",
-    }),
 
     relatedArticlesBlock("Keep reading"),
 

@@ -10,8 +10,6 @@
 
 import type { Article } from "../../types"
 import {
-  areaGuideCta,
-  calculatorCta,
   checklist,
   comparisonTable,
   complianceDisclaimer,
@@ -21,7 +19,6 @@ import {
   heroImage,
   inlineImage,
   officialSourcesBlock,
-  programCta,
   quickAnswer,
   relatedArticlesBlock,
   resetKeys,
@@ -314,14 +311,6 @@ export const nacaArticle: Article = {
       "Know which professional controls each approval.",
     ]),
 
-    calculatorCta({
-      heading: "Test a planning range before you compare properties",
-      description:
-        "The affordability calculator is a planning tool, not a mortgage approval or a NACA decision.",
-      href: "/calculators/affordability",
-      buttonLabel: "Open the affordability calculator",
-    }),
-
     faqBlock("Frequently asked questions", articleFaqs),
 
     officialSourcesBlock("Official sources and review notes", articleSources),
@@ -334,21 +323,6 @@ export const nacaArticle: Article = {
         ),
       ),
     ),
-
-    programCta({
-      heading: "Ready to understand the next real-estate step?",
-      description:
-        "You do not need to pretend you understand the entire process. You need an accurate picture of your current stage and the next responsible action.",
-      href: "/programs/naca",
-      buttonLabel: "Start with NACA home-search guidance",
-    }),
-
-    areaGuideCta({
-      heading: "Planning a Garland search?",
-      description: "Continue into the focused Garland home-search resource.",
-      href: "/areas/garland",
-      buttonLabel: "Open the Garland guide",
-    }),
 
     relatedArticlesBlock("Keep reading"),
 

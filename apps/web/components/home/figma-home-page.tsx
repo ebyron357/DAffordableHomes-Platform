@@ -9,6 +9,8 @@ import {
   FIGMA_SELLER_POINTS,
   FIGMA_SERVICES,
 } from "@/lib/figma-home"
+import { formatArticleDate } from "@/lib/blog/format"
+import type { ArticleSummary } from "@/lib/blog/types"
 import type { PropertySearchResult } from "@/lib/mls/provider"
 import { FigmaHomeFooter } from "@/components/home/figma-home-footer"
 import { FigmaHomeHeader } from "@/components/home/figma-home-header"
@@ -41,7 +43,13 @@ function formatPrice(value: number) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value)
 }
 
-export function FigmaHomePage({ listings }: { listings: PropertySearchResult }) {
+export function FigmaHomePage({
+  listings,
+  latestArticles,
+}: {
+  listings: PropertySearchResult
+  latestArticles: ArticleSummary[]
+}) {
   return (
     <div className="figma-home">
       <FigmaHomeHeader />
@@ -51,7 +59,7 @@ export function FigmaHomePage({ listings }: { listings: PropertySearchResult }) 
       <Markets />
       <FeaturedListings listings={listings} />
       <GuidanceSplit />
-      <KnowledgeBase />
+      <KnowledgeBase articles={latestArticles} />
       <FinalCta />
       <FigmaHomeFooter />
     </div>
@@ -322,27 +330,76 @@ function GuidanceSplit() {
   )
 }
 
-function KnowledgeBase() {
+/**
+ * Knowledge section.
+ *
+ * The top of this section is the CMS: the three newest published articles,
+ * read through the same `listArticles()` path as /blog. Publishing a guide in
+ * the Studio changes the homepage with no code change and no deploy, which is
+ * what keeps the site from reading as a page that was built once and left.
+ *
+ * Underneath it, the evergreen planning destinations stay in the repository.
+ * They are effectively navigation — stable, reviewed, and not something an
+ * editor should have to maintain as content.
+ *
+ * When the CMS has nothing to show (a fresh dataset, or an outage that left
+ * this instance with no cached response), the section renders the evergreen
+ * links alone rather than an empty shelf.
+ */
+function KnowledgeBase({ articles }: { articles: ArticleSummary[] }) {
   return (
     <section className="fh-section fh-knowledge" aria-labelledby="figma-knowledge-heading">
       <div className="fh-shell">
-        <div className="fh-section-intro">
+        <div className="fh-section-intro fh-section-intro-left">
           <p className="fh-eyebrow">Knowledge base</p>
           <h2 id="figma-knowledge-heading">Empower your decisions</h2>
         </div>
-        <ul className="fh-knowledge-grid">
-          {FIGMA_KNOWLEDGE.map((item) => (
-            <li key={item.title}>
-              <article className="fh-knowledge-card">
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-                <Link href={item.href} className="fh-text-link fh-access-link">
-                  Open <ArrowRight className="size-3" aria-hidden="true" />
-                </Link>
-              </article>
-            </li>
-          ))}
-        </ul>
+
+        {articles.length > 0 && (
+          <div className="fh-latest">
+            <div className="fh-latest-head">
+              <h3>Latest guides</h3>
+              <Link href="/blog" className="fh-text-link">
+                All guides <ArrowRight className="size-3.5" aria-hidden="true" />
+              </Link>
+            </div>
+            <ul className="fh-latest-list">
+              {articles.map((article) => (
+                <li key={article._id}>
+                  <Link href={`/blog/${article.slug}`} className="fh-latest-row">
+                    <span className="fh-latest-category">{article.category.title}</span>
+                    <span className="fh-latest-title">{article.title}</span>
+                    <span className="fh-latest-meta">
+                      <time dateTime={article.reviewedAt ?? article.publishedAt}>
+                        {article.reviewedAt
+                          ? `Reviewed ${formatArticleDate(article.reviewedAt)}`
+                          : `Published ${formatArticleDate(article.publishedAt)}`}
+                      </time>
+                      <span>{article.readingTime}</span>
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div className="fh-knowledge-evergreen">
+          <h3>Plan your next step</h3>
+          <ul className="fh-knowledge-grid">
+            {FIGMA_KNOWLEDGE.map((item) => (
+              <li key={item.title}>
+                <article className="fh-knowledge-card">
+                  <h4>{item.title}</h4>
+                  <p>{item.body}</p>
+                  <Link href={item.href} className="fh-text-link fh-access-link">
+                    Open <ArrowRight className="size-3" aria-hidden="true" />
+                  </Link>
+                </article>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   )

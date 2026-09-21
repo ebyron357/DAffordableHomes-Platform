@@ -9,8 +9,6 @@
 
 import type { Article } from "../../types"
 import {
-  areaGuideCta,
-  calculatorCta,
   callout,
   checklist,
   complianceDisclaimer,
@@ -20,7 +18,6 @@ import {
   heroImage,
   inlineImage,
   officialSourcesBlock,
-  programCta,
   quickAnswer,
   relatedArticlesBlock,
   resetKeys,
@@ -101,7 +98,7 @@ export const garlandArticle: Article = {
     alt: "Debra Allen standing at a kitchen island in a yellow blazer",
     width: 1153,
     height: 1536,
-    focalPoint: "center 35%",
+    focalPoint: "center 10%",
   },
   socialImage: {
     src: "/images/debra-allen-lifestyle-full-body.webp",
@@ -149,7 +146,7 @@ export const garlandArticle: Article = {
       alt: "Debra Allen standing at a kitchen island in a yellow blazer",
       width: 1153,
       height: 1536,
-      focalPoint: "center 35%",
+      focalPoint: "center 10%",
     }),
 
     quickAnswer(
@@ -379,14 +376,6 @@ export const garlandArticle: Article = {
       "Every item below appears somewhere in the fourteen steps above. Together they are the shortest honest summary of readiness.",
     ),
 
-    calculatorCta({
-      heading: "Estimate a conservative planning range",
-      description:
-        "Use the affordability calculator as a planning tool. It is not a mortgage approval or a program decision.",
-      href: "/calculators/affordability",
-      buttonLabel: "Open the affordability calculator",
-    }),
-
     faqBlock("Frequently asked questions", articleFaqs),
 
     officialSourcesBlock("Official sources and review notes", articleSources),
@@ -399,21 +388,6 @@ export const garlandArticle: Article = {
         ),
       ),
     ),
-
-    areaGuideCta({
-      heading: "Turn the Garland search into a plan",
-      description:
-        "Know the payment you can sustain, the cash you may need, the condition you can handle, the locations that fit your routine, and how much reserve will remain after closing.",
-      href: "/areas/garland",
-      buttonLabel: "Continue with the Garland homebuyer guide",
-    }),
-
-    programCta({
-      heading: "Exploring NACA for a Garland purchase?",
-      description: "Understand Debra's role when exploring or using NACA.",
-      href: "/programs/naca",
-      buttonLabel: "Review NACA home-search guidance",
-    }),
 
     relatedArticlesBlock("Keep reading"),
 

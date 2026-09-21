@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { FigmaHomePage } from "@/components/home/figma-home-page"
 import { FAQ_PREVIEW } from "@/lib/content/home"
+import { listArticles } from "@/lib/blog/source"
 import { searchListings } from "@/lib/mls/provider"
 import { SITE } from "@/lib/site"
 
@@ -27,7 +28,12 @@ export const metadata: Metadata = {
 }
 
 export default async function HomePage() {
-  const listings = await searchListings()
+  // The homepage's knowledge section is driven by the same CMS articles as
+  // /blog, so publishing a guide in the Studio changes the homepage — no code
+  // change, no deploy. This is the one editorial module worth wiring to the
+  // CMS: navigation, legal and compliance copy stay in the repository, where
+  // review and version history belong.
+  const [listings, articles] = await Promise.all([searchListings(), listArticles()])
   const homePageJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -64,7 +70,7 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }}
       />
-      <FigmaHomePage listings={listings} />
+      <FigmaHomePage listings={listings} latestArticles={articles.articles.slice(0, 3)} />
     </>
   )
 }

@@ -81,7 +81,7 @@ export function breadcrumbJsonLd(article: Article): Record<string, unknown> {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
-      { "@type": "ListItem", position: 2, name: "Blogs", item: `${SITE.url}/blog` },
+      { "@type": "ListItem", position: 2, name: "Guides", item: `${SITE.url}/blog` },
       {
         "@type": "ListItem",
         position: 3,

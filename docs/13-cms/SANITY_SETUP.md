@@ -24,24 +24,68 @@ to switch the site from the built-in migration seed to the live Content Lake.
 | Migration payload | `apps/web/lib/blog/seed/` |
 | Migration exporter | `scripts/sanity/export-seed.mjs` |
 
-### The seed fallback, and why it exists
+### Production source of truth
 
-`apps/web/lib/blog/seed/` holds the three launch articles as structured
-documents. It has two jobs:
+**Once `NEXT_PUBLIC_SANITY_PROJECT_ID` is set, Sanity is the only publishing
+system for this site.** Articles are created, edited, reordered, previewed,
+published and unpublished in `/studio`, and nothing in the repository
+republishes, overrides or substitutes for what is in the Content Lake.
 
-1. It is the **reproducible migration payload** — `pnpm sanity:seed` turns it
-   into NDJSON that `sanity dataset import` pushes into the Content Lake, so
-   nobody retypes three long articles by hand.
-2. It is the **fallback content source** when Sanity environment variables are
-   absent, so `/blog` and the three preserved article URLs keep serving real
-   content on an unconfigured deploy instead of 404ing.
+`apps/web/lib/blog/seed/` is **migration and bootstrap data, not a second
+publishing path**. It has exactly two jobs:
 
-Once `NEXT_PUBLIC_SANITY_PROJECT_ID` is set, the Content Lake is authoritative
-and the seed is no longer read at request time. `getContentSource()` in
-`lib/blog/source.ts` reports which source is live.
+1. The **reproducible migration payload** — `pnpm sanity:seed` turns it into
+   NDJSON that `sanity dataset import` pushes into the Content Lake, so nobody
+   retypes three long articles by hand.
+2. The **content an unconfigured checkout renders**, so a local clone and a
+   deploy that has not yet been pointed at a project serve real pages instead
+   of 404ing.
+
+#### Exactly what happens on a read
+
+`lib/blog/source.ts` applies this ladder, in order. Every step reports its own
+state, so the page and the logs always agree about what was served.
+
+| Condition | What is served | `ReadState` |
+| --- | --- | --- |
+| Sanity not configured | The migration seed | `{ status: "ok", source: "seed" }` |
+| Configured, Content Lake responds | Content Lake, on Next's data cache under the `article` tag | `{ status: "ok", source: "sanity" }` |
+| Configured, read fails, this instance has served a good response before | That response again, with the time it was fetched | `{ status: "stale", source: "sanity", fetchedAt }` |
+| Configured, read fails, nothing cached | Nothing — the reader is told the library is temporarily unavailable | `{ status: "unavailable", source: "sanity" }` |
+
+The third row is the site's **own published content**, held per process — not
+migration copy. The fourth row renders an honest "temporarily unavailable"
+panel on `/blog` and on `/blog/[slug]`, and the article route returns
+`robots: noindex` rather than a 404, because a 404 would tell readers and
+crawlers that a published article had been withdrawn.
+
+#### Why the previous behaviour was removed
+
+Until this pass, any Content Lake read failure silently fell back to the seed.
+That meant an outage could serve pre-migration copy as if it were current: an
+editor who had corrected a figure, changed a reviewed date or unpublished an
+article would have watched the old version reappear, with nothing on the page
+or in the response saying why. Stale copy that looks current is worse than an
+honest gap, so there is no longer any path from a configured Sanity project
+back to the seed at request time.
+
+`getContentSource()` reports which system is authoritative in the current
+environment. `tests/static/cms.test.mjs` asserts the ladder above, and
+`scripts/qa/site-audit.mjs` asserts at browser level that no per-article route
+file exists, that every article URL in the sitemap is served by the single
+`[slug]` route, and that the route pins no build-time slug set.
 
 > The seed is data, not layout. No article copy lives in a route file or a
 > renderer component.
+
+#### Migrating the three launch articles
+
+The three articles keep their public slugs — `how-to-buy-home-garland-tx`,
+`naca-homebuying-dallas-fort-worth`, `homes-for-heroes-north-texas` — through
+the migration, so no URL changes and no redirect is needed. Run the import in
+section 4 before switching production traffic; after it, the Content Lake is
+authoritative and edits are made in the Studio, never in
+`apps/web/lib/blog/seed/`.
 
 ---
 
