@@ -52,7 +52,7 @@ export const article = defineType({
       title: "Eyebrow",
       type: "string",
       group: "editorial",
-      description: "Short kicker above the headline, e.g. “NACA homebuyer field guide”.",
+      description: "Short kicker above the headline, e.g. “NACA program guide”.",
       validation: (rule) => rule.required().max(60),
     }),
     defineField({

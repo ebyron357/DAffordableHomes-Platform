@@ -77,7 +77,7 @@ export const garlandArticle: Article = {
   slug: "how-to-buy-home-garland-tx",
   title,
   excerpt,
-  eyebrow: "Garland first-time buyer field guide",
+  eyebrow: "Garland first-time buyer guide",
   seoTitle: title,
   seoDescription: excerpt,
   category: {

@@ -46,7 +46,7 @@ const staticRoutes = [
 ] as const
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const articles = await listArticles()
+  const { articles } = await listArticles()
 
   const staticEntries = staticRoutes.map((route) => ({
     url: `${SITE.url}${route}`,

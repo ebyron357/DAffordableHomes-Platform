@@ -51,15 +51,24 @@ export const FIGMA_SERVICES = [
   },
 ] as const
 
+/**
+ * Markets presented as an editorial list rather than eight photo cards.
+ *
+ * The supporting line is the county each city sits in — a verifiable civic
+ * fact — so the section carries real local context without inventing market
+ * statistics, price claims, or inventory counts. No image wells: the approved
+ * asset library has no licensed city photography, and a labelled empty frame
+ * is worse than a well-set row of type.
+ */
 export const FIGMA_CITIES = [
-  { name: "Dallas", href: "/homes", well: "[Dallas Neighborhood Image Placeholder]" },
-  { name: "Fort Worth", href: "/homes", well: "[Fort Worth Neighborhood Image Placeholder]" },
-  { name: "Arlington", href: "/homes", well: "[Arlington Neighborhood Image Placeholder]" },
-  { name: "Plano", href: "/homes", well: "[Plano Neighborhood Image Placeholder]" },
-  { name: "Frisco", href: "/homes", well: "[Frisco Neighborhood Image Placeholder]" },
-  { name: "McKinney", href: "/homes", well: "[McKinney Neighborhood Image Placeholder]" },
-  { name: "Irving", href: "/homes", well: "[Irving Neighborhood Image Placeholder]" },
-  { name: "Garland", href: "/areas/garland", well: "[Garland Neighborhood Image Placeholder]" },
+  { name: "Dallas", county: "Dallas County", href: "/homes" },
+  { name: "Fort Worth", county: "Tarrant County", href: "/homes" },
+  { name: "Arlington", county: "Tarrant County", href: "/homes" },
+  { name: "Plano", county: "Collin County", href: "/homes" },
+  { name: "Frisco", county: "Collin and Denton counties", href: "/homes" },
+  { name: "McKinney", county: "Collin County", href: "/homes" },
+  { name: "Irving", county: "Dallas County", href: "/homes" },
+  { name: "Garland", county: "Dallas County", href: "/areas/garland" },
 ] as const
 
 export const FIGMA_BUYER_POINTS = [
@@ -111,8 +120,26 @@ export const FIGMA_FOOTER_LINKS = [
   { label: "About", href: "/about" },
 ] as const
 
+/**
+ * Compliance row. Texas real-estate practice requires the two TREC notices to
+ * be reachable from the site, so they stay — but they belong in the small
+ * bottom row, not in a column competing with primary navigation.
+ *
+ * `external` entries are TREC-hosted documents and render as plain anchors.
+ */
 export const FIGMA_FOOTER_LEGAL = [
-  { label: "Privacy Policy", href: "/privacy" },
-  { label: "Terms of Service", href: "/terms" },
-  { label: "Legal Disclaimers", href: "/fair-housing" },
+  {
+    label: "TREC Information About Brokerage Services",
+    href: "https://www.trec.texas.gov/information-about-brokerage-services-form",
+    external: true,
+  },
+  {
+    label: "TREC Consumer Protection Notice",
+    href: "https://www.trec.texas.gov/forms/consumer-protection-notice",
+    external: true,
+  },
+  { label: "Privacy", href: "/privacy", external: false },
+  { label: "Terms", href: "/terms", external: false },
+  { label: "Accessibility", href: "/accessibility", external: false },
+  { label: "Fair Housing", href: "/fair-housing", external: false },
 ] as const

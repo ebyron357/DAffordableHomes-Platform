@@ -70,7 +70,7 @@ export const nacaArticle: Article = {
   slug: "naca-homebuying-dallas-fort-worth",
   title,
   excerpt,
-  eyebrow: "NACA homebuyer field guide",
+  eyebrow: "NACA program guide",
   seoTitle: title,
   seoDescription: excerpt,
   category: {

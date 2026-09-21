@@ -60,7 +60,7 @@ export default function ConsultationPage() {
             <div className="mt-8">
               <h2 className="font-serif text-2xl font-normal">Not ready to schedule?</h2>
               <p className="mt-3 leading-7 text-muted-foreground">
-                Use the free calculators and field guides first. Come back when you have a question worth discussing.
+                Use the free calculators and guides first. Come back when you have a question worth discussing.
               </p>
               {/* Wraps at narrow widths; without this the pair sets a
                   min-content width that widened the whole grid column. */}

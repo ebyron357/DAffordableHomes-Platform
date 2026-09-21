@@ -8,14 +8,35 @@ import { LEGAL_NAV, PRIMARY_NAV } from "@/lib/navigation"
 import { SITE } from "@/lib/site"
 
 /**
- * Shared site footer.
+ * Shared site footer for every interior route.
  *
- * Structure and styling follow the Warm Residential Editorial design that
- * landed on `main` in PR #23. The vendor attribution is carried forward from
- * this branch: it is a release requirement, it belongs in the shared footer so
- * it appears site-wide, and `tests/static/clientverse.test.mjs` asserts its
- * text, destination and single placement.
+ * Composition matches the homepage footer so the two do not read as different
+ * sites, in descending visual weight:
+ *
+ *   1. Brand band — logo, promise, primary next action. The band is the light
+ *      page surface, which is what lets the opaque logo PNG sit flush instead
+ *      of on the white plate it used to need against navy.
+ *   2. Navigation band.
+ *   3. Vendor credit.
+ *   4. A small compliance row: the two TREC notices Texas practice requires to
+ *      be reachable, plus the policy pages. Reachable and legible, and no
+ *      longer a full column competing with site navigation.
+ *
+ * The vendor attribution is a release requirement; `tests/static/clientverse.test.mjs`
+ * asserts its text, destination and single placement.
  */
+
+const TREC_LINKS = [
+  {
+    label: "TREC Information About Brokerage Services",
+    href: "https://www.trec.texas.gov/information-about-brokerage-services-form",
+  },
+  {
+    label: "TREC Consumer Protection Notice",
+    href: "https://www.trec.texas.gov/forms/consumer-protection-notice",
+  },
+] as const
+
 export function SiteFooter() {
   const year = new Date().getFullYear()
 
@@ -25,24 +46,35 @@ export function SiteFooter() {
         Site footer
       </h2>
 
-      <Container className="footer-grid">
-        <div>
-          <Image
-            src="/images/daffordable-homes-official-logo.png"
-            alt="D'Affordable Homes"
-            width={640}
-            height={427}
-            className="footer-logo"
-          />
-          <p className="footer-tagline">Affordable. Accessible. Achievable.</p>
-          <p className="footer-copy">
-            Clear, practical guidance for the homeownership decisions in front of you.
-          </p>
-          <Button href="/consultation" variant="secondary" size="sm">
-            Talk with Debra
-          </Button>
-        </div>
+      <div className="footer-brand-band">
+        <Container className="footer-brand-inner">
+          <div className="footer-identity">
+            <Image
+              src="/images/daffordable-homes-official-logo.png"
+              alt="D'Affordable Homes — Affordable, Accessible, Achievable"
+              width={640}
+              height={427}
+              sizes="220px"
+              className="footer-logo"
+            />
+            <p className="footer-copy">
+              {SITE.realtorName} — clear, practical guidance for the homeownership decisions in front of you, across
+              Garland and Dallas–Fort Worth.
+            </p>
+          </div>
+          <div className="footer-action">
+            <p className="footer-action-label">Start a conversation</p>
+            <p className="footer-action-copy">
+              Bring a question, not a commitment. No pressure and no judgment about where you are in the process.
+            </p>
+            <Button href="/consultation" size="sm">
+              Talk with Debra
+            </Button>
+          </div>
+        </Container>
+      </div>
 
+      <Container className="footer-grid">
         <div>
           <p className="footer-label">Explore</p>
           <nav aria-label="Footer navigation">
@@ -53,7 +85,7 @@ export function SiteFooter() {
                 </li>
               ))}
               <li>
-                <Link href="/blog">Blog &amp; Articles</Link>
+                <Link href="/blog">Guides &amp; Articles</Link>
               </li>
               <li>
                 <Link href="/contact">Contact Debra</Link>
@@ -63,57 +95,85 @@ export function SiteFooter() {
         </div>
 
         <div>
-          <p className="footer-label">Legal + accessibility</p>
-          <nav aria-label="Legal and policies">
+          <p className="footer-label">Plan</p>
+          <nav aria-label="Planning tools">
             <ul className="footer-links">
               <li>
-                <a
-                  href="https://www.trec.texas.gov/information-about-brokerage-services-form"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  TREC Information About Brokerage Services
-                </a>
+                <Link href="/calculators/mortgage-payment">Monthly payment</Link>
               </li>
               <li>
-                <a
-                  href="https://www.trec.texas.gov/forms/consumer-protection-notice"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  TREC Consumer Protection Notice
-                </a>
+                <Link href="/calculators/affordability">What you can afford</Link>
               </li>
-              {LEGAL_NAV.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href}>{link.label}</Link>
-                </li>
-              ))}
+              <li>
+                <Link href="/calculators/closing-costs">Cash to close</Link>
+              </li>
+              <li>
+                <Link href="/calculators">All planning tools</Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <div>
+          <p className="footer-label">Learn</p>
+          <nav aria-label="Education">
+            <ul className="footer-links">
+              <li>
+                <Link href="/first-time-buyers">First-time buyers</Link>
+              </li>
+              <li>
+                <Link href="/programs">Homebuyer programs</Link>
+              </li>
+              <li>
+                <Link href="/areas/garland">Garland area guide</Link>
+              </li>
+              <li>
+                <Link href="/faq">Frequently asked questions</Link>
+              </li>
             </ul>
           </nav>
         </div>
       </Container>
 
       <Container className="footer-bottom">
-        <span>
-          &copy; {year} {SITE.name}. All rights reserved.
-        </span>
-        <span>Guidance led by Debra Allen, REALTOR&reg;</span>
-        {/*
-          Vendor attribution. The relationship is stated explicitly rather than
-          implied, and `rel="noopener"` keeps the outbound link safe.
-        */}
-        <span>
-          <a
-            href={CLIENTVERSE.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="footer-attribution"
-          >
-            {CLIENTVERSE.attributionText}
-          </a>{" "}
-          {CLIENTVERSE.relationshipNote}
-        </span>
+        <div className="footer-bottom-primary">
+          <span>
+            &copy; {year} {SITE.name}. All rights reserved.
+          </span>
+          <span>Guidance led by Debra Allen, REALTOR&reg;</span>
+          {/*
+            Vendor attribution. The relationship is stated explicitly rather than
+            implied, and `rel="noopener"` keeps the outbound link safe.
+          */}
+          <span>
+            <a
+              href={CLIENTVERSE.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-attribution"
+            >
+              {CLIENTVERSE.attributionText}
+            </a>{" "}
+            {CLIENTVERSE.relationshipNote}
+          </span>
+        </div>
+
+        <nav aria-label="Legal and compliance" className="footer-compliance">
+          <ul>
+            {TREC_LINKS.map((link) => (
+              <li key={link.href}>
+                <a href={link.href} target="_blank" rel="noreferrer">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+            {LEGAL_NAV.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href}>{link.label}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </Container>
     </footer>
   )

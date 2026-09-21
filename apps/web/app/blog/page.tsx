@@ -14,18 +14,27 @@ import { SITE } from "@/lib/site"
  *
  * The lead article gets a full editorial treatment; the rest run as a
  * two-column card grid. Adding a fourth article in Sanity needs no code change.
+ *
+ * Public wording is plain consumer language — "guides", "homebuyer resources".
+ * The earlier "field guide" framing read as military kit rather than as help
+ * for someone buying a house, and it appeared in the page title, the hero, the
+ * section headings and the structured data all at once.
  */
 
 export const revalidate = 3600
 
+const TITLE = "Homebuyer Guides for North Texas"
+const DESCRIPTION =
+  "Practical homebuyer guides from Debra Allen, REALTOR® — clear answers, visible sources, and honest program boundaries for Garland and Dallas–Fort Worth."
+
 export const metadata: Metadata = {
-  title: "North Texas Homebuyer Field Guides",
-  description:
-    "Practical North Texas homebuyer field guides from Debra Allen — answer-first guidance with visible sources and clear program boundaries.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: "/blog" },
   openGraph: {
-    title: "North Texas Homebuyer Field Guides | D'Affordable Homes",
-    description: "Answer-first homebuyer field guides for Garland and Dallas–Fort Worth, with visible sources and clear program boundaries.",
+    title: `${TITLE} | D'Affordable Homes`,
+    description:
+      "Clear, practical homebuyer guides for Garland and Dallas–Fort Worth, with visible sources and honest program boundaries.",
     url: "/blog",
     type: "website",
   },
@@ -37,6 +46,22 @@ const nextStepLinks = [
   { href: "/calculators", label: "Planning calculators", detail: "Test monthly-payment and cash-to-close scenarios." },
   { href: "/areas/garland", label: "Garland area guide", detail: "Explore a local starting point with practical questions in view." },
 ]
+
+/** Publication line shared by the lead article and the cards. */
+function ArticleMeta({ article, showAuthor }: { article: ArticleSummary; showAuthor?: boolean }) {
+  return (
+    <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
+      {showAuthor && <span className="font-medium text-foreground">By {article.author.name}</span>}
+      <time dateTime={article.publishedAt}>Published {formatArticleDate(article.publishedAt)}</time>
+      {/* Reviewed dates are what tell a reader this is maintained rather than
+          posted once and left. Shown wherever the editor has set one. */}
+      {article.reviewedAt && (
+        <time dateTime={article.reviewedAt}>Reviewed {formatArticleDate(article.reviewedAt)}</time>
+      )}
+      <span>{article.readingTime}</span>
+    </div>
+  )
+}
 
 function LeadArticle({ article }: { article: ArticleSummary }) {
   return (
@@ -59,10 +84,8 @@ function LeadArticle({ article }: { article: ArticleSummary }) {
         <p className="mt-5 max-w-[54ch] text-[17px] leading-[1.7] text-muted-foreground sm:text-[18px]">
           {article.excerpt}
         </p>
-        <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
-          <span className="font-medium text-foreground">By {article.author.name}</span>
-          <time dateTime={article.publishedAt}>{formatArticleDate(article.publishedAt)}</time>
-          <span>{article.readingTime}</span>
+        <div className="mt-7">
+          <ArticleMeta article={article} showAuthor />
         </div>
         <p className="mt-7 inline-flex items-center gap-2 font-semibold text-primary underline decoration-accent/50 underline-offset-[4px] transition-colors group-hover:decoration-accent">
           Read the guide
@@ -110,25 +133,44 @@ function ArticleCard({ article, index }: { article: ArticleSummary; index: numbe
         <p className="mt-4 flex-1 text-[15px] leading-[1.7] text-muted-foreground">
           {article.excerpt}
         </p>
-        <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-border pt-5 text-sm text-muted-foreground">
-          <time dateTime={article.publishedAt}>{formatArticleDate(article.publishedAt)}</time>
-          <span>{article.readingTime}</span>
+        <div className="mt-6 flex flex-col gap-2 border-t border-border pt-5">
+          <span className="text-sm font-medium text-foreground">By {article.author.name}</span>
+          <ArticleMeta article={article} />
         </div>
       </div>
     </article>
   )
 }
 
+/** Topic context derived from what is actually published — never invented. */
+function CategoryRail({ articles }: { articles: ArticleSummary[] }) {
+  const categories = [...new Map(articles.map((a) => [a.category.slug, a.category])).values()]
+  if (categories.length === 0) return null
+
+  return (
+    <ul className="mt-8 flex flex-wrap gap-2" aria-label="Topics covered">
+      {categories.map((category) => (
+        <li
+          key={category.slug}
+          className="rounded-full border border-border bg-background px-4 py-1.5 text-[13px] font-medium text-muted-foreground"
+        >
+          {category.title}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 export default async function BlogIndexPage() {
-  const articles = await listArticles()
+  const { articles, state } = await listArticles()
   const [lead, ...rest] = articles
   const blogJsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "@id": `${SITE.url}/blog#webpage`,
     url: `${SITE.url}/blog`,
-    name: "North Texas Homebuyer Field Guides",
-    description: metadata.description,
+    name: TITLE,
+    description: DESCRIPTION,
     inLanguage: "en-US",
     isPartOf: { "@id": `${SITE.url}/#website` },
     about: [
@@ -159,7 +201,7 @@ export default async function BlogIndexPage() {
       <header className="border-b border-border bg-card">
         <Container className="py-14 md:py-20">
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-            The D&apos;Affordable Homes field guides
+            Homebuyer guides
           </p>
           <div className="mt-6 grid gap-10 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
             <h1 className="max-w-[16ch] font-serif text-[44px] leading-[1.04] sm:text-[62px] lg:text-[72px]">
@@ -180,10 +222,26 @@ export default async function BlogIndexPage() {
               </div>
             </div>
           </div>
+          <CategoryRail articles={articles} />
         </Container>
       </header>
 
-      {articles.length === 0 ? (
+      {state.status === "unavailable" ? (
+        <Container className="py-20">
+          <div className="max-w-[62ch]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+              Temporarily unavailable
+            </p>
+            <h2 className="mt-3 font-serif text-[30px] leading-tight">
+              The guide library isn&apos;t loading right now.
+            </h2>
+            <p className="mt-4 text-[17px] leading-[1.7] text-muted-foreground">
+              Nothing has been removed — the content service is not responding. Please try again shortly. The planning
+              tools and program pages are unaffected.
+            </p>
+          </div>
+        </Container>
+      ) : articles.length === 0 ? (
         <Container className="py-20">
           <p className="text-lg text-muted-foreground">
             No articles are published yet. Publish an article in the Studio and it will appear here.
@@ -194,7 +252,7 @@ export default async function BlogIndexPage() {
           <section className="py-14 md:py-20" aria-labelledby="lead-article-heading">
             <Container>
               <h2 id="lead-article-heading" className="sr-only">
-                Latest field guide
+                Latest guide
               </h2>
               {lead && <LeadArticle article={lead} />}
             </Container>
@@ -211,7 +269,7 @@ export default async function BlogIndexPage() {
                     id="more-guides-heading"
                     className="font-serif text-[30px] leading-tight sm:text-[36px]"
                   >
-                    More field guides
+                    More guides
                   </h2>
                   <p className="text-sm text-muted-foreground">
                     {articles.length} {articles.length === 1 ? "guide" : "guides"} published

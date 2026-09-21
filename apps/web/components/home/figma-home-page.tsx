@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Check, House } from "lucide-react"
 import {
@@ -11,6 +12,26 @@ import {
 import type { PropertySearchResult } from "@/lib/mls/provider"
 import { FigmaHomeFooter } from "@/components/home/figma-home-footer"
 import { FigmaHomeHeader } from "@/components/home/figma-home-header"
+
+/**
+ * Approved homepage imagery.
+ *
+ * Provenance, licence, crop rule and alt text for each asset are recorded in
+ * `docs/05-content/IMAGE_ASSET_REGISTER.md`. The `objectPosition` values below
+ * are the register's crop rules, not free-hand choices: Debra's face has to
+ * stay legible at every breakpoint, so her portrait is pinned at `48% center`.
+ */
+const HERO_IMAGE = {
+  src: "/images/black-family-home-pexels-7114188.webp",
+  alt: "A Black family of five holding hands together in a bright living room",
+  objectPosition: "center",
+} as const
+
+const DEBRA_PORTRAIT = {
+  src: "/images/debra-allen-primary-about.webp",
+  alt: "Debra Allen smiling in a yellow blazer at a kitchen counter",
+  objectPosition: "48% center",
+} as const
 
 function formatPrice(value: number) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value)
@@ -61,9 +82,15 @@ function Hero() {
         </div>
         <div className="fh-hero-right">
           <div className="fh-hero-media">
-            <p className="fh-placeholder">
-              [Premium Dallas–Fort Worth Real Estate Architectural Photography Placeholder]
-            </p>
+            <Image
+              src={HERO_IMAGE.src}
+              alt={HERO_IMAGE.alt}
+              fill
+              sizes="(max-width: 1100px) 100vw, 548px"
+              style={{ objectPosition: HERO_IMAGE.objectPosition }}
+              priority
+              className="fh-hero-image"
+            />
           </div>
         </div>
       </div>
@@ -104,24 +131,33 @@ function MeetDebra() {
   return (
     <section className="fh-meet" aria-labelledby="figma-debra-heading">
       <div className="fh-shell fh-meet-grid">
-        <div className="fh-meet-portrait">
-          <p className="fh-placeholder">
-            [Debra Allen Portrait Placeholder — Warm, professional real-estate advisor portrait]
-          </p>
-        </div>
+        <figure className="fh-meet-portrait">
+          <Image
+            src={DEBRA_PORTRAIT.src}
+            alt={DEBRA_PORTRAIT.alt}
+            fill
+            sizes="(max-width: 1100px) 100vw, 440px"
+            style={{ objectPosition: DEBRA_PORTRAIT.objectPosition }}
+            className="fh-meet-image"
+          />
+          <figcaption className="fh-portrait-plate">
+            <span>Your REALTOR&reg;</span>
+            <strong>Debra Allen</strong>
+          </figcaption>
+        </figure>
         <div className="fh-meet-copy">
           <div className="fh-meet-text">
             <p className="fh-eyebrow">Your REALTOR® &amp; local guide</p>
             <h2 id="figma-debra-heading">Guidance first, pressure never. Meet Debra Allen.</h2>
             <p>
-              As an established REALTOR® serving the Dallas–Fort Worth metroplex, Debra Allen has spent her career
-              redefining what a real-estate relationship looks like. Built on a foundation of professional advocacy,
-              clear education, and lifelong community commitment, she guides buyers and sellers through complex
-              transactions without high-pressure sales tactics.
+              Debra Allen is a REALTOR® working with buyers and sellers across the Dallas–Fort Worth metroplex. She
+              built her practice around a simple idea: people make better decisions about a home when someone takes
+              the time to explain what is actually happening, and when nobody is pushing them toward a signature.
             </p>
             <p>
-              Whether you are looking to purchase your first home, transition your equity, or navigate the custom build
-              process, Debra delivers strategic support that honors your unique timeline.
+              Whether you are buying your first home, moving the equity you have already built, or weighing a new
+              build, you get straight answers, the trade-offs laid out plainly, and a pace that matches your timeline
+              instead of somebody else&apos;s.
             </p>
           </div>
           <div className="fh-meet-actions">
@@ -142,22 +178,22 @@ function Markets() {
   return (
     <section className="fh-section fh-section-white fh-markets" aria-labelledby="figma-markets-heading">
       <div className="fh-shell">
-        <div className="fh-section-intro">
+        <div className="fh-section-intro fh-section-intro-left">
           <p className="fh-eyebrow">Locations we serve</p>
           <h2 id="figma-markets-heading">Serving the Dallas–Fort Worth Metroplex</h2>
+          <p className="fh-section-lede">
+            Garland is home base. These are the North Texas cities buyers most often ask about — start a search in any
+            of them, or open the Garland guide for a closer local read.
+          </p>
         </div>
-        <ul className="fh-city-grid">
+        <ul className="fh-market-list">
           {FIGMA_CITIES.map((city) => (
             <li key={city.name}>
-              <article className="fh-city-card">
-                <div className="fh-city-well">
-                  <p className="fh-placeholder">{city.well}</p>
-                </div>
-                <div className="fh-city-copy">
-                  <h3>{city.name}</h3>
-                  <Link href={city.href}>Explore active MLS listings →</Link>
-                </div>
-              </article>
+              <Link href={city.href} className="fh-market-row">
+                <span className="fh-market-name">{city.name}</span>
+                <span className="fh-market-county">{city.county}</span>
+                <ArrowRight className="size-4 fh-market-arrow" aria-hidden="true" />
+              </Link>
             </li>
           ))}
         </ul>
@@ -166,27 +202,31 @@ function Markets() {
   )
 }
 
-function ListingPlaceholderCard() {
+/**
+ * Honest empty state for the listings band.
+ *
+ * PRODUCT_REQUIREMENTS.md forbids fabricated listings, and a card shaped like a
+ * listing with bracketed text inside it is a fabricated listing with the mask
+ * off. When no MLS/IDX feed is connected the section says so in plain language
+ * and offers the two things that are actually available right now.
+ */
+function ListingsEmptyState({ reason, errored }: { reason: string; errored: boolean }) {
   return (
-    <article className="fh-listing-card">
-      <div className="fh-listing-photo">
-        <p className="fh-placeholder">
-          [Featured Property Photography Area — Active MLS Feed Integration Point]
-        </p>
+    <div className="fh-listing-empty" role="status">
+      <div className="fh-listing-empty-copy">
+        <p className="fh-eyebrow">{errored ? "Search temporarily unavailable" : "Live listings not connected yet"}</p>
+        <h3>{errored ? "The property search is having trouble right now." : "No live MLS feed is connected to this site yet."}</h3>
+        <p>{reason}</p>
       </div>
-      <div className="fh-listing-body">
-        <div className="fh-listing-copy">
-          <p className="fh-listing-price">[Price Placeholder]</p>
-          <p className="fh-listing-address">[Property Address Placeholder]</p>
-          <p className="fh-listing-meta">[City, TX] · Dallas–Fort Worth MLS</p>
-        </div>
-        <p className="fh-listing-stats">
-          <span>[X] Beds</span>
-          <span>[Y] Baths</span>
-          <span>[Sq Ft] Sq Ft</span>
-        </p>
+      <div className="fh-listing-empty-actions">
+        <Link href={FIGMA_HOME_CTA.consultation.href} className="fh-btn fh-btn-navy">
+          Ask Debra what&apos;s on the market
+        </Link>
+        <Link href="/first-time-buyers" className="fh-btn fh-btn-teal">
+          Get ready to buy
+        </Link>
       </div>
-    </article>
+    </div>
   )
 }
 
@@ -229,18 +269,10 @@ function FeaturedListings({ listings }: { listings: PropertySearchResult }) {
             ))}
           </ul>
         ) : (
-          <div className="fh-listing-empty">
-            <p className="sr-only" role="status">
-              {listings.status === "error"
-                ? "Search is temporarily unavailable"
-                : "Live listings aren’t connected yet"}
-            </p>
-            <ul className="fh-listing-grid">
-              <li><ListingPlaceholderCard /></li>
-              <li><ListingPlaceholderCard /></li>
-              <li><ListingPlaceholderCard /></li>
-            </ul>
-          </div>
+          <ListingsEmptyState
+            errored={listings.status === "error"}
+            reason={listings.status === "connected" ? "" : listings.reason}
+          />
         )}
       </div>
     </section>
@@ -301,7 +333,7 @@ function KnowledgeBase() {
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
                 <Link href={item.href} className="fh-text-link fh-access-link">
-                  Access Guide <ArrowRight className="size-3" aria-hidden="true" />
+                  Open <ArrowRight className="size-3" aria-hidden="true" />
                 </Link>
               </article>
             </li>
@@ -319,18 +351,18 @@ function FinalCta() {
         <p className="fh-eyebrow fh-eyebrow-on-dark">Ready to take the next step?</p>
         <h2 id="figma-final-heading">Let’s build a clear, pressure-free path to homeownership</h2>
         <p>
-          Our dedicated team is ready to deliver the high-level professional representation you deserve in the DFW
-          metroplex. Contact Debra Allen to start planning your transaction.
+          Bring the question you have been sitting on. Debra will tell you what the next step actually is — and what
+          it is not — so you can decide with the whole picture in front of you.
         </p>
         <div className="fh-final-actions">
-          <Link href={FIGMA_HOME_CTA.searchHomes.href} className="fh-btn fh-btn-light">
-            {FIGMA_HOME_CTA.searchHomes.label}
+          <Link href={FIGMA_HOME_CTA.consultation.href} className="fh-btn fh-btn-light">
+            {FIGMA_HOME_CTA.consultation.label}
           </Link>
           <Link href={FIGMA_HOME_CTA.startBuying.href} className="fh-btn fh-btn-gold-outline">
             {FIGMA_HOME_CTA.startBuying.label}
           </Link>
-          <Link href={FIGMA_HOME_CTA.sellMyHome.href} className="fh-btn fh-btn-light-outline">
-            {FIGMA_HOME_CTA.sellMyHome.label}
+          <Link href={FIGMA_HOME_CTA.searchHomes.href} className="fh-btn fh-btn-light-outline">
+            {FIGMA_HOME_CTA.searchHomes.label}
           </Link>
         </div>
       </div>

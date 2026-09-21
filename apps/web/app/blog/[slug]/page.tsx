@@ -6,6 +6,7 @@ import { ArticleBlockRenderer, FaqSection, OfficialSources, READING_WIDTH } from
 import { ArticleHeader } from "@/components/blog/article-header"
 import { DraftBanner } from "@/components/blog/draft-banner"
 import { Prose } from "@/components/blog/portable-text"
+import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
 import { getArticle } from "@/lib/blog/source"
 import {
@@ -61,9 +62,19 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>
 }): Promise<Metadata> {
   const { slug } = await params
-  const article = await getArticle(slug)
+  const { article, state } = await getArticle(slug)
 
   if (!article) {
+    // An unreachable CMS is not a missing article. Calling `notFound()` here
+    // would tell readers and crawlers that a published article was withdrawn
+    // because the Content Lake happened to be down.
+    if (state.status === "unavailable") {
+      return {
+        title: "Article temporarily unavailable",
+        robots: { index: false, follow: true },
+        alternates: { canonical: `/blog/${slug}` },
+      }
+    }
     // `notFound()` here, not a "not found" title: metadata resolves before the
     // page renders, and returning a normal Metadata object for a missing
     // article lets Next settle the response at HTTP 200 even though the page
@@ -112,6 +123,35 @@ function JsonLd({ value }: { value: Record<string, unknown> }) {
   )
 }
 
+/**
+ * Shown when Sanity is configured but could not be reached and this instance
+ * has nothing cached for the slug. Deliberately not a 404 and not seed copy.
+ */
+function ArticleUnavailable() {
+  return (
+    <Container className="py-24">
+      <div className="mx-auto max-w-[62ch]">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+          Temporarily unavailable
+        </p>
+        <h1 className="mt-4 font-serif text-[34px] leading-[1.1] sm:text-[42px]">
+          This article can&apos;t be loaded right now.
+        </h1>
+        <p className="mt-5 text-[17px] leading-[1.7] text-muted-foreground">
+          The content library is not responding. The article has not been removed — please try again shortly. In the
+          meantime the planning tools and program guides are unaffected.
+        </p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Button href="/blog">Back to guides</Button>
+          <Button href="/consultation" variant="outline">
+            Talk with Debra
+          </Button>
+        </div>
+      </div>
+    </Container>
+  )
+}
+
 /** Blocks the article already renders in its body are not repeated at the end. */
 function hasBlock(article: Article, type: string): boolean {
   return article.body.some((block) => block._type === type)
@@ -119,9 +159,10 @@ function hasBlock(article: Article, type: string): boolean {
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const article = await getArticle(slug)
+  const { article, state } = await getArticle(slug)
 
   if (!article) {
+    if (state.status === "unavailable") return <ArticleUnavailable />
     notFound()
   }
 

@@ -8,10 +8,21 @@ export const metadata: Metadata = {
   alternates: { canonical: "/calculators" },
 }
 
-const tools = [
+/**
+ * The calculator index.
+ *
+ * `/resources` is the front door and leads with three of these as primary
+ * actions; this page is the full inventory. It keeps the same ordering so the
+ * two pages agree about what matters most, and every tool stays reachable.
+ */
+const PRIMARY = [
   ["Mortgage payment", "Estimate principal, interest, taxes, insurance, mortgage insurance, and HOA costs.", "/calculators/mortgage-payment"],
   ["Affordability", "Explore a purchase range using income, debts, down payment, and planning assumptions.", "/calculators/affordability"],
-  ["Down payment", "Estimate down payment, closing costs, and other cash needed.", "/calculators/down-payment"],
+  ["Closing costs", "Plan the down payment, closing costs, prepaid items, and escrow funding due at the table.", "/calculators/closing-costs"],
+] as const
+
+const SECONDARY = [
+  ["Down payment planner", "Compare down-payment percentages and their effect on loan balance and monthly cost.", "/calculators/down-payment"],
   ["Rent vs. buy", "Compare simplified renting and homeownership costs over time.", "/calculators/rent-vs-buy"],
 ] as const
 
@@ -32,13 +43,26 @@ export default function CalculatorHubPage() {
       <section className="py-12 md:py-16">
         <Container>
           <div className="divide-y divide-border border-y border-border">
-            {tools.map(([title, body, href]) => (
+            {PRIMARY.map(([title, body, href]) => (
               <Link key={href} href={href} className="group grid gap-2 py-7 md:grid-cols-[0.45fr_0.55fr] md:items-center">
                 <h2 className="font-sans text-xl font-semibold text-primary group-hover:underline">{title} →</h2>
                 <p className="text-sm leading-6 text-muted-foreground">{body}</p>
               </Link>
             ))}
           </div>
+
+          <h2 className="mt-12 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            More planning tools
+          </h2>
+          <div className="mt-4 divide-y divide-border border-y border-border">
+            {SECONDARY.map(([title, body, href]) => (
+              <Link key={href} href={href} className="group grid gap-1 py-5 md:grid-cols-[0.45fr_0.55fr] md:items-center">
+                <h3 className="font-sans text-base font-semibold text-primary group-hover:underline">{title} →</h3>
+                <p className="text-sm leading-6 text-muted-foreground">{body}</p>
+              </Link>
+            ))}
+          </div>
+
           <p className="mt-8 max-w-3xl text-sm leading-6 text-muted-foreground">
             No personal financial data is saved by these tools. Actual loan terms, taxes, insurance, fees, and eligibility vary by property, lender, borrower, and program.
           </p>
