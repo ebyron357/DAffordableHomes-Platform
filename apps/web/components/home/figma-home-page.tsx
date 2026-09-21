@@ -27,13 +27,6 @@ import { HomebuyingPathQuiz } from "@/components/home/homebuying-path-quiz"
  * the register's crop rules, not free-hand choices: Debra's face has to stay
  * whole at every breakpoint.
  */
-const HERO_IMAGE = {
-  src: "/images/black-family-home-pexels-7114188.webp",
-  alt: "A Black family of five holding hands together in a bright living room",
-  // The five people sit slightly right of centre in the 3:2 source, so 52%
-  // centres *them*; a literal 50% clips the father's shoulder when narrow.
-  objectPosition: "52% center",
-} as const
 
 const DEBRA_PORTRAIT = {
   src: "/images/debra-allen-primary-about.webp",
@@ -128,19 +121,31 @@ function Hero() {
         </div>
       </div>
 
+      {/* The first viewport has to read as Dallas–Fort Worth residential real
+          estate. It used to carry a licensed photograph of a family holding
+          hands in a living room — a warm picture of the wrong subject: an
+          interior, on the hero of a site about buying and selling houses.
+
+          The repository holds four cleared photographs and none of them is a
+          North Texas exterior, so rather than leave the wrong subject in the
+          most important slot this draws the right one in the brand's own hand:
+          the roofline from the D'Affordable Homes mark at streetscape scale,
+          over a Texas late-afternoon sky, with a second range of roofs set back
+          behind it for depth. Same answer the interior mastheads and the guide
+          plates already give when no licensed photograph fits a slot.
+
+          It claims nothing — no address, no listing, no place it is not. A
+          photograph can replace it by restoring an `<Image>` here. */}
       <div className="fh-hero-media">
-        <Image
-          src={HERO_IMAGE.src}
-          alt={HERO_IMAGE.alt}
-          fill
-          sizes="(max-width: 1100px) 100vw, 46vw"
-          style={{ objectPosition: HERO_IMAGE.objectPosition }}
-          priority
-          className="fh-hero-image"
-        />
-        {/* Mobile only: the copy sits beneath the photo there, so a short
-            bottom fade carries the image into the navy panel. At desktop the
-            two are side by side and the photograph is shown unmodified. */}
+        <div className="fh-hero-scene" aria-hidden="true">
+          <span className="fh-hero-sky" />
+          <span className="fh-hero-sun" />
+          <BrandMotif variant="roofline" className="dh-motif fh-hero-roofs fh-hero-roofs-far" />
+          <BrandMotif variant="roofline" className="dh-motif fh-hero-roofs fh-hero-roofs-near" />
+          <span className="fh-hero-ground" />
+        </div>
+        {/* Mobile only: the copy sits beneath the scene there, so a short
+            bottom fade carries it into the navy panel. */}
         <span className="fh-hero-fade" aria-hidden="true" />
       </div>
     </section>

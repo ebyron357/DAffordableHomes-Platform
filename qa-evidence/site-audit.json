@@ -87,13 +87,6 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fblack-family-home-pexels-7114188.webp&w=750&q=75",
-          "naturalWidth": 662,
-          "naturalHeight": 441,
-          "alt": "A Black family of five holding hands together in a bright living room",
-          "loading": "eager"
-        },
-        {
           "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdebra-allen-primary-about.webp&w=828&q=75",
           "naturalWidth": 792,
           "naturalHeight": 634,
@@ -123,7 +116,7 @@
           "alt": 26
         }
       },
-      "ornaments": 2,
+      "ornaments": 4,
       "title": "Debra Allen, REALTOR® | Garland + DFW Home Guidance",
       "description": "Clear, practical residential real-estate guidance from Debra Allen, REALTOR®, for first-time buyers and families in Garland and Dallas–Fort Worth.",
       "internalLinkCount": 62,
@@ -294,8 +287,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1050,8 +1043,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1840,8 +1833,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1901,8 +1894,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -2140,9 +2133,9 @@
       "scrollWidth": 375,
       "clientWidth": 375,
       "culprits": [
-        "img.fh-hero-image",
         "svg.[object SVGAnimatedString]",
-        "svg.[object SVGAnimatedString]"
+        "g.[object SVGAnimatedString]",
+        "path.[object SVGAnimatedString]"
       ],
       "ok": true
     },
@@ -2296,9 +2289,9 @@
       "scrollWidth": 430,
       "clientWidth": 430,
       "culprits": [
-        "img.fh-hero-image",
         "svg.[object SVGAnimatedString]",
-        "svg.[object SVGAnimatedString]"
+        "g.[object SVGAnimatedString]",
+        "path.[object SVGAnimatedString]"
       ],
       "ok": true
     },
@@ -2452,9 +2445,9 @@
       "scrollWidth": 768,
       "clientWidth": 768,
       "culprits": [
-        "img.fh-hero-image",
         "svg.[object SVGAnimatedString]",
-        "svg.[object SVGAnimatedString]"
+        "g.[object SVGAnimatedString]",
+        "path.[object SVGAnimatedString]"
       ],
       "ok": true
     },
@@ -2600,8 +2593,9 @@
       "scrollWidth": 1024,
       "clientWidth": 1024,
       "culprits": [
-        "img.fh-hero-image",
-        "svg.[object SVGAnimatedString]"
+        "svg.[object SVGAnimatedString]",
+        "g.[object SVGAnimatedString]",
+        "path.[object SVGAnimatedString]"
       ],
       "ok": true
     },
@@ -2747,7 +2741,9 @@
       "scrollWidth": 1440,
       "clientWidth": 1440,
       "culprits": [
-        "img.fh-hero-image"
+        "svg.[object SVGAnimatedString]",
+        "g.[object SVGAnimatedString]",
+        "path.[object SVGAnimatedString]"
       ],
       "ok": true
     },

@@ -503,8 +503,88 @@
   align-items: center;
   padding: 104px 56px 96px max(24px, calc((100vw - 1440px) / 2 + 24px));
 }
-.fh-hero-media { position: relative; min-height: 560px; }
+.fh-hero-media { position: relative; min-height: 560px; overflow: hidden; }
 .fh-hero-image { object-fit: cover; animation: fh-settle 1.1s cubic-bezier(.2,.7,.3,1) both; }
+
+/* Hero streetscape.
+   Three layers, back to front: a Texas late-afternoon sky, a low warm sun off
+   to the right, and two ranges of the brand roofline — one set back and pale
+   for depth, one near and full strength sitting on the horizon. Drawn, not
+   photographed, and it depicts no particular place. */
+.fh-hero-scene { position: absolute; inset: 0; overflow: hidden; }
+/* Dusk sky. The panel is taller than it is wide at desktop, so most of it is
+   sky by design and the roofline sits along the bottom like a skyline. */
+.fh-hero-sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    var(--dh-navy-deep) 0%,
+    var(--dh-navy) 46%,
+    #16406e 74%,
+    #1b5180 100%);
+}
+/* Warm light at the horizon. Deliberately a band, not a disc: a radial large
+   enough to read as a low sun still showed its own edge as a bubble across the
+   lower panel, which looked like a graphic artefact rather than light. */
+.fh-hero-sun {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 52%;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(230, 189, 85, .07) 42%,
+    rgba(230, 189, 85, .16) 72%,
+    rgba(230, 189, 85, .22) 100%);
+}
+/* The roofline is a 640x340 drawing, so at 100% width it is ~53% as tall as it
+   is wide. Both ranges are bottom-anchored and full width: the whole skyline
+   reads, with nothing clipped mid-house. */
+.fh-hero-roofs {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: auto;
+  animation: fh-settle 1.1s cubic-bezier(.2,.7,.3,1) both;
+}
+/* Set back: narrower, higher, paler — the next street over. Inset from the
+   edges so its ends do not collide with the near range's. */
+.fh-hero-roofs-far {
+  left: 8%;
+  bottom: 19%;
+  width: 84%;
+  opacity: .3;
+  filter: saturate(.65);
+}
+/* The set-back range is pure linework. Its chimney highlight and lit window
+   are dropped: desaturated gold at this opacity reads as a dark panel rather
+   than a light, and a house that far back should not be competing with the
+   near range's window for the eye. */
+.fh-hero-scene .fh-hero-roofs-far .dh-motif-accent { display: none; }
+.fh-hero-roofs-near { bottom: 3%; opacity: 1; }
+/* The near range is the subject, not ornament, so its linework carries more
+   weight than the motif default and the lit window keeps its gold. */
+/* These carry the `.fh-hero-scene` prefix deliberately. The ornament defaults
+   (`.dh-motif .dh-motif-*`) are declared later in this sheet at the same
+   specificity, so a two-class selector here loses the cascade and the near
+   range silently renders as ornament instead of as the subject. */
+.fh-hero-scene .fh-hero-roofs-near .dh-motif-line { stroke-width: 2.4; opacity: .82; }
+.fh-hero-scene .fh-hero-roofs-near .dh-motif-ground { opacity: .72; }
+.fh-hero-scene .fh-hero-roofs-near .dh-motif-route { opacity: .5; }
+.fh-hero-scene .fh-hero-roofs-near .dh-motif-accent { opacity: .95; }
+/* The two lit windows are the point of the picture — someone is home. At the
+   ornament fill (.16) they read as flat slate panels against this navy. */
+.fh-hero-scene .fh-hero-roofs-near .dh-motif-lit {
+  fill: var(--dh-gold-light);
+  fill-opacity: .58;
+  stroke: var(--dh-gold-light);
+}
+/* A ground band so the near range sits on something rather than floating. */
+.fh-hero-ground {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 22%;
+  background: linear-gradient(180deg, transparent 0%, rgba(8, 24, 44, .34) 62%, rgba(8, 24, 44, .62) 100%);
+}
 @keyframes fh-settle {
   from { transform: scale(1.045); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
@@ -1380,7 +1460,8 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
   .fh-market-feature,
   .fh-knowledge-card,
   .fh-meet-image { transition: none; }
-  .fh-hero-image { animation: none; }
+  .fh-hero-image,
+  .fh-hero-roofs { animation: none; }
   .fh-path:hover,
   .fh-path:hover .fh-path-art,
   .fh-market-feature:hover,

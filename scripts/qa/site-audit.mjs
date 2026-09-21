@@ -95,8 +95,9 @@ const FORBIDDEN_TEXT = [
 
 /** Approved assets that must actually render on the routes that use them. */
 const REQUIRED_IMAGES = {
+  /* The hero is drawn, not photographed (see `.fh-hero-scene`), so the only
+     photograph the homepage must serve is Debra's own portrait. */
   "/": [
-    "black-family-home-pexels-7114188",
     "debra-allen-primary-about",
     "daffordable-homes-official-logo",
   ],

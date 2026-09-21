@@ -59,12 +59,17 @@ test("the homepage renders the approved hero and portrait assets", () => {
   const home = read("apps/web/components/home/figma-home-page.tsx");
 
   // Approved, registered assets — see docs/05-content/IMAGE_ASSET_REGISTER.md.
-  assert.match(home, /\/images\/black-family-home-pexels-7114188\.webp/);
+  // Hero: the brand roofline at streetscape scale, drawn rather than a
+  // photograph of an interior, which is the wrong subject for this slot.
+  assert.match(home, /fh-hero-roofs-near/);
+  assert.match(home, /fh-hero-roofs-far/);
+  assert.doesNotMatch(home, /black-family-home-pexels-7114188\.webp/);
   assert.match(home, /\/images\/debra-allen-primary-about\.webp/);
   // Real <Image> elements, not a labelled empty well.
   assert.match(home, /import Image from "next\/image"/);
-  // Alt text is the register's wording, not a filename.
-  assert.match(home, /A Black family of five holding hands together in a bright living room/);
+  // Alt text is the register's wording, not a filename. The hero scene is
+  // drawn and `aria-hidden`, so it has no alt text to check — only Debra's
+  // photograph remains on this page.
   assert.match(home, /Debra Allen smiling in a yellow blazer at a kitchen counter/);
   // The register's crop rule for Debra keeps her face inside the frame.
   assert.match(home, /objectPosition: "48% center"/);

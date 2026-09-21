@@ -61,6 +61,30 @@ repository, because removing imagery the owner may have licensed is not an
 agent's decision — but `scripts/qa/site-audit.mjs` now fails if any of the three
 retired files is served by any route again.
 
+## The homepage hero is drawn, not photographed
+
+The hero carried `black-family-home-pexels-7114188.webp` — a licensed
+photograph of a family holding hands in a bright living room. Warm, correctly
+licensed, and the wrong subject: an interior, in the first viewport of a site
+about buying and selling houses in Dallas–Fort Worth.
+
+None of the four cleared photographs is a North Texas exterior, and no image
+host is reachable from a maintenance session (see the table above), so the slot
+is drawn instead of filled with the wrong picture: the roofline from the
+D'Affordable Homes mark at streetscape scale, over a dusk sky with a warm
+horizon, a second range of roofs set back behind it for depth, and one lit
+window. It is `aria-hidden` ornament with no alt text, it depicts no particular
+place, and it claims nothing — no address, no listing, no neighbourhood it is
+not.
+
+The Pexels interior stays registered and in the repository; it is still used by
+`controlled-home-sections.tsx`. A photograph replaces the drawing by restoring
+an `<Image>` inside `.fh-hero-media` and adding a register row.
+
+**What a replacement hero photograph needs:** a Dallas–Fort Worth residential
+exterior in an established neighbourhood, landscape, and legible at both a
+46vw-wide panel at 1440 and a 4:3 full-bleed crop at 375.
+
 ## Articles with no photograph of their own subject
 
 Two guides carried Debra's portrait as their card and masthead image:

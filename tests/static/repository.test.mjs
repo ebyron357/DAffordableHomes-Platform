@@ -63,7 +63,9 @@ test('approved photography remains wired to public pages', () => {
   // bracketed labels where the photographs belong, and this test asserted
   // that it did — which is how an audit passed over visible placeholders.
   assert.match(figmaHome, /debra-allen-primary-about\.webp/);
-  assert.match(figmaHome, /black-family-home-pexels-7114188\.webp/);
+  // The homepage hero is the drawn streetscape, not a photograph; the
+  // licensed Pexels interior stays available to other compositions.
+  assert.doesNotMatch(figmaHome, /black-family-home-pexels-7114188\.webp/);
   assert.doesNotMatch(figmaHome, /Portrait Placeholder/);
   assert.doesNotMatch(figmaHome, /Photography Placeholder/);
   assert.match(aboutPage, /CLOSING_BAND_IMAGE/);
