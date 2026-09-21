@@ -15,8 +15,6 @@ import {
   consultationCta,
   faqBlock,
   faqs,
-  heroImage,
-  inlineImage,
   officialSourcesBlock,
   quickAnswer,
   relatedArticlesBlock,
@@ -92,19 +90,17 @@ export const heroesArticle: Article = {
   readingTime: "9 minute read",
   programs: ["homes-for-heroes"],
   areas: ["dallas-fort-worth", "garland"],
-  featuredImage: {
-    src: "/images/debra-allen-advisor-desk.webp",
-    alt: "Debra Allen seated at her desk reviewing documents on a tablet",
-    width: 1153,
-    height: 1536,
-    focalPoint: "55% 16%",
-  },
-  socialImage: {
-    src: "/images/debra-allen-advisor-desk.webp",
-    alt: "Debra Allen seated at her desk reviewing documents on a tablet",
-    width: 1153,
-    height: 1536,
-  },
+  /**
+   * No `featuredImage`. The article is about the Homes for Heroes programme in North Texas, and the only
+   * photographs this repository is cleared to publish are Debra's own
+   * portraits plus one licensed interior — none of them depicts this subject.
+   * Using her portrait here made the card read as a profile of her rather than
+   * a guide to the topic, which is why the owner asked for it to come off.
+   *
+   * The card and masthead therefore render `ArticlePlate`. Setting
+   * `featuredImage` in Sanity replaces the plate everywhere, with no code
+   * change: see `docs/05-content/IMAGE_ASSET_REGISTER.md`.
+   */
   faqs: articleFaqs,
   sources: articleSources,
   notice: richText(
@@ -140,14 +136,6 @@ export const heroesArticle: Article = {
   ],
   relatedArticleSlugs: ["naca-homebuying-dallas-fort-worth", "how-to-buy-home-garland-tx"],
   body: [
-    heroImage({
-      src: "/images/debra-allen-advisor-desk.webp",
-      alt: "Debra Allen seated at her desk reviewing documents on a tablet",
-      width: 1153,
-      height: 1536,
-      focalPoint: "55% 16%",
-    }),
-
     quickAnswer(
       "The quick answer",
       richText(
@@ -216,18 +204,6 @@ export const heroesArticle: Article = {
         ),
         p("[Explore Debra's hero-focused real-estate guidance](/programs/homes-for-heroes)."),
       ),
-    ),
-
-    inlineImage(
-      {
-        src: "/manus-storage/couple-consultation_25d3a592.jpg",
-        alt: "Two clients sitting across a table from an advisor reviewing paperwork together",
-        width: 1920,
-        height: 1440,
-        caption:
-          "Demanding schedules change how a search is run — concentrated tours, digital review, and clear deadlines.",
-      },
-      "inset",
     ),
 
     richTextBlock(

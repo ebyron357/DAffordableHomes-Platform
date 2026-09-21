@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { BlogFigure } from "@/components/blog/blog-image"
+import { ArticlePlate, BlogFigure, plateVariantFor } from "@/components/blog/blog-image"
 import { Prose } from "@/components/blog/portable-text"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -447,13 +447,17 @@ export function RelatedArticles({
             className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-colors hover:border-accent/50"
           >
             <div className="relative aspect-[16/10] overflow-hidden bg-muted">
-              <BlogFigure
-                image={related.featuredImage}
-                ratio="aspect-[16/10]"
-                sizes="(min-width: 640px) 22rem, 100vw"
-                showCaption={false}
-                className="h-full [&>div]:h-full [&>div]:rounded-none [&>div]:border-0"
-              />
+              {related.featuredImage ? (
+                <BlogFigure
+                  image={related.featuredImage}
+                  ratio="aspect-[16/10]"
+                  sizes="(min-width: 640px) 22rem, 100vw"
+                  showCaption={false}
+                  className="h-full [&>div]:h-full [&>div]:rounded-none [&>div]:border-0"
+                />
+              ) : (
+                <ArticlePlate category={related.category.title} variant={plateVariantFor(related.category.slug)} />
+              )}
             </div>
             <div className="flex flex-1 flex-col p-6">
               <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-accent">

@@ -146,8 +146,29 @@ const MIN_IMAGERY_ROUTES = [
   "/blog",
 ]
 
-/** Retired asset that must not reappear anywhere. */
-const RETIRED_ASSETS = ["dah-logo_ff042b7b", "manus-storage/dah-logo"]
+/**
+ * Assets that must not reappear on any route.
+ *
+ * The files stay in the repository — removing imagery the owner may have paid
+ * for is not an agent's call — but none of them may be served again:
+ *
+ *  - `dah-logo_ff042b7b`   a Manus placeholder glyph, not the brand mark.
+ *  - `hero-homeowner`      a generated picture of a woman who is not Debra
+ *                          Allen, published on /start under the alt text
+ *                          "Debra Allen standing outside a home".
+ *  - `couple-consultation` carries a framed poster and a mug bearing an
+ *                          invented agency logo and tagline — a brand identity
+ *                          that is not D'Affordable Homes.
+ *  - `neighborhood-community` a dense north-eastern US streetscape that
+ *                          /neighborhoods captioned "North Texas".
+ */
+const RETIRED_ASSETS = [
+  "dah-logo_ff042b7b",
+  "manus-storage/dah-logo",
+  "hero-homeowner",
+  "couple-consultation_25d3a592",
+  "neighborhood-community_101d8dfe",
+]
 
 const failures = []
 const notes = []

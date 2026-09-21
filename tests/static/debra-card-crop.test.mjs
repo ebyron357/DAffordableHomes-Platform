@@ -15,14 +15,17 @@ test("Debra's head is not cropped by a landscape card frame", () => {
   const garland = read("apps/web/lib/blog/seed/articles/how-to-buy-home-garland-tx.ts");
   const home = read("apps/web/components/home/figma-home-page.tsx");
 
-  assert.match(heroes, /focalPoint: "55% 16%"/);
+  // The Heroes and Garland guides no longer carry a portrait at all — the
+  // owner asked for Debra to come off those two cards — so there is no crop
+  // left to get wrong. `articles.test.mjs` holds them to that.
+  assert.doesNotMatch(heroes, /focalPoint:/);
+  assert.doesNotMatch(garland, /focalPoint:/);
   assert.match(naca, /focalPoint: "48% 35%"/);
-  assert.match(garland, /focalPoint: "center 10%"/);
   // The homepage frame crops horizontally only, so the register's rule stands.
   assert.match(home, /objectPosition: "48% center"/);
 
   // No portrait asset may fall back to a centred vertical crop in a card.
-  for (const [name, source] of [["heroes", heroes], ["naca", naca], ["garland", garland]]) {
+  for (const [name, source] of [["naca", naca]]) {
     assert.ok(
       !/focalPoint: "(50% )?center"/.test(source),
       `${name} must not use a vertically centred crop`,

@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { BadgeCheck, Calculator, ClipboardCheck, Compass, MapPin, Route, ShieldCheck } from "lucide-react"
 
-import { BlogImage } from "@/components/blog/blog-image"
+import { ArticlePlate, BlogImage, plateVariantFor } from "@/components/blog/blog-image"
 import { Band, BandLead, CtaBand, Features } from "@/components/page/editorial"
 import { CLOSING_BAND_IMAGE } from "@/lib/content/imagery"
 import { Button } from "@/components/ui/button"
@@ -125,12 +125,16 @@ function LeadArticle({ article }: { article: ArticleSummary }) {
       </div>
 
       <figure className="order-1 relative aspect-[4/3] overflow-hidden rounded-xl border border-border bg-muted lg:order-2 lg:aspect-[4/5]">
-        <BlogImage
-          image={article.featuredImage}
-          sizes="(min-width: 1024px) 40rem, 100vw"
-          priority
-          className="transition-transform duration-500 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-        />
+        {article.featuredImage ? (
+          <BlogImage
+            image={article.featuredImage}
+            sizes="(min-width: 1024px) 40rem, 100vw"
+            priority
+            className="transition-transform duration-500 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+          />
+        ) : (
+          <ArticlePlate category={article.category.title} variant={plateVariantFor(article.category.slug)} />
+        )}
       </figure>
     </article>
   )
@@ -140,11 +144,15 @@ function ArticleCard({ article, index }: { article: ArticleSummary; index: numbe
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-colors hover:border-accent/50">
       <div className="relative aspect-[16/10] overflow-hidden bg-muted">
-        <BlogImage
-          image={article.featuredImage}
-          sizes="(min-width: 1024px) 28rem, (min-width: 640px) 45vw, 100vw"
-          className="transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-        />
+        {article.featuredImage ? (
+          <BlogImage
+            image={article.featuredImage}
+            sizes="(min-width: 1024px) 28rem, (min-width: 640px) 45vw, 100vw"
+            className="transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+          />
+        ) : (
+          <ArticlePlate category={article.category.title} variant={plateVariantFor(article.category.slug)} />
+        )}
       </div>
       <div className="flex flex-1 flex-col p-7">
         <div className="flex items-baseline gap-3">

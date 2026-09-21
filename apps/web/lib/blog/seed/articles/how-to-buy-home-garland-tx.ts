@@ -15,7 +15,6 @@ import {
   consultationCta,
   faqBlock,
   faqs,
-  heroImage,
   inlineImage,
   officialSourcesBlock,
   quickAnswer,
@@ -93,19 +92,17 @@ export const garlandArticle: Article = {
   readingTime: "12 minute read",
   programs: ["naca"],
   areas: ["garland", "dallas-fort-worth"],
-  featuredImage: {
-    src: "/images/debra-allen-lifestyle-full-body.webp",
-    alt: "Debra Allen standing at a kitchen island in a yellow blazer",
-    width: 1153,
-    height: 1536,
-    focalPoint: "center 10%",
-  },
-  socialImage: {
-    src: "/images/debra-allen-lifestyle-full-body.webp",
-    alt: "Debra Allen standing at a kitchen island in a yellow blazer",
-    width: 1153,
-    height: 1536,
-  },
+  /**
+   * No `featuredImage`. The article is about buying a home in Garland, Texas, and the only
+   * photographs this repository is cleared to publish are Debra's own
+   * portraits plus one licensed interior — none of them depicts this subject.
+   * Using her portrait here made the card read as a profile of her rather than
+   * a guide to the topic, which is why the owner asked for it to come off.
+   *
+   * The card and masthead therefore render `ArticlePlate`. Setting
+   * `featuredImage` in Sanity replaces the plate everywhere, with no code
+   * change: see `docs/05-content/IMAGE_ASSET_REGISTER.md`.
+   */
   faqs: articleFaqs,
   sources: articleSources,
   notice: richText(
@@ -141,14 +138,6 @@ export const garlandArticle: Article = {
   ],
   relatedArticleSlugs: ["naca-homebuying-dallas-fort-worth", "homes-for-heroes-north-texas"],
   body: [
-    heroImage({
-      src: "/images/debra-allen-lifestyle-full-body.webp",
-      alt: "Debra Allen standing at a kitchen island in a yellow blazer",
-      width: 1153,
-      height: 1536,
-      focalPoint: "center 10%",
-    }),
-
     quickAnswer(
       "The quick answer",
       richText(

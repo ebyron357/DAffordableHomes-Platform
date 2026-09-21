@@ -103,13 +103,16 @@ export async function generateMetadata({
       modifiedTime: article.reviewedAt ?? article.publishedAt,
       authors: [article.author.name],
       section: article.category.title,
-      images: [{ url: socialImage.src, alt: socialImage.alt }],
+      // Omitted rather than substituted when the article carries no image of
+      // its own. A share card showing an unrelated photograph is worse than
+      // the site-level default a consumer falls back to.
+      ...(socialImage ? { images: [{ url: socialImage.src, alt: socialImage.alt }] } : {}),
     },
     twitter: {
-      card: "summary_large_image",
+      card: socialImage ? "summary_large_image" : "summary",
       title: article.seoTitle ?? article.title,
       description: article.seoDescription,
-      images: [socialImage.src],
+      ...(socialImage ? { images: [socialImage.src] } : {}),
     },
   }
 }

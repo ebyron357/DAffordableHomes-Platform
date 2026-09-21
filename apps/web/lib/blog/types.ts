@@ -185,7 +185,12 @@ export type ArticleSummary = {
   publishedAt: string
   reviewedAt?: string
   readingTime: string
-  featuredImage: ArticleImage
+  /**
+   * Optional. An article with no approved photograph of its own subject
+   * renders the brand plate (`ArticlePlate`) instead of borrowing an
+   * unrelated one — see `docs/05-content/IMAGE_ASSET_REGISTER.md`.
+   */
+  featuredImage?: ArticleImage
 }
 
 export type Article = ArticleSummary & {

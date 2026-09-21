@@ -132,7 +132,9 @@ export const article = defineType({
       name: "featuredImage",
       type: "articleImage",
       group: "media",
-      validation: (rule) => rule.required(),
+      description:
+        "Optional. Leave empty and the article shows the brand plate instead of a photograph. " +
+        "Only set an image that is actually of this article's subject and is cleared for use.",
     }),
     defineField({
       name: "socialImage",

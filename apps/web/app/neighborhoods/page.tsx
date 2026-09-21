@@ -28,11 +28,14 @@ export default function NeighborhoodsPage() {
           { label: "Garland is home base", icon: MapPin },
           { label: "Dallas–Fort Worth metroplex", icon: Route },
         ]}
-        media={{
-          src: "/manus-storage/neighborhood-community_101d8dfe.jpg",
-          alt: "A welcoming North Texas neighborhood street",
-          caption: { label: "North Texas", title: "Where the search happens" },
-        }}
+        /* No masthead photograph. The image this page used to carry —
+           `manus-storage/neighborhood-community_101d8dfe.jpg`, captioned
+           "North Texas" — is a dense north-eastern US streetscape: four-storey
+           brick walk-ups, fire escapes, a Puerto Rican flag mural and a
+           storefront row. Nothing in it is Dallas-Fort Worth, and this page's
+           own promise is to compare North Texas cities "without fabricated"
+           content. The route motif claims nothing instead. */
+        motif="route"
       >
         <Link href="/areas/garland" className="dh-btn dh-btn-gold">
           Explore Garland

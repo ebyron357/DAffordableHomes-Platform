@@ -10,6 +10,14 @@ All notable repository changes are documented here.
 - Homepage copy: services, buyer and seller strategy points, knowledge cards and three section headings rewritten as specific Dallas–Fort Worth language; the claim of a "real-time MLS search" that the site does not have is gone.
 - The guided-quiz state machine is shared (`useGuidedQuiz`) by the homepage quiz and the interior Find Your Next Step check; funnel events flow through the existing analytics seam.
 
+### Guide-card imagery and the unregistered-photograph audit
+
+- `featuredImage` is optional end to end (shared type, Sanity schema, blog index, article masthead, related cards, Open Graph and Article JSON-LD). An article without one renders `ArticlePlate` — brand field, architectural linework, the article's own category — and publishes no image property rather than asserting that an unrelated photograph depicts its subject. Setting the field in Sanity restores a photograph everywhere with no code change.
+- The Homes for Heroes and Garland guides no longer carry Debra Allen's portrait as their card, masthead or body image.
+- Three images are off every route and barred in the audit's retired list: a generated portrait of a woman who is not Debra, published on `/start` as though she were; a generated office scene carrying an invented agency logo and tagline; and a north-eastern US streetscape that `/neighborhoods` captioned "North Texas". The `/start` panel now shows Debra's own registered photograph at the register's upright-frame crop. The files stay in the repository.
+- Fixed `.dah-landing-image-frame-portrait` resolving to 0px wide: `margin-inline:auto` cancels a grid item's default stretch, so with no explicit width the frame was sized to content and its only child is an absolutely positioned image. That panel's photograph had never rendered at any desktop width.
+- `docs/05-content/IMAGE_ASSET_REGISTER.md` records what each of the seven unregistered images actually shows and its disposition. Three remain unresolved on licence and are owner actions.
+
 ### Interior visual system
 
 - Added a `.dh-*` interior composition layer (`app/globals.css`) plus

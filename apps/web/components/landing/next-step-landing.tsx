@@ -18,6 +18,8 @@ import {
   Users,
 } from "lucide-react"
 import { trackEvent, type AnalyticsEventName } from "@/lib/analytics"
+import { BrandMotif } from "@/components/page/brand-motif"
+import { DEBRA_DESK } from "@/lib/content/imagery"
 /**
  * Questions, attribution keys, storage key and the result engine live in
  * `lib/content/readiness.ts` so the homepage quiz runs the same assessment
@@ -555,7 +557,13 @@ export function NextStepLanding() {
 
       <section id="naca" className="dah-landing-section dah-landing-split" aria-labelledby="naca-heading">
         <div className="dah-landing-container dah-landing-two-column dah-landing-two-column-wide">
-          <div className="dah-landing-image-frame"><Image src="/manus-storage/couple-consultation_25d3a592.jpg" alt="A couple discussing their homeownership plan with an advisor" fill sizes="(max-width: 800px) 100vw, 50vw" loading="lazy" /></div>
+          {/* No photograph here. The image this frame used to carry showed a framed
+              poster and a mug carrying an invented agency logo and the tagline "Home
+              is more than a place. / We're here to help." — a brand identity that is
+              not D'Affordable Homes, published as though it were the office a reader
+              would walk into. The linework says "residential real estate" and claims
+              nothing. */}
+          <div className="dah-landing-image-frame dah-landing-image-frame-art"><BrandMotif variant="roofline" className="dh-motif" /></div>
           <div><p className="dah-landing-eyebrow">NACA EDUCATION</p><h2 id="naca-heading">Considering NACA in Dallas? Start with understanding the process.</h2><p className="dah-landing-copy">NACA can offer significant homeownership benefits, but it isn’t simply a shortcut to buying a house. The process includes education, counseling, documentation, qualification, home selection, and mortgage processing.</p><div className="dah-landing-journey" aria-label="NACA journey"><span>Learn</span><i>→</i><span>Prepare</span><i>→</i><span>NACA process</span><i>→</i><span>Home search</span><i>→</i><span>Purchase</span></div><Link href="/naca" className="dah-landing-text-button">Explore NACA with Debra <ArrowRight size={16} aria-hidden="true" /></Link><p className="dah-landing-footnote">D’Affordable Homes does not determine NACA qualification, mortgage approval, rates, terms, or eligibility.</p></div>
         </div>
       </section>
@@ -584,7 +592,12 @@ export function NextStepLanding() {
       <section className="dah-landing-section dah-landing-cream" aria-labelledby="debra-heading">
         <div className="dah-landing-container dah-landing-two-column">
           <div><p className="dah-landing-eyebrow dah-landing-eyebrow-dark">A HUMAN GUIDE</p><h2 id="debra-heading">You don’t need another sales pitch. You need someone who can help you understand the path.</h2><p className="dah-landing-copy">Debra’s role is to help you slow the process down, understand what comes next, and move with a plan. The customer remains the hero; D’Affordable Homes is the navigator.</p><Link href="/about" className="dah-landing-text-button">Meet Debra <ArrowRight size={16} aria-hidden="true" /></Link></div>
-          <div className="dah-landing-image-frame dah-landing-image-frame-portrait"><Image src="/images/hero-homeowner.png" alt="Debra Allen standing outside a home" fill sizes="(max-width: 800px) 100vw, 40vw" loading="lazy" /></div>
+          {/* Debra's own registered photograph, at the register's upright-frame crop.
+              This slot previously carried `/images/hero-homeowner.png` under the alt
+              text "Debra Allen standing outside a home". That picture is not Debra:
+              it is a generated image of a different woman, published beside "Meet
+              Debra" as though it were her. */}
+          <div className="dah-landing-image-frame dah-landing-image-frame-portrait"><Image src={DEBRA_DESK.src} alt={DEBRA_DESK.alt} fill sizes="(max-width: 800px) 100vw, 40vw" style={{ objectPosition: DEBRA_DESK.objectPosition }} loading="lazy" /></div>
         </div>
       </section>
 

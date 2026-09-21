@@ -1489,7 +1489,13 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 .dah-landing-image-frame { position:relative; min-height:480px; overflow:hidden; }
 .dah-landing-image-frame img { object-fit:cover; }
 .dah-landing-image-frame-short { min-height:380px; }
-.dah-landing-image-frame-portrait { min-height:500px; max-width:440px; margin-inline:auto; }
+/* `width:100%` is load-bearing. `margin-inline:auto` cancels a grid item's
+   default `justify-self: stretch`, so without an explicit width this frame
+   is sized to its content — and its only child is the absolutely positioned
+   image, which contributes nothing. The frame resolved to 0px wide at every
+   desktop width and the photograph never appeared; the mobile rule below
+   already set `width:100%`, which is why it only showed on small screens. */
+.dah-landing-image-frame-portrait { min-height:500px; width:100%; max-width:440px; margin-inline:auto; }
 .dah-landing-journey { display:flex; flex-wrap:wrap; align-items:center; gap:9px; margin:26px 0; color:#087c8a; font-size:12px; font-weight:800; text-transform:uppercase; }
 .dah-landing-journey i { color:#a3a9aa; font-style:normal; }
 .dah-landing-footnote { max-width:530px; margin:28px 0 0; color:#7a858a; font-size:12px; line-height:1.55; }
@@ -2054,3 +2060,39 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 .dh-consult-aside .dh-checklist span { color: #c4d4e2; }
 .dh-consult-aside .dh-checklist svg { color: var(--dh-teal-bright); }
 @media (max-width: 1000px) { .dh-consult { grid-template-columns: 1fr; } }
+
+/* Article plate — the designed stand-in for an article with no featuredImage.
+   Fills its frame exactly as a photograph would (the frame owns the ratio), so
+   card and masthead layouts are identical whether or not a photo is set. */
+.dh-article-plate {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: clamp(18px, 6%, 44px);
+  background:
+    radial-gradient(120% 120% at 18% 12%, rgba(24, 169, 180, .22), transparent 62%),
+    linear-gradient(150deg, var(--dh-navy) 0%, var(--dh-navy-deep) 100%);
+}
+.dh-article-plate-art { max-width: 460px; max-height: 100%; opacity: .95; }
+.dh-article-plate-label {
+  position: absolute;
+  left: clamp(16px, 6%, 32px);
+  bottom: clamp(14px, 5%, 26px);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  /* #e6bd55 on #0b1e38 measures 8.6:1 — well clear of AA for small text. */
+  color: var(--dh-gold-light);
+}
+
+/* An image frame on /start carrying linework instead of a photograph. The
+   frame keeps its ratio and padding so the two-column rhythm is unchanged. */
+.dah-landing-image-frame-art {
+  display: grid;
+  place-items: center;
+  padding: clamp(20px, 5%, 48px);
+  background: linear-gradient(150deg, var(--dh-navy) 0%, var(--dh-navy-deep) 100%);
+}
+.dah-landing-image-frame-art .dh-motif { max-width: 100%; }

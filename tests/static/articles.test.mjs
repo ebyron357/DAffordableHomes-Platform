@@ -19,6 +19,18 @@ const PRESERVED_SLUGS = [
 
 const read = (file) => readFileSync(file, 'utf8');
 
+/**
+ * File contents with comments stripped.
+ *
+ * These asset assertions are about what a route *serves*, and the code that
+ * removed each image explains in a comment which image it removed and why.
+ * Matching raw source would fail on the explanation itself.
+ */
+const codeOf = (file) =>
+  read(file)
+    .replace(/\/\*[\s\S]*?\*\//g, ' ')
+    .replace(/(^|[^:])\/\/[^\n]*/g, '$1 ');
+
 test('the blog is served by one CMS-driven route, not per-article route files', () => {
   assert.equal(existsSync('apps/web/app/blog/[slug]/page.tsx'), true);
   assert.equal(existsSync('apps/web/app/blog/page.tsx'), true);
@@ -61,8 +73,50 @@ test('migrated articles keep their authorship, dates, reading time and metadata'
     assert.match(source, /name: "Debra Allen"/, slug);
     assert.match(source, /role: "REALTOR®"/, slug);
     assert.match(source, /seoDescription:/, slug);
-    assert.match(source, /featuredImage: \{/, slug);
   }
+});
+
+test('the Heroes and Garland guides carry no photograph of Debra', () => {
+  // The owner asked for Debra's portrait to come off these two cards: an
+  // article about the Homes for Heroes programme, or about buying in Garland,
+  // is not a profile of its author. Neither seed sets `featuredImage`, so both
+  // render `ArticlePlate` until an editor supplies a photograph of the actual
+  // subject through Sanity.
+  for (const slug of ['homes-for-heroes-north-texas', 'how-to-buy-home-garland-tx']) {
+    const source = read(`apps/web/lib/blog/seed/articles/${slug}.ts`);
+    assert.doesNotMatch(source, /featuredImage: \{/, slug);
+    assert.doesNotMatch(source, /socialImage: \{/, slug);
+    assert.doesNotMatch(source, /debra-allen-[a-z-]+\.webp/, slug);
+  }
+
+  // The NACA guide keeps its approved portrait placement.
+  const naca = read('apps/web/lib/blog/seed/articles/naca-homebuying-dallas-fort-worth.ts');
+  assert.match(naca, /featuredImage: \{/);
+});
+
+test('no route publishes the fabricated-brand consultation photograph', () => {
+  // `manus-storage/couple-consultation_25d3a592.jpg` shows a poster and a mug
+  // carrying an invented agency logo and tagline. It is not D'Affordable
+  // Homes' branding, so it must not be served as though it were.
+  for (const file of [
+    'apps/web/components/landing/next-step-landing.tsx',
+    'apps/web/lib/blog/seed/articles/homes-for-heroes-north-texas.ts'
+  ]) {
+    assert.doesNotMatch(codeOf(file), /couple-consultation_25d3a592/, file);
+  }
+});
+
+test('no route presents the north-eastern streetscape as North Texas', () => {
+  // `manus-storage/neighborhood-community_101d8dfe.jpg` is a dense
+  // north-eastern US block, not Dallas-Fort Worth.
+  assert.doesNotMatch(codeOf('apps/web/app/neighborhoods/page.tsx'), /neighborhood-community_101d8dfe/);
+});
+
+test('no route presents a generated portrait as Debra Allen', () => {
+  // `/images/hero-homeowner.png` is a generated image of a different woman. It
+  // was published on /start under the alt text "Debra Allen standing outside a
+  // home".
+  assert.doesNotMatch(codeOf('apps/web/components/landing/next-step-landing.tsx'), /hero-homeowner\.png/);
 });
 
 test('migrated articles retain FAQs, official sources and compliance notices', () => {

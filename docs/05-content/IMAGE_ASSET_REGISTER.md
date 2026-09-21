@@ -36,17 +36,60 @@ the top and clipped her hair on every route carrying a closing band.
 `scripts/qa/face-safety.mjs` now measures this at 1440, 1024, 768, 430 and 375
 and fails above a 12% ceiling.
 
-## Unregistered assets still served
+## Unregistered assets: 2026-09-21 audit
 
-Five Manus-era images remain in `apps/web/public/manus-storage/`. Four are
-still referenced — `hero-family_b1fab939.jpg`, `couple-consultation_25d3a592.jpg`
-and `home-keys-moment_20083d77.jpg` by `/start` and two seed articles, and
-`neighborhood-community_101d8dfe.jpg` by `/neighborhoods`. None has a recorded
-source, photographer or licence. They are not removed here because removing
-imagery the owner may have licensed is not a visual-pass decision; they are
-listed so the gap is visible. **Owner action: confirm provenance and licence for
-each, or approve replacement.** The retired `dah-logo_ff042b7b.png` glyph
-remains barred from every route and the audit fails if it reappears.
+Five Manus-era images sat in `apps/web/public/manus-storage/` with no recorded
+source, photographer or licence, plus two unregistered files in
+`apps/web/public/images/`. Each was opened and examined. Provenance could not be
+established for any of them and none has been invented here. Three were found to
+be misrepresenting something and are now off every route; the rest are described
+honestly and left in place pending the owner's licence answer.
+
+| File | Where it was used | What it actually shows | Disposition |
+| --- | --- | --- | --- |
+| `images/hero-homeowner.png` | `/start`, "A human guide" panel, alt text *"Debra Allen standing outside a home"* | A generated photograph of a woman who is **not** Debra Allen, on the porch of a small vinyl-sided house | **Off every route.** The slot now carries Debra's own registered photograph at the `DEBRA_DESK` crop. Barred in `RETIRED_ASSETS` |
+| `manus-storage/couple-consultation_25d3a592.jpg` | `/start` NACA panel; Homes for Heroes guide body | A generated office scene whose framed poster and mug carry an **invented agency logo** and the tagline "Home is more than a place. / We're here to help." — branding that is not D'Affordable Homes | **Off every route.** The `/start` frame carries the route motif; the article block is removed. Barred in `RETIRED_ASSETS` |
+| `manus-storage/neighborhood-community_101d8dfe.jpg` | `/neighborhoods` masthead, captioned *"North Texas — where the search happens"* | A dense north-eastern US block: four-storey brick walk-ups, fire escapes, a storefront row and a Puerto Rican flag mural. Not Dallas–Fort Worth | **Off every route.** The masthead uses the `route` motif. Barred in `RETIRED_ASSETS` |
+| `manus-storage/hero-family_b1fab939.jpg` | `/start` hero | A family of four outside a small craftsman bungalow. Plausible licensed stock; nothing in it is false | **Left in place.** Licence unresolved — owner action |
+| `manus-storage/home-keys-moment_20083d77.jpg` | `/start`; Garland guide body | Keys held at a doorway. Plausible licensed stock; nothing in it is false | **Left in place.** Licence unresolved — owner action |
+| `images/planning-table.png` | `/first-time-buyers`; NACA guide body | A planning table scene. No recorded source | **Left in place.** Licence unresolved — owner action |
+| `manus-storage/dah-logo_ff042b7b.png` | nothing | Retired Manus placeholder glyph | Already barred; unchanged |
+
+**Owner action (unchanged for the three left in place):** confirm the source and
+licence for each, or approve replacement. They are not deleted from the
+repository, because removing imagery the owner may have licensed is not an
+agent's decision — but `scripts/qa/site-audit.mjs` now fails if any of the three
+retired files is served by any route again.
+
+## Articles with no photograph of their own subject
+
+Two guides carried Debra's portrait as their card and masthead image:
+
+- *How Debra Allen Helps North Texas Heroes Buy or Sell a Home*
+- *How to Buy a Home in Garland, Texas*
+
+A portrait of the author is not a picture of the Homes for Heroes programme or
+of Garland, and it made each card read as a profile rather than a guide. Both
+now omit `featuredImage` entirely and render `ArticlePlate` — brand field,
+architectural linework, the article's own category in type — which is the same
+answer the interior mastheads already give when no licensed photograph exists
+for a slot.
+
+`featuredImage` is optional in the Sanity schema, the shared type and every
+renderer. The moment an editor sets it on either article, the photograph takes
+over the card, the masthead, the related-article card, the Open Graph image and
+the Article JSON-LD, with no code change. Until then no image property is
+published rather than an unrelated one being asserted as the article's subject.
+
+**Owner action to restore photography on these two cards:** supply a cleared
+exterior photograph for each — a North Texas brick-and-stone home with a porch
+flag for the Heroes guide, an established Garland street or house for the
+Garland guide — and set `featuredImage` (and `socialImage`) in Sanity, or drop
+the files into `apps/web/public/images/` and add a row to this register. This
+session could not source them: every image host is refused by the environment's
+egress policy (Pexels, Unsplash, Wikimedia and the rest all answer 403 at the
+proxy), so bringing a new photograph into the repository from here is not
+possible.
 
 ## Rendering rules
 

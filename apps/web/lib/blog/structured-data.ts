@@ -42,7 +42,10 @@ export function articleJsonLd(article: Article): Record<string, unknown> {
     datePublished: article.publishedAt,
     dateModified: article.reviewedAt ?? article.publishedAt,
     articleSection: article.category.title,
-    image: [absolute(image.src)],
+    // `image` is recommended, not required, by schema.org. An article with no
+    // photograph of its own subject publishes no image property rather than
+    // asserting that an unrelated photograph depicts it.
+    ...(image ? { image: [absolute(image.src)] } : {}),
     inLanguage: "en-US",
     author: {
       "@type": "Person",

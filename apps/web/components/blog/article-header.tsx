@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { BlogImage } from "@/components/blog/blog-image"
+import { ArticlePlate, BlogImage, plateVariantFor } from "@/components/blog/blog-image"
 import { Container } from "@/components/ui/container"
 import type { Article } from "@/lib/blog/types"
 import { formatArticleDate } from "@/lib/blog/format"
@@ -71,11 +71,18 @@ export function ArticleHeader({ article }: { article: Article }) {
           </div>
 
           <figure className="relative aspect-[4/5] overflow-hidden rounded-xl border-4 border-white/10 bg-primary sm:aspect-[3/2] lg:aspect-[4/5]">
-            <BlogImage
-              image={article.featuredImage}
-              sizes="(min-width: 1024px) 38rem, (min-width: 640px) 90vw, 100vw"
-              priority
-            />
+            {article.featuredImage ? (
+              <BlogImage
+                image={article.featuredImage}
+                sizes="(min-width: 1024px) 38rem, (min-width: 640px) 90vw, 100vw"
+                priority
+              />
+            ) : (
+              <ArticlePlate
+                category={article.category.title}
+                variant={plateVariantFor(article.category.slug)}
+              />
+            )}
           </figure>
         </div>
       </Container>

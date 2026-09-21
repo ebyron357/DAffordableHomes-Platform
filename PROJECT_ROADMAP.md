@@ -194,8 +194,18 @@
       rather than reviewer judgement (`qa:audit` painted-area floors, `qa:faces`,
       `qa:contrast`)
 - [ ] Obtain final approval before any full-site visual rollout
-- [ ] Confirm provenance and licence for the five unregistered `manus-storage`
-      photographs, or approve replacements
+- [x] Audit every unregistered photograph and record what each one actually shows
+      (`docs/05-content/IMAGE_ASSET_REGISTER.md`); three that misrepresented a
+      person, a brand or a place are off every route and barred in `qa:audit`
+- [x] Take Debra Allen's portrait off the Homes for Heroes and Garland guide
+      cards, with `featuredImage` optional end to end so a photograph can be
+      restored from Sanity without a code change
+- [ ] Confirm provenance and licence for the three unregistered photographs still
+      served (`hero-family`, `home-keys-moment`, `planning-table`), or approve
+      replacements
+- [ ] Supply cleared exterior photography for the two guide cards and the homepage
+      hero: no image host is reachable from the maintenance environment, so these
+      cannot be sourced by an agent session
 
 These items require a separate business and architecture decision before implementation:
 
