@@ -1,8 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Check } from "lucide-react"
+import { ArrowRight, Check, Home, KeyRound } from "lucide-react"
 import {
   FIGMA_BUYER_POINTS,
+  FIGMA_PATHWAY_HIGHLIGHTS,
   FIGMA_CITIES,
   FIGMA_HOME_CTA,
   FIGMA_KNOWLEDGE,
@@ -12,6 +13,8 @@ import {
 import { formatArticleDate } from "@/lib/blog/format"
 import type { ArticleSummary } from "@/lib/blog/types"
 import type { PropertySearchResult } from "@/lib/mls/provider"
+import { DEBRA_DESK_BAND } from "@/lib/content/imagery"
+import { BrandMotif } from "@/components/page/brand-motif"
 import { FigmaHomeFooter } from "@/components/home/figma-home-footer"
 import { HomeQuiz } from "@/components/home/home-quiz"
 import { FigmaHomeHeader } from "@/components/home/figma-home-header"
@@ -38,11 +41,10 @@ const DEBRA_PORTRAIT = {
   objectPosition: "48% center",
 } as const
 
-const DEBRA_DESK = {
-  src: "/images/debra-allen-advisor-desk.webp",
-  alt: "Debra Allen seated at her desk with a tablet",
-  objectPosition: "50% 30%",
-} as const
+/* The closing band is full-bleed and far wider than the source, so it takes
+   the register's band crop rather than the upright-frame one. At 30% the band
+   removed 22% off the top of the image, which clipped the top of her head. */
+const DEBRA_DESK = DEBRA_DESK_BAND
 
 /**
  * Verified positioning qualifiers for the band under the hero.
@@ -162,10 +164,19 @@ function TrustBand() {
 }
 
 /**
- * Buying and selling as the two primary paths, on their own colour fields,
- * with the remaining two services as a quieter row beneath. This replaces four
- * equal-weight cards — the composition the design blueprint asked us to stop
- * repeating, and the one that made the page read as a template.
+ * Buying and selling as the two primary paths.
+ *
+ * The previous version was two solid rectangles, each holding a serif number,
+ * a heading, a paragraph and a button. That is a dashboard, and the numbering
+ * implied a sequence that does not exist — nobody buys *and then* sells in the
+ * order 01, 02. The numbers are gone.
+ *
+ * What replaces them is a composition: unequal widths, a vertical offset, an
+ * icon badge that says what the path *is* before the sentence does, three
+ * highlights of the actual work, and the brand's architectural linework washed
+ * into the corner of each field. The ornament does the job a photograph would
+ * do here, because the approved register has no buying- or selling-specific
+ * imagery and a repeated portrait would be worse than none.
  */
 function Pathways() {
   const [buy, sell, ...rest] = FIGMA_SERVICES
@@ -180,20 +191,49 @@ function Pathways() {
 
         <div className="fh-path-grid">
           <article className="fh-path fh-path-buy">
-            <p className="fh-path-index" aria-hidden="true">01</p>
-            <h3>{buy.title}</h3>
-            <p>{buy.body}</p>
-            <Link href={buy.href} className="fh-btn fh-btn-light">
-              Start buying
-            </Link>
+            <BrandMotif variant="keys" className="dh-motif fh-path-art" />
+            <div className="fh-path-body">
+              <span className="fh-path-badge">
+                <KeyRound aria-hidden="true" />
+              </span>
+              <p className="fh-path-label">For buyers</p>
+              <h3>{buy.title}</h3>
+              <p className="fh-path-copy">{buy.body}</p>
+              <ul className="fh-path-points">
+                {FIGMA_PATHWAY_HIGHLIGHTS.buy.map((point) => (
+                  <li key={point}>
+                    <Check className="size-[17px]" aria-hidden="true" />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link href={buy.href} className="fh-btn fh-btn-light">
+                Start buying
+              </Link>
+            </div>
           </article>
+
           <article className="fh-path fh-path-sell">
-            <p className="fh-path-index" aria-hidden="true">02</p>
-            <h3>{sell.title}</h3>
-            <p>{sell.body}</p>
-            <Link href={sell.href} className="fh-btn fh-btn-light">
-              Talk about selling
-            </Link>
+            <BrandMotif variant="route" className="dh-motif fh-path-art" />
+            <div className="fh-path-body">
+              <span className="fh-path-badge">
+                <Home aria-hidden="true" />
+              </span>
+              <p className="fh-path-label">For sellers</p>
+              <h3>{sell.title}</h3>
+              <p className="fh-path-copy">{sell.body}</p>
+              <ul className="fh-path-points">
+                {FIGMA_PATHWAY_HIGHLIGHTS.sell.map((point) => (
+                  <li key={point}>
+                    <Check className="size-[17px]" aria-hidden="true" />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link href={sell.href} className="fh-btn fh-btn-light">
+                Talk about selling
+              </Link>
+            </div>
           </article>
         </div>
 

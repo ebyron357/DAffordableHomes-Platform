@@ -428,7 +428,9 @@ export function NextStepLanding() {
         />
         <div className="dah-landing-hero-overlay" aria-hidden="true" />
         <div className="dah-landing-hero-content">
-          <p className="dah-landing-eyebrow">{variant?.eyebrow ?? "DALLAS–FORT WORTH HOMEOWNERSHIP"}</p>
+          {/* The hero eyebrow sits on the navy scrim, so it takes the gold variant
+              rather than the dark teal the base class uses on light surfaces. */}
+          <p className="dah-landing-eyebrow dah-landing-eyebrow-gold">{variant?.eyebrow ?? "DALLAS–FORT WORTH HOMEOWNERSHIP"}</p>
           <h1 id="landing-heading">{variant?.headline ?? "Not sure if homeownership is within reach?"}</h1>
           <p className="dah-landing-hero-promise">{variant?.promise ?? "Let’s replace the guesswork with a clear path."}</p>
           <p className="dah-landing-hero-body">

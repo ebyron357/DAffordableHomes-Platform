@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { BadgeCheck, MapPin, Route } from "lucide-react"
 import { CLIENTVERSE } from "@/lib/clientverse"
 import { FIGMA_FOOTER_LEGAL, FIGMA_FOOTER_LINKS } from "@/lib/figma-home"
 import { SITE } from "@/lib/site"
@@ -34,20 +35,51 @@ export function FigmaHomeFooter() {
       <div className="fh-footer-brand-band">
         <div className="fh-shell fh-footer-brand-inner">
           <div className="fh-footer-identity">
-            <Image
-              src="/images/daffordable-homes-official-logo.png"
-              alt="D'Affordable Homes — Affordable, Accessible, Achievable"
-              width={640}
-              height={427}
-              sizes="220px"
-              quality={90}
-              className="fh-footer-logo"
-            />
+            {/* Opaque PNG: the plate is deliberate, not an accident of the
+                asset. See the note on .fh-footer-brand-band. */}
+            <span className="fh-footer-logo-plate">
+              <Image
+                src="/images/daffordable-homes-official-logo.png"
+                alt="D'Affordable Homes — Affordable, Accessible, Achievable"
+                width={640}
+                height={427}
+                sizes="210px"
+                quality={90}
+                className="fh-footer-logo"
+              />
+            </span>
             <p className="fh-footer-blurb">
               {SITE.realtorName} — professional representation and clear, unhurried guidance for buyers and sellers
               across Garland and the Dallas–Fort Worth metroplex.
             </p>
           </div>
+          <div className="footer-local">
+            <p className="footer-local-label">Where Debra works</p>
+            <ul>
+              <li>
+                <MapPin aria-hidden="true" />
+                <span>
+                  <strong>Garland, Texas</strong>
+                  The home market, and the one with a full area guide.
+                </span>
+              </li>
+              <li>
+                <Route aria-hidden="true" />
+                <span>
+                  <strong>Dallas–Fort Worth</strong>
+                  Buyer and seller representation across the metroplex.
+                </span>
+              </li>
+              <li>
+                <BadgeCheck aria-hidden="true" />
+                <span>
+                  <strong>REALTOR&reg;</strong>
+                  Availability for a specific transaction is confirmed with Debra.
+                </span>
+              </li>
+            </ul>
+          </div>
+
           <div className="fh-footer-action">
             <p className="fh-eyebrow">Start a conversation</p>
             <p className="fh-footer-action-copy">

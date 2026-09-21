@@ -16,7 +16,10 @@
     "test:all": "npm run typecheck && npm run lint && npm run test && npm run build",
     "qa:audit": "node scripts/qa/site-audit.mjs",
     "qa:evidence": "node scripts/qa/capture-evidence.mjs",
-    "sanity:seed": "node scripts/sanity/export-seed.mjs --out qa-evidence/sanity-seed.ndjson"
+    "sanity:seed": "node scripts/sanity/export-seed.mjs --out qa-evidence/sanity-seed.ndjson",
+    "qa:faces": "node scripts/qa/face-safety.mjs",
+    "qa:contrast": "node scripts/check-contrast.mjs",
+    "qa:serve": "sh scripts/qa/serve.sh"
   },
   "engines": {
     "node": "24.x"

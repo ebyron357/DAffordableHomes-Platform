@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, BookOpen, Coins, Compass, GraduationCap, Home, Wallet } from "lucide-react"
 import { PageHeader } from "@/components/page/page-header"
 import { Section } from "@/components/page/section"
+import { CtaBand } from "@/components/page/editorial"
+import { CLOSING_BAND_IMAGE } from "@/lib/content/imagery"
 import { Eyebrow } from "@/components/ui/eyebrow"
 
 export const metadata: Metadata = {
@@ -29,28 +31,28 @@ export const metadata: Metadata = {
  */
 const PRIMARY_ACTIONS = [
   {
-    step: "01",
+    icon: Wallet,
     title: "Estimate a monthly payment",
     body: "See what principal, interest, taxes, insurance, mortgage insurance and HOA dues add up to each month — the number that actually decides whether a house fits your life.",
     href: "/calculators/mortgage-payment",
     action: "Estimate a payment",
   },
   {
-    step: "02",
+    icon: Home,
     title: "Understand what you can afford",
     body: "Work from income, monthly debts and down payment toward a conservative planning price, so you shop in a range you can hold on to after closing.",
     href: "/calculators/affordability",
     action: "Find your range",
   },
   {
-    step: "03",
+    icon: Coins,
     title: "Prepare the cash for closing",
     body: "Down payment is only part of it. Plan for closing costs, prepaid items and escrow funding so the amount due at the table is not a surprise.",
     href: "/calculators/closing-costs",
     action: "Plan cash to close",
   },
   {
-    step: "04",
+    icon: GraduationCap,
     title: "Explore buyer education and programs",
     body: "Understand the sequence of a purchase, and learn what assistance programs such as NACA and Homes for Heroes do and do not cover before you apply.",
     href: "/first-time-buyers",
@@ -91,17 +93,31 @@ export default function ResourcesPage() {
     <>
       <PageHeader
         eyebrow="Plan"
+        eyebrowIcon={Compass}
         title="Start with the question you actually have"
         description="Four places most buyers begin. Work through the one in front of you, then use the guides to understand what the number means and what to do next."
-      />
+        crumbs={[{ label: "Home", href: "/" }, { label: "Plan & resources" }]}
+        facts={[
+          { label: "Planning estimates only", icon: Wallet },
+          { label: "Plain-language guides", icon: BookOpen },
+        ]}
+        motif="route"
+      >
+        <Link href="/start" className="dh-btn dh-btn-gold">
+          Find your next step
+        </Link>
+        <Link href="/consultation" className="dh-btn dh-btn-light-outline">
+          Ask Debra directly
+        </Link>
+      </PageHeader>
 
       <Section>
         <ol className="resource-steps">
           {PRIMARY_ACTIONS.map((item) => (
             <li key={item.href}>
               <Link href={item.href} className="resource-step">
-                <span className="resource-step-number" aria-hidden="true">
-                  {item.step}
+                <span className="resource-step-icon" aria-hidden="true">
+                  <item.icon />
                 </span>
                 <span className="resource-step-body">
                   <span className="resource-step-title">{item.title}</span>
@@ -159,6 +175,21 @@ export default function ResourcesPage() {
           </ul>
         </div>
       </Section>
+
+      <CtaBand
+        eyebrow="When the numbers raise a question"
+        title="Bring it to Debra before it becomes a decision"
+        titleId="resources-cta-heading"
+        body="Estimates are a starting point, not an answer. A short conversation is usually all it takes to find out which part is yours to solve and which part belongs to a lender."
+        image={CLOSING_BAND_IMAGE}
+      >
+        <Link href="/consultation" className="dh-btn dh-btn-gold">
+          Book a consultation
+        </Link>
+        <Link href="/blog" className="dh-btn dh-btn-light-outline">
+          Read the guides
+        </Link>
+      </CtaBand>
     </>
   )
 }

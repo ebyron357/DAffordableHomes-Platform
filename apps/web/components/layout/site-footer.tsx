@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { BadgeCheck, MapPin, Route } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
@@ -49,19 +50,50 @@ export function SiteFooter() {
       <div className="footer-brand-band">
         <Container className="footer-brand-inner">
           <div className="footer-identity">
-            <Image
-              src="/images/daffordable-homes-official-logo.png"
-              alt="D'Affordable Homes — Affordable, Accessible, Achievable"
-              width={640}
-              height={427}
-              sizes="220px"
-              className="footer-logo"
-            />
+            {/* The mark is an opaque PNG, so it gets a designed white plate on
+                the brand's green-gray band rather than a bare white field. */}
+            <span className="footer-logo-plate">
+              <Image
+                src="/images/daffordable-homes-official-logo.png"
+                alt="D'Affordable Homes — Affordable, Accessible, Achievable"
+                width={640}
+                height={427}
+                sizes="210px"
+                className="footer-logo"
+              />
+            </span>
             <p className="footer-copy">
               {SITE.realtorName} — clear, practical guidance for the homeownership decisions in front of you, across
               Garland and Dallas–Fort Worth.
             </p>
           </div>
+          <div className="footer-local">
+            <p className="footer-local-label">Where Debra works</p>
+            <ul>
+              <li>
+                <MapPin aria-hidden="true" />
+                <span>
+                  <strong>Garland, Texas</strong>
+                  The home market, and the one with a full area guide.
+                </span>
+              </li>
+              <li>
+                <Route aria-hidden="true" />
+                <span>
+                  <strong>Dallas–Fort Worth</strong>
+                  Buyer and seller representation across the metroplex.
+                </span>
+              </li>
+              <li>
+                <BadgeCheck aria-hidden="true" />
+                <span>
+                  <strong>REALTOR&reg;</strong>
+                  Availability for a specific transaction is confirmed with Debra.
+                </span>
+              </li>
+            </ul>
+          </div>
+
           <div className="footer-action">
             <p className="footer-action-label">Start a conversation</p>
             <p className="footer-action-copy">

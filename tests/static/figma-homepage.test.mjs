@@ -132,9 +132,16 @@ test("the homepage footer keeps compliance reachable and subordinate", () => {
   // Vendor credit survives the recomposition.
   assert.match(footer, /CLIENTVERSE\.attributionText/);
   assert.match(footer, /new Date\(\)\.getFullYear\(\)/);
-  // The logo sits on a light band rather than a white card on navy.
-  assert.match(css, /\.fh-footer-brand-band \{[^}]*background: var\(--fh-white\);/);
+  // The mark is an opaque PNG, so it will always sit on white. Making the
+  // whole band white to hide that produced the "logo pasted on a blank card"
+  // read; the band is now the brand's green-gray and the plate is designed.
+  assert.match(css, /\.fh-footer-brand-band \{[^}]*background: var\(--fh-alt\);/);
+  assert.match(css, /\.fh-footer-logo-plate \{[^}]*border-bottom: 4px solid var\(--fh-gold\);/);
+  assert.match(footer, /className="fh-footer-logo-plate"/);
   assert.doesNotMatch(css, /\.fh-footer-logo \{[^}]*background:/);
+  // Three columns, so the band has no empty middle to notice.
+  assert.match(css, /\.fh-footer-brand-inner \{[^}]*grid-template-columns: minmax\(0, 1\.15fr\) minmax\(0, \.85fr\) minmax\(0, \.9fr\);/);
+  assert.match(footer, /className="footer-local"/);
 });
 
 test("the page still wires the honest listings provider and the brand composition", () => {
@@ -167,8 +174,9 @@ test("the brand is painted, not merely declared", () => {
 
   assert.match(fh, /\.fh-hero \{[^}]*background: var\(--fh-navy\)/, "hero is a navy field");
   assert.match(fh, /\.fh-trust \{[^}]*background: var\(--fh-teal\)/, "trust band is a teal field");
-  assert.match(fh, /\.fh-path-buy \{ background: var\(--fh-teal\); \}/, "buyer path is a teal field");
-  assert.match(fh, /\.fh-path-sell \{ background: var\(--fh-navy\); \}/, "seller path is a navy field");
+  // Layered fields, not flat rectangles: base brand colour plus a wash.
+  assert.match(fh, /\.fh-path-buy \{ background: linear-gradient\(.*var\(--fh-teal\)/, "buyer path is a teal field");
+  assert.match(fh, /\.fh-path-sell \{ background: linear-gradient\(.*var\(--fh-navy\)/, "seller path is a navy field");
   assert.match(fh, /\.fh-meet \{ background: var\(--fh-navy\); \}/, "Debra sits on a navy field");
   assert.match(fh, /\.fh-markets \{ background: var\(--fh-navy-deep\); \}/, "markets is a navy field");
   assert.match(fh, /\.fh-market-feature \{[^}]*background: var\(--fh-teal\)/, "home market is a teal field");
@@ -178,6 +186,18 @@ test("the brand is painted, not merely declared", () => {
   assert.match(fh, /border-bottom: 3px solid var\(--fh-gold\)/, "gold carries a divider");
   assert.match(fh, /\.fh-btn-gold \{ background: var\(--fh-gold\)/, "gold carries the primary CTA on dark");
   assert.match(fh, /--fh-teal-bright: #18a9b4/);
+
+  // The Buy/Sell pathways carry icons, highlights and ornament — not an
+  // index number over a paragraph over a button, which is the dashboard
+  // composition the owner review rejected.
+  const home = readFileSync("apps/web/components/home/figma-home-page.tsx", "utf8");
+  assert.doesNotMatch(home, /fh-path-index/, "the 01/02 numbering is gone");
+  assert.doesNotMatch(fh, /\.fh-path-index/, "no orphaned numbering style");
+  assert.match(home, /FIGMA_PATHWAY_HIGHLIGHTS\.buy/);
+  assert.match(home, /FIGMA_PATHWAY_HIGHLIGHTS\.sell/);
+  assert.match(home, /<KeyRound aria-hidden="true" \/>/, "the buy path is icon-led");
+  assert.match(home, /BrandMotif variant="keys"/, "the buy path carries ornament");
+  assert.match(home, /BrandMotif variant="route"/, "the sell path carries ornament");
 });
 
 test("interior routes carry the brand too", () => {
@@ -190,10 +210,15 @@ test("interior routes carry the brand too", () => {
   // The shared masthead is navy by default, which brands every interior route
   // that uses it rather than leaving them near-white end to end.
   assert.match(header, /tone = "navy"/);
-  assert.match(header, /navy: \{\s*section: "border-b-4 border-brand-gold bg-primary"/);
+  assert.match(header, /dh-masthead-navy/);
+  assert.match(css, /\.dh-masthead-navy \{ background: var\(--dh-navy\); color: #fff; \}/);
+  assert.match(css, /\.dh-masthead \{[^}]*border-bottom: 4px solid var\(--dh-gold\);/);
   assert.match(blog, /border-b-4 border-brand-gold bg-primary/);
   assert.match(article, /border-b-4 border-brand-gold bg-primary/);
-  assert.match(calculators, /border-b-4 border-brand-gold bg-primary/);
+  // The calculators index is composed from the branded system, so it inherits
+  // the masthead rather than hand-rolling one.
+  assert.match(calculators, /<PageHeader/);
+  assert.match(calculators, /dh-btn dh-btn-gold/);
   // The resources action block is a teal field, not a near-white tool list.
   assert.match(css, /\.resource-steps \{[^}]*background: var\(--color-accent\)/);
 

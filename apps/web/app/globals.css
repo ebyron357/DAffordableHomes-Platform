@@ -222,10 +222,13 @@
    the whole rectangle solid, and a white plate on the navy band reads as a
    sticker. Giving the band itself the light page surface lets the mark sit on
    the background it was drawn for — no plate, no border, no card. */
-.footer-brand-band { background:#ffffff; color:var(--color-foreground); border-bottom:3px solid #bf922d; }
-.footer-brand-inner { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr); align-items:start; gap:56px; padding-top:48px; padding-bottom:48px; }
+/* Mirrors the homepage brand band exactly — see the note there for why the
+   logo gets a designed plate instead of a bare white field. */
+.footer-brand-band { background:var(--color-muted); color:var(--color-foreground); border-top:4px solid #bf922d; border-bottom:3px solid #bf922d; }
+.footer-brand-inner { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr) minmax(0,.9fr); align-items:start; gap:clamp(28px,4vw,52px); padding-top:48px; padding-bottom:48px; }
 .footer-identity { display:flex; flex-direction:column; gap:18px; }
-.footer-logo { display:block; width:220px; height:auto; object-fit:contain; }
+.footer-logo-plate { display:inline-flex; padding:14px 18px; background:#ffffff; border:1px solid var(--color-border); border-bottom:4px solid #bf922d; box-shadow:0 14px 28px -22px rgba(16,43,78,.55); }
+.footer-logo { display:block; width:210px; height:auto; object-fit:contain; }
 .footer-copy { max-width:54ch; margin:0; color:var(--color-muted-foreground); font-size:15px; line-height:1.65; }
 .footer-action { display:flex; flex-direction:column; align-items:flex-start; gap:12px; }
 .footer-action-label { margin:0; color:var(--color-accent); font-size:12px; font-weight:700; letter-spacing:.13em; text-transform:uppercase; }
@@ -584,11 +587,9 @@
    first more width makes the pair a composition instead of a grid row. */
 .fh-path-grid { display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 28px; align-items: start; }
 .fh-path {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-  min-height: 340px;
+  position: relative;
+  overflow: hidden;
+  min-height: 380px;
   padding: 40px;
   border-radius: 12px;
   color: var(--fh-white);
@@ -596,19 +597,51 @@
 }
 .fh-path-sell { margin-top: 48px; }
 .fh-path:hover { transform: translateY(-4px); box-shadow: 0 26px 50px -34px rgba(0,0,0,.75); }
-.fh-path-buy { background: var(--fh-teal); }
-.fh-path-sell { background: var(--fh-navy); }
-.fh-path-index {
-  margin: 0;
-  color: var(--fh-gold-light);
-  font-family: var(--font-serif);
-  font-size: 32px;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
+/* Layered field rather than a flat rectangle: the base brand colour, a warm
+   wash from the opposite corner, and the architectural linework bled into the
+   bottom-right at low opacity. */
+.fh-path-buy { background: linear-gradient(145deg, var(--fh-teal) 0%, var(--fh-teal-deep) 58%, #0a8c99 100%); }
+.fh-path-sell { background: linear-gradient(145deg, var(--fh-navy-deep) 0%, var(--fh-navy) 55%, #1b477a 100%); }
+.fh-path::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(90% 70% at 88% 92%, rgba(230,189,85,.20), transparent 62%);
+  pointer-events: none;
 }
-.fh-path h3 { margin: 0; font-family: var(--font-serif); font-size: 30px; font-weight: 600; line-height: 1.15; }
-.fh-path p { margin: 0 0 auto; max-width: 46ch; color: rgba(255,255,255,.9); font-size: 16px; line-height: 1.6; }
+/* `.dh-motif` sets width/height to 100% and is declared later in the sheet, so
+   the ornament needs the extra specificity here or it fills the whole panel and
+   its linework lands on top of the copy. */
+.fh-path .fh-path-art {
+  position: absolute;
+  right: -30px;
+  bottom: -38px;
+  width: 300px;
+  height: auto;
+  opacity: .34;
+  transition: transform .5s cubic-bezier(.2,.7,.3,1);
+}
+.fh-path:hover .fh-path-art { transform: translate(-8px, -8px) scale(1.04); }
+.fh-path-body { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; height: 100%; }
+.fh-path-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.4);
+  background: rgba(255,255,255,.14);
+  color: var(--fh-gold-light);
+}
+.fh-path-badge svg { width: 24px; height: 24px; }
+.fh-path-label { margin: 0; color: var(--fh-gold-light); font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.fh-path h3 { margin: 0; font-family: var(--font-serif); font-size: clamp(27px, 2.8vw, 34px); font-weight: 600; line-height: 1.12; }
+.fh-path-copy { margin: 0; max-width: 46ch; color: rgba(255,255,255,.9); font-size: 16px; line-height: 1.6; }
+.fh-path-points { display: flex; flex-direction: column; gap: 9px; margin: 6px 0 auto; padding: 0 0 22px; list-style: none; }
+.fh-path-points li { display: flex; align-items: flex-start; gap: 10px; color: rgba(255,255,255,.95); font-size: 15px; line-height: 1.45; }
+.fh-path-points svg { flex-shrink: 0; margin-top: 2px; color: var(--fh-green); }
+.fh-path-sell .fh-path-points svg { color: #8fd36a; }
 
 .fh-service-row {
   display: grid;
@@ -1074,31 +1107,42 @@
 .fh-access-link { font-size: 13px; gap: 4px; padding-top: 10px; }
 
 /* -------------------------------------------------------------- final band */
+/* Left-aligned, not centred. Centred copy over a centred subject put the
+   heading directly across Debra's face and needed a scrim heavy enough to
+   reduce her to a silhouette — an image-led band with no legible image in it.
+   The copy now holds the left, the scrim releases across the width, and she
+   reads on the right. */
 .fh-final {
   position: relative;
   isolation: isolate;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   overflow: hidden;
   padding: 112px 24px;
   background: var(--fh-navy);
   color: var(--fh-white);
-  text-align: center;
+  text-align: left;
   border-top: 4px solid var(--fh-gold);
 }
 .fh-final-image { object-fit: cover; z-index: 0; }
 .fh-final { min-height: 460px; align-items: center; }
 /* The closing band is image-led, so the overlay has to leave the photograph
-   legible while the centred copy still clears 4.5:1. Weighted to the middle
-   where the text sits, and open at both edges where the room is visible. */
+   legible while the copy still clears 4.5:1. Heaviest under the copy on the
+   left, released toward the right where the room and Debra are visible. */
 .fh-final-scrim {
   position: absolute;
   inset: 0;
   z-index: 0;
   background:
-    linear-gradient(90deg, rgba(16,43,78,.62) 0%, rgba(16,43,78,.92) 26%, rgba(16,43,78,.92) 74%, rgba(16,43,78,.62) 100%);
+    linear-gradient(100deg, rgba(9,25,47,.96) 0%, rgba(16,43,78,.92) 40%, rgba(16,43,78,.54) 66%, rgba(16,43,78,.16) 100%);
 }
-.fh-final-inner { position: relative; z-index: 1; width: min(820px, 100%); }
+.fh-final-inner {
+  position: relative;
+  z-index: 1;
+  width: min(1200px, 100%);
+  margin: 0 auto;
+}
+.fh-final-inner > * { max-width: 42rem; }
 .fh-final h2 {
   margin: 14px 0 0;
   color: var(--fh-white);
@@ -1108,29 +1152,45 @@
   line-height: 1.12;
   letter-spacing: -0.015em;
 }
-.fh-final p:not(.fh-eyebrow) { margin: 20px auto 0; max-width: 62ch; color: #dbe6ef; font-size: 18px; line-height: 1.65; }
-.fh-final-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 30px; }
+/* `auto` side margins were left over from the centred layout and pushed the
+   lede right, across the photograph, where it lost contrast. */
+.fh-final p:not(.fh-eyebrow) { margin: 20px 0 0; max-width: 52ch; color: #dbe6ef; font-size: 18px; line-height: 1.65; }
+.fh-final-actions { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 14px; margin-top: 30px; }
 
 /* ------------------------------------------------------------------- footer */
 .fh-footer { background: var(--fh-navy); color: #dfe8ee; padding: 0 0 32px; }
-/* The logo asset is an opaque PNG with no alpha, so on navy it can only ever be
-   a white rectangle or a white card. Giving the band itself a light surface
-   lets the mark sit on the background it was drawn for. */
+/* The logo asset is an opaque PNG with no alpha, so it will always sit on a
+   white rectangle. The previous band answered that by making the whole band
+   white, which produced the thing the brief named: a logo apparently pasted
+   onto a blank card, with an empty middle column beside it.
+   The answer here is to stop hiding the plate and design it — the band is the
+   brand's soft green-gray, the mark sits on a deliberate white sign with a gold
+   rule under it, and a third column of verified local facts fills the middle so
+   there is nothing empty left to notice. */
 .fh-footer-brand-band {
-  background: var(--fh-white);
+  background: var(--fh-alt);
   color: var(--fh-body);
+  border-top: 4px solid var(--fh-gold);
   border-bottom: 3px solid var(--fh-gold);
 }
 .fh-footer-brand-inner {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr) minmax(0, .9fr);
   align-items: start;
-  gap: 64px;
+  gap: clamp(30px, 4vw, 56px);
   padding-top: 56px;
   padding-bottom: 56px;
 }
 .fh-footer-identity { display: flex; flex-direction: column; gap: 20px; }
-.fh-footer-logo { display: block; width: 220px; height: auto; object-fit: contain; }
+.fh-footer-logo-plate {
+  display: inline-flex;
+  padding: 14px 18px;
+  background: var(--fh-white);
+  border: 1px solid var(--fh-border);
+  border-bottom: 4px solid var(--fh-gold);
+  box-shadow: 0 14px 28px -22px rgba(16,43,78,.55);
+}
+.fh-footer-logo { display: block; width: 210px; height: auto; object-fit: contain; }
 .fh-footer-blurb { margin: 0; max-width: 52ch; color: var(--fh-muted); font-size: 15px; line-height: 1.65; }
 .fh-footer-action { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
 .fh-footer-action-copy { margin: 0; max-width: 42ch; color: var(--fh-muted); font-size: 15px; line-height: 1.6; }
@@ -1223,7 +1283,7 @@
   .fh-latest-row { grid-template-columns: 150px minmax(0, 1fr); }
   .fh-latest-meta { grid-column: 2; }
   .fh-section { padding: 72px 0; }
-  .fh-footer-brand-inner { grid-template-columns: 1fr; gap: 36px; }
+  .fh-footer-brand-inner { grid-template-columns: 1fr 1fr; gap: 34px; }
 }
 
 @media (max-width: 899px) {
@@ -1234,6 +1294,8 @@
   .fh-trust-list li:nth-child(odd) { border-left: 0; padding-left: 0; }
   .fh-path-grid { grid-template-columns: 1fr; }
   .fh-path-sell { margin-top: 0; }
+  .fh-path { min-height: 0; padding: 32px 26px 34px; }
+  .fh-path-art { right: -40px; bottom: -52px; width: 210px; opacity: .4; }
   .fh-service-row { grid-template-columns: 1fr; gap: 0; }
   /* The three-column row crushes the description into a ~90px column once the
      grid is a single track. Stack title over body and move the arrow onto the
@@ -1299,6 +1361,7 @@
   .fh-hero-image { animation: none; }
   .fh-quiz-answer:hover,
   .fh-path:hover,
+  .fh-path:hover .fh-path-art,
   .fh-market-feature:hover,
   .fh-knowledge-grid li:hover .fh-knowledge-card,
   .fh-meet-grid:hover .fh-meet-image { transform: none; box-shadow: none; }
@@ -1309,18 +1372,26 @@
 /* -------------------------------------------------------------------------- */
 /* Find Your Next Step campaign landing page                                  */
 /* -------------------------------------------------------------------------- */
-.dah-landing { --dah-navy:#0B1F33; --dah-gold:#C9A227; --dah-turquoise:#06B6D4; --dah-cream:#F7F2E8; --dah-charcoal:#252525; color:var(--dah-charcoal); background:#fff; }
+/* The campaign landing page ran its own palette — a colder navy, a brighter
+   gold, a cyan turquoise and a warm beige "cream". It was coherent on its own
+   and belonged to no brand in particular, which is exactly the failure the
+   owner review named. These are now the approved D'Affordable Homes values,
+   so /start reads as the same company as every other route. */
+.dah-landing { --dah-navy:#102B4E; --dah-gold:#BF922D; --dah-turquoise:#18A9B4; --dah-cream:#EDF3F2; --dah-charcoal:#10233F; color:var(--dah-charcoal); background:#fff; }
 .dah-landing h1,.dah-landing h2,.dah-landing h3 { font-family:var(--font-serif); }
 .dah-landing-container { width:min(1180px,calc(100% - 48px)); margin-inline:auto; }
 .dah-landing-hero { position:relative; min-height:clamp(650px,78vh,820px); overflow:hidden; display:flex; align-items:flex-end; color:#fff; }
 .dah-landing-hero-image,.dah-landing-final-image { object-fit:cover; object-position:center; }
-.dah-landing-hero-overlay { position:absolute; inset:0; background:linear-gradient(90deg,rgba(11,31,51,.94) 0%,rgba(11,31,51,.72) 43%,rgba(11,31,51,.16) 100%),linear-gradient(0deg,rgba(11,31,51,.86),transparent 60%); }
+.dah-landing-hero-overlay { position:absolute; inset:0; background:linear-gradient(90deg,rgba(16,43,78,.94) 0%,rgba(16,43,78,.72) 43%,rgba(16,43,78,.16) 100%),linear-gradient(0deg,rgba(16,43,78,.86),transparent 60%); }
 .dah-landing-hero-content { position:relative; z-index:1; width:min(760px,calc(100% - 48px)); margin:0 max(24px,calc((100vw - 1180px)/2)); padding:96px 0 84px; }
-.dah-landing-eyebrow { margin:0; color:var(--dah-turquoise); font-family:var(--font-sans); font-size:12px; font-weight:800; letter-spacing:.16em; line-height:1.4; text-transform:uppercase; }
-.dah-landing-eyebrow-dark { color:#087c8a; }
-.dah-landing-eyebrow-gold { color:#f0d47b; }
+.dah-landing-eyebrow { margin:0; color:#077783; font-family:var(--font-sans); font-size:12px; font-weight:800; letter-spacing:.16em; line-height:1.4; text-transform:uppercase; }
+/* Kept as an explicit variant so existing markup keeps working; both now
+   resolve to the approved dark teal, which clears 4.5:1 on white and on the
+   #EDF3F2 band. The old cyan measured about 2.5:1 on white. */
+.dah-landing-eyebrow-dark { color:#077783; }
+.dah-landing-eyebrow-gold { color:#e6bd55; }
 .dah-landing-hero h1 { max-width:720px; margin:18px 0 0; color:#fff; font-size:clamp(44px,6.4vw,80px); font-weight:500; letter-spacing:-.04em; line-height:.99; }
-.dah-landing-hero-promise { max-width:560px; margin:24px 0 0; color:#f4df9b; font-size:clamp(23px,2.4vw,34px); font-weight:500; letter-spacing:-.02em; line-height:1.15; }
+.dah-landing-hero-promise { max-width:560px; margin:24px 0 0; color:#e6bd55; font-size:clamp(23px,2.4vw,34px); font-weight:500; letter-spacing:-.02em; line-height:1.15; }
 .dah-landing-hero-body { max-width:630px; margin:22px 0 0; color:rgba(255,255,255,.84); font-size:17px; line-height:1.65; }
 .dah-landing-hero-actions,.dah-landing-final-content > div,.dah-landing-result-actions,.dah-landing-assessment-controls,.dah-landing-form-actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px; }
 .dah-landing-hero-actions { margin-top:30px; }
@@ -1329,7 +1400,7 @@
 .dah-landing-cta:disabled { cursor:not-allowed; opacity:.6; transform:none; }
 .dah-landing-cta-gold { background:var(--dah-gold); color:var(--dah-navy); }
 .dah-landing-cta-gold:hover { background:#dfb638; }
-.dah-landing-cta-outline { border-color:rgba(255,255,255,.7); color:#fff; background:rgba(11,31,51,.16); }
+.dah-landing-cta-outline { border-color:rgba(255,255,255,.7); color:#fff; background:rgba(16,43,78,.16); }
 .dah-landing-cta-outline:hover { background:rgba(255,255,255,.14); }
 .dah-landing-cta-turquoise { background:var(--dah-turquoise); color:var(--dah-navy); }
 .dah-landing-voice-entry { margin-top:28px; }
@@ -1351,13 +1422,13 @@
 .dah-landing-copy-light { color:rgba(255,255,255,.76); }
 .dah-landing-section .dah-landing-cta { margin-top:28px; }
 .dah-landing-question-strip { display:flex; flex-wrap:wrap; gap:10px; margin-top:56px; }
-.dah-landing-question-strip span { border:1px solid rgba(11,31,51,.18); border-radius:999px; padding:10px 14px; color:#4a555d; font-size:13px; }
+.dah-landing-question-strip span { border:1px solid rgba(16,43,78,.18); border-radius:999px; padding:10px 14px; color:#4a555d; font-size:13px; }
 .dah-landing-section-heading { display:flex; align-items:end; justify-content:space-between; gap:48px; }
 .dah-landing-section-heading .dah-landing-copy { margin:0; }
 .dah-landing-path-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); margin-top:56px; border-top:1px solid #d8d9d5; }
 .dah-landing-path-card { min-height:360px; padding:24px 22px 24px 0; border-bottom:1px solid #d8d9d5; }
 .dah-landing-path-card + .dah-landing-path-card { border-left:1px solid #d8d9d5; padding-left:22px; }
-.dah-landing-path-card.is-highlighted { background:#fffaf0; box-shadow:inset 0 4px 0 var(--dah-gold); }
+.dah-landing-path-card.is-highlighted { background:#f2f7f5; box-shadow:inset 0 4px 0 var(--dah-gold); }
 .dah-landing-path-topline { display:flex; align-items:center; justify-content:space-between; color:#087c8a; }
 .dah-landing-path-topline span { color:#899299; font-size:12px; font-weight:800; letter-spacing:.12em; }
 .dah-landing-path-card h3 { margin:34px 0 12px; color:var(--dah-navy); font-size:26px; font-weight:500; line-height:1.1; }
@@ -1377,7 +1448,7 @@
 .dah-landing-question-help { margin:10px 0 0; color:#69747b; font-size:14px; }
 .dah-landing-answer-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:26px; }
 .dah-landing-answer { display:flex; min-height:58px; align-items:center; gap:10px; border:1px solid #d8d9d5; padding:12px 14px; color:#39454d; font-size:14px; line-height:1.35; cursor:pointer; transition:border-color .18s ease,background .18s ease; }
-.dah-landing-answer:hover,.dah-landing-answer.is-selected { border-color:var(--dah-gold); background:#fffaf0; }
+.dah-landing-answer:hover,.dah-landing-answer.is-selected { border-color:var(--dah-gold); background:#f2f7f5; }
 .dah-landing-answer input { width:18px; height:18px; accent-color:var(--dah-gold); }
 .dah-landing-answer svg { margin-left:auto; color:#087c8a; }
 .dah-landing-assessment-controls { justify-content:space-between; margin-top:32px; }
@@ -1386,7 +1457,7 @@
 .dah-landing-outline-dark { border:1px solid #0b1f33; padding:12px 15px; color:var(--dah-navy); }
 .dah-landing-result-kicker { margin:30px 0 0; color:#087c8a; font-size:12px; font-weight:800; letter-spacing:.14em; }
 .dah-landing-result-body { max-width:630px; margin:14px 0 0; color:#58626a; font-size:16px; line-height:1.7; }
-.dah-landing-disclosure { margin-top:20px; border-left:3px solid var(--dah-gold); padding:12px 14px; color:#69747b; background:#faf8f1; font-size:12px; line-height:1.55; }
+.dah-landing-disclosure { margin-top:20px; border-left:3px solid var(--dah-gold); padding:12px 14px; color:#69747b; background:#f2f7f5; font-size:12px; line-height:1.55; }
 .dah-landing-result-actions { margin-top:24px; }
 .dah-landing-also { margin:20px 0 0; color:#087c8a; font-size:13px; font-weight:700; }
 .dah-landing-edit-list { margin-top:32px; border-top:1px solid #e0dfd8; }
@@ -1423,10 +1494,10 @@
 .dah-landing-faq-item p { max-width:620px; margin:0 0 20px; color:#5d686f; font-size:14px; line-height:1.7; }
 .dah-landing-final { position:relative; min-height:520px; overflow:hidden; display:flex; align-items:center; color:#fff; }
 .dah-landing-final-image { object-position:center 58%; }
-.dah-landing-final-overlay { position:absolute; inset:0; background:linear-gradient(90deg,rgba(11,31,51,.94),rgba(11,31,51,.5) 70%,rgba(11,31,51,.15)); }
+.dah-landing-final-overlay { position:absolute; inset:0; background:linear-gradient(90deg,rgba(16,43,78,.94),rgba(16,43,78,.5) 70%,rgba(16,43,78,.15)); }
 .dah-landing-final-content { position:relative; z-index:1; }
 .dah-landing-final-content h2 { max-width:660px; color:#fff; }
-.dah-landing-final-content > p:not(.dah-landing-eyebrow) { margin:20px 0 0; color:#f4df9b; font-family:var(--font-serif); font-size:clamp(25px,3vw,42px); line-height:1.1; }
+.dah-landing-final-content > p:not(.dah-landing-eyebrow) { margin:20px 0 0; color:#e6bd55; font-family:var(--font-serif); font-size:clamp(25px,3vw,42px); line-height:1.1; }
 .dah-landing-final-content > div { margin-top:30px; }
 .dah-landing-lead-card { display:grid; grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr); gap:64px; align-items:start; }
 .dah-landing-form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
@@ -1440,11 +1511,11 @@
 .dah-landing-form-error a { color:inherit; font-weight:800; }
 .dah-landing-success { display:flex; gap:14px; border:1px solid #a9c9a8; padding:20px; color:#315f2f; background:#f2f8ef; }
 .dah-landing-success p { margin:6px 0 0; color:#4f6750; font-size:13px; line-height:1.5; }
-.dah-landing-bottom-actions { position:fixed; right:20px; bottom:20px; z-index:35; display:flex; gap:8px; padding:7px; border:1px solid rgba(11,31,51,.14); background:rgba(255,255,255,.95); box-shadow:0 8px 28px rgba(11,31,51,.15); backdrop-filter:blur(12px); }
+.dah-landing-bottom-actions { position:fixed; right:20px; bottom:20px; z-index:35; display:flex; gap:8px; padding:7px; border:1px solid rgba(16,43,78,.14); background:rgba(255,255,255,.95); box-shadow:0 8px 28px rgba(16,43,78,.15); backdrop-filter:blur(12px); }
 .dah-landing-bottom-actions button,.dah-landing-bottom-actions a { display:inline-flex; min-height:42px; align-items:center; gap:7px; border:0; padding:9px 12px; color:var(--dah-navy); background:transparent; font:inherit; font-size:12px; font-weight:800; text-decoration:none; cursor:pointer; }
 .dah-landing-bottom-actions button { background:var(--dah-gold); }
 @media (max-width:900px) { .dah-landing-path-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .dah-landing-path-card:nth-child(3) { border-left:0; padding-left:0; } .dah-landing-path-card:nth-child(3),.dah-landing-path-card:nth-child(4) { border-top:1px solid #d8d9d5; } .dah-landing-assessment-layout,.dah-landing-lead-card { grid-template-columns:1fr; gap:42px; } .dah-landing-lead-card { gap:28px; } }
-@media (max-width:700px) { .dah-landing-container { width:min(100% - 32px,580px); } .dah-landing-hero { min-height:760px; align-items:flex-end; } .dah-landing-hero-image { object-position:58% center; } .dah-landing-hero-overlay { background:linear-gradient(0deg,rgba(11,31,51,.96) 0%,rgba(11,31,51,.75) 52%,rgba(11,31,51,.12) 100%); } .dah-landing-hero-content { width:min(100% - 32px,580px); margin-inline:auto; padding:62px 0 34px; } .dah-landing-hero h1 { font-size:clamp(38px,10vw,46px); overflow-wrap:break-word; } .dah-landing-hero-promise { margin-top:18px; font-size:24px; } .dah-landing-hero-body { margin-top:16px; font-size:14px; line-height:1.55; } .dah-landing-hero-actions { align-items:stretch; flex-direction:column; margin-top:22px; } .dah-landing-hero-actions .dah-landing-cta { width:100%; } .dah-landing-voice-entry { margin-top:18px; } .dah-landing-microcopy { margin-top:12px; } .dah-landing-scroll-cue { display:none; } .dah-landing-section-heading,.dah-landing-two-column { grid-template-columns:1fr; flex-direction:column; align-items:flex-start; gap:28px; } .dah-landing-section-heading { display:flex; } .dah-landing-section h2 { font-size:42px; } .dah-landing-lead { font-size:24px; } .dah-landing-question-strip { margin-top:36px; } .dah-landing-path-grid,.dah-landing-answer-grid,.dah-landing-form-grid { grid-template-columns:1fr; } .dah-landing-path-card,.dah-landing-path-card + .dah-landing-path-card { min-height:0; padding:24px 0; border-left:0; } .dah-landing-path-card:nth-child(3),.dah-landing-path-card:nth-child(4) { border-top:0; } .dah-landing-path-card p { min-height:0; margin-bottom:24px; } .dah-landing-assessment-card { padding:22px 18px; } .dah-landing-assessment-card legend,.dah-landing-assessment-card h3 { font-size:34px; } .dah-landing-assessment-controls { align-items:stretch; flex-direction:column-reverse; } .dah-landing-assessment-controls .dah-landing-cta { width:100%; } .dah-landing-image-frame,.dah-landing-image-frame-short,.dah-landing-image-frame-portrait { min-height:350px; width:100%; } .dah-landing-transition-card { min-height:190px; padding:28px; } .dah-landing-hero-list { grid-template-columns:1fr; } .dah-landing-hero-list div:nth-child(even) { padding-left:0; border-left:0; } .dah-landing-process-list { grid-template-columns:1fr; margin-top:36px; } .dah-landing-process-list li,.dah-landing-process-list li + li { min-height:0; padding:22px 0; border-left:0; } .dah-landing-process-list h3 { margin-top:22px; } .dah-landing-final { min-height:560px; } .dah-landing-final-overlay { background:linear-gradient(0deg,rgba(11,31,51,.96),rgba(11,31,51,.5)); } .dah-landing-final-content > div { align-items:stretch; flex-direction:column; } .dah-landing-final-content .dah-landing-cta { width:100%; } .dah-landing-bottom-actions { display:none; } }
+@media (max-width:700px) { .dah-landing-container { width:min(100% - 32px,580px); } .dah-landing-hero { min-height:760px; align-items:flex-end; } .dah-landing-hero-image { object-position:58% center; } .dah-landing-hero-overlay { background:linear-gradient(0deg,rgba(16,43,78,.96) 0%,rgba(16,43,78,.75) 52%,rgba(16,43,78,.12) 100%); } .dah-landing-hero-content { width:min(100% - 32px,580px); margin-inline:auto; padding:62px 0 34px; } .dah-landing-hero h1 { font-size:clamp(38px,10vw,46px); overflow-wrap:break-word; } .dah-landing-hero-promise { margin-top:18px; font-size:24px; } .dah-landing-hero-body { margin-top:16px; font-size:14px; line-height:1.55; } .dah-landing-hero-actions { align-items:stretch; flex-direction:column; margin-top:22px; } .dah-landing-hero-actions .dah-landing-cta { width:100%; } .dah-landing-voice-entry { margin-top:18px; } .dah-landing-microcopy { margin-top:12px; } .dah-landing-scroll-cue { display:none; } .dah-landing-section-heading,.dah-landing-two-column { grid-template-columns:1fr; flex-direction:column; align-items:flex-start; gap:28px; } .dah-landing-section-heading { display:flex; } .dah-landing-section h2 { font-size:42px; } .dah-landing-lead { font-size:24px; } .dah-landing-question-strip { margin-top:36px; } .dah-landing-path-grid,.dah-landing-answer-grid,.dah-landing-form-grid { grid-template-columns:1fr; } .dah-landing-path-card,.dah-landing-path-card + .dah-landing-path-card { min-height:0; padding:24px 0; border-left:0; } .dah-landing-path-card:nth-child(3),.dah-landing-path-card:nth-child(4) { border-top:0; } .dah-landing-path-card p { min-height:0; margin-bottom:24px; } .dah-landing-assessment-card { padding:22px 18px; } .dah-landing-assessment-card legend,.dah-landing-assessment-card h3 { font-size:34px; } .dah-landing-assessment-controls { align-items:stretch; flex-direction:column-reverse; } .dah-landing-assessment-controls .dah-landing-cta { width:100%; } .dah-landing-image-frame,.dah-landing-image-frame-short,.dah-landing-image-frame-portrait { min-height:350px; width:100%; } .dah-landing-transition-card { min-height:190px; padding:28px; } .dah-landing-hero-list { grid-template-columns:1fr; } .dah-landing-hero-list div:nth-child(even) { padding-left:0; border-left:0; } .dah-landing-process-list { grid-template-columns:1fr; margin-top:36px; } .dah-landing-process-list li,.dah-landing-process-list li + li { min-height:0; padding:22px 0; border-left:0; } .dah-landing-process-list h3 { margin-top:22px; } .dah-landing-final { min-height:560px; } .dah-landing-final-overlay { background:linear-gradient(0deg,rgba(16,43,78,.96),rgba(16,43,78,.5)); } .dah-landing-final-content > div { align-items:stretch; flex-direction:column; } .dah-landing-final-content .dah-landing-cta { width:100%; } .dah-landing-bottom-actions { display:none; } }
 
 /* -------------------------------------------------------------------------- */
 /* Resources — editorial rows, not a wall of equal-weight tool cards.          */
@@ -1476,14 +1547,18 @@
   text-decoration: none;
 }
 .resource-step:hover { background: #05616b; }
-.resource-step-number {
+.resource-step-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  border: 1px solid rgba(230,189,85,.55);
+  background: rgba(255,255,255,.12);
   color: #e6bd55;
-  font-family: var(--font-serif);
-  font-size: 34px;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  line-height: 1.1;
 }
+.resource-step-icon svg { width: 25px; height: 25px; }
 .resource-step-body { display: flex; flex-direction: column; gap: 10px; }
 .resource-step-title {
   max-width: 34ch;
@@ -1538,6 +1613,420 @@
 }
 @media (max-width: 640px) {
   .resource-step { grid-template-columns: 1fr; gap: 6px; padding: 24px 0; }
-  .resource-step-number { font-size: 22px; }
+  .resource-step-icon { width: 46px; height: 46px; }
   .resource-step-title { font-size: 23px; }
 }
+
+
+/* ============================================================================
+   Interior route visual system (.dh-*)
+   ----------------------------------------------------------------------------
+   The homepage got its own field-based composition in `.figma-home`, and the
+   result was a site whose front door looked like a brand and whose eighteen
+   interior routes looked like a requirements document: a navy masthead with a
+   dead right half, then white boxes containing a heading, a paragraph and a
+   button, on near-white, forever.
+
+   This layer gives the interior the same vocabulary the homepage has — painted
+   fields, editorial splits, icon-supported pathways, image-led closing bands —
+   using the approved palette only:
+
+     navy  #102B4E   teal  #077783   bright teal #18A9B4
+     green #66AD45   gold  #BF922D   near-white  #F7F9F8   green-gray #EDF3F2
+
+   Two rules the composition has to respect, both from AGENTS.md:
+   photographs are limited to the four approved assets in the image register,
+   and nothing here may imply a fact the repository has not verified. Where a
+   benchmark site would put a neighbourhood photo or a big number, this layer
+   puts architectural linework, a county name, or nothing at all.
+   ========================================================================== */
+
+:root {
+  --dh-navy: #102b4e;
+  --dh-navy-deep: #0b1e38;
+  --dh-navy-hover: #17406f;
+  --dh-teal: #077783;
+  --dh-teal-deep: #05616b;
+  --dh-teal-bright: #18a9b4;
+  --dh-green: #66ad45;
+  --dh-green-deep: #4d8733;
+  --dh-gold: #bf922d;
+  --dh-gold-light: #e6bd55;
+  --dh-page: #f7f9f8;
+  --dh-alt: #edf3f2;
+  --dh-border: #cbd7d6;
+  --dh-muted: #52616f;
+  --dh-ink: #10233f;
+}
+
+/* -- Ornament --------------------------------------------------------------
+   Stroke-only architectural linework. It sits behind type at low contrast and
+   is always aria-hidden, so it never has to carry meaning or meet text
+   contrast — it carries brand and subject matter. */
+.dh-motif { display: block; width: 100%; height: 100%; }
+.dh-motif .dh-motif-line { fill: none; stroke: var(--dh-teal-bright); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; opacity: .5; }
+.dh-motif .dh-motif-ground { stroke: var(--dh-green); opacity: .55; }
+.dh-motif .dh-motif-route { fill: none; stroke: var(--dh-green); stroke-width: 3; stroke-linecap: round; opacity: .45; }
+.dh-motif .dh-motif-route-shadow { stroke: var(--dh-teal); stroke-width: 6; opacity: .18; transform: translateY(6px); }
+.dh-motif .dh-motif-accent { fill: none; stroke: var(--dh-gold-light); stroke-width: 2.5; stroke-linecap: round; opacity: .75; }
+.dh-motif .dh-motif-lit { fill: var(--dh-gold-light); fill-opacity: .16; stroke: var(--dh-gold-light); }
+.dh-motif-on-light .dh-motif-line { stroke: var(--dh-teal); opacity: .34; }
+.dh-motif-on-light .dh-motif-ground { stroke: var(--dh-green-deep); opacity: .4; }
+.dh-motif-on-light .dh-motif-accent { stroke: var(--dh-gold); opacity: .55; }
+.dh-motif-on-light .dh-motif-lit { fill: var(--dh-gold); fill-opacity: .12; }
+
+/* -- Masthead --------------------------------------------------------------
+   Copy left, ornament (or an approved photograph) right, gold rule beneath.
+   The right column is what removes the dead half; the teal wash is what keeps
+   a navy field from reading as a flat rectangle. */
+.dh-masthead { position: relative; overflow: hidden; border-bottom: 4px solid var(--dh-gold); }
+.dh-masthead-navy { background: var(--dh-navy); color: #fff; }
+.dh-masthead-navy::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 90% at 82% 18%, rgba(24,169,180,.30), transparent 62%),
+    linear-gradient(115deg, var(--dh-navy-deep) 0%, var(--dh-navy) 52%, #163a63 100%);
+}
+.dh-masthead-teal { background: var(--dh-teal); color: #fff; }
+/* The light end of this gradient used to reach #0a8c99, where white drops to
+   4.09:1 and the gold kicker to 2.99:1 — gold cannot meet AA on teal at any
+   point in the range. The field now stays within the teal values and the
+   kicker is white, which holds 5.33:1 across the whole gradient. */
+.dh-masthead-teal::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 90% at 84% 14%, rgba(77,135,51,.30), transparent 60%),
+    linear-gradient(115deg, var(--dh-teal-deep) 0%, #06707b 58%, var(--dh-teal) 100%);
+}
+.dh-masthead-inner { position: relative; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); align-items: center; gap: clamp(32px, 5vw, 72px); padding-top: clamp(44px, 5.5vw, 76px); padding-bottom: clamp(44px, 5.5vw, 76px); }
+.dh-masthead-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; max-width: 42rem; }
+.dh-crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0; padding: 0; list-style: none; font-size: 14px; }
+.dh-crumbs a { display: inline-block; min-height: 24px; padding: 2px 0; color: rgba(255,255,255,.78); text-decoration: none; }
+.dh-crumbs a:hover { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.dh-crumbs [aria-current="page"] { color: #fff; }
+.dh-crumbs svg { color: rgba(255,255,255,.5); }
+.dh-kicker { display: inline-flex; align-items: center; gap: 9px; margin: 0; color: var(--dh-gold-light); font-size: 12px; font-weight: 700; letter-spacing: .16em; line-height: 1.4; text-transform: uppercase; }
+.dh-kicker svg { width: 16px; height: 16px; }
+.dh-masthead h1 { margin: 0; max-width: 20ch; color: #fff; font-family: var(--font-serif); font-size: clamp(38px, 4.5vw, 58px); font-weight: 600; letter-spacing: -.022em; line-height: 1.06; }
+.dh-masthead-lede { margin: 0; max-width: 54ch; color: rgba(255,255,255,.92); font-size: clamp(16px, 1.3vw, 19px); line-height: 1.65; }
+.dh-masthead-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+.dh-masthead-aside { position: relative; display: flex; align-items: center; justify-content: center; min-height: 230px; }
+.dh-masthead-ornament { width: 100%; max-width: 560px; opacity: .92; }
+.dh-masthead-figure { position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid rgba(255,255,255,.22); box-shadow: 0 26px 60px -30px rgba(3,14,28,.9); }
+.dh-masthead-figure img { object-fit: cover; }
+.dh-masthead-figure::after { content: ""; position: absolute; inset: auto 0 0 0; height: 5px; background: var(--dh-gold); }
+
+/* Facts strip inside a masthead: verified qualifiers only, never metrics. */
+.dh-masthead-facts { display: flex; flex-wrap: wrap; gap: 10px; margin: 4px 0 0; padding: 0; list-style: none; }
+.dh-masthead-facts li { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; color: rgba(255,255,255,.92); font-size: 13px; font-weight: 600; }
+.dh-masthead-facts svg { width: 15px; height: 15px; color: var(--dh-gold-light); }
+
+/* -- Bands ---------------------------------------------------------------- */
+.dh-band { padding: clamp(56px, 7vw, 96px) 0; }
+.dh-band-tight { padding: clamp(40px, 5vw, 64px) 0; }
+.dh-band-page { background: var(--dh-page); }
+.dh-band-white { background: #fff; }
+.dh-band-alt { background: var(--dh-alt); }
+.dh-band-navy { background: var(--dh-navy); color: #fff; }
+.dh-band-teal { background: var(--dh-teal); color: #fff; }
+.dh-band-green { background: linear-gradient(140deg, #eef7e9 0%, var(--dh-alt) 100%); }
+
+.dh-lead { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; max-width: 46rem; margin-bottom: clamp(32px, 4vw, 52px); }
+.dh-lead h2 { margin: 0; color: var(--dh-navy); font-family: var(--font-serif); font-size: clamp(28px, 3.3vw, 42px); font-weight: 600; letter-spacing: -.02em; line-height: 1.1; }
+.dh-lead p { margin: 0; max-width: 58ch; color: var(--dh-muted); font-size: 17px; line-height: 1.68; }
+.dh-band-navy .dh-lead h2, .dh-band-teal .dh-lead h2 { color: #fff; }
+.dh-band-navy .dh-lead p { color: #c4d4e2; }
+/* .86 white over #077783 measures 4.42:1; .92 clears AA at 4.77:1. */
+.dh-band-teal .dh-lead p { color: rgba(255,255,255,.92); }
+.dh-lead .dh-kicker { color: var(--dh-teal); }
+.dh-band-navy .dh-lead .dh-kicker { color: var(--dh-gold-light); }
+/* White, not gold: gold on any teal in the brand range is below 3:1. */
+.dh-band-teal .dh-kicker, .dh-masthead-teal .dh-kicker { color: #ffffff; }
+.dh-lead-row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 40px; }
+.dh-lead-row .dh-lead { margin-bottom: 0; }
+/* .dh-lead is a flex column with align-items:flex-start, which makes block
+   children shrink to their content. Lists inside it have to opt back in. */
+.dh-lead > ul { align-self: stretch; width: 100%; }
+
+/* -- Editorial split: photograph and copy, neither one an inset ------------ */
+.dh-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(32px, 5vw, 76px); }
+.dh-split-wide-media { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); }
+.dh-split-wide-copy { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
+.dh-split-reverse .dh-split-media { order: 2; }
+/* No overflow clip here: the offset brand plate deliberately bleeds past
+   the photograph, and clipping it removed the only painted colour in the row. */
+.dh-split-media { position: relative; }
+.dh-split-figure { position: relative; width: 100%; overflow: hidden; background: var(--dh-alt); }
+.dh-split-figure img { object-fit: cover; transition: transform .6s cubic-bezier(.2,.7,.3,1); }
+.dh-split-media:hover .dh-split-figure img { transform: scale(1.035); }
+.dh-split-frame { position: relative; }
+/* Brand plate behind the photograph — what stops a picture reading as a card
+   floating on white, and what puts teal and gold area on the page. */
+.dh-split-frame::before { content: ""; position: absolute; left: -22px; top: 26px; bottom: -22px; width: 58%; background: var(--dh-teal); opacity: .22; }
+.dh-split-frame-green::before { background: var(--dh-green); opacity: .26; }
+.dh-split-frame > * { position: relative; }
+.dh-split-caption { position: absolute; right: 0; bottom: 0; display: flex; flex-direction: column; gap: 3px; max-width: 16rem; padding: 16px 20px; background: var(--dh-navy); color: #fff; }
+.dh-split-caption span { color: var(--dh-gold-light); font-size: 11px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+.dh-split-caption strong { font-family: var(--font-serif); font-size: 19px; font-weight: 600; line-height: 1.2; }
+.dh-split-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.dh-split-copy h2, .dh-split-copy h3 { margin: 0; color: var(--dh-navy); font-family: var(--font-serif); font-size: clamp(26px, 3vw, 40px); font-weight: 600; letter-spacing: -.02em; line-height: 1.12; }
+.dh-split-copy p { margin: 0; max-width: 56ch; color: var(--dh-muted); font-size: 17px; line-height: 1.7; }
+.dh-band-navy .dh-split-copy h2, .dh-band-navy .dh-split-copy h3 { color: #fff; }
+.dh-band-navy .dh-split-copy p { color: #c4d4e2; }
+
+/* -- Icon-supported pathway rows ------------------------------------------ */
+/* Real gaps and per-panel borders rather than a 1px divider background: an
+   auto-fit grid leaves the last row short, and the background showed through
+   the unfilled cells as an empty tile. */
+.dh-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
+.dh-features > li { display: flex; }
+.dh-features > li > * { border-top: 3px solid var(--dh-teal); }
+.dh-features-gold > li > * { border-top-color: var(--dh-gold); }
+.dh-features-green > li > * { border-top-color: var(--dh-green); }
+.dh-feature { display: flex; flex-direction: column; gap: 12px; width: 100%; padding: 28px 26px 30px; border: 1px solid var(--dh-border); background: #fff; }
+.dh-band-alt .dh-feature { background: var(--dh-page); }
+.dh-feature-icon { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 999px; background: var(--dh-alt); color: var(--dh-teal); }
+.dh-feature-icon svg { width: 23px; height: 23px; }
+/* #4d8733 measured 3.81:1 on this tint; #315f2f is the system value that clears it. */
+.dh-feature-icon-green { background: #e8f3e5; color: #315f2f; }
+/* #8a6a1c measured 4.41:1 on this tint. */
+.dh-feature-icon-gold { background: #f7efdb; color: #7a5d17; }
+.dh-feature-icon-navy { background: #e3eaf3; color: var(--dh-navy); }
+.dh-feature h3 { margin: 0; color: var(--dh-navy); font-family: var(--font-sans); font-size: 18px; font-weight: 700; line-height: 1.3; }
+.dh-feature p { margin: 0; color: var(--dh-muted); font-size: 15px; line-height: 1.65; }
+.dh-feature-link { display: inline-flex; align-items: center; gap: 7px; min-height: 24px; margin-top: auto; padding-top: 6px; color: var(--dh-teal); font-size: 14px; font-weight: 700; text-decoration: none; }
+.dh-feature-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* Linked feature: the whole panel is the target, with a lift on hover. */
+.dh-feature-card { position: relative; display: flex; flex-direction: column; gap: 12px; width: 100%; padding: 28px 26px 30px; border: 1px solid var(--dh-border); background: #fff; color: inherit; text-decoration: none; transition: background .2s ease, transform .2s ease; }
+.dh-band-alt .dh-feature-card { background: var(--dh-page); }
+.dh-feature-card:hover { background: var(--dh-alt); transform: translateY(-2px); }
+.dh-feature-card:hover h3 { color: var(--dh-teal); text-decoration: underline; text-underline-offset: 4px; }
+
+/* -- Honest status strip ---------------------------------------------------
+   Used where the site has to say a provider is not connected. It is deliberately
+   not the warning box it used to be: a brand-coloured strip with a real next
+   action reads as a designed state, and an amber panel in the middle of an empty
+   page reads as a broken site. The words stay exactly as honest. */
+.dh-status { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: start; gap: 18px; padding: 22px 26px; border-left: 5px solid var(--dh-teal-bright); background: linear-gradient(120deg, rgba(7,119,131,.10), rgba(24,169,180,.04)); }
+.dh-status-icon { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 999px; background: var(--dh-teal); color: #fff; }
+.dh-status-icon svg { width: 19px; height: 19px; }
+.dh-status strong { display: block; color: var(--dh-navy); font-size: 17px; font-weight: 700; }
+.dh-status p { margin: 6px 0 0; max-width: 70ch; color: var(--dh-muted); font-size: 15px; line-height: 1.65; }
+.dh-status-on-dark { border-left-color: var(--dh-gold); background: rgba(255,255,255,.07); }
+.dh-status-on-dark .dh-status-icon { background: var(--dh-gold); color: #16110a; }
+.dh-status-on-dark strong { color: #fff; }
+.dh-status-on-dark p { color: #c4d4e2; }
+
+/* A quiet consumer-facing note. Replaces the bordered "internal process"
+   panels that were shouting product decisions at visitors. */
+.dh-note { max-width: 74ch; margin: 26px 0 0; padding-left: 16px; border-left: 2px solid var(--dh-border); color: var(--dh-muted); font-size: 14px; line-height: 1.7; }
+
+/* -- Local market list ---------------------------------------------------- */
+/* Gap, not a background showing through: an auto-fit grid leaves the last
+   row short, and a 1px "divider" background turned that remainder into a
+   visible empty tile. */
+.dh-places { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.dh-place { display: flex; align-items: center; gap: 12px; height: 100%; padding: 18px 20px; border: 1px solid rgba(255,255,255,.22); border-left: 3px solid var(--dh-teal-bright); background: rgba(255,255,255,.05); color: #fff; text-decoration: none; transition: background .2s ease, border-color .2s ease; }
+.dh-place:hover { background: rgba(255,255,255,.12); border-left-color: var(--dh-gold); }
+.dh-place svg { flex-shrink: 0; width: 17px; height: 17px; color: var(--dh-teal-bright); }
+.dh-place-name { font-size: 16px; font-weight: 700; }
+.dh-place-county { display: block; color: #a9c0d3; font-size: 12.5px; font-weight: 500; }
+.dh-place:hover .dh-place-name { text-decoration: underline; text-underline-offset: 4px; }
+.dh-band-teal .dh-place-county { color: rgba(255,255,255,.75); }
+
+/* Feature place: the one market with a real guide behind it. */
+.dh-place-feature { display: flex; flex-direction: column; gap: 10px; justify-content: flex-end; min-height: 100%; padding: 30px 30px 28px; background: linear-gradient(145deg, var(--dh-teal) 0%, var(--dh-teal-deep) 100%); border-bottom: 5px solid var(--dh-gold); color: #fff; text-decoration: none; transition: transform .22s ease; }
+.dh-place-feature:hover { transform: translateY(-3px); }
+.dh-place-feature-label { display: inline-flex; align-items: center; gap: 8px; color: var(--dh-gold-light); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.dh-place-feature-name { font-family: var(--font-serif); font-size: clamp(30px, 3.4vw, 42px); font-weight: 600; line-height: 1.05; }
+.dh-place-feature-meta { color: rgba(255,255,255,.85); font-size: 15px; }
+.dh-place-feature-cta { display: inline-flex; align-items: center; gap: 8px; min-height: 24px; margin-top: 6px; font-size: 15px; font-weight: 700; }
+.dh-place-feature:hover .dh-place-feature-cta { text-decoration: underline; text-underline-offset: 4px; }
+
+/* -- Numbered process ----------------------------------------------------- */
+.dh-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
+.dh-step { display: flex; flex-direction: column; gap: 12px; height: 100%; padding: 28px 24px 30px; border: 1px solid var(--dh-border); background: #fff; }
+.dh-band-alt .dh-step, .dh-band-green .dh-step { background: var(--dh-page); }
+.dh-step-mark { display: inline-flex; align-items: center; gap: 10px; }
+.dh-step-num { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 999px; background: var(--dh-navy); color: #fff; font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.dh-step-rule { flex: 1; height: 2px; background: linear-gradient(90deg, var(--dh-gold), transparent); }
+.dh-step h3 { margin: 0; color: var(--dh-navy); font-family: var(--font-sans); font-size: 17px; font-weight: 700; line-height: 1.3; }
+.dh-step p { margin: 0; color: var(--dh-muted); font-size: 15px; line-height: 1.65; }
+
+/* -- Closing CTA band with an approved photograph -------------------------- */
+.dh-cta { position: relative; overflow: hidden; background: var(--dh-navy); color: #fff; }
+.dh-cta-image { object-fit: cover; }
+/* Strong enough on the left for AA text contrast, then released so the
+   photograph is a photograph rather than a teal wash over someone's face. */
+.dh-cta-scrim { position: absolute; inset: 0; background: linear-gradient(100deg, rgba(9,25,47,.96) 0%, rgba(13,36,66,.92) 40%, rgba(16,43,78,.55) 66%, rgba(16,43,78,.18) 100%); }
+.dh-cta-inner { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 18px; max-width: 46rem; padding-top: clamp(56px, 7vw, 96px); padding-bottom: clamp(56px, 7vw, 96px); }
+.dh-cta-inner h2 { margin: 0; max-width: 20ch; color: #fff; font-family: var(--font-serif); font-size: clamp(28px, 3.6vw, 46px); font-weight: 600; letter-spacing: -.02em; line-height: 1.08; }
+.dh-cta-inner p { margin: 0; max-width: 54ch; color: rgba(255,255,255,.86); font-size: 17px; line-height: 1.7; }
+.dh-cta-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+
+/* -- Buttons reused outside the homepage ---------------------------------- */
+.dh-btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 48px; padding: 13px 26px; border: 1px solid transparent; font-family: var(--font-sans); font-size: 15px; font-weight: 700; line-height: 1.2; text-align: center; text-decoration: none; cursor: pointer; transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease; }
+.dh-btn:active { transform: translateY(1px); }
+.dh-btn-gold { background: var(--dh-gold); color: #16110a; border-color: var(--dh-gold); }
+.dh-btn-gold:hover { background: var(--dh-gold-light); }
+.dh-btn-navy { background: var(--dh-navy); color: #fff; border-color: var(--dh-navy); }
+.dh-btn-navy:hover { background: var(--dh-navy-hover); }
+.dh-btn-teal { background: var(--dh-teal); color: #fff; border-color: var(--dh-teal); }
+.dh-btn-teal:hover { background: var(--dh-teal-deep); }
+.dh-btn-light { background: #fff; color: var(--dh-navy); border-color: #fff; }
+.dh-btn-light:hover { background: var(--dh-alt); }
+.dh-btn-light-outline { background: transparent; color: #fff; border-color: rgba(255,255,255,.7); }
+.dh-btn-light-outline:hover { background: rgba(255,255,255,.14); border-color: #fff; }
+.dh-btn-navy-outline { background: transparent; color: var(--dh-navy); border-color: var(--dh-navy); }
+.dh-btn-navy-outline:hover { background: var(--dh-alt); }
+
+.dh-textlink { display: inline-flex; align-items: center; gap: 7px; min-height: 24px; color: var(--dh-teal); font-size: 15px; font-weight: 700; text-decoration: none; }
+.dh-textlink:hover { text-decoration: underline; text-underline-offset: 4px; }
+.dh-band-navy .dh-textlink, .dh-band-teal .dh-textlink, .dh-cta .dh-textlink { color: var(--dh-gold-light); }
+
+/* -- Q&A ------------------------------------------------------------------ */
+.dh-qa { margin: 0; border-top: 3px solid var(--dh-gold); }
+.dh-qa details { border-bottom: 1px solid var(--dh-border); }
+.dh-qa summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; min-height: 48px; padding: 16px 0; color: var(--dh-navy); font-size: 17px; font-weight: 600; list-style: none; cursor: pointer; }
+.dh-qa summary::-webkit-details-marker { display: none; }
+.dh-qa summary::after { content: ""; flex-shrink: 0; width: 12px; height: 12px; border-right: 2px solid var(--dh-teal); border-bottom: 2px solid var(--dh-teal); transform: rotate(45deg) translate(-3px, -3px); transition: transform .2s ease; }
+.dh-qa details[open] summary::after { transform: rotate(225deg) translate(-2px, -2px); }
+.dh-qa summary:hover { color: var(--dh-teal); }
+.dh-qa p { margin: 0 0 20px; max-width: 74ch; color: var(--dh-muted); font-size: 15.5px; line-height: 1.7; }
+
+/* -- Responsive ----------------------------------------------------------- */
+@media (max-width: 1000px) {
+  .dh-masthead-inner { grid-template-columns: 1fr; gap: 34px; }
+  .dh-masthead-aside { min-height: 0; order: 2; }
+  .dh-masthead-ornament { max-width: 460px; margin: 0 auto; }
+  .dh-split, .dh-split-wide-media, .dh-split-wide-copy { grid-template-columns: 1fr; gap: 32px; }
+  .dh-split-reverse .dh-split-media { order: 0; }
+  .dh-split-frame::before { left: -12px; top: 16px; bottom: -12px; width: 55%; }
+}
+@media (max-width: 720px) {
+  .dh-masthead h1 { font-size: clamp(31px, 8.4vw, 42px); }
+  .dh-masthead-lede { font-size: 16px; }
+  .dh-masthead-actions .dh-btn { width: 100%; }
+  /* The ornament stays on phones — a masthead that loses its picture at 375px
+     is exactly the "stacked desktop blocks" mobile the brief rules out. It is
+     simply given less height so it reads as a horizon line, not a hero. */
+  .dh-masthead-ornament { max-width: 340px; opacity: .8; }
+  .dh-status { grid-template-columns: 1fr; gap: 12px; padding: 20px; }
+  .dh-cta-actions .dh-btn { width: 100%; }
+  .dh-split-caption { position: static; max-width: none; }
+  .dh-split-frame::before { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dh-split-media:hover .dh-split-figure img,
+  .dh-feature-card:hover,
+  .dh-place-feature:hover { transform: none; }
+}
+
+/* -- Places layout: one feature market plus the surrounding cities --------- */
+.dh-places-layout { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 2fr); gap: clamp(20px, 2.6vw, 34px); align-items: stretch; }
+.dh-note-on-dark { color: #a9c0d3; border-left-color: rgba(255,255,255,.3); }
+
+/* -- Live listing cards (shown only when an MLS/IDX feed is connected) ----- */
+.dh-listings { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin: 0; padding: 0; list-style: none; }
+.dh-listing { display: flex; flex-direction: column; gap: 6px; height: 100%; padding: 26px 24px 22px; border: 1px solid var(--dh-border); border-top: 4px solid var(--dh-teal); background: var(--dh-page); }
+.dh-listing-price { margin: 0; color: var(--dh-navy); font-family: var(--font-serif); font-size: 28px; font-weight: 600; line-height: 1.1; }
+.dh-listing-address { margin: 0; color: var(--dh-ink); font-size: 16px; font-weight: 600; }
+.dh-listing-meta { display: flex; align-items: center; gap: 7px; margin: 0; color: var(--dh-muted); font-size: 14px; }
+.dh-listing-meta svg { width: 15px; height: 15px; color: var(--dh-teal); }
+.dh-listing-stats { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 12px 0 0; padding-top: 14px; border-top: 1px solid var(--dh-border); color: var(--dh-muted); font-size: 13.5px; font-weight: 600; }
+
+@media (max-width: 1000px) {
+  .dh-places-layout { grid-template-columns: 1fr; }
+}
+
+/* -- Housing-character chips ----------------------------------------------
+   The home styles a buyer will actually tour, as tagged rows rather than six
+   bordered boxes. Paired with the roofline ornament, which draws the same
+   four shapes the list names. */
+.dh-chips { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.dh-chips li { display: flex; align-items: center; gap: 13px; padding: 17px 20px; border-left: 3px solid var(--dh-gold); background: rgba(255,255,255,.1); color: #fff; font-size: 15px; font-weight: 600; line-height: 1.4; }
+.dh-chips svg { flex-shrink: 0; width: 18px; height: 18px; color: #ffffff; }
+.dh-band-white .dh-chips li, .dh-band-alt .dh-chips li, .dh-band-page .dh-chips li { background: #fff; border-left-color: var(--dh-teal); color: var(--dh-ink); }
+.dh-band-white .dh-chips svg, .dh-band-alt .dh-chips svg, .dh-band-page .dh-chips svg { color: var(--dh-teal); }
+
+/* A field split where the right half is ornament rather than a photograph. */
+.dh-illus { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: center; gap: clamp(30px, 5vw, 70px); }
+.dh-illus-art { width: 100%; max-width: 620px; margin-left: auto; opacity: .95; }
+@media (max-width: 1000px) { .dh-illus { grid-template-columns: 1fr; } .dh-illus-art { margin: 0 auto; max-width: 520px; } }
+
+/* Notes inherit the field they sit on, so a page never needs an inline style. */
+.dh-band-navy .dh-note, .dh-cta .dh-note { color: #a9c0d3; border-left-color: rgba(255,255,255,.3); }
+.dh-band-teal .dh-note { color: rgba(255,255,255,.82); border-left-color: rgba(255,255,255,.35); }
+.dh-lead-flush { margin-bottom: 0; }
+
+/* -- Checklist: a role or a set of inclusions, icon-led ------------------- */
+.dh-checklist { display: flex; flex-direction: column; gap: 16px; margin: 0; padding: 0; list-style: none; }
+.dh-checklist li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; }
+.dh-checklist svg { width: 21px; height: 21px; margin-top: 2px; color: var(--dh-green-deep); }
+.dh-checklist strong { display: block; color: var(--dh-navy); font-size: 16.5px; font-weight: 700; }
+.dh-checklist span { color: var(--dh-muted); font-size: 15px; line-height: 1.65; }
+.dh-band-navy .dh-checklist strong { color: #fff; }
+.dh-band-navy .dh-checklist span { color: #c4d4e2; }
+.dh-band-navy .dh-checklist svg { color: var(--dh-gold-light); }
+.dh-band-teal .dh-checklist strong { color: #fff; }
+.dh-band-teal .dh-checklist span { color: rgba(255,255,255,.92); }
+.dh-band-teal .dh-checklist svg { color: #ffffff; }
+.dh-band-teal .dh-split-copy h2, .dh-band-teal .dh-split-copy h3 { color: #fff; }
+.dh-band-teal .dh-split-copy p { color: rgba(255,255,255,.92); }
+
+/* -- Program cards --------------------------------------------------------
+   Two large linked panels rather than two bordered boxes. Navy field, gold
+   rule, icon-led, with the audience carried as verified checkpoints. */
+.dh-program-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin: 0; padding: 0; list-style: none; }
+.dh-program { display: flex; flex-direction: column; gap: 14px; height: 100%; padding: 32px 30px 30px; background: linear-gradient(155deg, #fff 0%, var(--dh-alt) 100%); border: 1px solid var(--dh-border); border-top: 5px solid var(--dh-gold); color: inherit; text-decoration: none; transition: transform .22s ease, box-shadow .22s ease; }
+.dh-program:hover { transform: translateY(-3px); box-shadow: 0 22px 44px -28px rgba(16,43,78,.55); }
+.dh-program-head { display: flex; align-items: center; gap: 14px; }
+.dh-program-head .dh-kicker { color: var(--dh-teal); }
+.dh-program h3 { margin: 0; color: var(--dh-navy); font-family: var(--font-serif); font-size: clamp(26px, 2.6vw, 34px); font-weight: 600; line-height: 1.1; }
+.dh-program:hover h3 { text-decoration: underline; text-underline-offset: 5px; }
+.dh-program > p { margin: 0; color: var(--dh-muted); font-size: 16px; line-height: 1.68; }
+.dh-program-points { display: flex; flex-direction: column; gap: 9px; margin: 4px 0 0; padding: 0; list-style: none; }
+.dh-program-points li { display: flex; align-items: flex-start; gap: 10px; color: var(--dh-ink); font-size: 14.5px; line-height: 1.5; }
+.dh-program-points svg { flex-shrink: 0; width: 17px; height: 17px; margin-top: 2px; color: var(--dh-green-deep); }
+.dh-program-cta { display: inline-flex; align-items: center; gap: 8px; min-height: 24px; margin-top: auto; padding-top: 16px; color: var(--dh-teal); font-size: 15px; font-weight: 700; }
+@media (prefers-reduced-motion: reduce) { .dh-program:hover { transform: none; } }
+.dh-lead-row-spaced { margin-bottom: clamp(32px, 4vw, 52px); }
+.dh-stack-top { margin-top: clamp(26px, 3vw, 36px); }
+
+
+/* -- Footer local column: verified facts only ----------------------------
+   Garland and the metroplex are stated because the repository asserts them;
+   a phone number and street address are not, because lib/site.ts keeps them
+   null until verified and inventing either would be fabrication. */
+.footer-local { display: flex; flex-direction: column; gap: 14px; }
+.footer-local-label { margin: 0; color: var(--color-accent); font-size: 12px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+.footer-local ul { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.footer-local li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 11px; color: var(--color-muted-foreground); font-size: 14.5px; line-height: 1.5; }
+.footer-local svg { width: 18px; height: 18px; margin-top: 1px; color: var(--color-accent); }
+.footer-local strong { display: block; color: var(--color-primary); font-size: 15px; font-weight: 700; }
+
+@media (max-width: 1000px) {
+  .fh-footer-brand-inner, .footer-brand-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 760px) {
+  .fh-footer-brand-inner, .footer-brand-inner { grid-template-columns: 1fr; }
+  .fh-footer-logo, .footer-logo { width: 176px; }
+}
+
+/* -- Consultation: the form is the page, the context sits beside it -------
+   Previously the form was a bordered white card to the right of a navy list
+   and a photograph, with the masthead above it carrying no brand at all. The
+   form now leads, and "what to expect" is a navy companion panel rather than
+   a stack of boxes underneath. */
+.dh-consult { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(28px, 4vw, 56px); align-items: start; }
+.dh-consult-form { min-width: 0; }
+.dh-consult-form h2, .dh-consult-aside h2 { margin: 0; color: var(--dh-navy); font-family: var(--font-serif); font-size: clamp(27px, 3vw, 38px); font-weight: 600; letter-spacing: -.02em; line-height: 1.12; }
+.dh-consult-form > p { margin: 14px 0 28px; max-width: 58ch; color: var(--dh-muted); font-size: 16px; line-height: 1.7; }
+.dh-consult-aside { display: flex; flex-direction: column; gap: 16px; min-width: 0; padding: 34px 32px 32px; background: linear-gradient(160deg, var(--dh-navy) 0%, var(--dh-navy-deep) 100%); border-top: 5px solid var(--dh-gold); color: #fff; }
+.dh-consult-aside h2 { color: #fff; }
+.dh-consult-aside .dh-kicker { color: var(--dh-gold-light); }
+.dh-consult-aside .dh-checklist strong { color: #fff; }
+.dh-consult-aside .dh-checklist span { color: #c4d4e2; }
+.dh-consult-aside .dh-checklist svg { color: var(--dh-teal-bright); }
+@media (max-width: 1000px) { .dh-consult { grid-template-columns: 1fr; } }

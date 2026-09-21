@@ -1,7 +1,9 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Container } from "@/components/ui/container"
+import { ArrowRight, BadgeCheck, ClipboardCheck, Compass, HeartHandshake, MapPin, ShieldCheck } from "lucide-react"
+import { PageHeader } from "@/components/page/page-header"
+import { Band, BandLead, CtaBand, Split, StatusStrip } from "@/components/page/editorial"
+import { CLOSING_BAND_IMAGE, DEBRA_PORTRAIT } from "@/lib/content/imagery"
 import { PROGRAM_CARDS } from "@/lib/programs"
 import { SITE } from "@/lib/site"
 
@@ -18,6 +20,11 @@ export const metadata: Metadata = {
     type: "website",
   },
 }
+
+const PROGRAM_ICONS = {
+  naca: ClipboardCheck,
+  "homes-for-heroes": HeartHandshake,
+} as const
 
 const futurePrograms = [
   "First-Time Homebuyer Assistance",
@@ -45,77 +52,146 @@ export default function ProgramsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c") }}
       />
-      <section className="border-b border-border bg-card" aria-labelledby="programs-title">
-        <Container className="py-12 md:py-20">
-          <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
-            <Link href="/" className="inline-block py-1 hover:text-primary hover:underline">Home</Link>
-            <span aria-hidden="true"> / </span>
-            <span aria-current="page">Programs</span>
-          </nav>
-          <p className="mt-8 text-xs font-semibold uppercase tracking-[0.12em] text-accent">Specialized homebuyer guidance</p>
-          <h1 id="programs-title" className="mt-4 max-w-4xl font-serif text-[42px] font-normal leading-[1.08] sm:text-[56px]">
-            Find the homeownership path that fits your situation
-          </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">
-            Debra helps buyers understand the real-estate decisions inside a larger homeownership program. These pages are built for separate campaigns while staying connected to the same D&apos;Affordable Homes guidance, tools, and consultation process.
-          </p>
-          <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">
-            Garland and Dallas–Fort Worth are the current local-content focus. Representation availability for a specific community must be confirmed directly with Debra.
-          </p>
-        </Container>
-      </section>
 
-      <section className="py-14 md:py-20" aria-labelledby="current-programs-heading">
-        <Container>
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
-              <h2 id="current-programs-heading" className="font-serif text-3xl font-normal sm:text-4xl">Choose your starting point</h2>
-              <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Each program page explains Debra&apos;s role, the real-estate process, questions to prepare, and what must be verified with the official program.</p>
-            </div>
-            <Link href="/areas/garland" className="inline-block py-1 text-sm font-semibold text-primary hover:underline">Explore Garland homebuyer guidance →</Link>
+      <PageHeader
+        eyebrow="Specialized homebuyer guidance"
+        eyebrowIcon={BadgeCheck}
+        title="Find the homeownership path that fits your situation"
+        intro="Debra helps buyers understand the real-estate decisions inside a larger homeownership program — the search, the offer, the inspection, the close — while the program keeps control of its own rules."
+        crumbs={[{ label: "Home", href: "/" }, { label: "Programs" }]}
+        facts={[
+          { label: "Garland + Dallas–Fort Worth", icon: MapPin },
+          { label: "Independent guidance", icon: ShieldCheck },
+        ]}
+        motif="keys"
+      >
+        <Link href="/consultation" className="dh-btn dh-btn-gold">
+          Talk through your options
+        </Link>
+        <Link href="/start" className="dh-btn dh-btn-light-outline">
+          Find your next step
+        </Link>
+      </PageHeader>
+
+      <Band tone="white" aria-labelledby="current-programs-heading">
+        <BandLead
+          eyebrow="Choose a starting point"
+          eyebrowIcon={Compass}
+          title="Two programs, explained without the sales pitch"
+          titleId="current-programs-heading"
+          lede="Each page explains Debra's role, the real-estate process around the program, the questions worth preparing, and exactly what you must verify with the program itself."
+          aside={
+            <Link href="/areas/garland" className="dh-textlink">
+              Garland homebuyer guidance <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
+          }
+        />
+
+        <ul className="dh-program-grid">
+          {PROGRAM_CARDS.map((program) => {
+            const Icon = PROGRAM_ICONS[program.slug as keyof typeof PROGRAM_ICONS] ?? BadgeCheck
+            return (
+              <li key={program.slug}>
+                <Link href={`/programs/${program.slug}`} className="dh-program">
+                  <span className="dh-program-head">
+                    <span className="dh-feature-icon dh-feature-icon-gold">
+                      <Icon aria-hidden="true" />
+                    </span>
+                    <span className="dh-kicker">{program.eyebrow}</span>
+                  </span>
+                  <h3>{program.name}</h3>
+                  <p>{program.summary}</p>
+                  <ul className="dh-program-points">
+                    {program.audience.slice(0, 3).map((item) => (
+                      <li key={item}>
+                        <BadgeCheck aria-hidden="true" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <span className="dh-program-cta">
+                    {program.slug === "naca" ? "Explore NACA homebuyer help" : "Explore Homes for Heroes"}
+                    <ArrowRight className="size-4" aria-hidden="true" />
+                  </span>
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      </Band>
+
+      <Band tone="alt" aria-labelledby="programs-role-heading">
+        <Split
+          media={{
+            ...DEBRA_PORTRAIT,
+            caption: { label: "REALTOR® · Garland", title: "Debra Allen" },
+          }}
+          weight="copy"
+          ratio="4 / 3"
+          plate="green"
+          sizes="(max-width: 1000px) 100vw, 520px"
+          reverse
+        >
+          <p className="dh-kicker">
+            <ShieldCheck aria-hidden="true" />
+            Where the lines are
+          </p>
+          <h2 id="programs-role-heading">Debra handles the real estate. The program handles the program.</h2>
+          <p>
+            Qualification, eligibility, savings and mortgage terms belong to the organisation running the program, and
+            to your lender. This site will never tell you that you qualify, or what you will save.
+          </p>
+          <p>
+            What Debra does is the part in between: helping you define a search that fits the program you are in,
+            structuring an offer that survives it, and keeping the inspection and closing on schedule.
+          </p>
+          <StatusStrip icon={ShieldCheck} title="Independent guidance">
+            <p>
+              D&apos;Affordable Homes is independent from the programs described here. Current rules, eligibility and
+              terms must be confirmed with each program directly.
+            </p>
+          </StatusStrip>
+        </Split>
+      </Band>
+
+      <Band tone="navy" tight aria-labelledby="future-programs-heading">
+        <div className="dh-split dh-split-wide-copy">
+          <div className="dh-split-copy">
+            <p className="dh-kicker">
+              <Compass aria-hidden="true" />
+              On the way
+            </p>
+            <h2 id="future-programs-heading">More paths are being written</h2>
+            <p>
+              Each gets a real page when there is something specific and verified to say about it. If yours is on this
+              list, ask Debra now — she can still help with the real-estate side today.
+            </p>
           </div>
-
-          <div className="mt-8 grid gap-6 lg:grid-cols-2">
-            {PROGRAM_CARDS.map((program) => (
-              <article key={program.slug} className="border border-border bg-card p-7 sm:p-9">
-                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">{program.eyebrow}</p>
-                <h3 className="mt-4 font-serif text-3xl font-normal">{program.name}</h3>
-                <p className="mt-4 leading-7 text-muted-foreground">{program.summary}</p>
-                <ul className="mt-6 grid gap-2 text-sm text-foreground">
-                  {program.audience.slice(0, 3).map((item) => <li key={item}>• {item}</li>)}
-                </ul>
-                <div className="mt-7">
-                  <Button href={`/programs/${program.slug}`}>
-                    {program.slug === "naca" ? "Explore NACA Homebuyer Help" : "Explore Homes for Heroes"}
-                  </Button>
-                </div>
-              </article>
+          <ul className="dh-chips">
+            {futurePrograms.map((program) => (
+              <li key={program}>
+                <Compass aria-hidden="true" />
+                {program}
+              </li>
             ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="border-y border-border bg-muted/50 py-14" aria-labelledby="future-programs-heading">
-        <Container className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
-          <div>
-            <h2 id="future-programs-heading" className="font-serif text-3xl font-normal">Built to support future programs</h2>
-            <p className="mt-4 leading-7 text-muted-foreground">The shared program-page system can add future offerings without copying entire landing pages or creating disconnected microsites.</p>
-          </div>
-          <ul className="grid gap-3 sm:grid-cols-2">
-            {futurePrograms.map((program) => <li key={program} className="border-b border-border py-3 text-sm font-medium">{program}</li>)}
           </ul>
-        </Container>
-      </section>
+        </div>
+      </Band>
 
-      <section className="bg-primary py-12 text-primary-foreground">
-        <Container className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
-          <div>
-            <h2 className="font-serif text-3xl font-normal">Not sure which path fits?</h2>
-            <p className="mt-3 max-w-3xl text-primary-foreground/80">Start with a conversation about your goals, current program status, location, and timeline.</p>
-          </div>
-          <Button href="/consultation" variant="secondary" size="lg">Book Consultation</Button>
-        </Container>
-      </section>
+      <CtaBand
+        eyebrow="Not sure which path fits?"
+        title="Start with a conversation, not an application"
+        titleId="programs-cta-heading"
+        body="Your goals, your current program status, the area you are looking in, and your timeline. That is enough for Debra to tell you what the next step actually is."
+        image={CLOSING_BAND_IMAGE}
+      >
+        <Link href="/consultation" className="dh-btn dh-btn-gold">
+          Book a consultation
+        </Link>
+        <Link href="/start" className="dh-btn dh-btn-light-outline">
+          Find your next step
+        </Link>
+      </CtaBand>
     </>
   )
 }

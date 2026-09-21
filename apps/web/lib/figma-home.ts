@@ -80,6 +80,27 @@ export const FIGMA_CITIES = [
   { name: "Garland", county: "Dallas County", href: "/areas/garland" },
 ] as const
 
+/**
+ * Short highlights for the two homepage pathways.
+ *
+ * Every line describes something Debra *does*, not something a buyer or seller
+ * will *get*. That distinction is the publishing standard: no price, timeline,
+ * approval, saving or outcome is promised anywhere on this site, so a pathway
+ * panel earns its benefit list by naming the work rather than the result.
+ */
+export const FIGMA_PATHWAY_HIGHLIGHTS = {
+  buy: [
+    "A search built around your real monthly number",
+    "Offers explained in full before you sign one",
+    "Inspection and closing kept on schedule",
+  ],
+  sell: [
+    "Pricing discussed with the evidence in front of you",
+    "A preparation plan you approve, not one you are handed",
+    "Negotiation handled as your advocate",
+  ],
+} as const
+
 export const FIGMA_BUYER_POINTS = [
   "Personalized Financial Evaluation: Understand debt-to-income and actual purchase power.",
   "Comprehensive Neighborhood Match: Identify DFW communities aligned with your daily routines.",

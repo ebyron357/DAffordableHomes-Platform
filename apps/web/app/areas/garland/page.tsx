@@ -1,7 +1,20 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Container } from "@/components/ui/container"
+import {
+  ClipboardCheck,
+  Compass,
+  HeartHandshake,
+  Home,
+  MapPin,
+  MessageCircleQuestion,
+  Route,
+  Wallet,
+  Wrench,
+} from "lucide-react"
+import { BrandMotif } from "@/components/page/brand-motif"
+import { PageHeader } from "@/components/page/page-header"
+import { Band, BandLead, CtaBand, Features, QaList } from "@/components/page/editorial"
+import { CLOSING_BAND_IMAGE } from "@/lib/content/imagery"
 import { SITE } from "@/lib/site"
 
 export const metadata: Metadata = {
@@ -17,6 +30,69 @@ export const metadata: Metadata = {
     type: "article",
   },
 }
+
+const SEARCH_PREP = [
+  {
+    title: "Monthly ownership cost",
+    body: "Plan beyond the purchase price: principal, interest, taxes, insurance, utilities, maintenance, and possible association costs.",
+    icon: Wallet,
+    tone: "gold" as const,
+  },
+  {
+    title: "Home condition",
+    body: "Decide how much repair work, updating, inspection risk, and ongoing maintenance you can realistically accept.",
+    icon: Wrench,
+    tone: "teal" as const,
+  },
+  {
+    title: "Location priorities",
+    body: "Rank access to work, family, services, transportation and daily routines — without relying on unsupported commute claims.",
+    icon: Compass,
+    tone: "navy" as const,
+  },
+  {
+    title: "Program requirements",
+    body: "Keep official NACA, lender, assistance-program, or third-party requirements visible while you evaluate each property.",
+    icon: ClipboardCheck,
+    tone: "green" as const,
+  },
+] as const
+
+/**
+ * The housing a Garland search tends to put in front of you.
+ *
+ * Home styles, not inventory. No count, no price, no availability claim — the
+ * roofline ornament beside this list draws the same four shapes it names, which
+ * is why the section can be visual without a photograph the register does not
+ * contain.
+ */
+const HOUSING_CHARACTER = [
+  "One-story brick and ranch-style homes",
+  "Two-story suburban brick homes",
+  "Brick-and-stone facades",
+  "Modest starter homes and townhomes",
+  "Garages and driveways common to North Texas",
+  "Flat or gently graded streets with Texas landscaping",
+] as const
+
+const PROGRAM_PATHS = [
+  {
+    title: "Using NACA?",
+    body: "Understand how Debra supports the search, offer, inspection and closing process while NACA controls the official program requirements.",
+    href: "/programs/naca",
+    icon: ClipboardCheck,
+    tone: "teal" as const,
+    action: "Explore NACA homebuyer help",
+  },
+  {
+    title: "A community hero?",
+    body: "Build a buying, selling or coordinated move plan without unsupported promises about eligibility, savings, rebates or provider status.",
+    href: "/programs/homes-for-heroes",
+    icon: HeartHandshake,
+    tone: "green" as const,
+    action: "Explore Homes for Heroes guidance",
+  },
+] as const
 
 const faqs = [
   {
@@ -75,57 +151,114 @@ export default function GarlandAreaPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      <section className="border-b border-border bg-card">
-        <Container className="py-12 md:py-20">
-          <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground"><Link href="/" className="inline-block py-1 hover:underline">Home</Link> / <Link href="/areas" className="inline-block py-1 hover:underline">Area guides</Link> / <span aria-current="page">Garland</span></nav>
-          <p className="mt-8 text-xs font-semibold uppercase tracking-[0.12em] text-accent">Garland, Texas homebuyer guidance</p>
-          <h1 className="mt-4 max-w-4xl font-serif text-[42px] font-normal leading-[1.08] sm:text-[56px]">Build a Garland home search around the life you can sustain</h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A useful search starts with monthly cost, home condition, location priorities, program status, and the tradeoffs you are willing to make—not a promise that every property or program will fit.</p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row"><Button href="/consultation">Plan a Garland consultation</Button><Button href="/programs" variant="outline">Explore homebuyer programs</Button></div>
-        </Container>
-      </section>
 
-      <section className="py-14 md:py-20" aria-labelledby="search-heading">
-        <Container className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
-          <div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">Search preparation</p><h2 id="search-heading" className="mt-3 font-serif text-3xl font-normal sm:text-4xl">Define the search before touring homes</h2><p className="mt-4 leading-7 text-muted-foreground">Garland is the platform&apos;s first local-content focus, but service availability for a specific property or transaction must still be confirmed directly with Debra.</p></div>
-          <div className="grid border-t border-border sm:grid-cols-2">
-            {[
-              ["Monthly ownership cost", "Plan beyond the purchase price by discussing principal, interest, taxes, insurance, utilities, maintenance, and possible association costs."],
-              ["Home condition", "Decide how much repair work, updating, inspection risk, and ongoing maintenance you can realistically accept."],
-              ["Location priorities", "Rank access to work, family, services, transportation, daily routines, and nearby communities without relying on unsupported commute claims."],
-              ["Program requirements", "Keep official NACA, lender, assistance-program, or third-party requirements visible while evaluating each property."],
-            ].map(([title, body]) => <article key={title} className="border-b border-border py-6 sm:px-6 sm:odd:border-r sm:odd:pl-0"><h3 className="font-sans text-lg font-semibold">{title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{body}</p></article>)}
+      <PageHeader
+        eyebrow="Garland, Texas"
+        eyebrowIcon={MapPin}
+        title="Build a Garland home search around the life you can sustain"
+        intro="A useful search starts with monthly cost, home condition, location priorities, program status, and the trade-offs you are willing to make — not a promise that every property or program will fit."
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: "Area guides", href: "/areas" },
+          { label: "Garland" },
+        ]}
+        facts={[
+          { label: "Dallas County", icon: MapPin },
+          { label: "Debra's home market", icon: Home },
+          { label: "Dallas–Fort Worth metroplex", icon: Route },
+        ]}
+        motif="roofline"
+      >
+        <Link href="/consultation" className="dh-btn dh-btn-gold">
+          Plan a Garland consultation
+        </Link>
+        <Link href="/programs" className="dh-btn dh-btn-light-outline">
+          Explore homebuyer programs
+        </Link>
+      </PageHeader>
+
+      <Band tone="white" aria-labelledby="search-heading">
+        <BandLead
+          eyebrow="Search preparation"
+          eyebrowIcon={Compass}
+          title="Define the search before touring homes"
+          titleId="search-heading"
+          lede="Garland is where Debra's practice is based and the community she can speak about in the most detail. Availability for a specific property or transaction is still confirmed with her directly."
+        />
+        <Features items={SEARCH_PREP} rule="teal" />
+      </Band>
+
+      <Band tone="teal" aria-labelledby="homes-heading">
+        <div className="dh-illus">
+          <div className="dh-lead dh-lead-flush">
+            <p className="dh-kicker">
+              <Home aria-hidden="true" />
+              What you&apos;ll be touring
+            </p>
+            <h2 id="homes-heading">The housing a Garland search puts in front of you</h2>
+            <p>
+              Attainable North Texas homes, more often than not. Knowing the shapes before you start means a first
+              Saturday of showings is about the specific house, not about learning what this market looks like.
+            </p>
+            <ul className="dh-chips">
+              {HOUSING_CHARACTER.map((item) => (
+                <li key={item}>
+                  <Home aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="dh-note">
+              No listing inventory is shown on this page. Live property availability comes from an approved MLS or IDX
+              provider with the required attribution and permissions.
+            </p>
           </div>
-        </Container>
-      </section>
+          <BrandMotif variant="roofline" className="dh-motif dh-illus-art" />
+        </div>
+      </Band>
 
-      <section className="bg-card py-14 md:py-20" aria-labelledby="homes-heading">
-        <Container>
-          <h2 id="homes-heading" className="font-serif text-3xl font-normal sm:text-4xl">North Texas housing visual direction</h2>
-          <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">Website and campaign imagery for this market should present attainable homes that look believable for Garland and the broader Dallas–Fort Worth region.</p>
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {["One-story brick and ranch-style homes", "Two-story suburban brick homes", "Brick-and-stone facades", "Modest starter homes and townhomes", "Garages and driveways common to North Texas", "Flat or gently graded streets with realistic Texas landscaping"].map((item) => <li key={item} className="border-l-4 border-accent bg-muted p-5 text-sm font-medium">{item}</li>)}
-          </ul>
-          <p className="mt-6 text-sm leading-6 text-muted-foreground">No listing inventory is fabricated on this page. Live property availability must come from an approved MLS or IDX provider with the required attribution and permissions.</p>
-        </Container>
-      </section>
+      <Band tone="page" aria-labelledby="programs-heading">
+        <BandLead
+          eyebrow="Programs and the local search"
+          eyebrowIcon={ClipboardCheck}
+          title="Connect the location to your homebuyer path"
+          titleId="programs-heading"
+          lede="A program changes how an offer is structured and what has to be confirmed before it. Here is where each one meets a Garland search."
+        />
+        <Features items={PROGRAM_PATHS} rule="green" />
+      </Band>
 
-      <section className="py-14 md:py-20" aria-labelledby="programs-heading">
-        <Container>
-          <h2 id="programs-heading" className="font-serif text-3xl font-normal sm:text-4xl">Connect the location to your homebuyer path</h2>
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
-            <article className="border border-border bg-card p-7"><h3 className="font-sans text-xl font-semibold">Using NACA?</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">Understand how Debra supports the search, offer, inspection, and closing process while NACA controls official program requirements.</p><Link href="/programs/naca" className="mt-5 inline-block py-1 font-semibold text-primary hover:underline">Explore NACA homebuyer help →</Link></article>
-            <article className="border border-border bg-card p-7"><h3 className="font-sans text-xl font-semibold">A community hero?</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">Build a buying, selling, or coordinated move plan without unsupported promises about eligibility, savings, rebates, or provider status.</p><Link href="/programs/homes-for-heroes" className="mt-5 inline-block py-1 font-semibold text-primary hover:underline">Explore Homes for Heroes guidance →</Link></article>
+      <Band tone="alt" aria-labelledby="garland-faq-heading">
+        <div className="dh-split dh-split-wide-copy">
+          <div className="dh-split-copy">
+            <p className="dh-kicker">
+              <MessageCircleQuestion aria-hidden="true" />
+              Garland questions
+            </p>
+            <h2 id="garland-faq-heading">Answers without made-up market data</h2>
+            <p>
+              Where a question needs a lender, an inspector, an attorney or a program office, the answer says so instead
+              of guessing on their behalf.
+            </p>
           </div>
-        </Container>
-      </section>
+          <QaList items={faqs} />
+        </div>
+      </Band>
 
-      <section className="border-y border-border bg-muted/50 py-14 md:py-20" aria-labelledby="garland-faq-heading">
-        <Container className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
-          <div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">Garland questions</p><h2 id="garland-faq-heading" className="mt-3 font-serif text-3xl font-normal sm:text-4xl">Answers without made-up market data</h2></div>
-          <div className="border-t border-border">{faqs.map((faq) => <details key={faq.question} className="border-b border-border py-5"><summary className="cursor-pointer list-none font-semibold">{faq.question}</summary><p className="mt-3 text-sm leading-6 text-muted-foreground">{faq.answer}</p></details>)}</div>
-        </Container>
-      </section>
+      <CtaBand
+        eyebrow="Garland and the metroplex"
+        title="Start the Garland conversation with a real question"
+        titleId="garland-cta-heading"
+        body="Bring a street, a budget, a program, or the thing that has been stopping you. Debra will tell you what the next step is — and what it isn't."
+        image={CLOSING_BAND_IMAGE}
+      >
+        <Link href="/consultation" className="dh-btn dh-btn-gold">
+          Plan a Garland consultation
+        </Link>
+        <Link href="/areas" className="dh-btn dh-btn-light-outline">
+          All area guides
+        </Link>
+      </CtaBand>
     </>
   )
 }

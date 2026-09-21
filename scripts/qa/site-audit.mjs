@@ -39,8 +39,13 @@ const VIEWPORTS = [
 /** Pages that get full visual + responsive QA. */
 const VISUAL_ROUTES = [
   "/",
+  "/homes",
+  "/areas",
   "/resources",
   "/calculators",
+  "/first-time-buyers",
+  "/faq",
+  "/programs/naca",
   "/blog",
   "/blog/naca-homebuying-dallas-fort-worth",
   "/blog/homes-for-heroes-north-texas",
@@ -78,6 +83,14 @@ const FORBIDDEN_TEXT = [
   "TODO",
   "TBD",
   "Active MLS Feed Integration Point",
+  // Internal product and publishing language. These are real decisions, but
+  // they are decisions *about* the site; a visitor reading a page about buying
+  // a house should never be shown the content strategy behind it.
+  "doorway pages",
+  "require verification and original content",
+  "visual direction",
+  "answer engines",
+  "local-content focus",
 ]
 
 /** Approved assets that must actually render on the routes that use them. */
@@ -88,6 +101,50 @@ const REQUIRED_IMAGES = {
     "daffordable-homes-official-logo",
   ],
 }
+
+/**
+ * Brand-presence contract.
+ *
+ * The audit used to pass a site that was structurally perfect and visually
+ * dead: near-white end to end, with the palette present only as text and
+ * border values. Structure cannot see that, so this measures it instead —
+ * painted area, in CSS pixels, of every element whose background resolves to
+ * an approved brand colour, expressed as a percentage of one viewport.
+ *
+ * The floors are deliberately modest. They are a regression guard against a
+ * page drifting back to an unpainted document, not a design grade.
+ */
+const BRAND_RGB = {
+  navy: ["rgb(16, 43, 78)", "rgb(11, 30, 56)", "rgb(23, 64, 111)", "rgb(22, 58, 99)", "rgb(27, 71, 122)"],
+  teal: ["rgb(7, 119, 131)", "rgb(5, 97, 107)", "rgb(24, 169, 180)", "rgb(10, 140, 153)"],
+  green: ["rgb(102, 173, 69)", "rgb(77, 135, 51)"],
+  gold: ["rgb(191, 146, 45)", "rgb(230, 189, 85)"],
+  alt: ["rgb(237, 243, 242)"],
+}
+
+/**
+ * Minimum painted brand area per route, as a percentage of the rendered page.
+ *
+ * Article routes get a lower floor on purpose. A long-form guide is a reading
+ * surface: most of its height should be body copy on a calm background, and
+ * driving that number up would mean painting the thing people came to read.
+ * The masthead, the pull-outs and the closing band are where an article earns
+ * its brand, and that is what this floor protects.
+ */
+const MIN_BRAND_AREA = 20
+const MIN_BRAND_AREA_ARTICLE = 12
+const brandFloorFor = (route) => (route.startsWith("/blog/") ? MIN_BRAND_AREA_ARTICLE : MIN_BRAND_AREA)
+
+/** Every audited route must also show at least one decoded photograph or ornament. */
+const MIN_IMAGERY_ROUTES = [
+  "/",
+  "/homes",
+  "/areas",
+  "/about",
+  "/consultation",
+  "/contact",
+  "/blog",
+]
 
 /** Retired asset that must not reappear anywhere. */
 const RETIRED_ASSETS = ["dah-logo_ff042b7b", "manus-storage/dah-logo"]
@@ -192,7 +249,7 @@ async function main() {
     })
     await page.waitForTimeout(250)
 
-    const data = await page.evaluate(() => {
+    const data = await page.evaluate((brandRgb) => {
       const canonical = document.querySelector('link[rel="canonical"]')?.getAttribute("href") ?? null
       const jsonLd = [...document.querySelectorAll('script[type="application/ld+json"]')]
         .map((node) => {
@@ -276,6 +333,51 @@ async function main() {
         alt: img.getAttribute("alt"),
         loading: img.getAttribute("loading"),
       }))
+      /* ---- painted brand area ----------------------------------------
+         What share of the rendered page is actually painted in an approved
+         brand colour, rather than left near-white.
+
+         Two things this has to get right, because an earlier version of it
+         got both wrong. Nested fields are counted once — a navy band whose
+         children also resolve to navy is one painted area, not four — by
+         dropping any matched element that has a matched ancestor. And the
+         denominator is the whole rendered page (viewport width x document
+         height), not one viewport, so the number is a percentage that means
+         the same thing on a short page and a long one. */
+      const brandArea = (() => {
+        const wanted = new Set(Object.values(brandRgb).flat())
+        const matched = []
+        for (const el of document.querySelectorAll("body *")) {
+          const bg = getComputedStyle(el).backgroundColor
+          if (wanted.has(bg)) matched.push([el, bg])
+        }
+        const matchedSet = new Set(matched.map(([el]) => el))
+        const byColour = {}
+        let total = 0
+        for (const [el, bg] of matched) {
+          let ancestor = el.parentElement
+          let nested = false
+          while (ancestor) {
+            if (matchedSet.has(ancestor)) { nested = true; break }
+            ancestor = ancestor.parentElement
+          }
+          if (nested) continue
+          const rect = el.getBoundingClientRect()
+          if (rect.width <= 0 || rect.height <= 0) continue
+          const area = rect.width * rect.height
+          total += area
+          for (const [name, values] of Object.entries(brandRgb)) {
+            if (values.includes(bg)) byColour[name] = (byColour[name] ?? 0) + area
+          }
+        }
+        const pageArea = window.innerWidth * document.documentElement.scrollHeight
+        const pct = (value) => (pageArea > 0 ? Math.round((value / pageArea) * 1000) / 10 : 0)
+        return {
+          total: pct(total),
+          byColour: Object.fromEntries(Object.entries(byColour).map(([k, v]) => [k, pct(v)])),
+        }
+      })()
+
       return {
         canonical,
         jsonLd,
@@ -289,11 +391,13 @@ async function main() {
         nestedInteractive,
         visibleText,
         images,
+        brandArea,
+        ornaments: document.querySelectorAll("svg.dh-motif").length,
         title: document.title,
         description:
           document.querySelector('meta[name="description"]')?.getAttribute("content") ?? null,
       }
-    })
+    }, BRAND_RGB)
 
     for (const link of data.links) internalLinks.add(link.split(/[?#]/)[0])
 
@@ -307,6 +411,26 @@ async function main() {
       `${route} shows no placeholder copy`,
       foundPlaceholders.join(", "),
     )
+
+    /* ---- the brand is painted, not merely declared ----
+       Measured at the crawl context's fixed 1440x900 viewport. */
+    const brandFloor = brandFloorFor(route)
+    record(
+      data.brandArea.total >= brandFloor,
+      `${route} paints enough brand area`,
+      `${data.brandArea.total}% of the page (floor ${brandFloor}%) — ${JSON.stringify(data.brandArea.byColour)}`,
+    )
+    notes.push(`${route} brand area: ${data.brandArea.total}% ${JSON.stringify(data.brandArea.byColour)}`)
+
+    /* ---- every page shows something, not just type ---- */
+    if (MIN_IMAGERY_ROUTES.includes(route)) {
+      const decoded = data.images.filter((img) => img.naturalWidth > 0).length
+      record(
+        decoded + data.ornaments > 0,
+        `${route} carries imagery or brand ornament`,
+        `${decoded} photographs, ${data.ornaments} ornaments`,
+      )
+    }
 
     /* ---- broken images ---- */
     const brokenImages = data.images.filter((img) => img.naturalWidth === 0)

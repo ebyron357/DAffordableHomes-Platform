@@ -12,6 +12,42 @@ Canonical register for approved public-site imagery. Debra Allen's photographs m
 The hero was downloaded on 2026-07-20. Pexels permits free website and commercial promotional use; the site does not imply that the pictured family endorses D'Affordable Homes.
 
 
+## Placement module
+
+`apps/web/lib/content/imagery.ts` is this register expressed as code. Pages
+compose with a named placement (`DEBRA_PORTRAIT`, `DEBRA_DESK`,
+`DEBRA_DESK_MASTHEAD`, `DEBRA_DESK_BAND`, `DEBRA_LIFESTYLE`, `HERO_FAMILY`)
+instead of typing a path and an `objectPosition` by hand. That is what stopped
+the same photograph carrying one safe crop on one route and a clipped one on
+fourteen others.
+
+The desk photograph has three placements because the frame shape decides how
+much `cover` throws away:
+
+| Placement | Frame | `object-position` | Measured top crop |
+| --- | --- | --- | --- |
+| `DEBRA_DESK` | 3:4 upright | `50% 30%` | 0% |
+| `DEBRA_DESK_MASTHEAD` | 4:3 masthead | `50% 22%` | 9.6% |
+| `DEBRA_DESK_BAND` | full-bleed closing band (~1440×515) | `50% 14%` | 10.5% |
+
+The top of her head sits about 14.7% down this source, measured against the
+rendered page. The band previously used the upright 30%, which removed 22% off
+the top and clipped her hair on every route carrying a closing band.
+`scripts/qa/face-safety.mjs` now measures this at 1440, 1024, 768, 430 and 375
+and fails above a 12% ceiling.
+
+## Unregistered assets still served
+
+Five Manus-era images remain in `apps/web/public/manus-storage/`. Four are
+still referenced — `hero-family_b1fab939.jpg`, `couple-consultation_25d3a592.jpg`
+and `home-keys-moment_20083d77.jpg` by `/start` and two seed articles, and
+`neighborhood-community_101d8dfe.jpg` by `/neighborhoods`. None has a recorded
+source, photographer or licence. They are not removed here because removing
+imagery the owner may have licensed is not a visual-pass decision; they are
+listed so the gap is visible. **Owner action: confirm provenance and licence for
+each, or approve replacement.** The retired `dah-logo_ff042b7b.png` glyph
+remains barred from every route and the audit fails if it reappears.
+
 ## Rendering rules
 
 These apply to every registered asset and are enforced by

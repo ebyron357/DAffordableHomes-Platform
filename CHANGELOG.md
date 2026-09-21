@@ -2,6 +2,68 @@
 
 All notable repository changes are documented here.
 
+## 2026-09-21
+
+### Interior visual system
+
+- Added a `.dh-*` interior composition layer (`app/globals.css`) plus
+  `components/page/editorial.tsx` and `components/page/brand-motif.tsx`: painted
+  bands, editorial splits on brand plates, icon-supported pathway rows, numbered
+  process, designed status strips, image-led closing bands.
+- Rebuilt the shared masthead as a two-column field. The right column carries an
+  approved photograph or the brand's architectural linework, so no interior
+  route opens with half its first viewport empty.
+- Rebuilt `/homes`, `/areas`, `/areas/garland`, `/programs`, `/programs/*`,
+  `/about`, `/calculators`, `/consultation`, `/contact`, `/faq`,
+  `/first-time-buyers`, `/neighborhoods`, `/events`, `/market-reports`,
+  `/testimonials` and the `/blog` tail on that system. Content and every honesty
+  constraint are unchanged; the presentation is not.
+- `/homes` no longer presents the no-MLS state as a warning panel in an empty
+  page. The MLS truth is verbatim, inside a composition with the four actions
+  that genuinely exist and the DFW market list.
+- Homepage Buy/Sell pathways: removed the `01`/`02` numbering, added icon
+  badges, benefit highlights, layered brand fields and ornament.
+- Homepage closing band is left-aligned with a directional scrim; centred copy
+  over a centred subject had required a scrim heavy enough to silhouette Debra.
+- Footer brand bands (homepage and interior) moved off white onto the brand's
+  soft green-gray, with the logo on a designed plate and a third column of
+  verified local facts where the empty middle used to be.
+- `/start` moved off its divergent palette (`#0B1F33` navy, `#C9A227` gold,
+  `#06B6D4` turquoise, `#F7F2E8` beige) onto the approved brand values. Painted
+  brand area on that route went from 8.2% to 46.6%.
+- Removed internal product and publishing language from public pages
+  ("doorway pages", "local-content focus", "visual direction", "answer engines").
+
+### Imagery
+
+- Added `lib/content/imagery.ts`: the image register expressed as code. Pages
+  compose with a named placement rather than a hand-typed `objectPosition`.
+- Fixed the closing-band crop. The band used the upright-frame `50% 30%`, which
+  removed 22% off the top of the source and clipped the top of Debra's head on
+  every route carrying one. The band placement is now `50% 14%`, and the
+  masthead placement `50% 22%`. Worst measured top crop across all placements
+  and all five breakpoints: 22.4% → 10.5%.
+- `/consultation` masthead now carries a registered asset.
+
+### QA
+
+- `scripts/qa/site-audit.mjs` measures painted brand area per route as a share
+  of the rendered page, counting each field once, and fails below a floor —
+  20% for content routes, 12% for long-form articles. Added `/homes`, `/areas`,
+  `/first-time-buyers`, `/faq` and `/programs/naca` to the visual routes, and
+  added internal-language strings to the forbidden-copy list.
+- Added `scripts/qa/face-safety.mjs` (`npm run qa:faces`): computes the rendered
+  crop of every Debra placement at 1440/1024/768/430/375 and fails above a 12%
+  top crop.
+- `scripts/check-contrast.mjs` (`npm run qa:contrast`) now covers every brand
+  pair in the interior system and on `/start`, and exits non-zero on a failure.
+  It caught three real defects: gold on teal (4.02:1, unfixable in that pairing
+  — teal surfaces now use white), and two icon badges at 3.81:1 and 4.41:1.
+- Added `tests/static/interior-visual-system.test.mjs` (9 tests) asserting the
+  masthead's second column, painted fields per brand colour, required icons,
+  designed status states, absence of internal language, the `/start` palette,
+  the register's crop rules and reduced-motion handling.
+
 ## 2026-09-20
 
 - Consolidated one preview candidate: the Figma `11:4` homepage (PR #27) as the visual base, with the Sanity CMS / security / SEO closeout (PR #21) and the `/start` conversion landing (PR #26) merged on top and conflicts resolved by hand.

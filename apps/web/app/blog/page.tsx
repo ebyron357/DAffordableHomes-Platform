@@ -1,7 +1,10 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { BadgeCheck, Calculator, ClipboardCheck, Compass, MapPin, Route, ShieldCheck } from "lucide-react"
 
 import { BlogImage } from "@/components/blog/blog-image"
+import { Band, BandLead, CtaBand, Features } from "@/components/page/editorial"
+import { CLOSING_BAND_IMAGE } from "@/lib/content/imagery"
 import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
 import { formatArticleDate } from "@/lib/blog/format"
@@ -40,12 +43,40 @@ export const metadata: Metadata = {
   },
 }
 
-const nextStepLinks = [
-  { href: "/first-time-buyers", label: "First-time buyer roadmap", detail: "Understand the sequence before you start touring homes." },
-  { href: "/programs", label: "Homebuyer programs", detail: "Learn what program information to verify before applying." },
-  { href: "/calculators", label: "Planning calculators", detail: "Test monthly-payment and cash-to-close scenarios." },
-  { href: "/areas/garland", label: "Garland area guide", detail: "Explore a local starting point with practical questions in view." },
-]
+const NEXT_STEP_LINKS = [
+  {
+    href: "/first-time-buyers",
+    title: "First-time buyer roadmap",
+    body: "Understand the sequence before you start touring homes, so nothing arrives as a surprise at the worst moment.",
+    icon: Route,
+    tone: "teal" as const,
+    action: "Walk the sequence",
+  },
+  {
+    href: "/programs",
+    title: "Homebuyer programs",
+    body: "Learn what program information to verify before applying, and which decisions stay with the program itself.",
+    icon: ClipboardCheck,
+    tone: "navy" as const,
+    action: "Compare programs",
+  },
+  {
+    href: "/calculators",
+    title: "Planning calculators",
+    body: "Test monthly-payment and cash-to-close scenarios with your own numbers instead of a rule of thumb.",
+    icon: Calculator,
+    tone: "gold" as const,
+    action: "Run the numbers",
+  },
+  {
+    href: "/areas/garland",
+    title: "Garland area guide",
+    body: "A local starting point, with the practical questions a Garland search actually turns on.",
+    icon: MapPin,
+    tone: "green" as const,
+    action: "Open the guide",
+  },
+] as const
 
 /** Publication line shared by the lead article and the cards. */
 function ArticleMeta({ article, showAuthor }: { article: ArticleSummary; showAuthor?: boolean }) {
@@ -288,53 +319,69 @@ export default async function BlogIndexPage() {
         </>
       )}
 
-      <section className="border-t border-border bg-card py-14 md:py-20" aria-labelledby="continue-planning-heading">
-        <Container>
-          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-                Continue planning
-              </p>
-              <h2 id="continue-planning-heading" className="mt-3 font-serif text-[30px] leading-tight sm:text-[36px]">
-                Turn a useful answer into a clear next step.
-              </h2>
-            </div>
-            <nav aria-label="Related homebuyer resources" className="grid gap-3 sm:grid-cols-2">
-              {nextStepLinks.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="rounded-xl border border-border bg-background p-5 transition-colors hover:border-primary hover:bg-muted/40 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-                >
-                  <span className="block text-base font-semibold text-foreground">{item.label}</span>
-                  <span className="mt-2 block text-sm leading-relaxed text-muted-foreground">{item.detail}</span>
-                </Link>
-              ))}
-            </nav>
-          </div>
-        </Container>
-      </section>
+      <Band tone="alt" aria-labelledby="continue-planning-heading">
+        <BandLead
+          eyebrow="Continue planning"
+          eyebrowIcon={Compass}
+          title="Turn a useful answer into a clear next step"
+          titleId="continue-planning-heading"
+          lede="A guide is only worth reading if something changes afterwards. These are the four places a guide usually points."
+        />
+        <Features items={NEXT_STEP_LINKS} rule="gold" />
+      </Band>
 
-      <section className="border-t border-border bg-muted/50 py-14" aria-labelledby="editorial-standard">
-        <Container className="grid gap-8 md:grid-cols-3 md:gap-12">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-              Answer-first
+      <Band tone="teal" tight aria-labelledby="editorial-standard">
+        <div className="dh-split dh-split-wide-copy">
+          <div className="dh-split-copy">
+            <p className="dh-kicker">
+              <ShieldCheck aria-hidden="true" />
+              How these guides are written
             </p>
-            <h2 id="editorial-standard" className="mt-3 font-serif text-[26px] leading-tight">
-              Built for people and search systems
-            </h2>
+            <h2 id="editorial-standard">Answers first, and nothing invented</h2>
           </div>
-          <p className="leading-[1.7] text-muted-foreground">
-            Clear questions, concise answers, meaningful headings, visible authorship, reviewed
-            dates, and structured data help readers and answer engines understand each page.
-          </p>
-          <p className="leading-[1.7] text-muted-foreground">
-            No fabricated statistics, rankings, affiliations, testimonials, rebates, or approval
-            promises. Program decisions stay with the organizations responsible for them.
-          </p>
-        </Container>
-      </section>
+          <ul className="dh-checklist">
+            <li>
+              <BadgeCheck aria-hidden="true" />
+              <span>
+                <strong>You can see who wrote it and when</strong>
+                Every guide carries an author and a reviewed date, so you know whether it is being kept current.
+              </span>
+            </li>
+            <li>
+              <BadgeCheck aria-hidden="true" />
+              <span>
+                <strong>No invented numbers</strong>
+                No fabricated statistics, rankings, affiliations, testimonials, rebates or approval promises. If a
+                figure is not verified, it is not published.
+              </span>
+            </li>
+            <li>
+              <BadgeCheck aria-hidden="true" />
+              <span>
+                <strong>Decisions stay where they belong</strong>
+                Program rules stay with the program, lending stays with your lender, and each guide says so rather than
+                guessing on their behalf.
+              </span>
+            </li>
+          </ul>
+        </div>
+      </Band>
+
+      <CtaBand
+        eyebrow="After the reading"
+        title="Bring the question the guide didn't answer"
+        titleId="blog-cta-heading"
+        body="Guides cover the general case. Your situation has specifics in it — that is exactly the conversation Debra is for."
+        image={CLOSING_BAND_IMAGE}
+      >
+        <Link href="/consultation" className="dh-btn dh-btn-gold">
+          Book a consultation
+        </Link>
+        <Link href="/start" className="dh-btn dh-btn-light-outline">
+          Find your next step
+        </Link>
+      </CtaBand>
+
     </>
   )
 }

@@ -110,11 +110,65 @@ box is a placeholder on a live site, so:
 - **Featured listings** renders a designed empty state when no MLS/IDX feed is
   connected: the situation stated plainly plus the two actions that exist. It
   never renders a listing-shaped card with bracketed price and address.
-- **Footers** (homepage and interior) are composed brand band → navigation →
-  vendor credit → small compliance row. The brand band is white so the opaque
-  logo PNG sits flush; on the navy band it could only ever be presented on a
-  white card.
+- **Footers** (homepage and interior) are composed brand band → local column →
+  contact CTA → navigation → vendor credit → small compliance row. The logo is
+  an opaque PNG with no alpha, so it will always sit on white. Making the whole
+  band white to disguise that produced a mark apparently pasted onto a blank
+  card, with an empty middle column beside it. The band is now the brand's soft
+  green-gray and the plate is a designed sign with a gold rule under it.
+
+## Interior route visual system (`.dh-*`)
+
+The homepage composition did not extend past `/`. Interior routes were a navy
+masthead with type on the left and nothing on the right, then white boxes on
+near-white, each holding a heading, a paragraph and a button. Structurally
+correct and indistinguishable from a requirements document.
+
+The `.dh-*` layer in `app/globals.css` gives the interior the same vocabulary,
+using only the approved palette:
+
+- **Masthead** — two columns, always. The right column takes an approved
+  photograph or the brand's architectural linework (`components/page/brand-motif.tsx`),
+  so no route opens with half its first viewport empty. Navy field, teal wash,
+  gold rule beneath.
+- **Bands** — `page`, `white`, `alt`, `navy`, `teal`, `green`. A route
+  alternates fields rather than running near-white end to end.
+- **Splits** — a photograph and copy at equal weight, the photograph on an
+  offset teal or green plate so it reads as composition rather than a card
+  floating on white.
+- **Features** — icon-supported pathway rows. An icon is required by the type,
+  and it has to say what the thing *is*: a map pin for a place, a calculator for
+  a tool, a key for a purchase.
+- **Status strips** — where the site has to say a provider is not connected or
+  a fact is not verified. The words are unchanged; the shape is a brand-coloured
+  strip with a next action beside it rather than a warning panel adrift in an
+  empty page.
+- **Closing bands** — image-led, left-aligned, with a directional scrim. Centred
+  copy over a centred subject put the heading across Debra's face and needed a
+  scrim heavy enough to reduce her to a silhouette.
+
+### Ornament, not stock photography
+
+The approved register holds four photographs and three of them are Debra.
+Repeating one portrait across eighteen routes is the tiny-thumbnail treatment
+the brief rules out, and inventing city photography is fabrication. So the
+masthead's second column and the homepage pathways carry architectural linework
+— a North Texas roofline, the road from the mark, a key across a house. It says
+"residential real estate" at a glance and claims nothing. It is always
+`aria-hidden` and never stands in for a photograph in a content slot.
+
+### Measured, not asserted
+
+`scripts/qa/site-audit.mjs` measures painted brand area per route as a
+percentage of the rendered page, counting each field once, and fails below a
+floor (20% for content routes, 12% for long-form articles, which are reading
+surfaces). `scripts/qa/face-safety.mjs` computes the rendered crop of every
+Debra placement at all five breakpoints and fails if the top of a frame eats
+into her head. `scripts/check-contrast.mjs` holds every brand pair, including
+decorative icon badges, to 4.5:1.
 
 ## Controlled rollout
 
-The Figma homepage frame now governs the public homepage header, sections, and footer. Other routes retain the previous site chrome. Full-site rollout remains a separate approved implementation phase.
+The Figma homepage frame governs the public homepage header, sections and
+footer. Interior routes are composed from the `.dh-*` system above, which shares
+the homepage's palette and rhythm without copying its geometry.

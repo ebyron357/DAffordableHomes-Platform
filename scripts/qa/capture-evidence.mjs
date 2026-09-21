@@ -32,6 +32,9 @@ const OUT = path.resolve(argOf("out", "qa-evidence/visual"))
 /** Every route the owner review requires evidence for. */
 const ROUTES = [
   ["home", "/"],
+  ["homes", "/homes"],
+  ["areas", "/areas"],
+  ["first-time-buyers", "/first-time-buyers"],
   ["resources", "/resources"],
   ["calculators", "/calculators"],
   ["blog-index", "/blog"],
@@ -42,7 +45,9 @@ const ROUTES = [
   ["consultation", "/consultation"],
   ["start", "/start"],
   ["programs", "/programs"],
+  ["programs-naca", "/programs/naca"],
   ["areas-garland", "/areas/garland"],
+  ["faq", "/faq"],
   ["contact", "/contact"],
 ]
 
@@ -62,6 +67,11 @@ const FORBIDDEN_TEXT = [
   "Lorem ipsum",
   "field guide",
   "Field Guide",
+  // Internal product and publishing language. Mirrors scripts/qa/site-audit.mjs.
+  "doorway pages",
+  "local-content focus",
+  "visual direction",
+  "answer engines",
 ]
 
 const failures = []

@@ -185,7 +185,17 @@
 - [x] Establish canonical Figma foundations and controlled source screens
 - [x] Implement homepage, navigation, footer, calculator hub, affordability calculator, and consultation page
 - [x] Correct release-blocking semantic color and keyboard-focus contrast defects, including form and calculator utility overrides
+- [x] Extend the brand composition to every interior route (`.dh-*` system): painted
+      bands, two-column mastheads, editorial splits, icon-supported pathways and
+      designed status states in place of white boxes on near-white
+- [x] Bring `/start` onto the approved palette, retiring its divergent navy, gold,
+      turquoise and beige
+- [x] Make brand presence, face safety and colour contrast measurable release gates
+      rather than reviewer judgement (`qa:audit` painted-area floors, `qa:faces`,
+      `qa:contrast`)
 - [ ] Obtain final approval before any full-site visual rollout
+- [ ] Confirm provenance and licence for the five unregistered `manus-storage`
+      photographs, or approve replacements
 
 These items require a separate business and architecture decision before implementation:
 

@@ -50,6 +50,7 @@ test('approved photography remains wired to public pages', () => {
   const header = readFileSync('apps/web/components/layout/site-header.tsx', 'utf8');
   const footer = readFileSync('apps/web/components/layout/site-footer.tsx', 'utf8');
 
+  const imagery = readFileSync('apps/web/lib/content/imagery.ts', 'utf8');
   const figmaHome = readFileSync('apps/web/components/home/figma-home-page.tsx', 'utf8');
   const figmaHeader = readFileSync('apps/web/components/home/figma-home-header.tsx', 'utf8');
 
@@ -65,9 +66,16 @@ test('approved photography remains wired to public pages', () => {
   assert.match(figmaHome, /black-family-home-pexels-7114188\.webp/);
   assert.doesNotMatch(figmaHome, /Portrait Placeholder/);
   assert.doesNotMatch(figmaHome, /Photography Placeholder/);
-  assert.match(aboutPage, /debra-allen-advisor-desk\.webp/);
-  assert.match(aboutPage, /debra-allen-lifestyle-full-body\.webp/);
-  assert.match(consultation, /couple-consultation_25d3a592\.jpg/);
+  assert.match(aboutPage, /CLOSING_BAND_IMAGE/);
+  assert.match(aboutPage, /DEBRA_LIFESTYLE/);
+  assert.match(imagery, /debra-allen-lifestyle-full-body\.webp/);
+  // The consultation masthead now carries a registered asset, composed from the
+  // register module rather than a hand-typed path. The unregistered Manus-era
+  // stock photograph it used to show is still served elsewhere on the site and
+  // is called out in the report as an owner decision, but a page this central
+  // should not be the place it appears.
+  assert.match(imagery, /debra-allen-advisor-desk\.webp/);
+  assert.match(consultation, /DEBRA_DESK_MASTHEAD/);
   assert.match(neighborhoods, /neighborhood-community_101d8dfe\.jpg/);
   assert.match(footer, /TREC Information About Brokerage Services/);
 });

@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
+import Link from "next/link"
+import { MessageCircleQuestion } from "lucide-react"
 import { PageHeader } from "@/components/page/page-header"
-import { Section } from "@/components/page/section"
-import { FaqList } from "@/components/faq/faq-list"
-import { Button } from "@/components/ui/button"
+import { Band, CtaBand, QaList } from "@/components/page/editorial"
+import { CLOSING_BAND_IMAGE } from "@/lib/content/imagery"
 import { FAQ_GROUPS } from "@/lib/content/faq"
 
 export const metadata: Metadata = {
@@ -11,6 +12,9 @@ export const metadata: Metadata = {
     "Answers to common questions about getting started with homeownership, the homebuying process, and working with Debra Allen, REALTOR.",
   alternates: { canonical: "/faq" },
 }
+
+/** Each group alternates field so the page has rhythm rather than one long column. */
+const GROUP_TONES = ["white", "alt", "page"] as const
 
 export default function FaqPage() {
   const jsonLd = {
@@ -28,36 +32,50 @@ export default function FaqPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <PageHeader
         eyebrow="Common questions"
+        eyebrowIcon={MessageCircleQuestion}
         title="Questions are a good sign"
         intro="There is no wrong question here. If you don't see what you're looking for, you're always welcome to reach out."
         crumbs={[{ label: "Home", href: "/" }, { label: "FAQ" }]}
-      />
-      <Section>
-        <div className="mx-auto max-w-3xl">
-          <div className="flex flex-col gap-12">
-            {FAQ_GROUPS.map((group) => (
-              <div key={group.heading}>
-                <h2 className="font-serif text-2xl text-foreground">{group.heading}</h2>
-                <div className="mt-5">
-                  <FaqList items={group.items} />
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-12 rounded-2xl border border-border bg-muted/40 p-8 text-center">
-            <h2 className="font-serif text-2xl text-foreground">Still have a question?</h2>
-            <p className="mx-auto mt-3 max-w-md text-pretty leading-relaxed text-muted-foreground">
-              Reach out any time. There&apos;s no pressure and no obligation.
-            </p>
-            <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-              <Button href="/contact">Contact Debra</Button>
-              <Button href="/start" variant="outline">
-                Find Your Next Step
-              </Button>
+        motif="route"
+      >
+        <Link href="/contact" className="dh-btn dh-btn-gold">
+          Ask Debra directly
+        </Link>
+      </PageHeader>
+
+      {FAQ_GROUPS.map((group, index) => (
+        <Band
+          key={group.heading}
+          tone={GROUP_TONES[index % GROUP_TONES.length]}
+          aria-labelledby={`faq-group-${index}`}
+        >
+          <div className="dh-split dh-split-wide-copy">
+            <div className="dh-split-copy">
+              <p className="dh-kicker">
+                <MessageCircleQuestion aria-hidden="true" />
+                {`0${index + 1}`}
+              </p>
+              <h2 id={`faq-group-${index}`}>{group.heading}</h2>
             </div>
+            <QaList items={group.items} />
           </div>
-        </div>
-      </Section>
+        </Band>
+      ))}
+
+      <CtaBand
+        eyebrow="Still have a question?"
+        title="Ask it. There is no pressure and no obligation."
+        titleId="faq-cta-heading"
+        body="The questions people worry are too basic are usually the ones worth asking first. Debra would rather hear it now."
+        image={CLOSING_BAND_IMAGE}
+      >
+        <Link href="/contact" className="dh-btn dh-btn-gold">
+          Contact Debra
+        </Link>
+        <Link href="/start" className="dh-btn dh-btn-light-outline">
+          Find your next step
+        </Link>
+      </CtaBand>
     </>
   )
 }
