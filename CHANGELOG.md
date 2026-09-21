@@ -10,6 +10,10 @@ All notable repository changes are documented here.
 - Homepage copy: services, buyer and seller strategy points, knowledge cards and three section headings rewritten as specific Dallas–Fort Worth language; the claim of a "real-time MLS search" that the site does not have is gone.
 - The guided-quiz state machine is shared (`useGuidedQuiz`) by the homepage quiz and the interior Find Your Next Step check; funnel events flow through the existing analytics seam.
 
+### Homepage visual review
+
+- The "Find your homebuying path" section asked the same question twice, side by side: the section heading "Not sure what your next move in DFW should be?" and, an inch to its right, the panel title "What should your next move in Dallas–Fort Worth be?". The panel now says what the visitor is about to do instead of restating the question, and the question count and duration are stated once, in the list on the left, rather than three times across the section.
+
 ### Guide-card imagery and the unregistered-photograph audit
 
 - `featuredImage` is optional end to end (shared type, Sanity schema, blog index, article masthead, related cards, Open Graph and Article JSON-LD). An article without one renders `ArticlePlate` — brand field, architectural linework, the article's own category — and publishes no image property rather than asserting that an unrelated photograph depicts its subject. Setting the field in Sanity restores a photograph everywhere with no code change.

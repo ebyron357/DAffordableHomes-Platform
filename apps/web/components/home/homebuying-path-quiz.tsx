@@ -55,13 +55,17 @@ export function HomebuyingPathQuiz() {
   if (phase.kind === "intro") {
     return (
       <div className="fh-pathquiz-panel fh-pathquiz-enter" data-phase="intro">
-        <p className="fh-eyebrow">Five or six questions</p>
+        {/* The section heading beside this panel already asks "Not sure what
+            your next move in DFW should be?", so this title does not ask it
+            again in other words — it says what the visitor is about to do. The
+            question count and the minute live once, in the list on the left. */}
+        <p className="fh-eyebrow">Start here</p>
         <h3 ref={headingRef} tabIndex={-1} className="fh-pathquiz-title">
-          What should your next move in Dallas–Fort Worth be?
+          Tell Debra what you&rsquo;re planning.
         </h3>
         <p className="fh-pathquiz-copy">
-          Tell us what you are planning, where in DFW, and on what timeline. You get a specific next step, the guide or
-          tool that goes with it, and the option to have Debra review the plan. Nothing to sign up for.
+          Your goal, the part of Dallas–Fort Worth you have in mind, and your timeline. You get a specific next step,
+          the guide or tool that goes with it, and the option to have Debra review the plan. Nothing to sign up for.
         </p>
         <ul className="fh-pathquiz-chips" aria-label="The paths this quiz can identify">
           {PATH_ORDER.map((key) => (
@@ -72,7 +76,6 @@ export function HomebuyingPathQuiz() {
           <button type="button" className="fh-btn fh-btn-navy" onClick={start}>
             Find Your Homebuying Path <ArrowRight className="size-4" aria-hidden="true" />
           </button>
-          <span className="fh-pathquiz-hint">About one minute</span>
         </div>
       </div>
     )
