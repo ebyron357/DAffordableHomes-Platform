@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Check, House } from "lucide-react"
+import { ArrowRight, Check } from "lucide-react"
 import {
   FIGMA_BUYER_POINTS,
   FIGMA_CITIES,
@@ -19,17 +19,15 @@ import { FigmaHomeHeader } from "@/components/home/figma-home-header"
  * Approved homepage imagery.
  *
  * Provenance, licence, crop rule and alt text for each asset are recorded in
- * `docs/05-content/IMAGE_ASSET_REGISTER.md`. The `objectPosition` values below
- * are the register's crop rules, not free-hand choices: Debra's face has to
- * stay legible at every breakpoint, so her portrait is pinned at `48% center`.
+ * `docs/05-content/IMAGE_ASSET_REGISTER.md`. The `objectPosition` values are
+ * the register's crop rules, not free-hand choices: Debra's face has to stay
+ * whole at every breakpoint.
  */
 const HERO_IMAGE = {
   src: "/images/black-family-home-pexels-7114188.webp",
   alt: "A Black family of five holding hands together in a bright living room",
-  // The register calls for a centred crop that keeps all five people legible.
-  // The group sits slightly right of centre in the 3:2 source, so 52% is the
-  // value that actually centres *them* inside the near-square well; a literal
-  // 50% clips the father's shoulder at narrow widths.
+  // The five people sit slightly right of centre in the 3:2 source, so 52%
+  // centres *them*; a literal 50% clips the father's shoulder when narrow.
   objectPosition: "52% center",
 } as const
 
@@ -38,6 +36,27 @@ const DEBRA_PORTRAIT = {
   alt: "Debra Allen smiling in a yellow blazer at a kitchen counter",
   objectPosition: "48% center",
 } as const
+
+const DEBRA_DESK = {
+  src: "/images/debra-allen-advisor-desk.webp",
+  alt: "Debra Allen seated at her desk with a tablet",
+  objectPosition: "50% 30%",
+} as const
+
+/**
+ * Verified positioning qualifiers for the band under the hero.
+ *
+ * Deliberately not metrics. `lib/site.ts` keeps years of experience, families
+ * served and transaction counts `null` until verified, and the benchmark sites'
+ * big-number stat blocks are the one pattern this site cannot borrow. Each line
+ * below is a positioning fact the repository already asserts.
+ */
+const TRUST_MARKS = [
+  { label: "REALTOR®", detail: "Licensed residential representation" },
+  { label: "Garland + DFW", detail: "North Texas is the home market" },
+  { label: "Education first", detail: "You understand it before you sign it" },
+  { label: "No pressure", detail: "Guidance that matches your timeline" },
+] as const
 
 function formatPrice(value: number) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value)
@@ -54,7 +73,8 @@ export function FigmaHomePage({
     <div className="figma-home">
       <FigmaHomeHeader />
       <Hero />
-      <Services />
+      <TrustBand />
+      <Pathways />
       <MeetDebra />
       <Markets />
       <FeaturedListings listings={listings} />
@@ -66,145 +86,122 @@ export function FigmaHomePage({
   )
 }
 
+/**
+ * Hero.
+ *
+ * A navy field carrying the photograph at scale, rather than copy on near-white
+ * beside a small picture well. Two things drove the change: the first viewport
+ * has to read as this brand without the logo, and it has to read as residential
+ * real estate — a person, a home, a market, a next action.
+ *
+ * The eyebrow is the logo's own tagline. It is brand property already on the
+ * mark, so putting it in type costs nothing and says what the practice is for.
+ */
 function Hero() {
   return (
     <section className="fh-hero" aria-labelledby="figma-hero-heading">
-      <div className="fh-hero-grid">
+      <div className="fh-hero-inner">
         <div className="fh-hero-copy">
-          <div className="fh-hero-text">
-            <p className="fh-eyebrow">Dallas–Fort Worth Real Estate</p>
-            <h1 id="figma-hero-heading">Professional representation. Trusted guidance for your next move.</h1>
-            <p className="fh-lede">
-              Navigating the competitive DFW market doesn&apos;t have to be overwhelming. We pair premier local
-              real-estate expertise with accessible, approachable guidance so you can buy or sell with absolute
-              confidence.
-            </p>
-          </div>
+          <p className="fh-hero-tagline">Affordable · Accessible · Achievable</p>
+          <h1 id="figma-hero-heading">
+            Buying a home in <em>Dallas–Fort Worth</em>, with someone who explains it.
+          </h1>
+          <p className="fh-lede">
+            Debra Allen is a REALTOR® serving Garland and the wider DFW metroplex. She represents buyers and sellers
+            the same way she teaches: plainly, at your pace, and without pushing anyone toward a signature.
+          </p>
           <div className="fh-hero-actions">
-            <Link href={FIGMA_HOME_CTA.searchHomes.href} className="fh-btn fh-btn-navy">
-              {FIGMA_HOME_CTA.searchHomes.label}
-            </Link>
-            <Link href={FIGMA_HOME_CTA.startBuying.href} className="fh-btn fh-btn-teal">
-              {FIGMA_HOME_CTA.startBuying.label}
-            </Link>
-            <Link href={FIGMA_HOME_CTA.sellMyHome.href} className="fh-btn fh-btn-navy-outline">
-              {FIGMA_HOME_CTA.sellMyHome.label}
-            </Link>
-          </div>
-        </div>
-        <div className="fh-hero-right">
-          <div className="fh-hero-media">
-            <Image
-              src={HERO_IMAGE.src}
-              alt={HERO_IMAGE.alt}
-              fill
-              sizes="(max-width: 1100px) 150vw, 850px"
-              style={{ objectPosition: HERO_IMAGE.objectPosition }}
-              priority
-              className="fh-hero-image"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function Services() {
-  return (
-    <section className="fh-section fh-section-white fh-services" aria-labelledby="figma-services-heading">
-      <div className="fh-shell">
-        <div className="fh-section-intro">
-          <p className="fh-eyebrow">Our capabilities</p>
-          <h2 id="figma-services-heading">Professional pathways to match your goals</h2>
-        </div>
-        <ul className="fh-service-grid">
-          {FIGMA_SERVICES.map((service) => (
-            <li key={service.title}>
-              <article className="fh-service-card">
-                <div className="fh-icon-well" aria-hidden="true">
-                  <House className="size-6" />
-                </div>
-                <h3>{service.title}</h3>
-                <p>{service.body}</p>
-                <Link href={service.href} className="fh-text-link">
-                  Learn More <ArrowRight className="size-3.5" aria-hidden="true" />
-                </Link>
-              </article>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  )
-}
-
-function MeetDebra() {
-  return (
-    <section className="fh-meet" aria-labelledby="figma-debra-heading">
-      <div className="fh-shell fh-meet-grid">
-        <figure className="fh-meet-portrait">
-          <Image
-            src={DEBRA_PORTRAIT.src}
-            alt={DEBRA_PORTRAIT.alt}
-            fill
-            sizes="(max-width: 1100px) 140vw, 660px"
-            style={{ objectPosition: DEBRA_PORTRAIT.objectPosition }}
-            className="fh-meet-image"
-          />
-          <figcaption className="fh-portrait-plate">
-            <span>Your REALTOR&reg;</span>
-            <strong>Debra Allen</strong>
-          </figcaption>
-        </figure>
-        <div className="fh-meet-copy">
-          <div className="fh-meet-text">
-            <p className="fh-eyebrow">Your REALTOR® &amp; local guide</p>
-            <h2 id="figma-debra-heading">Guidance first, pressure never. Meet Debra Allen.</h2>
-            <p>
-              Debra Allen is a REALTOR® working with buyers and sellers across the Dallas–Fort Worth metroplex. She
-              built her practice around a simple idea: people make better decisions about a home when someone takes
-              the time to explain what is actually happening, and when nobody is pushing them toward a signature.
-            </p>
-            <p>
-              Whether you are buying your first home, moving the equity you have already built, or weighing a new
-              build, you get straight answers, the trade-offs laid out plainly, and a pace that matches your timeline
-              instead of somebody else&apos;s.
-            </p>
-          </div>
-          <div className="fh-meet-actions">
-            <Link href={FIGMA_HOME_CTA.aboutDebra.href} className="fh-btn fh-btn-navy">
-              {FIGMA_HOME_CTA.aboutDebra.label}
-            </Link>
-            <Link href={FIGMA_HOME_CTA.consultation.href} className="fh-btn fh-btn-teal">
+            <Link href={FIGMA_HOME_CTA.consultation.href} className="fh-btn fh-btn-gold">
               {FIGMA_HOME_CTA.consultation.label}
             </Link>
+            <Link href={FIGMA_HOME_CTA.startBuying.href} className="fh-btn fh-btn-teal-solid">
+              {FIGMA_HOME_CTA.startBuying.label}
+            </Link>
+            <Link href={FIGMA_HOME_CTA.searchHomes.href} className="fh-btn fh-btn-light-outline">
+              {FIGMA_HOME_CTA.searchHomes.label}
+            </Link>
           </div>
         </div>
+      </div>
+
+      <div className="fh-hero-media">
+        <Image
+          src={HERO_IMAGE.src}
+          alt={HERO_IMAGE.alt}
+          fill
+          sizes="(max-width: 1100px) 100vw, 46vw"
+          style={{ objectPosition: HERO_IMAGE.objectPosition }}
+          priority
+          className="fh-hero-image"
+        />
+        {/* Mobile only: the copy sits beneath the photo there, so a short
+            bottom fade carries the image into the navy panel. At desktop the
+            two are side by side and the photograph is shown unmodified. */}
+        <span className="fh-hero-fade" aria-hidden="true" />
       </div>
     </section>
   )
 }
 
-function Markets() {
+/** Teal band of verified qualifiers, bridging the hero into the page. */
+function TrustBand() {
   return (
-    <section className="fh-section fh-section-white fh-markets" aria-labelledby="figma-markets-heading">
+    <section className="fh-trust" aria-label="What this practice is">
+      <ul className="fh-shell fh-trust-list">
+        {TRUST_MARKS.map((mark) => (
+          <li key={mark.label}>
+            <strong>{mark.label}</strong>
+            <span>{mark.detail}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+/**
+ * Buying and selling as the two primary paths, on their own colour fields,
+ * with the remaining two services as a quieter row beneath. This replaces four
+ * equal-weight cards — the composition the design blueprint asked us to stop
+ * repeating, and the one that made the page read as a template.
+ */
+function Pathways() {
+  const [buy, sell, ...rest] = FIGMA_SERVICES
+
+  return (
+    <section className="fh-section fh-pathways" aria-labelledby="figma-services-heading">
       <div className="fh-shell">
         <div className="fh-section-intro fh-section-intro-left">
-          <p className="fh-eyebrow">Locations we serve</p>
-          <h2 id="figma-markets-heading">Serving the Dallas–Fort Worth Metroplex</h2>
-          <p className="fh-section-lede">
-            Garland is home base. These are the North Texas cities buyers most often ask about — start a search in any
-            of them, or open the Garland guide for a closer local read.
-          </p>
+          <p className="fh-eyebrow">Two ways in</p>
+          <h2 id="figma-services-heading">Whichever side of the move you are on</h2>
         </div>
-        <ul className="fh-market-list">
-          {FIGMA_CITIES.map((city) => (
-            <li key={city.name}>
-              <Link href={city.href} className="fh-market-row">
-                <span className="fh-market-name">{city.name}</span>
-                <span className="fh-market-county">{city.county}</span>
-                <ArrowRight className="size-4 fh-market-arrow" aria-hidden="true" />
+
+        <div className="fh-path-grid">
+          <article className="fh-path fh-path-buy">
+            <p className="fh-path-index" aria-hidden="true">01</p>
+            <h3>{buy.title}</h3>
+            <p>{buy.body}</p>
+            <Link href={buy.href} className="fh-btn fh-btn-light">
+              Start buying
+            </Link>
+          </article>
+          <article className="fh-path fh-path-sell">
+            <p className="fh-path-index" aria-hidden="true">02</p>
+            <h3>{sell.title}</h3>
+            <p>{sell.body}</p>
+            <Link href={sell.href} className="fh-btn fh-btn-light">
+              Talk about selling
+            </Link>
+          </article>
+        </div>
+
+        <ul className="fh-service-row">
+          {rest.map((service) => (
+            <li key={service.title}>
+              <Link href={service.href} className="fh-service-link">
+                <span className="fh-service-title">{service.title}</span>
+                <span className="fh-service-body">{service.body}</span>
+                <ArrowRight className="size-4 fh-service-arrow" aria-hidden="true" />
               </Link>
             </li>
           ))}
@@ -215,12 +212,113 @@ function Markets() {
 }
 
 /**
+ * Debra at the scale the benchmarks set for agent presence: a large portrait
+ * that is the composition rather than an inset beside it, with a navy panel
+ * carrying the copy and a gold rule tying it to the system.
+ */
+function MeetDebra() {
+  return (
+    <section className="fh-meet" aria-labelledby="figma-debra-heading">
+      <div className="fh-meet-grid">
+        <figure className="fh-meet-portrait">
+          <Image
+            src={DEBRA_PORTRAIT.src}
+            alt={DEBRA_PORTRAIT.alt}
+            fill
+            sizes="(max-width: 1100px) 100vw, 55vw"
+            style={{ objectPosition: DEBRA_PORTRAIT.objectPosition }}
+            className="fh-meet-image"
+          />
+        </figure>
+
+        <div className="fh-meet-panel">
+          <p className="fh-eyebrow fh-eyebrow-on-dark">Your REALTOR® &amp; local guide</p>
+          <h2 id="figma-debra-heading">Guidance first. Pressure never.</h2>
+          <p className="fh-meet-name">Debra Allen, REALTOR®</p>
+          <p>
+            Debra works with buyers and sellers across the Dallas–Fort Worth metroplex, and she built her practice
+            around one idea: people make better decisions about a home when somebody takes the time to explain what is
+            actually happening.
+          </p>
+          <p>
+            That means the trade-offs laid out plainly, the numbers tested before you fall for a house, and the parts
+            of the process that belong to a lender, an inspector or an attorney named as theirs. First home, moving
+            equity you have already built, or weighing a new build — the pace is yours.
+          </p>
+          <div className="fh-meet-actions">
+            <Link href={FIGMA_HOME_CTA.aboutDebra.href} className="fh-btn fh-btn-light">
+              {FIGMA_HOME_CTA.aboutDebra.label}
+            </Link>
+            <Link href={FIGMA_HOME_CTA.consultation.href} className="fh-btn fh-btn-gold-outline">
+              {FIGMA_HOME_CTA.consultation.label}
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/**
+ * Markets on a navy field with Garland pulled out as the home market.
+ *
+ * The supporting line is each city's county — a verifiable civic fact. The
+ * benchmark sites give each neighbourhood a character description; those are
+ * written from lived local knowledge, so inventing equivalents here would be
+ * exactly the fabrication the publishing standard forbids. Garland gets the
+ * feature treatment because it is the one market with a real guide behind it.
+ */
+function Markets() {
+  const garland = FIGMA_CITIES.find((city) => city.name === "Garland")
+  const others = FIGMA_CITIES.filter((city) => city.name !== "Garland")
+
+  return (
+    <section className="fh-section fh-markets" aria-labelledby="figma-markets-heading">
+      <div className="fh-shell">
+        <div className="fh-section-intro fh-section-intro-left fh-section-intro-dark">
+          <p className="fh-eyebrow fh-eyebrow-on-dark">Where we work</p>
+          <h2 id="figma-markets-heading">Garland, and the North Texas cities around it</h2>
+          <p className="fh-section-lede fh-section-lede-dark">
+            Start a search in any of these, or open the Garland guide for a closer local read.
+          </p>
+        </div>
+
+        <div className="fh-markets-grid">
+          {garland && (
+            <Link href={garland.href} className="fh-market-feature">
+              <span className="fh-market-feature-label">Home market</span>
+              <span className="fh-market-feature-name">{garland.name}</span>
+              <span className="fh-market-feature-county">{garland.county}, Texas</span>
+              <span className="fh-market-feature-cta">
+                Open the Garland guide <ArrowRight className="size-4" aria-hidden="true" />
+              </span>
+            </Link>
+          )}
+
+          <ul className="fh-market-list">
+            {others.map((city) => (
+              <li key={city.name}>
+                <Link href={city.href} className="fh-market-row">
+                  <span className="fh-market-name">{city.name}</span>
+                  <span className="fh-market-county">{city.county}</span>
+                  <ArrowRight className="size-4 fh-market-arrow" aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/**
  * Honest empty state for the listings band.
  *
  * PRODUCT_REQUIREMENTS.md forbids fabricated listings, and a card shaped like a
  * listing with bracketed text inside it is a fabricated listing with the mask
- * off. When no MLS/IDX feed is connected the section says so in plain language
- * and offers the two things that are actually available right now.
+ * off. When no MLS/IDX feed is connected the section says so plainly and offers
+ * the two things that are genuinely available.
  */
 function ListingsEmptyState({ reason, errored }: { reason: string; errored: boolean }) {
   return (
@@ -246,12 +344,12 @@ function FeaturedListings({ listings }: { listings: PropertySearchResult }) {
   const connected = listings.status === "connected" ? listings.listings.slice(0, 3) : []
 
   return (
-    <section className="fh-section fh-listings" aria-labelledby="figma-listings-heading">
+    <section className="fh-section fh-section-white fh-listings" aria-labelledby="figma-listings-heading">
       <div className="fh-shell">
         <div className="fh-listings-head">
           <div>
-            <p className="fh-eyebrow">Featured listings</p>
-            <h2 id="figma-listings-heading">Find Your Next Home</h2>
+            <p className="fh-eyebrow">Find a home</p>
+            <h2 id="figma-listings-heading">Homes across Dallas–Fort Worth</h2>
           </div>
           <Link href={FIGMA_HOME_CTA.searchAllHomes.href} className="fh-btn fh-btn-navy">
             {FIGMA_HOME_CTA.searchAllHomes.label}
@@ -291,12 +389,13 @@ function FeaturedListings({ listings }: { listings: PropertySearchResult }) {
   )
 }
 
+/** Buyer and seller strategy, each on its own brand field. */
 function GuidanceSplit() {
   return (
-    <section className="fh-section fh-section-white fh-guidance" aria-labelledby="figma-guidance-heading">
+    <section className="fh-section fh-guidance" aria-labelledby="figma-guidance-heading">
       <div className="fh-shell fh-split">
         <article className="fh-split-card fh-split-buyer">
-          <p className="fh-eyebrow">Buyer strategy</p>
+          <p className="fh-eyebrow fh-eyebrow-on-dark">Buyer strategy</p>
           <h2 id="figma-guidance-heading">Buying with absolute clarity</h2>
           <ul>
             {FIGMA_BUYER_POINTS.map((point) => (
@@ -306,7 +405,7 @@ function GuidanceSplit() {
               </li>
             ))}
           </ul>
-          <Link href={FIGMA_HOME_CTA.buyerResources.href} className="fh-btn fh-btn-teal">
+          <Link href={FIGMA_HOME_CTA.buyerResources.href} className="fh-btn fh-btn-light">
             {FIGMA_HOME_CTA.buyerResources.label}
           </Link>
         </article>
@@ -321,7 +420,7 @@ function GuidanceSplit() {
               </li>
             ))}
           </ul>
-          <Link href={FIGMA_HOME_CTA.homeValuation.href} className="fh-btn fh-btn-navy-outline">
+          <Link href={FIGMA_HOME_CTA.homeValuation.href} className="fh-btn fh-btn-navy">
             {FIGMA_HOME_CTA.homeValuation.label}
           </Link>
         </article>
@@ -333,25 +432,20 @@ function GuidanceSplit() {
 /**
  * Knowledge section.
  *
- * The top of this section is the CMS: the three newest published articles,
- * read through the same `listArticles()` path as /blog. Publishing a guide in
- * the Studio changes the homepage with no code change and no deploy, which is
- * what keeps the site from reading as a page that was built once and left.
+ * The top is the CMS: the three newest published articles, read through the
+ * same `listArticles()` path as /blog. Publishing a guide in the Studio changes
+ * the homepage with no code change and no deploy, which is what keeps the site
+ * from reading as something built once and left.
  *
- * Underneath it, the evergreen planning destinations stay in the repository.
- * They are effectively navigation — stable, reviewed, and not something an
- * editor should have to maintain as content.
- *
- * When the CMS has nothing to show (a fresh dataset, or an outage that left
- * this instance with no cached response), the section renders the evergreen
- * links alone rather than an empty shelf.
+ * The evergreen planning destinations below stay in the repository — they are
+ * effectively navigation, not content an editor should maintain.
  */
 function KnowledgeBase({ articles }: { articles: ArticleSummary[] }) {
   return (
     <section className="fh-section fh-knowledge" aria-labelledby="figma-knowledge-heading">
       <div className="fh-shell">
         <div className="fh-section-intro fh-section-intro-left">
-          <p className="fh-eyebrow">Knowledge base</p>
+          <p className="fh-eyebrow">Learn before you commit</p>
           <h2 id="figma-knowledge-heading">Empower your decisions</h2>
         </div>
 
@@ -405,9 +499,20 @@ function KnowledgeBase({ articles }: { articles: ArticleSummary[] }) {
   )
 }
 
+/** Image-led closing band: the desk portrait under a navy scrim. */
 function FinalCta() {
   return (
     <section className="fh-final" aria-labelledby="figma-final-heading">
+      <Image
+        src={DEBRA_DESK.src}
+        alt=""
+        aria-hidden="true"
+        fill
+        sizes="100vw"
+        style={{ objectPosition: DEBRA_DESK.objectPosition }}
+        className="fh-final-image"
+      />
+      <span className="fh-final-scrim" aria-hidden="true" />
       <div className="fh-final-inner">
         <p className="fh-eyebrow fh-eyebrow-on-dark">Ready to take the next step?</p>
         <h2 id="figma-final-heading">Let’s build a clear, pressure-free path to homeownership</h2>
@@ -416,14 +521,11 @@ function FinalCta() {
           it is not — so you can decide with the whole picture in front of you.
         </p>
         <div className="fh-final-actions">
-          <Link href={FIGMA_HOME_CTA.consultation.href} className="fh-btn fh-btn-light">
+          <Link href={FIGMA_HOME_CTA.consultation.href} className="fh-btn fh-btn-gold">
             {FIGMA_HOME_CTA.consultation.label}
           </Link>
-          <Link href={FIGMA_HOME_CTA.startBuying.href} className="fh-btn fh-btn-gold-outline">
+          <Link href={FIGMA_HOME_CTA.startBuying.href} className="fh-btn fh-btn-light-outline">
             {FIGMA_HOME_CTA.startBuying.label}
-          </Link>
-          <Link href={FIGMA_HOME_CTA.searchHomes.href} className="fh-btn fh-btn-light-outline">
-            {FIGMA_HOME_CTA.searchHomes.label}
           </Link>
         </div>
       </div>

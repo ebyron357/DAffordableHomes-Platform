@@ -137,18 +137,69 @@ test("the homepage footer keeps compliance reachable and subordinate", () => {
   assert.doesNotMatch(css, /\.fh-footer-logo \{[^}]*background:/);
 });
 
-test("the page still wires the honest listings provider and the Figma composition", () => {
-  const page = read("apps/web/app/page.tsx");
-  const home = read("apps/web/components/home/figma-home-page.tsx");
-  const css = read("apps/web/app/globals.css");
+test("the page still wires the honest listings provider and the brand composition", () => {
+  const page = readFileSync("apps/web/app/page.tsx", "utf8");
+  const home = readFileSync("apps/web/components/home/figma-home-page.tsx", "utf8");
+  const css = readFileSync("apps/web/app/globals.css", "utf8");
 
   assert.match(page, /FigmaHomePage/);
   assert.match(page, /searchListings/);
-  assert.match(home, /Professional representation\. Trusted guidance for your next move/);
-  assert.match(home, /Meet Debra Allen/);
+  // Hero headline, Debra's section and the market section are the three
+  // narrative anchors the homepage is not allowed to lose.
+  assert.match(home, /Buying a home in <em>Dallas–Fort Worth<\/em>, with someone who explains it\./);
+  assert.match(home, /Guidance first\. Pressure never\./);
+  assert.match(home, /Debra Allen, REALTOR®/);
   assert.doesNotMatch(home, /Studio Clarity/);
   assert.doesNotMatch(home, /NC &amp; SC|North Carolina|South Carolina/);
-  // Figma frame geometry is retained.
+  // The 1440 content lock from the Figma frame is retained.
   assert.match(css, /width: 1440px/);
-  assert.match(css, /height: 680px/);
+});
+
+test("the brand is painted, not merely declared", () => {
+  const css = readFileSync("apps/web/app/globals.css", "utf8");
+
+  // A painted-area audit of the previous build measured teal, bright teal,
+  // green and gold at zero painted area anywhere on the homepage: every one
+  // existed only as a text or border value. These assert each brand colour is
+  // used as a *field* or a structural rule somewhere in the homepage block,
+  // which is the difference between declaring the palette and showing it.
+  const fh = css.slice(css.indexOf("/* ====="), css.indexOf("/* Find Your Next Step"));
+
+  assert.match(fh, /\.fh-hero \{[^}]*background: var\(--fh-navy\)/, "hero is a navy field");
+  assert.match(fh, /\.fh-trust \{[^}]*background: var\(--fh-teal\)/, "trust band is a teal field");
+  assert.match(fh, /\.fh-path-buy \{ background: var\(--fh-teal\); \}/, "buyer path is a teal field");
+  assert.match(fh, /\.fh-path-sell \{ background: var\(--fh-navy\); \}/, "seller path is a navy field");
+  assert.match(fh, /\.fh-meet \{ background: var\(--fh-navy\); \}/, "Debra sits on a navy field");
+  assert.match(fh, /\.fh-markets \{ background: var\(--fh-navy-deep\); \}/, "markets is a navy field");
+  assert.match(fh, /\.fh-market-feature \{[^}]*background: var\(--fh-teal\)/, "home market is a teal field");
+  // Green and gold are structural rules rather than fields, per the brand doc.
+  assert.match(fh, /border-bottom: 4px solid var\(--fh-green\)/, "green carries a structural rule");
+  assert.match(fh, /border-top: 4px solid var\(--fh-green\)/, "green marks the seller pathway");
+  assert.match(fh, /border-bottom: 3px solid var\(--fh-gold\)/, "gold carries a divider");
+  assert.match(fh, /\.fh-btn-gold \{ background: var\(--fh-gold\)/, "gold carries the primary CTA on dark");
+  assert.match(fh, /--fh-teal-bright: #18a9b4/);
+});
+
+test("interior routes carry the brand too", () => {
+  const header = readFileSync("apps/web/components/page/page-header.tsx", "utf8");
+  const blog = readFileSync("apps/web/app/blog/page.tsx", "utf8");
+  const article = readFileSync("apps/web/components/blog/article-header.tsx", "utf8");
+  const calculators = readFileSync("apps/web/app/calculators/page.tsx", "utf8");
+  const css = readFileSync("apps/web/app/globals.css", "utf8");
+
+  // The shared masthead is navy by default, which brands every interior route
+  // that uses it rather than leaving them near-white end to end.
+  assert.match(header, /tone = "navy"/);
+  assert.match(header, /navy: \{\s*section: "border-b-4 border-brand-gold bg-primary"/);
+  assert.match(blog, /border-b-4 border-brand-gold bg-primary/);
+  assert.match(article, /border-b-4 border-brand-gold bg-primary/);
+  assert.match(calculators, /border-b-4 border-brand-gold bg-primary/);
+  // The resources action block is a teal field, not a near-white tool list.
+  assert.match(css, /\.resource-steps \{[^}]*background: var\(--color-accent\)/);
+
+  // Eyebrow colour is chosen with a tone, because `cn` is a plain joiner and a
+  // colour passed via className does not override the base one.
+  const eyebrow = readFileSync("apps/web/components/ui/eyebrow.tsx", "utf8");
+  assert.match(eyebrow, /tone = "accent"/);
+  assert.match(eyebrow, /gold: "text-\[#e6bd55\]"/);
 });

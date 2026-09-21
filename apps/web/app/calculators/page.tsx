@@ -29,13 +29,13 @@ const SECONDARY = [
 export default function CalculatorHubPage() {
   return (
     <>
-      <section className="border-b border-border py-16 md:py-24">
+      <section className="border-b-4 border-brand-gold bg-primary py-16 md:py-24">
         <Container>
-          <p className="text-sm font-semibold uppercase tracking-widest text-accent">Homebuyer calculators</p>
-          <h1 className="mt-4 max-w-4xl font-serif text-4xl leading-tight sm:text-5xl">
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#e6bd55]">Homebuyer calculators</p>
+          <h1 className="mt-4 max-w-4xl font-serif text-4xl leading-tight text-white sm:text-5xl">
             Plan with real numbers before you make a move.
           </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-[#dbe6ef]">
             Use these estimates to explore tradeoffs and prepare better questions for a lender or advisor. Results are planning estimates—not approvals or loan offers.
           </p>
         </Container>

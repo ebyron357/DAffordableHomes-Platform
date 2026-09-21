@@ -152,7 +152,7 @@ function CategoryRail({ articles }: { articles: ArticleSummary[] }) {
       {categories.map((category) => (
         <li
           key={category.slug}
-          className="rounded-full border border-border bg-background px-4 py-1.5 text-[13px] font-medium text-muted-foreground"
+          className="rounded-full border border-white/35 px-4 py-1.5 text-[13px] font-medium text-[#c4d4e2]"
         >
           {category.title}
         </li>
@@ -198,25 +198,27 @@ export default async function BlogIndexPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd).replace(/</g, "\\u003c") }}
       />
-      <header className="border-b border-border bg-card">
+      {/* Navy masthead: the blog is a publishing surface for this brand, and it
+          should look like it before a single article is read. */}
+      <header className="border-b-4 border-brand-gold bg-primary">
         <Container className="py-14 md:py-20">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#e6bd55]">
             Homebuyer guides
           </p>
           <div className="mt-6 grid gap-10 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
-            <h1 className="max-w-[16ch] font-serif text-[44px] leading-[1.04] sm:text-[62px] lg:text-[72px]">
+            <h1 className="max-w-[16ch] font-serif text-[44px] leading-[1.04] text-white sm:text-[62px] lg:text-[72px]">
               Clear answers for the decisions ahead.
             </h1>
             <div>
-              <p className="max-w-[46ch] text-[18px] leading-[1.65] text-muted-foreground">
+              <p className="max-w-[46ch] text-[18px] leading-[1.65] text-[#dbe6ef]">
                 Practical North Texas guidance to help you understand the process, prepare with
                 confidence, and know what to ask next.
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <Button href="/consultation" size="lg">
+                <Button href="/consultation" size="lg" className="!bg-brand-gold !text-[#16110a] hover:!bg-[#e6bd55]">
                   Book consultation
                 </Button>
-                <Button href="/calculators" variant="outline" size="lg">
+                <Button href="/calculators" variant="outline" size="lg" className="!border-white/70 !text-white hover:!bg-white/10">
                   Use the calculators
                 </Button>
               </div>

@@ -268,30 +268,44 @@
 }
 
 /* =============================================================================
- * Homepage — Figma frame 11:4 composition, approved brand palette.
+ * Homepage.
  *
- * The composition, spacing and section order come from the Figma frame. The
- * colours are the approved logo-derived system in docs/02-brand/VISUAL_SYSTEM.md
- * rather than the frame's warm-cream screen tokens, so the homepage reads as
- * D'Affordable Homes and not as a second, parallel palette. Navy stays the
- * trust anchor; teal, green and gold are accents that support it.
+ * Composition, spacing and section order descend from Figma frame 11:4; the
+ * palette is the approved logo-derived system in docs/02-brand/VISUAL_SYSTEM.md.
+ *
+ * This block was rebuilt after a painted-area audit of the previous version
+ * measured the problem rather than guessing at it: near-white, white and
+ * green-gray together outweighed navy roughly 18:1, teal / bright teal /
+ * green / gold had *zero* painted area anywhere on the page (they existed only
+ * as text and border values), and photography occupied 6.1% of the homepage.
+ * A page can satisfy every colour token in the brand doc and still not look
+ * like the brand. The fix is field colour and image scale, not more variables:
+ *
+ *   - Hero, Meet Debra, Markets and the closing band are navy or teal fields.
+ *   - The trust band is dark teal; the buyer path is teal, the seller path
+ *     green, and gold carries rules, eyebrows and the primary CTA on dark.
+ *   - Near-white and green-gray are the breathing room *between* those fields
+ *     rather than the substance of the page.
+ *   - The hero photograph and Debra's portrait are compositions, not insets.
  *
  * Scoped to .figma-home so interior routes are untouched.
  * ============================================================================= */
 .figma-home {
-  --fh-page: #f7f9f8;          /* near-white page background */
-  --fh-alt: #edf3f2;           /* soft green-gray alternate surface */
-  --fh-navy: #102b4e;          /* deep navy — nav, headings, primary buttons */
+  --fh-page: #f7f9f8;          /* near-white — breathing room between fields */
+  --fh-alt: #edf3f2;           /* soft green-gray — quiet alternate surface */
+  --fh-navy: #102b4e;          /* deep navy — the trust anchor */
+  --fh-navy-deep: #0b1e38;     /* navy, one step down, for layered fields */
   --fh-navy-hover: #17406f;
   --fh-body: #10233f;          /* navy foreground for body copy */
-  --fh-teal: #077783;          /* dark teal — accessible links and secondary */
-  --fh-teal-bright: #18a9b4;   /* bright teal — decorative accents only */
-  --fh-green: #66ad45;         /* progress green — milestones, supporting */
-  --fh-gold: #bf922d;          /* warm gold — restrained signature accent */
-  --fh-buyer: #edf3f2;
-  --fh-seller: #f7f9f8;
+  --fh-teal: #077783;          /* dark teal — major supporting field colour */
+  --fh-teal-deep: #05616b;
+  --fh-teal-bright: #18a9b4;   /* bright teal — energy, links, indicators */
+  --fh-green: #66ad45;         /* progress green — the seller/progress field */
+  --fh-green-deep: #4d8733;    /* accessible green for text on light */
+  --fh-gold: #bf922d;          /* warm gold — rules, labels, CTA on dark */
+  --fh-gold-light: #e6bd55;    /* lightened gold, 4.5:1 on navy */
   --fh-border: #cbd7d6;
-  --fh-muted: #52616f;         /* muted slate — secondary body text */
+  --fh-muted: #52616f;
   --fh-white: #ffffff;
   background: var(--fh-page);
   color: var(--fh-body);
@@ -310,70 +324,77 @@
   color: var(--fh-teal);
   font-family: var(--font-sans);
   font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   line-height: 1.25;
   text-transform: uppercase;
 }
+.fh-eyebrow-on-dark { color: var(--fh-gold-light); }
 
-.fh-eyebrow-on-dark { color: var(--fh-gold); }
-
+/* ------------------------------------------------------------------ buttons */
 .fh-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 46px;
-  padding: 14px 28px;
+  min-height: 48px;
+  padding: 14px 26px;
   border-radius: 6px;
   font-family: var(--font-sans);
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1;
   text-decoration: none;
   white-space: nowrap;
+  transition: background-color .18s ease, color .18s ease, border-color .18s ease;
 }
-
 .fh-btn-navy { background: var(--fh-navy); color: var(--fh-white); border: 1px solid var(--fh-navy); }
 .fh-btn-navy:hover { background: var(--fh-navy-hover); }
-.fh-btn-teal { background: transparent; color: var(--fh-teal); border: 1px solid var(--fh-teal); }
-.fh-btn-teal:hover { background: var(--fh-alt); }
 .fh-btn-navy-outline { background: transparent; color: var(--fh-navy); border: 1px solid var(--fh-navy); }
 .fh-btn-navy-outline:hover { background: var(--fh-alt); }
+.fh-btn-teal { background: transparent; color: var(--fh-teal); border: 1px solid var(--fh-teal); }
+.fh-btn-teal:hover { background: var(--fh-alt); }
+.fh-btn-teal-solid { background: var(--fh-teal); color: var(--fh-white); border: 1px solid var(--fh-teal); }
+.fh-btn-teal-solid:hover { background: var(--fh-teal-deep); }
+/* Gold at brand value carries navy text at ~7:1 — the strongest CTA on a dark
+   field, and the one place gold is allowed to be a surface rather than a rule. */
+.fh-btn-gold { background: var(--fh-gold); color: #16110a; border: 1px solid var(--fh-gold); }
+.fh-btn-gold:hover { background: var(--fh-gold-light); }
+.fh-btn-gold-outline { background: transparent; color: var(--fh-gold-light); border: 1px solid var(--fh-gold-light); }
+.fh-btn-gold-outline:hover { background: rgba(230,189,85,.14); }
 .fh-btn-light { background: var(--fh-white); color: var(--fh-navy); border: 1px solid var(--fh-white); }
-.fh-btn-light:hover { background: var(--fh-page); }
-.fh-btn-light-outline { background: transparent; color: var(--fh-white); border: 1px solid var(--fh-white); }
-.fh-btn-light-outline:hover { background: rgba(255,255,255,.08); }
-/* Gold at its brand value is ~4.5:1 on navy — fine for a border, marginal for
-   button text. The outlined CTA on the navy band uses a lightened gold for the
-   label so the control clears 4.5:1 while the border keeps the brand value. */
-.fh-btn-gold-outline { background: transparent; color: #e6bd55; border: 1px solid #e6bd55; }
-.fh-btn-gold-outline:hover { background: rgba(191,146,45,.16); }
+.fh-btn-light:hover { background: var(--fh-alt); }
+.fh-btn-light-outline { background: transparent; color: var(--fh-white); border: 1px solid rgba(255,255,255,.7); }
+.fh-btn-light-outline:hover { background: rgba(255,255,255,.12); border-color: var(--fh-white); }
 .fh-btn-block { width: 100%; }
+
 .figma-home a:focus-visible,
 .figma-home button:focus-visible {
   outline: 2px solid var(--fh-navy);
   outline-offset: 3px;
   box-shadow: 0 0 0 5px var(--fh-gold);
 }
+.fh-hero a:focus-visible,
+.fh-meet-panel a:focus-visible,
+.fh-markets a:focus-visible,
 .fh-final a:focus-visible,
 .fh-footer a:focus-visible {
-  outline-color: var(--fh-gold);
+  outline-color: var(--fh-gold-light);
+  box-shadow: 0 0 0 5px rgba(16,43,78,.9);
 }
 
 .fh-text-link {
   display: inline-flex;
   align-items: center;
-  min-height: 24px; /* WCAG 2.2 SC 2.5.8 target size; no visible change */
+  min-height: 24px;
   gap: 8px;
   color: var(--fh-teal);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
 }
 .fh-text-link:hover { text-decoration: underline; text-underline-offset: 3px; }
 
-/* The header sits on white; a gold hairline under it ties the chrome to the
-   brand without adding a second border weight. */
+/* ------------------------------------------------------------------- header */
 .fh-header {
   position: relative;
   z-index: 40;
@@ -399,8 +420,6 @@
   color: var(--fh-navy);
   text-decoration: none;
 }
-/* Approved logo: 640×427 source, shown at a fixed height with width:auto so it
-   is never stretched. 66px fits the 94px Figma header with 14px breathing room. */
 .fh-logo {
   display: block;
   height: 74px;
@@ -422,11 +441,9 @@
   padding: 8px 0;
   color: var(--fh-body);
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   text-decoration: none;
 }
-/* Active and hover share one brand treatment: teal label over a teal underline
-   rule, so the state is carried by more than colour alone. */
 .fh-desktop-nav a::after {
   content: "";
   position: absolute;
@@ -461,301 +478,304 @@
 .fh-mobile-menu ul { list-style: none; margin: 0 0 20px; padding: 0; }
 .fh-mobile-menu a { display: block; padding: 15px 0; color: var(--fh-navy); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--fh-border); }
 .fh-mobile-menu a[aria-current="page"] { color: var(--fh-teal); box-shadow: inset 3px 0 0 var(--fh-teal); padding-left: 12px; }
-/* The menu's Search Homes CTA reuses .fh-btn-navy; the rule above would otherwise
-   win on specificity and paint navy text on the navy button. */
 .fh-mobile-menu a.fh-btn { display: inline-flex; padding: 14px 28px; border-bottom: 0; color: var(--fh-white); }
 
-.fh-hero { background: var(--fh-page); }
-.fh-hero-grid {
+/* --------------------------------------------------------------------- hero */
+/* A split: solid navy field carrying the copy, and the photograph beside it at
+   full clarity. The first version washed the photo under a near-opaque scrim
+   so the copy would clear contrast — which made the family almost invisible
+   and left the picture doing no visual work. Separating the two means the navy
+   is genuinely a field and the photograph is genuinely a photograph, with no
+   overlay on it at desktop at all. */
+.fh-hero {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 640px);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   align-items: stretch;
-  min-height: 680px;
-}
-.fh-hero-copy {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 32px;
-  padding: 80px 24px;
-}
-.fh-hero-text { display: flex; flex-direction: column; gap: 20px; max-width: 660px; }
-.fh-hero-copy h1 {
-  margin: 0;
-  max-width: 660px;
-  color: var(--fh-navy);
-  font-family: var(--font-serif);
-  font-size: 52px;
-  font-weight: 700;
-  line-height: 1.15;
-}
-.fh-lede {
-  margin: 0;
-  max-width: 660px;
-  color: var(--fh-body);
-  font-size: 18px;
-  line-height: 1.6;
-}
-.fh-hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
-.fh-hero-right {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 24px;
-}
-/* The approved hero photograph fills the well; the frame defines the ratio and
-   the image covers it, so it is never stretched. The gold rule below the frame
-   is the one signature accent in the first viewport. */
-.fh-hero-media {
-  position: relative;
-  width: 100%;
-  max-width: 548px;
-  min-height: 420px;
-  aspect-ratio: 548 / 560;
-  overflow: hidden;
-  border-radius: 12px;
-  background: var(--fh-alt);
-  box-shadow: 0 -4px 0 0 var(--fh-gold) inset;
-}
-.fh-hero-image { object-fit: cover; }
-.fh-hero-media::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 6px;
-  background: linear-gradient(90deg, var(--fh-navy) 0 34%, var(--fh-teal) 34% 68%, var(--fh-gold) 68% 100%);
-}
-
-.fh-section { padding: 100px 0; }
-.fh-section-white { background: var(--fh-white); }
-.fh-section-intro { display: flex; flex-direction: column; gap: 16px; margin-bottom: 56px; }
-/* Left-aligned variant for sections that read as editorial rows rather than a
-   centred card wall. */
-.fh-section-intro-left { align-items: flex-start; max-width: 720px; }
-.fh-section-intro-left .fh-eyebrow,
-.fh-section-intro-left h2 { text-align: left !important; }
-.fh-section-lede { margin: 0; color: var(--fh-muted); font-size: 17px; line-height: 1.65; }
-.fh-section-intro h2,
-.fh-meet-copy h2,
-.fh-split-card h2,
-.fh-final h2,
-.fh-listings-head h2 {
-  margin: 0;
-  color: var(--fh-navy);
-  font-family: var(--font-serif);
-  font-weight: 600;
-  line-height: 1.2;
-}
-.fh-section-intro h2,
-.fh-listings-head h2 { font-size: 42px; text-align: center; }
-.fh-section-intro .fh-eyebrow { text-align: center; }
-
-.fh-service-grid,
-.fh-listing-grid,
-.fh-knowledge-grid {
-  display: grid;
-  gap: 24px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.fh-service-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.fh-service-card,
-.fh-knowledge-card {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 32px;
-  border: 1px solid var(--fh-border);
-  border-radius: 12px;
-  background: var(--fh-page);
-}
-.fh-service-card .fh-text-link,
-.fh-knowledge-card .fh-text-link {
-  margin-top: auto;
-}
-.fh-icon-well {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 8px;
-  background: var(--fh-alt);
-  color: var(--fh-teal);
-  box-shadow: inset 0 0 0 1px rgba(7, 119, 131, .22);
-}
-.fh-service-card h3,
-.fh-knowledge-card h3 {
-  margin: 24px 0 0;
-  color: var(--fh-navy);
-  font-family: var(--font-serif);
-  font-size: 24px;
-  font-weight: 600;
-}
-.fh-service-card p { margin: 12px 0 24px; font-size: 15px; line-height: 1.5; }
-
-.fh-meet { background: var(--fh-alt); padding: 120px 0; }
-.fh-meet-grid {
-  display: grid;
-  grid-template-columns: minmax(240px, 440px) minmax(0, 1fr);
-  gap: 80px;
-  align-items: center;
-}
-/* Debra's portrait frame.
-   `object-position: 48% center` is the crop rule recorded in the image asset
-   register and is applied inline by the component, so her face stays inside
-   the frame at every width. The frame is 4:5 and the image covers it — at no
-   breakpoint is the crop allowed to take the top of her head. */
-.fh-meet-portrait {
-  position: relative;
-  width: 100%;
-  min-height: 420px;
-  aspect-ratio: 440 / 520;
-  margin: 0;
-  overflow: hidden;
-  border-radius: 12px;
-  background: var(--fh-white);
-}
-.fh-meet-image { object-fit: cover; }
-/* Navy name plate: ties the portrait to the brand and states the role in the
-   same glance as the face. */
-.fh-portrait-plate {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  max-width: 260px;
-  padding: 16px 22px;
   background: var(--fh-navy);
-  color: var(--fh-white);
-  border-top: 3px solid var(--fh-gold);
+  overflow: hidden;
 }
-.fh-portrait-plate span {
-  color: #9fd9de;
+.fh-hero-inner {
+  display: flex;
+  align-items: center;
+  padding: 104px 56px 96px max(24px, calc((100vw - 1440px) / 2 + 24px));
+}
+.fh-hero-media { position: relative; min-height: 560px; }
+.fh-hero-image { object-fit: cover; }
+/* No overlay at desktop; the mobile rule below turns this on. */
+.fh-hero-fade { display: none; }
+.fh-hero-copy { display: flex; flex-direction: column; gap: 22px; max-width: 620px; }
+.fh-hero-tagline {
+  margin: 0;
+  color: var(--fh-gold-light);
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
 }
-.fh-portrait-plate strong {
+.fh-hero-copy h1 {
+  margin: 0;
+  color: var(--fh-white);
   font-family: var(--font-serif);
-  font-size: 22px;
+  font-size: clamp(40px, 4.6vw, 62px);
   font-weight: 600;
-  line-height: 1.15;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
 }
-.fh-meet-copy { display: flex; flex-direction: column; gap: 32px; max-width: 736px; }
-.fh-meet-text { display: flex; flex-direction: column; gap: 20px; }
-.fh-meet-copy h2 { font-size: 40px; line-height: 1.1; }
-.fh-meet-copy p { margin: 0; font-size: 16px; line-height: 1.6; }
-.fh-meet-copy .fh-eyebrow { margin: 0; }
-.fh-meet-actions { display: flex; flex-wrap: wrap; gap: 16px; }
+.fh-hero-copy h1 em { font-style: normal; color: #7fd8e0; }
+.fh-lede {
+  margin: 0;
+  max-width: 58ch;
+  color: #dbe6ef;
+  font-size: 18px;
+  line-height: 1.65;
+}
+.fh-hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 6px; }
 
-/* Markets as an editorial two-column list.
-   This replaced eight photo cards whose image wells had nothing licensed to put
-   in them. Rows carry real civic context (the county), read as a maintained
-   local practice, and remove a card wall the blueprint asked us to stop
-   repeating. */
+/* -------------------------------------------------------------- trust band */
+.fh-trust { background: var(--fh-teal); color: var(--fh-white); border-bottom: 3px solid var(--fh-gold); }
+.fh-trust-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding-top: 26px;
+  padding-bottom: 26px;
+}
+.fh-trust-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 4px 28px;
+  border-left: 1px solid rgba(255,255,255,.28);
+}
+.fh-trust-list li:first-child { border-left: 0; padding-left: 0; }
+.fh-trust-list strong { font-family: var(--font-sans); font-size: 16px; font-weight: 700; letter-spacing: .01em; }
+.fh-trust-list span { color: rgba(255,255,255,.86); font-size: 14px; line-height: 1.45; }
+
+/* ----------------------------------------------------------------- sections */
+.fh-section { padding: 96px 0; }
+.fh-section-white { background: var(--fh-white); }
+.fh-section-intro { display: flex; flex-direction: column; gap: 14px; margin-bottom: 48px; }
+.fh-section-intro-left { align-items: flex-start; max-width: 740px; }
+.fh-section-intro h2 {
+  margin: 0;
+  color: var(--fh-navy);
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 3.4vw, 44px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+}
+.fh-section-intro-dark h2 { color: var(--fh-white); }
+.fh-section-lede { margin: 0; color: var(--fh-muted); font-size: 17px; line-height: 1.65; }
+.fh-section-lede-dark { color: #c4d4e2; }
+
+/* ----------------------------------------------------------------- pathways */
+.fh-pathways { background: var(--fh-page); }
+.fh-path-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.fh-path {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  min-height: 340px;
+  padding: 40px;
+  border-radius: 12px;
+  color: var(--fh-white);
+}
+.fh-path-buy { background: var(--fh-teal); }
+.fh-path-sell { background: var(--fh-navy); }
+.fh-path-index {
+  margin: 0;
+  color: var(--fh-gold-light);
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.fh-path h3 { margin: 0; font-family: var(--font-serif); font-size: 30px; font-weight: 600; line-height: 1.15; }
+.fh-path p { margin: 0 0 auto; max-width: 46ch; color: rgba(255,255,255,.9); font-size: 16px; line-height: 1.6; }
+
+.fh-service-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 48px;
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 2px solid var(--fh-gold);
+}
+.fh-service-row li { border-bottom: 1px solid var(--fh-border); }
+.fh-service-link {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr) 20px;
+  align-items: baseline;
+  gap: 8px 24px;
+  padding: 22px 4px 22px 0;
+  color: var(--fh-navy);
+  text-decoration: none;
+}
+.fh-service-title { font-family: var(--font-serif); font-size: 21px; font-weight: 600; white-space: nowrap; }
+.fh-service-body { color: var(--fh-muted); font-size: 14px; line-height: 1.55; }
+.fh-service-arrow { align-self: center; color: var(--fh-teal); transition: transform .18s ease; }
+.fh-service-link:hover { background: var(--fh-alt); }
+.fh-service-link:hover .fh-service-title { color: var(--fh-teal); text-decoration: underline; text-underline-offset: 4px; }
+.fh-service-link:hover .fh-service-arrow { transform: translateX(3px); }
+
+/* ---------------------------------------------------------------- meet debra */
+/* Debra's portrait is the composition, not an inset beside it. The frame is
+   4:5 at desktop and the image covers it from `48% center` — the crop rule in
+   the image register — so her face stays whole at every width. */
+.fh-meet { background: var(--fh-navy); }
+.fh-meet-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  align-items: stretch;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.fh-meet-portrait {
+  position: relative;
+  margin: 0;
+  min-height: 620px;
+  overflow: hidden;
+}
+.fh-meet-image { object-fit: cover; }
+.fh-meet-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  justify-content: center;
+  padding: 88px 92px 88px 72px;
+  background: var(--fh-navy);
+  color: #dbe6ef;
+  border-left: 4px solid var(--fh-gold);
+}
+.fh-meet-panel h2 {
+  margin: 0;
+  color: var(--fh-white);
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 3.4vw, 46px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+.fh-meet-name {
+  margin: 0;
+  color: #7fd8e0;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.fh-meet-panel p { margin: 0; max-width: 56ch; font-size: 16px; line-height: 1.7; }
+.fh-meet-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; }
+
+/* ------------------------------------------------------------------ markets */
+.fh-markets { background: var(--fh-navy-deep); }
+.fh-markets-grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 48px; align-items: start; }
+.fh-market-feature {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 36px;
+  border-radius: 12px;
+  background: var(--fh-teal);
+  color: var(--fh-white);
+  text-decoration: none;
+  border-bottom: 4px solid var(--fh-green);
+}
+.fh-market-feature:hover { background: var(--fh-teal-deep); }
+.fh-market-feature-label {
+  color: var(--fh-gold-light);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.fh-market-feature-name { font-family: var(--font-serif); font-size: 44px; font-weight: 600; line-height: 1.05; }
+.fh-market-feature-county { color: rgba(255,255,255,.88); font-size: 15px; }
+.fh-market-feature-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.fh-market-feature:hover .fh-market-feature-cta { text-decoration: underline; text-underline-offset: 4px; }
+
 .fh-market-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 56px;
+  column-gap: 48px;
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 1px solid var(--fh-border);
+  border-top: 1px solid rgba(255,255,255,.22);
 }
-.fh-market-list li { border-bottom: 1px solid var(--fh-border); }
+.fh-market-list li { border-bottom: 1px solid rgba(255,255,255,.22); }
 .fh-market-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto 20px;
   align-items: baseline;
-  gap: 16px;
+  gap: 14px;
   min-height: 44px;
-  padding: 20px 4px 20px 0;
-  color: var(--fh-navy);
+  padding: 18px 4px 18px 0;
+  color: var(--fh-white);
   text-decoration: none;
 }
-.fh-market-name { font-family: var(--font-serif); font-size: 24px; font-weight: 600; line-height: 1.2; }
-.fh-market-county { color: var(--fh-muted); font-size: 14px; }
-.fh-market-arrow { align-self: center; color: var(--fh-teal); transition: transform .18s ease; }
-.fh-market-row:hover { background: var(--fh-alt); }
-.fh-market-row:hover .fh-market-name { color: var(--fh-teal); text-decoration: underline; text-underline-offset: 4px; }
+.fh-market-name { font-family: var(--font-serif); font-size: 23px; font-weight: 600; line-height: 1.2; }
+.fh-market-county { color: #a9c0d3; font-size: 13px; }
+.fh-market-arrow { align-self: center; color: var(--fh-teal-bright); transition: transform .18s ease; }
+.fh-market-row:hover { background: rgba(255,255,255,.06); }
+.fh-market-row:hover .fh-market-name { color: #7fd8e0; text-decoration: underline; text-underline-offset: 4px; }
 .fh-market-row:hover .fh-market-arrow { transform: translateX(3px); }
-@media (prefers-reduced-motion: reduce) {
-  .fh-market-arrow { transition: none; }
-  .fh-market-row:hover .fh-market-arrow { transform: none; }
-}
 
-.fh-listings { background: var(--fh-page); }
+/* ----------------------------------------------------------------- listings */
+.fh-listings { background: var(--fh-white); }
 .fh-listings-head {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 24px;
-  margin-bottom: 56px;
+  margin-bottom: 40px;
 }
-.fh-listings-head > div { display: flex; flex-direction: column; gap: 16px; }
-.fh-listings-head .fh-eyebrow,
-.fh-listings-head h2 { text-align: left; }
-.fh-listing-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.fh-listing-card {
-  overflow: hidden;
-  border: 1px solid var(--fh-border);
-  border-radius: 12px;
-  background: var(--fh-white);
-}
-.fh-listing-photo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 260px;
-  padding: 24px;
-  background: var(--fh-alt);
-}
-.fh-listing-body { display: flex; flex-direction: column; gap: 16px; padding: 20px 24px 24px; }
-.fh-listing-copy { display: flex; flex-direction: column; gap: 6px; }
-.fh-listing-price {
-  margin: 0;
-  color: var(--fh-teal);
-  font-family: var(--font-sans);
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 1.2;
-}
-.fh-listing-address {
+.fh-listings-head > div { display: flex; flex-direction: column; gap: 14px; }
+.fh-listings-head h2 {
   margin: 0;
   color: var(--fh-navy);
   font-family: var(--font-serif);
-  font-size: 20px;
+  font-size: clamp(30px, 3vw, 42px);
   font-weight: 600;
+  line-height: 1.12;
 }
-.fh-listing-meta { margin: 0; color: var(--fh-body); font-size: 14px; }
-.fh-listing-stats {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin: 0;
-  padding-top: 16px;
-  border-top: 1px solid var(--fh-border);
-  font-size: 14px;
-}
-/* Designed empty state for the listings band. No fabricated cards, no
-   bracketed price or address — a stated fact and the two actions that are
-   genuinely available while no MLS/IDX feed is connected. */
+.fh-listing-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; list-style: none; margin: 0; padding: 0; }
+.fh-listing-card { overflow: hidden; border: 1px solid var(--fh-border); border-radius: 12px; background: var(--fh-white); }
+.fh-listing-photo { display: flex; align-items: center; justify-content: center; height: 260px; background: var(--fh-alt); }
+.fh-listing-body { display: flex; flex-direction: column; gap: 16px; padding: 20px 24px 24px; }
+.fh-listing-copy { display: flex; flex-direction: column; gap: 6px; }
+.fh-listing-price { margin: 0; color: var(--fh-teal); font-size: 22px; font-weight: 700; line-height: 1.2; }
+.fh-listing-address { margin: 0; color: var(--fh-navy); font-family: var(--font-serif); font-size: 20px; font-weight: 600; }
+.fh-listing-meta { margin: 0; color: var(--fh-muted); font-size: 14px; }
+.fh-listing-stats { display: flex; justify-content: space-between; gap: 12px; margin: 0; padding-top: 16px; border-top: 1px solid var(--fh-border); font-size: 14px; }
+
+/* Designed empty state. No fabricated cards, no bracketed price or address. */
 .fh-listing-empty {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(0, .65fr);
   align-items: center;
   gap: 48px;
   padding: 44px 48px;
-  border: 1px solid var(--fh-border);
-  border-left: 4px solid var(--fh-gold);
   border-radius: 12px;
-  background: var(--fh-white);
+  background: var(--fh-alt);
+  border-left: 5px solid var(--fh-gold);
 }
 .fh-listing-empty-copy { display: flex; flex-direction: column; gap: 12px; }
 .fh-listing-empty-copy h3 {
@@ -767,63 +787,50 @@
   font-weight: 600;
   line-height: 1.2;
 }
-.fh-listing-empty-copy p:not(.fh-eyebrow) {
-  margin: 0;
-  max-width: 62ch;
-  color: var(--fh-muted);
-  font-size: 15px;
-  line-height: 1.65;
-}
+.fh-listing-empty-copy p:not(.fh-eyebrow) { margin: 0; max-width: 62ch; color: var(--fh-muted); font-size: 15px; line-height: 1.65; }
 .fh-listing-empty-actions { display: flex; flex-direction: column; gap: 12px; }
 .fh-listing-empty-actions .fh-btn { width: 100%; }
 
-.fh-guidance { background: var(--fh-white); padding: 120px 0; }
-.fh-split { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+/* ----------------------------------------------------------------- guidance */
+.fh-guidance { background: var(--fh-page); }
+.fh-split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .fh-split-card {
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  padding: 40px;
-  border: 1px solid var(--fh-border);
-  border-radius: 16px;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 44px;
+  border-radius: 12px;
 }
-.fh-split-buyer { background: var(--fh-buyer); }
-.fh-split-seller { background: var(--fh-seller); }
-.fh-split-buyer { box-shadow: inset 4px 0 0 var(--fh-teal); }
-.fh-split-seller { box-shadow: inset 4px 0 0 var(--fh-green); }
-.fh-split-seller .fh-eyebrow { color: #4d8733; }
-.fh-split-seller li svg { color: #4d8733; }
-.fh-split-card h2 { font-size: 32px; line-height: 1.2; }
+.fh-split-buyer { background: var(--fh-teal); color: var(--fh-white); }
+.fh-split-seller { background: var(--fh-alt); color: var(--fh-body); border-top: 4px solid var(--fh-green); }
+.fh-split-card h2 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 2.6vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+.fh-split-buyer h2 { color: var(--fh-white); }
+.fh-split-seller h2 { color: var(--fh-navy); }
+.fh-split-seller .fh-eyebrow { color: var(--fh-green-deep); }
 .fh-split-card ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
-.fh-split-card li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; line-height: 1.5; }
-.fh-split-card li svg { flex: 0 0 auto; margin-top: 2px; color: var(--fh-teal); }
-.fh-split-card .fh-btn { margin-top: 12px; }
+.fh-split-card li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; line-height: 1.55; }
+.fh-split-card li svg { flex: 0 0 auto; margin-top: 2px; }
+.fh-split-buyer li svg { color: #7fd8e0; }
+.fh-split-seller li svg { color: var(--fh-green-deep); }
+.fh-split-buyer li { color: rgba(255,255,255,.92); }
 
+/* ---------------------------------------------------------------- knowledge */
 .fh-knowledge { background: var(--fh-alt); }
-.fh-knowledge-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
-.fh-knowledge-card {
-  height: 100%;
-  gap: 16px;
-  padding: 24px;
-  border-radius: 10px;
-  background: var(--fh-white);
-  border-top: 3px solid var(--fh-teal-bright);
-}
-.fh-knowledge-card h4 { margin: 0; color: var(--fh-navy); font-family: var(--font-serif); font-size: 18px; font-weight: 600; line-height: 1.25; }
-.fh-knowledge-card p { margin: 0; font-size: 14px; line-height: 1.5; }
-
-/* CMS-driven latest guides.
-   Editorial rows rather than a second card grid: the evergreen cards below
-   already carry that weight, and two card walls in one section is exactly the
-   component-library look the design blueprint asked us to stop repeating. */
-.fh-latest { margin-bottom: 64px; }
+.fh-latest { margin-bottom: 56px; }
 .fh-latest-head {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
   gap: 16px;
-  padding-bottom: 16px;
+  padding-bottom: 14px;
 }
 .fh-latest-head h3,
 .fh-knowledge-evergreen h3 {
@@ -832,11 +839,11 @@
   font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 .fh-knowledge-evergreen h3 { margin-bottom: 20px; }
-.fh-latest-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--fh-border); }
+.fh-latest-list { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--fh-teal); }
 .fh-latest-list li { border-bottom: 1px solid var(--fh-border); }
 .fh-latest-row {
   display: grid;
@@ -848,44 +855,71 @@
   color: var(--fh-navy);
   text-decoration: none;
 }
-.fh-latest-category {
-  color: var(--fh-teal);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
+.fh-latest-category { color: var(--fh-teal); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
 .fh-latest-title { font-family: var(--font-serif); font-size: 22px; font-weight: 600; line-height: 1.25; }
 .fh-latest-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; color: var(--fh-muted); font-size: 13px; }
 .fh-latest-row:hover { background: var(--fh-white); }
 .fh-latest-row:hover .fh-latest-title { color: var(--fh-teal); text-decoration: underline; text-underline-offset: 4px; }
-.fh-access-link { font-size: 13px; gap: 4px; padding-top: 12px; }
 
-.fh-final {
+.fh-knowledge-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; align-items: stretch; list-style: none; margin: 0; padding: 0; }
+.fh-knowledge-card {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 40px;
+  gap: 14px;
+  height: 100%;
+  padding: 24px;
+  border-radius: 10px;
+  background: var(--fh-white);
+  border-top: 3px solid var(--fh-teal-bright);
+}
+.fh-knowledge-card h4 { margin: 0; color: var(--fh-navy); font-family: var(--font-serif); font-size: 18px; font-weight: 600; line-height: 1.25; }
+.fh-knowledge-card p { margin: 0; color: var(--fh-muted); font-size: 14px; line-height: 1.5; }
+.fh-knowledge-card .fh-text-link { margin-top: auto; }
+.fh-access-link { font-size: 13px; gap: 4px; padding-top: 10px; }
+
+/* -------------------------------------------------------------- final band */
+.fh-final {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  padding: 112px 24px;
   background: var(--fh-navy);
   color: var(--fh-white);
-  padding: 120px 24px;
   text-align: center;
   border-top: 4px solid var(--fh-gold);
 }
-.fh-final-inner { width: min(800px, 100%); }
-.fh-final h2 { color: var(--fh-white); font-size: 42px; }
-.fh-final p:not(.fh-eyebrow) { margin: 20px 0 0; color: #dfe8ee; font-size: 18px; line-height: 1.6; }
-.fh-final-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+.fh-final-image { object-fit: cover; z-index: 0; }
+.fh-final { min-height: 460px; align-items: center; }
+/* The closing band is image-led, so the overlay has to leave the photograph
+   legible while the centred copy still clears 4.5:1. Weighted to the middle
+   where the text sits, and open at both edges where the room is visible. */
+.fh-final-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(90deg, rgba(16,43,78,.62) 0%, rgba(16,43,78,.92) 26%, rgba(16,43,78,.92) 74%, rgba(16,43,78,.62) 100%);
+}
+.fh-final-inner { position: relative; z-index: 1; width: min(820px, 100%); }
+.fh-final h2 {
+  margin: 14px 0 0;
+  color: var(--fh-white);
+  font-family: var(--font-serif);
+  font-size: clamp(30px, 3.6vw, 46px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+}
+.fh-final p:not(.fh-eyebrow) { margin: 20px auto 0; max-width: 62ch; color: #dbe6ef; font-size: 18px; line-height: 1.65; }
+.fh-final-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 30px; }
 
-/* Footer composition, in descending weight: light brand band → navy nav band →
-   vendor credit → small compliance row. */
+/* ------------------------------------------------------------------- footer */
 .fh-footer { background: var(--fh-navy); color: #dfe8ee; padding: 0 0 32px; }
-
-/* Brand band.
-   The logo asset is an opaque PNG with no alpha, so on navy it can only ever be
-   a white rectangle or a white card. Giving the band itself the near-white page
-   colour lets the mark sit on the surface it was drawn for — no plate, no
-   border, no card. */
+/* The logo asset is an opaque PNG with no alpha, so on navy it can only ever be
+   a white rectangle or a white card. Giving the band itself a light surface
+   lets the mark sit on the background it was drawn for. */
 .fh-footer-brand-band {
   background: var(--fh-white);
   color: var(--fh-body);
@@ -905,8 +939,6 @@
 .fh-footer-action { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
 .fh-footer-action-copy { margin: 0; max-width: 42ch; color: var(--fh-muted); font-size: 15px; line-height: 1.6; }
 .fh-footer-contact-link { color: var(--fh-teal); }
-
-/* Navigation band. */
 .fh-footer-columns {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -914,18 +946,14 @@
   padding-top: 56px;
   padding-bottom: 48px;
 }
-.fh-footer-label { margin: 0 0 16px; color: #e6bd55; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.fh-footer-label { margin: 0 0 16px; color: var(--fh-gold-light); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
 .fh-footer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 .fh-footer a { color: #dfe8ee; text-decoration: none; }
-/* 4px vertical padding lifts each 17px line to the WCAG 2.2 24px target size. */
 .fh-footer nav a { display: inline-block; padding: 4px 0; font-size: 15px; }
 .fh-footer-brand-band a:not(.fh-btn) { color: var(--fh-teal); }
 .fh-footer a:hover { color: var(--fh-white); text-decoration: underline; text-underline-offset: 3px; }
 .fh-footer-brand-band a:not(.fh-btn):hover { color: var(--fh-navy); }
 .fh-footer-note { margin: 18px 0 0; max-width: 34ch; color: #b7c6d3; font-size: 13px; line-height: 1.55; }
-
-/* Vendor credit + compliance row. Compliance stays legible and reachable, and
-   is visibly subordinate: smaller type, quieter colour, below the credit. */
 .fh-footer-bottom {
   display: flex;
   flex-direction: column;
@@ -942,8 +970,11 @@
 .fh-footer-legal a { color: #a9bccd; font-size: 12px; }
 .fh-footer-legal a:hover { color: var(--fh-white); }
 
+/* -------------------------------------------------------------- responsive */
 @media (min-width: 1101px) {
   .fh-shell { padding-left: 92px; padding-right: 92px; }
+  .fh-hero-inner { padding-left: 92px; padding-right: 92px; }
+  .fh-meet-panel { padding-right: 92px; }
 }
 
 /* Condensed header from 900px up: the five primary paths plus the CTA, rather
@@ -959,108 +990,104 @@
   .fh-header-cta { padding: 12px 18px; font-size: 14px; }
 }
 
-/* Desktop composition from Figma 11:4 (1440 × 6183).
- *
- * The frame's per-section pixel heights were a straight transcription of a
- * static mock. They are now `min-height` rather than `height`: the sections
- * that changed — markets became an editorial list, the listings band became a
- * single honest empty state — no longer fill the mock's box, and a hard height
- * would either crop them or leave a dead band of whitespace. Column widths,
- * gutters and the 1440 content lock are unchanged.
- */
 @media (min-width: 1440px) {
-  .figma-home {
-    width: 1440px;
-    margin-inline: auto;
-  }
+  .figma-home { width: 1440px; margin-inline: auto; }
   .fh-header { height: 94px; }
   .fh-header-inner { height: 94px; min-height: 94px; }
-  .fh-hero { height: 680px; }
-  .fh-hero-grid {
-    grid-template-columns: 800px 640px;
-    height: 680px;
-    min-height: 680px;
+  .fh-hero-inner { padding-top: 120px; padding-bottom: 112px; }
+  .fh-hero-media { min-height: 620px; }
+}
+
+@media (max-width: 1100px) {
+  .fh-hero { grid-template-columns: 1fr; }
+  /* Photograph above the copy when stacked, so the first thing on a phone is
+     still a picture of a family in a home rather than a wall of navy. */
+  .fh-hero-media { order: -1; min-height: 0; aspect-ratio: 16 / 10; }
+  .fh-hero-fade {
+    display: block;
+    position: absolute;
+    inset: auto 0 -1px 0;
+    height: 42%;
+    background: linear-gradient(0deg, var(--fh-navy) 0%, rgba(16,43,78,0) 100%);
   }
-  .fh-hero-copy { padding: 120px 48px 120px 92px; }
-  .fh-hero-right { width: 640px; height: 680px; padding: 60px 92px 60px 0; }
-  .fh-hero-media { width: 548px; height: 560px; min-height: 560px; flex: none; }
-  .fh-services { min-height: 674px; box-sizing: border-box; }
-  .fh-service-card { min-height: 337px; }
-  .fh-meet { min-height: 760px; box-sizing: border-box; }
-  .fh-meet-grid { grid-template-columns: 440px 736px; gap: 80px; }
-  .fh-meet-portrait { width: 440px; height: 520px; min-height: 520px; }
-  .fh-markets { box-sizing: border-box; }
-  .fh-listings { box-sizing: border-box; }
-  .fh-listing-card { min-height: 436px; }
-  .fh-guidance { min-height: 691px; box-sizing: border-box; }
-  .fh-split-card { min-height: 451px; }
-  .fh-knowledge { min-height: 579px; box-sizing: border-box; }
-  .fh-final { min-height: 564px; box-sizing: border-box; padding: 120px 92px; }
-  .fh-final-inner { width: 800px; }
+  .fh-hero-inner { padding: 48px 24px 64px; }
+  .fh-hero-copy { max-width: 100%; }
+  .fh-meet-grid { grid-template-columns: 1fr; }
+  .fh-meet-portrait { min-height: 0; aspect-ratio: 4 / 3; max-height: 520px; }
+  .fh-meet-panel { padding: 56px 24px; border-left: 0; border-top: 4px solid var(--fh-gold); }
+  .fh-markets-grid { grid-template-columns: 1fr; gap: 32px; }
+  .fh-market-feature-name { font-size: 36px; }
+  .fh-listing-empty { grid-template-columns: 1fr; gap: 28px; padding: 36px; }
+  .fh-listing-empty-actions { flex-direction: row; flex-wrap: wrap; }
+  .fh-listing-empty-actions .fh-btn { width: auto; }
+  .fh-listing-grid { grid-template-columns: 1fr 1fr; }
+  .fh-knowledge-grid { grid-template-columns: 1fr 1fr; }
+  .fh-latest-row { grid-template-columns: 150px minmax(0, 1fr); }
+  .fh-latest-meta { grid-column: 2; }
+  .fh-section { padding: 72px 0; }
+  .fh-footer-brand-inner { grid-template-columns: 1fr; gap: 36px; }
 }
 
 @media (max-width: 899px) {
   .fh-desktop-nav,
   .fh-header-cta { display: none; }
   .fh-menu-toggle { display: inline-flex; margin-left: auto; }
-}
-
-@media (max-width: 1100px) {
-  .fh-hero-grid { grid-template-columns: 1fr; min-height: 0; }
-  .fh-hero-copy { padding: 48px 24px 24px; }
-  .fh-hero-copy h1 { font-size: clamp(36px, 7vw, 48px); }
-  .fh-hero-right { padding: 0 24px 56px; }
-  .fh-hero-media { min-height: 420px; }
-  .fh-footer-brand-inner { grid-template-columns: 1fr; gap: 36px; }
-  .fh-service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .fh-listing-empty { grid-template-columns: 1fr; gap: 28px; padding: 36px; }
-  .fh-listing-empty-actions { flex-direction: row; flex-wrap: wrap; }
-  .fh-listing-empty-actions .fh-btn { width: auto; }
-  .fh-listing-grid,
-  .fh-split,
-  .fh-knowledge-grid { grid-template-columns: 1fr 1fr; }
-  .fh-latest-row { grid-template-columns: 150px minmax(0, 1fr); }
-  .fh-latest-meta { grid-column: 2; }
-  .fh-meet-grid { grid-template-columns: 1fr; gap: 40px; }
-  .fh-meet-portrait { aspect-ratio: 4 / 3; min-height: 380px; max-height: 480px; max-width: 620px; }
-  .fh-section { padding: 72px 0; }
-  .fh-section-intro h2,
-  .fh-meet-copy h2,
-  .fh-listings-head h2,
-  .fh-final h2 { font-size: 34px; }
+  .fh-trust-list { grid-template-columns: 1fr 1fr; gap: 20px 0; }
+  .fh-trust-list li:nth-child(odd) { border-left: 0; padding-left: 0; }
+  .fh-path-grid { grid-template-columns: 1fr; }
+  .fh-service-row { grid-template-columns: 1fr; gap: 0; }
+  /* The three-column row crushes the description into a ~90px column once the
+     grid is a single track. Stack title over body and move the arrow onto the
+     title line. */
+  .fh-service-link {
+    grid-template-columns: minmax(0, 1fr) 20px;
+    align-items: center;
+    gap: 6px 16px;
+  }
+  .fh-service-title { white-space: normal; }
+  .fh-service-body { grid-column: 1 / -1; }
+  .fh-split { grid-template-columns: 1fr; }
+  .fh-market-list { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 760px) {
   .fh-header-inner { min-height: 76px; }
   .fh-logo { height: 60px; }
+  .fh-hero-inner { padding: 40px 24px 56px; }
+  .fh-hero-media { aspect-ratio: 4 / 3; }
   .fh-hero-actions,
   .fh-meet-actions,
   .fh-final-actions { flex-direction: column; align-items: stretch; }
-  .fh-service-grid,
+  .fh-hero-actions .fh-btn,
+  .fh-meet-actions .fh-btn,
+  .fh-final-actions .fh-btn { width: 100%; }
+  .fh-trust-list { grid-template-columns: 1fr; }
+  .fh-trust-list li { border-left: 0; padding-left: 0; }
   .fh-listing-grid,
-  .fh-split,
-  .fh-knowledge-grid,
-  .fh-market-list,
-  .fh-footer-columns { grid-template-columns: 1fr; }
-  .fh-market-name { font-size: 21px; }
+  .fh-knowledge-grid { grid-template-columns: 1fr; }
+  .fh-listings-head { flex-direction: column; align-items: flex-start; }
+  .fh-meet-portrait { aspect-ratio: 4 / 3; max-height: 380px; }
+  .fh-path { padding: 28px; min-height: 0; }
+  .fh-split-card { padding: 28px; }
+  .fh-market-feature { padding: 28px; }
+  .fh-market-feature-name { font-size: 32px; }
+  .fh-market-name { font-size: 20px; }
   .fh-latest-row { grid-template-columns: 1fr; gap: 6px; padding: 18px 0; }
   .fh-latest-title { font-size: 20px; }
   .fh-listing-empty { padding: 28px 24px; }
   .fh-listing-empty-actions { flex-direction: column; }
   .fh-listing-empty-actions .fh-btn { width: 100%; }
+  .fh-final { padding: 80px 24px; }
   .fh-footer-logo { width: 180px; }
-  .fh-portrait-plate { max-width: 200px; padding: 12px 16px; }
-  .fh-portrait-plate strong { font-size: 19px; }
-  .fh-listings-head { flex-direction: column; align-items: flex-start; }
-  .fh-hero-media { min-height: 300px; }
-  .fh-meet-portrait { aspect-ratio: 4 / 3; min-height: 280px; max-height: 360px; }
-  .fh-split-card { padding: 28px; }
-  .fh-final { padding: 80px 0; }
-  .fh-footer-bottom { flex-direction: column; }
+  .fh-footer-columns { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .figma-home * { scroll-behavior: auto; }
+  .fh-market-arrow,
+  .fh-service-arrow { transition: none; }
+  .fh-market-row:hover .fh-market-arrow,
+  .fh-service-link:hover .fh-service-arrow { transform: none; }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -1209,21 +1236,34 @@
 /* Four numbered rows carry the primary visitor actions; a quieter list below  */
 /* keeps the remaining calculators reachable without competing with them.      */
 /* -------------------------------------------------------------------------- */
-.resource-steps { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--color-border); }
-.resource-steps > li { border-bottom: 1px solid var(--color-border); }
+/* The numbered rows sit on a teal field. The previous version put them on
+   near-white with a teal numeral, which measured as 1% imagery and no painted
+   brand colour on the whole route — the "fintech software" read the brief
+   called out. Colour is doing the work here that photography cannot: there is
+   no licensed imagery for a calculator page, and inventing some would be worse
+   than designing without it. */
+.resource-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-accent);
+}
+.resource-steps > li + li { border-top: 1px solid rgba(255,255,255,.22); }
 .resource-step {
   display: grid;
   grid-template-columns: 88px minmax(0, 1fr);
   gap: 8px 24px;
-  padding: 30px 4px 30px 0;
-  color: var(--color-foreground);
+  padding: 32px 32px 32px 28px;
+  color: #ffffff;
   text-decoration: none;
 }
-.resource-step:hover { background: var(--color-secondary); }
+.resource-step:hover { background: #05616b; }
 .resource-step-number {
-  color: var(--color-accent);
+  color: #e6bd55;
   font-family: var(--font-serif);
-  font-size: 30px;
+  font-size: 34px;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   line-height: 1.1;
@@ -1231,20 +1271,20 @@
 .resource-step-body { display: flex; flex-direction: column; gap: 10px; }
 .resource-step-title {
   max-width: 34ch;
-  color: var(--color-primary);
+  color: #ffffff;
   font-family: var(--font-serif);
   font-size: 28px;
   font-weight: 600;
   line-height: 1.15;
 }
 .resource-step:hover .resource-step-title { text-decoration: underline; text-underline-offset: 4px; }
-.resource-step-copy { max-width: 68ch; color: var(--color-muted-foreground); font-size: 16px; line-height: 1.7; }
+.resource-step-copy { max-width: 68ch; color: rgba(255,255,255,.88); font-size: 16px; line-height: 1.7; }
 .resource-step-action {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   min-height: 24px;
-  color: var(--color-accent);
+  color: #a9e7ee;
   font-size: 14px;
   font-weight: 700;
 }
@@ -1253,7 +1293,7 @@
 .resource-guides { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(32px, 6vw, 80px); }
 .resource-heading { margin: 14px 0 0; color: var(--color-primary); font-family: var(--font-serif); font-size: clamp(28px, 3.4vw, 40px); font-weight: 600; line-height: 1.12; }
 .resource-lede { max-width: 46ch; margin: 18px 0 0; color: var(--color-muted-foreground); font-size: 17px; line-height: 1.65; }
-.resource-guide-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--color-border); }
+.resource-guide-list { margin: 0; padding: 0; list-style: none; border-top: 3px solid var(--color-brand-gold); }
 .resource-guide-list li { border-bottom: 1px solid var(--color-border); }
 .resource-guide-list a {
   display: flex;
@@ -1269,7 +1309,7 @@
 .resource-guide-list a > span:last-child { color: var(--color-muted-foreground); font-size: 14px; }
 .resource-guide-list a:hover > span:first-child { color: var(--color-accent); text-decoration: underline; text-underline-offset: 4px; }
 
-.resource-more-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; margin: 20px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--color-border); }
+.resource-more-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; margin: 20px 0 0; padding: 0; list-style: none; border-top: 3px solid var(--color-brand-green); }
 .resource-more-list li { border-bottom: 1px solid var(--color-border); }
 .resource-more-list a { display: flex; flex-direction: column; gap: 6px; padding: 18px 0; color: var(--color-foreground); text-decoration: none; }
 .resource-more-list strong { color: var(--color-primary); font-size: 16px; font-weight: 600; }
