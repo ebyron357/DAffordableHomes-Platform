@@ -91,7 +91,7 @@ export const nacaArticle: Article = {
     alt: "Debra Allen smiling in a yellow blazer at a kitchen counter",
     width: 1536,
     height: 1229,
-    focalPoint: "48% center",
+    focalPoint: "48% 35%",
   },
   socialImage: {
     src: "/images/debra-allen-primary-about.webp",
@@ -139,7 +139,7 @@ export const nacaArticle: Article = {
       alt: "Debra Allen smiling in a yellow blazer at a kitchen counter",
       width: 1536,
       height: 1229,
-      focalPoint: "48% center",
+      focalPoint: "48% 35%",
     }),
 
     quickAnswer(

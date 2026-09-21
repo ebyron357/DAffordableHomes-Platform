@@ -18,103 +18,27 @@ import {
   Users,
 } from "lucide-react"
 import { trackEvent, type AnalyticsEventName } from "@/lib/analytics"
+/**
+ * Questions, attribution keys, storage key and the result engine live in
+ * `lib/content/readiness.ts` so the homepage quiz runs the same assessment
+ * rather than a second copy of it. Nothing about this page's behaviour changed
+ * when they moved.
+ */
+import {
+  ATTRIBUTION_KEYS,
+  getResult,
+  QUESTIONS,
+  STORAGE_KEY,
+  type PathDefinition,
+  type PathKey,
+} from "@/lib/content/readiness"
 
-type PathKey = "traditional" | "naca" | "heroes" | "unsure"
 type Phase = "question" | "result"
 type LeadStatus = "idle" | "submitting" | "success" | "error"
 
-type AssessmentAnswer = {
-  id: string
-  label: string
-  value: string
-}
-
-type Question = {
-  id: string
-  label: string
-  help?: string
-  answers: AssessmentAnswer[]
-}
-
 type Attribution = Record<string, string>
 
-const QUESTIONS: Question[] = [
-  {
-    id: "housing",
-    label: "Where are you today?",
-    answers: [
-      { id: "renting", label: "Renting", value: "renting" },
-      { id: "family", label: "Living with family", value: "family" },
-      { id: "owner", label: "I currently own a home", value: "owner" },
-      { id: "other", label: "Other", value: "other" },
-    ],
-  },
-  {
-    id: "timeline",
-    label: "When would you ideally like to buy?",
-    answers: [
-      { id: "soon", label: "0–3 months", value: "0-3" },
-      { id: "next", label: "3–6 months", value: "3-6" },
-      { id: "later", label: "6–12 months", value: "6-12" },
-      { id: "year", label: "More than a year", value: "year-plus" },
-      { id: "unsure", label: "I’m not sure", value: "unsure" },
-    ],
-  },
-  {
-    id: "help",
-    label: "What do you need the most help understanding?",
-    answers: [
-      { id: "afford", label: "What I can realistically afford", value: "affordability" },
-      { id: "credit", label: "Credit / financial preparation", value: "credit" },
-      { id: "down", label: "Down-payment options", value: "down-payment" },
-      { id: "naca", label: "NACA", value: "naca" },
-      { id: "heroes", label: "Homes for Heroes", value: "heroes" },
-      { id: "process", label: "The buying process", value: "process" },
-      { id: "unsure", label: "I’m not sure", value: "unsure" },
-    ],
-  },
-  {
-    id: "prepared",
-    label: "Have you started preparing financially for homeownership?",
-    answers: [
-      { id: "yes", label: "Yes", value: "yes" },
-      { id: "little", label: "A little", value: "little" },
-      { id: "not-yet", label: "Not yet", value: "not-yet" },
-      { id: "unknown", label: "I don’t know what I should be doing", value: "unknown" },
-    ],
-  },
-  {
-    id: "hero",
-    label: "Do any of these describe you?",
-    answers: [
-      { id: "military", label: "Military / Veteran", value: "military" },
-      { id: "teacher", label: "Teacher / Educator", value: "teacher" },
-      { id: "healthcare", label: "Healthcare Professional", value: "healthcare" },
-      { id: "fire", label: "Firefighter / EMS", value: "fire" },
-      { id: "law", label: "Law Enforcement", value: "law" },
-      { id: "none", label: "None of these", value: "none" },
-    ],
-  },
-  {
-    id: "naca",
-    label: "Are you already participating in NACA?",
-    answers: [
-      { id: "yes", label: "Yes", value: "yes" },
-      { id: "no", label: "No", value: "no" },
-      { id: "considering", label: "I’m considering it", value: "considering" },
-      { id: "learning", label: "I don’t know enough about it yet", value: "learning" },
-    ],
-  },
-]
-
-const PATHS: Array<{
-  key: PathKey
-  number: string
-  title: string
-  body: string
-  cta: string
-  icon: typeof Home
-}> = [
+const PATHS: PathDefinition[] = [
   {
     key: "traditional",
     number: "01",
@@ -232,61 +156,6 @@ const CAMPAIGN_VARIANTS: Record<
     promise: "Build a practical homeownership plan around where you are today.",
     highlight: "unsure",
   },
-}
-
-const ATTRIBUTION_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "gclid", "fbclid", "landing_variant"]
-const STORAGE_KEY = "daffordable-next-step-v1"
-
-function getResult(answers: Record<string, string>, selectedPath: PathKey | null) {
-  const isHero = answers.hero && answers.hero !== "none"
-  const isNaca = answers.help === "naca" || answers.naca === "yes" || answers.naca === "considering"
-  const isTraditional = selectedPath === "traditional" || answers.timeline === "0-3" || answers.timeline === "3-6"
-
-  if (selectedPath === "naca" || isNaca) {
-    return {
-      key: "naca",
-      label: "NACA exploration",
-      heading: "Start by understanding the NACA process.",
-      body: "Based on what you shared, NACA may be worth exploring. The useful next step is learning how preparation, documentation, counseling, home selection, and mortgage processing fit together.",
-      primaryHref: "#naca",
-      primaryLabel: "Explore the NACA path",
-      secondary: isHero ? "Homes for Heroes may also be worth exploring." : undefined,
-    }
-  }
-
-  if (selectedPath === "heroes" || isHero) {
-    return {
-      key: "hero",
-      label: "Homes for Heroes exploration",
-      heading: "Explore the homebuying options connected to your service.",
-      body: "Your service may make a Homes for Heroes resource worth investigating. Start with the details that apply to your role and confirm current requirements with the applicable program.",
-      primaryHref: "#heroes",
-      primaryLabel: "Explore hero options",
-      secondary: isTraditional ? "Traditional purchase planning may also be useful." : undefined,
-    }
-  }
-
-  if (isTraditional) {
-    return {
-      key: "traditional",
-      label: "Traditional purchase planning",
-      heading: "Build the plan before you start shopping.",
-      body: "You may be ready to focus on a traditional purchase plan. Understanding affordability, financing questions, neighborhoods, and the offer process can help you move with more clarity.",
-      primaryHref: "#traditional",
-      primaryLabel: "Build my homebuying path",
-      secondary: answers.help === "down-payment" ? "Down-payment options may also deserve attention." : undefined,
-    }
-  }
-
-  return {
-    key: "readiness",
-    label: "Homeownership readiness",
-    heading: "Your next step is getting oriented.",
-    body: "You do not need every answer today. Start by understanding the process, organizing the questions in front of you, and choosing one practical preparation step.",
-    primaryHref: "#readiness",
-    primaryLabel: "See the readiness path",
-    secondary: answers.help === "down-payment" ? "Local assistance may also be worth exploring." : undefined,
-  }
 }
 
 function deviceClass(): string {

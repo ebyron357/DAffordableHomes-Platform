@@ -97,7 +97,7 @@ export const heroesArticle: Article = {
     alt: "Debra Allen seated at her desk reviewing documents on a tablet",
     width: 1153,
     height: 1536,
-    focalPoint: "50% 35%",
+    focalPoint: "55% 16%",
   },
   socialImage: {
     src: "/images/debra-allen-advisor-desk.webp",
@@ -145,7 +145,7 @@ export const heroesArticle: Article = {
       alt: "Debra Allen seated at her desk reviewing documents on a tablet",
       width: 1153,
       height: 1536,
-      focalPoint: "50% 35%",
+      focalPoint: "55% 16%",
     }),
 
     quickAnswer(

@@ -13,6 +13,7 @@ import { formatArticleDate } from "@/lib/blog/format"
 import type { ArticleSummary } from "@/lib/blog/types"
 import type { PropertySearchResult } from "@/lib/mls/provider"
 import { FigmaHomeFooter } from "@/components/home/figma-home-footer"
+import { HomeQuiz } from "@/components/home/home-quiz"
 import { FigmaHomeHeader } from "@/components/home/figma-home-header"
 
 /**
@@ -75,6 +76,7 @@ export function FigmaHomePage({
       <Hero />
       <TrustBand />
       <Pathways />
+      <HomeQuiz />
       <MeetDebra />
       <Markets />
       <FeaturedListings listings={listings} />
