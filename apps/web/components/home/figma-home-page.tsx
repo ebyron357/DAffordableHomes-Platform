@@ -272,7 +272,7 @@ function FindYourPath() {
         <div className="fh-pathquiz-intro">
           <p className="fh-eyebrow">Find your homebuying path</p>
           <h2 id="figma-path-heading">Not sure which pathway is yours?</h2>
-          <p className="fh-lede">
+          <p className="fh-pathquiz-lede">
             Five quick questions about where you are and what you&apos;re hoping to do. You get a recommended
             starting point on this site right away, and nothing is asked for in return.
           </p>

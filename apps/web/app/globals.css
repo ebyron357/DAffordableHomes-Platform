@@ -954,7 +954,7 @@
   line-height: 1.12;
   text-align: left;
 }
-.fh-pathquiz-intro .fh-lede { font-size: 17px; }
+.fh-pathquiz-lede { margin: 0; max-width: 60ch; color: var(--fh-body); font-size: 17px; line-height: 1.6; }
 .fh-pathquiz-facts { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
 .fh-pathquiz-facts li { display: flex; align-items: center; gap: 10px; color: var(--fh-body); font-size: 15px; }
 .fh-pathquiz-facts svg { flex: 0 0 auto; color: var(--fh-green); }
