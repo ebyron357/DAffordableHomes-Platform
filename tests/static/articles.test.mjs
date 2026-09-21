@@ -233,3 +233,13 @@ test('the sitemap is generated from the CMS, not a hardcoded article list', () =
     );
   }
 });
+
+test('the Sanity seed export omits featuredImage rather than emitting an empty one', () => {
+  // `featuredImage` is optional now, so the exporter must leave the key out for
+  // an article that has none — an explicit `undefined` is not a valid document
+  // field — and its own validation must not demand alt text for an image that
+  // does not exist.
+  const exporter = read('scripts/sanity/export-seed.mjs');
+  assert.match(exporter, /\.\.\.\(article\.featuredImage \? \{ featuredImage: toSanityImage\(article\.featuredImage\) \} : \{\}\)/);
+  assert.match(exporter, /doc\.featuredImage && !doc\.featuredImage\.alt/);
+});

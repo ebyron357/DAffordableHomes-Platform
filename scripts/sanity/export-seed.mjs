@@ -116,7 +116,10 @@ function articleDoc(article) {
     ...(article.reviewedAt ? { reviewedAt: article.reviewedAt } : {}),
     readingTime: article.readingTime,
     publicationState: "published",
-    featuredImage: toSanityImage(article.featuredImage),
+    // Optional. An article with no photograph of its own subject omits the
+    // field entirely and renders the brand plate; writing an explicit
+    // `undefined` into the NDJSON would be an invalid document.
+    ...(article.featuredImage ? { featuredImage: toSanityImage(article.featuredImage) } : {}),
     ...(article.socialImage ? { socialImage: toSanityImage(article.socialImage) } : {}),
     body: article.body.map(toSanityBlock),
     faqs: article.faqs.map((faq) => ({ _type: "faq", ...faq })),
@@ -179,7 +182,10 @@ async function main() {
   const problems = []
   for (const doc of documents.filter((d) => d._type === "article")) {
     if (!doc.slug?.current) problems.push(`${doc._id}: missing slug`)
-    if (!doc.featuredImage?.alt) problems.push(`${doc._id}: missing featured image alt text`)
+    // `featuredImage` is optional, but when one is set it must carry alt text.
+    if (doc.featuredImage && !doc.featuredImage.alt) {
+      problems.push(`${doc._id}: featured image has no alt text`)
+    }
     if (!doc.seoDescription) problems.push(`${doc._id}: missing SEO description`)
     if (!Array.isArray(doc.body) || doc.body.length === 0) problems.push(`${doc._id}: empty body`)
     if (!doc.publishedAt) problems.push(`${doc._id}: missing publish date`)
