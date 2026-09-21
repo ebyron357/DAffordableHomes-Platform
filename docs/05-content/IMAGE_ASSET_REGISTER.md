@@ -81,15 +81,42 @@ over the card, the masthead, the related-article card, the Open Graph image and
 the Article JSON-LD, with no code change. Until then no image property is
 published rather than an unrelated one being asserted as the article's subject.
 
-**Owner action to restore photography on these two cards:** supply a cleared
-exterior photograph for each — a North Texas brick-and-stone home with a porch
-flag for the Heroes guide, an established Garland street or house for the
-Garland guide — and set `featuredImage` (and `socialImage`) in Sanity, or drop
-the files into `apps/web/public/images/` and add a row to this register. This
-session could not source them: every image host is refused by the environment's
-egress policy (Pexels, Unsplash, Wikimedia and the rest all answer 403 at the
-proxy), so bringing a new photograph into the repository from here is not
-possible.
+**Owner action to restore photography on these two cards, and to replace the
+homepage hero:** supply cleared photographs and set `featuredImage` (and
+`socialImage`) in Sanity, or place the files where this register can point at
+them.
+
+### Every source searched, 2026-09-21
+
+The photographs were looked for before this was written down as an owner
+action. What was searched, and what was in it:
+
+| Source | Result |
+| --- | --- |
+| `apps/web/public/**` | Four registered photographs (three of Debra, one licensed Pexels interior) plus the unregistered files above. No DFW exterior |
+| Full git history, including deleted files | Recovered `hero-home-exterior.png` and `black-family-moving-home-hero.webp` from PR #5. The first is a generated image of a small craftsman bungalow — the modest/dated tier the owner rejected, and the origin of that rejected direction. The second is an interior packing scene with a wall radiator, not North Texas. Neither is usable |
+| `recovered-manus/` reference bundle | Same five Manus files already inventoried, plus a Debra portrait. No exterior |
+| Figma, the visual source of truth (`x8TpOO9gK5tsbcjkEsK18A`, frame `11:4`) | `rawImages: []` — the approved frame carries **no** source photographs at all, only vector linework and icons. This confirms `DECISIONS.md` 2026-09-19: the frame's picture wells are placeholders |
+| The shared Google Drive (`realtordebra.allen@gmail.com`) | Five `Realtor3-*` photographs from Debra's realtor shoot, plus one small Canva graphic. Portraits of Debra — which is exactly what must not go back on these two cards — not property exteriors |
+| Sanity Content Lake asset library | Unreachable: this environment has no `SANITY_PROJECT_ID` / `SANITY_DATASET` and no `.env`. Owner-only |
+| Stock libraries (Pexels, Unsplash, Wikimedia Commons, Openverse, Pixabay, and their CDNs) | Every host answers 403 at this environment's egress proxy |
+| Image generation (Higgsfield) | Refused without a paid plan; and its CDN (`d8j0ntlcm91z4.cloudfront.net`) is also 403 at the proxy, so a generated file could not be retrieved even with one |
+
+**The Google Drive route works.** `download_file_content` returned a complete,
+untruncated file from the shared Drive, so a photograph placed in the folder
+Debra already shares can be pulled into this repository directly — no network
+policy change and no third-party spend. That is the cheapest way to close this
+item: drop the cleared exteriors there, or commit them to
+`apps/web/public/images/` on the branch.
+
+What each slot needs:
+
+- **Homepage hero** — a Dallas–Fort Worth residential exterior, established
+  neighbourhood, warm daylight, wide enough to survive a 46vw crop at 1440 and
+  a full-bleed crop at 375.
+- **Homes for Heroes card** — a North Texas brick-and-stone home with a modest
+  flag on or near the porch.
+- **Garland card** — an established Garland street or house.
 
 ## Rendering rules
 

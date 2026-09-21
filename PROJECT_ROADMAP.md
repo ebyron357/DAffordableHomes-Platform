@@ -204,8 +204,14 @@
       served (`hero-family`, `home-keys-moment`, `planning-table`), or approve
       replacements
 - [ ] Supply cleared exterior photography for the two guide cards and the homepage
-      hero: no image host is reachable from the maintenance environment, so these
-      cannot be sourced by an agent session
+      hero. Every accessible source was searched on 2026-09-21 and none holds a
+      DFW exterior — repository, full git history, the `recovered-manus` bundle,
+      the Figma 11:4 frame (which carries no photographs at all), and the shared
+      Google Drive; stock hosts and image generation are refused by the
+      environment's egress policy. The table in
+      `docs/05-content/IMAGE_ASSET_REGISTER.md` records each one. The shared
+      Google Drive is a working transfer route, so placing the files there (or
+      committing them to `apps/web/public/images/`) is enough
 
 These items require a separate business and architecture decision before implementation:
 
