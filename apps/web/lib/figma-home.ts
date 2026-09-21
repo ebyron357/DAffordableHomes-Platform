@@ -6,15 +6,24 @@
  * No fabricated listings, contact facts, or unverified geography.
  */
 
+/**
+ * Primary navigation.
+ *
+ * `condensed` marks the items that survive at laptop widths. The full eight
+ * items need about 1100px; below that the header used to drop straight to a
+ * hamburger, which left a 1024px viewport showing a logo, a mostly empty bar
+ * and a menu button. The condensed set keeps the five paths people actually
+ * come for, and the mobile menu still carries everything.
+ */
 export const FIGMA_HOME_NAV = [
-  { label: "Home", href: "/" },
-  { label: "Buy", href: "/first-time-buyers" },
-  { label: "Sell", href: "/contact" },
-  { label: "Search Homes", href: "/homes" },
-  { label: "New Construction", href: "/consultation" },
-  { label: "Resources", href: "/resources" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Home", href: "/", condensed: false },
+  { label: "Buy", href: "/first-time-buyers", condensed: true },
+  { label: "Sell", href: "/contact", condensed: true },
+  { label: "Search Homes", href: "/homes", condensed: true },
+  { label: "New Construction", href: "/consultation", condensed: false },
+  { label: "Resources", href: "/resources", condensed: true },
+  { label: "About", href: "/about", condensed: true },
+  { label: "Contact", href: "/contact", condensed: false },
 ] as const
 
 export const FIGMA_HOME_CTA = {

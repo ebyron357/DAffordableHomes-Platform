@@ -20,7 +20,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    const desktopQuery = window.matchMedia("(min-width: 1101px)")
+    const desktopQuery = window.matchMedia("(min-width: 900px)")
     const closeOnDesktop = () => {
       if (desktopQuery.matches) setOpen(false)
     }

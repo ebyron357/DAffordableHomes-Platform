@@ -16,7 +16,7 @@ export function FigmaHomeHeader() {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    const desktopQuery = window.matchMedia("(min-width: 1101px)")
+    const desktopQuery = window.matchMedia("(min-width: 900px)")
     const closeOnDesktop = () => {
       if (desktopQuery.matches) setOpen(false)
     }
@@ -56,7 +56,7 @@ export function FigmaHomeHeader() {
             {FIGMA_HOME_NAV.map((item) => {
               const active = isActivePath(pathname, item.href)
               return (
-                <li key={item.label}>
+                <li key={item.label} className={item.condensed ? undefined : "fh-nav-wide-only"}>
                   <Link href={item.href} aria-current={active ? "page" : undefined}>
                     {item.label}
                   </Link>

@@ -118,14 +118,36 @@ async function main() {
       const audit = await page.evaluate((forbidden) => {
         const text = document.body.innerText
         const element = document.documentElement
+        // A screenshot of an unstyled page is worthless as visual evidence and
+        // passes every content check, because the copy is all still there. It
+        // happens for real: `next start` left running across a rebuild serves
+        // the old build's chunk names and answers 500/text-plain for them.
+        // Rather than trust that the server is fresh, prove the page is styled
+        // before believing the picture.
+        const styled =
+          [...document.styleSheets].some((sheet) => {
+            try {
+              return sheet.cssRules.length > 0
+            } catch {
+              // Cross-origin sheet: it loaded, we just cannot read it.
+              return true
+            }
+          }) && getComputedStyle(document.body).margin !== ""
         return {
           found: forbidden.filter((needle) => text.includes(needle)),
           broken: [...document.images]
             .filter((img) => img.naturalWidth === 0)
             .map((img) => img.currentSrc || img.src),
           horizontalScroll: element.scrollWidth > element.clientWidth + 1,
+          styled,
         }
       }, FORBIDDEN_TEXT)
+
+      if (!audit.styled) {
+        failures.push(
+          `${route} @${viewportName} rendered without stylesheets — is an old \`next start\` still holding the port?`,
+        )
+      }
 
       if (audit.found.length > 0) {
         failures.push(`${route} @${viewportName} shows placeholder copy: ${audit.found.join(", ")}`)
