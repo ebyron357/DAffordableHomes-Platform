@@ -504,6 +504,23 @@
   padding: 104px 56px 96px max(24px, calc((100vw - 1440px) / 2 + 24px));
 }
 .fh-hero-media { position: relative; min-height: 560px; overflow: hidden; }
+
+/* The cleared exterior, when one exists, sits over the drawn scene in the same
+   frame. Scoped to this slot so the ornament defaults and the shared motion
+   rules elsewhere in the sheet are left alone. */
+.fh-hero-media .ambient-motion { position: absolute; inset: 0; overflow: hidden; }
+.fh-hero-media .ambient-motion img,
+.fh-hero-media .ambient-motion-clip { width: 100%; height: 100%; object-fit: cover; object-position: center 42%; }
+.fh-hero-media .ambient-motion-clip { position: absolute; inset: 0; opacity: 0; transition: opacity .6s ease; }
+.fh-hero-media .ambient-motion-clip.is-playing { opacity: 1; }
+.fh-hero-media .ambient-motion-toggle {
+  position: absolute; right: 16px; bottom: 16px; z-index: 2;
+  padding: 8px 14px; border: 1px solid rgba(255, 255, 255, .5); border-radius: 999px;
+  background: var(--fh-navy); color: #fff; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fh-hero-media .ambient-motion-clip { display: none; }
+}
 .fh-hero-image { object-fit: cover; animation: fh-settle 1.1s cubic-bezier(.2,.7,.3,1) both; }
 
 /* Hero streetscape.

@@ -15,6 +15,8 @@ import type { ArticleSummary } from "@/lib/blog/types"
 import type { PropertySearchResult } from "@/lib/mls/provider"
 import { DEBRA_DESK_BAND } from "@/lib/content/imagery"
 import { BrandMotif } from "@/components/page/brand-motif"
+import { AmbientMotion } from "@/components/media/ambient-motion"
+import { resolveHeroMotion } from "@/lib/media/ambient-motion"
 import { FigmaHomeFooter } from "@/components/home/figma-home-footer"
 import { FigmaHomeHeader } from "@/components/home/figma-home-header"
 import { HomebuyingPathQuiz } from "@/components/home/homebuying-path-quiz"
@@ -95,6 +97,8 @@ export function FigmaHomePage({
  * mark, so putting it in type costs nothing and says what the practice is for.
  */
 function Hero() {
+  const heroMotion = resolveHeroMotion()
+
   return (
     <section className="fh-hero" aria-labelledby="figma-hero-heading">
       <div className="fh-hero-inner">
@@ -144,6 +148,11 @@ function Hero() {
           <BrandMotif variant="roofline" className="dh-motif fh-hero-roofs fh-hero-roofs-near" />
           <span className="fh-hero-ground" />
         </div>
+        {/* The cleared North Texas exterior, once one exists, layers over the
+            drawing rather than replacing it in the markup: the scene above is
+            still what renders whenever no still has been approved, and the
+            still alone renders whenever no motion encode has. */}
+        {heroMotion ? <AmbientMotion asset={heroMotion} sizes="(min-width: 900px) 52vw, 100vw" priority /> : null}
         {/* Mobile only: the copy sits beneath the scene there, so a short
             bottom fade carries it into the navy panel. */}
         <span className="fh-hero-fade" aria-hidden="true" />
