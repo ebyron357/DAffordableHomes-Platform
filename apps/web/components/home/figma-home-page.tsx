@@ -152,7 +152,7 @@ function Hero() {
             drawing rather than replacing it in the markup: the scene above is
             still what renders whenever no still has been approved, and the
             still alone renders whenever no motion encode has. */}
-        {heroMotion ? <AmbientMotion asset={heroMotion} sizes="(min-width: 900px) 52vw, 100vw" /> : null}
+        {heroMotion ? <AmbientMotion asset={heroMotion} sizes="(min-width: 900px) 52vw, 100vw" priority /> : null}
         {/* Mobile only: the copy sits beneath the scene there, so a short
             bottom fade carries it into the navy panel. */}
         <span className="fh-hero-fade" aria-hidden="true" />

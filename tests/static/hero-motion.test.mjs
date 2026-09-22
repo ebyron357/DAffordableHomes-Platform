@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
-import { existsSync, readdirSync } from "node:fs";
-import { readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 
 /**
@@ -9,7 +8,7 @@ import { test } from "node:test";
  * `.fh-hero-media` draws the brand roofline because no cleared North Texas
  * exterior exists in the repository. These assertions cover the seam that
  * prepares the slot for one: the drawing has to survive an absent asset, the
- * clip has to stay silent and decorative, and nothing may be committed as a
+ * clip has to stay opt-in and decorative, and nothing may be committed as a
  * stand-in for the photograph that is still missing.
  */
 
@@ -29,6 +28,11 @@ test("the drawn hero scene survives an unfilled exterior slot", () => {
   assert.match(hero, /fh-hero-roofs-far/);
   assert.match(hero, /fh-hero-roofs-near/);
   assert.match(hero, /\{heroMotion \? <AmbientMotion/);
+
+  // The still is the hero image, and on mobile `.fh-hero-media { order: -1 }`
+  // puts it above the copy, so it is the LCP element and must not be lazy.
+  assert.match(hero, /<AmbientMotion[^>]*priority[^>]*\/>/);
+  assert.match(read(STYLES), /\.fh-hero-media \{ order: -1;/);
 
   // No still approved means no asset, which is what leaves the drawing alone.
   assert.match(resolver, /if \(!present\(HERO_NORTH_TEXAS_EXTERIOR\.poster\)\) return null/);
@@ -60,7 +64,7 @@ test("no stand-in media is committed for the missing exterior", () => {
   }
 });
 
-test("the hero clip stays silent, decorative, and reduced-motion safe", () => {
+test("hero motion is opt-in, silent, and reduced-motion safe", () => {
   const component = read(COMPONENT);
   const styles = read(STYLES);
 
@@ -72,17 +76,22 @@ test("the hero clip stays silent, decorative, and reduced-motion safe", () => {
   assert.doesNotMatch(component, /^\s+controls=/m);
   assert.match(component, /tabIndex=\{-1\}/);
 
-  // Reduced motion drops the element rather than hiding a playing clip, and the
-  // still keeps the accessible name either way.
+  // AGENTS.md and the publishing standard both bar autoplay motion, so the clip
+  // is not mounted — and nothing is fetched — until the visitor asks for it.
+  assert.match(component, /\{started && sources\.length > 0 \?/);
+  assert.match(component, /className="ambient-motion-toggle"/);
+  assert.match(component, /aria-pressed=\{playing\}/);
+
+  // Reduced motion leaves no sources, so neither the clip nor its control is offered.
   assert.match(component, /prefers-reduced-motion: reduce/);
   assert.match(component, /reducedMotion\s*\n?\s*\?\s*\[\]/);
   assert.match(component, /alt=\{asset\.label\}/);
-  assert.match(component, /IntersectionObserver/);
 
   // The added rules stay inside this slot.
   for (const rule of [
     ".fh-hero-media .ambient-motion {",
     ".fh-hero-media .ambient-motion-clip {",
+    ".fh-hero-media .ambient-motion-toggle {",
     ".fh-hero-media .ambient-motion-clip { display: none; }",
   ]) {
     assert.ok(styles.includes(rule), `globals.css should scope "${rule}" to the hero slot`);

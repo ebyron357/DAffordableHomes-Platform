@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react"
+import { useCallback, useRef, useState, useSyncExternalStore } from "react"
 import type { AmbientMotionAsset, AmbientMotionSource } from "@/lib/media/ambient-motion"
 
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)"
@@ -22,10 +22,12 @@ function useMediaQuery(query: string) {
   return useSyncExternalStore(subscribe, getSnapshot, () => false)
 }
 
-// The poster still is always rendered and always carries the accessible name.
-// The clip is decorative ambience layered over it: muted, no audio track, no
-// controls, never autoplaying before it is scrolled near, and dropped entirely
-// when the visitor asks for reduced motion or no encode has been committed.
+// The still is what renders, and it carries the accessible name. Motion is
+// opt-in: AGENTS.md and the publishing standard both bar autoplay, so the clip
+// is not mounted — and nothing is fetched — until the visitor asks for it. It
+// is offered only when an encode exists and the visitor has not asked for
+// reduced motion. Once running it stays muted, looping and decorative, with
+// the toggle as the control for stopping it.
 export function AmbientMotion({
   asset,
   sizes,
@@ -35,32 +37,11 @@ export function AmbientMotion({
   sizes: string
   priority?: boolean
 }) {
-  const [nearViewport, setNearViewport] = useState(false)
-  const frame = useRef<HTMLDivElement>(null)
+  const [started, setStarted] = useState(false)
+  const [playing, setPlaying] = useState(false)
+  const clip = useRef<HTMLVideoElement>(null)
   const reducedMotion = useMediaQuery(REDUCED_MOTION)
   const wideViewport = useMediaQuery(WIDE_VIEWPORT)
-
-  useEffect(() => {
-    const element = frame.current
-
-    if (!element || typeof IntersectionObserver === "undefined") {
-      const frameId = requestAnimationFrame(() => setNearViewport(true))
-      return () => cancelAnimationFrame(frameId)
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          setNearViewport(true)
-          observer.disconnect()
-        }
-      },
-      { rootMargin: "200px" },
-    )
-
-    observer.observe(element)
-    return () => observer.disconnect()
-  }, [])
 
   const sources: AmbientMotionSource[] = reducedMotion
     ? []
@@ -68,10 +49,21 @@ export function AmbientMotion({
       ? asset.desktop
       : asset.mobile
 
-  const clipKey = sources.map((source) => source.src).join("|")
+  const toggle = () => {
+    const element = clip.current
+    if (!started || !element) {
+      setStarted(true)
+      return
+    }
+    if (element.paused) {
+      void element.play()
+    } else {
+      element.pause()
+    }
+  }
 
   return (
-    <div className="ambient-motion" ref={frame}>
+    <div className="ambient-motion">
       <Image
         src={asset.poster}
         alt={asset.label}
@@ -80,10 +72,10 @@ export function AmbientMotion({
         priority={priority}
         className="object-cover"
       />
-      {sources.length > 0 && nearViewport ? (
+      {started && sources.length > 0 ? (
         <video
-          key={clipKey}
-          className="ambient-motion-clip"
+          ref={clip}
+          className={playing ? "ambient-motion-clip is-playing" : "ambient-motion-clip"}
           poster={asset.poster}
           autoPlay
           muted
@@ -92,12 +84,18 @@ export function AmbientMotion({
           preload="metadata"
           aria-hidden="true"
           tabIndex={-1}
-          onPlaying={(event) => event.currentTarget.classList.add("is-playing")}
+          onPlaying={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
         >
           {sources.map((source) => (
             <source key={source.src} src={source.src} type={source.type} />
           ))}
         </video>
+      ) : null}
+      {sources.length > 0 ? (
+        <button type="button" className="ambient-motion-toggle" onClick={toggle} aria-pressed={playing}>
+          {playing ? "Pause motion" : "Play motion"}
+        </button>
       ) : null}
     </div>
   )
