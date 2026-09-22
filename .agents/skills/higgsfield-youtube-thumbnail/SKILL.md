@@ -15,7 +15,7 @@ Create a clean thumbnail concept, generate each variant through the `higgsfield`
 
 Before any generation:
 
-1. If `higgsfield` is missing, install it:
+1. If `higgsfield` is missing, install it only after asking the user's permission:
    ```bash
    curl -fsSL https://raw.githubusercontent.com/higgsfield-ai/cli/main/install.sh | sh
    ```

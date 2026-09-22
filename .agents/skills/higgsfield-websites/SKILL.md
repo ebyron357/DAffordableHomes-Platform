@@ -97,7 +97,7 @@ are rejected — if that happens, try a close variant.
 
 ## Prerequisites
 
-1. If `higgsfield` is not on `$PATH`, install it:
+1. If `higgsfield` is not on `$PATH`, install it only after asking the user's permission:
    ```bash
    curl -fsSL https://raw.githubusercontent.com/higgsfield-ai/cli/main/install.sh | sh
    ```

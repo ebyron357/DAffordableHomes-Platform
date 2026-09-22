@@ -39,7 +39,7 @@ Never use the monolithic `video_explainer` job in this skill.
 
 ## Bootstrap
 
-1. If `higgsfield` is unavailable, install it:
+1. If `higgsfield` is unavailable, install it only after asking the user's permission:
 
    ```bash
    curl -fsSL https://raw.githubusercontent.com/higgsfield-ai/cli/main/install.sh | sh

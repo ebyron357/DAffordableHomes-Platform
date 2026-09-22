@@ -30,7 +30,7 @@ Brand-image generation via the `higgsfield product-photoshoot create` command. T
 
 Before any other command:
 
-1. If `higgsfield` is not on `$PATH`, install it:
+1. If `higgsfield` is not on `$PATH`, install it only after asking the user's permission:
    ```bash
    curl -fsSL https://raw.githubusercontent.com/higgsfield-ai/cli/main/install.sh | sh
    ```

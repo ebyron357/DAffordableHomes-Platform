@@ -32,7 +32,7 @@ Submit jobs to any Higgsfield model. Wraps the `higgsfield` CLI. Covers generic 
 
 Before any other command:
 
-1. If `higgsfield` is not on `$PATH`, install it:
+1. If `higgsfield` is not on `$PATH`, install it only after asking the user's permission:
    ```bash
    curl -fsSL https://raw.githubusercontent.com/higgsfield-ai/cli/main/install.sh | sh
    ```
