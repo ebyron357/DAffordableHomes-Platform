@@ -130,16 +130,11 @@ function Hero() {
           hands in a living room — a warm picture of the wrong subject: an
           interior, on the hero of a site about buying and selling houses.
 
-          The repository holds four cleared photographs and none of them is a
-          North Texas exterior, so rather than leave the wrong subject in the
-          most important slot this draws the right one in the brand's own hand:
-          the roofline from the D'Affordable Homes mark at streetscape scale,
-          over a Texas late-afternoon sky, with a second range of roofs set back
-          behind it for depth. Same answer the interior mastheads and the guide
-          plates already give when no licensed photograph fits a slot.
-
-          It claims nothing — no address, no listing, no place it is not. A
-          photograph can replace it by restoring an `<Image>` here. */}
+          The approved generated exterior now layers over this scene when its
+          registered still is present. The drawn roofline remains as the safe
+          fallback if that asset is removed. The image is generic residential
+          imagery and must not be presented as a real listing, address, client
+          property, transaction, or verified North Texas neighbourhood. */}
       <div className="fh-hero-media">
         <div className="fh-hero-scene" aria-hidden="true">
           <span className="fh-hero-sky" />
@@ -148,10 +143,10 @@ function Hero() {
           <BrandMotif variant="roofline" className="dh-motif fh-hero-roofs fh-hero-roofs-near" />
           <span className="fh-hero-ground" />
         </div>
-        {/* The cleared North Texas exterior, once one exists, layers over the
-            drawing rather than replacing it in the markup: the scene above is
-            still what renders whenever no still has been approved, and the
-            still alone renders whenever no motion encode has. */}
+        {/* The approved generated exterior layers over the drawing rather than
+            replacing it in the markup. The scene above is the fallback if the
+            still is ever absent; the still renders alone while no motion
+            encodes are approved. */}
         {heroMotion ? <AmbientMotion asset={heroMotion} sizes="(min-width: 900px) 52vw, 100vw" priority /> : null}
         {/* Mobile only: the copy sits beneath the scene there, so a short
             bottom fade carries it into the navy panel. */}
