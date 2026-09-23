@@ -15,18 +15,17 @@ export type AmbientMotionAsset = {
 
 // The hero's North Texas exterior slot.
 //
-// `.fh-hero-media` draws the brand roofline because the repository holds no
-// cleared North Texas exterior. This resolves the photograph and the optional
-// motion encodes for that slot at build time, and returns null while neither is
-// present — which is what keeps the drawing standing. Nothing here fabricates a
-// placeholder: an absent file simply means the slot is still unfilled.
+// `.fh-hero-media` keeps the brand roofline as a fallback and layers the
+// approved hero still when it is present. This resolves the still and optional
+// motion encodes at build time. If the still is ever removed, the resolver
+// returns null and the drawn scene remains in place.
 //
 // Encodes and stills are served same-origin from apps/web/public so the site
 // Content-Security-Policy keeps applying unchanged: it declares no media-src,
 // so media falls back to default-src 'self' and a remote CDN URL is blocked.
 const HERO_NORTH_TEXAS_EXTERIOR: AmbientMotionAsset = {
   poster: "/images/hero-north-texas-exterior.webp",
-  label: "A modest single-story home on a North Texas residential street",
+  label: "A brick-and-stone two-story suburban home with a landscaped front yard",
   desktop: [
     { src: "/video/hero-north-texas-exterior-1280.webm", type: "video/webm" },
     { src: "/video/hero-north-texas-exterior-1280.mp4", type: "video/mp4" },
