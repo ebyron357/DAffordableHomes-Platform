@@ -18,7 +18,7 @@ export type ApprovedImage = {
   objectPosition: string
 }
 
-/** Homepage hero. Pexels 7114188, Monstera Production / Gabby K. */
+/** Licensed Pexels interior used on /homes; not the current homepage hero. */
 export const HERO_FAMILY: ApprovedImage = {
   src: "/images/black-family-home-pexels-7114188.webp",
   alt: "A Black family of five holding hands together in a bright living room",
