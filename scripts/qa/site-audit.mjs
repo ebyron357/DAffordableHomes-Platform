@@ -95,9 +95,12 @@ const FORBIDDEN_TEXT = [
 
 /** Approved assets that must actually render on the routes that use them. */
 const REQUIRED_IMAGES = {
-  /* The hero is drawn, not photographed (see `.fh-hero-scene`), so the only
-     photograph the homepage must serve is Debra's own portrait. */
+  /* The hero draws `.fh-hero-scene` and layers the approved exterior still over
+     it. Listing the still here catches the one case the resolver is built to
+     allow but nobody wants silently: the file going missing, leaving the
+     drawing alone with no one told. */
   "/": [
+    "hero-north-texas-exterior",
     "debra-allen-primary-about",
     "daffordable-homes-official-logo",
   ],

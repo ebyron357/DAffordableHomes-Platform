@@ -2,6 +2,26 @@
 
 All notable repository changes are documented here.
 
+## 2026-09-22
+
+### Homepage hero exterior
+
+- The hero's exterior slot is wired end to end: `lib/media/ambient-motion.ts`
+  resolves the still at build time, `components/media/ambient-motion.tsx`
+  renders it, and the drawn brand streetscape stays beneath it as the fallback —
+  removing the file restores the drawing with no code change.
+- The owner's approved generated still (`hero-north-texas-exterior.webp`, from
+  `9VO_H8Qh26Hg90ZLIvsSd.jpg` in Gamma) is registered in
+  `docs/05-content/IMAGE_ASSET_REGISTER.md`, which states plainly that it is not
+  evidence of a real listing, transaction, client property, address or verified
+  neighbourhood, and now also carries its measured responsive framing and the
+  one region that does not survive magnification.
+- `qa:audit` requires the still to render on `/`, so the file going missing is
+  reported rather than silently falling back to the drawing.
+- Motion for the slot is prepared but unfilled, and never autoplays: with the
+  still alone the page mounts no `<video>`, issues no media request and offers
+  no control, at every viewport and under `prefers-reduced-motion`.
+
 ## 2026-09-21
 
 ### Homepage quiz

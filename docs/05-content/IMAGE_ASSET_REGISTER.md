@@ -74,6 +74,27 @@ The image is not evidence of a real listing, transaction, client property, verif
 
 The resolver in `apps/web/lib/media/ambient-motion.ts` keeps the fallback contract intact: if the still is ever removed, it returns `null` and the drawn scene remains. Optional motion encodes are still absent and remain subject to the existing opt-in, reduced-motion, provenance, approval, and same-origin rules.
 
+**Responsive framing, measured 2026-09-23.** `object-fit: cover` with
+`object-position: center 42%` inside `.fh-hero-media`. Frames: 684×758 at 1440,
+1024×640 at 1024, 768×768 at 768, 430×323 at 430, 375×281 at 375. The house
+sits centre-left in the 16:9 source, so at 1440 the panel holds the roofline
+and the full front elevation with the garage bay at the right edge, and at 430
+and 375 the whole house is in frame. Verified at all five widths with and
+without `prefers-reduced-motion`: the still renders eagerly (it is the LCP
+element on mobile, where `.fh-hero-media { order: -1 }`), with zero video nodes,
+zero media requests, zero console errors, one `h1` and no horizontal overflow.
+
+**Where the generation shows, noted and not blocking.** At 2–3× magnification
+the garage bay does not hold up: the soldier course above the opening dissolves
+into vertical striations rather than resolving into bricks, the door is a
+featureless slab carrying an entry-door lever with no panel seams or tracks,
+the cream jamb has a wavy edge, and the address plaque glyphs are malformed.
+The masonry, windows, roofline and landscaping elsewhere in the frame read as
+ordinary residential photography. At the sizes the hero actually renders that
+bay is small and at the right edge, which is why this is recorded rather than
+treated as a defect — but the asset should not be re-used at a larger scale, in
+a crop that centres the garage, or anywhere a viewer can magnify it.
+
 ## Articles with no photograph of their own subject
 
 Two guides carried Debra's portrait as their card and masthead image:

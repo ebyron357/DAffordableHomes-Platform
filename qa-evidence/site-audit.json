@@ -33,7 +33,7 @@
     "/consultation brand area: 69.2% {\"navy\":49.1,\"gold\":0,\"alt\":20}",
     "/contact brand area: 67.1% {\"navy\":53.8,\"gold\":0.6,\"alt\":12.7}",
     "/equal-housing-opportunity brand area: 68.6% {\"navy\":68.6}",
-    "/events brand area: 75% {\"navy\":66.1,\"alt\":8.8}",
+    "/events brand area: 74.9% {\"navy\":66.1,\"alt\":8.8}",
     "/fair-housing brand area: 60.4% {\"navy\":60.4}",
     "/faq brand area: 74.6% {\"navy\":62.3,\"alt\":12.2}",
     "/first-time-buyers brand area: 58.2% {\"navy\":43.9,\"alt\":14.4}",
@@ -84,6 +84,13 @@
           "naturalWidth": 111,
           "naturalHeight": 73,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
+          "loading": "eager"
+        },
+        {
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fhero-north-texas-exterior.webp&w=750&q=75",
+          "naturalWidth": 748,
+          "naturalHeight": 418,
+          "alt": "A brick-and-stone two-story suburban home with a landscaped front yard",
           "loading": "eager"
         },
         {
@@ -715,8 +722,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -936,15 +943,15 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
         }
       ],
       "brandArea": {
-        "total": 75,
+        "total": 74.9,
         "byColour": {
           "navy": 66.1,
           "alt": 8.8
@@ -1107,8 +1114,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1894,8 +1901,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1962,8 +1969,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"

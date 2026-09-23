@@ -203,15 +203,20 @@
 - [ ] Confirm provenance and licence for the three unregistered photographs still
       served (`hero-family`, `home-keys-moment`, `planning-table`), or approve
       replacements
-- [ ] Supply cleared exterior photography for the two guide cards and the homepage
-      hero. Every accessible source was searched on 2026-09-21 and none holds a
-      DFW exterior — repository, full git history, the `recovered-manus` bundle,
+- [x] Homepage hero exterior: the owner committed and approved a generated
+      exterior still on 2026-09-22 (`9VO_H8Qh26Hg90ZLIvsSd.jpg`, Gamma). It is
+      registered, resolved at build time and layered over the drawn streetscape,
+      which stays as the fallback. `qa:audit` now requires it to render on `/`,
+      so the file going missing is reported rather than silently falling back
+- [ ] Supply cleared exterior photography for the two guide cards. Every
+      accessible source was searched on 2026-09-21 and none holds a DFW
+      exterior — repository, full git history, the `recovered-manus` bundle,
       the Figma 11:4 frame (which carries no photographs at all), and the shared
       Google Drive; stock hosts and image generation are refused by the
       environment's egress policy. The table in
-      `docs/05-content/IMAGE_ASSET_REGISTER.md` records each one. The shared
-      Google Drive is a working transfer route, so placing the files there (or
-      committing them to `apps/web/public/images/`) is enough
+      `docs/05-content/IMAGE_ASSET_REGISTER.md` records each one. Setting
+      `featuredImage` in Sanity, or committing files to
+      `apps/web/public/images/`, is enough
 
 These items require a separate business and architecture decision before implementation:
 
