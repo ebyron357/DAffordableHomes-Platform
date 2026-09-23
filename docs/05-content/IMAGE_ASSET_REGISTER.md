@@ -8,8 +8,11 @@ Canonical register for approved public-site imagery. Debra Allen's photographs m
 | `ED9EC101-01F5-44BD-BBEB-3DB0AD100A9D.jpeg` | `debra-allen-advisor-desk.webp` — `apps/web/public/images/debra-allen-advisor-desk.webp` | Client-approved original; photographer/license retained by client | Consultation, support image | `object-position: 50% 35%`; responsive 4:5 frame preserves face | Debra Allen seated at her desk with a tablet | EXIF orientation, proportional resize, WebP compression | Approved |
 | `855540B8-A31A-4564-8775-1D436040F39D.jpeg` | `debra-allen-lifestyle-full-body.webp` — `apps/web/public/images/debra-allen-lifestyle-full-body.webp` | Client-approved original; photographer/license retained by client | Reserved for wide lifestyle composition | Full-body composition; `object-position: center 35%` | Debra Allen standing at a kitchen island in a yellow blazer | EXIF orientation, proportional resize, WebP compression | Approved, controlled placement |
 | Pexels photo 7114188 | `black-family-home-pexels-7114188.webp` — `apps/web/public/images/black-family-home-pexels-7114188.webp` (1800×1200) | [Pexels photo 7114188](https://www.pexels.com/photo/black-family-holding-hands-in-room-7114188/), Monstera Production / Gabby K, [Pexels license](https://www.pexels.com/license/) | Homepage hero well in Figma frame 11:4 | `object-position: 52% center` inside the 548×560 rounded well. The five people sit slightly right of centre in the 3:2 source, so 52% is the value that centres *them*; a literal 50% clipped the father's shoulder at narrow widths. All five remain legible at 1440, 1024, 768, 430 and 375. | A Black family of five holding hands together in a bright living room | Proportional resize to 1800px maximum, WebP quality 82; no retouching | Approved for controlled redesign |
+| `9VO_H8Qh26Hg90ZLIvsSd.jpg` — Gamma AI generation | `hero-north-texas-exterior.webp` — `apps/web/public/images/hero-north-texas-exterior.webp` (2048×1143) | Gamma AI generation created for this project; photographer N/A; owner-approved generated asset; no third-party stock-license claim is asserted in this register | Homepage, primary hero exterior | Source composition preserved. JPEG→WebP only; no crop, resize, enhancement, retouching, or generative edit. Responsive framing is verified during release QC. | A brick-and-stone two-story suburban home with a landscaped front yard | JPEG→WebP format conversion only; no content change | Approved by owner 2026-09-22; approved asset contains no people and no cars |
 
-The hero was downloaded on 2026-07-20. Pexels permits free website and commercial promotional use; the site does not imply that the pictured family endorses D'Affordable Homes.
+The Pexels family image was downloaded on 2026-07-20. Pexels permits free website and commercial promotional use; the site does not imply that the pictured family endorses D'Affordable Homes.
+
+The current homepage exterior still is the separate owner-approved Gamma-generated asset registered above. It is presented as a generic generated residential exterior, not as a real listing, transaction, client property, verified address, or specific neighbourhood.
 
 
 ## Placement module
@@ -61,29 +64,15 @@ repository, because removing imagery the owner may have licensed is not an
 agent's decision — but `scripts/qa/site-audit.mjs` now fails if any of the three
 retired files is served by any route again.
 
-## The homepage hero is drawn, not photographed
+## Homepage hero — approved generated exterior still
 
-The hero carried `black-family-home-pexels-7114188.webp` — a licensed
-photograph of a family holding hands in a bright living room. Warm, correctly
-licensed, and the wrong subject: an interior, in the first viewport of a site
-about buying and selling houses in Dallas–Fort Worth.
+The homepage hero no longer depends on the unrelated Pexels interior. The drawn D'Affordable Homes roofline remains in the component as a safe fallback, while the approved still fills the exterior slot when `apps/web/public/images/hero-north-texas-exterior.webp` is present.
 
-None of the four cleared photographs is a North Texas exterior, and no image
-host is reachable from a maintenance session (see the table above), so the slot
-is drawn instead of filled with the wrong picture: the roofline from the
-D'Affordable Homes mark at streetscape scale, over a dusk sky with a warm
-horizon, a second range of roofs set back behind it for depth, and one lit
-window. It is `aria-hidden` ornament with no alt text, it depicts no particular
-place, and it claims nothing — no address, no listing, no neighbourhood it is
-not.
+The source file is `9VO_H8Qh26Hg90ZLIvsSd.jpg`, generated in Gamma for this project and approved by the owner on 2026-09-22. The approved image contains no people and no cars. It shows a brick-and-stone two-story suburban home with a landscaped front yard. The source composition remains 2048×1143; the repository copy is a WebP conversion only, with no crop, resize, enhancement, retouching, or further generative edit.
 
-The Pexels interior stays registered and in the repository; it is still used by
-`controlled-home-sections.tsx`. A photograph replaces the drawing by restoring
-an `<Image>` inside `.fh-hero-media` and adding a register row.
+The image is not evidence of a real listing, transaction, client property, verified address, or specific North Texas neighbourhood. Copy, metadata, structured data, and alt text must not imply otherwise.
 
-**What a replacement hero photograph needs:** a Dallas–Fort Worth residential
-exterior in an established neighbourhood, landscape, and legible at both a
-46vw-wide panel at 1440 and a 4:3 full-bleed crop at 375.
+The resolver in `apps/web/lib/media/ambient-motion.ts` keeps the fallback contract intact: if the still is ever removed, it returns `null` and the drawn scene remains. Optional motion encodes are still absent and remain subject to the existing opt-in, reduced-motion, provenance, approval, and same-origin rules.
 
 ## Articles with no photograph of their own subject
 
@@ -105,12 +94,9 @@ over the card, the masthead, the related-article card, the Open Graph image and
 the Article JSON-LD, with no code change. Until then no image property is
 published rather than an unrelated one being asserted as the article's subject.
 
-**Owner action to restore photography on these two cards, and to replace the
-homepage hero:** supply cleared photographs and set `featuredImage` (and
-`socialImage`) in Sanity, or place the files where this register can point at
-them.
+**Owner action to restore photography on these two cards:** supply cleared photographs and set `featuredImage` (and `socialImage`) in Sanity, or place the files where this register can point at them. The homepage hero is no longer part of this owner-action item.
 
-### Every source searched, 2026-09-21
+### Every source searched and final asset resolution, 2026-09-21–22
 
 The photographs were looked for before this was written down as an owner
 action. What was searched, and what was in it:
@@ -124,23 +110,15 @@ action. What was searched, and what was in it:
 | The shared Google Drive (`realtordebra.allen@gmail.com`) | Five `Realtor3-*` photographs from Debra's realtor shoot, plus one small Canva graphic. Portraits of Debra — which is exactly what must not go back on these two cards — not property exteriors |
 | Sanity Content Lake asset library | Unreachable: this environment has no `SANITY_PROJECT_ID` / `SANITY_DATASET` and no `.env`. Owner-only |
 | Stock libraries (Pexels, Unsplash, Wikimedia Commons, Openverse, Pixabay, and their CDNs) | Every host answers 403 at this environment's egress proxy |
-| Image generation (Higgsfield) | Refused without a paid plan; and its CDN (`d8j0ntlcm91z4.cloudfront.net`) is also 403 at the proxy, so a generated file could not be retrieved even with one |
+| Image generation (Higgsfield) | Refused without a paid plan; no motion clip was generated or approved |
+| Image generation (Gamma) | Produced `9VO_H8Qh26Hg90ZLIvsSd.jpg`; the owner approved the generated still on 2026-09-22, and the approved bytes were converted to WebP and committed as the homepage hero exterior |
 
-**The Google Drive route works.** `download_file_content` returned a complete,
-untruncated file from the shared Drive, so a photograph placed in the folder
-Debra already shares can be pulled into this repository directly — no network
-policy change and no third-party spend. That is the cheapest way to close this
-item: drop the cleared exteriors there, or commit them to
-`apps/web/public/images/` on the branch.
+The homepage hero item is now closed with the registered owner-approved generated still. Google Drive remains a usable transfer route for future cleared client assets, but it is no longer a blocker for the hero.
 
-What each slot needs:
+Remaining photography needs:
 
-- **Homepage hero** — a Dallas–Fort Worth residential exterior, established
-  neighbourhood, warm daylight, wide enough to survive a 46vw crop at 1440 and
-  a full-bleed crop at 375.
-- **Homes for Heroes card** — a North Texas brick-and-stone home with a modest
-  flag on or near the porch.
-- **Garland card** — an established Garland street or house.
+- **Homes for Heroes card** — a cleared image appropriate to the article subject.
+- **Garland card** — a cleared Garland street or house.
 
 ## Rendering rules
 
