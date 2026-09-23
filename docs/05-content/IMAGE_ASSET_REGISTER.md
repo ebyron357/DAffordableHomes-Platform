@@ -103,7 +103,7 @@ action. What was searched, and what was in it:
 
 | Source | Result |
 | --- | --- |
-| `apps/web/public/**` | Four registered photographs (three of Debra, one licensed Pexels interior) plus the unregistered files above. No DFW exterior |
+| `apps/web/public/**` | The previously registered photographs plus the audited legacy files and the owner-approved generated hero exterior now registered above |
 | Full git history, including deleted files | Recovered `hero-home-exterior.png` and `black-family-moving-home-hero.webp` from PR #5. The first is a generated image of a small craftsman bungalow — the modest/dated tier the owner rejected, and the origin of that rejected direction. The second is an interior packing scene with a wall radiator, not North Texas. Neither is usable |
 | `recovered-manus/` reference bundle | Same five Manus files already inventoried, plus a Debra portrait. No exterior |
 | Figma, the visual source of truth (`x8TpOO9gK5tsbcjkEsK18A`, frame `11:4`) | `rawImages: []` — the approved frame carries **no** source photographs at all, only vector linework and icons. This confirms `DECISIONS.md` 2026-09-19: the frame's picture wells are placeholders |
