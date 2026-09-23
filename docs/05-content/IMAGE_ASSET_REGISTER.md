@@ -84,6 +84,8 @@ without `prefers-reduced-motion`: the still renders eagerly (it is the LCP
 element on mobile, where `.fh-hero-media { order: -1 }`), with zero video nodes,
 zero media requests, zero console errors, one `h1` and no horizontal overflow.
 
+**Owner acceptance, 2026-09-22.** The owner explicitly approved keeping the current asset as-is, including the tiny malformed house-number plaque visible only at full-resolution inspection. No retouching or removal is authorized. The plaque is not legible at normal website render sizes and must not be treated as a real or verified address.
+
 **Where the generation shows, noted and not blocking.** At 2–3× magnification
 the garage bay does not hold up: the soldier course above the opening dissolves
 into vertical striations rather than resolving into bricks, the door is a
