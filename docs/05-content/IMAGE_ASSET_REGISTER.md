@@ -84,13 +84,29 @@ without `prefers-reduced-motion`: the still renders eagerly (it is the LCP
 element on mobile, where `.fh-hero-media { order: -1 }`), with zero video nodes,
 zero media requests, zero console errors, one `h1` and no horizontal overflow.
 
-**Owner acceptance, 2026-09-22.** The owner explicitly approved keeping the current asset as-is, including the tiny malformed house-number plaque visible only at full-resolution inspection. No retouching or removal is authorized. The plaque is not legible at normal website render sizes and must not be treated as a real or verified address.
+**Owner acceptance, 2026-09-22.** The owner explicitly approved keeping the
+current asset as-is, including the house-number plaque. No retouching or removal
+is authorized.
+
+**What the plaque actually does at render size, measured 2026-09-23.** Cropped
+from the live hero at 1440 inside the 684×758 frame: at a device pixel ratio of
+1 it is an illegible pale smudge, but **at a device pixel ratio of 2 it reads
+clearly as `7093`** — a slashed zero, cleanly formed, not a malformed glyph.
+Retina laptops and every modern phone render at 2 or higher, so "legible only
+under full-resolution inspection" would be wrong: it is legible to a typical
+visitor who looks at it. That does not change the owner's decision, and the
+number is not a real or verified address — it is part of a generated image. It
+is recorded here so nothing downstream relies on the plaque being unreadable:
+**no copy, caption, metadata, structured data or alt text may present it as an
+address, and the asset must not be used anywhere the plaque is enlarged further
+or drawn attention to.**
 
 **Where the generation shows, noted and not blocking.** At 2–3× magnification
 the garage bay does not hold up: the soldier course above the opening dissolves
 into vertical striations rather than resolving into bricks, the door is a
 featureless slab carrying an entry-door lever with no panel seams or tracks,
-the cream jamb has a wavy edge, and the address plaque glyphs are malformed.
+and the cream jamb has a wavy edge. (The plaque is treated separately above: it
+is legible rather than malformed, which is its own consideration.)
 The masonry, windows, roofline and landscaping elsewhere in the frame read as
 ordinary residential photography. At the sizes the hero actually renders that
 bay is small and at the right edge, which is why this is recorded rather than
