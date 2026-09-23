@@ -5,11 +5,10 @@ import { test } from "node:test";
 /**
  * Hero exterior slot.
  *
- * `.fh-hero-media` draws the brand roofline because no cleared North Texas
- * exterior exists in the repository. These assertions cover the seam that
- * prepares the slot for one: the drawing has to survive an absent asset, the
- * clip has to stay opt-in and decorative, and nothing may be committed as a
- * stand-in for the photograph that is still missing.
+ * `.fh-hero-media` keeps the brand roofline as a fallback and now carries an
+ * owner-approved generated exterior still. These assertions cover the seam:
+ * the drawing must survive if the still is ever absent, the approved still must
+ * be registered, and optional motion must remain opt-in and decorative.
  */
 
 const read = (file) => readFileSync(file, "utf8");
@@ -18,8 +17,9 @@ const HERO = "apps/web/components/home/figma-home-page.tsx";
 const RESOLVER = "apps/web/lib/media/ambient-motion.ts";
 const COMPONENT = "apps/web/components/media/ambient-motion.tsx";
 const STYLES = "apps/web/app/globals.css";
+const REGISTER = "docs/05-content/IMAGE_ASSET_REGISTER.md";
 
-test("the drawn hero scene survives an unfilled exterior slot", () => {
+test("the drawn hero scene remains a safe fallback behind the approved exterior", () => {
   const hero = read(HERO);
   const resolver = read(RESOLVER);
 
@@ -34,28 +34,26 @@ test("the drawn hero scene survives an unfilled exterior slot", () => {
   assert.match(hero, /<AmbientMotion[^>]*priority[^>]*\/>/);
   assert.match(read(STYLES), /\.fh-hero-media \{ order: -1;/);
 
-  // No still approved means no asset, which is what leaves the drawing alone.
+  // The fallback contract remains: removing the still restores the drawing.
   assert.match(resolver, /if \(!present\(HERO_NORTH_TEXAS_EXTERIOR\.poster\)\) return null/);
   assert.match(resolver, /existsSync/);
 });
 
-test("no stand-in media is committed for the missing exterior", () => {
+test("the approved hero still is committed and registered; motion encodes remain absent", () => {
   const resolver = read(RESOLVER);
-  const referenced = [...resolver.matchAll(/"(\/(?:images|video)\/hero-north-texas-exterior[^"]*)"/g)].map(
-    (match) => match[1]
+  const register = read(REGISTER);
+
+  assert.equal(
+    existsSync("apps/web/public/images/hero-north-texas-exterior.webp"),
+    true,
+    "the approved hero still should be committed"
   );
+  assert.match(register, /9VO_H8Qh26Hg90ZLIvsSd\.jpg/);
+  assert.match(register, /hero-north-texas-exterior\.webp/);
+  assert.match(register, /Gamma AI generation/);
 
-  assert.ok(referenced.length > 0, "the resolver should name the files the slot expects");
-  for (const path of referenced) {
-    assert.equal(
-      existsSync(`apps/web/public${path}`),
-      false,
-      `${path} exists; a real asset needs a register row and this assertion updated`
-    );
-  }
-
-  // Nothing may be hotlinked either: the CSP declares no media-src, so media
-  // falls back to default-src 'self'.
+  // Nothing may be hotlinked: the CSP declares no media-src, so media falls
+  // back to default-src 'self'. Optional video encodes are not approved yet.
   assert.doesNotMatch(resolver, /https?:\/\//);
 
   const videoDir = "apps/web/public/video";
