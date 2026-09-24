@@ -55,8 +55,15 @@ export function AmbientMotion({
   // Art direction: both stills go through the image optimizer, so a phone gets a
   // resized portrait rather than the full-size source. getImageProps emits no
   // preload link, so a visitor who sees the portrait never also fetches the
-  // landscape still; priority still marks the <img> eager and high-priority.
-  const shared = { alt: asset.label, fill: true, sizes, priority }
+  // landscape still. priority leaves the <img> eager (no loading attribute), but
+  // it does not set fetchPriority on its own, so the LCP hint is passed through.
+  const shared = {
+    alt: asset.label,
+    fill: true,
+    sizes,
+    priority,
+    fetchPriority: priority ? ("high" as const) : undefined,
+  }
   const poster = getImageProps({ ...shared, src: asset.poster, className: "object-cover" }).props
   const mobilePoster = asset.mobilePoster
     ? getImageProps({ ...shared, src: asset.mobilePoster }).props.srcSet

@@ -107,4 +107,9 @@ test("both hero stills go through the image optimizer with no stray preload", ()
   assert.match(component, /getImageProps\(\{ \.\.\.shared, src: asset\.mobilePoster \}\)/);
   assert.doesNotMatch(component, /srcSet=\{asset\.mobilePoster\}/);
   assert.doesNotMatch(component, /<Image\b/);
+
+  // getImageProps passes `fetchPriority` straight through and never derives it
+  // from `priority`, so dropping <Image> also dropped the LCP hint on the hero
+  // <img> until it was passed explicitly.
+  assert.match(component, /fetchPriority: priority \? \("high" as const\) : undefined/);
 });
