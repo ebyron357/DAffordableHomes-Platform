@@ -58,10 +58,20 @@ test("the quiz asks real-estate intent, branches on goal, and never asks a quali
   assert.deepEqual(visibleQuestions({ goal: "first" }).map((q) => q.id), ["goal", "area", "timeline", "buyerPosition", "service"])
   assert.deepEqual(visibleQuestions({ goal: "sell" }).map((q) => q.id), ["goal", "area", "timeline", "sellerPosition", "service"])
   assert.deepEqual(visibleQuestions({}).map((q) => q.id), ["goal", "area", "timeline", "service"])
-  for (const answers of [{ goal: "first" }, { goal: "sell" }, { goal: "explore" }]) {
-    const count = visibleQuestions(answers).length
-    assert.ok(count >= 4 && count <= 6, `${answers.goal}: ${count} questions`)
+  // Every goal yields exactly five questions, because the buyer- and
+  // seller-position questions are mutually exclusive. The homepage states that
+  // count in two places, so the copy is checked against the data rather than
+  // against someone's memory of it: a seventh question, or a dropped `showIf`,
+  // has to change the words too.
+  const goals = PATH_QUESTIONS.find((question) => question.id === "goal").choices.map((choice) => choice.value)
+  for (const goal of goals) {
+    assert.equal(visibleQuestions({ goal }).length, 5, `${goal} should ask five questions`)
   }
+
+  const homepage = read("apps/web/components/home/figma-home-page.tsx")
+  assert.match(homepage, /Five questions point you to the right first step/)
+  assert.match(homepage, /<span>Five questions, about a minute<\/span>/)
+  assert.doesNotMatch(homepage, /Five or six/)
 
   for (const question of PATH_QUESTIONS) {
     assert.ok(question.choices.length >= 4 && question.choices.length <= 6, `${question.id} has 4–6 choices`)

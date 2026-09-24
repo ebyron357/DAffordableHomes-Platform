@@ -19,7 +19,7 @@ const INTRO: GuidedQuizPhase = { kind: "intro" }
 /**
  * "Find Your Homebuying Path" — the homepage's guided quiz.
  *
- * Five or six questions, one at a time and branched on the visitor's goal,
+ * Five questions, one at a time and branched on the visitor's goal,
  * then an immediate result: a heading, an explanation written from the
  * answers, a recommended next step, one existing resource, a primary action
  * and an optional consultation. No contact details are asked for. Built on

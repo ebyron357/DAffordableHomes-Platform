@@ -327,7 +327,7 @@ function FindYourPath() {
           <ul className="fh-pathquiz-facts">
             <li>
               <Check className="size-4" aria-hidden="true" />
-              <span>Five or six questions, about a minute</span>
+              <span>Five questions, about a minute</span>
             </li>
             <li>
               <Check className="size-4" aria-hidden="true" />
