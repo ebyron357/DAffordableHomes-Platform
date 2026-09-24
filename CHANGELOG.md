@@ -4,6 +4,14 @@ All notable repository changes are documented here.
 
 ## 2026-09-24
 
+### Homepage hero image delivery
+
+- The portrait hero still is now art-directed through `getImageProps`, so both
+  stills are resized by the image optimizer. Previously every viewport up to
+  1600px downloaded the full 1744×2336 portrait (856 KB) and also the
+  landscape still preloaded by `next/image`; a 390px phone now fetches one
+  60 KB image (189 KB at 3× density). The rendered hero is unchanged.
+
 ### Homepage visual reconciliation
 
 - The page-width lock is gone. `.figma-home { width: 1440px }` boxed the whole

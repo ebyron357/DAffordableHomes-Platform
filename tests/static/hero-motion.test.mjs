@@ -98,3 +98,13 @@ test("hero motion is opt-in, silent, and reduced-motion safe", () => {
     assert.ok(styles.includes(rule), `globals.css should scope "${rule}" to the hero slot`);
   }
 });
+
+test("both hero stills go through the image optimizer with no stray preload", () => {
+  const component = read(COMPONENT);
+
+  // A raw srcSet on <source> shipped the full-size portrait (856 KB) to phones,
+  // and next/image's priority preload fetched the landscape still as well.
+  assert.match(component, /getImageProps\(\{ \.\.\.shared, src: asset\.mobilePoster \}\)/);
+  assert.doesNotMatch(component, /srcSet=\{asset\.mobilePoster\}/);
+  assert.doesNotMatch(component, /<Image\b/);
+});

@@ -1,11 +1,14 @@
 "use client"
 
-import Image from "next/image"
+import { getImageProps } from "next/image"
 import { useCallback, useRef, useState, useSyncExternalStore } from "react"
 import type { AmbientMotionAsset, AmbientMotionSource } from "@/lib/media/ambient-motion"
 
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)"
 const WIDE_VIEWPORT = "(min-width: 768px)"
+// Up to this width the hero frame is too narrow for the landscape still to keep
+// the full roofline, so the portrait of the same house is shown instead.
+const MOBILE_POSTER_MEDIA = "(max-width: 1600px)"
 
 function useMediaQuery(query: string) {
   const subscribe = useCallback(
@@ -49,6 +52,16 @@ export function AmbientMotion({
       ? asset.desktop
       : asset.mobile
 
+  // Art direction: both stills go through the image optimizer, so a phone gets a
+  // resized portrait rather than the full-size source. getImageProps emits no
+  // preload link, so a visitor who sees the portrait never also fetches the
+  // landscape still; priority still marks the <img> eager and high-priority.
+  const shared = { alt: asset.label, fill: true, sizes, priority }
+  const poster = getImageProps({ ...shared, src: asset.poster, className: "object-cover" }).props
+  const mobilePoster = asset.mobilePoster
+    ? getImageProps({ ...shared, src: asset.mobilePoster }).props.srcSet
+    : undefined
+
   const toggle = () => {
     const element = clip.current
     if (!started || !element) {
@@ -65,15 +78,8 @@ export function AmbientMotion({
   return (
     <div className="ambient-motion">
       <picture>
-        {asset.mobilePoster ? <source media="(max-width: 1600px)" srcSet={asset.mobilePoster} /> : null}
-        <Image
-          src={asset.poster}
-          alt={asset.label}
-          fill
-          sizes={sizes}
-          priority={priority}
-          className="object-cover"
-        />
+        {mobilePoster ? <source media={MOBILE_POSTER_MEDIA} srcSet={mobilePoster} sizes={sizes} /> : null}
+        <img {...poster} alt={asset.label} />
       </picture>
       {started && sources.length > 0 ? (
         <video
