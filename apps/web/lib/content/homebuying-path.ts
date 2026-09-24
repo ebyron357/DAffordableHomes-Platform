@@ -1,7 +1,7 @@
 /**
  * "Find Your Homebuying Path" — the homepage's guided quiz.
  *
- * Five or six short questions, branched on the visitor's goal, identify which
+ * Five short questions, branched on the visitor's goal, identify which
  * of the site's existing pathways fits and turn the answers into a concrete
  * next move. Every destination is a route that already exists in this
  * repository; `tests/static/homebuying-path.test.mjs` resolves each one
