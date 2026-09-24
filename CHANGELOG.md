@@ -2,6 +2,35 @@
 
 All notable repository changes are documented here.
 
+## 2026-09-24
+
+### Homepage visual reconciliation
+
+- The page-width lock is gone. `.figma-home { width: 1440px }` boxed the whole
+  site inside near-white margins on any monitor wider than 1440 and made the
+  hero read as a card floating in empty space. Fields now bleed to the
+  viewport edge at every width; only content is held to the 1440 shell.
+- The hero is one composition: a four-track grid puts the copy on the content
+  line and runs the approved exterior from the middle of the shell to the right
+  edge of the viewport, with a navy wash along the seam so the house emerges
+  from the field instead of meeting it as a hard line, and a low vignette that
+  seats a white gold-edged panel straddling the seam. That panel is a real entry
+  to the homepage quiz. The copy now carries the tagline behind a gold rule,
+  two CTAs instead of three, and Debra's byline with her approved portrait, so
+  the first viewport names the practice, the person, the market and a next
+  action.
+- The split holds at laptop widths. A 1024px viewport used to stack the hero
+  and put every word of copy below the fold behind a 640px photograph;
+  stacking now starts under 900px.
+- Section order tells the story in sequence — hero, trust band, pathways, Meet
+  Debra, the quiz, markets, listings, guidance, guides, closing band — and the
+  quiz's light field now separates the two navy ones.
+- The five planning destinations under the guides are an editorial index under
+  a gold rule rather than five identical white cards.
+- `tests/static/figma-homepage.test.mjs` pins the composition: no page lock,
+  the four-track grid, the seam panel's position, the byline, the laptop
+  split, the stacked rules and the section order.
+
 ## 2026-09-22
 
 ### Homepage hero exterior

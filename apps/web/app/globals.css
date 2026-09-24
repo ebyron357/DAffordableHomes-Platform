@@ -484,33 +484,64 @@
 .fh-mobile-menu a.fh-btn { display: inline-flex; padding: 14px 28px; border-bottom: 0; color: var(--fh-white); }
 
 /* --------------------------------------------------------------------- hero */
-/* A split: solid navy field carrying the copy, and the photograph beside it at
-   full clarity. The first version washed the photo under a near-opaque scrim
-   so the copy would clear contrast — which made the family almost invisible
-   and left the picture doing no visual work. Separating the two means the navy
-   is genuinely a field and the photograph is genuinely a photograph, with no
-   overlay on it at desktop at all. */
+/* One composition. The section is a full-bleed navy field laid out on a
+   four-track grid: a fluid gutter, the copy track, the photograph track, and a
+   fluid gutter the photograph also spans — so the copy sits on the 1256px
+   content line while the exterior runs to the right edge of any viewport.
+   At 1440 the gutters are the shell's 92px; on a wider monitor they grow and
+   the photograph grows with them instead of the page boxing itself in.
+
+   The seam between field and photograph is blended, not cut: a navy wash on
+   the left edge of the picture lets it emerge from the brand colour, and a
+   low vignette seats the quiz panel that straddles the seam. No scrim sits on
+   the subject itself. */
 .fh-hero {
   position: relative;
+  isolation: isolate;
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  grid-template-columns: minmax(24px, 1fr) minmax(0, 564px) minmax(0, 692px) minmax(24px, 1fr);
   align-items: stretch;
   background: var(--fh-navy);
   overflow: hidden;
 }
 .fh-hero-inner {
+  grid-column: 2;
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
-  padding: 104px 56px 96px max(24px, calc((100vw - 1440px) / 2 + 24px));
+  padding: 96px 48px 128px 0;
 }
-.fh-hero-media { position: relative; min-height: 560px; overflow: hidden; }
+.fh-hero-media { grid-column: 3 / 5; position: relative; min-height: 600px; }
+/* The wash along the seam. Wide enough that the brick never meets the navy
+   as a hard vertical line, narrow enough that the house is untouched. */
+.fh-hero-media::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: 1;
+  width: 180px;
+  background: linear-gradient(90deg, var(--fh-navy) 0%, rgba(16,43,78,.72) 32%, rgba(16,43,78,.28) 68%, transparent 100%);
+  pointer-events: none;
+}
+/* Low vignette: seats the seam panel and gives the bottom of the frame weight
+   against the teal band beneath. Never reaches the roofline. */
+.fh-hero-media::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+  height: 34%;
+  background: linear-gradient(0deg, rgba(11,30,56,.58) 0%, rgba(11,30,56,.22) 55%, transparent 100%);
+  pointer-events: none;
+}
 
 /* The cleared exterior, when one exists, sits over the drawn scene in the same
    frame. Scoped to this slot so the ornament defaults and the shared motion
    rules elsewhere in the sheet are left alone. */
 .fh-hero-media .ambient-motion { position: absolute; inset: 0; overflow: hidden; }
 .fh-hero-media .ambient-motion img,
-.fh-hero-media .ambient-motion-clip { width: 100%; height: 100%; object-fit: cover; object-position: center 42%; }
+.fh-hero-media .ambient-motion-clip { width: 100%; height: 100%; object-fit: cover; object-position: 38% 44%; }
 .fh-hero-media .ambient-motion-clip { position: absolute; inset: 0; opacity: 0; transition: opacity .6s ease; }
 .fh-hero-media .ambient-motion-clip.is-playing { opacity: 1; }
 .fh-hero-media .ambient-motion-toggle {
@@ -608,8 +639,11 @@
 }
 /* No overlay at desktop; the mobile rule below turns this on. */
 .fh-hero-fade { display: none; }
-.fh-hero-copy { display: flex; flex-direction: column; gap: 22px; max-width: 620px; }
+.fh-hero-copy { display: flex; flex-direction: column; gap: 22px; max-width: 564px; }
 .fh-hero-tagline {
+  display: flex;
+  align-items: center;
+  gap: 14px;
   margin: 0;
   color: var(--fh-gold-light);
   font-family: var(--font-sans);
@@ -618,24 +652,79 @@
   letter-spacing: 0.22em;
   text-transform: uppercase;
 }
+/* A short gold rule ahead of the tagline: the same mark the interior
+   mastheads carry under their headings, so the hero is visibly the same system. */
+.fh-hero-tagline::before { content: ""; width: 36px; height: 2px; background: var(--fh-gold); flex: 0 0 auto; }
 .fh-hero-copy h1 {
   margin: 0;
   color: var(--fh-white);
   font-family: var(--font-serif);
-  font-size: clamp(40px, 4.6vw, 62px);
+  font-size: clamp(38px, 4.1vw, 58px);
   font-weight: 600;
-  line-height: 1.08;
+  line-height: 1.06;
   letter-spacing: -0.02em;
 }
 .fh-hero-copy h1 em { font-style: normal; color: #7fd8e0; }
 .fh-lede {
   margin: 0;
-  max-width: 58ch;
+  max-width: 52ch;
   color: #dbe6ef;
   font-size: 18px;
   line-height: 1.65;
 }
 .fh-hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 6px; }
+
+/* Byline: the person, in the first viewport. */
+.fh-hero-byline {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0 0;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255,255,255,.18);
+  color: var(--fh-white);
+}
+.fh-hero-byline-portrait {
+  width: 56px;
+  height: 56px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--fh-gold-light);
+  box-shadow: 0 0 0 3px rgba(16,43,78,1);
+}
+.fh-hero-byline-text { display: flex; flex-direction: column; gap: 2px; }
+.fh-hero-byline-text strong { font-family: var(--font-sans); font-size: 15px; font-weight: 700; letter-spacing: .01em; }
+.fh-hero-byline-text span { color: #a9c0d3; font-size: 14px; }
+
+/* Seam panel: a real entry to the quiz, placed where the navy meets the
+   photograph so the two halves read as one picture. Positioned from the
+   section's own width, so it stays on the seam at every viewport. */
+.fh-hero-path {
+  position: absolute;
+  z-index: 3;
+  left: calc(max(24px, (100% - 1256px) / 2) + 476px);
+  bottom: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 348px;
+  padding: 22px 26px 22px 24px;
+  border-left: 4px solid var(--fh-gold);
+  border-radius: 0 8px 8px 0;
+  background: var(--fh-white);
+  color: var(--fh-navy);
+  text-decoration: none;
+  box-shadow: 0 30px 60px -30px rgba(9,25,47,.85);
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.fh-hero-path:hover { transform: translateY(-3px); box-shadow: 0 36px 64px -30px rgba(9,25,47,.9); }
+.fh-hero-path:hover .fh-hero-path-title { color: var(--fh-teal); }
+.fh-hero-path-label { color: var(--fh-teal); font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.fh-hero-path-title { font-family: var(--font-serif); font-size: 19px; font-weight: 600; line-height: 1.3; transition: color .18s ease; }
+.fh-hero-path-meta { display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; color: var(--fh-muted); font-size: 13px; font-weight: 600; }
+.fh-hero-path-meta svg { color: var(--fh-teal); transition: transform .18s ease; }
+.fh-hero-path:hover .fh-hero-path-meta svg { transform: translateX(3px); }
 
 /* -------------------------------------------------------------- trust band */
 .fh-trust { background: var(--fh-teal); color: var(--fh-white); border-bottom: 3px solid var(--fh-gold); }
@@ -1003,24 +1092,29 @@
 .fh-latest-row:hover { background: var(--fh-white); }
 .fh-latest-row:hover .fh-latest-title { color: var(--fh-teal); text-decoration: underline; text-underline-offset: 4px; }
 
-.fh-knowledge-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; align-items: stretch; list-style: none; margin: 0; padding: 0; }
+/* The five planning destinations are an editorial index, not a row of white
+   boxes: a gold rule across the top, hairlines between entries, serif titles.
+   Five identical rounded cards was the most template-like thing on the page. */
+.fh-knowledge-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0 36px;
+  align-items: stretch;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 2px solid var(--fh-gold);
+}
 .fh-knowledge-card {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
   height: 100%;
-  padding: 24px;
-  border-radius: 10px;
-  background: var(--fh-white);
-  border-top: 3px solid var(--fh-teal-bright);
-  transition: transform .2s ease, box-shadow .2s ease, border-top-color .2s ease;
+  padding: 26px 0 28px;
+  border-bottom: 1px solid var(--fh-border);
 }
-.fh-knowledge-grid li:hover .fh-knowledge-card {
-  transform: translateY(-3px);
-  border-top-color: var(--fh-teal);
-  box-shadow: 0 18px 36px -28px rgba(16,43,78,.7);
-}
-.fh-knowledge-card h4 { margin: 0; color: var(--fh-navy); font-family: var(--font-serif); font-size: 18px; font-weight: 600; line-height: 1.25; }
+.fh-knowledge-card h4 { margin: 0; color: var(--fh-navy); font-family: var(--font-serif); font-size: 19px; font-weight: 600; line-height: 1.25; transition: color .18s ease; }
+.fh-knowledge-grid li:hover .fh-knowledge-card h4 { color: var(--fh-teal); }
 .fh-knowledge-card p { margin: 0; color: var(--fh-muted); font-size: 14px; line-height: 1.5; }
 .fh-knowledge-card .fh-text-link { margin-top: auto; }
 .fh-access-link { font-size: 13px; gap: 4px; padding-top: 10px; }
@@ -1357,8 +1451,18 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 /* -------------------------------------------------------------- responsive */
 @media (min-width: 1101px) {
   .fh-shell { padding-left: 92px; padding-right: 92px; }
-  .fh-hero-inner { padding-left: 92px; padding-right: 92px; }
   .fh-meet-panel { padding-right: 92px; }
+}
+/* Laptop: the split holds — a 1024px viewport used to stack the hero and put
+   every word of copy below the fold behind a 640px photograph. */
+@media (min-width: 900px) and (max-width: 1100px) {
+  .fh-hero-inner { padding: 72px 32px 112px 0; }
+  .fh-hero-copy h1 { font-size: clamp(34px, 3.9vw, 42px); }
+  .fh-lede { font-size: 16px; }
+  .fh-hero-media { min-height: 520px; }
+  .fh-hero-path { width: 300px; bottom: 32px; padding: 18px 20px 18px 20px; }
+  .fh-hero-path-title { font-size: 17px; }
+  .fh-hero-byline { padding-top: 18px; }
 }
 
 /* Condensed header from 900px up: the five primary paths plus the CTA, rather
@@ -1374,28 +1478,17 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
   .fh-header-cta { padding: 12px 18px; font-size: 14px; }
 }
 
+/* No page-width lock. Fields bleed to the viewport edge at every width and
+   only content is held to the shell; the `max-width: 1440px` on .fh-shell is
+   the Figma frame's content lock. */
 @media (min-width: 1440px) {
-  .figma-home { width: 1440px; margin-inline: auto; }
   .fh-header { height: 94px; }
   .fh-header-inner { height: 94px; min-height: 94px; }
-  .fh-hero-inner { padding-top: 120px; padding-bottom: 112px; }
-  .fh-hero-media { min-height: 620px; }
+  .fh-hero-inner { padding-top: 104px; padding-bottom: 120px; }
+  .fh-hero-media { min-height: 640px; }
 }
 
 @media (max-width: 1100px) {
-  .fh-hero { grid-template-columns: 1fr; }
-  /* Photograph above the copy when stacked, so the first thing on a phone is
-     still a picture of a family in a home rather than a wall of navy. */
-  .fh-hero-media { order: -1; min-height: 0; aspect-ratio: 16 / 10; }
-  .fh-hero-fade {
-    display: block;
-    position: absolute;
-    inset: auto 0 -1px 0;
-    height: 42%;
-    background: linear-gradient(0deg, var(--fh-navy) 0%, rgba(16,43,78,0) 100%);
-  }
-  .fh-hero-inner { padding: 48px 24px 64px; }
-  .fh-hero-copy { max-width: 100%; }
   .fh-meet-grid { grid-template-columns: 1fr; }
   .fh-meet-portrait { min-height: 0; aspect-ratio: 4 / 3; max-height: 520px; }
   .fh-meet-panel { padding: 56px 24px; border-left: 0; border-top: 4px solid var(--fh-gold); }
@@ -1416,6 +1509,31 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
   .fh-desktop-nav,
   .fh-header-cta { display: none; }
   .fh-menu-toggle { display: inline-flex; margin-left: auto; }
+  /* Stacked hero. Photograph first, so the first thing on a phone is a home
+     rather than a wall of navy; the copy follows on the field and the seam
+     panel becomes a plain block under it. */
+  .fh-hero { grid-template-columns: 1fr; }
+  .fh-hero-media { order: -1; min-height: 0; aspect-ratio: 16 / 10; grid-column: auto; }
+  .fh-hero-media::before,
+  .fh-hero-media::after { display: none; }
+  .fh-hero-media .ambient-motion img,
+  .fh-hero-media .ambient-motion-clip { object-position: 46% 50%; }
+  .fh-hero-fade {
+    display: block;
+    position: absolute;
+    inset: auto 0 -1px 0;
+    height: 42%;
+    background: linear-gradient(0deg, var(--fh-navy) 0%, rgba(16,43,78,0) 100%);
+  }
+  .fh-hero-inner { grid-column: auto; padding: 36px 24px 28px; }
+  .fh-hero-copy { max-width: 100%; gap: 18px; }
+  .fh-hero-copy h1 { font-size: clamp(34px, 8.6vw, 46px); }
+  .fh-hero-path {
+    position: static;
+    width: auto;
+    margin: 0 24px 40px;
+    box-shadow: 0 18px 36px -28px rgba(9,25,47,.8);
+  }
   .fh-trust-list { grid-template-columns: 1fr 1fr; gap: 20px 0; }
   .fh-trust-list li:nth-child(odd) { border-left: 0; padding-left: 0; }
   .fh-path-grid { grid-template-columns: 1fr; }
@@ -1440,8 +1558,16 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 @media (max-width: 760px) {
   .fh-header-inner { min-height: 76px; }
   .fh-logo { height: 60px; }
-  .fh-hero-inner { padding: 40px 24px 56px; }
+  .fh-hero-inner { padding: 32px 24px 24px; }
   .fh-hero-media { aspect-ratio: 4 / 3; }
+  /* The tagline has to sit on one line on a phone; the rule ahead of it is
+     what pushed the last word down. */
+  .fh-hero-tagline { font-size: 11px; letter-spacing: 0.16em; }
+  .fh-hero-tagline::before { display: none; }
+  .fh-lede { font-size: 16px; }
+  .fh-hero-path { margin: 0 24px 36px; padding: 18px 20px; }
+  .fh-hero-byline { padding-top: 18px; }
+  .fh-hero-byline-portrait { width: 48px; height: 48px; }
   .fh-hero-actions,
   .fh-meet-actions,
   .fh-final-actions { flex-direction: column; align-items: stretch; }

@@ -74,15 +74,26 @@ The image is not evidence of a real listing, transaction, client property, verif
 
 The resolver in `apps/web/lib/media/ambient-motion.ts` keeps the fallback contract intact: if the still is ever removed, it returns `null` and the drawn scene remains. Optional motion encodes are still absent and remain subject to the existing opt-in, reduced-motion, provenance, approval, and same-origin rules.
 
-**Responsive framing, measured 2026-09-23.** `object-fit: cover` with
-`object-position: center 42%` inside `.fh-hero-media`. Frames: 684×758 at 1440,
-1024×640 at 1024, 768×768 at 768, 430×323 at 430, 375×281 at 375. The house
-sits centre-left in the 16:9 source, so at 1440 the panel holds the roofline
-and the full front elevation with the garage bay at the right edge, and at 430
-and 375 the whole house is in frame. Verified at all five widths with and
-without `prefers-reduced-motion`: the still renders eagerly (it is the LCP
-element on mobile, where `.fh-hero-media { order: -1 }`), with zero video nodes,
-zero media requests, zero console errors, one `h1` and no horizontal overflow.
+**Responsive framing, re-measured 2026-09-24 after the hero recomposition.**
+`object-fit: cover` inside `.fh-hero-media`, which now spans from the middle of
+the content shell to the right edge of the viewport. `object-position: 38% 44%`
+from 900px up, `46% 50%` when stacked. Frames: 1024×833 at 1920, 784×833 at
+1440, 512×679 at 1024, 768×480 at 768, 430×323 at 430, 375×281 at 375. The
+house sits centre-left in the 16:9 source, so the 38% horizontal position keeps
+the front elevation and the entry in frame at desktop while the 180px navy wash
+on the picture's left edge covers only sky and the neighbouring tree, never the
+house. At 430 and 375 the whole house is in frame. Verified at all six widths:
+the still renders eagerly (it is the LCP element on mobile, where
+`.fh-hero-media { order: -1 }`), with zero video nodes, zero media requests,
+zero console errors, one `h1` and no horizontal overflow.
+
+**Hero byline placement, added 2026-09-24.** `debra-allen-primary-about.webp`
+also renders at 56px (48px under 760px) in a circular frame beside "Debra
+Allen, REALTOR®" in the hero copy, at the register's `48% center` crop rule.
+The source is landscape, so a square frame crops horizontally only and the
+face-safety gate measures a 0% top crop. It is marked decorative (`alt=""`,
+`aria-hidden`) because the name beside it carries the meaning; the same
+photograph is the Meet Debra composition further down the page.
 
 **Owner acceptance, 2026-09-22.** The owner explicitly approved keeping the
 current asset as-is, including the house-number plaque. No retouching or removal

@@ -2,6 +2,15 @@
 
 This log is retained as project history. Completed items are not deleted.
 
+## ACT-016 — Homepage visual reconciliation on the canonical preview
+
+- **Priority:** P0 — Owner rejected the rendered PR #28 preview 2026-09-24
+- **Problem:** The owner reviewed the hosted preview and rejected the first viewport as sparse and template-like: oversized empty near-white space, a headline floating without composition, the exterior pushed into a disconnected frame, and weak integration between copy and photograph. A local production render of the same commit (`1e06618`) confirmed three real causes even though the navy split hero and the approved still were both present in the code: `.figma-home { width: 1440px; margin-inline: auto }` boxed the entire site inside near-white margins on any monitor wider than 1440, so the hero read as a card in empty space; the photograph was a hard-edged half-rectangle with nothing tying it to the copy; and the stacking breakpoint at 1100px put every word of hero copy below the fold at 1024. Note: the hero copy the owner quoted ("Homebuying doesn't have to feel overwhelming", pill buttons, a rounded image card) exists in no commit of this repository; it matches the Figma 11:4 frame's own placeholder composition. The findings above stand regardless.
+- **Plan:** Keep the approved exterior, the drawn fallback, the opt-in motion contract, the CMS-driven guides, the quiz, `/start`, SEO, security and accessibility work untouched. Recompose only the presentation: remove the page lock so fields bleed; lay the hero on a four-track grid (gutter, copy, photograph, gutter) so the copy sits on the content line and the exterior runs to the viewport edge; blend the seam with a navy wash and a low vignette; add a white gold-edged panel straddling the seam that links to the quiz; add Debra's byline with her approved portrait; hold the split to 900px; reorder sections so the quiz separates the two navy fields; restyle the planning index as an editorial list. Pin all of it in the static tests and re-run every gate against a local production build.
+- **Files Changed:** `apps/web/components/home/figma-home-page.tsx`, `apps/web/app/globals.css`, `tests/static/figma-homepage.test.mjs`, `scripts/qa/quiz-e2e.mjs` (new `pnpm qa:quiz` gate: all eight quiz paths at desktop and phone width, every result CTA fetched), `package.json`, `docs/02-brand/VISUAL_SYSTEM.md`, `docs/05-content/IMAGE_ASSET_REGISTER.md`, `CHANGELOG.md`, `PROJECT_ROADMAP.md`, `qa-evidence/**`.
+- **Validation:** Static tests, typecheck, lint (0 warnings), production build, contrast gate, face-safety gate, browser audit, evidence captures, and a Chromium inspection of the rendered homepage at 1920, 1440, 1024, 768, 430 and 375 — recorded in the pull request.
+- **Status:** Ready for owner visual review on the PR #28 preview. The hosted preview is behind Vercel SSO and this environment's egress policy denies `vercel.app`, so the visual QA was performed against a local production build of the pushed commit.
+
 ## ACT-015 — Guide-card imagery, and an audit of every unregistered photograph
 
 - **Priority:** P1 — Owner directive 2026-09-21

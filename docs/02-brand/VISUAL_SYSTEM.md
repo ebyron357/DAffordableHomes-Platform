@@ -64,7 +64,7 @@ Primary buttons use deep navy with white text. Secondary emphasis may use dark t
 
 ## Photography
 
-The homepage hero uses licensed Pexels photo 7114188 by Monstera Production / Gabby K. Debra’s approved yellow-blazer portrait anchors the homepage trust section; the approved desk portrait supports consultation. No AI imagery or appearance alteration is permitted. See `docs/05-content/IMAGE_ASSET_REGISTER.md` for canonical provenance, licensing, crops, alt text, and repository paths.
+The homepage hero carries the owner-approved generated North Texas exterior (`hero-north-texas-exterior.webp`, registered as a generic residential exterior that depicts no real listing, address or client property), with the drawn brand roofline beneath it as the fallback. Debra’s approved yellow-blazer portrait appears twice on the homepage: at 56px in the hero byline, where it is decorative and the name beside it carries the meaning, and at scale as the Meet Debra composition. The approved desk portrait carries the closing band and consultation. The licensed Pexels interior (7114188) is retained for `/homes` only. No appearance alteration of any person is permitted. See `docs/05-content/IMAGE_ASSET_REGISTER.md` for canonical provenance, licensing, crops, alt text, and repository paths.
 
 ## Homepage palette
 
@@ -90,9 +90,39 @@ The scoped tokens on `.figma-home`:
 | `--fh-border` | `#CBD7D6` | Dividers and boundaries |
 | `--fh-white` | `#FFFFFF` | Cards, content surfaces, footer brand band |
 
-Desktop frame lock: `1440` content width with `1256` inner content and `92px`
-side margins. Per-section heights from the frame are `min-height` rather than
-`height`, because two sections no longer match the static mock — see below.
+Desktop content lock: `1440` content width with `1256` inner content and `92px`
+side margins, carried by `.fh-shell` as a `max-width`. The page itself is
+**not** locked: fields (hero, trust band, Meet Debra, markets, closing band,
+footer) bleed to the viewport edge at every width, and only content is held to
+the shell. The earlier `.figma-home { width: 1440px }` lock boxed the whole site
+inside near-white margins on any wider monitor and made the hero read as a card
+floating in empty space. Per-section heights from the frame are `min-height`
+rather than `height`, because two sections no longer match the static mock —
+see below.
+
+### Hero composition
+
+The frame's hero is copy on the left and a picture well on the right. In
+production that is one composition rather than two panels:
+
+- A four-track grid — fluid gutter, copy track (564px), photograph track
+  (692px), fluid gutter — with the photograph spanning into the right gutter.
+  At 1440 the gutters are the shell's 92px; wider, they grow and the
+  photograph grows with them.
+- The seam between the navy field and the photograph is a 180px navy wash on
+  the picture's left edge, so the house emerges from the brand colour instead
+  of meeting it as a hard vertical line. A low vignette weights the bottom of
+  the frame. No scrim sits on the subject.
+- A white panel with a gold edge straddles the seam and links to the
+  homepage quiz. It is a real entry point, not ornament, and it is what ties
+  the two halves together.
+- The copy carries the mark's tagline behind a short gold rule, the headline,
+  the lede, two CTAs (gold primary, light outline), and Debra's byline with
+  her approved portrait — so the first viewport names the practice, the
+  person, the market and a next action without the logo.
+- The split holds from 900px up; under 900px the photograph stacks above the
+  copy with a bottom fade into the field, and the seam panel becomes a plain
+  block under the CTAs.
 
 Gold at its brand value clears 4.5:1 against white but not against navy, so
 the outlined CTA on the navy band uses a lightened `#E6BD55` for its label and

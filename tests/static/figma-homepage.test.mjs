@@ -205,6 +205,59 @@ test("the brand is painted, not merely declared", () => {
   assert.match(home, /BrandMotif variant="route"/, "the sell path carries ornament");
 });
 
+test("the hero is one full-bleed composition, not a boxed column beside a picture", () => {
+  const home = readFileSync("apps/web/components/home/figma-home-page.tsx", "utf8");
+  const css = readFileSync("apps/web/app/globals.css", "utf8");
+
+  // No page-width lock: on a wide monitor the old `.figma-home { width: 1440px }`
+  // boxed the whole site inside near-white margins and the hero read as a card
+  // floating in empty space. Only the content shell holds the 1440 line.
+  assert.doesNotMatch(css, /\.figma-home \{ width: 1440px; margin-inline: auto; \}/);
+  assert.match(css, /\.fh-shell \{[^}]*max-width: 1440px;/);
+
+  // Four-track hero grid: gutter, copy, photograph, gutter — the photograph
+  // spans into the right gutter so it bleeds to the viewport edge.
+  assert.match(css, /\.fh-hero \{[^}]*grid-template-columns: minmax\(24px, 1fr\) minmax\(0, 564px\) minmax\(0, 692px\) minmax\(24px, 1fr\);/);
+  assert.match(css, /\.fh-hero-media \{ grid-column: 3 \/ 5;/);
+  // The seam is blended, not cut, and the wash never covers the subject.
+  assert.match(css, /\.fh-hero-media::before \{[^}]*width: 180px;/);
+
+  // The first viewport names the person: Debra's byline with the approved
+  // portrait at the register's crop rule.
+  assert.match(home, /className="fh-hero-byline"/);
+  assert.match(home, /className="fh-hero-byline-portrait"/);
+  assert.match(home, /<strong>Debra Allen, REALTOR®<\/strong>/);
+
+  // The seam panel is a real entry to the quiz, and it is positioned from the
+  // section's own width so it stays on the seam at every viewport.
+  assert.match(home, /<Link href="#find-your-path" className="fh-hero-path">/);
+  assert.match(css, /\.fh-hero-path \{[^}]*left: calc\(max\(24px, \(100% - 1256px\) \/ 2\) \+ 476px\);/);
+
+  // The split holds at laptop widths; stacking starts under 900px. A 1024px
+  // viewport used to put every word of hero copy below the fold.
+  const laptop = css.slice(css.indexOf("@media (min-width: 900px) and (max-width: 1100px) {\n  .fh-hero-inner"), css.indexOf("@media (min-width: 1440px)"));
+  assert.match(laptop, /\.fh-hero-copy h1 \{ font-size: clamp\(34px/);
+  const stackedStart = css.indexOf("@media (max-width: 899px)");
+  const stacked = css.slice(stackedStart, css.indexOf("@media (max-width: 760px)", stackedStart));
+  assert.match(stacked, /\.fh-hero \{ grid-template-columns: 1fr; \}/);
+  assert.match(stacked, /\.fh-hero-path \{\s*position: static;/);
+
+  // Section order tells the story in sequence: the practice, the person, then
+  // where the visitor fits — and the quiz's light field separates the two navy ones.
+  const order = ["<Hero />", "<TrustBand />", "<Pathways />", "<MeetDebra />", "<FindYourPath />", "<Markets />", "<FeaturedListings", "<GuidanceSplit />", "<KnowledgeBase", "<FinalCta />"];
+  let cursor = -1;
+  for (const marker of order) {
+    const next = home.indexOf(marker, cursor + 1);
+    assert.ok(next > cursor, `${marker} should follow the previous section`);
+    cursor = next;
+  }
+
+  // The planning index is an editorial list under a gold rule, not five
+  // identical white cards.
+  assert.match(css, /\.fh-knowledge-grid \{[^}]*border-top: 2px solid var\(--fh-gold\);/);
+  assert.doesNotMatch(css, /\.fh-knowledge-card \{[^}]*border-radius: 10px;/);
+});
+
 test("interior routes carry the brand too", () => {
   const header = readFileSync("apps/web/components/page/page-header.tsx", "utf8");
   const blog = readFileSync("apps/web/app/blog/page.tsx", "utf8");

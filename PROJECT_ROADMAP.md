@@ -208,6 +208,15 @@
       registered, resolved at build time and layered over the drawn streetscape,
       which stays as the fallback. `qa:audit` now requires it to render on `/`,
       so the file going missing is reported rather than silently falling back
+- [x] Homepage visual reconciliation (2026-09-24): the owner rejected the
+      rendered preview as sparse and template-like. The page-width lock that
+      boxed the site inside near-white margins on wide monitors is gone, the
+      hero is one full-bleed composition with the approved exterior emerging
+      from the navy field, a seam panel linking to the quiz, and Debra's byline
+      in the first viewport; the split holds at laptop widths; the quiz now
+      separates the two navy fields; the planning index is an editorial list.
+      Pinned in `tests/static/figma-homepage.test.mjs`; awaiting owner visual
+      approval on the PR #28 preview
 - [ ] Supply cleared exterior photography for the two guide cards. Every
       accessible source was searched on 2026-09-21 and none holds a DFW
       exterior — repository, full git history, the `recovered-manus` bundle,

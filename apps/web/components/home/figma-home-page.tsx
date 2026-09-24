@@ -73,8 +73,8 @@ export function FigmaHomePage({
       <Hero />
       <TrustBand />
       <Pathways />
-      <FindYourPath />
       <MeetDebra />
+      <FindYourPath />
       <Markets />
       <FeaturedListings listings={listings} />
       <GuidanceSplit />
@@ -88,13 +88,23 @@ export function FigmaHomePage({
 /**
  * Hero.
  *
- * A navy field carrying the photograph at scale, rather than copy on near-white
- * beside a small picture well. Two things drove the change: the first viewport
- * has to read as this brand without the logo, and it has to read as residential
- * real estate — a person, a home, a market, a next action.
+ * One composition, not a navy block beside a picture. The copy sits on the
+ * navy field at the left of the content shell; the approved exterior runs from
+ * the middle of the shell to the right edge of the viewport and the field
+ * blends into it along the seam, so the photograph emerges from the brand
+ * colour rather than butting against it. A small white panel straddles that
+ * seam and points to the homepage quiz — the one interactive thing on the page
+ * — which is what ties the two halves together and gives the viewport depth
+ * without ornament.
  *
- * The eyebrow is the logo's own tagline. It is brand property already on the
- * mark, so putting it in type costs nothing and says what the practice is for.
+ * The first viewport has to say four things without the logo: the practice
+ * (the eyebrow is the mark's own tagline), the person (Debra's byline, with her
+ * approved portrait), the market (the headline) and a next action (the CTAs).
+ *
+ * The section is full-bleed. The page used to be locked to a 1440px column,
+ * which on any wider monitor boxed the whole site inside near-white margins
+ * and made the hero read as a card floating in empty space. Fields now run
+ * edge to edge; only content is held to the 1440 shell.
  */
 function Hero() {
   const heroMotion = resolveHeroMotion()
@@ -108,20 +118,37 @@ function Hero() {
             Buying a home in <em>Dallas–Fort Worth</em>, with someone who explains it.
           </h1>
           <p className="fh-lede">
-            Debra Allen is a REALTOR® serving Garland and the wider DFW metroplex. She represents buyers and sellers
-            the same way she teaches: plainly, at your pace, and without pushing anyone toward a signature.
+            Buyer and seller representation across Garland and the DFW metroplex, done the way Debra teaches:
+            plainly, at your pace, and without pushing anyone toward a signature.
           </p>
           <div className="fh-hero-actions">
             <Link href={FIGMA_HOME_CTA.consultation.href} className="fh-btn fh-btn-gold">
               {FIGMA_HOME_CTA.consultation.label}
             </Link>
-            <Link href={FIGMA_HOME_CTA.startBuying.href} className="fh-btn fh-btn-teal-solid">
+            <Link href={FIGMA_HOME_CTA.startBuying.href} className="fh-btn fh-btn-light-outline">
               {FIGMA_HOME_CTA.startBuying.label}
             </Link>
-            <Link href={FIGMA_HOME_CTA.searchHomes.href} className="fh-btn fh-btn-light-outline">
-              {FIGMA_HOME_CTA.searchHomes.label}
-            </Link>
           </div>
+          {/* The person behind the practice, in the first viewport. The
+              portrait is the register's approved primary image at its crop
+              rule; it is decorative here because the name beside it carries
+              the meaning, and the same photograph anchors Meet Debra below. */}
+          <p className="fh-hero-byline">
+            <Image
+              src={DEBRA_PORTRAIT.src}
+              alt=""
+              aria-hidden="true"
+              width={64}
+              height={64}
+              sizes="64px"
+              style={{ objectPosition: DEBRA_PORTRAIT.objectPosition }}
+              className="fh-hero-byline-portrait"
+            />
+            <span className="fh-hero-byline-text">
+              <strong>Debra Allen, REALTOR®</strong>
+              <span>Garland + Dallas–Fort Worth</span>
+            </span>
+          </p>
         </div>
       </div>
 
@@ -147,11 +174,25 @@ function Hero() {
             replacing it in the markup. The scene above is the fallback if the
             still is ever absent; the still renders alone while no motion
             encodes are approved. */}
-        {heroMotion ? <AmbientMotion asset={heroMotion} sizes="(min-width: 900px) 52vw, 100vw" priority /> : null}
+        {heroMotion ? <AmbientMotion asset={heroMotion} sizes="(min-width: 900px) 58vw, 100vw" priority /> : null}
         {/* Mobile only: the copy sits beneath the scene there, so a short
             bottom fade carries it into the navy panel. */}
         <span className="fh-hero-fade" aria-hidden="true" />
       </div>
+
+      {/* Straddles the seam between the navy field and the photograph at
+          desktop; a plain block under the copy when stacked. It is a real
+          entry to the quiz further down the page, not decoration. */}
+      <Link href="#find-your-path" className="fh-hero-path">
+        <span className="fh-hero-path-label">Find your homebuying path</span>
+        <span className="fh-hero-path-title">
+          Not sure where to start? Five questions point you to the right first step.
+        </span>
+        <span className="fh-hero-path-meta">
+          About a minute · no email needed
+          <ArrowRight className="size-4" aria-hidden="true" />
+        </span>
+      </Link>
     </section>
   )
 }
@@ -263,16 +304,13 @@ function Pathways() {
 }
 
 /**
- * Debra at the scale the benchmarks set for agent presence: a large portrait
- * that is the composition rather than an inset beside it, with a navy panel
- * carrying the copy and a gold rule tying it to the system.
- */
-/**
  * "Find Your Homebuying Path" — the homepage's one interactive module.
  *
- * Sits directly after the pathway panels so a visitor who is not sure which
- * of them applies can find out in five questions. The quiz is a client
- * component; this wrapper is server-rendered copy.
+ * Sits after Meet Debra, so the page reads in order: what the practice is,
+ * who runs it, then where the visitor fits. Placing it here also breaks the
+ * two navy fields (Meet Debra, Markets) with a light one, which is what gives
+ * the middle of the page its rhythm. The hero's seam panel links straight to
+ * this section. The quiz is a client component; this wrapper is server-rendered.
  */
 function FindYourPath() {
   return (
@@ -307,6 +345,11 @@ function FindYourPath() {
   )
 }
 
+/**
+ * Debra at the scale the benchmarks set for agent presence: a large portrait
+ * that is the composition rather than an inset beside it, with a navy panel
+ * carrying the copy and a gold rule tying it to the system.
+ */
 function MeetDebra() {
   return (
     <section className="fh-meet" aria-labelledby="figma-debra-heading">
