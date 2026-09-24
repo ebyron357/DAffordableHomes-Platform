@@ -215,8 +215,13 @@
       from the navy field, a seam panel linking to the quiz, and Debra's byline
       in the first viewport; the split holds at laptop widths; the quiz now
       separates the two navy fields; the planning index is an editorial list.
-      Pinned in `tests/static/figma-homepage.test.mjs`; awaiting owner visual
-      approval on the PR #28 preview
+      Pinned in `tests/static/figma-homepage.test.mjs`. The owner's review the
+      same day removed the quiz panel from the hero (done) and rejected the
+      exterior still itself
+- [ ] Hero photograph generated for the layout: blocked from the maintenance
+      environment (Higgsfield hosts refused by the egress policy; DFW reference
+      listings in no connected source). See `ACTIONS.md` ACT-017. The rejected
+      still is in the slot for composition review only and is not approved
 - [ ] Supply cleared exterior photography for the two guide cards. Every
       accessible source was searched on 2026-09-21 and none holds a DFW
       exterior — repository, full git history, the `recovered-manus` bundle,

@@ -493,8 +493,8 @@
 
    The seam between field and photograph is blended, not cut: a navy wash on
    the left edge of the picture lets it emerge from the brand colour, and a
-   low vignette seats the quiz panel that straddles the seam. No scrim sits on
-   the subject itself. */
+   low vignette gives the bottom of the frame weight against the band beneath.
+   Nothing is laid over the photograph — no panel, badge or text. */
 .fh-hero {
   position: relative;
   isolation: isolate;
@@ -524,8 +524,8 @@
   background: linear-gradient(90deg, var(--fh-navy) 0%, rgba(16,43,78,.72) 32%, rgba(16,43,78,.28) 68%, transparent 100%);
   pointer-events: none;
 }
-/* Low vignette: seats the seam panel and gives the bottom of the frame weight
-   against the teal band beneath. Never reaches the roofline. */
+/* Low vignette: gives the bottom of the frame weight against the teal band
+   beneath. Never reaches the roofline. */
 .fh-hero-media::after {
   content: "";
   position: absolute;
@@ -697,34 +697,6 @@
 .fh-hero-byline-text strong { font-family: var(--font-sans); font-size: 15px; font-weight: 700; letter-spacing: .01em; }
 .fh-hero-byline-text span { color: #a9c0d3; font-size: 14px; }
 
-/* Seam panel: a real entry to the quiz, placed where the navy meets the
-   photograph so the two halves read as one picture. Positioned from the
-   section's own width, so it stays on the seam at every viewport. */
-.fh-hero-path {
-  position: absolute;
-  z-index: 3;
-  left: calc(max(24px, (100% - 1256px) / 2) + 476px);
-  bottom: 44px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 348px;
-  padding: 22px 26px 22px 24px;
-  border-left: 4px solid var(--fh-gold);
-  border-radius: 0 8px 8px 0;
-  background: var(--fh-white);
-  color: var(--fh-navy);
-  text-decoration: none;
-  box-shadow: 0 30px 60px -30px rgba(9,25,47,.85);
-  transition: transform .22s ease, box-shadow .22s ease;
-}
-.fh-hero-path:hover { transform: translateY(-3px); box-shadow: 0 36px 64px -30px rgba(9,25,47,.9); }
-.fh-hero-path:hover .fh-hero-path-title { color: var(--fh-teal); }
-.fh-hero-path-label { color: var(--fh-teal); font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
-.fh-hero-path-title { font-family: var(--font-serif); font-size: 19px; font-weight: 600; line-height: 1.3; transition: color .18s ease; }
-.fh-hero-path-meta { display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; color: var(--fh-muted); font-size: 13px; font-weight: 600; }
-.fh-hero-path-meta svg { color: var(--fh-teal); transition: transform .18s ease; }
-.fh-hero-path:hover .fh-hero-path-meta svg { transform: translateX(3px); }
 
 /* -------------------------------------------------------------- trust band */
 .fh-trust { background: var(--fh-teal); color: var(--fh-white); border-bottom: 3px solid var(--fh-gold); }
@@ -1460,8 +1432,6 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
   .fh-hero-copy h1 { font-size: clamp(34px, 3.9vw, 42px); }
   .fh-lede { font-size: 16px; }
   .fh-hero-media { min-height: 520px; }
-  .fh-hero-path { width: 300px; bottom: 32px; padding: 18px 20px 18px 20px; }
-  .fh-hero-path-title { font-size: 17px; }
   .fh-hero-byline { padding-top: 18px; }
 }
 
@@ -1525,15 +1495,9 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
     height: 42%;
     background: linear-gradient(0deg, var(--fh-navy) 0%, rgba(16,43,78,0) 100%);
   }
-  .fh-hero-inner { grid-column: auto; padding: 36px 24px 28px; }
+  .fh-hero-inner { grid-column: auto; padding: 36px 24px 56px; }
   .fh-hero-copy { max-width: 100%; gap: 18px; }
   .fh-hero-copy h1 { font-size: clamp(34px, 8.6vw, 46px); }
-  .fh-hero-path {
-    position: static;
-    width: auto;
-    margin: 0 24px 40px;
-    box-shadow: 0 18px 36px -28px rgba(9,25,47,.8);
-  }
   .fh-trust-list { grid-template-columns: 1fr 1fr; gap: 20px 0; }
   .fh-trust-list li:nth-child(odd) { border-left: 0; padding-left: 0; }
   .fh-path-grid { grid-template-columns: 1fr; }
@@ -1558,14 +1522,13 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 @media (max-width: 760px) {
   .fh-header-inner { min-height: 76px; }
   .fh-logo { height: 60px; }
-  .fh-hero-inner { padding: 32px 24px 24px; }
+  .fh-hero-inner { padding: 32px 24px 48px; }
   .fh-hero-media { aspect-ratio: 4 / 3; }
   /* The tagline has to sit on one line on a phone; the rule ahead of it is
      what pushed the last word down. */
   .fh-hero-tagline { font-size: 11px; letter-spacing: 0.16em; }
   .fh-hero-tagline::before { display: none; }
   .fh-lede { font-size: 16px; }
-  .fh-hero-path { margin: 0 24px 36px; padding: 18px 20px; }
   .fh-hero-byline { padding-top: 18px; }
   .fh-hero-byline-portrait { width: 48px; height: 48px; }
   .fh-hero-actions,

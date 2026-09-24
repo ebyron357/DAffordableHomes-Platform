@@ -228,10 +228,13 @@ test("the hero is one full-bleed composition, not a boxed column beside a pictur
   assert.match(home, /className="fh-hero-byline-portrait"/);
   assert.match(home, /<strong>Debra Allen, REALTOR®<\/strong>/);
 
-  // The seam panel is a real entry to the quiz, and it is positioned from the
-  // section's own width so it stays on the seam at every viewport.
-  assert.match(home, /<Link href="#find-your-path" className="fh-hero-path">/);
-  assert.match(css, /\.fh-hero-path \{[^}]*left: calc\(max\(24px, \(100% - 1256px\) \/ 2\) \+ 476px\);/);
+  // Nothing sits on the photograph: no panel, badge or text. The owner
+  // rejected a white card straddling the seam; the quiz has its own section.
+  assert.doesNotMatch(home, /fh-hero-path/);
+  assert.doesNotMatch(css, /\.fh-hero-path/);
+  const mediaStart = home.indexOf('<div className="fh-hero-media">');
+  const mediaBlock = home.slice(mediaStart, home.indexOf("</section>", mediaStart));
+  assert.doesNotMatch(mediaBlock, /<(p|h[1-6]|button|Link|a)\b/, "no copy, link or control inside the hero media frame");
 
   // The split holds at laptop widths; stacking starts under 900px. A 1024px
   // viewport used to put every word of hero copy below the fold.
@@ -240,7 +243,6 @@ test("the hero is one full-bleed composition, not a boxed column beside a pictur
   const stackedStart = css.indexOf("@media (max-width: 899px)");
   const stacked = css.slice(stackedStart, css.indexOf("@media (max-width: 760px)", stackedStart));
   assert.match(stacked, /\.fh-hero \{ grid-template-columns: 1fr; \}/);
-  assert.match(stacked, /\.fh-hero-path \{\s*position: static;/);
 
   // Section order tells the story in sequence: the practice, the person, then
   // where the visitor fits — and the quiz's light field separates the two navy ones.

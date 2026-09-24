@@ -113,16 +113,16 @@ production that is one composition rather than two panels:
   the picture's left edge, so the house emerges from the brand colour instead
   of meeting it as a hard vertical line. A low vignette weights the bottom of
   the frame. No scrim sits on the subject.
-- A white panel with a gold edge straddles the seam and links to the
-  homepage quiz. It is a real entry point, not ornament, and it is what ties
-  the two halves together.
+- Nothing is laid over the photograph: no panel, badge, card or text. The
+  owner rejected a white quiz panel straddling the seam on 2026-09-24; the
+  two halves are tied together by the seam wash, the shared baseline and the
+  proportions, and the quiz has its own section further down the page.
 - The copy carries the mark's tagline behind a short gold rule, the headline,
   the lede, two CTAs (gold primary, light outline), and Debra's byline with
   her approved portrait — so the first viewport names the practice, the
   person, the market and a next action without the logo.
 - The split holds from 900px up; under 900px the photograph stacks above the
-  copy with a bottom fade into the field, and the seam panel becomes a plain
-  block under the CTAs.
+  copy with a bottom fade into the field.
 
 Gold at its brand value clears 4.5:1 against white but not against navy, so
 the outlined CTA on the navy band uses a lightened `#E6BD55` for its label and

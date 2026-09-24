@@ -92,10 +92,10 @@ export function FigmaHomePage({
  * navy field at the left of the content shell; the approved exterior runs from
  * the middle of the shell to the right edge of the viewport and the field
  * blends into it along the seam, so the photograph emerges from the brand
- * colour rather than butting against it. A small white panel straddles that
- * seam and points to the homepage quiz — the one interactive thing on the page
- * — which is what ties the two halves together and gives the viewport depth
- * without ornament.
+ * colour rather than butting against it. Nothing sits on the photograph: no
+ * panel, badge or text. The two halves are tied together by the shared
+ * baseline, the seam wash and the proportions, not by an overlay. The quiz has
+ * its own section further down the page.
  *
  * The first viewport has to say four things without the logo: the practice
  * (the eyebrow is the mark's own tagline), the person (Debra's byline, with her
@@ -179,20 +179,6 @@ function Hero() {
             bottom fade carries it into the navy panel. */}
         <span className="fh-hero-fade" aria-hidden="true" />
       </div>
-
-      {/* Straddles the seam between the navy field and the photograph at
-          desktop; a plain block under the copy when stacked. It is a real
-          entry to the quiz further down the page, not decoration. */}
-      <Link href="#find-your-path" className="fh-hero-path">
-        <span className="fh-hero-path-label">Find your homebuying path</span>
-        <span className="fh-hero-path-title">
-          Not sure where to start? Five questions point you to the right first step.
-        </span>
-        <span className="fh-hero-path-meta">
-          About a minute · no email needed
-          <ArrowRight className="size-4" aria-hidden="true" />
-        </span>
-      </Link>
     </section>
   )
 }

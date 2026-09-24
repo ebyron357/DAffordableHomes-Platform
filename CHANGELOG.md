@@ -11,14 +11,21 @@ All notable repository changes are documented here.
   hero read as a card floating in empty space. Fields now bleed to the
   viewport edge at every width; only content is held to the 1440 shell.
 - The hero is one composition: a four-track grid puts the copy on the content
-  line and runs the approved exterior from the middle of the shell to the right
-  edge of the viewport, with a navy wash along the seam so the house emerges
-  from the field instead of meeting it as a hard line, and a low vignette that
-  seats a white gold-edged panel straddling the seam. That panel is a real entry
-  to the homepage quiz. The copy now carries the tagline behind a gold rule,
-  two CTAs instead of three, and Debra's byline with her approved portrait, so
-  the first viewport names the practice, the person, the market and a next
-  action.
+  line and runs the exterior from the middle of the shell to the right edge of
+  the viewport, with a navy wash along the seam so the house emerges from the
+  field instead of meeting it as a hard line, and a low vignette. Nothing is
+  laid over the photograph: a white quiz panel that straddled the seam in the
+  first pass was removed the same day at the owner's direction. The copy now
+  carries the tagline behind a gold rule, two CTAs instead of three, and
+  Debra's byline with her approved portrait, so the first viewport names the
+  practice, the person, the market and a next action.
+- The hero photograph itself is **not approved**. The owner rejected the
+  generated exterior on 2026-09-24 as not fitting the composition. A
+  replacement generated specifically for this layout is blocked from this
+  environment (Higgsfield hosts are refused by the egress policy and the DFW
+  reference images are in no connected source); the rejected still remains in
+  place only so the composition can be reviewed, and the register records the
+  rejection.
 - The split holds at laptop widths. A 1024px viewport used to stack the hero
   and put every word of copy below the fold behind a 640px photograph;
   stacking now starts under 900px.

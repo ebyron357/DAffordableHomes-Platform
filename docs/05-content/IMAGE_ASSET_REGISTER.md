@@ -99,6 +99,15 @@ photograph is the Meet Debra composition further down the page.
 current asset as-is, including the house-number plaque. No retouching or removal
 is authorized.
 
+**Owner rejection, 2026-09-24.** After reviewing the recomposed hero, the owner
+rejected this still as not fitting the composition and directed that a
+replacement be generated specifically for the hero layout (house mass
+right-of-centre, roofline uncut, garage not dominant, no number, signage,
+people or text, with a mobile variant of the same property if needed). The
+file stays in the repository and in the slot only so the composition can be
+reviewed; **it is not approved for release.** Its replacement is tracked in
+`ACTIONS.md` ACT-017.
+
 **What the plaque actually does at render size, measured 2026-09-23.** Cropped
 from the live hero at 1440 inside the 684×758 frame: at a device pixel ratio of
 1 it is an illegible pale smudge, but **at a device pixel ratio of 2 it reads
