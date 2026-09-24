@@ -16,9 +16,28 @@ This log is retained as project history. Completed items are not deleted.
 - **Priority:** P0 — Owner directive 2026-09-24
 - **Problem:** The owner rejected `hero-north-texas-exterior.webp` as not fitting the hero composition and directed that a new DFW residential exterior be generated with Higgsfield specifically for this layout, from the Dallas/DFW Zillow reference listings supplied the previous day: house mass right-of-centre, roofline uncut, garage not dominant, room for responsive crops, no people, signage, numbers or text, and a mobile variant of the same property if one frame cannot serve both.
 - **Plan:** Generate with Higgsfield from the references, inspect at full resolution, reject distorted architecture, register the asset, integrate it into the existing hero with deliberate `object-position` rules per width, then re-run every gate.
-- **Blocked:** From this environment, every Higgsfield host (`higgsfield.ai`, `api.`, `cloud.`, `platform.`) is refused by the egress policy (403 on CONNECT), no `higgsfield` CLI or credential is present, and the Zillow reference images are in none of the connected sources (repository and history, Gmail, Slack, ClickUp; the Google Drive connector lacks read scope). The rejected still stays in place only so the composition can be reviewed; it is not approved and must not ship.
+- **Generation is no longer blocked, 2026-09-24.** Higgsfield is reachable through
+  its MCP connector rather than over HTTP, so the direct hosts being refused does
+  not matter. The account is on the `plus` plan with an active MCP trial (100
+  credits, to 2026-09-26); an image preflights at 0.25 credits. Four 16:9
+  variants were generated to the owner's brief — house mass right of centre, full
+  roofline in frame, garage small and set back, no numbers, signage, text, people
+  or cars — at 1344×752, job ids `e3576fe7`, `908d17f1`, `7ec7ffc5`, `223e04d6`.
+- **Retrieval is what is blocked.** The results are served from
+  `d8j0ntlcm91z4.cloudfront.net`, and this environment's network policy answers
+  403 to CONNECT for that host, so the bytes cannot be written into the
+  repository from here. This is the environment's own egress policy, not a
+  Higgsfield limit and not a licensing control, so it was reported rather than
+  routed around. The rejected still stays in place only so the composition can be
+  reviewed; it is not approved and must not ship.
+- **Two further notes for whoever picks this up.** The generated variants are
+  1344×752, which is smaller than the 1024×833 the hero frame occupies at 1920 —
+  a release asset should be regenerated at a higher resolution once retrieval
+  works. And the Zillow reference listings are still in none of the connected
+  sources, so these were generated from a written description of the tier and
+  architecture rather than from the references themselves.
 - **Done meanwhile:** the floating hero panel is removed, the seam and vignette remain, the quiz keeps its own section, and the full gate was re-run.
-- **Status:** Blocked on owner action — allow the Higgsfield hosts and authenticate the CLI, or supply the reference images and the generated asset through a connected route.
+- **Status:** Blocked on one owner action — add `d8j0ntlcm91z4.cloudfront.net` to the environment's allowed domains (or widen its network access level), after which the generation and integration can be completed from here without further input. Supplying the reference listings through a connected source would additionally let the replacement be generated from them rather than from a description.
 
 ## ACT-015 — Guide-card imagery, and an audit of every unregistered photograph
 

@@ -108,6 +108,19 @@ file stays in the repository and in the slot only so the composition can be
 reviewed; **it is not approved for release.** Its replacement is tracked in
 `ACTIONS.md` ACT-017.
 
+**Replacement status, 2026-09-24.** Higgsfield turned out to be reachable
+through its MCP connector, so the replacement was generated: four 16:9 variants
+to the owner's brief (house mass right of centre, full roofline in frame,
+garage small and set back, no numbers, signage, text, people or cars), at
+1344×752. They cannot be brought into this repository, because this
+environment's network policy answers 403 to CONNECT for the host that serves
+them, `d8j0ntlcm91z4.cloudfront.net`. That is the environment's own egress
+policy — not a Higgsfield limit and not a licensing control — so it is reported
+here rather than worked around. Allowing that host lets the generation,
+inspection and integration finish without further owner input. Note also that
+1344×752 is smaller than the 1024×833 the hero frame occupies at 1920, so the
+release asset should be regenerated larger once retrieval works.
+
 **What the plaque actually does at render size, measured 2026-09-23.** Cropped
 from the live hero at 1440 inside the 684×758 frame: at a device pixel ratio of
 1 it is an illegible pale smudge, but **at a device pixel ratio of 2 it reads
