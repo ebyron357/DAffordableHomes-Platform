@@ -8,6 +8,7 @@ export type AmbientMotionSource = {
 
 export type AmbientMotionAsset = {
   poster: string
+  mobilePoster?: string
   label: string
   desktop: AmbientMotionSource[]
   mobile: AmbientMotionSource[]
@@ -25,7 +26,8 @@ export type AmbientMotionAsset = {
 // so media falls back to default-src 'self' and a remote CDN URL is blocked.
 const HERO_NORTH_TEXAS_EXTERIOR: AmbientMotionAsset = {
   poster: "/images/hero-north-texas-exterior.webp",
-  label: "A brick-and-stone two-story suburban home with a landscaped front yard",
+  mobilePoster: "/images/hero-north-texas-exterior-mobile.webp",
+  label: "A single-story brick suburban home with a front lawn and mature trees",
   desktop: [
     { src: "/video/hero-north-texas-exterior-1280.webm", type: "video/webm" },
     { src: "/video/hero-north-texas-exterior-1280.mp4", type: "video/mp4" },
@@ -51,6 +53,9 @@ export function resolveHeroMotion(): AmbientMotionAsset | null {
 
   return {
     ...HERO_NORTH_TEXAS_EXTERIOR,
+    mobilePoster: HERO_NORTH_TEXAS_EXTERIOR.mobilePoster && present(HERO_NORTH_TEXAS_EXTERIOR.mobilePoster)
+      ? HERO_NORTH_TEXAS_EXTERIOR.mobilePoster
+      : undefined,
     desktop: availableSources(HERO_NORTH_TEXAS_EXTERIOR.desktop),
     mobile: availableSources(HERO_NORTH_TEXAS_EXTERIOR.mobile),
   }

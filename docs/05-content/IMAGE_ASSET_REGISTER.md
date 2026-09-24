@@ -8,11 +8,12 @@ Canonical register for approved public-site imagery. Debra Allen's photographs m
 | `ED9EC101-01F5-44BD-BBEB-3DB0AD100A9D.jpeg` | `debra-allen-advisor-desk.webp` — `apps/web/public/images/debra-allen-advisor-desk.webp` | Client-approved original; photographer/license retained by client | Consultation, support image | `object-position: 50% 35%`; responsive 4:5 frame preserves face | Debra Allen seated at her desk with a tablet | EXIF orientation, proportional resize, WebP compression | Approved |
 | `855540B8-A31A-4564-8775-1D436040F39D.jpeg` | `debra-allen-lifestyle-full-body.webp` — `apps/web/public/images/debra-allen-lifestyle-full-body.webp` | Client-approved original; photographer/license retained by client | Reserved for wide lifestyle composition | Full-body composition; `object-position: center 35%` | Debra Allen standing at a kitchen island in a yellow blazer | EXIF orientation, proportional resize, WebP compression | Approved, controlled placement |
 | Pexels photo 7114188 | `black-family-home-pexels-7114188.webp` — `apps/web/public/images/black-family-home-pexels-7114188.webp` (1800×1200) | [Pexels photo 7114188](https://www.pexels.com/photo/black-family-holding-hands-in-room-7114188/), Monstera Production / Gabby K, [Pexels license](https://www.pexels.com/license/) | `/homes` empty-state/supporting residential image; not the current homepage hero | `object-position: 52% center` inside the 548×560 rounded well. The five people sit slightly right of centre in the 3:2 source, so 52% is the value that centres *them*; a literal 50% clipped the father's shoulder at narrow widths. All five remain legible at 1440, 1024, 768, 430 and 375. | A Black family of five holding hands together in a bright living room | Proportional resize to 1800px maximum, WebP quality 82; no retouching | Approved for controlled redesign |
-| `9VO_H8Qh26Hg90ZLIvsSd.jpg` — Gamma AI generation | `hero-north-texas-exterior.webp` — `apps/web/public/images/hero-north-texas-exterior.webp` (2048×1143) | Gamma AI generation created for this project; photographer N/A; owner-approved generated asset; no third-party stock-license claim is asserted in this register | Homepage, primary hero exterior | The working JPG transferred into this repository workflow is 2048×1143. The earlier Gamma generation was reported as 2752×1536, but that larger original is not preserved here, so an upstream proportional downscale may have occurred before the repository copy was created. From the received 2048×1143 JPG to the committed WebP: no additional crop, resize, enhancement, retouching, or generative edit. | A brick-and-stone two-story suburban home with a landscaped front yard | JPEG→WebP format conversion only; no content change | Approved by owner 2026-09-22; approved asset contains no people and no cars |
+| Higgsfield GPT Image 2.5 generation `5136834d-c2cf-4bf9-8120-e509a1abe5ee` (2026-09-24) | `hero-north-texas-exterior.webp` — `apps/web/public/images/hero-north-texas-exterior.webp` (2688×1520) | Original AI generation for this project, via owner's Higgsfield account; no claim that it depicts a real home or listing | Homepage, primary hero exterior | 16:9 source; `object-fit: cover; object-position: 50% 50%` on desktop and mobile. A separate portrait rendition is used at widths ≤1600px; rendered crops require owner review. | A single-story brick suburban home with a front lawn and mature trees | PNG→WebP quality 86, no crop, retouching, or alteration of the generated content | Candidate awaiting owner review; previous Gamma still rejected |
+| Higgsfield GPT Image 2.5 reference-based generation `fb990c64-11a4-406b-aa3a-fe2c1b542326` (2026-09-24) | `hero-north-texas-exterior-mobile.webp` — `apps/web/public/images/hero-north-texas-exterior-mobile.webp` (1744×2336) | Generated from the desktop candidate to preserve the same house, not a real listing | Homepage, portrait hero at viewport widths ≤1600px | 3:4 source; center crop in the narrow split and stacked mobile frame, with roof and eaves in view | Same single-story brick home with a front lawn and mature trees | PNG→WebP quality 85; no content edits | Candidate awaiting owner review |
 
 The Pexels family image was downloaded on 2026-07-20. Pexels permits free website and commercial promotional use; the site does not imply that the pictured family endorses D'Affordable Homes.
 
-The current homepage exterior still is the separate owner-approved Gamma-generated asset registered above. It is presented as a generic generated residential exterior, not as a real listing, transaction, client property, verified address, or specific neighbourhood.
+The homepage exterior is a generated candidate. It is generic residential imagery, not a real listing, transaction, client property, verified address, or specific neighbourhood. The original Gamma asset was removed from the active hero after the owner's rejection.
 
 
 ## Placement module
@@ -64,28 +65,28 @@ repository, because removing imagery the owner may have licensed is not an
 agent's decision — but `scripts/qa/site-audit.mjs` now fails if any of the three
 retired files is served by any route again.
 
-## Homepage hero — approved generated exterior still
+## Homepage hero — generated candidate pending review
 
-The homepage hero no longer depends on the unrelated Pexels interior. The drawn D'Affordable Homes roofline remains in the component as a safe fallback, while the approved still fills the exterior slot when `apps/web/public/images/hero-north-texas-exterior.webp` is present.
+The drawn D'Affordable Homes roofline remains the fallback beneath the still.
+The previous Gamma generation (`9VO_H8Qh26Hg90ZLIvsSd.jpg`) was approved on
+2026-09-22 and rejected after the new composition was reviewed on 2026-09-24.
+That former image is no longer the hero asset.
 
-The source file used for the repository workflow is `9VO_H8Qh26Hg90ZLIvsSd.jpg`, generated in Gamma for this project and approved by the owner on 2026-09-22. The approved image contains no people and no cars. It shows a brick-and-stone two-story suburban home with a landscaped front yard. The JPG available to this workflow is 2048×1143. The original Gamma generation was reported as 2752×1536, but that larger original is not preserved here, so this register does not claim where the proportional downscale occurred. The repository conversion from the received 2048×1143 JPG to WebP introduced no additional crop, resize, enhancement, retouching, or generative edit.
+The active landscape asset is Higgsfield job
+`5136834d-c2cf-4bf9-8120-e509a1abe5ee` at 2688×1520, with portrait
+rendition `fb990c64-11a4-406b-aa3a-fe2c1b542326` at 1744×2336. Neither
+is evidence of a real listing, client property, verified address, or specific
+North Texas neighbourhood. The resolver keeps the drawn scene if the main
+still is removed; if the portrait is removed, the main still remains.
+Optional motion encodes are absent and require separate provenance and approval.
 
-The image is not evidence of a real listing, transaction, client property, verified address, or specific North Texas neighbourhood. Copy, metadata, structured data, and alt text must not imply otherwise.
-
-The resolver in `apps/web/lib/media/ambient-motion.ts` keeps the fallback contract intact: if the still is ever removed, it returns `null` and the drawn scene remains. Optional motion encodes are still absent and remain subject to the existing opt-in, reduced-motion, provenance, approval, and same-origin rules.
-
-**Responsive framing, re-measured 2026-09-24 after the hero recomposition.**
-`object-fit: cover` inside `.fh-hero-media`, which now spans from the middle of
-the content shell to the right edge of the viewport. `object-position: 38% 44%`
-from 900px up, `46% 50%` when stacked. Frames: 1024×833 at 1920, 784×833 at
-1440, 512×679 at 1024, 768×480 at 768, 430×323 at 430, 375×281 at 375. The
-house sits centre-left in the 16:9 source, so the 38% horizontal position keeps
-the front elevation and the entry in frame at desktop while the 180px navy wash
-on the picture's left edge covers only sky and the neighbouring tree, never the
-house. At 430 and 375 the whole house is in frame. Verified at all six widths:
-the still renders eagerly (it is the LCP element on mobile, where
-`.fh-hero-media { order: -1 }`), with zero video nodes, zero media requests,
-zero console errors, one `h1` and no horizontal overflow.
+**Crop review, 2026-09-24.** The image fills its frame at center position.
+A local crop simulation checked the documented hero frames 1024×833 (1920),
+784×833 (1440), 512×679 (1024), 768×480 (768), 430×323 (430), and 375×281
+(375). The portrait rendition is selected at viewport widths ≤1600px and
+keeps the full roof and both eaves in these simulations. The actual browser
+render still needs a preview check before owner acceptance; this environment
+could not download Chromium for automated screenshots.
 
 **Hero byline placement, added 2026-09-24.** `debra-allen-primary-about.webp`
 also renders at 56px (48px under 760px) in a circular frame beside "Debra
@@ -104,22 +105,15 @@ rejected this still as not fitting the composition and directed that a
 replacement be generated specifically for the hero layout (house mass
 right-of-centre, roofline uncut, garage not dominant, no number, signage,
 people or text, with a mobile variant of the same property if needed). The
-file stays in the repository and in the slot only so the composition can be
-reviewed; **it is not approved for release.** Its replacement is tracked in
+old file was replaced in the hero slot; **the old image is not approved for release.** Its replacement is tracked in
 `ACTIONS.md` ACT-017.
 
-**Replacement status, 2026-09-24.** Higgsfield turned out to be reachable
-through its MCP connector, so the replacement was generated: four 16:9 variants
-to the owner's brief (house mass right of centre, full roofline in frame,
-garage small and set back, no numbers, signage, text, people or cars), at
-1344×752. They cannot be brought into this repository, because this
-environment's network policy answers 403 to CONNECT for the host that serves
-them, `d8j0ntlcm91z4.cloudfront.net`. That is the environment's own egress
-policy — not a Higgsfield limit and not a licensing control — so it is reported
-here rather than worked around. Allowing that host lets the generation,
-inspection and integration finish without further owner input. Note also that
-1344×752 is smaller than the 1024×833 the hero frame occupies at 1920, so the
-release asset should be regenerated larger once retrieval works.
+**Replacement status, 2026-09-24.** The Higgsfield connector generated a
+2688×1520 single-story candidate, retrieved it, and placed it in the hero slot.
+The original Dallas/DFW Zillow reference listings were unavailable in this
+workspace, so this candidate was made from the written brief and remains
+subject to the owner's visual review. The four earlier 1344×752 variants were
+not used. The image is an illustration of a plausible home, not listing evidence.
 
 **What the plaque actually does at render size, measured 2026-09-23.** Cropped
 from the live hero at 1440 inside the 684×758 frame: at a device pixel ratio of

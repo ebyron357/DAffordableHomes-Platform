@@ -64,14 +64,17 @@ export function AmbientMotion({
 
   return (
     <div className="ambient-motion">
-      <Image
-        src={asset.poster}
-        alt={asset.label}
-        fill
-        sizes={sizes}
-        priority={priority}
-        className="object-cover"
-      />
+      <picture>
+        {asset.mobilePoster ? <source media="(max-width: 1600px)" srcSet={asset.mobilePoster} /> : null}
+        <Image
+          src={asset.poster}
+          alt={asset.label}
+          fill
+          sizes={sizes}
+          priority={priority}
+          className="object-cover"
+        />
+      </picture>
       {started && sources.length > 0 ? (
         <video
           ref={clip}

@@ -39,18 +39,21 @@ test("the drawn hero scene remains a safe fallback behind the approved exterior"
   assert.match(resolver, /existsSync/);
 });
 
-test("the approved hero still is committed and registered; motion encodes remain absent", () => {
+test("the hero candidate is committed and registered; motion encodes remain absent", () => {
   const resolver = read(RESOLVER);
   const register = read(REGISTER);
 
   assert.equal(
     existsSync("apps/web/public/images/hero-north-texas-exterior.webp"),
     true,
-    "the approved hero still should be committed"
+    "the registered hero candidate should be committed"
   );
-  assert.match(register, /9VO_H8Qh26Hg90ZLIvsSd\.jpg/);
+  assert.match(register, /5136834d-c2cf-4bf9-8120-e509a1abe5ee/);
   assert.match(register, /hero-north-texas-exterior\.webp/);
-  assert.match(register, /Gamma AI generation/);
+  assert.match(register, /Candidate awaiting owner review/);
+  assert.equal(existsSync("apps/web/public/images/hero-north-texas-exterior-mobile.webp"), true);
+  assert.match(resolver, /mobilePoster: "\/images\/hero-north-texas-exterior-mobile\.webp"/);
+  assert.doesNotMatch(read(STYLES), /\.fh-hero-tagline::before/);
 
   // Nothing may be hotlinked: the CSP declares no media-src, so media falls
   // back to default-src 'self'. Optional video encodes are not approved yet.

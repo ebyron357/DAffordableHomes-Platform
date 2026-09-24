@@ -11,33 +11,12 @@ This log is retained as project history. Completed items are not deleted.
 - **Validation:** Static tests, typecheck, lint (0 warnings), production build, contrast gate, face-safety gate, browser audit, evidence captures, and a Chromium inspection of the rendered homepage at 1920, 1440, 1024, 768, 430 and 375 — recorded in the pull request.
 - **Status:** Composition pushed and reviewed by the owner on 2026-09-24. Two directives came back: the white quiz panel over the seam is removed (done, same day), and the generated exterior itself is rejected as not fitting the composition. See ACT-017.
 
-## ACT-017 — Hero photograph generated for the layout (blocked)
+## ACT-017 — Hero photograph generated for the layout (owner review pending)
 
-- **Priority:** P0 — Owner directive 2026-09-24
-- **Problem:** The owner rejected `hero-north-texas-exterior.webp` as not fitting the hero composition and directed that a new DFW residential exterior be generated with Higgsfield specifically for this layout, from the Dallas/DFW Zillow reference listings supplied the previous day: house mass right-of-centre, roofline uncut, garage not dominant, room for responsive crops, no people, signage, numbers or text, and a mobile variant of the same property if one frame cannot serve both.
-- **Plan:** Generate with Higgsfield from the references, inspect at full resolution, reject distorted architecture, register the asset, integrate it into the existing hero with deliberate `object-position` rules per width, then re-run every gate.
-- **Generation is no longer blocked, 2026-09-24.** Higgsfield is reachable through
-  its MCP connector rather than over HTTP, so the direct hosts being refused does
-  not matter. The account is on the `plus` plan with an active MCP trial (100
-  credits, to 2026-09-26); an image preflights at 0.25 credits. Four 16:9
-  variants were generated to the owner's brief — house mass right of centre, full
-  roofline in frame, garage small and set back, no numbers, signage, text, people
-  or cars — at 1344×752, job ids `e3576fe7`, `908d17f1`, `7ec7ffc5`, `223e04d6`.
-- **Retrieval is what is blocked.** The results are served from
-  `d8j0ntlcm91z4.cloudfront.net`, and this environment's network policy answers
-  403 to CONNECT for that host, so the bytes cannot be written into the
-  repository from here. This is the environment's own egress policy, not a
-  Higgsfield limit and not a licensing control, so it was reported rather than
-  routed around. The rejected still stays in place only so the composition can be
-  reviewed; it is not approved and must not ship.
-- **Two further notes for whoever picks this up.** The generated variants are
-  1344×752, which is smaller than the 1024×833 the hero frame occupies at 1920 —
-  a release asset should be regenerated at a higher resolution once retrieval
-  works. And the Zillow reference listings are still in none of the connected
-  sources, so these were generated from a written description of the tier and
-  architecture rather than from the references themselves.
-- **Done meanwhile:** the floating hero panel is removed, the seam and vignette remain, the quiz keeps its own section, and the full gate was re-run.
-- **Status:** Blocked on one owner action — add `d8j0ntlcm91z4.cloudfront.net` to the environment's allowed domains (or widen its network access level), after which the generation and integration can be completed from here without further input. Supplying the reference listings through a connected source would additionally let the replacement be generated from them rather than from a description.
+- **Priority:** P0 — Owner directive 2026-09-24.
+- **Implementation:** Replaced the rejected Gamma exterior with Higgsfield GPT Image 2.5 job `5136834d-c2cf-4bf9-8120-e509a1abe5ee`, generated at 2688×1520 on `mrbyron357@gmail.com`, converted to WebP without cropping. A single-story brick suburban home has a visible full roofline, no visible garage doors, and no people, house numbers, signs, or text. A second reference-based portrait generation (`fb990c64-11a4-406b-aa3a-fe2c1b542326`, 1744×2336) shows the same house at viewport widths ≤1600px; both sources center the crop. Removed the short gold tagline line on all viewport sizes.
+- **Source limitation:** The earlier Dallas/DFW Zillow reference listing images were not available in this workspace; the candidate follows the owner's written description. It is generic generated imagery and must never be called a listing, client property, real address, or verified neighbourhood.
+- **Release gate:** Await the owner's visual acceptance of the rendered candidate, after responsive checks. The original Gamma still is removed from the active hero slot.
 
 ## ACT-015 — Guide-card imagery, and an audit of every unregistered photograph
 
