@@ -12,8 +12,10 @@
     "build": "npm --workspace apps/web run build",
     "lint": "npm --workspace apps/web run lint",
     "typecheck": "npm --workspace apps/web run typecheck && npm --workspace @daffordablehomes/integrations run typecheck",
-    "test": "cd recovered-manus && node build-blog.mjs && cd .. && node --experimental-strip-types --test tests/static/*.test.mjs",
-    "test:all": "npm run typecheck && npm run lint && npm run test && npm run build"
+    "test": "node --test tests/static/*.test.mjs",
+    "test:all": "npm run typecheck && npm run lint && npm run test && npm run build",
+    "qa:audit": "node scripts/qa/site-audit.mjs",
+    "sanity:seed": "node scripts/sanity/export-seed.mjs --out qa-evidence/sanity-seed.ndjson"
   },
   "engines": {
     "node": "24.x"
@@ -26,6 +28,7 @@
     "@types/react-dom": "^19.2.0",
     "eslint": "^9.0.0",
     "eslint-config-next": "^16.0.0",
+    "playwright": "^1.62.1",
     "tailwindcss": "^4.1.0",
     "typescript": "^5.9.0"
   },
