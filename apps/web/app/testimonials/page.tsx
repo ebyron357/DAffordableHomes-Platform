@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "Testimonials",
   description:
     "Real stories from people Debra has guided toward homeownership. We publish only verified, consented reviews — never invented ones.",
+  alternates: { canonical: "/testimonials" },
 }
 
 export default function TestimonialsPage() {

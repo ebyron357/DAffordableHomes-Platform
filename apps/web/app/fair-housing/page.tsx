@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Fair Housing Statement",
   description:
     "D'Affordable Homes is committed to fair housing for all. We do not discriminate and we support equal opportunity in housing.",
+  alternates: { canonical: "/fair-housing" },
 }
 
 export default function FairHousingPage() {

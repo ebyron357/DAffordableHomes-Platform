@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Explore Homes",
   description:
     "Explore homes and neighborhoods with guidance. When live listings aren't connected, we tell you honestly instead of showing placeholder homes.",
+  alternates: { canonical: "/homes" },
 }
 
 function formatPrice(value: number) {

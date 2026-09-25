@@ -48,7 +48,7 @@ export default function ConsultationPage() {
                 You do not need perfect credit, a lender, or every answer before reaching out.
               </p>
             </div>
-            <div className="relative mt-8 aspect-[3/2] overflow-hidden border border-border">
+            <div className="relative mt-8 aspect-[3/2] overflow-hidden rounded-xl border border-border">
               <Image
                 src="/manus-storage/couple-consultation_25d3a592.jpg"
                 alt="A couple reviewing plans together at a consultation table"
@@ -68,7 +68,7 @@ export default function ConsultationPage() {
               </div>
             </div>
           </div>
-          <div className="self-start border border-border bg-card p-6 sm:p-8">
+          <div className="self-start rounded-xl border border-border bg-card p-6 sm:p-8">
             <h2 className="font-serif text-3xl font-normal">Request a consultation</h2>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">
               Complete the short form so Debra can understand what you would like to discuss. Do not include Social Security numbers, account numbers, or other sensitive financial information.

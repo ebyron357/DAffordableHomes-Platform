@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Terms of Use",
   description:
     "The terms for using the D'Affordable Homes website. Our content is educational and not legal, financial, or lending advice.",
+  alternates: { canonical: "/terms" },
 }
 
 export default function TermsPage() {

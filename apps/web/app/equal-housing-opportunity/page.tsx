@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "Equal Housing Opportunity",
   description:
     "D'Affordable Homes proudly supports Equal Housing Opportunity and the fair treatment of every person seeking a home.",
+  alternates: { canonical: "/equal-housing-opportunity" },
 }
 
 export default function EqualHousingPage() {

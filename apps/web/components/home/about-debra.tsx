@@ -6,7 +6,7 @@ export function AboutDebra() {
   return (
     <section className="bg-card py-14 md:py-20" aria-labelledby="about-heading">
       <Container className="grid items-center gap-10 lg:grid-cols-[520px_1fr] lg:gap-16">
-        <div className="relative aspect-[4/5] overflow-hidden border border-border bg-muted lg:h-[620px] lg:aspect-auto">
+        <div className="relative aspect-[4/5] overflow-hidden rounded-xl border border-border bg-muted lg:h-[620px] lg:aspect-auto">
           <Image src="/images/debra-allen-primary-about.webp" alt="Debra Allen smiling in a yellow blazer at a kitchen counter" fill priority sizes="(min-width: 1024px) 520px, 100vw" className="object-cover object-[48%_center]" />
         </div>
         <div className="max-w-[640px]">

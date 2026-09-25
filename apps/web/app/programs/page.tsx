@@ -77,7 +77,7 @@ export default function ProgramsPage() {
 
           <div className="mt-8 grid gap-6 lg:grid-cols-2">
             {PROGRAM_CARDS.map((program) => (
-              <article key={program.slug} className="border border-border bg-card p-7 sm:p-9">
+              <article key={program.slug} className="rounded-xl border border-border bg-card p-7 sm:p-9">
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">{program.eyebrow}</p>
                 <h3 className="mt-4 font-serif text-3xl font-normal">{program.name}</h3>
                 <p className="mt-4 leading-7 text-muted-foreground">{program.summary}</p>

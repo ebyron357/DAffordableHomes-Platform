@@ -24,7 +24,7 @@ export default function AreasPage() {
 
       <section className="py-14 md:py-20">
         <Container>
-          <article className="grid gap-7 border border-border bg-card p-7 md:grid-cols-[1fr_auto] md:items-center md:p-10">
+          <article className="grid gap-7 rounded-xl border border-border bg-card p-7 md:grid-cols-[1fr_auto] md:items-center md:p-10">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">Primary local-content market</p>
               <h2 className="mt-3 font-serif text-3xl font-normal">Garland, Texas</h2>

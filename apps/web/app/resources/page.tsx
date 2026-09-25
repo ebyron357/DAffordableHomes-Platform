@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Plan & Resources",
   description:
     "Free homebuyer calculators and trustworthy resources for understanding monthly payments, affordability, closing costs, down payments, credit, and the buying process.",
+  alternates: { canonical: "/resources" },
 }
 
 const calculatorLinks = [

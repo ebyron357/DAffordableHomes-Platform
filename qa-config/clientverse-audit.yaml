@@ -1,0 +1,56 @@
+# ClientVerse Website Audit & Release Certification System
+#
+# This file is project-specific configuration only. It does not implement
+# any audit logic. All discovery, testing, findings normalization, repair
+# policy enforcement, verification, and evidence reporting are performed by
+# the centralized ClientVerse audit engine, which reads this file.
+#
+# Do not add scanner, Playwright, Lighthouse, axe, Lychee, or Semgrep logic
+# here or in this repository. See .github/workflows/clientverse-audit.yml
+# for the trigger that hands off to the central audit engine.
+
+project:
+  name: "D'Affordable Homes Platform"
+  repository: "ebyron357/DAffordableHomes-Platform"
+
+deployment:
+  provider: "Vercel"
+  # Intentionally left blank: the ClientVerse workflow resolves the actual
+  # deployment URL at runtime from the CLIENTVERSE_DEPLOYMENT_URL repository
+  # variable or the workflow_dispatch "deployment_url" input.
+  url: ""
+
+application:
+  framework: "Next.js"
+  type: "website"
+
+audit:
+  critical_routes:
+    - "/"
+    - "/contact"
+    - "/consultation"
+    - "/about"
+    - "/neighborhoods"
+    - "/calculators"
+    - "/programs"
+    - "/programs/naca"
+    - "/programs/homes-for-heroes"
+    - "/areas/garland"
+    - "/blog"
+    - "/blog/naca-homebuying-dallas-fort-worth"
+    - "/blog/homes-for-heroes-north-texas"
+    - "/blog/how-to-buy-home-garland-tx"
+
+  journeys:
+    - homepage_navigation
+    - consultation_flow
+    - mobile_navigation
+    - lead_capture
+    - editorial_reading
+    - article_to_consultation
+
+review_required:
+  - business_claims
+  - testimonials
+  - compliance_content
+  - integrations

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
     "How D'Affordable Homes collects, uses, and protects your information. We only use what you share to help you, and never sell your data.",
+  alternates: { canonical: "/privacy" },
 }
 
 export default function PrivacyPage() {

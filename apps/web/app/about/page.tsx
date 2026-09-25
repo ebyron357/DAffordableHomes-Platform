@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "About Debra Allen",
   description:
     "Meet Debra Allen, REALTOR® — an education-first guide who believes homeownership has steps and no one should have to learn them alone.",
+  alternates: { canonical: "/about" },
 }
 
 const values = [

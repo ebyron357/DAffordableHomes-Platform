@@ -2,6 +2,13 @@
 
 All notable repository changes are documented here.
 
+## 2026-09-25
+
+- Fixed a first-party open redirect in `safeInternalPath`. A leading slash followed by a tab, newline, or carriage return and then `//host` cleared the protocol-relative guard but still resolved off-origin, because the WHATWG URL parser strips those characters before parsing. Unauthenticated `GET /api/preview/disable` passed a query value straight to `redirect()`, so any visitor could be sent to an attacker host from a genuine site URL. Control characters are now refused outright, which also covers the eleven CMS href sites and the image-source guard that share the helper.
+- Closed four review findings on the CMS closeout. A draft preview that missed, errored, or had no preview client fell through to the published document and rendered it under the "Draft preview" banner; every draft path now ends in the draft branch. CMS-supplied image sources are validated against the hosts `next/image` is configured for, in the Studio and again at every render site, so an off-host path can no longer fail an article render. The content build now rejects a review date earlier than the publish date, matching the Studio schema. The visual QA touch-target floor was 32px while the suite documented and reported 44px; it now enforces 44px, which the site already meets.
+
+- Merged the ambient-motion homepage surface and the vendored Higgsfield skills from `main` into the CMS closeout. The homepage "Local guidance" section now renders `AmbientMotion` in place of the still `Image`; the closeout's split of the closing consultation band out of `ControlledHomeSections` is preserved, so the CMS field guides still sit ahead of it.
+
 ## 2026-09-22
 
 - Added an accessible ambient-motion surface to the homepage "Local guidance" section that keeps the approved still photograph as its poster and accessible name.
@@ -9,6 +16,27 @@ All notable repository changes are documented here.
 - Added responsive encode selection, viewport-gated loading, silent playback with no controls, and removal of the clip entirely under reduced-motion preferences.
 - Added the motion asset register and regression tests covering the silent, decorative, and reduced-motion fallback contract.
 - Homepage motion clip is still outstanding: Higgsfield generation requires a Plus plan or higher on the connected account.
+
+## 2026-08-16
+
+- Merged the warm residential editorial reset from `main` into the CMS closeout. The reset is the current design direction and wins on presentation; the closeout keeps its architecture and re-applies what the reset did not carry — the site-wide ClientVerse attribution, the mobile menu's Escape-to-close, and root scripts that keep the test path off `recovered-manus`.
+- Restyled the homepage CMS field-guide section into the reset's editorial vocabulary and moved it ahead of the closing consultation band.
+- Fixed the footer logo rendering as a solid white block: the knock-out filter inverted the whole box because the logo asset is opaque RGB with no alpha channel.
+
+## 2026-08-15
+
+- Replaced the three hardcoded blog route files with a single CMS-backed `/blog/[slug]` route; the existing article URLs are unchanged and still prerendered.
+- Added a Sanity Studio workspace (`apps/studio`) with `article`, `author`, `category`, `program`, and `area` documents and 18 reusable editorial block types, each with required-field and descriptive-alt-text validation.
+- Added the query layer, draft-mode preview, preview exit, and a secret-guarded publish/revalidation webhook.
+- Migrated all three articles into structured CMS documents with a reproducible build (`scripts/cms/build-content.mjs`) that emits both the app payload and the `sanity dataset import` NDJSON.
+- Removed `recovered-manus` from the test path; `pnpm test` had been building it before every check.
+- Fixed 13 pages that shipped without a canonical link.
+- Fixed unknown article URLs returning HTTP 200 with 404 content.
+- Fixed `/naca` rendering a 200 page instead of a 308 redirect, and the missing favicon.
+- Removed a geographically misleading neighborhood photograph and its false alt text.
+- Completed a premium design pass unifying the editorial and core-site systems, plus a responsive and accessibility pass across five widths.
+- Restored the ClientVerse footer attribution with a test that asserts its text and destination, and replaced the audit workflow that passed green when unconfigured with one that reports BLOCKED.
+- Added `scripts/qa/crawl.mjs` and `scripts/qa/visual.mjs`, both gating in CI.
 
 ## 2026-07-18
 
