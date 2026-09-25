@@ -2,6 +2,14 @@
 
 All notable repository changes are documented here.
 
+## 2026-09-22
+
+- Added an accessible ambient-motion surface to the homepage "Local guidance" section that keeps the approved still photograph as its poster and accessible name.
+- Added same-origin motion delivery that resolves encodes at build time and renders the approved still wherever an encode is absent, so the section degrades with no layout or content change.
+- Added responsive encode selection, viewport-gated loading, silent playback with no controls, and removal of the clip entirely under reduced-motion preferences.
+- Added the motion asset register and regression tests covering the silent, decorative, and reduced-motion fallback contract.
+- Homepage motion clip is still outstanding: Higgsfield generation requires a Plus plan or higher on the connected account.
+
 ## 2026-08-15
 
 - Implemented Sanity CMS: embedded Studio at `/studio`, article/author/category schema, 18 reusable editorial block types, GROQ query layer, draft preview, and a signature-verified publish revalidation webhook.
