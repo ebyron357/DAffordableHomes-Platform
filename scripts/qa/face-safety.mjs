@@ -34,6 +34,11 @@ const ROUTES = ["/", "/about", "/areas", "/consultation", "/contact", "/programs
 
 const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH ?? "/opt/pw-browsers/chromium" })
 let worst = 0
+// A portrait that does not render at all is a failure, not a row to skip:
+// `.dah-landing-image-frame-portrait` once resolved to 0px wide at every
+// desktop width, and a gate that only compares crop percentages reports PASS
+// for an image that was never drawn.
+const broken = []
 const rows = []
 
 for (const width of VIEWPORTS) {
@@ -80,7 +85,12 @@ for (const width of VIEWPORTS) {
       return out
     })
     for (const f of found) {
-      if (f.skip || f.broken) { rows.push(`${width} ${route} ${f.src ?? ""} ${f.broken ? "BROKEN" : "fit=" + f.fit}`); continue }
+      if (f.broken) {
+        broken.push(`${width} ${route} ${f.src ?? "(no src)"}`)
+        rows.push(`${width} ${route} ${f.src ?? ""} BROKEN`)
+        continue
+      }
+      if (f.skip) { rows.push(`${width} ${route} ${f.src ?? ""} fit=${f.fit}`); continue }
       worst = Math.max(worst, f.topCutPct)
       rows.push(`${width} ${route.padEnd(22)} ${f.src.padEnd(34)} pos=${f.objectPosition.padEnd(12)} frame=${f.frame.padEnd(10)} topCut=${f.topCutPct}% bottomCut=${f.bottomCutPct}%`)
     }
@@ -90,6 +100,17 @@ for (const width of VIEWPORTS) {
 await browser.close()
 console.log(rows.join("\n"))
 console.log(`\nworst top crop across every Debra placement: ${worst}% (ceiling ${MAX_TOP_CROP}%)`)
-const ok = worst <= MAX_TOP_CROP
-console.log(ok ? "PASS" : `FAIL — top crop exceeds the ${MAX_TOP_CROP}% ceiling`)
+if (broken.length > 0) {
+  console.log(`\n${broken.length} placement(s) did not render at all:`)
+  for (const entry of broken) console.log(`  ${entry}`)
+}
+const withinCeiling = worst <= MAX_TOP_CROP
+const ok = withinCeiling && broken.length === 0
+console.log(
+  ok
+    ? "PASS"
+    : !withinCeiling
+      ? `FAIL — top crop exceeds the ${MAX_TOP_CROP}% ceiling`
+      : `FAIL — ${broken.length} placement(s) did not render`,
+)
 process.exitCode = ok ? 0 : 1

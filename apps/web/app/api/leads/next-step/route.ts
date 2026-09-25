@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { clientIdentifier, rateLimit } from "@/lib/rate-limit"
 
 const ALLOWED_NEXT_STEPS = new Set([
   "Schedule a consultation",
@@ -7,6 +8,12 @@ const ALLOWED_NEXT_STEPS = new Set([
   "Send me NACA information",
   "I’m just researching",
 ])
+
+// A deliberately permissive shape check: one @, something either side, a dot
+// in the domain, no whitespace. It rejects the values the client-side
+// `type="email"` was the only thing catching ("x", "@") without pretending to
+// decide whether a well-formed address is deliverable.
+const EMAIL = /^[^\s@]+@[^\s@.]+(?:\.[^\s@.]+)+$/
 
 function text(value: unknown, max = 500): string {
   return typeof value === "string" ? value.trim().slice(0, max) : ""
@@ -30,6 +37,17 @@ export async function POST(request: Request) {
   const body = raw as Record<string, unknown>
   if (text(body.website)) return NextResponse.json({ ok: true }, { status: 200 })
 
+  // The honeypot and the elapsed-time check below are both client-controlled,
+  // so neither survives a replayed request. This is the boundary the caller
+  // cannot set. See lib/rate-limit.ts for what it does and does not cover.
+  const limit = rateLimit("leads:next-step", clientIdentifier(request), { limit: 5, windowMs: 60_000 })
+  if (!limit.ok) {
+    return NextResponse.json(
+      { ok: false, error: "Too many submissions. Please wait a moment and try again." },
+      { status: 429, headers: { "retry-after": String(limit.retryAfter) } },
+    )
+  }
+
   const startedAt = Number(body.startedAt)
   if (Number.isFinite(startedAt) && startedAt > 0 && Date.now() - startedAt < 1500) {
     return NextResponse.json({ ok: false, error: "Please review the form and try again." }, { status: 429 })
@@ -42,6 +60,16 @@ export async function POST(request: Request) {
 
   if (!firstName || !email || !ALLOWED_NEXT_STEPS.has(preferredNextStep)) {
     return NextResponse.json({ ok: false, error: "Complete the required fields to continue." }, { status: 400 })
+  }
+
+  // Validated here as well as in the browser: `type="email"` is bypassable,
+  // and an unusable address forwarded to the webhook becomes a lead Debra
+  // cannot answer.
+  if (!EMAIL.test(email)) {
+    return NextResponse.json(
+      { ok: false, error: "Enter an email address Debra can reply to." },
+      { status: 400 },
+    )
   }
 
   const webhookUrl = process.env.NEXT_STEP_LEAD_WEBHOOK_URL

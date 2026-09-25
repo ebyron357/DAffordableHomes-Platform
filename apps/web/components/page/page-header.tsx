@@ -31,7 +31,15 @@ export type PageHeaderMedia = {
   priority?: boolean
 }
 
-export type PageHeaderFact = { label: string; icon?: ComponentType<{ className?: string }> }
+/**
+ * Icons here are decorative: the label beside them carries the meaning, so
+ * both render sites pass `aria-hidden`. TypeScript does not check hyphenated
+ * JSX attributes against the props type, so a narrower declaration compiles
+ * either way — this one says what is actually passed.
+ */
+type DecorativeIcon = ComponentType<{ className?: string; "aria-hidden"?: boolean | "true" | "false" }>
+
+export type PageHeaderFact = { label: string; icon?: DecorativeIcon }
 
 /**
  * Shared interior masthead.
@@ -56,7 +64,7 @@ export function PageHeader({
   tone = "navy",
 }: {
   eyebrow?: string
-  eyebrowIcon?: ComponentType<{ className?: string }>
+  eyebrowIcon?: DecorativeIcon
   title: string
   intro?: string
   description?: string

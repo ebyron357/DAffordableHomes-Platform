@@ -32,3 +32,16 @@ test("Debra's head is not cropped by a landscape card frame", () => {
     );
   }
 });
+
+test("the face-safety gate fails a placement that did not render at all", () => {
+  // A broken image was once only recorded as a row and skipped, so `worst`
+  // never moved and the gate reported PASS for a portrait the browser never
+  // drew — the same class of defect as the landing frame that resolved to 0px
+  // wide at every desktop width.
+  const gate = read("scripts/qa/face-safety.mjs");
+
+  assert.match(gate, /const broken = \[\]/);
+  assert.match(gate, /broken\.push\(/);
+  assert.match(gate, /broken\.length === 0/);
+  assert.doesNotMatch(gate, /if \(f\.skip \|\| f\.broken\)/);
+});
