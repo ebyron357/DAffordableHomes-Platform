@@ -2,6 +2,18 @@
 
 All notable repository changes are documented here.
 
+## 2026-09-25
+
+- Merged the ambient-motion homepage surface and the vendored Higgsfield skills from `main` into the CMS closeout. The homepage "Local guidance" section now renders `AmbientMotion` in place of the still `Image`; the closeout's split of the closing consultation band out of `ControlledHomeSections` is preserved, so the CMS field guides still sit ahead of it.
+
+## 2026-09-22
+
+- Added an accessible ambient-motion surface to the homepage "Local guidance" section that keeps the approved still photograph as its poster and accessible name.
+- Added same-origin motion delivery that resolves encodes at build time and renders the approved still wherever an encode is absent, so the section degrades with no layout or content change.
+- Added responsive encode selection, viewport-gated loading, silent playback with no controls, and removal of the clip entirely under reduced-motion preferences.
+- Added the motion asset register and regression tests covering the silent, decorative, and reduced-motion fallback contract.
+- Homepage motion clip is still outstanding: Higgsfield generation requires a Plus plan or higher on the connected account.
+
 ## 2026-08-16
 
 - Merged the warm residential editorial reset from `main` into the CMS closeout. The reset is the current design direction and wins on presentation; the closeout keeps its architecture and re-applies what the reset did not carry — the site-wide ClientVerse attribution, the mobile menu's Escape-to-close, and root scripts that keep the test path off `recovered-manus`.
