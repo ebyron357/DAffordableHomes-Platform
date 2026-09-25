@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
-import Image from "next/image"
 import Link from "next/link"
-import { Container } from "@/components/ui/container"
-import { Button } from "@/components/ui/button"
+import { Compass, MapPin, Route, ShieldCheck } from "lucide-react"
+import { FIGMA_CITIES } from "@/lib/figma-home"
+import { PageHeader } from "@/components/page/page-header"
+import { Band, BandLead, CtaBand, StatusStrip } from "@/components/page/editorial"
+import { CLOSING_BAND_IMAGE } from "@/lib/content/imagery"
 
 export const metadata: Metadata = {
   title: "Neighborhood Guides",
@@ -11,57 +13,98 @@ export const metadata: Metadata = {
 }
 
 export default function NeighborhoodsPage() {
+  const garland = FIGMA_CITIES.find((city) => city.name === "Garland")
+  const others = FIGMA_CITIES.filter((city) => city.name !== "Garland")
+
   return (
     <>
-      <section className="border-b border-border bg-card">
-        <Container className="grid gap-8 py-12 md:py-20 lg:grid-cols-[1fr_420px] lg:items-center">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">Neighborhoods</p>
-            <h1 className="mt-4 max-w-4xl font-serif text-[42px] font-normal leading-[1.08] sm:text-[56px]">
-              Garland &amp; DFW areas
-            </h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">
-              Compare verified DFW cities without fabricated prices, rankings, or school scores.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button href="/areas/garland">Explore Garland</Button>
-              <Button href="/consultation" variant="outline">Book Consultation</Button>
-            </div>
-          </div>
-          <div className="relative aspect-[4/3] overflow-hidden border border-border bg-muted">
-            <Image
-              src="/manus-storage/neighborhood-community_101d8dfe.jpg"
-              alt="A welcoming North Texas neighborhood street"
-              fill
-              sizes="(min-width: 1024px) 420px, 100vw"
-              className="object-cover"
-            />
-          </div>
-        </Container>
-      </section>
+      <PageHeader
+        eyebrow="Neighborhoods"
+        eyebrowIcon={MapPin}
+        title="Garland and the DFW areas around it"
+        description="Compare North Texas cities without fabricated prices, rankings or school scores. Where a guide exists, it is written from local knowledge; where it does not, this page says so."
+        crumbs={[{ label: "Home", href: "/" }, { label: "Neighborhoods" }]}
+        facts={[
+          { label: "Garland is home base", icon: MapPin },
+          { label: "Dallas–Fort Worth metroplex", icon: Route },
+        ]}
+        /* No masthead photograph. The image this page used to carry —
+           `manus-storage/neighborhood-community_101d8dfe.jpg`, captioned
+           "North Texas" — is a dense north-eastern US streetscape: four-storey
+           brick walk-ups, fire escapes, a Puerto Rican flag mural and a
+           storefront row. Nothing in it is Dallas-Fort Worth, and this page's
+           own promise is to compare North Texas cities "without fabricated"
+           content. The route motif claims nothing instead. */
+        motif="route"
+      >
+        <Link href="/areas/garland" className="dh-btn dh-btn-gold">
+          Explore Garland
+        </Link>
+        <Link href="/consultation" className="dh-btn dh-btn-light-outline">
+          Ask about an area
+        </Link>
+      </PageHeader>
 
-      <section className="py-14 md:py-20">
-        <Container>
-          <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
-            <article className="border border-border bg-card p-7 sm:p-9">
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">Primary area guide</p>
-              <h2 className="mt-3 font-serif text-3xl font-normal">Garland, Texas</h2>
-              <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">
-                Prepare for a Garland home search with address-specific due diligence, practical property questions, and clear next steps.
-              </p>
-              <Link href="/areas/garland" className="mt-6 inline-block font-semibold text-primary hover:underline">
-                Read the Garland guide →
-              </Link>
-            </article>
-            <aside className="border border-border bg-muted/40 p-7">
-              <h2 className="font-serif text-2xl font-normal">What we do not publish</h2>
-              <p className="mt-4 text-sm leading-6 text-muted-foreground">
-                No fabricated neighborhood rankings, price ranges, school scores, or unsupported market claims. Every address still needs current verification.
-              </p>
-            </aside>
-          </div>
-        </Container>
-      </section>
+      <Band tone="navy" aria-labelledby="neighborhoods-places-heading">
+        <BandLead
+          eyebrow="Where Debra works"
+          eyebrowIcon={Compass}
+          title="Start with the market that has a full guide"
+          titleId="neighborhoods-places-heading"
+          lede="Garland is the one community on this site with a complete written guide behind it. The rest link into the property search while their guides are written."
+        />
+        <div className="dh-places-layout">
+          {garland && (
+            <Link href={garland.href} className="dh-place-feature">
+              <span className="dh-place-feature-label">
+                <MapPin aria-hidden="true" className="size-4" />
+                Full area guide
+              </span>
+              <span className="dh-place-feature-name">Garland</span>
+              <span className="dh-place-feature-meta">{garland.county}, Texas</span>
+              <span className="dh-place-feature-cta">Read the Garland guide →</span>
+            </Link>
+          )}
+          <ul className="dh-places">
+            {others.map((city) => (
+              <li key={city.name}>
+                <Link href={city.href} className="dh-place">
+                  <MapPin aria-hidden="true" />
+                  <span>
+                    <span className="dh-place-name">{city.name}</span>
+                    <span className="dh-place-county">{city.county}</span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Band>
+
+      <Band tone="white" tight aria-label="What is not published here">
+        <StatusStrip icon={ShieldCheck} title="What this site will not publish about a neighborhood">
+          <p>
+            No fabricated rankings, price ranges, school scores or unsupported market claims. Conditions vary street by
+            street and change constantly, so every address still needs current verification — which is exactly the part
+            Debra does with you.
+          </p>
+        </StatusStrip>
+      </Band>
+
+      <CtaBand
+        eyebrow="Somewhere specific in mind?"
+        title="Ask about the street, not just the city"
+        titleId="neighborhoods-cta-heading"
+        body="City-level generalisations rarely survive contact with an actual block. Bring the area you are considering and Debra will tell you what she knows about it."
+        image={CLOSING_BAND_IMAGE}
+      >
+        <Link href="/consultation" className="dh-btn dh-btn-gold">
+          Book a consultation
+        </Link>
+        <Link href="/areas" className="dh-btn dh-btn-light-outline">
+          All area guides
+        </Link>
+      </CtaBand>
     </>
   )
 }

@@ -1,9 +1,9 @@
 "use client"
 
 import Link from "next/link"
-import { useRef, useState } from "react"
 import { ArrowLeft, ArrowRight, RotateCcw } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useGuidedQuiz } from "@/components/quiz/use-guided-quiz"
 import {
   buildRecommendations,
   NEXT_STEP_QUESTIONS,
@@ -11,54 +11,25 @@ import {
   type Recommendation,
 } from "@/lib/content/next-step"
 
-type Phase = { kind: "question"; index: number } | { kind: "result" }
-
+/**
+ * Interior readiness check. Shares its state machine with the homepage
+ * "Find Your Homebuying Path" quiz via `useGuidedQuiz`.
+ */
 export function FindYourNextStep() {
-  const [answers, setAnswers] = useState<Record<string, string>>({})
-  const [phase, setPhase] = useState<Phase>({ kind: "question", index: 0 })
-  const headingRef = useRef<HTMLHeadingElement>(null)
-
   const total = NEXT_STEP_QUESTIONS.length
+  const { answers, phase, headingRef, selectAnswer, goNext, goBack, restart } = useGuidedQuiz<string>(total)
 
-  function focusHeading() {
-    // Move focus to the step heading so screen readers announce the new step.
-    requestAnimationFrame(() => headingRef.current?.focus())
-  }
-
-  function selectAnswer(questionId: string, value: string) {
-    setAnswers((prev) => ({ ...prev, [questionId]: value }))
-  }
-
-  function goNext() {
-    if (phase.kind !== "question") return
-    if (phase.index < total - 1) {
-      setPhase({ kind: "question", index: phase.index + 1 })
-    } else {
-      setPhase({ kind: "result" })
-    }
-    focusHeading()
-  }
-
-  function goBack() {
-    if (phase.kind === "result") {
-      setPhase({ kind: "question", index: total - 1 })
-    } else if (phase.index > 0) {
-      setPhase({ kind: "question", index: phase.index - 1 })
-    }
-    focusHeading()
-  }
-
-  function restart() {
-    setAnswers({})
-    setPhase({ kind: "question", index: 0 })
-    focusHeading()
-  }
+  // This flow starts directly on the first question; the intro phase is unused.
+  if (phase.kind === "intro") return null
 
   if (phase.kind === "result") {
     const stageKey = answers.stage
     const defaultStage = STAGE_RESULTS.curious!
     const stage = stageKey ? STAGE_RESULTS[stageKey] ?? defaultStage : defaultStage
-    const recs: Recommendation[] = buildRecommendations(answers)
+    const answered = Object.fromEntries(
+      Object.entries(answers).filter((entry): entry is [string, string] => typeof entry[1] === "string"),
+    )
+    const recs: Recommendation[] = buildRecommendations(answered)
     return (
       <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">Your next step</p>
@@ -170,7 +141,7 @@ export function FindYourNextStep() {
       </fieldset>
 
       <div className="mt-8 flex items-center justify-between gap-3">
-        <Button onClick={goBack} variant="ghost" disabled={phase.index === 0}>
+        <Button onClick={() => goBack()} variant="ghost" disabled={phase.index === 0}>
           <ArrowLeft className="size-4" aria-hidden="true" />
           Back
         </Button>

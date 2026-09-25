@@ -55,7 +55,7 @@
 
 ### Core routes
 
-- [ ] Home
+- [x] Home
 - [ ] About Debra
 - [ ] First-Time Buyers
 - [ ] NACA education
@@ -185,7 +185,61 @@
 - [x] Establish canonical Figma foundations and controlled source screens
 - [x] Implement homepage, navigation, footer, calculator hub, affordability calculator, and consultation page
 - [x] Correct release-blocking semantic color and keyboard-focus contrast defects, including form and calculator utility overrides
+- [x] Extend the brand composition to every interior route (`.dh-*` system): painted
+      bands, two-column mastheads, editorial splits, icon-supported pathways and
+      designed status states in place of white boxes on near-white
+- [x] Bring `/start` onto the approved palette, retiring its divergent navy, gold,
+      turquoise and beige
+- [x] Make brand presence, face safety and colour contrast measurable release gates
+      rather than reviewer judgement (`qa:audit` painted-area floors, `qa:faces`,
+      `qa:contrast`)
 - [ ] Obtain final approval before any full-site visual rollout
+- [x] Audit every unregistered photograph and record what each one actually shows
+      (`docs/05-content/IMAGE_ASSET_REGISTER.md`); three that misrepresented a
+      person, a brand or a place are off every route and barred in `qa:audit`
+- [x] Take Debra Allen's portrait off the Homes for Heroes and Garland guide
+      cards, with `featuredImage` optional end to end so a photograph can be
+      restored from Sanity without a code change
+- [ ] Confirm provenance and licence for the three unregistered photographs still
+      served (`hero-family`, `home-keys-moment`, `planning-table`), or approve
+      replacements
+- [ ] Homepage hero exterior: **awaiting the owner's review of the rendered
+      crops.** The Gamma still approved on 2026-09-22
+      (`9VO_H8Qh26Hg90ZLIvsSd.jpg`) was rejected on 2026-09-24 as not fitting
+      the recomposed hero and is no longer in the slot. The owner committed two
+      Higgsfield stills in its place (landscape 2688×1520, portrait 1744×2336
+      at widths ≤1600px); `docs/05-content/IMAGE_ASSET_REGISTER.md` carries both
+      as candidates awaiting owner review, and this gate stays open until that
+      review lands. The plumbing around it is done: both stills are registered,
+      resolved at build time and layered over the drawn streetscape, which stays
+      as the fallback, and `qa:audit` requires the still to render on `/` so the
+      file going missing is reported rather than silently falling back
+- [x] Homepage visual reconciliation (2026-09-24): the owner rejected the
+      rendered preview as sparse and template-like. The page-width lock that
+      boxed the site inside near-white margins on wide monitors is gone, the
+      hero is one full-bleed composition with the exterior emerging from the
+      navy field and Debra's byline in the first viewport; the split holds at
+      laptop widths; the quiz now separates the two navy fields; the planning
+      index is an editorial list. Pinned in
+      `tests/static/figma-homepage.test.mjs`. The owner's review the same day
+      removed the quiz panel that had straddled the seam (done — nothing is
+      laid over the photograph now) and rejected the exterior still itself,
+      which is the open gate above. The seam wash and vignette were reworked on
+      2026-09-25 so the navy field no longer meets the photograph as a hard
+      vertical line
+- [ ] Hero photograph generated for the layout: a 2688×1520 Higgsfield candidate
+      is in the hero slot and the rejected still has been replaced. Responsive
+      review and owner visual acceptance remain release gates. The earlier DFW
+      reference listings were unavailable here. See `ACTIONS.md` ACT-017
+- [ ] Supply cleared exterior photography for the two guide cards. Every
+      accessible source was searched on 2026-09-21 and none holds a DFW
+      exterior — repository, full git history, the `recovered-manus` bundle,
+      the Figma 11:4 frame (which carries no photographs at all), and the shared
+      Google Drive; stock hosts and image generation are refused by the
+      environment's egress policy. The table in
+      `docs/05-content/IMAGE_ASSET_REGISTER.md` records each one. Setting
+      `featuredImage` in Sanity, or committing files to
+      `apps/web/public/images/`, is enough
 
 These items require a separate business and architecture decision before implementation:
 

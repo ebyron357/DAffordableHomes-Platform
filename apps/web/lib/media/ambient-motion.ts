@@ -8,38 +8,55 @@ export type AmbientMotionSource = {
 
 export type AmbientMotionAsset = {
   poster: string
+  mobilePoster?: string
   label: string
   desktop: AmbientMotionSource[]
   mobile: AmbientMotionSource[]
 }
 
-// Homepage neighborhood motion band. Encodes are served same-origin from
-// public/video so the site Content-Security-Policy keeps applying unchanged:
-// it declares no media-src, so media falls back to default-src 'self'.
-// Until the approved encodes are committed, resolve* returns no sources and
-// every surface renders the approved still photography instead.
-const HOME_NEIGHBORHOOD_MOTION: AmbientMotionAsset = {
-  poster: "/images/black-family-home-pexels-7114188.webp",
-  label: "A family together in a bright home",
+// The hero's North Texas exterior slot.
+//
+// `.fh-hero-media` keeps the brand roofline as a fallback and layers the
+// approved hero still when it is present. This resolves the still and optional
+// motion encodes at build time. If the still is ever removed, the resolver
+// returns null and the drawn scene remains in place.
+//
+// Encodes and stills are served same-origin from apps/web/public so the site
+// Content-Security-Policy keeps applying unchanged: it declares no media-src,
+// so media falls back to default-src 'self' and a remote CDN URL is blocked.
+const HERO_NORTH_TEXAS_EXTERIOR: AmbientMotionAsset = {
+  poster: "/images/hero-north-texas-exterior.webp",
+  mobilePoster: "/images/hero-north-texas-exterior-mobile.webp",
+  label: "A single-story brick suburban home with a front lawn and mature trees",
   desktop: [
-    { src: "/video/home-neighborhood-1280.webm", type: "video/webm" },
-    { src: "/video/home-neighborhood-1280.mp4", type: "video/mp4" },
+    { src: "/video/hero-north-texas-exterior-1280.webm", type: "video/webm" },
+    { src: "/video/hero-north-texas-exterior-1280.mp4", type: "video/mp4" },
   ],
   mobile: [
-    { src: "/video/home-neighborhood-720.webm", type: "video/webm" },
-    { src: "/video/home-neighborhood-720.mp4", type: "video/mp4" },
+    { src: "/video/hero-north-texas-exterior-720.webm", type: "video/webm" },
+    { src: "/video/hero-north-texas-exterior-720.mp4", type: "video/mp4" },
   ],
+}
+
+function present(path: string) {
+  return existsSync(join(process.cwd(), "public", path))
 }
 
 function availableSources(sources: AmbientMotionSource[]) {
-  const publicDirectory = join(process.cwd(), "public")
-  return sources.filter((source) => existsSync(join(publicDirectory, source.src)))
+  return sources.filter((source) => present(source.src))
 }
 
-export function resolveHomeNeighborhoodMotion(): AmbientMotionAsset {
+export function resolveHeroMotion(): AmbientMotionAsset | null {
+  // The still carries the accessible name and is what a clip is layered over,
+  // so without it there is nothing to show and the drawn scene stays.
+  if (!present(HERO_NORTH_TEXAS_EXTERIOR.poster)) return null
+
   return {
-    ...HOME_NEIGHBORHOOD_MOTION,
-    desktop: availableSources(HOME_NEIGHBORHOOD_MOTION.desktop),
-    mobile: availableSources(HOME_NEIGHBORHOOD_MOTION.mobile),
+    ...HERO_NORTH_TEXAS_EXTERIOR,
+    mobilePoster: HERO_NORTH_TEXAS_EXTERIOR.mobilePoster && present(HERO_NORTH_TEXAS_EXTERIOR.mobilePoster)
+      ? HERO_NORTH_TEXAS_EXTERIOR.mobilePoster
+      : undefined,
+    desktop: availableSources(HERO_NORTH_TEXAS_EXTERIOR.desktop),
+    mobile: availableSources(HERO_NORTH_TEXAS_EXTERIOR.mobile),
   }
 }

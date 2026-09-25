@@ -35,3 +35,72 @@ jobs:
 
       - name: Run full quality gate
         run: pnpm test:all
+
+  # The browser gates. Until this job existed they ran only on a developer's
+  # machine, so nothing stopped a regression in contrast, touch targets, route
+  # status, console errors, the quiz, or a portrait crop from reaching `main` —
+  # a gate that does not run in CI does not gate. They need a built app and a
+  # running server, which is why they are a separate job from `validate`.
+  runtime-qa:
+    name: Browser QA (audit, quiz, contrast, faces)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium for Playwright
+        run: pnpm exec playwright install --with-deps chromium
+
+      # The QA scripts default to /opt/pw-browsers/chromium, which is the
+      # pre-installed browser on the development image and does not exist on a
+      # GitHub runner. Ask Playwright where it just installed one instead of
+      # hard-coding a cache path that changes with the Playwright version.
+      - name: Resolve the Chromium executable
+        run: |
+          echo "CHROMIUM_PATH=$(node -e "console.log(require('playwright').chromium.executablePath())")" >> "$GITHUB_ENV"
+
+      - name: Build
+        run: pnpm build
+
+      # Contrast parses the stylesheet and needs no server, so it runs first and
+      # fails fast.
+      - name: Contrast (WCAG AA pairs)
+        run: pnpm qa:contrast
+
+      - name: Start the production server
+        run: sh scripts/qa/serve.sh 3111 "$RUNNER_TEMP/qa-server.log"
+
+      - name: Route crawl, structure and responsive audit
+        run: pnpm qa:audit
+
+      - name: Quiz end-to-end
+        run: pnpm qa:quiz
+
+      - name: Portrait crop safety
+        run: pnpm qa:faces
+
+      - name: Upload QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-qa-evidence
+          path: |
+            qa-evidence/
+            ${{ runner.temp }}/qa-server.log
+          if-no-files-found: ignore
+          retention-days: 14

@@ -22,8 +22,13 @@
 
 @theme {
   /* -- Typography ------------------------------------------------------- */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-source-serif), "Libre Baskerville", Georgia, serif;
+  /*
+   * `--font-inter` / `--font-source-serif` are attached to <html> by next/font
+   * in app/layout.tsx. The var() fallbacks keep type sane if a surface renders
+   * outside the root layout, without a specificity fight over :root.
+   */
+  --font-sans: var(--font-inter, "Segoe UI"), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif, "Libre Baskerville"), Georgia, serif;
 
   /* -- Surfaces --------------------------------------------------------- */
   --color-background: #f7f9f8;
@@ -81,11 +86,6 @@
 }
 
 @layer base {
-  :root {
-    --font-inter: "Segoe UI";
-    --font-source-serif: Georgia;
-  }
-
   * {
     border-color: var(--color-border);
   }
@@ -156,7 +156,7 @@
 .brand-context { display:flex; flex-direction:column; gap:3px; border-left:1px solid var(--color-border); padding-left:14px; font-size:11px; line-height:1.25; letter-spacing:.03em; color:var(--color-muted-foreground); white-space:nowrap; }
 .brand-context strong { color:var(--color-primary); font-size:13px; }
 .desktop-primary-nav ul { display:flex; align-items:center; gap:25px; list-style:none; margin:0; padding:0; }
-.desktop-primary-nav a { color:var(--color-foreground); font-size:14px; font-weight:600; text-decoration:none; transition:color .18s ease; }
+.desktop-primary-nav a { display:inline-block; padding:5px 0; color:var(--color-foreground); font-size:14px; font-weight:600; text-decoration:none; transition:color .18s ease; }
 .desktop-primary-nav a:hover,.desktop-primary-nav a.active { color:var(--color-accent); }
 .header-actions { flex-shrink:0; }
 .header-actions > a { white-space:nowrap; }
@@ -188,7 +188,9 @@
 .editorial-section h2,.consultation-band h2 { font-size:clamp(34px,4vw,52px); }
 .section-copy,.section-intro { max-width:600px; color:var(--color-muted-foreground); font-size:18px; line-height:1.7; }
 .section-copy p { margin:0 0 22px; }
-.text-link { color:var(--color-accent); font-size:15px; font-weight:700; text-decoration:none; }
+/* `inline-block` + padding keeps standalone links at the WCAG 2.2 24px
+   target-size minimum; without it these sit at ~21px. */
+.text-link { display:inline-block; padding:3px 0; color:var(--color-accent); font-size:15px; font-weight:700; text-decoration:none; }
 .text-link:hover { text-decoration:underline; text-underline-offset:4px; }
 .section-heading-row { display:flex; align-items:end; justify-content:space-between; gap:40px; }
 .section-heading-row .section-intro { margin:0; max-width:420px; font-size:16px; }
@@ -218,19 +220,45 @@
 .consultation-inner { display:flex; align-items:center; justify-content:space-between; gap:40px; }
 .consultation-band h2 { color:white; font-size:clamp(32px,4vw,50px); }
 .consultation-band p:not(.eyebrow) { margin:18px 0 0; color:rgba(255,255,255,.78); font-size:17px; }
-.site-footer { background:var(--color-primary); color:white; padding:64px 0 24px; }
-.footer-grid { display:grid; grid-template-columns:1.4fr .7fr 1fr; gap:60px; }
-.footer-logo { width:190px; height:110px; object-fit:contain; object-position:left center; filter:brightness(0) invert(1); opacity:.95; }
-.footer-tagline { margin:4px 0 0; color:#e8c77c; font-size:12px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; }
-.footer-copy { max-width:280px; margin:18px 0 22px; color:rgba(255,255,255,.72); font-size:14px; line-height:1.6; }
-.footer-label { margin:0 0 16px; color:#b5dfe0; font-size:12px; font-weight:700; letter-spacing:.13em; text-transform:uppercase; }
-.footer-links { display:flex; flex-direction:column; gap:10px; margin:0; padding:0; list-style:none; }
-.footer-links a { color:rgba(255,255,255,.78); font-size:14px; text-decoration:none; }
+.site-footer { background:var(--color-primary); color:white; padding:0 0 24px; }
+/* Brand band.
+   The logo PNG is opaque RGB with no alpha channel: a knockout filter paints
+   the whole rectangle solid, and a white plate on the navy band reads as a
+   sticker. Giving the band itself the light page surface lets the mark sit on
+   the background it was drawn for — no plate, no border, no card. */
+/* Mirrors the homepage brand band exactly — see the note there for why the
+   logo gets a designed plate instead of a bare white field. */
+.footer-brand-band { background:var(--color-muted); color:var(--color-foreground); border-top:4px solid #bf922d; border-bottom:3px solid #bf922d; }
+.footer-brand-inner { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr) minmax(0,.9fr); align-items:start; gap:clamp(28px,4vw,52px); padding-top:48px; padding-bottom:48px; }
+.footer-identity { display:flex; flex-direction:column; gap:18px; }
+.footer-logo-plate { display:inline-flex; padding:14px 18px; background:#ffffff; border:1px solid var(--color-border); border-bottom:4px solid #bf922d; box-shadow:0 14px 28px -22px rgba(16,43,78,.55); }
+.footer-logo { display:block; width:210px; height:auto; object-fit:contain; }
+.footer-copy { max-width:54ch; margin:0; color:var(--color-muted-foreground); font-size:15px; line-height:1.65; }
+.footer-action { display:flex; flex-direction:column; align-items:flex-start; gap:12px; }
+.footer-action-label { margin:0; color:var(--color-accent); font-size:12px; font-weight:700; letter-spacing:.13em; text-transform:uppercase; }
+.footer-action-copy { max-width:40ch; margin:0; color:var(--color-muted-foreground); font-size:15px; line-height:1.6; }
+/* Navigation band. */
+.footer-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:48px; padding-top:48px; }
+.footer-label { margin:0 0 16px; color:#e6bd55; font-size:12px; font-weight:700; letter-spacing:.13em; text-transform:uppercase; }
+.footer-links { display:flex; flex-direction:column; gap:8px; margin:0; padding:0; list-style:none; }
+.footer-links a { display:inline-block; padding:4px 0; color:rgba(255,255,255,.82); font-size:15px; text-decoration:none; }
 .footer-links a:hover { color:white; text-decoration:underline; text-underline-offset:3px; }
-.footer-bottom { display:flex; justify-content:space-between; gap:20px; margin-top:48px; padding-top:20px; border-top:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.58); font-size:12px; }
-@media (max-width:1100px) { .desktop-primary-nav { display:none; } .mobile-menu-toggle { display:inline-flex; flex-shrink:0; } .header-actions { margin-left:auto; } }
-@media (min-width:1101px) { .mobile-menu { display:none !important; } }
-@media (max-width:760px) { .site-header-inner { min-height:76px; gap:10px; } .brand-logo { width:110px; height:62px; } .brand-context { display:none; } .header-actions > a { padding:10px 12px; font-size:13px; } .hero-grid,.intro-grid,.feature-grid,.program-feature,.resources-layout { grid-template-columns:1fr; gap:34px; } .hero-grid { padding-top:42px; padding-bottom:52px; } .hero-copy h1 { font-size:clamp(40px,11vw,48px); } .hero-portrait-wrap { padding:0 0 36px; } .hero-portrait { min-height:420px; } .hero-caption { right:0; max-width:220px; padding:14px 16px; } .section-heading-row,.consultation-inner { align-items:flex-start; flex-direction:column; gap:18px; } .pathway-row { grid-template-columns:1fr; margin-top:34px; } .pathway-panel,.pathway-panel + .pathway-panel { padding:25px 0; border-left:0; } .pathway-panel h3 { font-size:27px; } .feature-image { min-height:340px; order:2; } .process-list { grid-template-columns:1fr; margin-top:34px; } .process-list li,.process-list li + li { min-height:0; padding:20px 0; border-right:0; border-bottom:1px solid var(--color-border); flex-direction:row; gap:18px; } .process-list li > span { min-width:26px; } .footer-grid { grid-template-columns:1fr; gap:38px; } .footer-bottom { flex-direction:column; margin-top:36px; } }
+/* Vendor credit, then the compliance row beneath it at a smaller size. */
+.footer-bottom { display:flex; flex-direction:column; gap:14px; margin-top:44px; padding-top:20px; border-top:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.7); font-size:12px; }
+.footer-bottom-primary { display:flex; flex-wrap:wrap; gap:8px 22px; }
+.footer-compliance ul { display:flex; flex-wrap:wrap; gap:6px 20px; margin:0; padding:0; list-style:none; }
+.footer-compliance a { display:inline-block; padding:3px 0; color:rgba(255,255,255,.62); font-size:12px; text-decoration:none; }
+.footer-compliance a:hover { color:white; text-decoration:underline; text-underline-offset:3px; }
+/* Vendor attribution sits on the navy band, so it needs its own contrast. */
+.footer-attribution { color:rgba(255,255,255,.9); font-weight:600; text-decoration:underline; text-underline-offset:3px; }
+.footer-attribution:hover { color:#ffffff; }
+/* The interior nav carries four items and fits comfortably at laptop widths.
+   Dropping it to a hamburger at 1100px left a 1024px viewport showing a logo
+   and a menu button with a wide empty bar between them. */
+@media (max-width:899px) { .desktop-primary-nav { display:none; } .mobile-menu-toggle { display:inline-flex; flex-shrink:0; } .header-actions { margin-left:auto; } }
+@media (min-width:900px) and (max-width:1100px) { .desktop-primary-nav ul { gap:18px; } .desktop-primary-nav a { font-size:13px; } .site-header-inner { gap:16px; } }
+@media (min-width:900px) { .mobile-menu { display:none !important; } }
+@media (max-width:760px) { .site-header-inner { min-height:76px; gap:10px; } .brand-logo { width:110px; height:62px; } .brand-context { display:none; } .header-actions > a { padding:10px 12px; font-size:13px; } .hero-grid,.intro-grid,.feature-grid,.program-feature,.resources-layout { grid-template-columns:1fr; gap:34px; } .hero-grid { padding-top:42px; padding-bottom:52px; } .hero-copy h1 { font-size:clamp(40px,11vw,48px); } .hero-portrait-wrap { padding:0 0 36px; } .hero-portrait { min-height:420px; } .hero-caption { right:0; max-width:220px; padding:14px 16px; } .section-heading-row,.consultation-inner { align-items:flex-start; flex-direction:column; gap:18px; } .pathway-row { grid-template-columns:1fr; margin-top:34px; } .pathway-panel,.pathway-panel + .pathway-panel { padding:25px 0; border-left:0; } .pathway-panel h3 { font-size:27px; } .feature-image { min-height:340px; order:2; } .process-list { grid-template-columns:1fr; margin-top:34px; } .process-list li,.process-list li + li { min-height:0; padding:20px 0; border-right:0; border-bottom:1px solid var(--color-border); flex-direction:row; gap:18px; } .process-list li > span { min-width:26px; } .footer-grid { grid-template-columns:1fr; gap:38px; } .footer-brand-inner { grid-template-columns:1fr; gap:32px; } .footer-logo { width:180px; } .footer-bottom { margin-top:36px; } }
 @media (max-width:520px) { .site-header-inner { gap:8px; } .brand-logo { width:104px; height:58px; } .header-actions { display:none; } .mobile-menu-toggle { margin-left:auto; } }
 
 
@@ -245,3 +273,2042 @@
   .hero-portrait { min-height: 440px; }
   .hero-caption { max-width: 210px; padding: 14px 16px; }
 }
+
+/* =============================================================================
+ * Homepage.
+ *
+ * Composition, spacing and section order descend from Figma frame 11:4; the
+ * palette is the approved logo-derived system in docs/02-brand/VISUAL_SYSTEM.md.
+ *
+ * This block was rebuilt after a painted-area audit of the previous version
+ * measured the problem rather than guessing at it: near-white, white and
+ * green-gray together outweighed navy roughly 18:1, teal / bright teal /
+ * green / gold had *zero* painted area anywhere on the page (they existed only
+ * as text and border values), and photography occupied 6.1% of the homepage.
+ * A page can satisfy every colour token in the brand doc and still not look
+ * like the brand. The fix is field colour and image scale, not more variables:
+ *
+ *   - Hero, Meet Debra, Markets and the closing band are navy or teal fields.
+ *   - The trust band is dark teal; the buyer path is teal, the seller path
+ *     green, and gold carries rules, eyebrows and the primary CTA on dark.
+ *   - Near-white and green-gray are the breathing room *between* those fields
+ *     rather than the substance of the page.
+ *   - The hero photograph and Debra's portrait are compositions, not insets.
+ *
+ * Scoped to .figma-home so interior routes are untouched.
+ * ============================================================================= */
+.figma-home {
+  --fh-page: #f7f9f8;          /* near-white — breathing room between fields */
+  --fh-alt: #edf3f2;           /* soft green-gray — quiet alternate surface */
+  --fh-navy: #102b4e;          /* deep navy — the trust anchor */
+  --fh-navy-deep: #0b1e38;     /* navy, one step down, for layered fields */
+  --fh-navy-hover: #17406f;
+  --fh-body: #10233f;          /* navy foreground for body copy */
+  --fh-teal: #077783;          /* dark teal — major supporting field colour */
+  --fh-teal-deep: #05616b;
+  --fh-teal-bright: #18a9b4;   /* bright teal — energy, links, indicators */
+  --fh-green: #66ad45;         /* progress green — the seller/progress field */
+  --fh-green-deep: #3f7229;    /* accessible green for text on light: 5.1:1 on --fh-alt */
+  --fh-gold: #bf922d;          /* warm gold — rules, labels, CTA on dark */
+  --fh-gold-light: #e6bd55;    /* lightened gold, 4.5:1 on navy */
+  --fh-border: #cbd7d6;
+  --fh-muted: #52616f;
+  --fh-white: #ffffff;
+  background: var(--fh-page);
+  color: var(--fh-body);
+}
+
+.fh-shell {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.fh-eyebrow {
+  margin: 0;
+  color: var(--fh-teal);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+.fh-eyebrow-on-dark { color: var(--fh-gold-light); }
+
+/* ------------------------------------------------------------------ buttons */
+.fh-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 14px 26px;
+  border-radius: 6px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color .18s ease, color .18s ease, border-color .18s ease;
+}
+.fh-btn-navy { background: var(--fh-navy); color: var(--fh-white); border: 1px solid var(--fh-navy); }
+.fh-btn-navy:hover { background: var(--fh-navy-hover); }
+.fh-btn-navy-outline { background: transparent; color: var(--fh-navy); border: 1px solid var(--fh-navy); }
+.fh-btn-navy-outline:hover { background: var(--fh-alt); }
+.fh-btn-teal { background: transparent; color: var(--fh-teal); border: 1px solid var(--fh-teal); }
+.fh-btn-teal:hover { background: var(--fh-alt); }
+.fh-btn-teal-solid { background: var(--fh-teal); color: var(--fh-white); border: 1px solid var(--fh-teal); }
+.fh-btn-teal-solid:hover { background: var(--fh-teal-deep); }
+/* Gold at brand value carries navy text at ~7:1 — the strongest CTA on a dark
+   field, and the one place gold is allowed to be a surface rather than a rule. */
+.fh-btn-gold { background: var(--fh-gold); color: #16110a; border: 1px solid var(--fh-gold); }
+.fh-btn-gold:hover { background: var(--fh-gold-light); }
+.fh-btn-gold-outline { background: transparent; color: var(--fh-gold-light); border: 1px solid var(--fh-gold-light); }
+.fh-btn-gold-outline:hover { background: rgba(230,189,85,.14); }
+.fh-btn-light { background: var(--fh-white); color: var(--fh-navy); border: 1px solid var(--fh-white); }
+.fh-btn-light:hover { background: var(--fh-alt); }
+.fh-btn-light-outline { background: transparent; color: var(--fh-white); border: 1px solid rgba(255,255,255,.7); }
+.fh-btn-light-outline:hover { background: rgba(255,255,255,.12); border-color: var(--fh-white); }
+.fh-btn-block { width: 100%; }
+
+.figma-home a:focus-visible,
+.figma-home button:focus-visible {
+  outline: 2px solid var(--fh-navy);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px var(--fh-gold);
+}
+.fh-hero a:focus-visible,
+.fh-meet-panel a:focus-visible,
+.fh-markets a:focus-visible,
+.fh-final a:focus-visible,
+.fh-footer a:focus-visible {
+  outline-color: var(--fh-gold-light);
+  box-shadow: 0 0 0 5px rgba(16,43,78,.9);
+}
+
+.fh-text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  gap: 8px;
+  color: var(--fh-teal);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.fh-text-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ------------------------------------------------------------------- header */
+.fh-header {
+  position: relative;
+  z-index: 40;
+  background: var(--fh-white);
+  border-bottom: 1px solid var(--fh-border);
+  box-shadow: inset 0 -3px 0 -2px var(--fh-gold);
+}
+.fh-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 94px;
+  gap: 20px;
+}
+/* The logo asset is an opaque PNG on white. Against the white header it has no
+   card edge of its own, so no plate, border or background is applied here —
+   anything else reintroduces the pasted-on look. */
+.fh-brand {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 4px 0;
+  color: var(--fh-navy);
+  text-decoration: none;
+}
+.fh-logo {
+  display: block;
+  height: 74px;
+  width: auto;
+  object-fit: contain;
+}
+.fh-desktop-nav { margin-left: auto; }
+.fh-desktop-nav ul {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.fh-desktop-nav a {
+  position: relative;
+  display: inline-block;
+  padding: 8px 0;
+  color: var(--fh-body);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.fh-desktop-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: transparent;
+}
+.fh-desktop-nav a:hover,
+.fh-desktop-nav a[aria-current="page"] { color: var(--fh-teal); }
+.fh-desktop-nav a:hover::after { background: var(--fh-teal-bright); }
+.fh-desktop-nav a[aria-current="page"]::after { background: var(--fh-teal); }
+.fh-header-cta { margin-left: 8px; }
+.fh-menu-toggle {
+  display: none;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid var(--fh-navy);
+  background: transparent;
+  color: var(--fh-navy);
+}
+.fh-mobile-menu {
+  border-top: 1px solid var(--fh-border);
+  background: var(--fh-white);
+  box-shadow: 0 18px 32px -24px rgba(16, 43, 78, .45);
+}
+.fh-mobile-menu nav { padding: 8px 24px 28px; }
+.fh-mobile-menu ul { list-style: none; margin: 0 0 20px; padding: 0; }
+.fh-mobile-menu a { display: block; padding: 15px 0; color: var(--fh-navy); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--fh-border); }
+.fh-mobile-menu a[aria-current="page"] { color: var(--fh-teal); box-shadow: inset 3px 0 0 var(--fh-teal); padding-left: 12px; }
+.fh-mobile-menu a.fh-btn { display: inline-flex; padding: 14px 28px; border-bottom: 0; color: var(--fh-white); }
+
+/* --------------------------------------------------------------------- hero */
+/* One composition. The section is a full-bleed navy field laid out on a
+   four-track grid: a fluid gutter, the copy track, the photograph track, and a
+   fluid gutter the photograph also spans — so the copy sits on the 1256px
+   content line while the exterior runs to the right edge of any viewport.
+   At 1440 the gutters are the shell's 92px; on a wider monitor they grow and
+   the photograph grows with them instead of the page boxing itself in.
+
+   The seam between field and photograph is blended, not cut: a navy wash on
+   the left edge of the picture lets it emerge from the brand colour, and a
+   low vignette gives the bottom of the frame weight against the band beneath.
+   Nothing is laid over the photograph — no panel, badge or text. */
+.fh-hero {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(24px, 1fr) minmax(0, 564px) minmax(0, 692px) minmax(24px, 1fr);
+  align-items: stretch;
+  background: var(--fh-navy);
+  overflow: hidden;
+}
+.fh-hero-inner {
+  grid-column: 2;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding: 96px 48px 128px 0;
+}
+/* --fh-hero-wash: width of the seam wash, shared by both pseudo-elements
+   below. A share of the frame, capped so the wider landscape still at large
+   screens keeps the house's left wing out of the ramp. */
+.fh-hero-media { grid-column: 3 / 5; position: relative; min-height: 600px; --fh-hero-wash: min(36%, 300px); }
+/* The wash along the seam: the navy field carried into the photograph so the
+   two never meet as a vertical line. It is sized to the frame, not in pixels,
+   so it tapers across a similar share of the image at every split width
+   (see --fh-hero-wash), and stops short of the house. Solid for the first few percent, so the
+   seam itself is navy on navy, then a smoothstep falloff — flat at both
+   ends, so neither the start nor the end of the ramp reads as an edge. */
+.fh-hero-media::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: 1;
+  width: var(--fh-hero-wash);
+  background: linear-gradient(90deg,
+    var(--fh-navy) 0%,
+    var(--fh-navy) 6%,
+    rgb(16 43 78 / .972) 15%,
+    rgb(16 43 78 / .896) 25%,
+    rgb(16 43 78 / .784) 34%,
+    rgb(16 43 78 / .648) 44%,
+    rgb(16 43 78 / .5) 53%,
+    rgb(16 43 78 / .352) 62%,
+    rgb(16 43 78 / .216) 72%,
+    rgb(16 43 78 / .104) 81%,
+    rgb(16 43 78 / .028) 91%,
+    rgb(16 43 78 / 0) 100%);
+  pointer-events: none;
+}
+/* Low vignette: gives the bottom of the frame weight against the teal band
+   beneath. Never reaches the roofline. Masked in from the left over the same
+   span as the wash above: the vignette is darker than the navy field, so at
+   full strength along the seam it drew a step in the lower third where the
+   photograph meets the panel. */
+.fh-hero-media::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+  height: 34%;
+  background: linear-gradient(0deg, rgba(11,30,56,.58) 0%, rgba(11,30,56,.22) 55%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 var(--fh-hero-wash));
+  mask-image: linear-gradient(90deg, transparent 0%, #000 var(--fh-hero-wash));
+  pointer-events: none;
+}
+
+/* The cleared exterior, when one exists, sits over the drawn scene in the same
+   frame. Scoped to this slot so the ornament defaults and the shared motion
+   rules elsewhere in the sheet are left alone. */
+.fh-hero-media .ambient-motion { position: absolute; inset: 0; overflow: hidden; }
+.fh-hero-media .ambient-motion img,
+.fh-hero-media .ambient-motion-clip { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+.fh-hero-media .ambient-motion-clip { position: absolute; inset: 0; opacity: 0; transition: opacity .6s ease; }
+.fh-hero-media .ambient-motion-clip.is-playing { opacity: 1; }
+.fh-hero-media .ambient-motion-toggle {
+  position: absolute; right: 16px; bottom: 16px; z-index: 2;
+  padding: 8px 14px; border: 1px solid rgba(255, 255, 255, .5); border-radius: 999px;
+  background: var(--fh-navy); color: #fff; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fh-hero-media .ambient-motion-clip { display: none; }
+}
+.fh-hero-image { object-fit: cover; animation: fh-settle 1.1s cubic-bezier(.2,.7,.3,1) both; }
+
+/* Hero streetscape.
+   Three layers, back to front: a Texas late-afternoon sky, a low warm sun off
+   to the right, and two ranges of the brand roofline — one set back and pale
+   for depth, one near and full strength sitting on the horizon. Drawn, not
+   photographed, and it depicts no particular place. */
+.fh-hero-scene { position: absolute; inset: 0; overflow: hidden; }
+/* Dusk sky. The panel is taller than it is wide at desktop, so most of it is
+   sky by design and the roofline sits along the bottom like a skyline. */
+.fh-hero-sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    var(--dh-navy-deep) 0%,
+    var(--dh-navy) 46%,
+    #16406e 74%,
+    #1b5180 100%);
+}
+/* Warm light at the horizon. Deliberately a band, not a disc: a radial large
+   enough to read as a low sun still showed its own edge as a bubble across the
+   lower panel, which looked like a graphic artefact rather than light. */
+.fh-hero-sun {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 52%;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(230, 189, 85, .07) 42%,
+    rgba(230, 189, 85, .16) 72%,
+    rgba(230, 189, 85, .22) 100%);
+}
+/* The roofline is a 640x340 drawing, so at 100% width it is ~53% as tall as it
+   is wide. Both ranges are bottom-anchored and full width: the whole skyline
+   reads, with nothing clipped mid-house. */
+.fh-hero-roofs {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: auto;
+  animation: fh-settle 1.1s cubic-bezier(.2,.7,.3,1) both;
+}
+/* Set back: narrower, higher, paler — the next street over. Inset from the
+   edges so its ends do not collide with the near range's. */
+.fh-hero-roofs-far {
+  left: 8%;
+  bottom: 19%;
+  width: 84%;
+  opacity: .3;
+  filter: saturate(.65);
+}
+/* The set-back range is pure linework. Its chimney highlight and lit window
+   are dropped: desaturated gold at this opacity reads as a dark panel rather
+   than a light, and a house that far back should not be competing with the
+   near range's window for the eye. */
+.fh-hero-scene .fh-hero-roofs-far .dh-motif-accent { display: none; }
+.fh-hero-roofs-near { bottom: 3%; opacity: 1; }
+/* The near range is the subject, not ornament, so its linework carries more
+   weight than the motif default and the lit window keeps its gold. */
+/* These carry the `.fh-hero-scene` prefix deliberately. The ornament defaults
+   (`.dh-motif .dh-motif-*`) are declared later in this sheet at the same
+   specificity, so a two-class selector here loses the cascade and the near
+   range silently renders as ornament instead of as the subject. */
+.fh-hero-scene .fh-hero-roofs-near .dh-motif-line { stroke-width: 2.4; opacity: .82; }
+.fh-hero-scene .fh-hero-roofs-near .dh-motif-ground { opacity: .72; }
+.fh-hero-scene .fh-hero-roofs-near .dh-motif-route { opacity: .5; }
+.fh-hero-scene .fh-hero-roofs-near .dh-motif-accent { opacity: .95; }
+/* The two lit windows are the point of the picture — someone is home. At the
+   ornament fill (.16) they read as flat slate panels against this navy. */
+.fh-hero-scene .fh-hero-roofs-near .dh-motif-lit {
+  fill: var(--dh-gold-light);
+  fill-opacity: .58;
+  stroke: var(--dh-gold-light);
+}
+/* A ground band so the near range sits on something rather than floating. */
+.fh-hero-ground {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 22%;
+  background: linear-gradient(180deg, transparent 0%, rgba(8, 24, 44, .34) 62%, rgba(8, 24, 44, .62) 100%);
+}
+@keyframes fh-settle {
+  from { transform: scale(1.045); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+/* No overlay at desktop; the mobile rule below turns this on. */
+.fh-hero-fade { display: none; }
+.fh-hero-copy { display: flex; flex-direction: column; gap: 22px; max-width: 564px; }
+.fh-hero-tagline {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  color: var(--fh-gold-light);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.fh-hero-copy h1 {
+  margin: 0;
+  color: var(--fh-white);
+  font-family: var(--font-serif);
+  font-size: clamp(38px, 4.1vw, 58px);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+}
+.fh-hero-copy h1 em { font-style: normal; color: #7fd8e0; }
+.fh-lede {
+  margin: 0;
+  max-width: 52ch;
+  color: #dbe6ef;
+  font-size: 18px;
+  line-height: 1.65;
+}
+.fh-hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 6px; }
+
+/* Byline: the person, in the first viewport. */
+.fh-hero-byline {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0 0;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255,255,255,.18);
+  color: var(--fh-white);
+}
+.fh-hero-byline-portrait {
+  width: 56px;
+  height: 56px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--fh-gold-light);
+  box-shadow: 0 0 0 3px rgba(16,43,78,1);
+}
+.fh-hero-byline-text { display: flex; flex-direction: column; gap: 2px; }
+.fh-hero-byline-text strong { font-family: var(--font-sans); font-size: 15px; font-weight: 700; letter-spacing: .01em; }
+.fh-hero-byline-text span { color: #a9c0d3; font-size: 14px; }
+
+
+/* -------------------------------------------------------------- trust band */
+.fh-trust { background: var(--fh-teal); color: var(--fh-white); border-bottom: 3px solid var(--fh-gold); }
+.fh-trust-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding-top: 26px;
+  padding-bottom: 26px;
+}
+.fh-trust-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 4px 28px;
+  border-left: 1px solid rgba(255,255,255,.28);
+}
+.fh-trust-list li:first-child { border-left: 0; padding-left: 0; }
+.fh-trust-list strong { font-family: var(--font-sans); font-size: 16px; font-weight: 700; letter-spacing: .01em; }
+.fh-trust-list span { color: var(--fh-white); font-size: 14px; line-height: 1.45; }
+
+/* ----------------------------------------------------------------- sections */
+.fh-section { padding: 96px 0; }
+.fh-section-white { background: var(--fh-white); }
+.fh-section-intro { display: flex; flex-direction: column; gap: 14px; margin-bottom: 48px; }
+.fh-section-intro-left { align-items: flex-start; max-width: 740px; }
+.fh-section-intro h2 {
+  margin: 0;
+  color: var(--fh-navy);
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 3.4vw, 44px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+}
+.fh-section-intro-dark h2 { color: var(--fh-white); }
+.fh-section-lede { margin: 0; color: var(--fh-muted); font-size: 17px; line-height: 1.65; }
+.fh-section-lede-dark { color: #c4d4e2; }
+
+/* ----------------------------------------------------------------- pathways */
+.fh-pathways { background: var(--fh-page); }
+/* Staggered, unequal panels. Two identical rectangles side by side is the
+   template read the brief called out; offsetting the second and giving the
+   first more width makes the pair a composition instead of a grid row. */
+.fh-path-grid { display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 28px; align-items: start; }
+.fh-path {
+  position: relative;
+  overflow: hidden;
+  min-height: 380px;
+  padding: 40px;
+  border-radius: 12px;
+  color: var(--fh-white);
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.fh-path-sell { margin-top: 48px; }
+.fh-path:hover { transform: translateY(-4px); box-shadow: 0 26px 50px -34px rgba(0,0,0,.75); }
+/* Layered field rather than a flat rectangle: the base brand colour, a warm
+   wash from the opposite corner, and the architectural linework bled into the
+   bottom-right at low opacity. */
+.fh-path-buy { background: linear-gradient(145deg, var(--fh-teal) 0%, var(--fh-teal-deep) 58%, #0a8c99 100%); }
+.fh-path-sell { background: linear-gradient(145deg, var(--fh-navy-deep) 0%, var(--fh-navy) 55%, #1b477a 100%); }
+.fh-path::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(90% 70% at 88% 92%, rgba(230,189,85,.20), transparent 62%);
+  pointer-events: none;
+}
+/* `.dh-motif` sets width/height to 100% and is declared later in the sheet, so
+   the ornament needs the extra specificity here or it fills the whole panel and
+   its linework lands on top of the copy. */
+.fh-path .fh-path-art {
+  position: absolute;
+  right: -30px;
+  bottom: -38px;
+  width: 300px;
+  height: auto;
+  opacity: .34;
+  transition: transform .5s cubic-bezier(.2,.7,.3,1);
+}
+.fh-path:hover .fh-path-art { transform: translate(-8px, -8px) scale(1.04); }
+.fh-path-body { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; height: 100%; }
+.fh-path-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.4);
+  background: rgba(255,255,255,.14);
+  color: var(--fh-gold-light);
+}
+.fh-path-badge svg { width: 24px; height: 24px; }
+.fh-path-label { margin: 0; color: var(--fh-gold-light); font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.fh-path h3 { margin: 0; font-family: var(--font-serif); font-size: clamp(27px, 2.8vw, 34px); font-weight: 600; line-height: 1.12; }
+.fh-path-copy { margin: 0; max-width: 46ch; color: rgba(255,255,255,.9); font-size: 16px; line-height: 1.6; }
+.fh-path-points { display: flex; flex-direction: column; gap: 9px; margin: 6px 0 auto; padding: 0 0 22px; list-style: none; }
+.fh-path-points li { display: flex; align-items: flex-start; gap: 10px; color: rgba(255,255,255,.95); font-size: 15px; line-height: 1.45; }
+.fh-path-points svg { flex-shrink: 0; margin-top: 2px; color: var(--fh-green); }
+.fh-path-sell .fh-path-points svg { color: #8fd36a; }
+
+.fh-service-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 48px;
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 2px solid var(--fh-gold);
+}
+.fh-service-row li { border-bottom: 1px solid var(--fh-border); }
+.fh-service-link {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr) 20px;
+  align-items: baseline;
+  gap: 8px 24px;
+  padding: 22px 4px 22px 0;
+  color: var(--fh-navy);
+  text-decoration: none;
+}
+.fh-service-title { font-family: var(--font-serif); font-size: 21px; font-weight: 600; white-space: nowrap; }
+.fh-service-body { color: var(--fh-muted); font-size: 14px; line-height: 1.55; }
+.fh-service-arrow { align-self: center; color: var(--fh-teal); transition: transform .18s ease; }
+.fh-service-link:hover { background: var(--fh-alt); }
+.fh-service-link:hover .fh-service-title { color: var(--fh-teal); text-decoration: underline; text-underline-offset: 4px; }
+.fh-service-link:hover .fh-service-arrow { transform: translateX(3px); }
+
+/* ---------------------------------------------------------------- meet debra */
+/* Debra's portrait is the composition, not an inset beside it. The frame is
+   4:5 at desktop and the image covers it from `48% center` — the crop rule in
+   the image register — so her face stays whole at every width. */
+.fh-meet { background: var(--fh-navy); }
+.fh-meet-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  align-items: stretch;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.fh-meet-portrait {
+  position: relative;
+  margin: 0;
+  min-height: 620px;
+  overflow: hidden;
+}
+.fh-meet-image { object-fit: cover; transition: transform .6s cubic-bezier(.2,.7,.3,1); }
+.fh-meet-grid:hover .fh-meet-image { transform: scale(1.02); }
+.fh-meet-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  justify-content: center;
+  padding: 88px 92px 88px 72px;
+  background: var(--fh-navy);
+  color: #dbe6ef;
+  border-left: 4px solid var(--fh-gold);
+}
+.fh-meet-panel h2 {
+  margin: 0;
+  color: var(--fh-white);
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 3.4vw, 46px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+.fh-meet-name {
+  margin: 0;
+  color: #7fd8e0;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.fh-meet-panel p { margin: 0; max-width: 56ch; font-size: 16px; line-height: 1.7; }
+.fh-meet-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; }
+
+/* ------------------------------------------------------------------ markets */
+.fh-markets { background: var(--fh-navy-deep); }
+.fh-markets-grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 48px; align-items: start; }
+.fh-market-feature {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 36px;
+  border-radius: 12px;
+  background: var(--fh-teal);
+  color: var(--fh-white);
+  text-decoration: none;
+  border-bottom: 4px solid var(--fh-green);
+}
+.fh-market-feature { transition: background-color .2s ease, transform .22s ease, box-shadow .22s ease; }
+.fh-market-feature:hover { background: var(--fh-teal-deep); transform: translateY(-3px); box-shadow: 0 24px 44px -32px rgba(0,0,0,.8); }
+.fh-market-feature-label {
+  /* White, not gold: gold cannot reach 4.5:1 anywhere on the teal field. */
+  color: var(--fh-white);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.fh-market-feature-name { font-family: var(--font-serif); font-size: 44px; font-weight: 600; line-height: 1.05; }
+.fh-market-feature-county { color: var(--fh-white); font-size: 15px; }
+.fh-market-feature-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.fh-market-feature:hover .fh-market-feature-cta { text-decoration: underline; text-underline-offset: 4px; }
+
+.fh-market-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 48px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(255,255,255,.22);
+}
+.fh-market-list li { border-bottom: 1px solid rgba(255,255,255,.22); }
+.fh-market-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 20px;
+  align-items: baseline;
+  gap: 14px;
+  min-height: 44px;
+  padding: 18px 4px 18px 0;
+  color: var(--fh-white);
+  text-decoration: none;
+}
+.fh-market-name { font-family: var(--font-serif); font-size: 23px; font-weight: 600; line-height: 1.2; }
+.fh-market-county { color: #a9c0d3; font-size: 13px; }
+.fh-market-arrow { align-self: center; color: var(--fh-teal-bright); transition: transform .18s ease; }
+.fh-market-row:hover { background: rgba(255,255,255,.06); }
+.fh-market-row:hover .fh-market-name { color: #7fd8e0; text-decoration: underline; text-underline-offset: 4px; }
+.fh-market-row:hover .fh-market-arrow { transform: translateX(3px); }
+
+/* ----------------------------------------------------------------- listings */
+.fh-listings { background: var(--fh-white); }
+.fh-listings-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+.fh-listings-head > div { display: flex; flex-direction: column; gap: 14px; }
+.fh-listings-head h2 {
+  margin: 0;
+  color: var(--fh-navy);
+  font-family: var(--font-serif);
+  font-size: clamp(30px, 3vw, 42px);
+  font-weight: 600;
+  line-height: 1.12;
+}
+.fh-listing-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; list-style: none; margin: 0; padding: 0; }
+.fh-listing-card { overflow: hidden; border: 1px solid var(--fh-border); border-radius: 12px; background: var(--fh-white); }
+.fh-listing-photo { display: flex; align-items: center; justify-content: center; height: 260px; background: var(--fh-alt); }
+.fh-listing-body { display: flex; flex-direction: column; gap: 16px; padding: 20px 24px 24px; }
+.fh-listing-copy { display: flex; flex-direction: column; gap: 6px; }
+.fh-listing-price { margin: 0; color: var(--fh-teal); font-size: 22px; font-weight: 700; line-height: 1.2; }
+.fh-listing-address { margin: 0; color: var(--fh-navy); font-family: var(--font-serif); font-size: 20px; font-weight: 600; }
+.fh-listing-meta { margin: 0; color: var(--fh-muted); font-size: 14px; }
+.fh-listing-stats { display: flex; justify-content: space-between; gap: 12px; margin: 0; padding-top: 16px; border-top: 1px solid var(--fh-border); font-size: 14px; }
+
+/* Designed empty state. No fabricated cards, no bracketed price or address. */
+.fh-listing-empty {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, .65fr);
+  align-items: center;
+  gap: 48px;
+  padding: 44px 48px;
+  border-radius: 12px;
+  background: var(--fh-alt);
+  border-left: 5px solid var(--fh-gold);
+}
+.fh-listing-empty-copy { display: flex; flex-direction: column; gap: 12px; }
+.fh-listing-empty-copy h3 {
+  margin: 0;
+  max-width: 34ch;
+  color: var(--fh-navy);
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.fh-listing-empty-copy p:not(.fh-eyebrow) { margin: 0; max-width: 62ch; color: var(--fh-muted); font-size: 15px; line-height: 1.65; }
+.fh-listing-empty-actions { display: flex; flex-direction: column; gap: 12px; }
+.fh-listing-empty-actions .fh-btn { width: 100%; }
+
+/* ----------------------------------------------------------------- guidance */
+.fh-guidance { background: var(--fh-page); }
+.fh-split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.fh-split-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 44px;
+  border-radius: 12px;
+}
+.fh-split-buyer { background: var(--fh-teal); color: var(--fh-white); }
+.fh-split-seller { background: var(--fh-alt); color: var(--fh-body); border-top: 4px solid var(--fh-green); }
+.fh-split-card h2 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 2.6vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+.fh-split-buyer h2 { color: var(--fh-white); }
+.fh-split-seller h2 { color: var(--fh-navy); }
+.fh-split-seller .fh-eyebrow { color: var(--fh-green-deep); }
+/* The on-dark eyebrow is gold for navy; on the teal buyer card it has to be white. */
+.fh-split-buyer .fh-eyebrow-on-dark { color: var(--fh-white); }
+.fh-split-card ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+.fh-split-card li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; line-height: 1.55; }
+.fh-split-card li svg { flex: 0 0 auto; margin-top: 2px; }
+.fh-split-buyer li svg { color: #7fd8e0; }
+.fh-split-seller li svg { color: var(--fh-green-deep); }
+.fh-split-buyer li { color: rgba(255,255,255,.92); }
+
+/* ---------------------------------------------------------------- knowledge */
+.fh-knowledge { background: var(--fh-alt); }
+.fh-latest { margin-bottom: 56px; }
+.fh-latest-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 14px;
+}
+.fh-latest-head h3,
+.fh-knowledge-evergreen h3 {
+  margin: 0;
+  color: var(--fh-navy);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.fh-knowledge-evergreen h3 { margin-bottom: 20px; }
+.fh-latest-list { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--fh-teal); }
+.fh-latest-list li { border-bottom: 1px solid var(--fh-border); }
+.fh-latest-row {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 8px 28px;
+  min-height: 44px;
+  padding: 20px 4px 20px 0;
+  color: var(--fh-navy);
+  text-decoration: none;
+}
+.fh-latest-category { color: var(--fh-teal); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.fh-latest-title { font-family: var(--font-serif); font-size: 22px; font-weight: 600; line-height: 1.25; }
+.fh-latest-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; color: var(--fh-muted); font-size: 13px; }
+.fh-latest-row:hover { background: var(--fh-white); }
+.fh-latest-row:hover .fh-latest-title { color: var(--fh-teal); text-decoration: underline; text-underline-offset: 4px; }
+
+/* The five planning destinations are an editorial index, not a row of white
+   boxes: a gold rule across the top, hairlines between entries, serif titles.
+   Five identical rounded cards was the most template-like thing on the page. */
+.fh-knowledge-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0 36px;
+  align-items: stretch;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 2px solid var(--fh-gold);
+}
+.fh-knowledge-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  padding: 26px 0 28px;
+  border-bottom: 1px solid var(--fh-border);
+}
+.fh-knowledge-card h4 { margin: 0; color: var(--fh-navy); font-family: var(--font-serif); font-size: 19px; font-weight: 600; line-height: 1.25; transition: color .18s ease; }
+.fh-knowledge-grid li:hover .fh-knowledge-card h4 { color: var(--fh-teal); }
+.fh-knowledge-card p { margin: 0; color: var(--fh-muted); font-size: 14px; line-height: 1.5; }
+.fh-knowledge-card .fh-text-link { margin-top: auto; }
+.fh-access-link { font-size: 13px; gap: 4px; padding-top: 10px; }
+
+/* -------------------------------------------------------------- final band */
+/* Left-aligned, not centred. Centred copy over a centred subject put the
+   heading directly across Debra's face and needed a scrim heavy enough to
+   reduce her to a silhouette — an image-led band with no legible image in it.
+   The copy now holds the left, the scrim releases across the width, and she
+   reads on the right. */
+/* -------------------------------------------------------------------------- */
+/* Find Your Homebuying Path — homepage guided quiz                           */
+/* -------------------------------------------------------------------------- */
+.fh-pathquiz { background: var(--fh-alt); border-top: 1px solid var(--fh-border); }
+.fh-pathquiz-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 64px;
+  align-items: start;
+}
+.fh-pathquiz-intro { display: flex; flex-direction: column; gap: 18px; position: sticky; top: 32px; }
+.fh-pathquiz-intro h2 {
+  margin: 0;
+  color: var(--fh-navy);
+  font-family: var(--font-serif);
+  font-size: clamp(30px, 3vw, 40px);
+  font-weight: 700;
+  line-height: 1.12;
+  text-align: left;
+}
+.fh-pathquiz-lede { margin: 0; max-width: 60ch; color: var(--fh-body); font-size: 17px; line-height: 1.6; }
+.fh-pathquiz-facts { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.fh-pathquiz-facts li { display: flex; align-items: center; gap: 10px; color: var(--fh-body); font-size: 15px; }
+.fh-pathquiz-facts svg { flex: 0 0 auto; color: var(--fh-green); }
+
+.fh-pathquiz-panel {
+  position: relative;
+  min-width: 0;
+  background: var(--fh-white);
+  border: 1px solid var(--fh-border);
+  border-top: 3px solid var(--fh-gold);
+  border-radius: 12px;
+  padding: 36px 40px 32px;
+  box-shadow: 0 24px 48px -36px rgba(16, 43, 78, 0.45);
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.fh-pathquiz-title {
+  margin: 0;
+  color: var(--fh-navy);
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.fh-pathquiz-title:focus { outline: none; }
+.fh-pathquiz-title:focus-visible { outline: 2px solid var(--fh-navy); outline-offset: 6px; box-shadow: 0 0 0 6px var(--fh-gold); border-radius: 2px; }
+.fh-pathquiz-copy { margin: 0; color: var(--fh-body); font-size: 16px; line-height: 1.6; }
+.fh-pathquiz-help { margin: 8px 0 0; color: var(--fh-muted); font-size: 14px; line-height: 1.5; }
+.fh-pathquiz-hint { color: var(--fh-muted); font-size: 13px; }
+
+.fh-pathquiz-chips { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.fh-pathquiz-chips li {
+  padding: 6px 12px;
+  border: 1px solid var(--fh-border);
+  border-radius: 999px;
+  color: var(--fh-navy);
+  background: var(--fh-page);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Progress: a step counter plus one segment per question. */
+.fh-pathquiz-progress-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.fh-pathquiz-step { margin: 0; color: var(--fh-muted); font-size: 13px; font-weight: 600; letter-spacing: 0.02em; }
+.fh-pathquiz-progress { display: flex; gap: 6px; width: min(240px, 45%); }
+.fh-pathquiz-progress span { flex: 1; height: 4px; border-radius: 2px; background: var(--fh-border); transition: background-color .25s ease; }
+.fh-pathquiz-progress span.is-done { background: var(--fh-teal); }
+
+.fh-pathquiz-question { margin: 0; padding: 0; border: 0; min-width: 0; }
+.fh-pathquiz-question legend { padding: 0; }
+.fh-pathquiz-options { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+.fh-pathquiz-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 56px;
+  padding: 14px 18px;
+  border: 1px solid var(--fh-border);
+  border-radius: 8px;
+  background: var(--fh-white);
+  color: var(--fh-body);
+  font-size: 16px;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: border-color .18s ease, background-color .18s ease, transform .18s ease;
+}
+.fh-pathquiz-option:hover { border-color: var(--fh-teal); background: var(--fh-page); }
+.fh-pathquiz-option[data-checked="true"] {
+  border-color: var(--fh-navy);
+  background: var(--fh-alt);
+  box-shadow: inset 0 0 0 1px var(--fh-navy);
+  color: var(--fh-navy);
+  font-weight: 600;
+}
+/* Brand focus: opaque navy boundary with a gold halo, on the whole option. */
+.fh-pathquiz-option:has(.fh-pathquiz-radio:focus-visible) {
+  outline: 2px solid var(--fh-navy);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--fh-gold);
+}
+.fh-pathquiz-radio { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+.fh-pathquiz-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--fh-border);
+  border-radius: 50%;
+  color: var(--fh-white);
+  background: var(--fh-white);
+  transition: border-color .18s ease, background-color .18s ease;
+}
+.fh-pathquiz-option:hover .fh-pathquiz-mark { border-color: var(--fh-teal); }
+.fh-pathquiz-option[data-checked="true"] .fh-pathquiz-mark { border-color: var(--fh-navy); background: var(--fh-navy); }
+.fh-pathquiz-option-label { flex: 1 1 auto; }
+
+.fh-pathquiz-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 8px; }
+.fh-pathquiz-nav-start { justify-content: flex-start; gap: 18px; }
+.fh-pathquiz-nav .fh-btn { gap: 8px; }
+button.fh-btn { cursor: pointer; appearance: none; }
+button.fh-btn:disabled { cursor: not-allowed; opacity: 0.45; }
+button.fh-btn:disabled:hover { background: var(--fh-navy); }
+
+/* Result */
+.fh-pathquiz-result { gap: 20px; }
+.fh-pathquiz-result .fh-pathquiz-title { font-size: 32px; }
+.fh-pathquiz-next {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px 20px;
+  border-left: 3px solid var(--fh-teal);
+  background: var(--fh-page);
+  border-radius: 0 8px 8px 0;
+}
+.fh-pathquiz-next p { margin: 0; color: var(--fh-body); font-size: 15px; line-height: 1.55; }
+.fh-pathquiz-next-label { color: var(--fh-teal); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+.fh-pathquiz-timeline { color: var(--fh-muted) !important; font-size: 14px !important; }
+.fh-pathquiz-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.fh-pathquiz-secondary { margin: 0; }
+.fh-pathquiz-review {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 20px;
+  border: 1px solid var(--fh-border);
+  border-radius: 8px;
+  background: var(--fh-alt);
+}
+.fh-pathquiz-review p { margin: 0; color: var(--fh-muted); font-size: 14px; line-height: 1.5; }
+.fh-pathquiz-review-title { color: var(--fh-navy) !important; font-size: 16px !important; font-weight: 600; margin-bottom: 4px !important; }
+.fh-pathquiz-review .fh-btn { flex: 0 0 auto; }
+.fh-pathquiz-footer { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px 24px; padding-top: 16px; border-top: 1px solid var(--fh-border); }
+.fh-pathquiz-note { margin: 0; max-width: 52ch; color: var(--fh-muted); font-size: 13px; line-height: 1.5; }
+.fh-pathquiz-restart {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 24px;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: var(--fh-teal);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.fh-pathquiz-restart:hover { text-decoration: underline; text-underline-offset: 3px; }
+.fh-pathquiz-restart:focus-visible { outline: 2px solid var(--fh-navy); outline-offset: 3px; box-shadow: 0 0 0 5px var(--fh-gold); border-radius: 2px; }
+
+/* Motion: one short entrance; the global prefers-reduced-motion rule reduces
+   every animation to a single 0.01ms frame, so nothing moves for those users. */
+@keyframes fh-pathquiz-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.fh-pathquiz-enter { animation: fh-pathquiz-in .32s cubic-bezier(.2,.7,.2,1) both; }
+
+@media (max-width: 1100px) {
+  .fh-pathquiz-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .fh-pathquiz-intro { position: static; }
+  .fh-pathquiz-panel { min-height: 0; }
+}
+@media (max-width: 760px) {
+  .fh-pathquiz { padding: 64px 0; }
+  .fh-pathquiz-panel { padding: 24px 18px 22px; border-radius: 10px; }
+  .fh-pathquiz-title { font-size: 22px; }
+  .fh-pathquiz-result .fh-pathquiz-title { font-size: 26px; }
+  .fh-pathquiz-progress-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .fh-pathquiz-progress { width: 100%; }
+  .fh-pathquiz-option { padding: 14px 14px; font-size: 15px; }
+  .fh-pathquiz-nav { flex-direction: column-reverse; align-items: stretch; }
+  .fh-pathquiz-nav .fh-btn,
+  .fh-pathquiz-actions .fh-btn,
+  .fh-pathquiz-review .fh-btn { width: 100%; white-space: normal; text-align: center; line-height: 1.25; }
+  .fh-pathquiz-review { flex-direction: column; align-items: stretch; }
+  .fh-pathquiz-nav-start { flex-direction: column; align-items: flex-start; }
+  .fh-pathquiz-actions .fh-btn { width: 100%; }
+}
+
+.fh-final {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding: 112px 24px;
+  background: var(--fh-navy);
+  color: var(--fh-white);
+  text-align: left;
+  border-top: 4px solid var(--fh-gold);
+}
+.fh-final-image { object-fit: cover; z-index: 0; }
+.fh-final { min-height: 460px; align-items: center; }
+/* The closing band is image-led, so the overlay has to leave the photograph
+   legible while the copy still clears 4.5:1. Heaviest under the copy on the
+   left, released toward the right where the room and Debra are visible. */
+.fh-final-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(100deg, rgba(9,25,47,.96) 0%, rgba(16,43,78,.92) 40%, rgba(16,43,78,.54) 66%, rgba(16,43,78,.16) 100%);
+}
+.fh-final-inner {
+  position: relative;
+  z-index: 1;
+  width: min(1200px, 100%);
+  margin: 0 auto;
+}
+.fh-final-inner > * { max-width: 42rem; }
+.fh-final h2 {
+  margin: 14px 0 0;
+  color: var(--fh-white);
+  font-family: var(--font-serif);
+  font-size: clamp(30px, 3.6vw, 46px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+}
+/* `auto` side margins were left over from the centred layout and pushed the
+   lede right, across the photograph, where it lost contrast. */
+.fh-final p:not(.fh-eyebrow) { margin: 20px 0 0; max-width: 52ch; color: #dbe6ef; font-size: 18px; line-height: 1.65; }
+.fh-final-actions { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 14px; margin-top: 30px; }
+
+/* ------------------------------------------------------------------- footer */
+.fh-footer { background: var(--fh-navy); color: #dfe8ee; padding: 0 0 32px; }
+/* The logo asset is an opaque PNG with no alpha, so it will always sit on a
+   white rectangle. The previous band answered that by making the whole band
+   white, which produced the thing the brief named: a logo apparently pasted
+   onto a blank card, with an empty middle column beside it.
+   The answer here is to stop hiding the plate and design it — the band is the
+   brand's soft green-gray, the mark sits on a deliberate white sign with a gold
+   rule under it, and a third column of verified local facts fills the middle so
+   there is nothing empty left to notice. */
+.fh-footer-brand-band {
+  background: var(--fh-alt);
+  color: var(--fh-body);
+  border-top: 4px solid var(--fh-gold);
+  border-bottom: 3px solid var(--fh-gold);
+}
+.fh-footer-brand-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr) minmax(0, .9fr);
+  align-items: start;
+  gap: clamp(30px, 4vw, 56px);
+  padding-top: 56px;
+  padding-bottom: 56px;
+}
+.fh-footer-identity { display: flex; flex-direction: column; gap: 20px; }
+.fh-footer-logo-plate {
+  display: inline-flex;
+  padding: 14px 18px;
+  background: var(--fh-white);
+  border: 1px solid var(--fh-border);
+  border-bottom: 4px solid var(--fh-gold);
+  box-shadow: 0 14px 28px -22px rgba(16,43,78,.55);
+}
+.fh-footer-logo { display: block; width: 210px; height: auto; object-fit: contain; }
+.fh-footer-blurb { margin: 0; max-width: 52ch; color: var(--fh-muted); font-size: 15px; line-height: 1.65; }
+.fh-footer-action { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.fh-footer-action-copy { margin: 0; max-width: 42ch; color: var(--fh-muted); font-size: 15px; line-height: 1.6; }
+.fh-footer-contact-link { color: var(--fh-teal); }
+.fh-footer-columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 48px;
+  padding-top: 56px;
+  padding-bottom: 48px;
+}
+.fh-footer-label { margin: 0 0 16px; color: var(--fh-gold-light); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.fh-footer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.fh-footer a { color: #dfe8ee; text-decoration: none; }
+.fh-footer nav a { display: inline-block; padding: 4px 0; font-size: 15px; }
+.fh-footer-brand-band a:not(.fh-btn) { color: var(--fh-teal); }
+.fh-footer a:hover { color: var(--fh-white); text-decoration: underline; text-underline-offset: 3px; }
+.fh-footer-brand-band a:not(.fh-btn):hover { color: var(--fh-navy); }
+.fh-footer-note { margin: 18px 0 0; max-width: 34ch; color: #b7c6d3; font-size: 13px; line-height: 1.55; }
+.fh-footer-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,.18);
+  color: #c6d4e0;
+  font-size: 13px;
+}
+.fh-footer-copy { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 18px; margin: 0; }
+.fh-footer-attribution a { color: #dfe8ee; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.fh-footer-attribution a:hover { color: var(--fh-white); }
+.fh-footer-legal ul { flex-direction: row; flex-wrap: wrap; gap: 6px 20px; }
+.fh-footer-legal a { color: #a9bccd; font-size: 12px; }
+.fh-footer-legal a:hover { color: var(--fh-white); }
+
+/* -------------------------------------------------------------- responsive */
+@media (min-width: 1101px) {
+  .fh-shell { padding-left: 92px; padding-right: 92px; }
+  .fh-meet-panel { padding-right: 92px; }
+}
+/* Laptop: the split holds — a 1024px viewport used to stack the hero and put
+   every word of copy below the fold behind a 640px photograph. */
+@media (min-width: 900px) and (max-width: 1100px) {
+  .fh-hero-inner { padding: 72px 32px 112px 0; }
+  .fh-hero-copy h1 { font-size: clamp(34px, 3.9vw, 42px); }
+  .fh-lede { font-size: 16px; }
+  .fh-hero-media { min-height: 520px; }
+  .fh-hero-byline { padding-top: 18px; }
+}
+
+/* Condensed header from 900px up: the five primary paths plus the CTA, rather
+   than a hamburger on a 1024px laptop. The full eight items return at 1101px. */
+@media (min-width: 900px) {
+  .fh-mobile-menu { display: none !important; }
+}
+@media (min-width: 900px) and (max-width: 1100px) {
+  .fh-nav-wide-only { display: none; }
+  .fh-desktop-nav ul { gap: 16px; }
+  .fh-desktop-nav a { font-size: 14px; }
+  .fh-header-inner { gap: 14px; }
+  .fh-header-cta { padding: 12px 18px; font-size: 14px; }
+}
+
+/* No page-width lock. Fields bleed to the viewport edge at every width and
+   only content is held to the shell; the `max-width: 1440px` on .fh-shell is
+   the Figma frame's content lock. */
+@media (min-width: 1440px) {
+  .fh-header { height: 94px; }
+  .fh-header-inner { height: 94px; min-height: 94px; }
+  .fh-hero-inner { padding-top: 104px; padding-bottom: 120px; }
+  .fh-hero-media { min-height: 640px; }
+}
+
+@media (max-width: 1100px) {
+  .fh-meet-grid { grid-template-columns: 1fr; }
+  .fh-meet-portrait { min-height: 0; aspect-ratio: 4 / 3; max-height: 520px; }
+  .fh-meet-panel { padding: 56px 24px; border-left: 0; border-top: 4px solid var(--fh-gold); }
+  .fh-markets-grid { grid-template-columns: 1fr; gap: 32px; }
+  .fh-market-feature-name { font-size: 36px; }
+  .fh-listing-empty { grid-template-columns: 1fr; gap: 28px; padding: 36px; }
+  .fh-listing-empty-actions { flex-direction: row; flex-wrap: wrap; }
+  .fh-listing-empty-actions .fh-btn { width: auto; }
+  .fh-listing-grid { grid-template-columns: 1fr 1fr; }
+  .fh-knowledge-grid { grid-template-columns: 1fr 1fr; }
+  .fh-latest-row { grid-template-columns: 150px minmax(0, 1fr); }
+  .fh-latest-meta { grid-column: 2; }
+  .fh-section { padding: 72px 0; }
+  .fh-footer-brand-inner { grid-template-columns: 1fr 1fr; gap: 34px; }
+}
+
+@media (max-width: 899px) {
+  .fh-desktop-nav,
+  .fh-header-cta { display: none; }
+  .fh-menu-toggle { display: inline-flex; margin-left: auto; }
+  /* Stacked hero. Photograph first, so the first thing on a phone is a home
+     rather than a wall of navy; the copy follows on the field and the seam
+     panel becomes a plain block under it. */
+  .fh-hero { grid-template-columns: 1fr; }
+  .fh-hero-media { order: -1; min-height: 0; aspect-ratio: 16 / 10; grid-column: auto; }
+  .fh-hero-media::before,
+  .fh-hero-media::after { display: none; }
+  .fh-hero-media .ambient-motion img,
+  .fh-hero-media .ambient-motion-clip { object-position: 50% 50%; }
+  .fh-hero-fade {
+    display: block;
+    position: absolute;
+    inset: auto 0 -1px 0;
+    height: 42%;
+    background: linear-gradient(0deg, var(--fh-navy) 0%, rgba(16,43,78,0) 100%);
+  }
+  .fh-hero-inner { grid-column: auto; padding: 36px 24px 56px; }
+  .fh-hero-copy { max-width: 100%; gap: 18px; }
+  .fh-hero-copy h1 { font-size: clamp(34px, 8.6vw, 46px); }
+  .fh-trust-list { grid-template-columns: 1fr 1fr; gap: 20px 0; }
+  .fh-trust-list li:nth-child(odd) { border-left: 0; padding-left: 0; }
+  .fh-path-grid { grid-template-columns: 1fr; }
+  .fh-path-sell { margin-top: 0; }
+  .fh-path { min-height: 0; padding: 32px 26px 34px; }
+  .fh-path-art { right: -40px; bottom: -52px; width: 210px; opacity: .4; }
+  .fh-service-row { grid-template-columns: 1fr; gap: 0; }
+  /* The three-column row crushes the description into a ~90px column once the
+     grid is a single track. Stack title over body and move the arrow onto the
+     title line. */
+  .fh-service-link {
+    grid-template-columns: minmax(0, 1fr) 20px;
+    align-items: center;
+    gap: 6px 16px;
+  }
+  .fh-service-title { white-space: normal; }
+  .fh-service-body { grid-column: 1 / -1; }
+  .fh-split { grid-template-columns: 1fr; }
+  .fh-market-list { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+  .fh-header-inner { min-height: 76px; }
+  .fh-logo { height: 60px; }
+  .fh-hero-inner { padding: 32px 24px 48px; }
+  .fh-hero-media { aspect-ratio: 4 / 3; }
+  /* Keep the tagline legible on a narrow phone. */
+  .fh-hero-tagline { font-size: 11px; letter-spacing: 0.16em; }
+  .fh-lede { font-size: 16px; }
+  .fh-hero-byline { padding-top: 18px; }
+  .fh-hero-byline-portrait { width: 48px; height: 48px; }
+  .fh-hero-actions,
+  .fh-meet-actions,
+  .fh-final-actions { flex-direction: column; align-items: stretch; }
+  .fh-hero-actions .fh-btn,
+  .fh-meet-actions .fh-btn,
+  .fh-final-actions .fh-btn { width: 100%; }
+  .fh-trust-list { grid-template-columns: 1fr; }
+  .fh-trust-list li { border-left: 0; padding-left: 0; }
+  .fh-listing-grid,
+  .fh-knowledge-grid { grid-template-columns: 1fr; }
+  .fh-listings-head { flex-direction: column; align-items: flex-start; }
+  .fh-meet-portrait { aspect-ratio: 4 / 3; max-height: 380px; }
+  .fh-path { padding: 28px; min-height: 0; }
+  .fh-split-card { padding: 28px; }
+  .fh-market-feature { padding: 28px; }
+  .fh-market-feature-name { font-size: 32px; }
+  .fh-market-name { font-size: 20px; }
+  .fh-latest-row { grid-template-columns: 1fr; gap: 6px; padding: 18px 0; }
+  .fh-latest-title { font-size: 20px; }
+  .fh-listing-empty { padding: 28px 24px; }
+  .fh-listing-empty-actions { flex-direction: column; }
+  .fh-listing-empty-actions .fh-btn { width: 100%; }
+  .fh-final { padding: 80px 24px; }
+  .fh-footer-logo { width: 180px; }
+  .fh-footer-columns { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .figma-home * { scroll-behavior: auto; }
+  .fh-market-arrow,
+  .fh-service-arrow,
+  .fh-path,
+  .fh-market-feature,
+  .fh-knowledge-card,
+  .fh-meet-image { transition: none; }
+  .fh-hero-image,
+  .fh-hero-roofs { animation: none; }
+  .fh-path:hover,
+  .fh-path:hover .fh-path-art,
+  .fh-market-feature:hover,
+  .fh-knowledge-grid li:hover .fh-knowledge-card,
+  .fh-meet-grid:hover .fh-meet-image { transform: none; box-shadow: none; }
+  .fh-market-row:hover .fh-market-arrow,
+  .fh-service-link:hover .fh-service-arrow { transform: none; }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Find Your Next Step campaign landing page                                  */
+/* -------------------------------------------------------------------------- */
+/* The campaign landing page ran its own palette — a colder navy, a brighter
+   gold, a cyan turquoise and a warm beige "cream". It was coherent on its own
+   and belonged to no brand in particular, which is exactly the failure the
+   owner review named. These are now the approved D'Affordable Homes values,
+   so /start reads as the same company as every other route. */
+.dah-landing { --dah-navy:#102B4E; --dah-gold:#BF922D; --dah-turquoise:#18A9B4; --dah-cream:#EDF3F2; --dah-charcoal:#10233F; color:var(--dah-charcoal); background:#fff; }
+.dah-landing h1,.dah-landing h2,.dah-landing h3 { font-family:var(--font-serif); }
+.dah-landing-container { width:min(1180px,calc(100% - 48px)); margin-inline:auto; }
+.dah-landing-hero { position:relative; min-height:clamp(650px,78vh,820px); overflow:hidden; display:flex; align-items:flex-end; color:#fff; }
+.dah-landing-hero-image,.dah-landing-final-image { object-fit:cover; object-position:center; }
+.dah-landing-hero-overlay { position:absolute; inset:0; background:linear-gradient(90deg,rgba(16,43,78,.94) 0%,rgba(16,43,78,.72) 43%,rgba(16,43,78,.16) 100%),linear-gradient(0deg,rgba(16,43,78,.86),transparent 60%); }
+.dah-landing-hero-content { position:relative; z-index:1; width:min(760px,calc(100% - 48px)); margin:0 max(24px,calc((100vw - 1180px)/2)); padding:96px 0 84px; }
+.dah-landing-eyebrow { margin:0; color:#077783; font-family:var(--font-sans); font-size:12px; font-weight:800; letter-spacing:.16em; line-height:1.4; text-transform:uppercase; }
+/* Kept as an explicit variant so existing markup keeps working; both now
+   resolve to the approved dark teal, which clears 4.5:1 on white and on the
+   #EDF3F2 band. The old cyan measured about 2.5:1 on white. */
+.dah-landing-eyebrow-dark { color:#077783; }
+.dah-landing-eyebrow-gold { color:#e6bd55; }
+.dah-landing-hero h1 { max-width:720px; margin:18px 0 0; color:#fff; font-size:clamp(44px,6.4vw,80px); font-weight:500; letter-spacing:-.04em; line-height:.99; }
+.dah-landing-hero-promise { max-width:560px; margin:24px 0 0; color:#e6bd55; font-size:clamp(23px,2.4vw,34px); font-weight:500; letter-spacing:-.02em; line-height:1.15; }
+.dah-landing-hero-body { max-width:630px; margin:22px 0 0; color:rgba(255,255,255,.84); font-size:17px; line-height:1.65; }
+.dah-landing-hero-actions,.dah-landing-final-content > div,.dah-landing-result-actions,.dah-landing-assessment-controls,.dah-landing-form-actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px; }
+.dah-landing-hero-actions { margin-top:30px; }
+.dah-landing-cta { display:inline-flex; min-height:50px; align-items:center; justify-content:center; gap:10px; border:1px solid transparent; padding:13px 18px; font-family:var(--font-sans); font-size:14px; font-weight:800; letter-spacing:.01em; text-decoration:none; transition:transform .18s ease,background-color .18s ease,border-color .18s ease; cursor:pointer; }
+.dah-landing-cta:hover { transform:translateY(-2px); }
+.dah-landing-cta:disabled { cursor:not-allowed; opacity:.6; transform:none; }
+.dah-landing-cta-gold { background:var(--dah-gold); color:var(--dah-navy); }
+.dah-landing-cta-gold:hover { background:#dfb638; }
+.dah-landing-cta-outline { border-color:rgba(255,255,255,.7); color:#fff; background:rgba(16,43,78,.16); }
+.dah-landing-cta-outline:hover { background:rgba(255,255,255,.14); }
+/* The outline button on a light section: white text there measured 1.36:1. */
+.dah-landing-cta-outline-dark { border-color:var(--dah-navy); color:var(--dah-navy); background:transparent; }
+.dah-landing-cta-outline-dark:hover { background:var(--dah-cream); }
+.dah-landing-cta-turquoise { background:var(--dah-turquoise); color:var(--dah-navy); }
+.dah-landing-voice-entry { margin-top:28px; }
+.dah-landing-voice-button { display:inline-flex; max-width:560px; align-items:center; gap:12px; border:0; padding:0; color:#fff; background:transparent; font:inherit; font-size:14px; line-height:1.45; text-align:left; cursor:pointer; }
+.dah-landing-voice-button strong { color:#8de7f3; }
+.dah-landing-voice-icon { display:grid; min-width:38px; min-height:38px; place-items:center; border:1px solid rgba(6,182,212,.8); border-radius:50%; color:#8de7f3; }
+.dah-landing-voice-notice { max-width:520px; margin:12px 0 0 50px; color:rgba(255,255,255,.75); font-size:13px; line-height:1.5; }
+.dah-landing-microcopy { margin:18px 0 0; color:rgba(255,255,255,.62); font-size:12px; }
+.dah-landing-scroll-cue { position:absolute; right:clamp(24px,5vw,80px); bottom:28px; z-index:1; display:grid; width:44px; height:44px; place-items:center; border:1px solid rgba(255,255,255,.55); border-radius:50%; color:#fff; background:transparent; cursor:pointer; }
+.dah-landing-section { padding:clamp(76px,9vw,132px) 0; }
+.dah-landing-cream { background:var(--dah-cream); }
+.dah-landing-navy { color:#fff; background:var(--dah-navy); }
+.dah-landing-two-column { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:center; gap:clamp(42px,8vw,120px); }
+.dah-landing-two-column-wide { grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); }
+.dah-landing-section h2 { max-width:650px; margin:16px 0 0; color:var(--dah-navy); font-size:clamp(38px,4.4vw,62px); font-weight:500; letter-spacing:-.04em; line-height:1.02; }
+.dah-landing-navy h2 { color:#fff; }
+.dah-landing-lead { max-width:590px; margin:0; color:var(--dah-navy); font-size:clamp(22px,2.2vw,30px); letter-spacing:-.02em; line-height:1.25; }
+.dah-landing-copy { max-width:590px; margin:18px 0 0; color:#58626a; font-size:16px; line-height:1.75; }
+.dah-landing-copy-light { color:rgba(255,255,255,.76); }
+.dah-landing-section .dah-landing-cta { margin-top:28px; }
+.dah-landing-question-strip { display:flex; flex-wrap:wrap; gap:10px; margin-top:56px; }
+.dah-landing-question-strip span { border:1px solid rgba(16,43,78,.18); border-radius:999px; padding:10px 14px; color:#4a555d; font-size:13px; }
+.dah-landing-section-heading { display:flex; align-items:end; justify-content:space-between; gap:48px; }
+.dah-landing-section-heading .dah-landing-copy { margin:0; }
+.dah-landing-path-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); margin-top:56px; border-top:1px solid #d8d9d5; }
+.dah-landing-path-card { min-height:360px; padding:24px 22px 24px 0; border-bottom:1px solid #d8d9d5; }
+.dah-landing-path-card + .dah-landing-path-card { border-left:1px solid #d8d9d5; padding-left:22px; }
+.dah-landing-path-card.is-highlighted { background:#f2f7f5; box-shadow:inset 0 4px 0 var(--dah-gold); }
+.dah-landing-path-topline { display:flex; align-items:center; justify-content:space-between; color:#077783; }
+.dah-landing-path-topline span { color:#5f6b73; font-size:12px; font-weight:800; letter-spacing:.12em; }
+.dah-landing-path-card h3 { margin:34px 0 12px; color:var(--dah-navy); font-size:26px; font-weight:500; line-height:1.1; }
+.dah-landing-path-card p { min-height:132px; margin:0; color:#606b72; font-size:14px; line-height:1.65; }
+.dah-landing-text-button { display:inline-flex; align-items:center; min-height:24px; gap:8px; border:0; padding:0; color:#077783; background:transparent; font-family:var(--font-sans); font-size:13px; font-weight:800; text-decoration:none; cursor:pointer; }
+.dah-landing-text-button:hover { color:var(--dah-navy); text-decoration:underline; text-underline-offset:4px; }
+.dah-landing-assessment-layout { display:grid; grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr); align-items:start; gap:clamp(42px,8vw,116px); }
+.dah-landing-assessment-intro h2 { margin-top:16px; }
+.dah-landing-assessment-intro > p:not(.dah-landing-eyebrow) { max-width:470px; margin-top:22px; color:rgba(255,255,255,.76); font-size:17px; line-height:1.7; }
+.dah-landing-trust-note { display:flex; max-width:420px; align-items:flex-start; gap:10px; margin-top:30px; color:#a5e8ee; font-size:13px; line-height:1.5; }
+.dah-landing-assessment-card { border:1px solid rgba(255,255,255,.16); background:#fff; color:var(--dah-charcoal); padding:clamp(24px,4vw,42px); box-shadow:0 20px 60px rgba(0,0,0,.18); }
+.dah-landing-progress-label { display:flex; justify-content:space-between; gap:20px; color:#69747b; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; }
+.dah-landing-progress { height:6px; margin-top:10px; overflow:hidden; border-radius:999px; background:#e8e4d9; }
+.dah-landing-progress span { display:block; height:100%; border-radius:inherit; background:var(--dah-gold); transition:width .2s ease; }
+.dah-landing-assessment-card fieldset { min-width:0; margin:34px 0 0; padding:0; border:0; }
+.dah-landing-assessment-card legend,.dah-landing-assessment-card h3 { max-width:620px; color:var(--dah-navy); font-family:var(--font-serif); font-size:clamp(28px,3.4vw,43px); font-weight:500; letter-spacing:-.03em; line-height:1.08; }
+.dah-landing-question-help { margin:10px 0 0; color:#69747b; font-size:14px; }
+.dah-landing-answer-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:26px; }
+.dah-landing-answer { display:flex; min-height:58px; align-items:center; gap:10px; border:1px solid #d8d9d5; padding:12px 14px; color:#39454d; font-size:14px; line-height:1.35; cursor:pointer; transition:border-color .18s ease,background .18s ease; }
+.dah-landing-answer:hover,.dah-landing-answer.is-selected { border-color:var(--dah-gold); background:#f2f7f5; }
+.dah-landing-answer input { width:18px; height:18px; accent-color:var(--dah-gold); }
+.dah-landing-answer svg { margin-left:auto; color:#077783; }
+.dah-landing-assessment-controls { justify-content:space-between; margin-top:32px; }
+.dah-landing-back-button,.dah-landing-outline-dark { display:inline-flex; min-height:44px; align-items:center; gap:8px; border:0; padding:8px 0; color:#5c6870; background:transparent; font:inherit; font-size:13px; font-weight:800; cursor:pointer; }
+.dah-landing-back-button:disabled { cursor:not-allowed; opacity:.38; }
+.dah-landing-outline-dark { border:1px solid #0b1f33; padding:12px 15px; color:var(--dah-navy); }
+.dah-landing-result-kicker { margin:30px 0 0; color:#077783; font-size:12px; font-weight:800; letter-spacing:.14em; }
+.dah-landing-result-body { max-width:630px; margin:14px 0 0; color:#58626a; font-size:16px; line-height:1.7; }
+.dah-landing-disclosure { margin-top:20px; border-left:3px solid var(--dah-gold); padding:12px 14px; color:#69747b; background:#f2f7f5; font-size:12px; line-height:1.55; }
+.dah-landing-result-actions { margin-top:24px; }
+.dah-landing-also { margin:20px 0 0; color:#077783; font-size:13px; font-weight:700; }
+.dah-landing-edit-list { margin-top:32px; border-top:1px solid #e0dfd8; }
+.dah-landing-edit-list > p { margin:14px 0 0; color:#8b9499; font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+.dah-landing-edit-list button { display:flex; width:100%; flex-direction:column; align-items:flex-start; gap:3px; border:0; border-bottom:1px solid #e8e7e1; padding:12px 0; background:transparent; text-align:left; cursor:pointer; }
+.dah-landing-edit-list button span { color:#7b858b; font-size:12px; }
+.dah-landing-edit-list button strong { color:var(--dah-navy); font-size:13px; }
+.dah-landing-image-frame { position:relative; min-height:480px; overflow:hidden; }
+.dah-landing-image-frame img { object-fit:cover; }
+.dah-landing-image-frame-short { min-height:380px; }
+/* `width:100%` is load-bearing. `margin-inline:auto` cancels a grid item's
+   default `justify-self: stretch`, so without an explicit width this frame
+   is sized to its content — and its only child is the absolutely positioned
+   image, which contributes nothing. The frame resolved to 0px wide at every
+   desktop width and the photograph never appeared; the mobile rule below
+   already set `width:100%`, which is why it only showed on small screens. */
+.dah-landing-image-frame-portrait { min-height:500px; width:100%; max-width:440px; margin-inline:auto; }
+.dah-landing-journey { display:flex; flex-wrap:wrap; align-items:center; gap:9px; margin:26px 0; color:#077783; font-size:12px; font-weight:800; text-transform:uppercase; }
+.dah-landing-journey i { color:#a3a9aa; font-style:normal; }
+.dah-landing-footnote { max-width:530px; margin:28px 0 0; color:#5f6b73; font-size:12px; line-height:1.55; }
+.dah-landing-transition-card { display:flex; min-height:230px; flex-direction:column; align-items:flex-start; justify-content:center; gap:20px; border-left:5px solid var(--dah-gold); padding:38px 48px; background:#fff; color:#748087; font-family:var(--font-serif); font-size:25px; }
+.dah-landing-transition-card svg { color:var(--dah-gold); transform:rotate(90deg); }
+.dah-landing-transition-card strong { color:var(--dah-navy); font-size:clamp(28px,3vw,42px); font-weight:500; line-height:1.05; }
+.dah-landing-hero-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0; border-top:1px solid rgba(255,255,255,.2); }
+.dah-landing-hero-list div { display:flex; align-items:center; gap:12px; border-bottom:1px solid rgba(255,255,255,.2); padding:20px 0; color:#fff; font-size:15px; }
+.dah-landing-hero-list div:nth-child(even) { padding-left:20px; border-left:1px solid rgba(255,255,255,.2); }
+.dah-landing-hero-list svg { color:#8de7f3; }
+.dah-landing-process-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:58px 0 0; padding:0; border-top:1px solid #d8d9d5; list-style:none; }
+.dah-landing-process-list li { min-height:220px; padding:24px 28px 0 0; border-bottom:1px solid #d8d9d5; }
+.dah-landing-process-list li + li { border-left:1px solid #d8d9d5; padding-left:28px; }
+.dah-landing-process-list span { color:#077783; font-size:12px; font-weight:800; letter-spacing:.12em; }
+.dah-landing-process-list h3 { margin:40px 0 10px; color:var(--dah-navy); font-size:25px; font-weight:500; }
+.dah-landing-process-list p { margin:0; color:#69747b; font-size:14px; line-height:1.6; }
+.dah-landing-faq { background:#fbfbfa; }
+.dah-landing-faq-list { border-top:1px solid #d8d9d5; }
+.dah-landing-faq-item { border-bottom:1px solid #d8d9d5; }
+.dah-landing-faq-item button { display:flex; width:100%; align-items:center; justify-content:space-between; gap:20px; border:0; padding:20px 0; color:var(--dah-navy); background:transparent; font:inherit; font-size:16px; font-weight:700; text-align:left; cursor:pointer; }
+.dah-landing-faq-item button svg { flex:none; transition:transform .18s ease; }
+.dah-landing-faq-item button[aria-expanded="true"] svg { transform:rotate(180deg); }
+.dah-landing-faq-item p { max-width:620px; margin:0 0 20px; color:#5d686f; font-size:14px; line-height:1.7; }
+.dah-landing-final { position:relative; min-height:520px; overflow:hidden; display:flex; align-items:center; color:#fff; }
+.dah-landing-final-image { object-position:center 58%; }
+.dah-landing-final-overlay { position:absolute; inset:0; background:linear-gradient(90deg,rgba(16,43,78,.94),rgba(16,43,78,.5) 70%,rgba(16,43,78,.15)); }
+.dah-landing-final-content { position:relative; z-index:1; }
+.dah-landing-final-content h2 { max-width:660px; color:#fff; }
+.dah-landing-final-content > p:not(.dah-landing-eyebrow) { margin:20px 0 0; color:#e6bd55; font-family:var(--font-serif); font-size:clamp(25px,3vw,42px); line-height:1.1; }
+.dah-landing-final-content > div { margin-top:30px; }
+.dah-landing-lead-card { display:grid; grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr); gap:64px; align-items:start; }
+.dah-landing-form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.dah-landing-lead-form label { display:flex; flex-direction:column; gap:7px; color:var(--dah-navy); font-size:13px; font-weight:800; }
+.dah-landing-lead-form label span { color:#7d878b; font-weight:500; }
+.dah-landing-lead-form input,.dah-landing-lead-form select { min-height:48px; border:1px solid #c7cbc6; border-radius:0; padding:10px 12px; color:var(--dah-charcoal); background:#fff; font:inherit; font-size:14px; }
+.dah-landing-honeypot { position:absolute; left:-9999px; }
+.dah-landing-form-actions { margin-top:20px; }
+.dah-landing-form-actions p { max-width:250px; margin:0; color:#7c8588; font-size:12px; line-height:1.45; }
+.dah-landing-form-error { margin:16px 0 0; color:#9b3e3e; font-size:13px; line-height:1.5; }
+.dah-landing-form-error a { color:inherit; font-weight:800; }
+.dah-landing-success { display:flex; gap:14px; border:1px solid #a9c9a8; padding:20px; color:#315f2f; background:#f2f8ef; }
+.dah-landing-success p { margin:6px 0 0; color:#4f6750; font-size:13px; line-height:1.5; }
+.dah-landing-bottom-actions { position:fixed; right:20px; bottom:20px; z-index:35; display:flex; gap:8px; padding:7px; border:1px solid rgba(16,43,78,.14); background:rgba(255,255,255,.95); box-shadow:0 8px 28px rgba(16,43,78,.15); backdrop-filter:blur(12px); }
+.dah-landing-bottom-actions button,.dah-landing-bottom-actions a { display:inline-flex; min-height:42px; align-items:center; gap:7px; border:0; padding:9px 12px; color:var(--dah-navy); background:transparent; font:inherit; font-size:12px; font-weight:800; text-decoration:none; cursor:pointer; }
+.dah-landing-bottom-actions button { background:var(--dah-gold); }
+@media (max-width:900px) { .dah-landing-path-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .dah-landing-path-card:nth-child(3) { border-left:0; padding-left:0; } .dah-landing-path-card:nth-child(3),.dah-landing-path-card:nth-child(4) { border-top:1px solid #d8d9d5; } .dah-landing-assessment-layout,.dah-landing-lead-card { grid-template-columns:1fr; gap:42px; } .dah-landing-lead-card { gap:28px; } }
+@media (max-width:700px) { .dah-landing-container { width:min(100% - 32px,580px); } .dah-landing-hero { min-height:760px; align-items:flex-end; } .dah-landing-hero-image { object-position:58% center; } .dah-landing-hero-overlay { background:linear-gradient(0deg,rgba(16,43,78,.96) 0%,rgba(16,43,78,.75) 52%,rgba(16,43,78,.12) 100%); } .dah-landing-hero-content { width:min(100% - 32px,580px); margin-inline:auto; padding:62px 0 34px; } .dah-landing-hero h1 { font-size:clamp(38px,10vw,46px); overflow-wrap:break-word; } .dah-landing-hero-promise { margin-top:18px; font-size:24px; } .dah-landing-hero-body { margin-top:16px; font-size:14px; line-height:1.55; } .dah-landing-hero-actions { align-items:stretch; flex-direction:column; margin-top:22px; } .dah-landing-hero-actions .dah-landing-cta { width:100%; } .dah-landing-voice-entry { margin-top:18px; } .dah-landing-microcopy { margin-top:12px; } .dah-landing-scroll-cue { display:none; } .dah-landing-section-heading,.dah-landing-two-column { grid-template-columns:1fr; flex-direction:column; align-items:flex-start; gap:28px; } .dah-landing-section-heading { display:flex; } .dah-landing-section h2 { font-size:42px; } .dah-landing-lead { font-size:24px; } .dah-landing-question-strip { margin-top:36px; } .dah-landing-path-grid,.dah-landing-answer-grid,.dah-landing-form-grid { grid-template-columns:1fr; } .dah-landing-path-card,.dah-landing-path-card + .dah-landing-path-card { min-height:0; padding:24px 0; border-left:0; } .dah-landing-path-card:nth-child(3),.dah-landing-path-card:nth-child(4) { border-top:0; } .dah-landing-path-card p { min-height:0; margin-bottom:24px; } .dah-landing-assessment-card { padding:22px 18px; } .dah-landing-assessment-card legend,.dah-landing-assessment-card h3 { font-size:34px; } .dah-landing-assessment-controls { align-items:stretch; flex-direction:column-reverse; } .dah-landing-assessment-controls .dah-landing-cta { width:100%; } .dah-landing-image-frame,.dah-landing-image-frame-short,.dah-landing-image-frame-portrait { min-height:350px; width:100%; } .dah-landing-transition-card { min-height:190px; padding:28px; } .dah-landing-hero-list { grid-template-columns:1fr; } .dah-landing-hero-list div:nth-child(even) { padding-left:0; border-left:0; } .dah-landing-process-list { grid-template-columns:1fr; margin-top:36px; } .dah-landing-process-list li,.dah-landing-process-list li + li { min-height:0; padding:22px 0; border-left:0; } .dah-landing-process-list h3 { margin-top:22px; } .dah-landing-final { min-height:560px; } .dah-landing-final-overlay { background:linear-gradient(0deg,rgba(16,43,78,.96),rgba(16,43,78,.5)); } .dah-landing-final-content > div { align-items:stretch; flex-direction:column; } .dah-landing-final-content .dah-landing-cta { width:100%; } .dah-landing-bottom-actions { display:none; } }
+
+/* -------------------------------------------------------------------------- */
+/* Resources — editorial rows, not a wall of equal-weight tool cards.          */
+/*                                                                            */
+/* Four numbered rows carry the primary visitor actions; a quieter list below  */
+/* keeps the remaining calculators reachable without competing with them.      */
+/* -------------------------------------------------------------------------- */
+/* The numbered rows sit on a teal field. The previous version put them on
+   near-white with a teal numeral, which measured as 1% imagery and no painted
+   brand colour on the whole route — the "fintech software" read the brief
+   called out. Colour is doing the work here that photography cannot: there is
+   no licensed imagery for a calculator page, and inventing some would be worse
+   than designing without it. */
+.resource-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-accent);
+}
+.resource-steps > li + li { border-top: 1px solid rgba(255,255,255,.22); }
+.resource-step {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 8px 24px;
+  padding: 32px 32px 32px 28px;
+  color: #ffffff;
+  text-decoration: none;
+}
+.resource-step:hover { background: #05616b; }
+.resource-step-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  border: 1px solid rgba(230,189,85,.55);
+  background: rgba(255,255,255,.12);
+  color: #e6bd55;
+}
+.resource-step-icon svg { width: 25px; height: 25px; }
+.resource-step-body { display: flex; flex-direction: column; gap: 10px; }
+.resource-step-title {
+  max-width: 34ch;
+  color: #ffffff;
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.15;
+}
+.resource-step:hover .resource-step-title { text-decoration: underline; text-underline-offset: 4px; }
+.resource-step-copy { max-width: 68ch; color: #ffffff; font-size: 16px; line-height: 1.7; }
+.resource-step-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 24px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+}
+.resource-disclaimer { max-width: 74ch; margin: 28px 0 0; color: var(--color-muted-foreground); font-size: 13px; line-height: 1.6; }
+
+.resource-guides { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(32px, 6vw, 80px); }
+.resource-heading { margin: 14px 0 0; color: var(--color-primary); font-family: var(--font-serif); font-size: clamp(28px, 3.4vw, 40px); font-weight: 600; line-height: 1.12; }
+.resource-lede { max-width: 46ch; margin: 18px 0 0; color: var(--color-muted-foreground); font-size: 17px; line-height: 1.65; }
+.resource-guide-list { margin: 0; padding: 0; list-style: none; border-top: 3px solid var(--color-brand-gold); }
+.resource-guide-list li { border-bottom: 1px solid var(--color-border); }
+.resource-guide-list a {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 24px;
+  padding: 16px 0;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+.resource-guide-list a > span:first-child { font-size: 17px; font-weight: 600; }
+.resource-guide-list a > span:last-child { color: var(--color-muted-foreground); font-size: 14px; }
+.resource-guide-list a:hover > span:first-child { color: var(--color-accent); text-decoration: underline; text-underline-offset: 4px; }
+
+.resource-more-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; margin: 20px 0 0; padding: 0; list-style: none; border-top: 3px solid var(--color-brand-green); }
+.resource-more-list li { border-bottom: 1px solid var(--color-border); }
+.resource-more-list a { display: flex; flex-direction: column; gap: 6px; padding: 18px 0; color: var(--color-foreground); text-decoration: none; }
+.resource-more-list strong { color: var(--color-primary); font-size: 16px; font-weight: 600; }
+.resource-more-list span { color: var(--color-muted-foreground); font-size: 14px; line-height: 1.6; }
+.resource-more-list a:hover strong { color: var(--color-accent); text-decoration: underline; text-underline-offset: 4px; }
+
+@media (max-width: 900px) {
+  .resource-guides { grid-template-columns: 1fr; }
+  .resource-more-list { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .resource-step { grid-template-columns: 1fr; gap: 6px; padding: 24px 0; }
+  .resource-step-icon { width: 46px; height: 46px; }
+  .resource-step-title { font-size: 23px; }
+}
+
+
+/* ============================================================================
+   Interior route visual system (.dh-*)
+   ----------------------------------------------------------------------------
+   The homepage got its own field-based composition in `.figma-home`, and the
+   result was a site whose front door looked like a brand and whose eighteen
+   interior routes looked like a requirements document: a navy masthead with a
+   dead right half, then white boxes containing a heading, a paragraph and a
+   button, on near-white, forever.
+
+   This layer gives the interior the same vocabulary the homepage has — painted
+   fields, editorial splits, icon-supported pathways, image-led closing bands —
+   using the approved palette only:
+
+     navy  #102B4E   teal  #077783   bright teal #18A9B4
+     green #66AD45   gold  #BF922D   near-white  #F7F9F8   green-gray #EDF3F2
+
+   Two rules the composition has to respect, both from AGENTS.md:
+   photographs are limited to the four approved assets in the image register,
+   and nothing here may imply a fact the repository has not verified. Where a
+   benchmark site would put a neighbourhood photo or a big number, this layer
+   puts architectural linework, a county name, or nothing at all.
+   ========================================================================== */
+
+:root {
+  --dh-navy: #102b4e;
+  --dh-navy-deep: #0b1e38;
+  --dh-navy-hover: #17406f;
+  --dh-teal: #077783;
+  --dh-teal-deep: #05616b;
+  --dh-teal-bright: #18a9b4;
+  --dh-green: #66ad45;
+  --dh-green-deep: #4d8733;
+  --dh-gold: #bf922d;
+  --dh-gold-light: #e6bd55;
+  --dh-page: #f7f9f8;
+  --dh-alt: #edf3f2;
+  --dh-border: #cbd7d6;
+  --dh-muted: #52616f;
+  --dh-ink: #10233f;
+}
+
+/* -- Ornament --------------------------------------------------------------
+   Stroke-only architectural linework. It sits behind type at low contrast and
+   is always aria-hidden, so it never has to carry meaning or meet text
+   contrast — it carries brand and subject matter. */
+.dh-motif { display: block; width: 100%; height: 100%; }
+.dh-motif .dh-motif-line { fill: none; stroke: var(--dh-teal-bright); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; opacity: .5; }
+.dh-motif .dh-motif-ground { stroke: var(--dh-green); opacity: .55; }
+.dh-motif .dh-motif-route { fill: none; stroke: var(--dh-green); stroke-width: 3; stroke-linecap: round; opacity: .45; }
+.dh-motif .dh-motif-route-shadow { stroke: var(--dh-teal); stroke-width: 6; opacity: .18; transform: translateY(6px); }
+.dh-motif .dh-motif-accent { fill: none; stroke: var(--dh-gold-light); stroke-width: 2.5; stroke-linecap: round; opacity: .75; }
+.dh-motif .dh-motif-lit { fill: var(--dh-gold-light); fill-opacity: .16; stroke: var(--dh-gold-light); }
+.dh-motif-on-light .dh-motif-line { stroke: var(--dh-teal); opacity: .34; }
+.dh-motif-on-light .dh-motif-ground { stroke: var(--dh-green-deep); opacity: .4; }
+.dh-motif-on-light .dh-motif-accent { stroke: var(--dh-gold); opacity: .55; }
+.dh-motif-on-light .dh-motif-lit { fill: var(--dh-gold); fill-opacity: .12; }
+
+/* -- Masthead --------------------------------------------------------------
+   Copy left, ornament (or an approved photograph) right, gold rule beneath.
+   The right column is what removes the dead half; the teal wash is what keeps
+   a navy field from reading as a flat rectangle. */
+.dh-masthead { position: relative; overflow: hidden; border-bottom: 4px solid var(--dh-gold); }
+.dh-masthead-navy { background: var(--dh-navy); color: #fff; }
+.dh-masthead-navy::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 90% at 82% 18%, rgba(24,169,180,.30), transparent 62%),
+    linear-gradient(115deg, var(--dh-navy-deep) 0%, var(--dh-navy) 52%, #163a63 100%);
+}
+.dh-masthead-teal { background: var(--dh-teal); color: #fff; }
+/* The light end of this gradient used to reach #0a8c99, where white drops to
+   4.09:1 and the gold kicker to 2.99:1 — gold cannot meet AA on teal at any
+   point in the range. The field now stays within the teal values and the
+   kicker is white, which holds 5.33:1 across the whole gradient. */
+.dh-masthead-teal::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 90% at 84% 14%, rgba(77,135,51,.30), transparent 60%),
+    linear-gradient(115deg, var(--dh-teal-deep) 0%, #06707b 58%, var(--dh-teal) 100%);
+}
+.dh-masthead-inner { position: relative; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); align-items: center; gap: clamp(32px, 5vw, 72px); padding-top: clamp(44px, 5.5vw, 76px); padding-bottom: clamp(44px, 5.5vw, 76px); }
+.dh-masthead-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; max-width: 42rem; }
+.dh-crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0; padding: 0; list-style: none; font-size: 14px; }
+.dh-crumbs a { display: inline-block; min-height: 24px; padding: 2px 0; color: rgba(255,255,255,.78); text-decoration: none; }
+.dh-crumbs a:hover { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.dh-crumbs [aria-current="page"] { color: #fff; }
+.dh-crumbs svg { color: rgba(255,255,255,.5); }
+.dh-kicker { display: inline-flex; align-items: center; gap: 9px; margin: 0; color: var(--dh-gold-light); font-size: 12px; font-weight: 700; letter-spacing: .16em; line-height: 1.4; text-transform: uppercase; }
+.dh-kicker svg { width: 16px; height: 16px; }
+.dh-masthead h1 { margin: 0; max-width: 20ch; color: #fff; font-family: var(--font-serif); font-size: clamp(38px, 4.5vw, 58px); font-weight: 600; letter-spacing: -.022em; line-height: 1.06; }
+.dh-masthead-lede { margin: 0; max-width: 54ch; color: rgba(255,255,255,.92); font-size: clamp(16px, 1.3vw, 19px); line-height: 1.65; }
+.dh-masthead-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+.dh-masthead-aside { position: relative; display: flex; align-items: center; justify-content: center; min-height: 230px; }
+.dh-masthead-ornament { width: 100%; max-width: 560px; opacity: .92; }
+.dh-masthead-figure { position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid rgba(255,255,255,.22); box-shadow: 0 26px 60px -30px rgba(3,14,28,.9); }
+.dh-masthead-figure img { object-fit: cover; }
+.dh-masthead-figure::after { content: ""; position: absolute; inset: auto 0 0 0; height: 5px; background: var(--dh-gold); }
+
+/* Facts strip inside a masthead: verified qualifiers only, never metrics. */
+.dh-masthead-facts { display: flex; flex-wrap: wrap; gap: 10px; margin: 4px 0 0; padding: 0; list-style: none; }
+.dh-masthead-facts li { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; color: rgba(255,255,255,.92); font-size: 13px; font-weight: 600; }
+.dh-masthead-facts svg { width: 15px; height: 15px; color: var(--dh-gold-light); }
+
+/* -- Bands ---------------------------------------------------------------- */
+.dh-band { padding: clamp(56px, 7vw, 96px) 0; }
+.dh-band-tight { padding: clamp(40px, 5vw, 64px) 0; }
+.dh-band-page { background: var(--dh-page); }
+.dh-band-white { background: #fff; }
+.dh-band-alt { background: var(--dh-alt); }
+.dh-band-navy { background: var(--dh-navy); color: #fff; }
+.dh-band-teal { background: var(--dh-teal); color: #fff; }
+.dh-band-green { background: linear-gradient(140deg, #eef7e9 0%, var(--dh-alt) 100%); }
+
+.dh-lead { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; max-width: 46rem; margin-bottom: clamp(32px, 4vw, 52px); }
+.dh-lead h2 { margin: 0; color: var(--dh-navy); font-family: var(--font-serif); font-size: clamp(28px, 3.3vw, 42px); font-weight: 600; letter-spacing: -.02em; line-height: 1.1; }
+.dh-lead p { margin: 0; max-width: 58ch; color: var(--dh-muted); font-size: 17px; line-height: 1.68; }
+.dh-band-navy .dh-lead h2, .dh-band-teal .dh-lead h2 { color: #fff; }
+.dh-band-navy .dh-lead p { color: #c4d4e2; }
+/* .86 white over #077783 measures 4.42:1; .92 clears AA at 4.77:1. */
+.dh-band-teal .dh-lead p { color: rgba(255,255,255,.92); }
+.dh-lead .dh-kicker { color: var(--dh-teal); }
+.dh-band-navy .dh-lead .dh-kicker { color: var(--dh-gold-light); }
+/* White, not gold: gold on any teal in the brand range is below 3:1. */
+.dh-band-teal .dh-kicker, .dh-masthead-teal .dh-kicker { color: #ffffff; }
+.dh-lead-row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 40px; }
+.dh-lead-row .dh-lead { margin-bottom: 0; }
+/* .dh-lead is a flex column with align-items:flex-start, which makes block
+   children shrink to their content. Lists inside it have to opt back in. */
+.dh-lead > ul { align-self: stretch; width: 100%; }
+
+/* -- Editorial split: photograph and copy, neither one an inset ------------ */
+.dh-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(32px, 5vw, 76px); }
+.dh-split-wide-media { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); }
+.dh-split-wide-copy { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
+.dh-split-reverse .dh-split-media { order: 2; }
+/* No overflow clip here: the offset brand plate deliberately bleeds past
+   the photograph, and clipping it removed the only painted colour in the row. */
+.dh-split-media { position: relative; }
+.dh-split-figure { position: relative; width: 100%; overflow: hidden; background: var(--dh-alt); }
+.dh-split-figure img { object-fit: cover; transition: transform .6s cubic-bezier(.2,.7,.3,1); }
+.dh-split-media:hover .dh-split-figure img { transform: scale(1.035); }
+.dh-split-frame { position: relative; }
+/* Brand plate behind the photograph — what stops a picture reading as a card
+   floating on white, and what puts teal and gold area on the page. */
+.dh-split-frame::before { content: ""; position: absolute; left: -22px; top: 26px; bottom: -22px; width: 58%; background: var(--dh-teal); opacity: .22; }
+.dh-split-frame-green::before { background: var(--dh-green); opacity: .26; }
+.dh-split-frame > * { position: relative; }
+.dh-split-caption { position: absolute; right: 0; bottom: 0; display: flex; flex-direction: column; gap: 3px; max-width: 16rem; padding: 16px 20px; background: var(--dh-navy); color: #fff; }
+.dh-split-caption span { color: var(--dh-gold-light); font-size: 11px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+.dh-split-caption strong { font-family: var(--font-serif); font-size: 19px; font-weight: 600; line-height: 1.2; }
+.dh-split-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.dh-split-copy h2, .dh-split-copy h3 { margin: 0; color: var(--dh-navy); font-family: var(--font-serif); font-size: clamp(26px, 3vw, 40px); font-weight: 600; letter-spacing: -.02em; line-height: 1.12; }
+.dh-split-copy p { margin: 0; max-width: 56ch; color: var(--dh-muted); font-size: 17px; line-height: 1.7; }
+.dh-band-navy .dh-split-copy h2, .dh-band-navy .dh-split-copy h3 { color: #fff; }
+.dh-band-navy .dh-split-copy p { color: #c4d4e2; }
+
+/* -- Icon-supported pathway rows ------------------------------------------ */
+/* Real gaps and per-panel borders rather than a 1px divider background: an
+   auto-fit grid leaves the last row short, and the background showed through
+   the unfilled cells as an empty tile. */
+.dh-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
+.dh-features > li { display: flex; }
+.dh-features > li > * { border-top: 3px solid var(--dh-teal); }
+.dh-features-gold > li > * { border-top-color: var(--dh-gold); }
+.dh-features-green > li > * { border-top-color: var(--dh-green); }
+.dh-feature { display: flex; flex-direction: column; gap: 12px; width: 100%; padding: 28px 26px 30px; border: 1px solid var(--dh-border); background: #fff; }
+.dh-band-alt .dh-feature { background: var(--dh-page); }
+.dh-feature-icon { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 999px; background: var(--dh-alt); color: var(--dh-teal); }
+.dh-feature-icon svg { width: 23px; height: 23px; }
+/* #4d8733 measured 3.81:1 on this tint; #315f2f is the system value that clears it. */
+.dh-feature-icon-green { background: #e8f3e5; color: #315f2f; }
+/* #8a6a1c measured 4.41:1 on this tint. */
+.dh-feature-icon-gold { background: #f7efdb; color: #7a5d17; }
+.dh-feature-icon-navy { background: #e3eaf3; color: var(--dh-navy); }
+.dh-feature h3 { margin: 0; color: var(--dh-navy); font-family: var(--font-sans); font-size: 18px; font-weight: 700; line-height: 1.3; }
+.dh-feature p { margin: 0; color: var(--dh-muted); font-size: 15px; line-height: 1.65; }
+.dh-feature-link { display: inline-flex; align-items: center; gap: 7px; min-height: 24px; margin-top: auto; padding-top: 6px; color: var(--dh-teal); font-size: 14px; font-weight: 700; text-decoration: none; }
+.dh-feature-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* Linked feature: the whole panel is the target, with a lift on hover. */
+.dh-feature-card { position: relative; display: flex; flex-direction: column; gap: 12px; width: 100%; padding: 28px 26px 30px; border: 1px solid var(--dh-border); background: #fff; color: inherit; text-decoration: none; transition: background .2s ease, transform .2s ease; }
+.dh-band-alt .dh-feature-card { background: var(--dh-page); }
+.dh-feature-card:hover { background: var(--dh-alt); transform: translateY(-2px); }
+.dh-feature-card:hover h3 { color: var(--dh-teal); text-decoration: underline; text-underline-offset: 4px; }
+
+/* -- Honest status strip ---------------------------------------------------
+   Used where the site has to say a provider is not connected. It is deliberately
+   not the warning box it used to be: a brand-coloured strip with a real next
+   action reads as a designed state, and an amber panel in the middle of an empty
+   page reads as a broken site. The words stay exactly as honest. */
+.dh-status { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: start; gap: 18px; padding: 22px 26px; border-left: 5px solid var(--dh-teal-bright); background: linear-gradient(120deg, rgba(7,119,131,.10), rgba(24,169,180,.04)); }
+.dh-status-icon { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 999px; background: var(--dh-teal); color: #fff; }
+.dh-status-icon svg { width: 19px; height: 19px; }
+.dh-status strong { display: block; color: var(--dh-navy); font-size: 17px; font-weight: 700; }
+.dh-status p { margin: 6px 0 0; max-width: 70ch; color: var(--dh-muted); font-size: 15px; line-height: 1.65; }
+.dh-status-on-dark { border-left-color: var(--dh-gold); background: rgba(255,255,255,.07); }
+.dh-status-on-dark .dh-status-icon { background: var(--dh-gold); color: #16110a; }
+.dh-status-on-dark strong { color: #fff; }
+.dh-status-on-dark p { color: #c4d4e2; }
+
+/* A quiet consumer-facing note. Replaces the bordered "internal process"
+   panels that were shouting product decisions at visitors. */
+.dh-note { max-width: 74ch; margin: 26px 0 0; padding-left: 16px; border-left: 2px solid var(--dh-border); color: var(--dh-muted); font-size: 14px; line-height: 1.7; }
+
+/* -- Local market list ---------------------------------------------------- */
+/* Gap, not a background showing through: an auto-fit grid leaves the last
+   row short, and a 1px "divider" background turned that remainder into a
+   visible empty tile. */
+.dh-places { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.dh-place { display: flex; align-items: center; gap: 12px; height: 100%; padding: 18px 20px; border: 1px solid rgba(255,255,255,.22); border-left: 3px solid var(--dh-teal-bright); background: rgba(255,255,255,.05); color: #fff; text-decoration: none; transition: background .2s ease, border-color .2s ease; }
+.dh-place:hover { background: rgba(255,255,255,.12); border-left-color: var(--dh-gold); }
+.dh-place svg { flex-shrink: 0; width: 17px; height: 17px; color: var(--dh-teal-bright); }
+.dh-place-name { font-size: 16px; font-weight: 700; }
+.dh-place-county { display: block; color: #a9c0d3; font-size: 12.5px; font-weight: 500; }
+.dh-place:hover .dh-place-name { text-decoration: underline; text-underline-offset: 4px; }
+.dh-band-teal .dh-place-county { color: rgba(255,255,255,.75); }
+
+/* Feature place: the one market with a real guide behind it. */
+/* Centred, not bottom-anchored: the panel stretches to whatever the grid
+   beside it needs, and anchoring the copy to the bottom left a tall field of
+   empty teal above it. */
+.dh-place-feature { display: flex; flex-direction: column; gap: 10px; justify-content: center; min-height: 100%; padding: 30px 30px 28px; background: linear-gradient(145deg, var(--dh-teal) 0%, var(--dh-teal-deep) 100%); border-bottom: 5px solid var(--dh-gold); color: #fff; text-decoration: none; transition: transform .22s ease; }
+.dh-place-feature:hover { transform: translateY(-3px); }
+.dh-place-feature-label { display: inline-flex; align-items: center; gap: 8px; color: var(--dh-gold-light); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.dh-place-feature-name { font-family: var(--font-serif); font-size: clamp(30px, 3.4vw, 42px); font-weight: 600; line-height: 1.05; }
+.dh-place-feature-meta { color: rgba(255,255,255,.85); font-size: 15px; }
+.dh-place-feature-cta { display: inline-flex; align-items: center; gap: 8px; min-height: 24px; margin-top: 6px; font-size: 15px; font-weight: 700; }
+.dh-place-feature:hover .dh-place-feature-cta { text-decoration: underline; text-underline-offset: 4px; }
+
+/* -- Numbered process ----------------------------------------------------- */
+.dh-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
+.dh-step { display: flex; flex-direction: column; gap: 12px; height: 100%; padding: 28px 24px 30px; border: 1px solid var(--dh-border); background: #fff; }
+.dh-band-alt .dh-step, .dh-band-green .dh-step { background: var(--dh-page); }
+.dh-step-mark { display: inline-flex; align-items: center; gap: 10px; }
+.dh-step-num { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 999px; background: var(--dh-navy); color: #fff; font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.dh-step-rule { flex: 1; height: 2px; background: linear-gradient(90deg, var(--dh-gold), transparent); }
+.dh-step h3 { margin: 0; color: var(--dh-navy); font-family: var(--font-sans); font-size: 17px; font-weight: 700; line-height: 1.3; }
+.dh-step p { margin: 0; color: var(--dh-muted); font-size: 15px; line-height: 1.65; }
+
+/* -- Closing CTA band with an approved photograph -------------------------- */
+.dh-cta { position: relative; overflow: hidden; background: var(--dh-navy); color: #fff; }
+.dh-cta-image { object-fit: cover; }
+/* Strong enough on the left for AA text contrast, then released so the
+   photograph is a photograph rather than a teal wash over someone's face. */
+.dh-cta-scrim { position: absolute; inset: 0; background: linear-gradient(100deg, rgba(9,25,47,.96) 0%, rgba(13,36,66,.92) 40%, rgba(16,43,78,.55) 66%, rgba(16,43,78,.18) 100%); }
+.dh-cta-inner { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 18px; max-width: 46rem; padding-top: clamp(56px, 7vw, 96px); padding-bottom: clamp(56px, 7vw, 96px); }
+.dh-cta-inner h2 { margin: 0; max-width: 20ch; color: #fff; font-family: var(--font-serif); font-size: clamp(28px, 3.6vw, 46px); font-weight: 600; letter-spacing: -.02em; line-height: 1.08; }
+.dh-cta-inner p { margin: 0; max-width: 54ch; color: rgba(255,255,255,.86); font-size: 17px; line-height: 1.7; }
+.dh-cta-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+
+/* -- Buttons reused outside the homepage ---------------------------------- */
+.dh-btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 48px; padding: 13px 26px; border: 1px solid transparent; font-family: var(--font-sans); font-size: 15px; font-weight: 700; line-height: 1.2; text-align: center; text-decoration: none; cursor: pointer; transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease; }
+.dh-btn:active { transform: translateY(1px); }
+.dh-btn-gold { background: var(--dh-gold); color: #16110a; border-color: var(--dh-gold); }
+.dh-btn-gold:hover { background: var(--dh-gold-light); }
+.dh-btn-navy { background: var(--dh-navy); color: #fff; border-color: var(--dh-navy); }
+.dh-btn-navy:hover { background: var(--dh-navy-hover); }
+.dh-btn-teal { background: var(--dh-teal); color: #fff; border-color: var(--dh-teal); }
+.dh-btn-teal:hover { background: var(--dh-teal-deep); }
+.dh-btn-light { background: #fff; color: var(--dh-navy); border-color: #fff; }
+.dh-btn-light:hover { background: var(--dh-alt); }
+.dh-btn-light-outline { background: transparent; color: #fff; border-color: rgba(255,255,255,.7); }
+.dh-btn-light-outline:hover { background: rgba(255,255,255,.14); border-color: #fff; }
+.dh-btn-navy-outline { background: transparent; color: var(--dh-navy); border-color: var(--dh-navy); }
+.dh-btn-navy-outline:hover { background: var(--dh-alt); }
+
+.dh-textlink { display: inline-flex; align-items: center; gap: 7px; min-height: 24px; color: var(--dh-teal); font-size: 15px; font-weight: 700; text-decoration: none; }
+.dh-textlink:hover { text-decoration: underline; text-underline-offset: 4px; }
+.dh-band-navy .dh-textlink, .dh-band-teal .dh-textlink, .dh-cta .dh-textlink { color: var(--dh-gold-light); }
+
+/* -- Q&A ------------------------------------------------------------------ */
+.dh-qa { margin: 0; border-top: 3px solid var(--dh-gold); }
+.dh-qa details { border-bottom: 1px solid var(--dh-border); }
+.dh-qa summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; min-height: 48px; padding: 16px 0; color: var(--dh-navy); font-size: 17px; font-weight: 600; list-style: none; cursor: pointer; }
+.dh-qa summary::-webkit-details-marker { display: none; }
+.dh-qa summary::after { content: ""; flex-shrink: 0; width: 12px; height: 12px; border-right: 2px solid var(--dh-teal); border-bottom: 2px solid var(--dh-teal); transform: rotate(45deg) translate(-3px, -3px); transition: transform .2s ease; }
+.dh-qa details[open] summary::after { transform: rotate(225deg) translate(-2px, -2px); }
+.dh-qa summary:hover { color: var(--dh-teal); }
+.dh-qa p { margin: 0 0 20px; max-width: 74ch; color: var(--dh-muted); font-size: 15.5px; line-height: 1.7; }
+
+/* -- Responsive ----------------------------------------------------------- */
+@media (max-width: 1000px) {
+  .dh-masthead-inner { grid-template-columns: 1fr; gap: 34px; }
+  .dh-masthead-aside { min-height: 0; order: 2; }
+  .dh-masthead-ornament { max-width: 460px; margin: 0 auto; }
+  .dh-split, .dh-split-wide-media, .dh-split-wide-copy { grid-template-columns: 1fr; gap: 32px; }
+  .dh-split-reverse .dh-split-media { order: 0; }
+  .dh-split-frame::before { left: -12px; top: 16px; bottom: -12px; width: 55%; }
+}
+@media (max-width: 720px) {
+  .dh-masthead h1 { font-size: clamp(31px, 8.4vw, 42px); }
+  .dh-masthead-lede { font-size: 16px; }
+  .dh-masthead-actions .dh-btn { width: 100%; }
+  /* The ornament stays on phones — a masthead that loses its picture at 375px
+     is exactly the "stacked desktop blocks" mobile the brief rules out. It is
+     simply given less height so it reads as a horizon line, not a hero. */
+  .dh-masthead-ornament { max-width: 340px; opacity: .8; }
+  .dh-status { grid-template-columns: 1fr; gap: 12px; padding: 20px; }
+  .dh-cta-actions .dh-btn { width: 100%; }
+  .dh-split-caption { position: static; max-width: none; }
+  .dh-split-frame::before { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dh-split-media:hover .dh-split-figure img,
+  .dh-feature-card:hover,
+  .dh-place-feature:hover { transform: none; }
+}
+
+/* -- Places layout: one feature market plus the surrounding cities --------- */
+.dh-places-layout { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 2fr); gap: clamp(20px, 2.6vw, 34px); align-items: stretch; }
+.dh-note-on-dark { color: #a9c0d3; border-left-color: rgba(255,255,255,.3); }
+
+/* -- Live listing cards (shown only when an MLS/IDX feed is connected) ----- */
+.dh-listings { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin: 0; padding: 0; list-style: none; }
+.dh-listing { display: flex; flex-direction: column; gap: 6px; height: 100%; padding: 26px 24px 22px; border: 1px solid var(--dh-border); border-top: 4px solid var(--dh-teal); background: var(--dh-page); }
+.dh-listing-price { margin: 0; color: var(--dh-navy); font-family: var(--font-serif); font-size: 28px; font-weight: 600; line-height: 1.1; }
+.dh-listing-address { margin: 0; color: var(--dh-ink); font-size: 16px; font-weight: 600; }
+.dh-listing-meta { display: flex; align-items: center; gap: 7px; margin: 0; color: var(--dh-muted); font-size: 14px; }
+.dh-listing-meta svg { width: 15px; height: 15px; color: var(--dh-teal); }
+.dh-listing-stats { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 12px 0 0; padding-top: 14px; border-top: 1px solid var(--dh-border); color: var(--dh-muted); font-size: 13.5px; font-weight: 600; }
+
+@media (max-width: 1000px) {
+  .dh-places-layout { grid-template-columns: 1fr; }
+}
+
+/* -- Housing-character chips ----------------------------------------------
+   The home styles a buyer will actually tour, as tagged rows rather than six
+   bordered boxes. Paired with the roofline ornament, which draws the same
+   four shapes the list names. */
+.dh-chips { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.dh-chips li { display: flex; align-items: center; gap: 13px; padding: 17px 20px; border-left: 3px solid var(--dh-gold); background: rgba(0,0,0,.12); color: #fff; font-size: 15px; font-weight: 600; line-height: 1.4; }
+.dh-chips svg { flex-shrink: 0; width: 18px; height: 18px; color: #ffffff; }
+.dh-band-white .dh-chips li, .dh-band-alt .dh-chips li, .dh-band-page .dh-chips li { background: #fff; border-left-color: var(--dh-teal); color: var(--dh-ink); }
+.dh-band-white .dh-chips svg, .dh-band-alt .dh-chips svg, .dh-band-page .dh-chips svg { color: var(--dh-teal); }
+
+/* A field split where the right half is ornament rather than a photograph. */
+.dh-illus { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: center; gap: clamp(30px, 5vw, 70px); }
+.dh-illus-art { width: 100%; max-width: 620px; margin-left: auto; opacity: .95; }
+@media (max-width: 1000px) { .dh-illus { grid-template-columns: 1fr; } .dh-illus-art { margin: 0 auto; max-width: 520px; } }
+
+/* Notes inherit the field they sit on, so a page never needs an inline style. */
+.dh-band-navy .dh-note, .dh-cta .dh-note { color: #a9c0d3; border-left-color: rgba(255,255,255,.3); }
+.dh-band-teal .dh-note { color: rgba(255,255,255,.82); border-left-color: rgba(255,255,255,.35); }
+.dh-lead-flush { margin-bottom: 0; }
+
+/* -- Checklist: a role or a set of inclusions, icon-led ------------------- */
+.dh-checklist { display: flex; flex-direction: column; gap: 16px; margin: 0; padding: 0; list-style: none; }
+.dh-checklist li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; }
+.dh-checklist svg { width: 21px; height: 21px; margin-top: 2px; color: var(--dh-green-deep); }
+.dh-checklist strong { display: block; color: var(--dh-navy); font-size: 16.5px; font-weight: 700; }
+.dh-checklist span { color: var(--dh-muted); font-size: 15px; line-height: 1.65; }
+.dh-band-navy .dh-checklist strong { color: #fff; }
+.dh-band-navy .dh-checklist span { color: #c4d4e2; }
+.dh-band-navy .dh-checklist svg { color: var(--dh-gold-light); }
+.dh-band-teal .dh-checklist strong { color: #fff; }
+.dh-band-teal .dh-checklist span { color: rgba(255,255,255,.92); }
+.dh-band-teal .dh-checklist svg { color: #ffffff; }
+.dh-band-teal .dh-split-copy h2, .dh-band-teal .dh-split-copy h3 { color: #fff; }
+.dh-band-teal .dh-split-copy p { color: rgba(255,255,255,.92); }
+
+/* -- Program cards --------------------------------------------------------
+   Two large linked panels rather than two bordered boxes. Navy field, gold
+   rule, icon-led, with the audience carried as verified checkpoints. */
+.dh-program-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin: 0; padding: 0; list-style: none; }
+.dh-program { display: flex; flex-direction: column; gap: 14px; height: 100%; padding: 32px 30px 30px; background: linear-gradient(155deg, #fff 0%, var(--dh-alt) 100%); border: 1px solid var(--dh-border); border-top: 5px solid var(--dh-gold); color: inherit; text-decoration: none; transition: transform .22s ease, box-shadow .22s ease; }
+.dh-program:hover { transform: translateY(-3px); box-shadow: 0 22px 44px -28px rgba(16,43,78,.55); }
+.dh-program-head { display: flex; align-items: center; gap: 14px; }
+.dh-program-head .dh-kicker { color: var(--dh-teal); }
+.dh-program h3 { margin: 0; color: var(--dh-navy); font-family: var(--font-serif); font-size: clamp(26px, 2.6vw, 34px); font-weight: 600; line-height: 1.1; }
+.dh-program:hover h3 { text-decoration: underline; text-underline-offset: 5px; }
+.dh-program > p { margin: 0; color: var(--dh-muted); font-size: 16px; line-height: 1.68; }
+.dh-program-points { display: flex; flex-direction: column; gap: 9px; margin: 4px 0 0; padding: 0; list-style: none; }
+.dh-program-points li { display: flex; align-items: flex-start; gap: 10px; color: var(--dh-ink); font-size: 14.5px; line-height: 1.5; }
+.dh-program-points svg { flex-shrink: 0; width: 17px; height: 17px; margin-top: 2px; color: var(--dh-green-deep); }
+.dh-program-cta { display: inline-flex; align-items: center; gap: 8px; min-height: 24px; margin-top: auto; padding-top: 16px; color: var(--dh-teal); font-size: 15px; font-weight: 700; }
+@media (prefers-reduced-motion: reduce) { .dh-program:hover { transform: none; } }
+.dh-lead-row-spaced { margin-bottom: clamp(32px, 4vw, 52px); }
+.dh-stack-top { margin-top: clamp(26px, 3vw, 36px); }
+
+
+/* -- Footer local column: verified facts only ----------------------------
+   Garland and the metroplex are stated because the repository asserts them;
+   a phone number and street address are not, because lib/site.ts keeps them
+   null until verified and inventing either would be fabrication. */
+.footer-local { display: flex; flex-direction: column; gap: 14px; }
+.footer-local-label { margin: 0; color: var(--color-accent); font-size: 12px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+.footer-local ul { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.footer-local li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 11px; color: var(--color-muted-foreground); font-size: 14.5px; line-height: 1.5; }
+.footer-local svg { width: 18px; height: 18px; margin-top: 1px; color: var(--color-accent); }
+.footer-local strong { display: block; color: var(--color-primary); font-size: 15px; font-weight: 700; }
+
+@media (max-width: 1000px) {
+  .fh-footer-brand-inner, .footer-brand-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 760px) {
+  .fh-footer-brand-inner, .footer-brand-inner { grid-template-columns: 1fr; }
+  .fh-footer-logo, .footer-logo { width: 176px; }
+}
+
+/* -- Consultation: the form is the page, the context sits beside it -------
+   Previously the form was a bordered white card to the right of a navy list
+   and a photograph, with the masthead above it carrying no brand at all. The
+   form now leads, and "what to expect" is a navy companion panel rather than
+   a stack of boxes underneath. */
+.dh-consult { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(28px, 4vw, 56px); align-items: start; }
+.dh-consult-form { min-width: 0; }
+.dh-consult-form h2, .dh-consult-aside h2 { margin: 0; color: var(--dh-navy); font-family: var(--font-serif); font-size: clamp(27px, 3vw, 38px); font-weight: 600; letter-spacing: -.02em; line-height: 1.12; }
+.dh-consult-form > p { margin: 14px 0 28px; max-width: 58ch; color: var(--dh-muted); font-size: 16px; line-height: 1.7; }
+.dh-consult-aside { display: flex; flex-direction: column; gap: 16px; min-width: 0; padding: 34px 32px 32px; background: linear-gradient(160deg, var(--dh-navy) 0%, var(--dh-navy-deep) 100%); border-top: 5px solid var(--dh-gold); color: #fff; }
+.dh-consult-aside h2 { color: #fff; }
+.dh-consult-aside .dh-kicker { color: var(--dh-gold-light); }
+.dh-consult-aside .dh-checklist strong { color: #fff; }
+.dh-consult-aside .dh-checklist span { color: #c4d4e2; }
+.dh-consult-aside .dh-checklist svg { color: var(--dh-teal-bright); }
+@media (max-width: 1000px) { .dh-consult { grid-template-columns: 1fr; } }
+
+/* Article plate — the designed stand-in for an article with no featuredImage.
+   Fills its frame exactly as a photograph would (the frame owns the ratio), so
+   card and masthead layouts are identical whether or not a photo is set. */
+.dh-article-plate {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: clamp(18px, 6%, 44px);
+  background:
+    radial-gradient(120% 120% at 18% 12%, rgba(24, 169, 180, .22), transparent 62%),
+    linear-gradient(150deg, var(--dh-navy) 0%, var(--dh-navy-deep) 100%);
+}
+.dh-article-plate-art { max-width: 460px; max-height: 100%; opacity: .95; }
+.dh-article-plate-label {
+  position: absolute;
+  left: clamp(16px, 6%, 32px);
+  bottom: clamp(14px, 5%, 26px);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  /* #e6bd55 on #0b1e38 measures 8.6:1 — well clear of AA for small text. */
+  color: var(--dh-gold-light);
+}
+
+/* An image frame on /start carrying linework instead of a photograph. The
+   frame keeps its ratio and padding so the two-column rhythm is unchanged. */
+.dah-landing-image-frame-art {
+  display: grid;
+  place-items: center;
+  padding: clamp(20px, 5%, 48px);
+  background: linear-gradient(150deg, var(--dh-navy) 0%, var(--dh-navy-deep) 100%);
+}
+.dah-landing-image-frame-art .dh-motif { max-width: 100%; }
