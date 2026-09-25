@@ -2,6 +2,12 @@
 
 All notable repository changes are documented here.
 
+## 2026-09-25
+
+### Homepage hero seam
+
+- At desktop widths (1101px and up) the navy copy panel no longer meets the house photograph in a hard vertical line. A decorative `.fh-hero-media::before` layer carries the panel navy (`#102b4e`) into the left 46% of the photo: solid for the first 8%, then an eased (smoothstep) fade to fully transparent, so the seam pixels match the panel exactly and neither end of the ramp reads as an edge. The centre and right of the photo are untouched. CSS only: no markup, image, copy, layout or dependency change; the layer ignores pointer input and sits below the motion toggle. Stacked layouts (1100px and below) keep their existing vertical fade, which already lands exactly on navy.
+
 ## 2026-09-21
 
 ### Homepage quiz

@@ -608,6 +608,37 @@
 }
 /* No overlay at desktop; the mobile rule below turns this on. */
 .fh-hero-fade { display: none; }
+/* Desktop split only: the navy field carries on into the photograph's left
+   edge and eases out well before the house, so there is no hard vertical seam
+   and the centre and right of the photo stay at full clarity. Many eased stops
+   rather than two keep the ramp free of banding. Sits over the still and the
+   clip (z-index 1) but under the motion toggle (z-index 2). */
+@media (min-width: 1101px) {
+  .fh-hero-media::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    z-index: 1;
+    width: 46%;
+    pointer-events: none;
+    /* Solid navy for the first stretch so the seam itself is navy on navy,
+       then a smoothstep falloff: flat at both ends, so neither the start nor
+       the end of the ramp reads as an edge. */
+    background: linear-gradient(90deg,
+      rgb(16 43 78 / 1) 0%,
+      rgb(16 43 78 / 1) 8%,
+      rgb(16 43 78 / .972) 17%,
+      rgb(16 43 78 / .896) 26%,
+      rgb(16 43 78 / .784) 36%,
+      rgb(16 43 78 / .648) 45%,
+      rgb(16 43 78 / .5) 54%,
+      rgb(16 43 78 / .352) 63%,
+      rgb(16 43 78 / .216) 72%,
+      rgb(16 43 78 / .104) 82%,
+      rgb(16 43 78 / .028) 91%,
+      rgb(16 43 78 / 0) 100%);
+  }
+}
 .fh-hero-copy { display: flex; flex-direction: column; gap: 22px; max-width: 620px; }
 .fh-hero-tagline {
   margin: 0;

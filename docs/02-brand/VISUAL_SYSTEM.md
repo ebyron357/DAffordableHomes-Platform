@@ -44,7 +44,7 @@ The client-approved D’Affordable Homes logo direction is the source of truth f
 - Gold is not used for long-form body text.
 - Keyboard focus uses an opaque deep navy inner boundary with a warm gold outer halo. Links, buttons, menus, forms, and calculator controls share this treatment; grouped calculator inputs apply it to the field boundary with `:focus-within` rather than relying on a translucent ring.
 - Green is not used as the only signal for success or completion; pair it with text or an icon.
-- Avoid large decorative gradients in website interface surfaces. Logo artwork may retain its approved blended color treatment when supplied as a final brand asset.
+- Avoid large decorative gradients in website interface surfaces. Logo artwork may retain its approved blended color treatment when supplied as a final brand asset. The homepage hero's navy-to-photo edge blend is not a decorative gradient: it is a narrow directional scrim (desktop only, left 46% of the photograph, fully transparent before the photo's centre) that removes the seam between the navy panel and the image.
 - Avoid black-and-gold luxury styling, neon colors, unrelated purple or red brand colors, and weak low-contrast text.
 - Meaning is never carried by color alone.
 
