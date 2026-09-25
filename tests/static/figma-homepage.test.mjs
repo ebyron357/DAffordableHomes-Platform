@@ -293,3 +293,16 @@ test("interior routes carry the brand too", () => {
   assert.match(eyebrow, /tone = "accent"/);
   assert.match(eyebrow, /gold: "text-\[#e6bd55\]"/);
 });
+
+test('the homepage mobile menu can be dismissed from the keyboard', () => {
+  const header = readFileSync('apps/web/components/home/figma-home-header.tsx', 'utf8');
+
+  // This panel locks body scroll while open, so a keyboard user who cannot
+  // dismiss it is stranded on a page that will not scroll. Escape closes it and
+  // returns focus to the toggle; without the focus move, focus falls to the
+  // document and the visitor restarts from the top of the page.
+  assert.match(header, /event\.key !== "Escape"/);
+  assert.match(header, /toggleRef\.current\?\.focus\(\)/);
+  assert.match(header, /ref=\{toggleRef\}/);
+  assert.match(header, /removeEventListener\("keydown"/, 'the Escape listener must be torn down');
+});

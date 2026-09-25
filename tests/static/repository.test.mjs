@@ -90,6 +90,16 @@ test('application shell includes core accessibility landmarks', () => {
   assert.match(header, /<nav aria-label="Primary"/);
   assert.match(header, /aria-expanded=/);
   assert.match(header, /aria-controls="mobile-menu"/);
+
+  // The mobile panel renders after the toggle in source order, so a keyboard
+  // user who opens it and changes their mind needs a way back: Escape closes
+  // it and returns focus to the control that opened it. Without the focus
+  // move, closing the panel drops focus to the document and the visitor
+  // restarts from the top of the page.
+  assert.match(header, /event\.key !== "Escape"/);
+  assert.match(header, /toggleRef\.current\?\.focus\(\)/);
+  assert.match(header, /<button ref=\{toggleRef\}/);
+  assert.match(header, /removeEventListener\("keydown"/, 'the Escape listener must be torn down');
 });
 
 test('clean-checkout typechecking uses Next-managed route declarations', () => {
@@ -105,6 +115,16 @@ test('clean-checkout typechecking uses Next-managed route declarations', () => {
   assert.equal(existsSync('apps/web/scripts/restore-next-env.mjs'), false);
   assert.match(rootPackage.scripts['test:all'], /(?:^|&&\s*)npm run typecheck(?:\s*&&|$)/);
   assert.match(workflow, /pnpm test:all/);
+
+  // The browser gates must run in CI. They were local-only until the
+  // `runtime-qa` job existed, which meant contrast, touch targets, route
+  // status, console errors, the quiz and portrait crops were all asserted by
+  // scripts that nothing ran on a pull request. A gate that does not run in CI
+  // does not gate, so a regression here is a release-visible regression.
+  for (const gate of ['pnpm qa:contrast', 'pnpm qa:audit', 'pnpm qa:quiz', 'pnpm qa:faces']) {
+    assert.ok(workflow.includes(gate), `${gate} must run in CI`);
+  }
+  assert.match(workflow, /scripts\/qa\/serve\.sh/, 'the browser gates need a served build');
   assert.equal(vercel.framework, 'nextjs');
   assert.equal(vercel.buildCommand, 'pnpm build');
   assert.equal(vercel.outputDirectory, 'apps/web/.next');

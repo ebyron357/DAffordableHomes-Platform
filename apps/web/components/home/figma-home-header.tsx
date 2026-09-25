@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Menu, X } from "lucide-react"
 import { FIGMA_HOME_CTA, FIGMA_HOME_NAV } from "@/lib/figma-home"
 
@@ -14,6 +14,7 @@ function isActivePath(pathname: string, href: string): boolean {
 export function FigmaHomeHeader() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const toggleRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const desktopQuery = window.matchMedia("(min-width: 900px)")
@@ -30,6 +31,25 @@ export function FigmaHomeHeader() {
     return () => {
       document.body.style.overflow = ""
     }
+  }, [open])
+
+  /**
+   * Escape closes the menu and returns focus to the control that opened it.
+   *
+   * This panel also locks body scroll while it is open, so a keyboard user who
+   * cannot dismiss it is left on a page that will not scroll. Escape is the
+   * expected way out of an overlay; without the focus move, closing it drops
+   * focus to the document and the visitor restarts from the top of the page.
+   */
+  useEffect(() => {
+    if (!open) return
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key !== "Escape") return
+      setOpen(false)
+      toggleRef.current?.focus()
+    }
+    document.addEventListener("keydown", onKeyDown)
+    return () => document.removeEventListener("keydown", onKeyDown)
   }, [open])
 
   return (
@@ -71,6 +91,7 @@ export function FigmaHomeHeader() {
         </Link>
 
         <button
+          ref={toggleRef}
           type="button"
           className="fh-menu-toggle"
           aria-expanded={open}
