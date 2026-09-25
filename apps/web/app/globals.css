@@ -512,20 +512,42 @@
   align-items: center;
   padding: 96px 48px 128px 0;
 }
-.fh-hero-media { grid-column: 3 / 5; position: relative; min-height: 600px; }
-/* The wash along the seam. Wide enough that the brick never meets the navy
-   as a hard vertical line, narrow enough that the house is untouched. */
+/* --fh-hero-wash: width of the seam wash, shared by both pseudo-elements
+   below. A share of the frame, capped so the wider landscape still at large
+   screens keeps the house's left wing out of the ramp. */
+.fh-hero-media { grid-column: 3 / 5; position: relative; min-height: 600px; --fh-hero-wash: min(36%, 300px); }
+/* The wash along the seam: the navy field carried into the photograph so the
+   two never meet as a vertical line. It is sized to the frame, not in pixels,
+   so it tapers across a similar share of the image at every split width
+   (see --fh-hero-wash), and stops short of the house. Solid for the first few percent, so the
+   seam itself is navy on navy, then a smoothstep falloff — flat at both
+   ends, so neither the start nor the end of the ramp reads as an edge. */
 .fh-hero-media::before {
   content: "";
   position: absolute;
   inset: 0 auto 0 0;
   z-index: 1;
-  width: 180px;
-  background: linear-gradient(90deg, var(--fh-navy) 0%, rgba(16,43,78,.72) 32%, rgba(16,43,78,.28) 68%, transparent 100%);
+  width: var(--fh-hero-wash);
+  background: linear-gradient(90deg,
+    var(--fh-navy) 0%,
+    var(--fh-navy) 6%,
+    rgb(16 43 78 / .972) 15%,
+    rgb(16 43 78 / .896) 25%,
+    rgb(16 43 78 / .784) 34%,
+    rgb(16 43 78 / .648) 44%,
+    rgb(16 43 78 / .5) 53%,
+    rgb(16 43 78 / .352) 62%,
+    rgb(16 43 78 / .216) 72%,
+    rgb(16 43 78 / .104) 81%,
+    rgb(16 43 78 / .028) 91%,
+    rgb(16 43 78 / 0) 100%);
   pointer-events: none;
 }
 /* Low vignette: gives the bottom of the frame weight against the teal band
-   beneath. Never reaches the roofline. */
+   beneath. Never reaches the roofline. Masked in from the left over the same
+   span as the wash above: the vignette is darker than the navy field, so at
+   full strength along the seam it drew a step in the lower third where the
+   photograph meets the panel. */
 .fh-hero-media::after {
   content: "";
   position: absolute;
@@ -533,6 +555,8 @@
   z-index: 1;
   height: 34%;
   background: linear-gradient(0deg, rgba(11,30,56,.58) 0%, rgba(11,30,56,.22) 55%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 var(--fh-hero-wash));
+  mask-image: linear-gradient(90deg, transparent 0%, #000 var(--fh-hero-wash));
   pointer-events: none;
 }
 

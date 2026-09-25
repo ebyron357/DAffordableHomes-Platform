@@ -2,6 +2,14 @@
 
 All notable repository changes are documented here.
 
+## 2026-09-25
+
+### Homepage hero seam
+
+- The navy copy field no longer meets the house photograph in a hard vertical line. The existing `.fh-hero-media::before` wash was a fixed 180px with a fast linear falloff, so the bright sky and tree reappeared within a few dozen pixels of the panel. It is now sized to the frame (`--fh-hero-wash: min(36%, 300px)`): solid navy for its first 6%, then an eleven-stop smoothstep falloff to fully transparent, so neither end of the ramp reads as an edge and the house stays outside it at every split width.
+- The existing `.fh-hero-media::after` bottom vignette is darker than the navy field and ran the full width of the photograph, which drew a darker step along the lower third of the seam. It is now masked in from the left over the same span as the wash; everywhere else it is unchanged.
+- CSS only. The photograph, the portrait/landscape still selection, layout, typography and CTA placement are unchanged. The stacked layout (below 900px) already disables both pseudo-elements and renders pixel-identical to before.
+
 ## 2026-09-24
 
 ### Homepage hero image delivery

@@ -219,8 +219,13 @@ test("the hero is one full-bleed composition, not a boxed column beside a pictur
   // spans into the right gutter so it bleeds to the viewport edge.
   assert.match(css, /\.fh-hero \{[^}]*grid-template-columns: minmax\(24px, 1fr\) minmax\(0, 564px\) minmax\(0, 692px\) minmax\(24px, 1fr\);/);
   assert.match(css, /\.fh-hero-media \{ grid-column: 3 \/ 5;/);
-  // The seam is blended, not cut, and the wash never covers the subject.
-  assert.match(css, /\.fh-hero-media::before \{[^}]*width: 180px;/);
+  // The seam is blended, not cut, and the wash never covers the subject:
+  // solid navy at the panel edge, fully transparent at its far end, and a
+  // width capped well short of the house. The low vignette is masked in over
+  // the same span so it cannot draw a darker step along the seam.
+  assert.match(css, /\.fh-hero-media \{[^}]*--fh-hero-wash: min\(36%, 300px\);/);
+  assert.match(css, /\.fh-hero-media::before \{[^}]*width: var\(--fh-hero-wash\);[^}]*var\(--fh-navy\) 0%,[^}]*rgb\(16 43 78 \/ 0\) 100%\)/);
+  assert.match(css, /\.fh-hero-media::after \{[^}]*mask-image: linear-gradient\(90deg, transparent 0%, #000 var\(--fh-hero-wash\)\);/);
 
   // The first viewport names the person: Debra's byline with the approved
   // portrait at the register's crop rule.
