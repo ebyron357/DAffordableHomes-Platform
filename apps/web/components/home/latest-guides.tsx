@@ -3,6 +3,7 @@ import Link from "next/link"
 
 import { Container } from "@/components/ui/container"
 import { getArticleSummaries } from "@/lib/cms/articles"
+import { safeImageSrc } from "@/lib/cms/links"
 
 /**
  * Surfaces the newest CMS-published field guides on the homepage so editorial
@@ -27,28 +28,35 @@ export async function LatestGuides() {
         </div>
 
         <ul className="guide-grid">
-          {articles.map((article) => (
+          {articles.map((article) => {
+            const thumb = safeImageSrc(article.featuredImage.src)
+            return (
             <li key={article._id}>
               <Link href={`/blog/${article.slug}`} className="guide-card">
-                <span className="guide-thumb">
-                  <Image
-                    src={article.featuredImage.src}
-                    alt={article.featuredImage.alt}
-                    fill
-                    sizes="(min-width: 901px) 30vw, (min-width: 761px) 45vw, 100vw"
-                    className="object-cover"
-                    style={
-                      article.featuredImage.focalPoint ? { objectPosition: article.featuredImage.focalPoint } : undefined
-                    }
-                  />
-                </span>
+                {thumb && (
+                  <span className="guide-thumb">
+                    <Image
+                      src={thumb}
+                      alt={article.featuredImage.alt}
+                      fill
+                      sizes="(min-width: 901px) 30vw, (min-width: 761px) 45vw, 100vw"
+                      className="object-cover"
+                      style={
+                        article.featuredImage.focalPoint
+                          ? { objectPosition: article.featuredImage.focalPoint }
+                          : undefined
+                      }
+                    />
+                  </span>
+                )}
                 <span className="pathway-kicker">{article.eyebrow ?? article.category.title}</span>
                 <h3>{article.title}</h3>
                 <p>{article.excerpt}</p>
                 <span className="guide-meta">{article.readingTimeMinutes} minute read</span>
               </Link>
             </li>
-          ))}
+            )
+          })}
         </ul>
 
         <p className="guide-footer">

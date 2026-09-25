@@ -26,3 +26,24 @@ export function safeExternalUrl(value: string | undefined): string | null {
     return null
   }
 }
+
+/**
+ * Image sources must resolve somewhere `next/image` is configured to load from:
+ * the Sanity CDN for uploaded assets, or a same-origin path for an approved
+ * repository asset. Any other host throws at render time and would take the
+ * whole article down, so an unusable source is dropped and the caller renders
+ * without the image instead.
+ */
+export function safeImageSrc(value: string | undefined): string | null {
+  const raw = (value ?? "").trim()
+  if (!raw) return null
+
+  if (raw.startsWith("/")) {
+    const path = safeInternalPath(raw, "")
+    return path === "" ? null : path
+  }
+
+  const url = safeExternalUrl(raw)
+  if (!url) return null
+  return new URL(url).hostname === "cdn.sanity.io" ? url : null
+}

@@ -11,7 +11,7 @@ import { getRelatedArticles } from "@/lib/cms/articles"
 import { buildArticleSchema, buildBreadcrumbSchema, buildFaqSchema } from "@/lib/cms/structured-data"
 import { SITE } from "@/lib/site"
 import { formatArticleDate } from "@/lib/format"
-import { safeInternalPath } from "@/lib/cms/links"
+import { safeImageSrc, safeInternalPath } from "@/lib/cms/links"
 import type { Article } from "@/lib/cms/types"
 
 /**
@@ -23,6 +23,7 @@ export async function ArticleView({ article, isDraft = false }: { article: Artic
   const related = await getRelatedArticles(article)
   const faqSchema = buildFaqSchema(article)
   const author = article.author.displayName || SITE.realtorName
+  const featuredSrc = safeImageSrc(article.featuredImage.src)
 
   return (
     <>
@@ -113,19 +114,21 @@ export async function ArticleView({ article, isDraft = false }: { article: Artic
                 </div>
               </div>
 
-              <figure className="relative aspect-[4/5] overflow-hidden rounded-xl bg-muted sm:aspect-[3/2] lg:aspect-[4/5]">
-                <Image
-                  src={article.featuredImage.src}
-                  alt={article.featuredImage.alt}
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 34rem, (min-width: 640px) 90vw, 100vw"
-                  className="object-cover"
-                  style={
-                    article.featuredImage.focalPoint ? { objectPosition: article.featuredImage.focalPoint } : undefined
-                  }
-                />
-              </figure>
+              {featuredSrc && (
+                <figure className="relative aspect-[4/5] overflow-hidden rounded-xl bg-muted sm:aspect-[3/2] lg:aspect-[4/5]">
+                  <Image
+                    src={featuredSrc}
+                    alt={article.featuredImage.alt}
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 34rem, (min-width: 640px) 90vw, 100vw"
+                    className="object-cover"
+                    style={
+                      article.featuredImage.focalPoint ? { objectPosition: article.featuredImage.focalPoint } : undefined
+                    }
+                  />
+                </figure>
+              )}
             </div>
           </Container>
         </header>
@@ -262,23 +265,27 @@ export async function ArticleView({ article, isDraft = false }: { article: Artic
               <ul
                 className={`mt-10 grid gap-8 sm:grid-cols-2 ${related.length >= 3 ? "lg:grid-cols-3" : "lg:max-w-4xl"}`}
               >
-                {related.map((summary) => (
+                {related.map((summary) => {
+                  const thumb = safeImageSrc(summary.featuredImage.src)
+                  return (
                   <li key={summary._id}>
                     <Link href={`/blog/${summary.slug}`} className="group flex h-full flex-col">
-                      <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-muted">
-                        <Image
-                          src={summary.featuredImage.src}
-                          alt={summary.featuredImage.alt}
-                          fill
-                          sizes="(min-width: 1024px) 24rem, (min-width: 640px) 45vw, 100vw"
-                          className="object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-                          style={
-                            summary.featuredImage.focalPoint
-                              ? { objectPosition: summary.featuredImage.focalPoint }
-                              : undefined
-                          }
-                        />
-                      </div>
+                      {thumb && (
+                        <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-muted">
+                          <Image
+                            src={thumb}
+                            alt={summary.featuredImage.alt}
+                            fill
+                            sizes="(min-width: 1024px) 24rem, (min-width: 640px) 45vw, 100vw"
+                            className="object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                            style={
+                              summary.featuredImage.focalPoint
+                                ? { objectPosition: summary.featuredImage.focalPoint }
+                                : undefined
+                            }
+                          />
+                        </div>
+                      )}
                       <p className="mt-5 text-xs font-semibold uppercase tracking-[0.14em] text-accent">
                         {summary.eyebrow ?? summary.category.title}
                       </p>
@@ -289,7 +296,8 @@ export async function ArticleView({ article, isDraft = false }: { article: Artic
                       <p className="mt-4 text-sm text-muted-foreground">{summary.readingTimeMinutes} minute read</p>
                     </Link>
                   </li>
-                ))}
+                  )
+                })}
               </ul>
             </Container>
           </section>

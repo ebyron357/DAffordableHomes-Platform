@@ -135,6 +135,10 @@ test('all three articles are migrated, published, and keep their exact URLs', ()
     assert.ok(article.excerpt.length > 40);
     assert.ok(article.seoDescription.length > 40);
     assert.ok(article.publishedAt && article.reviewedAt);
+    assert.ok(
+      new Date(article.reviewedAt) >= new Date(article.publishedAt),
+      `${article.slug.current}: reviewedAt must not precede publishedAt`
+    );
     assert.ok(Number.isInteger(article.readingTimeMinutes) && article.readingTimeMinutes > 0);
     assert.ok(article.body.length > 10, `${article.slug.current} body looks truncated`);
     assert.ok(article.faqs.length >= 3);
@@ -307,6 +311,20 @@ test('CMS-supplied links are normalised before they become navigation targets', 
     assert.equal(module.safeInternalPath('/\\evil.example.com'), '/');
     assert.equal(module.safeExternalUrl('http://example.com'), null);
     assert.equal(module.safeExternalUrl('javascript:alert(1)'), null);
+
+    // Image sources must resolve to a host next/image is configured for, or be
+    // dropped. An unconfigured host throws at render and takes the page down.
+    assert.equal(module.safeImageSrc('/images/hero-homeowner.png'), '/images/hero-homeowner.png');
+    assert.equal(
+      module.safeImageSrc('https://cdn.sanity.io/images/p/dataset/abc-800x600.jpg'),
+      'https://cdn.sanity.io/images/p/dataset/abc-800x600.jpg'
+    );
+    assert.equal(module.safeImageSrc('https://evil.example.com/x.png'), null);
+    assert.equal(module.safeImageSrc('http://cdn.sanity.io/images/x.png'), null);
+    assert.equal(module.safeImageSrc('//evil.example.com/x.png'), null);
+    assert.equal(module.safeImageSrc('javascript:alert(1)'), null);
+    assert.equal(module.safeImageSrc(undefined), null);
+    assert.equal(module.safeImageSrc(''), null);
   }
 
   for (const file of [
@@ -318,6 +336,38 @@ test('CMS-supplied links are normalised before they become navigation targets', 
   ]) {
     assert.match(read(file), /safeInternalPath|safeExternalUrl/, `${file} must normalise CMS-supplied links`);
   }
+
+  // Every component that renders a CMS-supplied image must route it through the
+  // guard, and none may hand a raw `featuredImage.src` or block `src` to next/image.
+  for (const file of [
+    'apps/web/components/blog/article-body.tsx',
+    'apps/web/components/blog/article-view.tsx',
+    'apps/web/components/home/latest-guides.tsx',
+  ]) {
+    const source = read(file);
+    assert.match(source, /safeImageSrc/, `${file} must validate CMS image sources`);
+
+    // Inspect the `src` of each next/image element specifically. Intermediate
+    // components may take a raw value and validate it themselves, so only what
+    // reaches <Image> is asserted here.
+    for (const element of source.match(/<Image\b[\s\S]*?\/>/g) ?? []) {
+      const src = element.match(/\bsrc=\{([^}]*)\}/)?.[1]?.trim();
+      assert.ok(src, `${file}: an <Image> is missing a src expression`);
+      assert.equal(
+        /^(?:article|summary|block|image)\.(?:featuredImage\.)?src$/.test(src),
+        false,
+        `${file}: <Image src={${src}}> is an unvalidated CMS source; pass it through safeImageSrc`
+      );
+    }
+  }
+
+  // The Studio rejects a non-site-relative path up front, so editors are told
+  // before an unusable value is ever saved.
+  assert.match(
+    read('apps/studio/schemas/blocks.ts'),
+    /site-relative path beginning with a single slash/,
+    'the image src field must validate that the path is site-relative'
+  );
 });
 
 test('a Content Lake outage degrades to the bootstrap source instead of throwing', () => {
@@ -383,12 +433,30 @@ test('curated related articles cannot link to unpublished documents', () => {
 test('a failed draft read never renders published content as a draft', () => {
   const articles = read('apps/web/lib/cms/articles.ts');
   assert.match(articles, /draftOnly\?: boolean/);
-  // Every draft-only branch must return null rather than falling through.
-  assert.ok(
-    (articles.match(/if \(options\.draftOnly\) return null/g) ?? []).length >= 3,
-    'draftOnly must short-circuit on missing client, missing document, and read failure'
+
+  // Both draft entry points are terminal. `/blog/[slug]` passes `draft: true`
+  // whenever the draft cookie is set and then renders the "Draft preview"
+  // banner, so a fallthrough to the published client on any miss, outage, or
+  // read failure would label the published document as unpublished work. The
+  // draft branch must therefore return out of the function on every path and
+  // never reach the published client below it.
+  const draftStart = articles.indexOf('if (options.draft || options.draftOnly) {');
+  assert.ok(draftStart > 0, 'getArticle must branch on the draft options');
+  // The published client that follows the draft branch inside getArticle — not
+  // the earlier uses of the same call in the list queries above it.
+  const publishedClient = articles.indexOf('const client = getSanityClient()', draftStart);
+  assert.ok(publishedClient > draftStart, 'the draft branch must precede the published client');
+  const draftBranch = articles.slice(draftStart, publishedClient);
+  assert.match(draftBranch, /if \(!preview\) return null/, 'a missing preview client must return null');
+  assert.match(draftBranch, /catch \(error\) \{[\s\S]*?return null/, 'a failed draft read must return null');
+  assert.equal(
+    /if \(options\.draftOnly\) return null/.test(draftBranch),
+    false,
+    'draft handling must not be narrowed to draftOnly; draft: true must short-circuit too'
   );
 
+  const blog = read('apps/web/app/blog/[slug]/page.tsx');
+  assert.match(blog, /getArticle\(slug, \{ draft: isDraft \}\)/);
   const preview = read('apps/web/app/preview/[slug]/page.tsx');
   assert.match(preview, /getArticle\(slug, \{ draftOnly: true \}\)/);
 });

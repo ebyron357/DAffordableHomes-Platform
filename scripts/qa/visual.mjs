@@ -94,6 +94,9 @@ const AUDIT = `() => {
     previous = level;
   }
 
+  // Documented requirement (see the header above): 44px minimum on mobile.
+  const MIN_TOUCH_TARGET_PX = 44;
+
   for (const control of document.querySelectorAll('a, button, [role="button"]')) {
     if (control.querySelector('a, button, [role="button"]')) {
       problems.push('nested interactive control inside <' + control.tagName.toLowerCase() + '>');
@@ -107,7 +110,7 @@ const AUDIT = `() => {
       if (style.display === 'none' || style.visibility === 'hidden') continue;
       const box = control.getBoundingClientRect();
       if (box.width === 0 || box.height === 0) continue;
-      if (box.height < 32) {
+      if (box.height < MIN_TOUCH_TARGET_PX) {
         problems.push('small touch target ' + Math.round(box.width) + 'x' + Math.round(box.height) + ' on "' + control.textContent.trim().slice(0, 30) + '"');
         break;
       }

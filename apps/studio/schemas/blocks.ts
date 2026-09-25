@@ -28,6 +28,17 @@ export const articleImage = defineType({
       title: "Approved repository asset path",
       type: "string",
       description: "Use for approved assets already committed to the app, e.g. /images/hero-homeowner.png.",
+      // The app only loads images from its own origin and the Sanity CDN, so a
+      // link to any other site cannot render. Upload the file instead.
+      validation: (rule) =>
+        rule.custom((value?: string) => {
+          const path = (value ?? "").trim()
+          if (path === "") return true
+          if (!path.startsWith("/") || path.startsWith("//")) {
+            return "Enter a site-relative path beginning with a single slash, e.g. /images/hero-homeowner.png. To use an image from elsewhere, upload it above."
+          }
+          return true
+        }),
     }),
     requiredAlt,
     defineField({ name: "caption", type: "string" }),

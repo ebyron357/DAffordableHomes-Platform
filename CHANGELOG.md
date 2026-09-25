@@ -4,6 +4,8 @@ All notable repository changes are documented here.
 
 ## 2026-09-25
 
+- Closed four review findings on the CMS closeout. A draft preview that missed, errored, or had no preview client fell through to the published document and rendered it under the "Draft preview" banner; every draft path now ends in the draft branch. CMS-supplied image sources are validated against the hosts `next/image` is configured for, in the Studio and again at every render site, so an off-host path can no longer fail an article render. The content build now rejects a review date earlier than the publish date, matching the Studio schema. The visual QA touch-target floor was 32px while the suite documented and reported 44px; it now enforces 44px, which the site already meets.
+
 - Merged the ambient-motion homepage surface and the vendored Higgsfield skills from `main` into the CMS closeout. The homepage "Local guidance" section now renders `AmbientMotion` in place of the still `Image`; the closeout's split of the closing consultation band out of `ControlledHomeSections` is preserved, so the CMS field guides still sit ahead of it.
 
 ## 2026-09-22

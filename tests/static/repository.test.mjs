@@ -90,6 +90,22 @@ test('clean-checkout typechecking uses Next-managed route declarations', () => {
   assert.equal(vercel.outputDirectory, 'apps/web/.next');
 });
 
+test('the release QA gates match the standards they claim to enforce', () => {
+  const visual = readFileSync('scripts/qa/visual.mjs', 'utf8');
+
+  // The suite documents a 44px minimum touch target. A weaker assertion here
+  // would let a 32-43px control pass a check that reports it as verified.
+  assert.match(visual, /const MIN_TOUCH_TARGET_PX = 44;/);
+  assert.match(visual, /box\.height < MIN_TOUCH_TARGET_PX/);
+  assert.equal(/box\.height < 32\b/.test(visual), false, 'the touch-target floor must not be below 44px');
+
+  // The Studio rejects a review date before the publish date; the content build
+  // must reject it too, or an import can emit metadata the Studio would refuse.
+  const build = readFileSync('scripts/cms/build-content.mjs', 'utf8');
+  assert.match(build, /cannot precede publishedAt/);
+  assert.match(build, /new Date\(article\.reviewedAt\) >= new Date\(article\.publishedAt\)/);
+});
+
 test('public production routes use the Manus-aligned canonical paths and preserve redirects', () => {
   const sitemap = readFileSync('apps/web/app/sitemap.ts', 'utf8');
   const redirects = readFileSync('apps/web/next.config.mjs', 'utf8');

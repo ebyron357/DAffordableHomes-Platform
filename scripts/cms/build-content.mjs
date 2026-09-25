@@ -53,6 +53,15 @@ function validate() {
     assert(Boolean(article.seoDescription), `${label}: seoDescription is required`);
     assert(Boolean(article.publishedAt), `${label}: publishedAt is required`);
     assert(Boolean(article.reviewedAt), `${label}: reviewedAt is required`);
+    // The Studio schema rejects a review date before the publish date. The build
+    // must reject it too, or an import or hand-edited source can emit metadata
+    // the Studio would never have accepted.
+    if (article.publishedAt && article.reviewedAt) {
+      assert(
+        new Date(article.reviewedAt) >= new Date(article.publishedAt),
+        `${label}: reviewedAt (${article.reviewedAt}) cannot precede publishedAt (${article.publishedAt})`
+      );
+    }
     assert(Number.isFinite(article.readingTimeMinutes), `${label}: readingTimeMinutes is required`);
     assert(Boolean(article.featuredImage?.src), `${label}: featuredImage is required`);
     assert(

@@ -4,7 +4,7 @@ import { ArrowRight, Check, CircleAlert, Info, Quote, Sparkles, X } from "lucide
 
 import { RichText } from "@/components/blog/portable-text"
 import { Button } from "@/components/ui/button"
-import { safeExternalUrl, safeInternalPath } from "@/lib/cms/links"
+import { safeExternalUrl, safeImageSrc, safeInternalPath } from "@/lib/cms/links"
 import type {
   ArticleBodyBlock,
   CalculatorCtaBlock,
@@ -86,9 +86,14 @@ function EditorialImage({
   sizes: string
   priority?: boolean
 }) {
+  // An unloadable host would throw and take the article down with it, so an
+  // unusable source leaves the frame empty rather than failing the page.
+  const safe = safeImageSrc(src)
+  if (!safe) return null
+
   return (
     <Image
-      src={src}
+      src={safe}
       alt={alt}
       fill
       priority={priority}

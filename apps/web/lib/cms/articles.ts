@@ -107,22 +107,20 @@ export async function getArticle(
     return options.draftOnly ? null : bootstrapArticleBySlug(slug)
   }
 
+  // Any draft context is terminal: every miss, outage, and failure returns null.
+  // Falling through to the published client would render the published document
+  // under a "Draft preview" banner, telling an editor their unpublished work is
+  // live when it is not. A miss here means the slug does not exist at all, since
+  // the preview query matches drafts and published documents alike.
   if (options.draft || options.draftOnly) {
     const preview = getSanityPreviewClient()
-    if (!preview) {
-      // No preview client: never present published content as a draft.
-      if (options.draftOnly) return null
-    } else {
-      try {
-        const draft = (await preview.fetch(anyArticleBySlugQuery, { slug })) as Article | null
-        if (draft) return draft
-        if (options.draftOnly) return null
-      } catch (error) {
-        console.error(`[cms] draft read for "${slug}" failed.`, error)
-        // Falling back to published content here would show the wrong document
-        // under a "draft preview" banner. Fail visibly instead.
-        if (options.draftOnly) return null
-      }
+    if (!preview) return null
+
+    try {
+      return (await preview.fetch(anyArticleBySlugQuery, { slug })) as Article | null
+    } catch (error) {
+      console.error(`[cms] draft read for "${slug}" failed.`, error)
+      return null
     }
   }
 
