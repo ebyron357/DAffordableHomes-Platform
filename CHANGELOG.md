@@ -4,6 +4,19 @@ All notable repository changes are documented here.
 
 ## 2026-09-25
 
+### Accessibility and link fixes (WCAG 2.2 AA)
+
+- Lighthouse and axe found text below 4.5:1 on four templates that the contrast script did not cover. Fixed at the source, with every new pair added to `scripts/check-contrast.mjs`:
+  - Homepage teal field: gold market label and buyer-card eyebrow (2.96:1) and 86–88% white text (4.34–4.47:1) are now white (5.28:1). Gold cannot reach AA anywhere on this teal, which the script already recorded for interior pages.
+  - `--fh-green-deep` moves from `#4d8733` (3.87:1 on the soft band) to `#3f7229` (5.12:1).
+  - Interior chips on teal used a 10% white wash that lifted the field to `#20858f` (4.36:1); the wash now darkens instead (6.40:1).
+  - `/resources` step copy and action text on teal are white.
+  - `/start`: the "Check my starting point" button used the white outline style on a light section (1.36:1, effectively invisible) and now has a dark outline variant; grey labels and footnotes move to `#5f6b73`; teal text on the light band moves from `#087c8a` to `#077783`.
+  - The down-payment planner's "Continue planning" button was white on near-white (1.04:1). `CalculatorActions` takes a `tone` for the surface it sits on.
+- The interior header's logo link no longer overrides its visible text with an `aria-label` (WCAG 2.5.3 label in name).
+- Internal links that went through redirects now point at their destinations: calculator links used `/resources/calculators/*` (308), and `/start` linked `/naca` and `/book`.
+- Result: Lighthouse Accessibility, Best Practices and SEO are 100 on all 33 sitemap pages; desktop Performance is 100 on every template tested.
+
 ### Homepage hero seam
 
 - The navy copy field no longer meets the house photograph in a hard vertical line. The existing `.fh-hero-media::before` wash was a fixed 180px with a fast linear falloff, so the bright sky and tree reappeared within a few dozen pixels of the panel. It is now sized to the frame (`--fh-hero-wash: min(36%, 300px)`): solid navy for its first 6%, then an eleven-stop smoothstep falloff to fully transparent, so neither end of the ramp reads as an edge and the house stays outside it at every split width.

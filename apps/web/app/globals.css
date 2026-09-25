@@ -304,7 +304,7 @@
   --fh-teal-deep: #05616b;
   --fh-teal-bright: #18a9b4;   /* bright teal — energy, links, indicators */
   --fh-green: #66ad45;         /* progress green — the seller/progress field */
-  --fh-green-deep: #4d8733;    /* accessible green for text on light */
+  --fh-green-deep: #3f7229;    /* accessible green for text on light: 5.1:1 on --fh-alt */
   --fh-gold: #bf922d;          /* warm gold — rules, labels, CTA on dark */
   --fh-gold-light: #e6bd55;    /* lightened gold, 4.5:1 on navy */
   --fh-border: #cbd7d6;
@@ -739,7 +739,7 @@
 }
 .fh-trust-list li:first-child { border-left: 0; padding-left: 0; }
 .fh-trust-list strong { font-family: var(--font-sans); font-size: 16px; font-weight: 700; letter-spacing: .01em; }
-.fh-trust-list span { color: rgba(255,255,255,.86); font-size: 14px; line-height: 1.45; }
+.fh-trust-list span { color: var(--fh-white); font-size: 14px; line-height: 1.45; }
 
 /* ----------------------------------------------------------------- sections */
 .fh-section { padding: 96px 0; }
@@ -917,14 +917,15 @@
 .fh-market-feature { transition: background-color .2s ease, transform .22s ease, box-shadow .22s ease; }
 .fh-market-feature:hover { background: var(--fh-teal-deep); transform: translateY(-3px); box-shadow: 0 24px 44px -32px rgba(0,0,0,.8); }
 .fh-market-feature-label {
-  color: var(--fh-gold-light);
+  /* White, not gold: gold cannot reach 4.5:1 anywhere on the teal field. */
+  color: var(--fh-white);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 .fh-market-feature-name { font-family: var(--font-serif); font-size: 44px; font-weight: 600; line-height: 1.05; }
-.fh-market-feature-county { color: rgba(255,255,255,.88); font-size: 15px; }
+.fh-market-feature-county { color: var(--fh-white); font-size: 15px; }
 .fh-market-feature-cta {
   display: inline-flex;
   align-items: center;
@@ -1038,6 +1039,8 @@
 .fh-split-buyer h2 { color: var(--fh-white); }
 .fh-split-seller h2 { color: var(--fh-navy); }
 .fh-split-seller .fh-eyebrow { color: var(--fh-green-deep); }
+/* The on-dark eyebrow is gold for navy; on the teal buyer card it has to be white. */
+.fh-split-buyer .fh-eyebrow-on-dark { color: var(--fh-white); }
 .fh-split-card ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
 .fh-split-card li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; line-height: 1.55; }
 .fh-split-card li svg { flex: 0 0 auto; margin-top: 2px; }
@@ -1629,6 +1632,9 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 .dah-landing-cta-gold:hover { background:#dfb638; }
 .dah-landing-cta-outline { border-color:rgba(255,255,255,.7); color:#fff; background:rgba(16,43,78,.16); }
 .dah-landing-cta-outline:hover { background:rgba(255,255,255,.14); }
+/* The outline button on a light section: white text there measured 1.36:1. */
+.dah-landing-cta-outline-dark { border-color:var(--dah-navy); color:var(--dah-navy); background:transparent; }
+.dah-landing-cta-outline-dark:hover { background:var(--dah-cream); }
 .dah-landing-cta-turquoise { background:var(--dah-turquoise); color:var(--dah-navy); }
 .dah-landing-voice-entry { margin-top:28px; }
 .dah-landing-voice-button { display:inline-flex; max-width:560px; align-items:center; gap:12px; border:0; padding:0; color:#fff; background:transparent; font:inherit; font-size:14px; line-height:1.45; text-align:left; cursor:pointer; }
@@ -1656,11 +1662,11 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 .dah-landing-path-card { min-height:360px; padding:24px 22px 24px 0; border-bottom:1px solid #d8d9d5; }
 .dah-landing-path-card + .dah-landing-path-card { border-left:1px solid #d8d9d5; padding-left:22px; }
 .dah-landing-path-card.is-highlighted { background:#f2f7f5; box-shadow:inset 0 4px 0 var(--dah-gold); }
-.dah-landing-path-topline { display:flex; align-items:center; justify-content:space-between; color:#087c8a; }
-.dah-landing-path-topline span { color:#899299; font-size:12px; font-weight:800; letter-spacing:.12em; }
+.dah-landing-path-topline { display:flex; align-items:center; justify-content:space-between; color:#077783; }
+.dah-landing-path-topline span { color:#5f6b73; font-size:12px; font-weight:800; letter-spacing:.12em; }
 .dah-landing-path-card h3 { margin:34px 0 12px; color:var(--dah-navy); font-size:26px; font-weight:500; line-height:1.1; }
 .dah-landing-path-card p { min-height:132px; margin:0; color:#606b72; font-size:14px; line-height:1.65; }
-.dah-landing-text-button { display:inline-flex; align-items:center; min-height:24px; gap:8px; border:0; padding:0; color:#087c8a; background:transparent; font-family:var(--font-sans); font-size:13px; font-weight:800; text-decoration:none; cursor:pointer; }
+.dah-landing-text-button { display:inline-flex; align-items:center; min-height:24px; gap:8px; border:0; padding:0; color:#077783; background:transparent; font-family:var(--font-sans); font-size:13px; font-weight:800; text-decoration:none; cursor:pointer; }
 .dah-landing-text-button:hover { color:var(--dah-navy); text-decoration:underline; text-underline-offset:4px; }
 .dah-landing-assessment-layout { display:grid; grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr); align-items:start; gap:clamp(42px,8vw,116px); }
 .dah-landing-assessment-intro h2 { margin-top:16px; }
@@ -1677,16 +1683,16 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 .dah-landing-answer { display:flex; min-height:58px; align-items:center; gap:10px; border:1px solid #d8d9d5; padding:12px 14px; color:#39454d; font-size:14px; line-height:1.35; cursor:pointer; transition:border-color .18s ease,background .18s ease; }
 .dah-landing-answer:hover,.dah-landing-answer.is-selected { border-color:var(--dah-gold); background:#f2f7f5; }
 .dah-landing-answer input { width:18px; height:18px; accent-color:var(--dah-gold); }
-.dah-landing-answer svg { margin-left:auto; color:#087c8a; }
+.dah-landing-answer svg { margin-left:auto; color:#077783; }
 .dah-landing-assessment-controls { justify-content:space-between; margin-top:32px; }
 .dah-landing-back-button,.dah-landing-outline-dark { display:inline-flex; min-height:44px; align-items:center; gap:8px; border:0; padding:8px 0; color:#5c6870; background:transparent; font:inherit; font-size:13px; font-weight:800; cursor:pointer; }
 .dah-landing-back-button:disabled { cursor:not-allowed; opacity:.38; }
 .dah-landing-outline-dark { border:1px solid #0b1f33; padding:12px 15px; color:var(--dah-navy); }
-.dah-landing-result-kicker { margin:30px 0 0; color:#087c8a; font-size:12px; font-weight:800; letter-spacing:.14em; }
+.dah-landing-result-kicker { margin:30px 0 0; color:#077783; font-size:12px; font-weight:800; letter-spacing:.14em; }
 .dah-landing-result-body { max-width:630px; margin:14px 0 0; color:#58626a; font-size:16px; line-height:1.7; }
 .dah-landing-disclosure { margin-top:20px; border-left:3px solid var(--dah-gold); padding:12px 14px; color:#69747b; background:#f2f7f5; font-size:12px; line-height:1.55; }
 .dah-landing-result-actions { margin-top:24px; }
-.dah-landing-also { margin:20px 0 0; color:#087c8a; font-size:13px; font-weight:700; }
+.dah-landing-also { margin:20px 0 0; color:#077783; font-size:13px; font-weight:700; }
 .dah-landing-edit-list { margin-top:32px; border-top:1px solid #e0dfd8; }
 .dah-landing-edit-list > p { margin:14px 0 0; color:#8b9499; font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
 .dah-landing-edit-list button { display:flex; width:100%; flex-direction:column; align-items:flex-start; gap:3px; border:0; border-bottom:1px solid #e8e7e1; padding:12px 0; background:transparent; text-align:left; cursor:pointer; }
@@ -1702,9 +1708,9 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
    desktop width and the photograph never appeared; the mobile rule below
    already set `width:100%`, which is why it only showed on small screens. */
 .dah-landing-image-frame-portrait { min-height:500px; width:100%; max-width:440px; margin-inline:auto; }
-.dah-landing-journey { display:flex; flex-wrap:wrap; align-items:center; gap:9px; margin:26px 0; color:#087c8a; font-size:12px; font-weight:800; text-transform:uppercase; }
+.dah-landing-journey { display:flex; flex-wrap:wrap; align-items:center; gap:9px; margin:26px 0; color:#077783; font-size:12px; font-weight:800; text-transform:uppercase; }
 .dah-landing-journey i { color:#a3a9aa; font-style:normal; }
-.dah-landing-footnote { max-width:530px; margin:28px 0 0; color:#7a858a; font-size:12px; line-height:1.55; }
+.dah-landing-footnote { max-width:530px; margin:28px 0 0; color:#5f6b73; font-size:12px; line-height:1.55; }
 .dah-landing-transition-card { display:flex; min-height:230px; flex-direction:column; align-items:flex-start; justify-content:center; gap:20px; border-left:5px solid var(--dah-gold); padding:38px 48px; background:#fff; color:#748087; font-family:var(--font-serif); font-size:25px; }
 .dah-landing-transition-card svg { color:var(--dah-gold); transform:rotate(90deg); }
 .dah-landing-transition-card strong { color:var(--dah-navy); font-size:clamp(28px,3vw,42px); font-weight:500; line-height:1.05; }
@@ -1715,7 +1721,7 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 .dah-landing-process-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:58px 0 0; padding:0; border-top:1px solid #d8d9d5; list-style:none; }
 .dah-landing-process-list li { min-height:220px; padding:24px 28px 0 0; border-bottom:1px solid #d8d9d5; }
 .dah-landing-process-list li + li { border-left:1px solid #d8d9d5; padding-left:28px; }
-.dah-landing-process-list span { color:#087c8a; font-size:12px; font-weight:800; letter-spacing:.12em; }
+.dah-landing-process-list span { color:#077783; font-size:12px; font-weight:800; letter-spacing:.12em; }
 .dah-landing-process-list h3 { margin:40px 0 10px; color:var(--dah-navy); font-size:25px; font-weight:500; }
 .dah-landing-process-list p { margin:0; color:#69747b; font-size:14px; line-height:1.6; }
 .dah-landing-faq { background:#fbfbfa; }
@@ -1802,13 +1808,13 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
   line-height: 1.15;
 }
 .resource-step:hover .resource-step-title { text-decoration: underline; text-underline-offset: 4px; }
-.resource-step-copy { max-width: 68ch; color: rgba(255,255,255,.88); font-size: 16px; line-height: 1.7; }
+.resource-step-copy { max-width: 68ch; color: #ffffff; font-size: 16px; line-height: 1.7; }
 .resource-step-action {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   min-height: 24px;
-  color: #a9e7ee;
+  color: #ffffff;
   font-size: 14px;
   font-weight: 700;
 }
@@ -2181,7 +2187,7 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
    bordered boxes. Paired with the roofline ornament, which draws the same
    four shapes the list names. */
 .dh-chips { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
-.dh-chips li { display: flex; align-items: center; gap: 13px; padding: 17px 20px; border-left: 3px solid var(--dh-gold); background: rgba(255,255,255,.1); color: #fff; font-size: 15px; font-weight: 600; line-height: 1.4; }
+.dh-chips li { display: flex; align-items: center; gap: 13px; padding: 17px 20px; border-left: 3px solid var(--dh-gold); background: rgba(0,0,0,.12); color: #fff; font-size: 15px; font-weight: 600; line-height: 1.4; }
 .dh-chips svg { flex-shrink: 0; width: 18px; height: 18px; color: #ffffff; }
 .dh-band-white .dh-chips li, .dh-band-alt .dh-chips li, .dh-band-page .dh-chips li { background: #fff; border-left-color: var(--dh-teal); color: var(--dh-ink); }
 .dh-band-white .dh-chips svg, .dh-band-alt .dh-chips svg, .dh-band-page .dh-chips svg { color: var(--dh-teal); }

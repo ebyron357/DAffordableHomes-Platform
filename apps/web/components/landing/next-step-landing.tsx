@@ -165,7 +165,7 @@ function deviceClass(): string {
   return window.matchMedia("(max-width: 767px)").matches ? "mobile" : window.matchMedia("(max-width: 1023px)").matches ? "tablet" : "desktop"
 }
 
-function ctaClass(tone: "gold" | "outline" | "turquoise" = "gold"): string {
+function ctaClass(tone: "gold" | "outline" | "outline-dark" | "turquoise" = "gold"): string {
   return `dah-landing-cta dah-landing-cta-${tone}`
 }
 
@@ -402,11 +402,11 @@ export function NextStepLanding() {
     submitLead,
     openScheduler: () => {
       trackEvent("schedule_opened", { source: "next-step" })
-      window.location.assign("/book")
+      window.location.assign("/consultation")
     },
     scheduleConsultation: () => {
       trackEvent("schedule_opened", { source: "next-step" })
-      window.location.assign("/book")
+      window.location.assign("/consultation")
     },
   }
 
@@ -564,7 +564,7 @@ export function NextStepLanding() {
               would walk into. The linework says "residential real estate" and claims
               nothing. */}
           <div className="dah-landing-image-frame dah-landing-image-frame-art"><BrandMotif variant="roofline" className="dh-motif" /></div>
-          <div><p className="dah-landing-eyebrow">NACA EDUCATION</p><h2 id="naca-heading">Considering NACA in Dallas? Start with understanding the process.</h2><p className="dah-landing-copy">NACA can offer significant homeownership benefits, but it isn’t simply a shortcut to buying a house. The process includes education, counseling, documentation, qualification, home selection, and mortgage processing.</p><div className="dah-landing-journey" aria-label="NACA journey"><span>Learn</span><i>→</i><span>Prepare</span><i>→</i><span>NACA process</span><i>→</i><span>Home search</span><i>→</i><span>Purchase</span></div><Link href="/naca" className="dah-landing-text-button">Explore NACA with Debra <ArrowRight size={16} aria-hidden="true" /></Link><p className="dah-landing-footnote">D’Affordable Homes does not determine NACA qualification, mortgage approval, rates, terms, or eligibility.</p></div>
+          <div><p className="dah-landing-eyebrow">NACA EDUCATION</p><h2 id="naca-heading">Considering NACA in Dallas? Start with understanding the process.</h2><p className="dah-landing-copy">NACA can offer significant homeownership benefits, but it isn’t simply a shortcut to buying a house. The process includes education, counseling, documentation, qualification, home selection, and mortgage processing.</p><div className="dah-landing-journey" aria-label="NACA journey"><span>Learn</span><i>→</i><span>Prepare</span><i>→</i><span>NACA process</span><i>→</i><span>Home search</span><i>→</i><span>Purchase</span></div><Link href="/programs/naca" className="dah-landing-text-button">Explore NACA with Debra <ArrowRight size={16} aria-hidden="true" /></Link><p className="dah-landing-footnote">D’Affordable Homes does not determine NACA qualification, mortgage approval, rates, terms, or eligibility.</p></div>
         </div>
       </section>
 
@@ -585,7 +585,7 @@ export function NextStepLanding() {
       <section id="explore" className="dah-landing-section" aria-labelledby="explore-heading">
         <div className="dah-landing-container dah-landing-two-column">
           <div className="dah-landing-image-frame dah-landing-image-frame-short"><Image src="/manus-storage/home-keys-moment_20083d77.jpg" alt="A homeowner holding keys at the doorway of a house" fill sizes="(max-width: 800px) 100vw, 50vw" loading="lazy" /></div>
-          <div><p className="dah-landing-eyebrow">LOCAL DFW OPTIONS</p><h2 id="explore-heading">NACA isn’t the only homeownership path in DFW.</h2><p className="dah-landing-copy">Depending on your location and circumstances, local or specialized homebuyer-assistance programs may also deserve investigation. Start with your situation, then confirm current details from the official source.</p><button type="button" className={ctaClass("outline")} onClick={startAssessment}>Check my starting point <ArrowRight size={17} aria-hidden="true" /></button></div>
+          <div><p className="dah-landing-eyebrow">LOCAL DFW OPTIONS</p><h2 id="explore-heading">NACA isn’t the only homeownership path in DFW.</h2><p className="dah-landing-copy">Depending on your location and circumstances, local or specialized homebuyer-assistance programs may also deserve investigation. Start with your situation, then confirm current details from the official source.</p><button type="button" className={ctaClass("outline-dark")} onClick={startAssessment}>Check my starting point <ArrowRight size={17} aria-hidden="true" /></button></div>
         </div>
       </section>
 
@@ -615,12 +615,12 @@ export function NextStepLanding() {
       <section className="dah-landing-final" aria-labelledby="final-heading">
         <Image src="/manus-storage/home-keys-moment_20083d77.jpg" alt="" fill sizes="100vw" loading="lazy" className="dah-landing-final-image" />
         <div className="dah-landing-final-overlay" aria-hidden="true" />
-        <div className="dah-landing-container dah-landing-final-content"><p className="dah-landing-eyebrow dah-landing-eyebrow-gold">YOUR NEXT STEP IS ENOUGH FOR TODAY</p><h2 id="final-heading">You don’t need to have everything figured out.</h2><p>You just need to know your next step.</p><div><button type="button" className={ctaClass("gold")} onClick={startAssessment}>Find my next step <ArrowRight size={17} aria-hidden="true" /></button><Link href="/book" className={ctaClass("outline")}>Schedule with Debra</Link></div></div>
+        <div className="dah-landing-container dah-landing-final-content"><p className="dah-landing-eyebrow dah-landing-eyebrow-gold">YOUR NEXT STEP IS ENOUGH FOR TODAY</p><h2 id="final-heading">You don’t need to have everything figured out.</h2><p>You just need to know your next step.</p><div><button type="button" className={ctaClass("gold")} onClick={startAssessment}>Find my next step <ArrowRight size={17} aria-hidden="true" /></button><Link href="/consultation" className={ctaClass("outline")}>Schedule with Debra</Link></div></div>
       </section>
 
       {phase === "result" && leadOpen && <section id="lead-capture" className="dah-landing-section dah-landing-cream" aria-labelledby="lead-heading"><div className="dah-landing-container dah-landing-lead-card"><div><p className="dah-landing-eyebrow dah-landing-eyebrow-dark">VALUE FIRST. CONTACT SECOND.</p><h2 id="lead-heading">Want Debra to help you take the next step?</h2><p className="dah-landing-copy">Your educational result is already yours. Share a little context only if you want a follow-up.</p></div>{leadStatus === "success" ? <div className="dah-landing-success" role="status"><Check size={22} aria-hidden="true" /><div><strong>Thanks — your request is ready for follow-up.</strong><p>Debra’s team can use the path you selected to keep the conversation focused.</p></div></div> : <form onSubmit={handleLeadSubmit} className="dah-landing-lead-form"><div className="dah-landing-form-grid"><label>First name <input required name="firstName" value={leadFields.firstName} onChange={(event) => updateFormField("firstName", event.target.value)} autoComplete="given-name" /></label><label>Email <input required type="email" name="email" value={leadFields.email} onChange={(event) => updateFormField("email", event.target.value)} autoComplete="email" /></label><label>Mobile <span>(optional)</span><input type="tel" name="mobile" value={leadFields.mobile} onChange={(event) => updateFormField("mobile", event.target.value)} autoComplete="tel" /></label><label>Preferred next step <select name="preferredNextStep" value={leadFields.preferredNextStep} onChange={(event) => updateFormField("preferredNextStep", event.target.value)}><option>Schedule a consultation</option><option>Have Debra contact me</option><option>Email my results</option><option>Send me NACA information</option><option>I’m just researching</option></select></label></div><input className="dah-landing-honeypot" tabIndex={-1} aria-hidden="true" name="website" autoComplete="off" /><div className="dah-landing-form-actions"><button type="submit" className={ctaClass("gold")} disabled={leadStatus === "submitting"}>{leadStatus === "submitting" ? "Sending…" : "Send my next-step request"} <ArrowRight size={17} aria-hidden="true" /></button><p>No preapproval, qualification, or guarantee is provided by this form.</p></div>{leadStatus === "error" && <p className="dah-landing-form-error" role="alert">{leadError} <Link href="/consultation">Open the consultation page.</Link></p>}</form>}</div></section>}
 
-      <div className="dah-landing-bottom-actions" aria-label="Quick actions"><button type="button" onClick={startAssessment}><Sparkles size={16} aria-hidden="true" /> Find my next step</button><Link href="/book" onClick={() => trackEvent("schedule_opened", { source: "sticky-cta" })}><Home size={16} aria-hidden="true" /> Schedule with Debra</Link></div>
+      <div className="dah-landing-bottom-actions" aria-label="Quick actions"><button type="button" onClick={startAssessment}><Sparkles size={16} aria-hidden="true" /> Find my next step</button><Link href="/consultation" onClick={() => trackEvent("schedule_opened", { source: "sticky-cta" })}><Home size={16} aria-hidden="true" /> Schedule with Debra</Link></div>
     </div>
   )
 }

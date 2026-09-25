@@ -40,6 +40,27 @@ const checks = [
   ['landing gold CTA label', '#102b4e', '#bf922d'],
   ['landing teal CTA label', '#102b4e', '#18a9b4'],
   ['landing body on white', '#10233f', '#ffffff'],
+
+  /* Homepage (.fh-*) text on the teal field and the soft green-gray band.
+     These were missing, which let gold labels (2.96:1) and 86% white (4.34:1)
+     ship on teal. */
+  ['homepage trust band text on teal', '#ffffff', '#077783'],
+  ['homepage market label on teal', '#ffffff', '#077783'],
+  ['homepage buyer card eyebrow on teal', '#ffffff', '#077783'],
+  ['homepage buyer card list on teal (92% white)', '#f2f4f5', '#077783'],
+  ['homepage seller eyebrow green on soft band', '#3f7229', '#edf3f2'],
+  ['homepage eyebrow teal on soft band', '#077783', '#edf3f2'],
+  ['homepage gold eyebrow on navy', '#e6bd55', '#102b4e'],
+
+  /* Interior chips on teal: a 10% white wash lifted teal to #20858f and
+     white text to 4.36:1, so the wash now darkens (12% black over teal). */
+  ['interior chip text on darkened teal', '#ffffff', '#066974'],
+  ['resources step copy and action on teal', '#ffffff', '#077783'],
+  /* /start landing text on white and the light band. */
+  ['landing teal text on the light band', '#077783', '#edf3f2'],
+  ['landing path label grey on white', '#5f6b73', '#ffffff'],
+  ['landing footnote grey on white', '#5f6b73', '#ffffff'],
+  ['landing dark outline CTA on white', '#102b4e', '#ffffff'],
 ]
 let failed = 0
 for (const [name, foreground, background] of checks) {
