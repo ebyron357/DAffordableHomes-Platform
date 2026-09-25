@@ -87,6 +87,19 @@ All notable repository changes are documented here.
   still alone the page mounts no `<video>`, issues no media request and offers
   no control, at every viewport and under `prefers-reduced-motion`.
 
+
+### Homepage "Local guidance" ambient-motion surface (merged from `main`)
+
+- Added an accessible ambient-motion surface to the homepage "Local guidance" section that kept the
+  approved still photograph as its poster and accessible name, with same-origin encodes resolved at
+  build time, responsive encode selection, viewport-gated loading, silent playback with no controls,
+  and removal of the clip entirely under reduced-motion preferences.
+- **Superseded on this branch.** The homepage this section belonged to was replaced by the Figma
+  composition, so `ControlledHomeSections` no longer renders. The ambient-motion module it introduced
+  now serves the hero exterior above, which keeps the same contract and goes further: nothing is
+  mounted or fetched until the visitor presses a control. `tests/static/hero-motion.test.mjs` carries
+  the regression coverage that `tests/static/media.test.mjs` held for the removed section.
+
 ## 2026-09-21
 
 ### Homepage quiz
