@@ -309,6 +309,28 @@ test('CMS-supplied links are normalised before they become navigation targets', 
     assert.equal(module.safeInternalPath('javascript:alert(1)'), '/');
     assert.equal(module.safeInternalPath('//evil.example.com'), '/');
     assert.equal(module.safeInternalPath('/\\evil.example.com'), '/');
+
+    // The WHATWG URL parser strips tab, newline, and carriage return before it
+    // parses, so a guard that only inspects the leading characters can be walked
+    // past with one of them: "/<TAB>//host" resolved to https://host/ in the
+    // browser while reading as site-relative here. `/api/preview/disable` takes
+    // this value unauthenticated from the query string and hands it to
+    // redirect(), which made it a first-party open redirect.
+    for (const control of ['\t', '\n', '\r', '\u0000', '\u000B', '\u000C', '\u007F']) {
+      const attack = `/${control}//evil.example.com`;
+      assert.equal(module.safeInternalPath(attack), '/', `${JSON.stringify(attack)} must not survive the guard`);
+      assert.equal(
+        new URL(module.safeInternalPath(attack), 'https://daffordablehomes.com').host,
+        'daffordablehomes.com',
+        `${JSON.stringify(attack)} must not resolve off-origin`
+      );
+    }
+    assert.equal(module.safeInternalPath('/java\tscript:alert(1)'), '/');
+
+    // Legitimate paths still pass through untouched.
+    assert.equal(module.safeInternalPath('/programs/naca'), '/programs/naca');
+    assert.equal(module.safeInternalPath('/calculators?x=1#frag'), '/calculators?x=1#frag');
+    assert.equal(module.safeInternalPath('/'), '/');
     assert.equal(module.safeExternalUrl('http://example.com'), null);
     assert.equal(module.safeExternalUrl('javascript:alert(1)'), null);
 
@@ -322,6 +344,7 @@ test('CMS-supplied links are normalised before they become navigation targets', 
     assert.equal(module.safeImageSrc('https://evil.example.com/x.png'), null);
     assert.equal(module.safeImageSrc('http://cdn.sanity.io/images/x.png'), null);
     assert.equal(module.safeImageSrc('//evil.example.com/x.png'), null);
+    assert.equal(module.safeImageSrc('/\t//evil.example.com/x.png'), null);
     assert.equal(module.safeImageSrc('javascript:alert(1)'), null);
     assert.equal(module.safeImageSrc(undefined), null);
     assert.equal(module.safeImageSrc(''), null);

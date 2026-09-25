@@ -10,6 +10,16 @@
 /** Site-relative paths only. Anything else collapses to the safe default. */
 export function safeInternalPath(value: string | undefined, fallback = "/"): string {
   const path = (value ?? "").trim()
+
+  // The WHATWG URL parser removes every tab, newline, and carriage return before
+  // it parses, so a value has to be rejected for containing them rather than
+  // checked around them: "/\t//host" clears the protocol-relative guard below,
+  // then resolves to "//host" in the browser and navigates off-origin. No
+  // control character belongs in a site path, so all of them are refused here
+  // rather than stripped, which keeps what is validated identical to what is
+  // returned.
+  if (/[\u0000-\u001F\u007F]/.test(path)) return fallback
+
   // Reject protocol-relative URLs and any scheme, including obfuscated ones.
   if (!path.startsWith("/") || path.startsWith("//") || path.startsWith("/\\")) return fallback
   if (/^\/[^/]*:/.test(path)) return fallback
