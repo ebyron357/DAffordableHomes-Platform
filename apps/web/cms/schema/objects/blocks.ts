@@ -1,5 +1,6 @@
 import { defineArrayMember, defineField, defineType } from "sanity"
 
+import { isEmbeddableVideoUrl, type VideoProvider } from "@/lib/blog/embeds"
 import { isSafeInternalPath } from "@/lib/safe-path"
 
 /**
@@ -129,7 +130,23 @@ export const videoEmbed = defineType({
       name: "url",
       type: "url",
       description: "Public watch URL. The renderer converts it to a privacy-friendly embed.",
-      validation: (rule) => rule.required().uri({ scheme: ["https"] }),
+      /**
+       * Delegates to the renderer's own resolver.
+       *
+       * Requiring "an https URI" was looser than what the block can actually
+       * embed: a valid-but-unembeddable URL saved cleanly and then rendered as
+       * nothing, silently dropping the block from the published article.
+       */
+      validation: (rule) =>
+        rule.required().custom((value: string | undefined, context) => {
+          const provider = (context.parent as { provider?: VideoProvider } | undefined)?.provider
+          if (!provider) return true // The provider field reports its own error.
+          return isEmbeddableVideoUrl(value, provider)
+            ? true
+            : provider === "youtube"
+              ? "Use a YouTube watch, youtu.be, shorts or embed URL — for example https://www.youtube.com/watch?v=VIDEOID. Other URLs cannot be embedded and would not render."
+              : "Use a Vimeo URL ending in the numeric video id — for example https://vimeo.com/123456789. Other URLs cannot be embedded and would not render."
+        }),
     }),
     defineField({ name: "description", type: "text", rows: 2 }),
   ],

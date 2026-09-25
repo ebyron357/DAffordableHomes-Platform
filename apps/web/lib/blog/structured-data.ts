@@ -6,7 +6,7 @@
  * without a code change.
  */
 
-import { toSafeInternalPath } from "@/lib/safe-path"
+import { toSafeHref, toSafeInternalPath } from "@/lib/safe-path"
 import { SITE } from "@/lib/site"
 import type { Article, ArticleBlock, ArticleFaq } from "./types"
 
@@ -64,15 +64,42 @@ export function articleJsonLd(article: Article): Record<string, unknown> {
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(" "),
     })),
-    citation: article.sources.map((source) => ({
-      "@type": "CreativeWork",
-      name: source.label,
-      url: source.href,
-      ...(source.publisher
-        ? { publisher: { "@type": "Organization", name: source.publisher } }
-        : {}),
-    })),
+    citation: citations(article),
   }
+}
+
+/**
+ * Citations, filtered through the same allowlist the rendered sources use.
+ *
+ * `OfficialSources` calls `toSafeHref` before it will produce an anchor, but
+ * this emitted `source.href` verbatim. Schema validation only constrains the
+ * Studio — content also arrives by direct API mutation and by dataset import —
+ * so a `javascript:`, `data:` or plain-http citation that the page itself
+ * refuses to link could still be published in the structured data, where
+ * consumers treat it as a URL the site vouches for.
+ *
+ * A source that cannot be linked is omitted rather than emitted unlinkable, so
+ * the JSON-LD cannot claim a citation the article does not show.
+ */
+function citations(article: Article): Record<string, unknown>[] {
+  return article.sources.flatMap((source) => {
+    const href = toSafeHref(source.href)
+    if (!href) return []
+    return [
+      {
+        "@type": "CreativeWork",
+        name: source.label,
+        // Structured data is consumed out of page context, so a site-relative
+        // citation has to be resolved against the canonical origin. Anything
+        // already absolute — including a `mailto:` or `tel:` the allowlist
+        // permits — is emitted as-is rather than prefixed.
+        url: href.startsWith("/") ? `${SITE.url}${href}` : href,
+        ...(source.publisher
+          ? { publisher: { "@type": "Organization", name: source.publisher } }
+          : {}),
+      },
+    ]
+  })
 }
 
 export function breadcrumbJsonLd(article: Article): Record<string, unknown> {

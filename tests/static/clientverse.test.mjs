@@ -137,3 +137,53 @@ test('no ClientVerse credentials are committed', () => {
 
   assert.equal(existsSync('.env'), false);
 });
+
+/**
+ * No caller-supplied value may be interpolated into a shell body.
+ *
+ * `deployment_url` is a `workflow_dispatch` input, so its value is chosen by
+ * whoever dispatches the run. A GitHub expression inside `run:` is substituted
+ * into the script text *before* bash parses it, so `$(...)` or a backtick in
+ * that input executed as part of the step. The values reach the shell through
+ * `env:` instead, where they are data the shell expands rather than source it
+ * compiles.
+ *
+ * This walks the YAML structurally rather than grepping the file, so a new step
+ * that reintroduces the pattern anywhere in the workflow is caught too.
+ */
+test('no workflow step interpolates an expression into its shell body', () => {
+  const source = readFileSync(join('.github', 'workflows', 'clientverse-audit.yml'), 'utf8');
+  const lines = source.split('\n');
+
+  const offenders = [];
+  let inRunBlock = false;
+  let runIndent = 0;
+
+  for (const [index, line] of lines.entries()) {
+    if (/^\s*#/.test(line)) continue;
+
+    const run = line.match(/^(\s*)run:\s*\|/);
+    if (run) {
+      inRunBlock = true;
+      runIndent = run[1].length;
+      continue;
+    }
+
+    if (inRunBlock) {
+      const indent = line.match(/^(\s*)/)[1].length;
+      // A non-blank line at or above the `run:` key's indentation ends the block.
+      if (line.trim() !== '' && indent <= runIndent) {
+        inRunBlock = false;
+      } else if (line.includes('${{')) {
+        offenders.push(`${index + 1}: ${line.trim()}`);
+      }
+    }
+  }
+
+  assert.deepEqual(
+    offenders,
+    [],
+    'pass these through the step\'s `env:` and reference them as shell variables:\n' +
+      offenders.join('\n')
+  );
+});

@@ -4,9 +4,9 @@
  * These documents were migrated from the pre-CMS hardcoded routes on
  * `main @ 56b381f`. They exist for two reasons:
  *
- *  1. `scripts/sanity/export-seed.mjs` turns them into NDJSON that
- *     `pnpm sanity:import` pushes into the Content Lake, so nobody has to
- *     retype three long articles by hand.
+ *  1. `pnpm sanity:seed` (`scripts/sanity/export-seed.mjs`) turns them into the
+ *     NDJSON that `sanity dataset import` pushes into the Content Lake, so
+ *     nobody has to retype three long articles by hand.
  *  2. They are the fallback content source when Sanity environment variables
  *     are absent, which keeps `/blog` and the three preserved article URLs
  *     serving real content in every environment instead of 404ing on a

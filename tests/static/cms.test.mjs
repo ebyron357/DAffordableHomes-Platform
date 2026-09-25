@@ -305,3 +305,39 @@ test('the Studio is not indexable', () => {
   assert.match(config, /X-Robots-Tag/);
   assert.match(studio, /robots: \{ index: false, follow: false \}/);
 });
+
+/**
+ * Every editable block must reach the page somewhere.
+ *
+ * `heroImage` was offered by the schema, written by the migration builders and
+ * fetched by GROQ, but the body renderer returned `null` for it on the grounds
+ * that the header rendered the hero — while the header read the separate
+ * `featuredImage` field. So an editor could add or change the hero block and see
+ * no change on the published article, with two editable sources of one image and
+ * only one of them displayed.
+ *
+ * A block the body deliberately skips is fine, but only if some other component
+ * renders it. This pins that: the skip has to name the component that picks it
+ * up, and that component has to actually read the block.
+ */
+test('a block skipped by the body renderer is rendered somewhere else', () => {
+  const blocks = readFileSync('apps/web/components/blog/blocks.tsx', 'utf8');
+
+  const skipped = [...blocks.matchAll(/case "(\w+)":\s*\n(?:\s*\/\/[^\n]*\n)*\s*return null/g)].map(
+    (match) => match[1]
+  );
+
+  assert.deepEqual(skipped, ['heroImage'], 'update this test when a block starts being skipped');
+
+  const header = readFileSync('apps/web/components/blog/article-header.tsx', 'utf8');
+  assert.match(
+    header,
+    /_type === "heroImage"/,
+    'the article header must read the heroImage block it is said to render'
+  );
+  assert.match(
+    header,
+    /\?\?\s*article\.featuredImage/,
+    'featuredImage must remain the fallback when no hero block is present'
+  );
+});

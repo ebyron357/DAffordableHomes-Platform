@@ -144,3 +144,76 @@ test('the author profile path is constrained to this origin', async () => {
   );
   assert.ok(!emitted.includes('attacker.example'), emitted);
 });
+
+/**
+ * Citations went into the JSON-LD verbatim while the rendered sources module
+ * ran every href through `toSafeHref` first. Schema validation only constrains
+ * the Studio — content also arrives by direct API mutation and by dataset
+ * import — so a `javascript:`, `data:` or plain-http citation the page itself
+ * refuses to link could still be published in structured data, where a consumer
+ * reads it as a URL this site vouches for.
+ */
+test('citations carry only destinations the article itself would link', async () => {
+  const { articleJsonLd } = await import(
+    pathToFileURL('apps/web/lib/blog/structured-data.ts').href
+  );
+  const { SITE } = await import(pathToFileURL('apps/web/lib/site.ts').href);
+
+  const withSources = (sources) => ({
+    slug: 'x',
+    title: 'T',
+    seoDescription: 'd',
+    publishedAt: '2026-01-01',
+    reviewedAt: null,
+    category: { title: 'C' },
+    featuredImage: { src: '/i.jpg', alt: 'a' },
+    socialImage: null,
+    programs: [],
+    areas: [],
+    sources,
+    author: { name: 'Debra Allen', role: null, url: '/about' }
+  });
+
+  const kept = articleJsonLd(
+    withSources([
+      { label: 'NACA', href: 'https://www.naca.com/purchase/', publisher: 'NACA' },
+      { label: 'Internal', href: '/programs/naca', publisher: null }
+    ])
+  ).citation;
+
+  assert.deepEqual(
+    kept.map((entry) => entry.url),
+    ['https://www.naca.com/purchase/', `${SITE.url}/programs/naca`],
+    'a site-relative citation must be resolved against the canonical origin'
+  );
+
+  for (const hostile of [
+    'javascript:alert(1)',
+    'data:text/html;base64,PHNjcmlwdD4=',
+    'http://example.com/insecure',
+    '//attacker.example',
+    '/\\attacker.example',
+    'https://',
+    '',
+    null
+  ]) {
+    const emitted = articleJsonLd(
+      withSources([{ label: 'Hostile', href: hostile, publisher: null }])
+    ).citation;
+
+    assert.deepEqual(
+      emitted,
+      [],
+      `citation ${JSON.stringify(hostile)} must be omitted, not published`
+    );
+  }
+
+  // A hostile entry must not take valid citations down with it.
+  const mixed = articleJsonLd(
+    withSources([
+      { label: 'Hostile', href: 'javascript:alert(1)', publisher: null },
+      { label: 'Good', href: 'https://www.hud.gov/', publisher: 'HUD' }
+    ])
+  ).citation;
+  assert.deepEqual(mixed.map((entry) => entry.url), ['https://www.hud.gov/']);
+});

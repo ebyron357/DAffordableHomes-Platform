@@ -9,8 +9,16 @@ import { formatArticleDate } from "@/lib/blog/format"
  * Article masthead: breadcrumb, eyebrow, headline, standfirst, byline, and the
  * article's own hero image. Each article gets a distinct hero crop, which is
  * what makes the three guides feel individual without leaving the design system.
+ *
+ * The hero comes from the `heroImage` body block when the article has one, and
+ * from `featuredImage` otherwise. Both were editable and only the second was
+ * ever displayed: the body renderer skips `heroImage` on the grounds that "the
+ * header renders it", while the header read `featuredImage`, so an editor could
+ * change the hero block and see no change on the published page. One resolution
+ * order, applied here, is what keeps the two from diverging.
  */
 export function ArticleHeader({ article }: { article: Article }) {
+  const hero = heroImageOf(article)
   const authorLabel = article.author.role
     ? `${article.author.name}, ${article.author.role}`
     : article.author.name
@@ -67,7 +75,7 @@ export function ArticleHeader({ article }: { article: Article }) {
 
           <figure className="relative aspect-[4/5] overflow-hidden rounded-xl border border-border bg-muted sm:aspect-[3/2] lg:aspect-[4/5]">
             <BlogImage
-              image={article.featuredImage}
+              image={hero}
               sizes="(min-width: 1024px) 38rem, (min-width: 640px) 90vw, 100vw"
               priority
             />
@@ -76,4 +84,13 @@ export function ArticleHeader({ article }: { article: Article }) {
       </Container>
     </header>
   )
+}
+
+/**
+ * The image the masthead should show: the first `heroImage` block if the
+ * article carries one, else the `featuredImage` field.
+ */
+function heroImageOf(article: Article) {
+  const block = article.body.find((candidate) => candidate._type === "heroImage")
+  return block?.image ?? article.featuredImage
 }

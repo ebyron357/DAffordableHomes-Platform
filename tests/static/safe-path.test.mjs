@@ -159,6 +159,23 @@ function enclosingFieldName(source, at) {
   return names.length > 0 ? names[names.length - 1][1] : null;
 }
 
+/**
+ * The name of the `defineType` a validator sits inside.
+ *
+ * Needed to tell two different `url` fields apart: `author.url` is a
+ * destination rendered into an anchor and into metadata, so the href allowlist
+ * governs it, while `videoEmbed.url` is a watch URL that never becomes an href
+ * at all — it is resolved to an iframe `src` by `toEmbedUrl`, which emits only
+ * a youtube-nocookie or player.vimeo URL. Holding it to the href allowlist
+ * would assert the wrong contract; it has its own invariant below.
+ */
+function enclosingTypeName(source, at) {
+  const types = [...source.slice(0, at).matchAll(/defineType\(\{\s*\n\s*name: "([^"]+)"/g)];
+  return types.length > 0 ? types[types.length - 1][1] : null;
+}
+
+const NOT_AN_HREF = new Set(['videoEmbed']);
+
 function extractCustomValidators(source) {
   const marker = '.custom(';
   const predicates = [];
@@ -166,6 +183,7 @@ function extractCustomValidators(source) {
   for (let at = source.indexOf(marker); at !== -1; at = source.indexOf(marker, at + 1)) {
     const field = enclosingFieldName(source, at);
     if (field !== 'href' && field !== 'url') continue;
+    if (NOT_AN_HREF.has(enclosingTypeName(source, at))) continue;
 
     let depth = 0;
     let quote = null;
@@ -214,8 +232,17 @@ const HREF_CORPUS = [
   'https://example.com',
   'mailto:hello@example.com',
   'tel:+15550001111',
-  // The value that shipped as saveable-but-unrenderable.
+  // Values that shipped as saveable-but-unrenderable.
   'http://example.com',
+  // A scheme prefix is not a URL. `startsWith('https://')` accepted all four
+  // of these while `new URL()` throws on them, which is exactly how the
+  // related-link validator drifted looser than the renderer: the Studio saved
+  // them and the article rendered an unlinked label. Corpus entries, not
+  // comments, are what stop that recurring.
+  'https://',
+  'https:// ',
+  'https://#x',
+  'https://?a=1',
   'javascript:alert(1)',
   'JavaScript:alert(1)',
   'data:text/html;base64,PHNjcmlwdD4=',
@@ -413,4 +440,89 @@ test('the audit flags every anchor the render-time allowlist would reject', () =
 test('the audit records the served-anchor result as a check', () => {
   const audit = readFileSync('scripts/qa/site-audit.mjs', 'utf8');
   assert.match(audit, /anchors all use an allowlisted scheme/);
+});
+
+test('the video URL validator and the renderer share one embeddability predicate', async () => {
+  const { toEmbedUrl, isEmbeddableVideoUrl } = await import(
+    pathToFileURL('apps/web/lib/blog/embeds.ts').href
+  );
+
+  // The schema used to require only "an https URI" while the renderer needed a
+  // watch URL it could pull an id out of. A valid-but-unembeddable URL saved
+  // cleanly and then rendered as nothing, so the published article lost the
+  // block with no message anywhere. Saveable and renderable have to be the
+  // same question.
+  const corpus = [
+    ['https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'youtube', true],
+    ['https://youtu.be/dQw4w9WgXcQ', 'youtube', true],
+    ['https://www.youtube.com/shorts/dQw4w9WgXcQ', 'youtube', true],
+    ['https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ', 'youtube', true],
+    ['https://vimeo.com/123456789', 'vimeo', true],
+    ['https://player.vimeo.com/video/123456789', 'vimeo', true],
+    // Accepted by "an https URI", embeddable by neither provider.
+    ['https://example.com/article', 'youtube', false],
+    ['https://example.com/article', 'vimeo', false],
+    // Any https URL ending in a numeric segment used to resolve to a Vimeo
+    // embed, so a typo produced a plausible iframe pointing at someone else's
+    // video on a host the editor never named.
+    ['https://example.com/12345', 'vimeo', false],
+    ['https://www.youtube.com/watch?list=PL123', 'youtube', false],
+    ['https://vimeo.com/channels/staffpicks', 'vimeo', false],
+    // Plain http is a mixed-content downgrade, as it is for hrefs.
+    ['http://vimeo.com/123456789', 'vimeo', false],
+    ['http://www.youtube.com/watch?v=dQw4w9WgXcQ', 'youtube', false],
+    // A scheme prefix is not a URL.
+    ['https://', 'youtube', false],
+    ['javascript:alert(1)', 'youtube', false],
+    ['', 'youtube', false],
+    [undefined, 'vimeo', false],
+  ];
+
+  for (const [url, provider, embeddable] of corpus) {
+    assert.equal(
+      isEmbeddableVideoUrl(url, provider),
+      embeddable,
+      `${provider}: ${JSON.stringify(url)} should ${embeddable ? '' : 'not '}be accepted`
+    );
+
+    // The Studio-facing predicate is the render-time one, not a copy of it, so
+    // the two cannot drift apart the way the href checks once did.
+    assert.equal(
+      isEmbeddableVideoUrl(url, provider),
+      toEmbedUrl(url, provider) !== null,
+      `${provider}: ${JSON.stringify(url)} — validator and renderer disagree`
+    );
+  }
+
+  // Whatever is embedded is served from the provider's own host: the resolver
+  // reconstructs the URL from a validated id rather than passing input through.
+  for (const [url, provider, embeddable] of corpus) {
+    if (!embeddable) continue;
+    const embed = toEmbedUrl(url, provider);
+    assert.match(
+      embed,
+      provider === 'youtube'
+        ? /^https:\/\/www\.youtube-nocookie\.com\/embed\/[\w-]{11}$/
+        : /^https:\/\/player\.vimeo\.com\/video\/\d+$/,
+      `${JSON.stringify(url)} produced ${JSON.stringify(embed)}`
+    );
+  }
+});
+
+test('the schema validator for a video URL is the shared predicate, not a copy', () => {
+  const source = readFileSync(SCHEMA_FILES.blocks, 'utf8');
+
+  // A regex over source is a weak assertion, which is why the behavioural test
+  // above carries the contract. This one exists only to catch the specific
+  // regression of someone reintroducing a second, hand-rolled URL test here.
+  assert.match(
+    source,
+    /isEmbeddableVideoUrl\(value, provider\)/,
+    'the videoEmbed url validator must call the renderer resolver'
+  );
+  assert.doesNotMatch(
+    source,
+    /uri\(\{ scheme: \["https"\] \}\)[\s\S]{0,40}videoEmbed/,
+    'the videoEmbed url field must not fall back to a bare scheme check'
+  );
 });

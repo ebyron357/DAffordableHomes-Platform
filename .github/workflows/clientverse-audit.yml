@@ -159,13 +159,21 @@ jobs:
         shell: bash
         env:
           GATE: ${{ steps.audit.outputs.gate }}
+          # `deployment_url` traces back to the workflow_dispatch input, so it is
+          # caller-supplied. A GitHub expression interpolated into `run:` is
+          # substituted into the script text *before* bash parses it, which
+          # makes `$(...)` or a backtick in the input execute as part of this
+          # step. Passing it through `env` keeps it a value the shell expands,
+          # never source the shell compiles.
+          COMMIT_SHA: ${{ steps.target.outputs.commit_sha }}
+          DEPLOYMENT_URL: ${{ steps.target.outputs.deployment_url }}
         run: |
           set -euo pipefail
           {
             echo "## ClientVerse audit"
             echo ""
-            echo "- Commit: \`${{ steps.target.outputs.commit_sha }}\`"
-            echo "- Deployment: ${{ steps.target.outputs.deployment_url }}"
+            echo "- Commit: \`$COMMIT_SHA\`"
+            echo "- Deployment: $DEPLOYMENT_URL"
             echo "- Release gate: \`$GATE\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
