@@ -1,29 +1,19 @@
 import type { Metadata } from "next"
-import { PageHeader } from "@/components/page/page-header"
-import { Section } from "@/components/page/section"
-import { FindYourNextStep } from "@/components/next-step/find-your-next-step"
+import { NextStepLanding } from "@/components/landing/next-step-landing"
 
 export const metadata: Metadata = {
-  title: "Find Your Next Step",
+  title: "Find Your Next Step | DFW Homeownership Guidance",
   description:
-    "Answer a few short questions to understand where you are in the homeownership journey and find educational resources for your next step. No contact information required.",
+    "Not sure where to start with homeownership in Dallas–Fort Worth? Explore your options, learn about NACA and homebuyer pathways, and find an educational next step with D’Affordable Homes.",
   alternates: { canonical: "/start" },
+  openGraph: {
+    title: "Find Your Next Step | D’Affordable Homes",
+    description: "Clear, education-first guidance for renters and buyers preparing for homeownership in Dallas–Fort Worth.",
+    url: "/start",
+    type: "website",
+  },
 }
 
 export default function StartPage() {
-  return (
-    <>
-      <PageHeader
-        eyebrow="Find Your Next Step"
-        title="Let's find your next step together"
-        intro="Answer a few short questions and we'll suggest educational resources based on where you are today. You don't need to share any contact information, and nothing here is loan approval or financial advice."
-        crumbs={[{ label: "Home", href: "/" }, { label: "Find Your Next Step" }]}
-      />
-      <Section>
-        <div className="mx-auto max-w-2xl">
-          <FindYourNextStep />
-        </div>
-      </Section>
-    </>
-  )
+  return <NextStepLanding />
 }
