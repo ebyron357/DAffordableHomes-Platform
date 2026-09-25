@@ -20,7 +20,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    const desktopQuery = window.matchMedia("(min-width: 1101px)")
+    const desktopQuery = window.matchMedia("(min-width: 900px)")
     const closeOnDesktop = () => {
       if (desktopQuery.matches) setOpen(false)
     }
@@ -33,8 +33,8 @@ export function SiteHeader() {
     <header className="site-header">
       <Container>
         <div className="site-header-inner">
-          <Link href="/" aria-label="D'Affordable Homes — Home" className="brand-lockup">
-            <Image src="/images/daffordable-homes-official-logo.png" alt="D'Affordable Homes — Affordable, Accessible, Achievable" width={640} height={427} className="brand-logo" priority />
+          <Link href="/" className="brand-lockup">
+            <Image src="/images/daffordable-homes-official-logo.png" alt="D'Affordable Homes home" width={640} height={427} className="brand-logo" priority />
             <span className="brand-context"><strong>Debra Allen</strong><span>REALTOR® · Garland + DFW</span></span>
           </Link>
 

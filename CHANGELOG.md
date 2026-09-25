@@ -2,13 +2,216 @@
 
 All notable repository changes are documented here.
 
+## 2026-09-25
+
+### Accessibility and link fixes (WCAG 2.2 AA)
+
+- Lighthouse and axe found text below 4.5:1 on four templates that the contrast script did not cover. Fixed at the source, with every new pair added to `scripts/check-contrast.mjs`:
+  - Homepage teal field: gold market label and buyer-card eyebrow (2.96:1) and 86–88% white text (4.34–4.47:1) are now white (5.28:1). Gold cannot reach AA anywhere on this teal, which the script already recorded for interior pages.
+  - `--fh-green-deep` moves from `#4d8733` (3.87:1 on the soft band) to `#3f7229` (5.12:1).
+  - Interior chips on teal used a 10% white wash that lifted the field to `#20858f` (4.36:1); the wash now darkens instead (6.40:1).
+  - `/resources` step copy and action text on teal are white.
+  - `/start`: the "Check my starting point" button used the white outline style on a light section (1.36:1, effectively invisible) and now has a dark outline variant; grey labels and footnotes move to `#5f6b73`; teal text on the light band moves from `#087c8a` to `#077783`.
+  - The down-payment planner's "Continue planning" button was white on near-white (1.04:1). `CalculatorActions` takes a `tone` for the surface it sits on.
+- The interior header's logo link no longer overrides its visible text with an `aria-label` (WCAG 2.5.3 label in name).
+- Internal links that went through redirects now point at their destinations: calculator links used `/resources/calculators/*` (308), and `/start` linked `/naca` and `/book`.
+- Result: Lighthouse Accessibility, Best Practices and SEO are 100 on all 33 sitemap pages; desktop Performance is 100 on every template tested.
+
+### Homepage hero seam
+
+- The navy copy field no longer meets the house photograph in a hard vertical line. The existing `.fh-hero-media::before` wash was a fixed 180px with a fast linear falloff, so the bright sky and tree reappeared within a few dozen pixels of the panel. It is now sized to the frame (`--fh-hero-wash: min(36%, 300px)`): solid navy for its first 6%, then an eleven-stop smoothstep falloff to fully transparent, so neither end of the ramp reads as an edge and the house stays outside it at every split width.
+- The existing `.fh-hero-media::after` bottom vignette is darker than the navy field and ran the full width of the photograph, which drew a darker step along the lower third of the seam. It is now masked in from the left over the same span as the wash; everywhere else it is unchanged.
+- CSS only. The photograph, the portrait/landscape still selection, layout, typography and CTA placement are unchanged. The stacked layout (below 900px) already disables both pseudo-elements and renders pixel-identical to before.
+
+## 2026-09-24
+
+### Homepage hero image delivery
+
+- The portrait hero still is now art-directed through `getImageProps`, so both
+  stills are resized by the image optimizer. Previously every viewport up to
+  1600px downloaded the full 1744×2336 portrait (856 KB) and also the
+  landscape still preloaded by `next/image`; a 390px phone now fetches one
+  60 KB image (189 KB at 3× density). The rendered hero is unchanged.
+
+### Homepage visual reconciliation
+
+- The page-width lock is gone. `.figma-home { width: 1440px }` boxed the whole
+  site inside near-white margins on any monitor wider than 1440 and made the
+  hero read as a card floating in empty space. Fields now bleed to the
+  viewport edge at every width; only content is held to the 1440 shell.
+- The hero is one composition: a four-track grid puts the copy on the content
+  line and runs the exterior from the middle of the shell to the right edge of
+  the viewport, with a navy wash along the seam so the house emerges from the
+  field instead of meeting it as a hard line, and a low vignette. Nothing is
+  laid over the photograph: a white quiz panel that straddled the seam in the
+  first pass was removed the same day at the owner's direction. The copy now
+  carries the tagline behind a gold rule, two CTAs instead of three, and
+  Debra's byline with her approved portrait, so the first viewport names the
+  practice, the person, the market and a next action.
+- The hero photograph itself is **not approved**. The owner rejected the
+  generated exterior on 2026-09-24 as not fitting the composition. A
+  replacement generated specifically for this layout is blocked from this
+  environment (Higgsfield hosts are refused by the egress policy and the DFW
+  reference images are in no connected source); the rejected still remains in
+  place only so the composition can be reviewed, and the register records the
+  rejection.
+- The split holds at laptop widths. A 1024px viewport used to stack the hero
+  and put every word of copy below the fold behind a 640px photograph;
+  stacking now starts under 900px.
+- Section order tells the story in sequence — hero, trust band, pathways, Meet
+  Debra, the quiz, markets, listings, guidance, guides, closing band — and the
+  quiz's light field now separates the two navy ones.
+- The five planning destinations under the guides are an editorial index under
+  a gold rule rather than five identical white cards.
+- `tests/static/figma-homepage.test.mjs` pins the composition: no page lock,
+  the four-track grid, the seam panel's position, the byline, the laptop
+  split, the stacked rules and the section order.
+
 ## 2026-09-22
 
-- Added an accessible ambient-motion surface to the homepage "Local guidance" section that keeps the approved still photograph as its poster and accessible name.
-- Added same-origin motion delivery that resolves encodes at build time and renders the approved still wherever an encode is absent, so the section degrades with no layout or content change.
-- Added responsive encode selection, viewport-gated loading, silent playback with no controls, and removal of the clip entirely under reduced-motion preferences.
-- Added the motion asset register and regression tests covering the silent, decorative, and reduced-motion fallback contract.
-- Homepage motion clip is still outstanding: Higgsfield generation requires a Plus plan or higher on the connected account.
+### Homepage hero exterior
+
+- The hero's exterior slot is wired end to end: `lib/media/ambient-motion.ts`
+  resolves the still at build time, `components/media/ambient-motion.tsx`
+  renders it, and the drawn brand streetscape stays beneath it as the fallback —
+  removing the file restores the drawing with no code change.
+- The owner's approved generated still (`hero-north-texas-exterior.webp`, from
+  `9VO_H8Qh26Hg90ZLIvsSd.jpg` in Gamma) is registered in
+  `docs/05-content/IMAGE_ASSET_REGISTER.md`, which states plainly that it is not
+  evidence of a real listing, transaction, client property, address or verified
+  neighbourhood, and now also carries its measured responsive framing and the
+  one region that does not survive magnification.
+- `qa:audit` requires the still to render on `/`, so the file going missing is
+  reported rather than silently falling back to the drawing.
+- Motion for the slot is prepared but unfilled, and never autoplays: with the
+  still alone the page mounts no `<video>`, issues no media request and offers
+  no control, at every viewport and under `prefers-reduced-motion`.
+
+
+### Homepage "Local guidance" ambient-motion surface (merged from `main`)
+
+- Added an accessible ambient-motion surface to the homepage "Local guidance" section that kept the
+  approved still photograph as its poster and accessible name, with same-origin encodes resolved at
+  build time, responsive encode selection, viewport-gated loading, silent playback with no controls,
+  and removal of the clip entirely under reduced-motion preferences.
+- **Superseded on this branch.** The homepage this section belonged to was replaced by the Figma
+  composition, so `ControlledHomeSections` no longer renders. The ambient-motion module it introduced
+  now serves the hero exterior above, which keeps the same contract and goes further: nothing is
+  mounted or fetched until the visitor presses a control. `tests/static/hero-motion.test.mjs` carries
+  the regression coverage that `tests/static/media.test.mjs` held for the removed section.
+
+## 2026-09-21
+
+### Homepage quiz
+
+- "Find Your Homebuying Path": five or six questions branched on the visitor's goal (goal, DFW area, timeline, buyer or seller position, Homes for Heroes group), with a progress indicator, keyboard-operable radio choices and focus-managed steps. The result is one of eight paths (First-Time Buyer, North Texas Hero, Moving to DFW, Selling a Home, Selling and Buying, Ready to Search, Early-Stage Researcher, Not Sure Yet) with a "Your next move" heading, an explanation written from the answers, a next step, an existing resource, a primary CTA and an optional consultation. No contact details are collected. It replaces the interim homepage entry to the `/start` assessment.
+- Homepage copy: services, buyer and seller strategy points, knowledge cards and three section headings rewritten as specific Dallas–Fort Worth language; the claim of a "real-time MLS search" that the site does not have is gone.
+- The guided-quiz state machine is shared (`useGuidedQuiz`) by the homepage quiz and the interior Find Your Next Step check; funnel events flow through the existing analytics seam.
+
+### Homepage hero
+
+- The hero no longer carries a photograph of a living-room interior. It draws the subject instead: the brand roofline at streetscape scale over a dusk sky with a warm horizon, a set-back range of roofs for depth, and one lit window. Ornament, `aria-hidden`, depicting no particular place. The licensed Pexels interior stays in the repository and in use elsewhere; a photograph can replace the drawing by restoring an `<Image>` in `.fh-hero-media`.
+
+### Homepage visual review
+
+- The "Find your homebuying path" section asked the same question twice, side by side: the section heading "Not sure what your next move in DFW should be?" and, an inch to its right, the panel title "What should your next move in Dallas–Fort Worth be?". The panel now says what the visitor is about to do instead of restating the question, and the question count and duration are stated once, in the list on the left, rather than three times across the section.
+
+### Guide-card imagery and the unregistered-photograph audit
+
+- `featuredImage` is optional end to end (shared type, Sanity schema, blog index, article masthead, related cards, Open Graph and Article JSON-LD). An article without one renders `ArticlePlate` — brand field, architectural linework, the article's own category — and publishes no image property rather than asserting that an unrelated photograph depicts its subject. Setting the field in Sanity restores a photograph everywhere with no code change.
+- The Homes for Heroes and Garland guides no longer carry Debra Allen's portrait as their card, masthead or body image.
+- Three images are off every route and barred in the audit's retired list: a generated portrait of a woman who is not Debra, published on `/start` as though she were; a generated office scene carrying an invented agency logo and tagline; and a north-eastern US streetscape that `/neighborhoods` captioned "North Texas". The `/start` panel now shows Debra's own registered photograph at the register's upright-frame crop. The files stay in the repository.
+- Fixed `.dah-landing-image-frame-portrait` resolving to 0px wide: `margin-inline:auto` cancels a grid item's default stretch, so with no explicit width the frame was sized to content and its only child is an absolutely positioned image. That panel's photograph had never rendered at any desktop width.
+- `docs/05-content/IMAGE_ASSET_REGISTER.md` records what each of the seven unregistered images actually shows and its disposition. Three remain unresolved on licence and are owner actions.
+
+### Interior visual system
+
+- Added a `.dh-*` interior composition layer (`app/globals.css`) plus
+  `components/page/editorial.tsx` and `components/page/brand-motif.tsx`: painted
+  bands, editorial splits on brand plates, icon-supported pathway rows, numbered
+  process, designed status strips, image-led closing bands.
+- Rebuilt the shared masthead as a two-column field. The right column carries an
+  approved photograph or the brand's architectural linework, so no interior
+  route opens with half its first viewport empty.
+- Rebuilt `/homes`, `/areas`, `/areas/garland`, `/programs`, `/programs/*`,
+  `/about`, `/calculators`, `/consultation`, `/contact`, `/faq`,
+  `/first-time-buyers`, `/neighborhoods`, `/events`, `/market-reports`,
+  `/testimonials` and the `/blog` tail on that system. Content and every honesty
+  constraint are unchanged; the presentation is not.
+- `/homes` no longer presents the no-MLS state as a warning panel in an empty
+  page. The MLS truth is verbatim, inside a composition with the four actions
+  that genuinely exist and the DFW market list.
+- Homepage Buy/Sell pathways: removed the `01`/`02` numbering, added icon
+  badges, benefit highlights, layered brand fields and ornament.
+- Homepage closing band is left-aligned with a directional scrim; centred copy
+  over a centred subject had required a scrim heavy enough to silhouette Debra.
+- Footer brand bands (homepage and interior) moved off white onto the brand's
+  soft green-gray, with the logo on a designed plate and a third column of
+  verified local facts where the empty middle used to be.
+- `/start` moved off its divergent palette (`#0B1F33` navy, `#C9A227` gold,
+  `#06B6D4` turquoise, `#F7F2E8` beige) onto the approved brand values. Painted
+  brand area on that route went from 8.2% to 46.6%.
+- Removed internal product and publishing language from public pages
+  ("doorway pages", "local-content focus", "visual direction", "answer engines").
+
+### Imagery
+
+- Added `lib/content/imagery.ts`: the image register expressed as code. Pages
+  compose with a named placement rather than a hand-typed `objectPosition`.
+- Fixed the closing-band crop. The band used the upright-frame `50% 30%`, which
+  removed 22% off the top of the source and clipped the top of Debra's head on
+  every route carrying one. The band placement is now `50% 14%`, and the
+  masthead placement `50% 22%`. Worst measured top crop across all placements
+  and all five breakpoints: 22.4% → 10.5%.
+- `/consultation` masthead now carries a registered asset.
+
+### QA
+
+- `scripts/qa/site-audit.mjs` measures painted brand area per route as a share
+  of the rendered page, counting each field once, and fails below a floor —
+  20% for content routes, 12% for long-form articles. Added `/homes`, `/areas`,
+  `/first-time-buyers`, `/faq` and `/programs/naca` to the visual routes, and
+  added internal-language strings to the forbidden-copy list.
+- Added `scripts/qa/face-safety.mjs` (`npm run qa:faces`): computes the rendered
+  crop of every Debra placement at 1440/1024/768/430/375 and fails above a 12%
+  top crop.
+- `scripts/check-contrast.mjs` (`npm run qa:contrast`) now covers every brand
+  pair in the interior system and on `/start`, and exits non-zero on a failure.
+  It caught three real defects: gold on teal (4.02:1, unfixable in that pairing
+  — teal surfaces now use white), and two icon badges at 3.81:1 and 4.41:1.
+- Added `tests/static/interior-visual-system.test.mjs` (9 tests) asserting the
+  masthead's second column, painted fields per brand colour, required icons,
+  designed status states, absence of internal language, the `/start` palette,
+  the register's crop rules and reduced-motion handling.
+
+## 2026-09-20
+
+- Consolidated one preview candidate: the Figma `11:4` homepage (PR #27) as the visual base, with the Sanity CMS / security / SEO closeout (PR #21) and the `/start` conversion landing (PR #26) merged on top and conflicts resolved by hand.
+- Replaced the text wordmark in the Figma homepage header with the approved `daffordable-homes-official-logo.png`, rendered at a fixed height with its native aspect ratio on desktop and mobile.
+- Carried the site-wide `Made by ClientVerse` attribution into the homepage footer bottom bar and made the footer copyright year dynamic.
+- Added `/start` to the browser QA visual routes and documented `NEXT_STEP_LEAD_WEBHOOK_URL`.
+
+## 2026-09-19
+
+- Reconciled the homepage to Figma node `11:4` geometry: 1440 desktop lock, placeholder image wells, 296×337 service cards, 440×520 Meet Debra well, 296×264 market cards, teal listing prices, buyer/seller card colors, 5-column knowledge cards, Follow Us footer.
+- Kept Figma placeholder composition instead of substituting unapproved production photographs that change the layout.
+- Omitted Figma’s “Studio Clarity” contact line because it is a vendor name, not a published client contact path.
+- Implemented Figma homepage frame `11:4` (`daffordable-homes-home-page`) from file `x8TpOO9gK5tsbcjkEsK18A` as the homepage.
+- Matched the Figma homepage tokens (page `#faf7f2`, navy `#0b1f33`, body `#203042`, teal `#077783`, gold `#d6a743`, borders `#eae6df`) without changing unrelated interior pages.
+- Mapped every homepage CTA to an existing route and kept featured listings as Figma placeholder cards until an approved MLS feed is connected.
+- Loaded Inter and Source Serif 4 through `next/font` so the homepage typography can match the Figma file.
+
+## 2026-08-15
+
+- Implemented Sanity CMS: embedded Studio at `/studio`, article/author/category schema, 18 reusable editorial block types, GROQ query layer, draft preview, and a signature-verified publish revalidation webhook.
+- Replaced the three hardcoded article routes with one CMS-driven `/blog/[slug]`; the three published URLs are unchanged and unknown slugs now return a real HTTP 404.
+- Migrated all three articles into a reproducible seed with an NDJSON exporter for `sanity dataset import`.
+- Rebuilt the blog as a premium editorial experience and ran a design pass across the shared system, including real Inter and Source Serif 4 webfonts self-hosted at build time.
+- Added the `Made by ClientVerse` attribution to the shared site footer with an explicit vendor-relationship qualifier and a regression test that asserts it.
+- Reworked the ClientVerse audit workflow so an unconfigured or uncertified audit fails instead of reporting a green no-op, and uploads its evidence as an artifact.
+- Added a Playwright site-audit harness covering route crawl, internal links, canonicals, structured data, accessibility structure, console errors, and responsive behaviour at five viewports.
+- Fixed a horizontal-overflow defect on `/consultation` at 375px and an unanchored overlay in the related-articles module that intercepted clicks.
+- Removed the `recovered-manus` reference bundle from the production test pipeline; it remains in the repository as reference material only.
 
 ## 2026-07-18
 

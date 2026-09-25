@@ -1,0 +1,84 @@
+# ClientVerse Website Audit & Release Certification System
+#
+# Project-specific configuration only. This file implements no audit logic.
+# Discovery, testing, findings normalization, repair policy enforcement,
+# verification and evidence reporting are performed by the centralized
+# ClientVerse audit engine, which reads this file.
+#
+# Do not add scanner, Playwright, Lighthouse, axe, Lychee or Semgrep logic here
+# or elsewhere in this repository. See .github/workflows/clientverse-audit.yml
+# for the hand-off to the central engine.
+#
+# Originally introduced by PR #18; carried forward and updated here for the
+# CMS-driven blog architecture.
+
+project:
+  name: "D'Affordable Homes Platform"
+  repository: "ebyron357/DAffordableHomes-Platform"
+
+deployment:
+  provider: "Vercel"
+  # Left blank deliberately. The workflow resolves the real deployment URL at
+  # run time from the CLIENTVERSE_DEPLOYMENT_URL repository variable or the
+  # workflow_dispatch "deployment_url" input, and fails when neither is set.
+  url: ""
+  canonical_origin: "https://daffordablehomes.com"
+
+application:
+  framework: "Next.js"
+  app_directory: "apps/web"
+  type: "website"
+  cms: "Sanity"
+
+audit:
+  critical_routes:
+    - "/"
+    - "/blog"
+    - "/blog/naca-homebuying-dallas-fort-worth"
+    - "/blog/homes-for-heroes-north-texas"
+    - "/blog/how-to-buy-home-garland-tx"
+    - "/programs"
+    - "/programs/naca"
+    - "/programs/homes-for-heroes"
+    - "/areas/garland"
+    - "/calculators"
+    - "/consultation"
+    - "/about"
+    - "/contact"
+
+  # These URLs are load-bearing: they predate the CMS migration and must keep
+  # resolving at the same paths.
+  preserved_routes:
+    - "/blog/naca-homebuying-dallas-fort-worth"
+    - "/blog/homes-for-heroes-north-texas"
+    - "/blog/how-to-buy-home-garland-tx"
+
+  expected_not_found:
+    - "/blog/this-article-does-not-exist"
+
+  excluded_routes:
+    # Admin surface: noindexed, credential-gated, not part of the public audit.
+    - "/studio"
+
+  journeys:
+    - homepage_navigation
+    - blog_discovery
+    - article_reading
+    - consultation_flow
+    - mobile_navigation
+    - lead_capture
+
+  viewports:
+    - 375
+    - 430
+    - 768
+    - 1024
+    - 1440
+
+review_required:
+  - business_claims
+  - testimonials
+  - compliance_content
+  - program_boundaries
+  - integrations
+  - vendor_attribution

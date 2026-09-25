@@ -41,7 +41,7 @@ test('workspace installs are isolated and reproducible', () => {
   assert.match(workflow, /pnpm install --frozen-lockfile/);
 });
 
-test('approved photography and ClientVerse attribution remain wired to public pages', () => {
+test('approved photography remains wired to public pages', () => {
   const hero = readFileSync('apps/web/components/home/hero.tsx', 'utf8');
   const aboutHome = readFileSync('apps/web/components/home/about-debra.tsx', 'utf8');
   const aboutPage = readFileSync('apps/web/app/about/page.tsx', 'utf8');
@@ -50,51 +50,36 @@ test('approved photography and ClientVerse attribution remain wired to public pa
   const header = readFileSync('apps/web/components/layout/site-header.tsx', 'utf8');
   const footer = readFileSync('apps/web/components/layout/site-footer.tsx', 'utf8');
 
+  const imagery = readFileSync('apps/web/lib/content/imagery.ts', 'utf8');
+  const figmaHome = readFileSync('apps/web/components/home/figma-home-page.tsx', 'utf8');
+  const figmaHeader = readFileSync('apps/web/components/home/figma-home-header.tsx', 'utf8');
+
   assert.match(hero, /hero-family_b1fab939\.jpg/);
   assert.match(header, /dah-logo_ff042b7b\.png/);
+  assert.match(header, /daffordable-homes-official-logo\.png/);
+  assert.match(figmaHeader, /daffordable-homes-official-logo\.png/);
   assert.match(aboutHome, /debra-allen-primary-about\.webp/);
-  assert.match(aboutPage, /debra-allen-advisor-desk\.webp/);
-  assert.match(aboutPage, /debra-allen-lifestyle-full-body\.webp/);
-  assert.match(consultation, /couple-consultation_25d3a592\.jpg/);
+  // The homepage renders the approved assets themselves. It used to render
+  // bracketed labels where the photographs belong, and this test asserted
+  // that it did — which is how an audit passed over visible placeholders.
+  assert.match(figmaHome, /debra-allen-primary-about\.webp/);
+  // The homepage hero is the drawn streetscape, not a photograph; the
+  // licensed Pexels interior stays available to other compositions.
+  assert.doesNotMatch(figmaHome, /black-family-home-pexels-7114188\.webp/);
+  assert.doesNotMatch(figmaHome, /Portrait Placeholder/);
+  assert.doesNotMatch(figmaHome, /Photography Placeholder/);
+  assert.match(aboutPage, /CLOSING_BAND_IMAGE/);
+  assert.match(aboutPage, /DEBRA_LIFESTYLE/);
+  assert.match(imagery, /debra-allen-lifestyle-full-body\.webp/);
+  // The consultation masthead now carries a registered asset, composed from the
+  // register module rather than a hand-typed path. The unregistered Manus-era
+  // stock photograph it used to show is still served elsewhere on the site and
+  // is called out in the report as an owner decision, but a page this central
+  // should not be the place it appears.
+  assert.match(imagery, /debra-allen-advisor-desk\.webp/);
+  assert.match(consultation, /DEBRA_DESK_MASTHEAD/);
   assert.match(neighborhoods, /neighborhood-community_101d8dfe\.jpg/);
   assert.match(footer, /TREC Information About Brokerage Services/);
-});
-
-test('recovered navigation exposes Blogs and editorial routes use Debra photography', () => {
-  const recoveredApp = readFileSync('recovered-manus/assets/index-BT_aM9Xt.js', 'utf8');
-  const resourceHub = readFileSync('recovered-manus/blog/index.html', 'utf8');
-  const generator = readFileSync('recovered-manus/build-blog.mjs', 'utf8');
-  const articleRoutes = [
-    'naca-homebuying-dallas-fort-worth',
-    'homes-for-heroes-north-texas',
-    'how-to-buy-home-garland-tx'
-  ];
-
-  assert.match(recoveredApp, /href:"\/blog",label:"Blogs"/);
-  assert.doesNotMatch(recoveredApp, /href:"\/blog",label:"Resources"/);
-  assert.match(recoveredApp, /debra-allen-primary-about\.webp/);
-  assert.doesNotMatch(recoveredApp, /debra-portrait_922a2df0\.jpg/);
-  assert.equal(existsSync('recovered-manus/manus-storage/debra-portrait_922a2df0.jpg'), false);
-  assert.match(resourceHub, /debra-allen-primary-about\.webp/);
-  assert.match(resourceHub, /alt="Debra Allen smiling in a yellow blazer at a kitchen counter"/);
-
-  const approvedArticlePhotos = [
-    'debra-allen-primary-about.webp',
-    'debra-allen-advisor-desk.webp',
-    'debra-allen-lifestyle-full-body.webp'
-  ];
-
-  assert.match(generator, /copyFile/);
-  for (const photo of approvedArticlePhotos) {
-    assert.match(generator, new RegExp(photo.replace('.', '\\.')));
-  }
-
-  for (const [index, route] of articleRoutes.entries()) {
-    const article = readFileSync(`recovered-manus/blog/${route}/index.html`, 'utf8');
-    assert.match(article, new RegExp(approvedArticlePhotos[index].replace('.', '\\.')));
-    assert.doesNotMatch(article, /debra-portrait_922a2df0\.jpg/);
-    assert.match(article, /href="\/blog"/);
-  }
 });
 
 test('application shell includes core accessibility landmarks', () => {
@@ -151,7 +136,31 @@ test('security headers include CSP and anti-sniffing controls', () => {
   assert.match(config, /Content-Security-Policy/);
   assert.match(config, /X-Content-Type-Options/);
   assert.match(config, /Permissions-Policy/);
-  assert.doesNotMatch(config, /unsafe-eval/);
+
+  // The public policy must stay free of `unsafe-eval`. Sanity Studio needs it,
+  // so it lives in a separate policy scoped to the noindexed /studio route and
+  // is never served to a public page.
+  const publicStart = config.indexOf('const publicContentSecurityPolicy');
+  const publicPolicy = config.slice(
+    publicStart,
+    config.indexOf(".join('; ');", publicStart)
+  );
+  assert.ok(publicPolicy.length > 0, 'the public CSP must be declared separately');
+  assert.doesNotMatch(publicPolicy, /unsafe-eval/);
+
+  const studioPolicy = config.slice(
+    config.indexOf('const studioContentSecurityPolicy'),
+    config.indexOf('const baseSecurityHeaders')
+  );
+  assert.match(studioPolicy, /unsafe-eval/);
+  assert.match(config, /source: '\/studio\/:path\*'/);
+
+  // The catch-all must exclude /studio. Next keeps the LAST value for a
+  // duplicated response-header key, so a plain `/(.*)` silently replaced the
+  // Studio policy and stopped the Studio from loading. The served header is
+  // asserted for real by scripts/qa/site-audit.mjs.
+  assert.doesNotMatch(config, /source: '\/\(\.\*\)'/);
+  assert.match(config, /source: '\/\(\(\?!studio/);
 });
 
 test('Shopify integration fails closed without placeholder products', () => {
