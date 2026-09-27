@@ -38,6 +38,7 @@ jobs:
             docs/12-governance/DEPLOYMENT_CHECKLIST.md
             docs/12-governance/ROLLBACK_CHECKLIST.md
             docs/12-governance/POST_RELEASE_MONITORING.md
+            docs/12-governance/CLIENT_HANDOFF.md
           )
 
           for file in "${required_files[@]}"; do

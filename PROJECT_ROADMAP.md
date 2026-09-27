@@ -132,6 +132,20 @@
 - [ ] All GHL and analytics events verified
 - [ ] Backup, rollback, and incident contacts documented
 
+### v1.0 handover gate
+
+Launching the site and handing it over are separate gates: a live site whose
+accounts belong to someone else has not been delivered. The itemised checklist
+is `docs/12-governance/CLIENT_HANDOFF.md` Part 7 — these are its headings.
+
+- [ ] Business facts supplied and live (`apps/web/lib/site.ts` no longer all `null`)
+- [ ] Lead delivery verified end to end with a test enquiry through every form
+- [ ] Owner has published, previewed and unpublished an article unaided
+- [ ] Domain, Vercel, Sanity, CRM and repository ownership settled in the owner's name
+- [ ] Prior holders' access reduced or removed
+- [ ] Rollback procedure demonstrated once on a real deployment
+- [ ] Owner sign-off recorded in `CLIENT_HANDOFF.md` Part 7
+
 ## v1.1 — Optimization and accessibility hardening
 
 - [ ] Review real-user analytics and search behavior

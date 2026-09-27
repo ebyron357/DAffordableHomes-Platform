@@ -175,8 +175,14 @@ Studio → **Articles → Drafts → Create**. `publicationState` starts at `dra
 so the article is invisible publicly until it is switched to `published`.
 
 Required before the document validates: title, slug, eyebrow, excerpt, author,
-category, publish date, reading time, featured image **with meaningful alt
-text**, SEO description, and at least one body block.
+category, publish date, reading time, publication state, SEO description, and at
+least one body block.
+
+`featuredImage` is **optional** and has been since guide-card imagery was
+reworked — an article without one renders `ArticlePlate` rather than borrowing an
+unrelated photograph, and no image property is published for it. If you do set
+one, it must actually depict that article's subject, be cleared for use, and
+carry alt text describing what is in the frame.
 
 ### Preview a draft
 

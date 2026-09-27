@@ -28,5 +28,14 @@
 - **Severity:** High
 - **Impact:** Dependency resolution can change between installations even when source code does not.
 - **Reason:** The governed monorepo was consolidated from npm and pnpm branches without adopting a final workspace lockfile.
-- **Recommended Fix:** Generate and commit the npm lockfile from the consolidated workspace, switch CI to `npm ci`, and validate a clean install.
+- **Original Recommended Fix (superseded, do not follow):** Generate and commit the npm lockfile from the consolidated workspace, switch CI to `npm ci`, and validate a clean install.
+- **How it was actually resolved:** On pnpm rather than npm. `packageManager` is pinned to `pnpm@11.9.0`, `pnpm-workspace.yaml` defines the workspace, `pnpm-lock.yaml` is committed, and both CI jobs install with `pnpm install --frozen-lockfile`. Installation is reproducible and the stated impact no longer applies. **No `package-lock.json` exists and none should be added** — two lockfiles for one workspace is worse than either alone, which is why the original recommendation above must not be actioned.
+- **Status:** Resolved. Residual inconsistency tracked separately as TD-005.
+
+## TD-005 — Root scripts still delegate through npm in a pnpm workspace
+
+- **Severity:** Low
+- **Impact:** Cosmetic and a maintenance trap, not a correctness problem. `pnpm build` currently resolves to `npm --workspace apps/web run build`, so both package managers must be present for the documented commands to work, and the root `package.json` carries an `npm`-style `workspaces` array that pnpm ignores in favour of `pnpm-workspace.yaml`.
+- **Reason:** Residue of the npm-to-pnpm consolidation recorded in TD-004. CI passes because the runner has npm as well as pnpm.
+- **Recommended Fix:** Rewrite the root scripts to `pnpm --filter`, and drop the redundant `workspaces` array. Verify `pnpm test:all` and every `qa:*` script afterwards, and update `docs/12-governance/CI_PLAN.md` if the commands change.
 - **Status:** Open

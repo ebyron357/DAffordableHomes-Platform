@@ -2,6 +2,23 @@
 
 All notable repository changes are documented here.
 
+## 2026-09-27
+
+### Client handover runbook
+
+- `docs/12-governance/CLIENT_HANDOFF.md` is new: the single index for transferring the site to its owner. The seven existing governance checklists are all written for the engineering team and none of them covers handover, so nothing said how the owner publishes an article, what she must supply before launch, or which accounts have to end up in her name.
+- Split by audience: Parts 1–4 are for the owner and need no command line; Parts 5–6 are for a maintaining developer. It points at `docs/13-cms/SANITY_SETUP.md` and the existing checklists rather than restating them.
+- States what is absent today rather than implying completeness: the lead forms do not deliver because no webhook URL is set, and the site shows no phone number, brokerage or licence because every field in `UNVERIFIED_TRUST_FACTS` is still `null`. Both are values only the owner can supply.
+- Carries an account-ownership table — domain, Vercel, GitHub, Sanity, CRM — because a live site whose accounts belong to someone else has not been delivered. Part 7 is the sign-off and is deliberately unticked.
+- Registered in `.github/workflows/repository-health.yml`'s required-files list so it cannot be silently deleted.
+
+### Three stale governance records corrected
+
+- `TECH_DEBT.md` TD-004 reported the dependency lockfile as pending and recommended switching CI to `npm ci`. That had been overtaken: `packageManager` is pinned to `pnpm@11.9.0`, `pnpm-workspace.yaml` defines the workspace, `pnpm-lock.yaml` is committed, and both CI jobs install with `pnpm install --frozen-lockfile`. Marked resolved on pnpm, with a note that no `package-lock.json` should be added.
+- The genuine residue is now **TD-005**, low severity: root scripts still delegate through `npm --workspace` inside a pnpm workspace, so `pnpm build` requires npm to be present too, and the root `package.json` keeps a redundant npm-style `workspaces` array. CI passes because the runner has both. Left open rather than fixed in a documentation pass.
+- `PROJECT_ROADMAP.md` gains a **v1.0 handover gate** below the launch gate. Launching and handing over are separate; the launch gate had no ownership-transfer item.
+- `docs/13-cms/SANITY_SETUP.md` listed a featured image "with meaningful alt text" among the fields required before an article validates. It has not been required since guide-card imagery was reworked and `featuredImage` was made optional end to end; the schema marks it optional and an article without one renders `ArticlePlate`. The required list now matches `apps/web/cms/schema/documents/article.ts` — title, slug, eyebrow, excerpt, author, category, publish date, reading time, publication state, SEO description, at least one body block — with the image's real conditions stated separately. Caught while fact-checking the handover runbook against the schema rather than copying the older doc.
+
 ## 2026-09-25
 
 ### Accessibility and link fixes (WCAG 2.2 AA)
