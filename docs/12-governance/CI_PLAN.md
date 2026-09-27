@@ -4,6 +4,19 @@
 
 Every pull request must prove that the D'Affordable Homes platform remains buildable, typed, tested, accessible, secure, and compliant with repository governance before merge.
 
+## What actually runs today
+
+Read the list below as the target, not as a description of the current pipeline. As of 2026-09-27 GitHub Actions runs three workflows:
+
+| Workflow / job | Status |
+| --- | --- |
+| `Governance and repository integrity` (`repository-health.yml`) | Running — required files, conflict markers, committed env files |
+| `Typecheck, lint, test, and build` (`application-quality.yml`) | Running — `pnpm test:all` |
+| `Browser QA (audit, quiz, contrast, faces)` (`application-quality.yml`) | Running — see **Browser QA gates** |
+| `Centralized ClientVerse audit` (`clientverse-audit.yml`) | **`BLOCKED`** — its three secrets are unset, and it triggers only on push to `main` and `workflow_dispatch` |
+
+Not yet implemented from the target list: formatting check, dependency audit, CodeQL or equivalent, secret scanning, security-header tests, bundle-size budget, and the Lighthouse release workflow. Items 9 and 10 below are therefore unmet, and no check should be reported as covering them.
+
 ## Required pull-request checks
 
 The Phase 1 application scaffold must implement these checks in GitHub Actions:
@@ -124,11 +137,30 @@ Configure the `CLIENTVERSE_ENDPOINT` and `CLIENTVERSE_DEPLOYMENT_URL` repository
 
 **Until all three are configured the check reports `BLOCKED` and fails.** This is deliberate. An earlier draft of this workflow exited 0 with a notice when unconfigured, which reported a green check for an audit that had never executed. A release gate that cannot distinguish "passed" from "never ran" is not a gate. `UNKNOWN` and unparseable responses fail for the same reason.
 
-Do not reintroduce Playwright, Lighthouse, axe, Lychee, Semgrep, or other scanner logic in this repository — extend the central ClientVerse engine instead. The one exception is `scripts/qa/site-audit.mjs`, which is a local pre-flight harness for developers and is not a substitute for the central audit.
+Do not write new Playwright, Lighthouse, axe, Lychee, Semgrep, or other scanner logic in this repository — extend the central ClientVerse engine instead. This rule is unchanged and still binding.
 
-## Local browser QA harness
+The four browser scripts that already exist are a separate matter: they now **run in CI** as the `runtime-qa` job, because a gate that does not run in CI does not gate, and the central engine cannot gate anything while it is `BLOCKED` for want of its three secrets. See `DECISIONS.md`, 2026-09-27. **That job does not satisfy the ClientVerse release gate and must never be represented as doing so.** The central audit stays `BLOCKED` until its secrets exist, and no other means of turning it green is acceptable.
 
-`pnpm qa:audit --base <url> [--screenshots]` drives a real Chromium browser over the running application and fails non-zero on any defect. It covers the route crawl, internal-link resolution, canonical tags, Article/Breadcrumb/FAQ structured data, heading hierarchy, alt text, landmarks, form labels, nested interactive controls, focus visibility, touch-target size, the real 404 for an unknown article slug, consultation-CTA navigation, console errors, and horizontal overflow at 375/430/768/1024/1440. Output lands in `qa-evidence/site-audit.json`.
+## Browser QA gates
+
+Four scripts drive a real Chromium browser over a served production build and each fails non-zero on any defect. They run locally and, since 2026-09-27, as the blocking `runtime-qa` CI job on every pull request.
+
+| Command | Covers |
+| --- | --- |
+| `pnpm qa:contrast` | Every documented foreground/background pair against WCAG 2.2 AA, so a contrast regression fails the build rather than waiting for an audit |
+| `pnpm qa:audit` | Route crawl, internal-link resolution, canonical tags, Article/Breadcrumb/FAQ structured data, heading hierarchy, alt text, landmarks, form labels, nested interactive controls, focus visibility, touch-target size, the real 404 for an unknown article slug, consultation-CTA navigation, console errors, and horizontal overflow at 375/430/768/1024/1440 |
+| `pnpm qa:quiz` | Every homepage quiz path end to end at desktop and phone width, with each result CTA fetched and required to return 200 |
+| `pnpm qa:faces` | Portrait crop safety — how far every placement of a real person's photograph cuts into the face, against a documented ceiling, including placements the browser failed to draw at all |
+
+They need a built app and a running server:
+
+```bash
+pnpm build
+sh scripts/qa/serve.sh 3111 "$PWD/.qa-server.log"
+pnpm qa:contrast && pnpm qa:audit && pnpm qa:quiz && pnpm qa:faces
+```
+
+`qa:audit` accepts `--base <url> [--screenshots]`. Output lands in `qa-evidence/`, which is tracked; regenerating it produces srcset-candidate and JPEG re-encode noise, so discard it with `git checkout -- qa-evidence/` unless rendering actually changed.
 
 ## Initial implementation sequence
 
