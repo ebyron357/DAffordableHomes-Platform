@@ -1,6 +1,6 @@
 import { defineField, defineType } from "sanity"
 
-import { isSafeInternalPath } from "@/lib/safe-path"
+import { isSafeInternalPath, toSafeHref } from "@/lib/safe-path"
 
 /**
  * Image with mandatory, meaningful alternative text.
@@ -88,13 +88,11 @@ export const relatedLink = defineType({
       name: "href",
       type: "string",
       validation: (rule) =>
-        rule
-          .required()
-          .custom((value: string | undefined) =>
-            isSafeInternalPath(value) || value?.startsWith("https://")
-              ? true
-              : "Use a site-relative path or an https URL. Protocol-relative values such as //example.com leave the site.",
-          ),
+        rule.required().custom((value: string | undefined) => {
+          const safe = toSafeHref(value)
+          if (safe !== null && (isSafeInternalPath(safe) || safe.startsWith("https://"))) return true
+          return "Use a site-relative path or a complete https URL such as https://example.com/page. Protocol-relative values such as //example.com leave the site."
+        }),
     }),
     defineField({ name: "description", type: "string", validation: (rule) => rule.required() }),
   ],
