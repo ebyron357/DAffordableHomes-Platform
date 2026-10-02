@@ -214,14 +214,26 @@ on `/blog`, at `/blog/<slug>`, and in `/sitemap.xml`.
 | URL | `https://daffordablehomes.com/api/revalidate` |
 | Dataset | `production` |
 | Trigger on | Create, Update, Delete |
-| Filter | `_type == "article"` |
+| Filter | `_type in ["article", "author", "category"]` |
 | Projection | `{_type, "slug": slug.current}` |
 | HTTP method | `POST` |
 | API version | `v2021-03-25` |
 | Secret | the same value as `SANITY_REVALIDATE_SECRET` |
 
 The route verifies the signature before revalidating, then clears the `article`
-cache tag and revalidates `/blog`, `/sitemap.xml`, and the article path.
+cache tag and revalidates `/blog`, `/sitemap.xml`, and — for an article — the
+article path.
+
+**The filter must list all three types, and it must match
+`REVALIDATING_TYPES` in `apps/web/app/api/revalidate/route.ts`.** The article
+queries dereference the author and category documents (`author->`, `category->`
+in `lib/blog/queries.ts`), so renaming an author or retitling a category changes
+every article that points at it. Filtering to `_type == "article"` alone meant
+those edits never reached the webhook: every cached article, metadata block and
+JSON-LD node stayed stale until the cache life expired, with no way for an editor
+to force the update. An author or category edit carries no article slug, so it
+clears the shared cache tag rather than one path — which is what every article's
+cached output hangs from.
 
 The article route renders on demand, so a published change is visible on the
 next request once the `article` cache tag is cleared. Without the webhook, the

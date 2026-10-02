@@ -11,6 +11,7 @@ import {
   FIGMA_SERVICES,
 } from "@/lib/figma-home"
 import { formatArticleDate } from "@/lib/blog/format"
+import type { ReadState } from "@/lib/blog/source"
 import type { ArticleSummary } from "@/lib/blog/types"
 import type { PropertySearchResult } from "@/lib/mls/provider"
 import { DEBRA_DESK_BAND } from "@/lib/content/imagery"
@@ -63,9 +64,16 @@ function formatPrice(value: number) {
 export function FigmaHomePage({
   listings,
   latestArticles,
+  latestArticlesState,
 }: {
   listings: PropertySearchResult
   latestArticles: ArticleSummary[]
+  /**
+   * Whether the guide list could be read. Passed through so an outage renders as
+   * an outage: dropping it made a failed Content Lake read look like a decision
+   * not to feature any guides.
+   */
+  latestArticlesState: ReadState
 }) {
   return (
     <div className="figma-home">
@@ -78,7 +86,7 @@ export function FigmaHomePage({
       <Markets />
       <FeaturedListings listings={listings} />
       <GuidanceSplit />
-      <KnowledgeBase articles={latestArticles} />
+      <KnowledgeBase articles={latestArticles} state={latestArticlesState} />
       <FinalCta />
       <FigmaHomeFooter />
     </div>
@@ -560,7 +568,7 @@ function GuidanceSplit() {
  * The evergreen planning destinations below stay in the repository — they are
  * effectively navigation, not content an editor should maintain.
  */
-function KnowledgeBase({ articles }: { articles: ArticleSummary[] }) {
+function KnowledgeBase({ articles, state }: { articles: ArticleSummary[]; state: ReadState }) {
   return (
     <section className="fh-section fh-knowledge" aria-labelledby="figma-knowledge-heading">
       <div className="fh-shell">
@@ -569,7 +577,18 @@ function KnowledgeBase({ articles }: { articles: ArticleSummary[] }) {
           <h2 id="figma-knowledge-heading">Homebuyer guides and tools for Dallas–Fort Worth</h2>
         </div>
 
-        {articles.length > 0 && (
+        {state.status === "unavailable" ? (
+          <div className="fh-latest">
+            <div className="fh-latest-head">
+              <h3>Latest guides</h3>
+            </div>
+            <p className="fh-latest-unavailable">
+              The guide library isn&apos;t loading right now. Nothing has been removed — the content service is not
+              responding. The planning tools below are unaffected.
+            </p>
+          </div>
+        ) : (
+          articles.length > 0 && (
           <div className="fh-latest">
             <div className="fh-latest-head">
               <h3>Latest guides</h3>
@@ -596,6 +615,7 @@ function KnowledgeBase({ articles }: { articles: ArticleSummary[] }) {
               ))}
             </ul>
           </div>
+          )
         )}
 
         <div className="fh-knowledge-evergreen">

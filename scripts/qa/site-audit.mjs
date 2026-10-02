@@ -770,6 +770,106 @@ async function main() {
     await page.close()
   }
 
+  /* -------------------- mobile menu: Escape dismisses -------------- */
+
+  /*
+   * The site runs two headers: HideOnHome swaps SiteHeader out on "/", where
+   * FigmaHomeHeader renders instead. Both must close on Escape and return focus
+   * to the toggle that opened them, and the homepage panel must release the body
+   * scroll lock it sets — a keyboard user who could not dismiss it was stranded
+   * on a page that would not scroll.
+   *
+   * This was previously asserted only by matching tokens in the component
+   * source, which cannot tell whether the listener is attached or the focus
+   * actually moves. Driven here in a real browser at phone width, where the
+   * toggle is the only way in.
+   */
+  {
+    const menus = [
+      { route: "/", header: "FigmaHomeHeader", panel: "figma-home-mobile-menu", locksScroll: true },
+      { route: "/about", header: "SiteHeader", panel: "mobile-menu", locksScroll: false },
+    ]
+
+    const menuContext = await browser.newContext({ viewport: { width: 375, height: 812 } })
+    for (const menu of menus) {
+      const page = await menuContext.newPage()
+      await page.goto(`${BASE}${menu.route}`, { waitUntil: "load" })
+
+      const toggle = page.locator(`button[aria-controls="${menu.panel}"]`)
+      const panel = page.locator(`#${menu.panel}`)
+
+      const visible = await toggle.isVisible().catch(() => false)
+      if (!record(visible, `${menu.header} menu toggle is reachable at 375px`)) {
+        await page.close()
+        continue
+      }
+
+      await toggle.click()
+      await panel.waitFor({ state: "visible", timeout: 5000 }).catch(() => {})
+      record(await panel.isVisible().catch(() => false), `${menu.header} menu opens on click`)
+      record(
+        (await toggle.getAttribute("aria-expanded")) === "true",
+        `${menu.header} toggle reports aria-expanded=true while open`,
+      )
+
+      if (menu.locksScroll) {
+        const locked = await page.evaluate(() => document.body.style.overflow)
+        record(locked === "hidden", `${menu.header} locks body scroll while open`, locked)
+      }
+
+      /*
+       * Move focus into the panel before dismissing it.
+       *
+       * Clicking the toggle already leaves focus on the toggle, so asserting
+       * "focus returned to the toggle" straight after a click passes whether or
+       * not the component restores focus — the first version of this check did
+       * exactly that and stayed green when the focus call was deleted. Tabbing
+       * in first is also the real scenario: a keyboard user moves into the menu,
+       * then presses Escape.
+       */
+      const movedIn = await page.evaluate((panelId) => {
+        const target = document
+          .getElementById(panelId)
+          ?.querySelector('a[href], button:not([disabled])')
+        if (!(target instanceof HTMLElement)) return false
+        target.focus()
+        return document.activeElement === target
+      }, menu.panel)
+      record(movedIn, `${menu.header} menu content is focusable while open`)
+
+      await page.keyboard.press("Escape")
+      await panel.waitFor({ state: "hidden", timeout: 5000 }).catch(() => {})
+
+      record(
+        !(await panel.isVisible().catch(() => false)),
+        `${menu.header} menu closes on Escape`,
+      )
+      record(
+        (await toggle.getAttribute("aria-expanded")) === "false",
+        `${menu.header} toggle reports aria-expanded=false after Escape`,
+      )
+      record(
+        await page.evaluate(
+          (panelId) => document.activeElement?.getAttribute("aria-controls") === panelId,
+          menu.panel,
+        ),
+        `${menu.header} returns focus to the toggle after Escape`,
+      )
+
+      if (menu.locksScroll) {
+        const released = await page.evaluate(() => document.body.style.overflow)
+        record(
+          released !== "hidden",
+          `${menu.header} releases body scroll after Escape`,
+          released,
+        )
+      }
+
+      await page.close()
+    }
+    await menuContext.close()
+  }
+
   await context.close()
 
   /* -------------------- responsive QA + screenshots --------------- */

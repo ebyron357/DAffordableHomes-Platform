@@ -1055,6 +1055,16 @@
 /* ---------------------------------------------------------------- knowledge */
 .fh-knowledge { background: var(--fh-alt); }
 .fh-latest { margin-bottom: 56px; }
+/* Shown in place of the list when the Content Lake read fails with nothing
+   cached. Same muted token as the knowledge-card body copy in this section,
+   so it introduces no new foreground/background pair. */
+.fh-latest-unavailable {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--fh-muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
 .fh-latest-head {
   display: flex;
   flex-wrap: wrap;

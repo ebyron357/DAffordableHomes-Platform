@@ -154,13 +154,25 @@ const HEROES_GROUPS = new Set(["military", "responder", "educator", "healthcare"
  * education; a repeat buyer still working out financing, or anyone exploring
  * on a long horizon, goes to research; everyone else lands on the readiness
  * check.
+ *
+ * `buyerPosition` is read through `BUYING_GOALS` — the same set that decides
+ * whether the question is asked at all. A visitor who answers it, goes back and
+ * changes the goal to selling leaves the old answer behind: the hook merges
+ * answers by id and only `restart` clears them, so a hidden answer survives.
+ * Reading it ungated let a stale `sellfirst` return "sell-buy" to someone whose
+ * goal now says they are only selling, because that check precedes the `sell`
+ * branch. Gating here keeps the resolver and the question's own visibility rule
+ * from disagreeing. `sellerPosition` is the other branched question and the
+ * resolver never reads it, so it cannot go stale this way.
  */
 export function resolvePath(answers: PathAnswers): PathKey {
+  const buyerPosition = BUYING_GOALS.has(answers.goal ?? "") ? answers.buyerPosition : undefined
+
   if (HEROES_GROUPS.has(answers.service ?? "")) return "hero"
   if (answers.goal === "relocate") return "relocating"
-  if (answers.goal === "sellbuy" || answers.buyerPosition === "sellfirst") return "sell-buy"
+  if (answers.goal === "sellbuy" || buyerPosition === "sellfirst") return "sell-buy"
   if (answers.goal === "sell") return "selling"
-  if (answers.buyerPosition === "search" || answers.buyerPosition === "preapproved") return "ready-search"
+  if (buyerPosition === "search" || buyerPosition === "preapproved") return "ready-search"
   if (answers.goal === "first") return "first-time"
   if (answers.goal === "next") return "researcher"
   if (answers.goal === "explore") {

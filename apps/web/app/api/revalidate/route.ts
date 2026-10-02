@@ -12,6 +12,18 @@ type WebhookPayload = {
   slug?: { current?: string } | string
 }
 
+/**
+ * Document types whose edits change rendered article output.
+ *
+ * `author` and `category` are here because the article queries dereference them
+ * (`author->`, `category->` in lib/blog/queries.ts). Accepting only `article`
+ * meant renaming an author or retitling a category left every cached article,
+ * metadata block and JSON-LD node stale until the cache life expired, with no
+ * way for an editor to force the update. The Sanity webhook filter must list the
+ * same three types — see docs/13-cms/SANITY_SETUP.md.
+ */
+const REVALIDATING_TYPES = new Set(["article", "author", "category"])
+
 function slugOf(payload: WebhookPayload | null): string | null {
   if (!payload) return null
   if (typeof payload.slug === "string") return payload.slug
@@ -53,7 +65,7 @@ export async function POST(request: NextRequest) {
     return Response.json({ revalidated: false, reason: "Invalid signature." }, { status: 401 })
   }
 
-  if (body?._type !== "article") {
+  if (!REVALIDATING_TYPES.has(body?._type ?? "")) {
     return Response.json(
       { revalidated: false, reason: `Ignored document type: ${body?._type ?? "unknown"}` },
       { status: 200 },
@@ -66,8 +78,10 @@ export async function POST(request: NextRequest) {
   revalidatePath("/blog")
   revalidatePath("/sitemap.xml")
 
-  const slug = slugOf(body)
+  // Only an article has its own page. An author or category edit clears the
+  // shared tag above, which is what every article's cached output hangs from.
+  const slug = body?._type === "article" ? slugOf(body) : null
   if (slug) revalidatePath(`/blog/${slug}`)
 
-  return Response.json({ revalidated: true, tag: ARTICLE_CACHE_TAG, slug })
+  return Response.json({ revalidated: true, type: body?._type, tag: ARTICLE_CACHE_TAG, slug })
 }

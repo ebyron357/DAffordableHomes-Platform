@@ -46,7 +46,26 @@ const staticRoutes = [
 ] as const
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const { articles } = await listArticles()
+  const { articles, state } = await listArticles()
+
+  /*
+   * An outage must not be published as a sitemap.
+   *
+   * `listArticles()` reports `unavailable` with an empty array when the Content
+   * Lake cannot be read and nothing has been cached yet. Discarding that state
+   * produced a 200 response listing every static route and no article at all,
+   * which tells a crawler those URLs were removed. Throwing instead fails the
+   * route, so the previously served sitemap stays authoritative until the read
+   * recovers.
+   *
+   * `stale` is deliberately not thrown on: it serves the last good response, so
+   * the article set is complete and the document is safe to publish.
+   */
+  if (state.status === "unavailable") {
+    throw new Error(
+      "Refusing to publish a sitemap without article URLs: the Content Lake is unreachable and nothing is cached.",
+    )
+  }
 
   const staticEntries = staticRoutes.map((route) => ({
     url: `${SITE.url}${route}`,

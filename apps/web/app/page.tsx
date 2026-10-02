@@ -70,7 +70,11 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }}
       />
-      <FigmaHomePage listings={listings} latestArticles={articles.articles.slice(0, 3)} />
+      <FigmaHomePage
+        listings={listings}
+        latestArticles={articles.articles.slice(0, 3)}
+        latestArticlesState={articles.state}
+      />
     </>
   )
 }

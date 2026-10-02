@@ -217,3 +217,54 @@ test("homepage copy is specific to Dallas–Fort Worth and free of generic marke
   // The listings band never claims a live MLS feed exists.
   assert.doesNotMatch(map, /MLS listings/)
 })
+
+test("a hidden answer left behind by a goal change cannot select the result", () => {
+  // The quiz hook merges answers by id and only `restart` clears them, so going
+  // back and changing the goal leaves earlier answers in place. Any question the
+  // resolver reads must therefore be gated on the goal that made it visible.
+
+  // The case that was wrong: "sell and buy" then back to "sell only".
+  assert.equal(
+    resolvePath({ goal: "next", buyerPosition: "sellfirst" }),
+    "sell-buy",
+    "with a buying goal, sellfirst is the sell-and-buy path",
+  )
+  assert.equal(
+    resolvePath({ goal: "sell", buyerPosition: "sellfirst" }),
+    "selling",
+    "once the goal is sell-only, a stale sellfirst must not return sell-buy",
+  )
+
+  // The same for the other two buyer positions the resolver reads.
+  for (const stale of ["search", "preapproved"]) {
+    assert.equal(
+      resolvePath({ goal: "sell", buyerPosition: stale }),
+      "selling",
+      `a stale buyerPosition=${stale} must not survive a change to a selling goal`,
+    )
+  }
+
+  // And it must not break the cases where the question genuinely still applies.
+  // BUYING_GOALS includes "explore", so an explorer who says they are ready to
+  // search is answering a question that is still on screen.
+  assert.equal(resolvePath({ goal: "explore", buyerPosition: "search" }), "ready-search")
+  assert.equal(resolvePath({ goal: "first", buyerPosition: "preapproved" }), "ready-search")
+  assert.equal(resolvePath({ goal: "sellbuy", buyerPosition: "search" }), "sell-buy")
+})
+
+test("every branched question the resolver reads is gated on the goal", () => {
+  // Guards the shape of the fix rather than one case: if a future question is
+  // both conditional and read by the resolver, it needs the same gate.
+  const branched = PATH_QUESTIONS.filter((question) => question.showIf).map((question) => question.id)
+  assert.deepEqual(branched.sort(), ["buyerPosition", "sellerPosition"])
+
+  // sellerPosition is never read by the resolver, so it cannot go stale through
+  // it. If that changes, this assertion should fail and prompt a gate.
+  for (const value of ["deciding", "value", "prep", "ready"]) {
+    assert.equal(
+      resolvePath({ goal: "first", sellerPosition: value }),
+      "first-time",
+      "sellerPosition must not influence a buying result",
+    )
+  }
+})

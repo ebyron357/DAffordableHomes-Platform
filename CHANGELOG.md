@@ -4,6 +4,79 @@ All notable repository changes are documented here.
 
 ## 2026-10-02
 
+### Copilot review: five real defects fixed, one recommendation declined
+
+Copilot reviewed `60c8695` and raised nine findings. Each was checked against the
+code rather than taken at face value; five were real, two named a genuine
+coverage gap, one was already handled, and one asked for something that must not
+be done.
+
+**The rate limiter could be used to exhaust the instance it protected** (high).
+It swept expired entries once the map passed 500 and then inserted
+unconditionally. Expired entries are the only removable ones, so a flood of
+distinct addresses inside a single window swept nothing, grew the map without
+bound, and paid an O(n) scan on every later request. A sweep now runs at most
+once per window per bucket, and the map has a hard capacity above which a new
+identifier is refused rather than admitted. The cost is stated in the module: a
+fresh caller can be refused on one instance under an address flood, which is a
+bounded refusal chosen over unbounded growth. Evicting existing entries was
+rejected — a caller could evict its own counter and escape the limit.
+
+**Author and category edits never invalidated anything.** The article queries
+dereference both (`author->`, `category->`), but the webhook accepted only
+`_type == "article"`. Renaming an author or retitling a category left every
+cached article, metadata block and JSON-LD node stale until the cache life
+expired, with no way for an editor to force the update. The route now accepts all
+three types and clears the shared cache tag; only an article revalidates its own
+path. `docs/13-cms/SANITY_SETUP.md`'s webhook filter is widened to match, and a
+test fails if the two sides ever disagree.
+
+**The homepage turned a Sanity outage into an editorial decision.** `page.tsx`
+dropped `listArticles().state` and `KnowledgeBase` hid the whole "Latest guides"
+block on an empty array, so a failed read looked like a choice not to feature any
+guides. The state is passed through and an unavailable read now renders as one,
+reusing the muted token already used in that section so no new contrast pair is
+introduced.
+
+**The sitemap published outages as deletions.** It discarded the same state and
+returned a 200 listing every static route and no article, which tells a crawler
+those URLs were removed. An `unavailable` read now fails the route so the last
+good sitemap stays authoritative. A `stale` read is deliberately still published:
+it serves the last good article set, so the document is complete.
+
+**A hidden quiz answer could select the result.** The hook merges answers by id
+and only `restart` clears them, so changing the goal on the way back leaves
+earlier answers behind. `resolvePath` read `buyerPosition` ungated, so a stale
+`sellfirst` returned the sell-and-buy path to someone whose goal now said they
+were only selling — that check precedes the `sell` branch. It is now read through
+`BUYING_GOALS`, the same set that decides whether the question is asked, so the
+resolver and the question's visibility rule cannot disagree. Copilot's
+illustrative example was wrong — it used `explore`, which *is* in `BUYING_GOALS`,
+so that question does still apply — but the underlying defect was real on the
+selling path. `sellerPosition` is the only other branched question and the
+resolver never reads it.
+
+**Escape was asserted only by matching source text.** Copilot was right that no
+browser check opened either menu. A source regex cannot tell whether the listener
+is attached or the focus actually moves. `qa:audit` now drives both headers at
+375px: open, focus into the panel, Escape, then assert the panel closed,
+`aria-expanded` is false, focus is back on the toggle, and the homepage released
+its body-scroll lock. The first version of this check was vacuous — clicking the
+toggle already leaves focus on it, so "focus returned" passed with the focus call
+deleted. Moving focus into the panel first is what makes it bite, and is the real
+keyboard scenario. This extends an existing gate rather than adding new scanner
+logic, per `CI_PLAN.md`.
+
+**Declined: "restore draft status."** Copilot asked for the pull request to be
+returned to draft because the description said draft while GitHub exposed it as
+ready. The owner marked it ready deliberately; an agent must not revert that. The
+stale half of the inconsistency was the description, and it has been corrected.
+
+Validation: 142 tests pass (was 128), typecheck exit 0, lint exit 0, build 46/46.
+Browser gates: contrast 36 pairs 0 failures, audit 33 routes 0 failures 0 console
+errors 90 responsive checks, quiz 16/16, faces 10.5% against the 12% ceiling.
+Every fix was mutation-tested in both directions.
+
 ### The program lead endpoint had no rate limit and no server-side address check
 
 `/api/leads/program` is a public write endpoint reachable from the NACA and Homes
