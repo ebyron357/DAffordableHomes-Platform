@@ -159,6 +159,13 @@ function enclosingFieldName(source, at) {
   return names.length > 0 ? names[names.length - 1][1] : null;
 }
 
+function enclosingTypeName(source, at) {
+  const types = [...source.slice(0, at).matchAll(/defineType\(\{\s*\n\s*name: "([^"]+)"/g)];
+  return types.length > 0 ? types[types.length - 1][1] : null;
+}
+
+const NOT_AN_HREF = new Set(['videoEmbed']);
+
 function extractCustomValidators(source) {
   const marker = '.custom(';
   const predicates = [];
@@ -166,6 +173,7 @@ function extractCustomValidators(source) {
   for (let at = source.indexOf(marker); at !== -1; at = source.indexOf(marker, at + 1)) {
     const field = enclosingFieldName(source, at);
     if (field !== 'href' && field !== 'url') continue;
+    if (NOT_AN_HREF.has(enclosingTypeName(source, at))) continue;
 
     let depth = 0;
     let quote = null;
@@ -214,8 +222,12 @@ const HREF_CORPUS = [
   'https://example.com',
   'mailto:hello@example.com',
   'tel:+15550001111',
-  // The value that shipped as saveable-but-unrenderable.
+  // Values that shipped as saveable-but-unrenderable.
   'http://example.com',
+  'https://',
+  'https:// ',
+  'https://#x',
+  'https://?a=1',
   'javascript:alert(1)',
   'JavaScript:alert(1)',
   'data:text/html;base64,PHNjcmlwdD4=',
@@ -413,4 +425,37 @@ test('the audit flags every anchor the render-time allowlist would reject', () =
 test('the audit records the served-anchor result as a check', () => {
   const audit = readFileSync('scripts/qa/site-audit.mjs', 'utf8');
   assert.match(audit, /anchors all use an allowlisted scheme/);
+});
+
+
+test('the video URL validator and renderer share one embeddability predicate', async () => {
+  const { toEmbedUrl, isEmbeddableVideoUrl } = await import(
+    pathToFileURL('apps/web/lib/blog/embeds.ts').href
+  );
+
+  const corpus = [
+    ['https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'youtube', true],
+    ['https://youtu.be/dQw4w9WgXcQ', 'youtube', true],
+    ['https://www.youtube.com/shorts/dQw4w9WgXcQ', 'youtube', true],
+    ['https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ', 'youtube', true],
+    ['https://vimeo.com/123456789', 'vimeo', true],
+    ['https://player.vimeo.com/video/123456789', 'vimeo', true],
+    ['https://example.com/article', 'youtube', false],
+    ['https://example.com/12345', 'vimeo', false],
+    ['http://vimeo.com/123456789', 'vimeo', false],
+    ['https://', 'youtube', false],
+    ['javascript:alert(1)', 'youtube', false],
+    ['', 'youtube', false],
+    [undefined, 'vimeo', false],
+  ];
+
+  for (const [url, provider, embeddable] of corpus) {
+    assert.equal(isEmbeddableVideoUrl(url, provider), embeddable);
+    assert.equal(isEmbeddableVideoUrl(url, provider), toEmbedUrl(url, provider) !== null);
+  }
+});
+
+test('the video schema validator uses the shared resolver', () => {
+  const source = readFileSync(SCHEMA_FILES.blocks, 'utf8');
+  assert.match(source, /isEmbeddableVideoUrl\(value, provider\)/);
 });
