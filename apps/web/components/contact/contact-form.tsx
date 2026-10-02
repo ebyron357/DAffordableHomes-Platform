@@ -4,7 +4,12 @@ import { useId, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Notice } from "@/components/states/notice"
 
-type Status = "idle" | "invalid" | "submitting" | "unavailable"
+type Status = "idle" | "invalid" | "submitting" | "success" | "error" | "unavailable"
+
+function field(form: FormData, name: string): string {
+  const value = form.get(name)
+  return typeof value === "string" ? value : ""
+}
 
 export function ContactForm({ context = "general" }: { context?: "general" | "consultation" }) {
   const nameId = useId()
@@ -14,9 +19,15 @@ export function ContactForm({ context = "general" }: { context?: "general" | "co
   const connectionId = useId()
   const messageId = useId()
   const errId = useId()
+  const honeypotId = useId()
   const [status, setStatus] = useState<Status>("idle")
+  const [error, setError] = useState("")
+  const [startedAt] = useState(() => Date.now())
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  // Posts to /api/leads/contact. Success is shown only when the server says the
+  // message was delivered; a 503 (no destination configured) keeps the honest
+  // "not connected" notice rather than pretending it was sent.
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const form = event.currentTarget
     if (!form.checkValidity()) {
@@ -24,20 +35,76 @@ export function ContactForm({ context = "general" }: { context?: "general" | "co
       form.reportValidity()
       return
     }
+
+    const data = new FormData(form)
     setStatus("submitting")
-    // Honest disconnected state: no messaging provider is wired up yet, so we
-    // never pretend a message was delivered. This is the wiring point for a
-    // real email/CRM integration.
-    setTimeout(() => setStatus("unavailable"), 400)
+    setError("")
+
+    try {
+      const response = await fetch("/api/leads/contact", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          context,
+          startedAt,
+          website: field(data, "website"),
+          name: field(data, "name"),
+          email: field(data, "email"),
+          phone: field(data, "phone"),
+          preferredConnection: field(data, "preferredConnection"),
+          buyerStage: field(data, "buyerStage"),
+          message: field(data, "message"),
+          pageUrl: window.location.href,
+        }),
+      })
+      const result = (await response.json().catch(() => null)) as { error?: string } | null
+
+      if (response.ok) {
+        form.reset()
+        setStatus("success")
+      } else if (response.status === 503) {
+        setStatus("unavailable")
+      } else {
+        setStatus("error")
+        setError(result?.error ?? "Your message could not be sent. Please try again.")
+      }
+    } catch {
+      setStatus("error")
+      setError("Your message could not be sent. Please check your connection and try again.")
+    }
+  }
+
+  if (status === "success") {
+    return (
+      <Notice tone="success" title="Thank you — your message was sent">
+        <p>Debra will read it and reply personally. There is nothing else you need to do.</p>
+      </Notice>
+    )
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5" aria-describedby={errId}>
+    <form
+      onSubmit={handleSubmit}
+      noValidate
+      className="flex flex-col gap-5"
+      aria-describedby={status === "invalid" || status === "error" ? errId : undefined}
+    >
       {status === "invalid" && (
         <p id={errId} role="alert" className="text-sm font-medium text-destructive">
           Please complete the required fields so Debra can follow up.
         </p>
       )}
+      {status === "error" && (
+        <p id={errId} role="alert" className="text-sm font-medium text-destructive">
+          {error}
+        </p>
+      )}
+
+      {/* Honeypot: hidden from people and assistive technology, filled by bots. */}
+      <div className="sr-only" aria-hidden="true">
+        <label htmlFor={honeypotId}>Website</label>
+        <input id={honeypotId} name="website" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
 
       <div className="flex flex-col gap-2">
         <label htmlFor={nameId} className="text-sm font-medium text-foreground">
@@ -89,17 +156,21 @@ export function ContactForm({ context = "general" }: { context?: "general" | "co
       </div>
 
       {status === "unavailable" ? (
-        <Notice tone="info" title="Message form isn't connected yet">
+        <Notice tone="info" title="Online messages aren't connected yet">
           <p>
-            Online submissions aren&apos;t wired up for release yet, so we won&apos;t pretend your message was sent.
-            Please reach out directly and Debra will respond personally. This form activates once a messaging provider
-            is connected.
+            Your message was not sent, and nothing you typed has been stored. Online messages start working as soon as
+            the site&apos;s message delivery is switched on.
+          </p>
+          <p className="mt-2">
+            In the meantime, <a href="/start" className="font-semibold text-primary underline">find your next homebuying
+            step</a> or <a href="/resources" className="font-semibold text-primary underline">browse the homebuyer
+            guides</a>.
           </p>
         </Notice>
       ) : (
         <div>
           <Button type="submit" disabled={status === "submitting"}>
-            {status === "submitting" ? "Checking…" : context === "consultation" ? "Request consultation" : "Send message"}
+            {status === "submitting" ? "Sending…" : context === "consultation" ? "Request consultation" : "Send message"}
           </Button>
           <p className="mt-3 text-xs text-muted-foreground">
             We respect your privacy. Your information is only used to respond to you.

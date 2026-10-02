@@ -3,6 +3,7 @@ import { Inter, Source_Serif_4 } from "next/font/google"
 import { HideOnHome } from "@/components/layout/hide-on-home"
 import { SiteHeader } from "@/components/layout/site-header"
 import { SiteFooter } from "@/components/layout/site-footer"
+import { localBusinessJsonLd } from "@/lib/business-facts"
 import { SHARE_IMAGES } from "@/lib/seo"
 import { SITE } from "@/lib/site"
 import "./globals.css"
@@ -138,6 +139,9 @@ const entityGraph = {
       ],
       worksFor: { "@id": `${SITE.url}/#organization` },
     },
+    // The local listing appears only once the office address and phone number
+    // are both verified; until then this adds nothing. See lib/business-facts.ts.
+    ...[localBusinessJsonLd()].filter(Boolean),
   ],
 }
 

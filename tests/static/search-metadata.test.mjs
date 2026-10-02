@@ -181,3 +181,18 @@ test('the site-wide Person asserts no unverified fact', () => {
     assert.doesNotMatch(person, new RegExp(`\\b${field}:`), `Person must not publish ${field} until it is verified`);
   }
 });
+
+test('the app icons are the brand monogram at the sizes browsers ask for, and stay small', () => {
+  // The icon ships with every first page view and is what search results show
+  // beside the site name. It was a 73 KB red "n" that was not part of the brand.
+  for (const [file, size] of [[`${APP}/icon.png`, 512], [`${APP}/apple-icon.png`, 180]]) {
+    const png = readFileSync(file);
+    assert.equal(png.readUInt32BE(16), size, `${file} width`);
+    assert.equal(png.readUInt32BE(20), size, `${file} height`);
+    assert.ok(png.length < 24 * 1024, `${file} is ${png.length} bytes`);
+    // iOS fills transparency with black, so the home-screen tile must be opaque.
+    assert.equal(png.includes(Buffer.from('tRNS')), false, `${file} must be opaque`);
+    assert.ok(png[25] !== 4 && png[25] !== 6, `${file} must not carry an alpha channel`);
+  }
+  assert.match(read('docs/05-content/IMAGE_ASSET_REGISTER.md'), /`icon\.png` \(512×512\) and `apple-icon\.png`/);
+});

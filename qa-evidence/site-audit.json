@@ -35,7 +35,7 @@
     "/first-time-buyers brand area: 58.1% {\"navy\":43.7,\"alt\":14.4}",
     "/homes brand area: 87.3% {\"navy\":62.9,\"alt\":24.3,\"teal\":0}",
     "/neighborhoods brand area: 87.6% {\"navy\":87.6,\"teal\":0}",
-    "/privacy brand area: 58.1% {\"navy\":58.1}",
+    "/privacy brand area: 43.5% {\"navy\":43.5}",
     "/programs brand area: 76.3% {\"navy\":58.3,\"alt\":18.1}",
     "/programs/naca brand area: 66.2% {\"navy\":32.2,\"teal\":0,\"alt\":33.9}",
     "/programs/homes-for-heroes brand area: 65.5% {\"navy\":32.5,\"teal\":0,\"alt\":33}",
@@ -420,8 +420,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -478,8 +478,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -577,8 +577,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -763,7 +763,7 @@
       },
       "inputsMissingLabel": 0,
       "nestedInteractive": 0,
-      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nConsultation\n\nA CLEAR NEXT STEP\n\nStart with a conversation, not a sales pitch\n\nTell Debra enough to understand your starting point. You will leave with a clearer understanding of what to do next, even if buying is not your immediate next move.\n\nNo cost, no commitment\nGarland + Dallas–Fort Worth\nYOUR REALTOR®\nDebra Allen\nRequest a consultation\n\nA short form so Debra can understand what you would like to discuss. Please do not include Social Security numbers, account numbers, or other sensitive financial information.\n\nYour name *\nPhone\nPreferred way to connect\nPhone or video call\nEmail\nWhere are you right now?\nChoose the option that fits best\nExploring whether buying is right for me\nPreparing finances and documents\nReady to begin a home search\nAlready touring or making offers\nEmail *\nWhat would you like help with? *\nRequest consultation\n\nWe respect your privacy. Your information is only used to respond to you.\n\nWHAT TO EXPECT\n\nFour things, every time\nA focused planning conversation\nAbout your situation, not a script. Bring the question you have actually been sitting on.\nA review of your current position\nWhere you are today with savings, timing and preparation — without judgement about any of it.\nClear next steps without pressure\nOne or two things worth doing next, and an honest note about which ones can wait.\nResources matched to your situation\nThe guide, the calculator or the professional that fits what you described — not a generic packet.\nYou do not need to be ready\n\nPerfect credit, a lender, and every answer are not prerequisites for a conversation. Most people book one precisely because they do not have those yet.\n\nNOT READY TO SCHEDULE?\n\nCome back when you have a question worth asking\n\nThere is no wrong order here. Plenty of people work through one of these first and book afterwards.\n\nEstimate a monthly payment\n\nPrincipal, interest, taxes, insurance and HOA dues, with your own numbers in it.\n\nOpen the calculator\nFind your next step\n\nA short set of questions about where you are, then one clear thing to do next.\n\nStart the assessment\nRead a guide first\n\nPlain-language answers on programs, preparation and buying locally in North Texas.\n\nBrowse the guides\n\nPREFER TO WRITE FIRST?\n\nSend a message instead\n\nA short note works just as well. Same person reads it, same absence of a sales pitch.\n\nContact Debra\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
+      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nConsultation\n\nA CLEAR NEXT STEP\n\nStart with a conversation, not a sales pitch\n\nTell Debra enough to understand your starting point. You will leave with a clearer understanding of what to do next, even if buying is not your immediate next move.\n\nNo cost, no commitment\nGarland + Dallas–Fort Worth\nYOUR REALTOR®\nDebra Allen\nRequest a consultation\n\nA short form so Debra can understand what you would like to discuss. Please do not include Social Security numbers, account numbers, or other sensitive financial information.\n\nWebsite\nYour name *\nPhone\nPreferred way to connect\nPhone or video call\nEmail\nWhere are you right now?\nChoose the option that fits best\nExploring whether buying is right for me\nPreparing finances and documents\nReady to begin a home search\nAlready touring or making offers\nEmail *\nWhat would you like help with? *\nRequest consultation\n\nWe respect your privacy. Your information is only used to respond to you.\n\nWHAT TO EXPECT\n\nFour things, every time\nA focused planning conversation\nAbout your situation, not a script. Bring the question you have actually been sitting on.\nA review of your current position\nWhere you are today with savings, timing and preparation — without judgement about any of it.\nClear next steps without pressure\nOne or two things worth doing next, and an honest note about which ones can wait.\nResources matched to your situation\nThe guide, the calculator or the professional that fits what you described — not a generic packet.\nYou do not need to be ready\n\nPerfect credit, a lender, and every answer are not prerequisites for a conversation. Most people book one precisely because they do not have those yet.\n\nNOT READY TO SCHEDULE?\n\nCome back when you have a question worth asking\n\nThere is no wrong order here. Plenty of people work through one of these first and book afterwards.\n\nEstimate a monthly payment\n\nPrincipal, interest, taxes, insurance and HOA dues, with your own numbers in it.\n\nOpen the calculator\nFind your next step\n\nA short set of questions about where you are, then one clear thing to do next.\n\nStart the assessment\nRead a guide first\n\nPlain-language answers on programs, preparation and buying locally in North Texas.\n\nBrowse the guides\n\nPREFER TO WRITE FIRST?\n\nSend a message instead\n\nA short note works just as well. Same person reads it, same absence of a sales pitch.\n\nContact Debra\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
       "images": [
         {
           "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
@@ -780,8 +780,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -821,7 +821,7 @@
       },
       "inputsMissingLabel": 0,
       "nestedInteractive": 0,
-      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nContact\n\nCONNECT\n\nReach out — wherever you are in the process\n\nWhether you're years away or ready to start, Debra is glad to help you understand your next step. No pressure, no judgment.\n\nGarland + Dallas–Fort Worth\nNo pressure, no judgment\nREALTOR® · GARLAND\nDebra Allen\nSend Debra a message\n\nA sentence is plenty. Say where you are in the process and what you are trying to work out — that is enough for a useful reply.\n\nYour name *\nEmail *\nHow can Debra help? *\nSend message\n\nWe respect your privacy. Your information is only used to respond to you.\n\nBEFORE YOU WRITE\n\nTwo things worth knowing\nKeep sensitive details out of the form\nNo Social Security numbers, account numbers or financial account details. Nothing here needs them.\nYou do not need to be ready\n“I am not sure yet” is a completely normal place to start a message from.\nPrefer to talk it through?\n\nA consultation is a longer conversation about your situation, with a clear next step at the end of it.\n\nBook a consultation\n\nNOT SURE WHAT TO ASK?\n\nLet the assessment find the question for you\n\nSix short questions about where you are, then one clear next step you can act on.\n\nFind your next step\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
+      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nContact\n\nCONNECT\n\nReach out — wherever you are in the process\n\nWhether you're years away or ready to start, Debra is glad to help you understand your next step. No pressure, no judgment.\n\nGarland + Dallas–Fort Worth\nNo pressure, no judgment\nREALTOR® · GARLAND\nDebra Allen\nSend Debra a message\n\nA sentence is plenty. Say where you are in the process and what you are trying to work out — that is enough for a useful reply.\n\nWebsite\nYour name *\nEmail *\nHow can Debra help? *\nSend message\n\nWe respect your privacy. Your information is only used to respond to you.\n\nBEFORE YOU WRITE\n\nTwo things worth knowing\nKeep sensitive details out of the form\nNo Social Security numbers, account numbers or financial account details. Nothing here needs them.\nYou do not need to be ready\n“I am not sure yet” is a completely normal place to start a message from.\nPrefer to talk it through?\n\nA consultation is a longer conversation about your situation, with a clear next step at the end of it.\n\nBook a consultation\n\nNOT SURE WHAT TO ASK?\n\nLet the assessment find the question for you\n\nSix short questions about where you are, then one clear next step you can act on.\n\nFind your next step\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
       "images": [
         {
           "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
@@ -838,8 +838,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -889,8 +889,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -945,8 +945,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -995,8 +995,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1052,8 +1052,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1180,8 +1180,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1238,8 +1238,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1278,7 +1278,7 @@
       },
       "inputsMissingLabel": 0,
       "nestedInteractive": 0,
-      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\n\nPOLICIES\n\nPrivacy Policy\n\nYour trust matters to us. This policy explains, in plain language, how D'Affordable Homes handles information you choose to share. A finalized legal version will be published prior to public launch.\n\nWhat we collect\n\nWe only collect information you provide directly — such as your name, email, and message when you contact us or request a consultation. We do not require you to create an account to learn on this site.\n\nHow we use it\nTo respond to your questions and consultation requests\nTo share resources you ask for\nTo improve our education and tools\nWhat we don't do\n\nWe do not sell your personal information. We do not send high-pressure marketing. You can ask us to delete your information at any time.\n\nContact\n\nQuestions about privacy? Reach outand we'll be glad to help.\n\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
+      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\n\nPOLICIES\n\nPrivacy Policy\n\nYour trust matters to us. This policy explains, in plain language, how D'Affordable Homes handles information you choose to share. A finalized legal version will be published prior to public launch.\n\nWhat we collect\n\nWe only collect what you choose to send through a form. You do not need an account to learn on this site, and the guides, calculators and quizzes work without asking who you are.\n\nContact and consultation form: your name, email and message, and, if you add them, your phone number, how you prefer to connect, and where you are in the homebuying process.\nNACA and Homes for Heroes forms: your first and last name, email, phone number, current city, the city and ZIP code you are interested in, your timeline, how you prefer to be contacted, your answers about the program, any questions you add, and your consent to be contacted.\nFind My Next Step: your first name, email, an optional mobile number, the next step you chose and the result of the guided check.\n\nEach form also records the page you sent it from. The program and Find My Next Step forms also record the page that referred you and any campaign tags in the link that brought you here (for example utm_source), so Debra knows how you found her.\n\nYour answers to a guided check stay in your browser unless you send a form. Find My Next Step keeps your progress in this browser tab only, and it is cleared when you close the tab. This site does not load advertising or analytics trackers.\n\nLike any website, our hosting provider receives standard technical details with each visit, such as your IP address and browser type. The site uses your IP address briefly to limit repeated form submissions and block spam. It is not sent along with your message.\n\nWhere it goes\n\nA form you send is passed straight to the system Debra uses to read and answer inquiries. This website does not keep its own copy. If that system is not connected, the form tells you your message was not sent, and nothing you typed is kept.\n\nHow we use it\nTo respond to your questions and consultation requests\nTo share resources you ask for\nTo improve our education and tools\nWhat we don't do\n\nWe do not sell your personal information. We do not send high-pressure marketing. You can ask us to delete your information at any time.\n\nContact\n\nQuestions about privacy? Reach outand we'll be glad to help.\n\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
       "images": [
         {
           "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
@@ -1296,16 +1296,16 @@
         }
       ],
       "brandArea": {
-        "total": 58.1,
+        "total": 43.5,
         "byColour": {
-          "navy": 58.1
+          "navy": 43.5
         }
       },
       "ornaments": 1,
       "title": "Privacy Policy — D'Affordable Homes",
       "description": "How D'Affordable Homes collects, uses, and protects your information. We only use what you share to help you, and never sell your data.",
       "internalLinkCount": 27,
-      "headingCount": 6
+      "headingCount": 7
     },
     {
       "route": "/programs",
@@ -1352,8 +1352,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1473,8 +1473,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1531,8 +1531,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1609,8 +1609,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1726,8 +1726,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1855,8 +1855,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1913,8 +1913,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1971,8 +1971,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"

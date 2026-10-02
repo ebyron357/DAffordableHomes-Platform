@@ -4,6 +4,33 @@ All notable repository changes are documented here.
 
 ## 2026-10-02
 
+### Contact form wired, privacy facts corrected, business facts ready to publish
+
+- **The `/contact` and `/consultation` message form now submits.** It used to
+  validate, wait 400ms and say it was not connected, on the page every
+  "Schedule a Consultation" button opens. It posts to a new
+  `POST /api/leads/contact` with the same honeypot, per-caller rate limit,
+  timing check and server-side validation as the other two lead endpoints, and
+  delivers to `LEAD_WEBHOOK_URL`, falling back to the program webhook. With no
+  webhook it says plainly that nothing was sent and offers `/start` and
+  `/resources`. `tests/static/contact-endpoint.test.mjs` calls the real handler
+  (mutation-checked). The untested root `api/consultation.js`, which no page
+  called, is retired.
+- **`/privacy` now lists what the forms actually collect** — it said name,
+  email and message only. Facts only; the legal wording stays with the
+  compliance reviewer.
+- **Brokerage, licence, phone and office display is built and hidden.**
+  `lib/business-facts.ts` renders each fact in both footers, on `/contact` and
+  on `/about` the moment it is set in `lib/site.ts`, and adds a
+  `RealEstateAgent` listing to the search markup once the address and phone are
+  both verified. Nothing shows today; `tests/static/business-facts.test.mjs`
+  pins both states.
+- **The favicon is the brand.** It was a 73 KB red "n" from PR #20; it is now the
+  DA-and-house monogram from the official logo, 13 KB.
+- **Docs:** the duplicate Vercel project does carry a custom domain,
+  `urltests.team`, which deletion detaches (earlier wording said none). Client,
+  ops and closeout docs updated for the form.
+
 ### SEO, AEO and GEO audit: share metadata, titles, structured data, llms.txt
 
 An audit of every sitemap route on the merged `main` found the technical base

@@ -140,7 +140,8 @@ is `docs/12-governance/CLIENT_HANDOFF.md` Part 7 — these are its headings.
 
 - [ ] Business facts supplied and live (`apps/web/lib/site.ts` no longer all `null`)
 - [ ] Lead delivery verified end to end with a test enquiry through every form
-- [ ] `/contact` and `/consultation` message form connected to a destination the owner chooses — today it has no delivery path at all, and setting the CRM webhooks does not change that (status register blocker 6)
+- [x] `/contact` and `/consultation` message form wired to `POST /api/leads/contact` (2026-10-02, PR #32); it delivers once `LEAD_WEBHOOK_URL` or a program webhook is set, which is the "Lead delivery verified" item above
+- [x] Business-facts display and local-business markup built, hidden until each value in `apps/web/lib/site.ts` is set (2026-10-02, PR #32)
 - [ ] Owner has published, previewed and unpublished an article unaided
 - [ ] Domain, Vercel, Sanity, CRM and repository ownership settled in the owner's name
 - [ ] Prior holders' access reduced or removed

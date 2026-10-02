@@ -130,7 +130,7 @@ permits.
 | `NEXT_PUBLIC_SANITY_API_VERSION` | public | Vercel | Optional; defaults to 2026-08-01 |
 | `SANITY_API_READ_TOKEN` | **server only** | Vercel | Draft preview. Without it `/api/draft-mode/enable` returns 503 |
 | `SANITY_REVALIDATE_SECRET` | **server only** | Vercel, and the Sanity webhook | Publish-triggered revalidation. Must match on both sides |
-| `LEAD_WEBHOOK_URL` | **server only** | Vercel | Lead delivery |
+| `LEAD_WEBHOOK_URL` | **server only** | Vercel | `/api/leads/contact`; falls back to the program webhook |
 | `PROGRAM_LEAD_WEBHOOK_URL` | **server only** | Vercel | `/api/leads/program` |
 | `GHL_PROGRAM_LEAD_WEBHOOK_URL` | **server only** | Vercel | Fallback for the above |
 | `NEXT_STEP_LEAD_WEBHOOK_URL` | **server only** | Vercel | `/api/leads/next-step` |
@@ -186,6 +186,20 @@ free-text questions, and the consent flag.
 > The rate limit and the address validation on this endpoint were added in
 > `d350db2`. Before that it had a honeypot and a timing check only, both of which
 > a replayed request satisfies.
+
+### `POST /api/leads/contact`
+
+The message form on `/contact` and `/consultation`. Same controls, bucketed
+separately as `leads:contact`; `preferredConnection` and `buyerStage` are
+allow-listed. Added 2026-10-02 — before that the form posted nowhere.
+
+**Forwards:** `name`, `email`, `phone`, `preferredConnection`, `buyerStage`,
+`message`, `source` (`Consultation request` or `Contact form`), `submittedAt`,
+`pageUrl`.
+
+**Responses:** as above, with 503 when none of `LEAD_WEBHOOK_URL`,
+`PROGRAM_LEAD_WEBHOOK_URL` or `GHL_PROGRAM_LEAD_WEBHOOK_URL` is set. Behaviour is
+covered end to end by `tests/static/contact-endpoint.test.mjs`.
 
 ### `POST /api/revalidate`
 

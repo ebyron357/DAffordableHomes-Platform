@@ -34,6 +34,13 @@ const LEAD_ENDPOINTS = [
     bucket: "leads:program",
     webhookEnv: "PROGRAM_LEAD_WEBHOOK_URL",
   },
+  {
+    // The /contact and /consultation message form. Until 2026-10-02 it posted
+    // nowhere at all.
+    route: "apps/web/app/api/leads/contact/route.ts",
+    bucket: "leads:contact",
+    webhookEnv: "LEAD_WEBHOOK_URL",
+  },
 ];
 
 for (const { route, bucket, webhookEnv } of LEAD_ENDPOINTS) {
@@ -50,7 +57,7 @@ for (const { route, bucket, webhookEnv } of LEAD_ENDPOINTS) {
 
     // The limit has to be reached before the webhook call, not after it.
     assert.ok(
-      source.indexOf("rateLimit(") < source.indexOf(webhookEnv),
+      source.indexOf("rateLimit(") < source.indexOf(`process.env.${webhookEnv}`),
       `${route} must apply the rate limit before the webhook URL is read`,
     );
   });
@@ -64,7 +71,7 @@ for (const { route, bucket, webhookEnv } of LEAD_ENDPOINTS) {
     // A non-empty check is not validation. This is the assertion that fails if
     // the program endpoint's original `!email` test ever comes back.
     assert.ok(
-      source.indexOf("isValidEmail(email)") < source.indexOf(webhookEnv),
+      source.indexOf("isValidEmail(email)") < source.indexOf(`process.env.${webhookEnv}`),
       `${route} must reject an unusable address before it reads the webhook URL`,
     );
   });

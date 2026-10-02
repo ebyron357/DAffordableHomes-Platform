@@ -40,20 +40,20 @@ leads somewhere real.
 
 ### The lead forms
 
-Two places collect an enquiry: the "Find My Next Step" form on `/start`, and the
-forms on the NACA and Homes for Heroes pages.
+Three places collect an enquiry: the "Find My Next Step" form on `/start`, the
+forms on the NACA and Homes for Heroes pages, and the message form on `/contact`
+and `/consultation`.
 
-**Today, neither delivers anywhere.** Rather than accept an enquiry and lose it,
-each form tells the visitor that online delivery is not available and points
-them at the consultation page. Both start working the moment your CRM webhook
-addresses are set — `CLIENT_HANDOFF.md` Part 3.3.
+**Today, none of them delivers anywhere.** Rather than accept an enquiry and
+lose it, each form tells the visitor that it was not sent. All three start
+working the moment your CRM webhook addresses are set — `CLIENT_HANDOFF.md`
+Part 3.3. One GoHighLevel webhook covers the program pages and the message
+form; `/start` has its own.
 
-**The consultation page is not a fallback today.** Its message form — the same
-one on `/contact` — is not connected to anything: it says so and asks the
-visitor to reach out directly, and the site does not yet publish a phone number
-or email. So right now a visitor has **no working way to reach you from the
-site**. Setting the webhooks fixes the two forms above but not this one; it
-needs its own small code change once you decide where its messages go.
+Until then a visitor has **no working way to reach you from the site**: no
+form delivers, and no phone number or email is published yet. Supplying either
+one closes that gap — the webhooks, or the phone and office details in
+`CLIENT_HANDOFF.md` Part 3.1, which appear on the site as soon as they are set.
 
 ### What the site will not do
 
@@ -152,9 +152,12 @@ than showing a blank page. If it persists for more than a few minutes, see
 
 ### "Online lead delivery is not configured yet"
 
-Expected today — your CRM is not connected. The visitor is sent to the
-consultation page, but that page's form is not connected either, so the enquiry
-is **not captured anywhere**. See "The lead forms" above.
+Expected today — your CRM is not connected, so the enquiry is **not captured
+anywhere**. The visitor is sent to the consultation page, whose message form
+is also waiting for a webhook. See "The lead forms" above.
+
+The message form on `/contact` and `/consultation` says "Online messages
+aren't connected yet" for the same reason.
 
 ### "Too many submissions. Please wait a moment"
 

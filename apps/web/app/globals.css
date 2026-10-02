@@ -246,6 +246,17 @@
 /* Vendor credit, then the compliance row beneath it at a smaller size. */
 .footer-bottom { display:flex; flex-direction:column; gap:14px; margin-top:44px; padding-top:20px; border-top:1px solid rgba(255,255,255,.2); color:rgba(255,255,255,.7); font-size:12px; }
 .footer-bottom-primary { display:flex; flex-wrap:wrap; gap:8px 22px; }
+/* Brokerage, licence, phone and office (components/layout/professional-details.tsx).
+   Empty, and so absent, until each fact is verified; colour is inherited from
+   wherever it is placed, so it meets that surface's contrast. */
+.professional-details { display:flex; flex-wrap:wrap; gap:4px 18px; margin:0; padding:0; list-style:none; }
+.professional-details-label { font-weight:600; }
+.professional-details a { color:inherit; text-decoration:underline; text-underline-offset:3px; }
+.fh-footer-details { font-size:13px; }
+/* The homepage footer resets link decoration later in this file; a phone link
+   must still read as a link without relying on colour alone. */
+.fh-footer .professional-details a { text-decoration:underline; text-underline-offset:3px; }
+.dh-professional-details { flex-direction:column; gap:6px; font-size:15px; line-height:1.5; }
 .footer-compliance ul { display:flex; flex-wrap:wrap; gap:6px 20px; margin:0; padding:0; list-style:none; }
 .footer-compliance a { display:inline-block; padding:3px 0; color:rgba(255,255,255,.62); font-size:12px; text-decoration:none; }
 .footer-compliance a:hover { color:white; text-decoration:underline; text-underline-offset:3px; }
