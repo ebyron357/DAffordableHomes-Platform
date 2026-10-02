@@ -49,12 +49,14 @@ const PROGRAM_ICONS = {
  * led by these agencies' own pages. Listing them, with what each one is and a
  * link to the source, answers that search honestly: the site names who runs
  * each program and sends the reader there, and states no amount, limit or
- * eligibility rule of its own. Each URL is the agency's own page.
+ * eligibility rule of its own. Each URL is the agency's own page, and each was
+ * confirmed live, with the program names used here, on 2026-10-02. Re-check
+ * them, and the date in the lede, whenever this list changes.
  */
 const officialPrograms: Feature[] = [
   {
     title: "Texas Homebuyer Program (TDHCA)",
-    body: "The Texas Department of Housing and Community Affairs offers statewide mortgage and down payment assistance, including My First Texas Home, through participating lenders.",
+    body: "The Texas Department of Housing and Community Affairs offers statewide down payment assistance and low-interest mortgages through a network of participating lenders.",
     href: "https://welcomehome.tdhca.texas.gov/welcome-home",
     icon: Landmark,
     action: "TDHCA's official page",
@@ -226,7 +228,7 @@ export default function ProgramsPage() {
           eyebrowIcon={Landmark}
           title="Texas, Dallas and Garland homebuyer assistance programs"
           titleId="official-programs-heading"
-          lede="State, county and city agencies run their own down payment and mortgage assistance, each with its own eligibility and income limits. These are their official pages. A participating lender confirms what you qualify for, and Debra can help with the real-estate side of any of them."
+          lede="State, county and city agencies run their own down payment and mortgage assistance, each with its own eligibility and income limits. These are their official pages. A participating lender confirms what you qualify for, and Debra can help with the real-estate side of any of them. Links checked October 2, 2026."
         />
         <Features items={officialPrograms} rule="teal" />
       </Band>

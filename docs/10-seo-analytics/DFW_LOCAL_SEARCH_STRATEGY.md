@@ -188,7 +188,7 @@ volumes below are national; treat them as relative demand, not Garland counts.
 | steps to buying a house | 6,600 | 9 | Garland results are off-topic (dance studio, a band) | `/first-time-buyers` |
 | homes for heroes | 6,600 | 38 | homesforheroes.com | `/programs/homes-for-heroes` |
 | down payment assistance texas | 1,900 | 18 | TDHCA, TSAHC | `/programs` |
-| my first texas home program | 720 | 0 | TDHCA | `/programs` |
+| my first texas home program | 720 | 0 | TDHCA | not targeted — see note below |
 | closing cost calculator texas | 720 | 28 | — | `/calculators/closing-costs` |
 | naca dallas | 260 | 3 | naca.com, NACA workshop sign-up, NBC DFW | `/programs/naca` |
 | homes for texas heroes | 260 | 9 | TSAHC flyer, lenders, Reddit | `/programs/homes-for-heroes` |
@@ -232,6 +232,10 @@ volumes below are national; treat them as relative demand, not Garland counts.
   program and links to the agency's own page; it states no amount, limit or
   eligibility rule of its own (`search-metadata.test.mjs` enforces that).
 - `/llms.txt` describes the same.
+- "My First Texas Home" is not named on the site. Third-party pages attribute it
+  to TDHCA, but TDHCA's own homebuyer page did not show the name when checked on
+  2026-10-02 (it renders its content with script). Name it only once a TDHCA
+  page confirms it.
 - `GOOGLE_SITE_VERIFICATION` and `BING_SITE_VERIFICATION` emit the ownership
   `<meta>` tags once set in Vercel (`lib/seo.ts`), so verification needs no code
   change.
