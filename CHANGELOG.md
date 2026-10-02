@@ -2,6 +2,23 @@
 
 All notable repository changes are documented here.
 
+## 2026-10-02
+
+### Service-area qualification finished across the interior routes and the quiz
+
+Follows the owner's `ac7c8ab`, which resolved the two service-area copy threads from PR #28 by replacing claims about where the practice operates with statements about what the site covers. That pass covered the homepage and both footers; five instances of the same class were still live elsewhere and now inconsistent with it.
+
+- `/homes` read "The rest of the metroplex is where Debra works every week" — a specific unverified claim about both service area and frequency, stronger than anything the owner's pass removed. Rewritten to mirror the parallel sentence already on `/neighborhoods`, so the two pages agree.
+- The section eyebrow "Where Debra works" survived on `/homes` and `/neighborhoods` — the exact phrase replaced in three other files. Both now read "Local market focus".
+- Two quiz result sentences claimed service area on a conversion path: "which is inside the North Texas area Debra works in" and "Debra works across the metroplex, so the same process applies". Now "one of the North Texas areas this site covers" and "The same process applies anywhere in the metroplex".
+- `/about`'s StatusStrip is untouched: it already says brokerage, licence, service areas and certifications appear only once verified, which is the honest form.
+
+Substitutions follow the pattern the owner set rather than introducing new wording. No test pinned any of the changed strings; verified against served HTML rather than source.
+
+### The committed QA evidence was stale against the owner's own commit
+
+`qa-evidence/site-audit.json` is tracked and records each route's full visible text. It still carried the pre-change footer — "WHERE DEBRA WORKS" and "Buyer and seller representation across the metroplex" — on every interior route, because `ac7c8ab` changed the shared footer without regenerating it, so the repository's own evidence contradicted what the site served. Regenerated and committed, which is the opposite of the usual call on this file: the delta here is real copy, not capture noise. Brand-area percentages also moved 0.1–0.3% on all 33 routes including untouched ones, which is sub-pixel drift riding along. The 90 JPEGs under `qa-evidence/visual/` are stale for the same reason and are left alone, since regenerating them commits 90 binaries whose real delta is a few words buried in re-encoding noise.
+
 ## 2026-09-27
 
 ### Client handover runbook

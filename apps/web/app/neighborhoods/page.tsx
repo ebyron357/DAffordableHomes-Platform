@@ -47,7 +47,7 @@ export default function NeighborhoodsPage() {
 
       <Band tone="navy" aria-labelledby="neighborhoods-places-heading">
         <BandLead
-          eyebrow="Where Debra works"
+          eyebrow="Local market focus"
           eyebrowIcon={Compass}
           title="Start with the market that has a full guide"
           titleId="neighborhoods-places-heading"

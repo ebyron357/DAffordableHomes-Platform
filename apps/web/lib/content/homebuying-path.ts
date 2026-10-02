@@ -238,8 +238,8 @@ function sellerNote(answers: PathAnswers): string {
 
 function areaSentence(answers: PathAnswers): string {
   if (answers.area === "garland") return "Garland is Debra's home market, and there is a step-by-step guide written specifically for buying there."
-  if (answers.area && AREA_NAME[answers.area]) return `You are focused on ${AREA_NAME[answers.area]}, which is inside the North Texas area Debra works in.`
-  if (answers.area === "other") return "You have a DFW community in mind. Debra works across the metroplex, so the same process applies."
+  if (answers.area && AREA_NAME[answers.area]) return `You are focused on ${AREA_NAME[answers.area]}, which is one of the North Texas areas this site covers.`
+  if (answers.area === "other") return "You have a DFW community in mind. The same process applies anywhere in the metroplex."
   return "You have not settled on an area yet, so comparing neighborhoods is part of the plan rather than a detail for later."
 }
 

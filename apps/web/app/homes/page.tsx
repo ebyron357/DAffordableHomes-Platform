@@ -193,11 +193,11 @@ export default async function HomesPage() {
 
       <Band tone="navy" aria-labelledby="homes-areas-heading">
         <BandLead
-          eyebrow="Where Debra works"
+          eyebrow="Local market focus"
           eyebrowIcon={MapPin}
           title="Garland, and the North Texas cities around it"
           titleId="homes-areas-heading"
-          lede="Garland is the home market and the one with a full local guide behind it. The rest of the metroplex is where Debra works every week."
+          lede="Garland is the one community on this site with a full local guide behind it. The rest link into the property search while their guides are written."
         />
         <div className="dh-places-layout">
           {garland && (
