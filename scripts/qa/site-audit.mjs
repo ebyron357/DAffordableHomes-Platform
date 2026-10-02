@@ -210,8 +210,10 @@ async function main() {
   // `noindex` until they carry real content. Leaving the index is not leaving
   // the site: they are still linked, so they are still audited.
   const UNLISTED_ROUTES = ["/testimonials", "/market-reports"]
+  // Sitemap absence is checked here; the rendered `noindex` itself is checked
+  // per route in the crawl below, against the page the browser actually got.
   for (const route of UNLISTED_ROUTES) {
-    record(!sitemapRoutes.includes(route), `${route} is noindex and absent from the sitemap`)
+    record(!sitemapRoutes.includes(route), `${route} is absent from the sitemap`)
   }
 
   const crawlRoutes = [
@@ -246,6 +248,18 @@ async function main() {
     const response = await page.goto(`${BASE}${route}`, { waitUntil: "load" })
     const status = response?.status() ?? 0
     record(status === 200, `route ${route} returns 200`, `got ${status}`)
+
+    // Robots directives as rendered. A page left out of the sitemap must say
+    // noindex itself, and a page in the sitemap must not, or the two disagree.
+    const robots = await page.$$eval('meta[name="robots"]', (nodes) =>
+      nodes.map((node) => node.getAttribute("content") ?? ""),
+    )
+    const noindex = robots.some((value) => /\bnoindex\b/i.test(value))
+    if (UNLISTED_ROUTES.includes(route)) {
+      record(noindex, `${route} renders a noindex robots directive`, robots.join(" | ") || "none")
+    } else if (sitemapRoutes.includes(route)) {
+      record(!noindex, `${route} is in the sitemap and indexable`, robots.join(" | "))
+    }
 
     // An image that has not loaded reports naturalWidth 0 exactly like a broken
     // one, and most of this site's images are lazy and below the fold. Walking

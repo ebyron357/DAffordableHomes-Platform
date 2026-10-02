@@ -38,10 +38,30 @@ export const TITLE_LIMIT = 60
  * A page title that stays inside the search-result width.
  *
  * Article titles come from the CMS, so their length is not known at build
- * time. When the templated form would run past the limit, the brand suffix is
- * dropped rather than the title itself: the reader needs the topic more than
- * the site name, which Open Graph already carries as `og:site_name`.
+ * time. In order of preference:
+ *
+ * 1. The title with the brand suffix, when that fits.
+ * 2. The title alone. The reader needs the topic more than the site name,
+ *    which Open Graph already carries as `og:site_name`.
+ * 3. The title shortened at a word boundary, with an ellipsis. The schema
+ *    allows a 120-character article title, and without this a long one
+ *    shipped whole. The Studio warns the editor to write an SEO title instead,
+ *    so this is the safety net, not the expected path.
  */
 export function fittedTitle(title: string): Metadata["title"] {
-  return title.length + TITLE_SUFFIX.length > TITLE_LIMIT ? { absolute: title } : title
+  if (title.length + TITLE_SUFFIX.length <= TITLE_LIMIT) return title
+  if (title.length <= TITLE_LIMIT) return { absolute: title }
+  return { absolute: shortenAtWord(title, TITLE_LIMIT) }
+}
+
+/** `text` cut to at most `limit` characters, ellipsis included, on a word boundary. */
+export function shortenAtWord(text: string, limit: number): string {
+  if (text.length <= limit) return text
+  const room = limit - 1 // the ellipsis takes one character
+  const head = text.slice(0, room + 1)
+  const lastSpace = head.lastIndexOf(" ")
+  // Prefer the last whole word; fall back to a hard cut only when the title is
+  // one very long word, where a word boundary would leave almost nothing.
+  const cut = lastSpace >= room * 0.6 ? head.slice(0, lastSpace) : text.slice(0, room)
+  return `${cut.replace(/[\s,.;:!?–—-]+$/u, "")}…`
 }

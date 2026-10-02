@@ -100,6 +100,31 @@ test('CMS article titles drop the brand suffix rather than run long', async () =
   assert.match(read(`${APP}/blog/[slug]/page.tsx`), /title: fittedTitle\(article\.seoTitle \?\? article\.title\)/);
 });
 
+test('a CMS title longer than 60 characters is shortened at a word, not shipped whole', async () => {
+  const { fittedTitle, shortenAtWord } = await import(pathToFileURL('apps/web/lib/seo.ts').href);
+
+  // The schema allows 120 characters; this is 97.
+  const long = 'A Complete Guide to Buying Your First Home in Garland, Texas, With Every Step Explained Plainly';
+  const fitted = fittedTitle(long);
+  assert.equal(typeof fitted, 'object');
+  assert.ok(fitted.absolute.length <= 60, `got ${fitted.absolute.length}: ${fitted.absolute}`);
+  assert.ok(fitted.absolute.endsWith('…'));
+  // Cut on a word boundary: the text before the ellipsis is a prefix of whole words.
+  assert.ok(long.startsWith(fitted.absolute.slice(0, -1)));
+  assert.match(long.slice(fitted.absolute.length - 1), /^[\s,]/, 'must not cut mid-word');
+
+  // One unbroken word still fits.
+  assert.ok(shortenAtWord('x'.repeat(90), 60).length <= 60);
+  // Trailing punctuation is not left before the ellipsis.
+  assert.doesNotMatch(shortenAtWord(long, 60), /[,\s]…$/);
+
+  // The Studio caps the SEO title at 60 and warns when a long title has none.
+  const schema = read('apps/web/cms/schema/documents/article.ts');
+  const seoTitle = schema.slice(schema.indexOf('name: "seoTitle"'), schema.indexOf('name: "seoDescription"'));
+  assert.match(seoTitle, /rule\.max\(60\)/);
+  assert.match(seoTitle, /\.warning\(\)/);
+});
+
 test('placeholder pages stay out of the index and out of the sitemap', () => {
   const sitemap = read(`${APP}/sitemap.ts`);
   for (const route of ['testimonials', 'market-reports']) {
