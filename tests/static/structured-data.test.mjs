@@ -144,3 +144,56 @@ test('the author profile path is constrained to this origin', async () => {
   );
   assert.ok(!emitted.includes('attacker.example'), emitted);
 });
+
+
+test('citations carry only destinations the article itself would link', async () => {
+  const { articleJsonLd } = await import(
+    pathToFileURL('apps/web/lib/blog/structured-data.ts').href
+  );
+  const { SITE } = await import(pathToFileURL('apps/web/lib/site.ts').href);
+
+  const withSources = (sources) => ({
+    slug: 'x',
+    title: 'T',
+    seoDescription: 'd',
+    publishedAt: '2026-01-01',
+    reviewedAt: null,
+    category: { title: 'C' },
+    featuredImage: { src: '/i.jpg', alt: 'a' },
+    socialImage: null,
+    programs: [],
+    areas: [],
+    sources,
+    body: [],
+    faqs: [],
+    author: { name: 'Debra Allen', role: null, url: '/about' }
+  });
+
+  const kept = articleJsonLd(
+    withSources([
+      { label: 'NACA', href: 'https://www.naca.com/purchase/', publisher: 'NACA' },
+      { label: 'Internal', href: '/programs/naca', publisher: null }
+    ])
+  ).citation;
+
+  assert.deepEqual(
+    kept.map((entry) => entry.url),
+    ['https://www.naca.com/purchase/', `${SITE.url}/programs/naca`]
+  );
+
+  for (const hostile of [
+    'javascript:alert(1)',
+    'data:text/html;base64,PHNjcmlwdD4=',
+    'http://example.com/insecure',
+    '//attacker.example',
+    '/\\attacker.example',
+    'https://',
+    '',
+    null
+  ]) {
+    const emitted = articleJsonLd(
+      withSources([{ label: 'Hostile', href: hostile, publisher: null }])
+    ).citation;
+    assert.deepEqual(emitted, []);
+  }
+});
