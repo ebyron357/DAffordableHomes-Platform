@@ -338,3 +338,17 @@ test('the Studio is not indexable', () => {
   assert.match(config, /X-Robots-Tag/);
   assert.match(studio, /robots: \{ index: false, follow: false \}/);
 });
+
+
+test('a block skipped by the body renderer is rendered somewhere else', () => {
+  const blocks = readFileSync('apps/web/components/blog/blocks.tsx', 'utf8');
+  const skipped = [...blocks.matchAll(/case "(\w+)":\s*\n(?:\s*\/\/[^\n]*\n)*\s*return null/g)].map(
+    (match) => match[1]
+  );
+
+  assert.deepEqual(skipped, ['heroImage']);
+
+  const header = readFileSync('apps/web/components/blog/article-header.tsx', 'utf8');
+  assert.match(header, /_type === "heroImage"/);
+  assert.match(header, /\?\?\s*article\.featuredImage/);
+});
