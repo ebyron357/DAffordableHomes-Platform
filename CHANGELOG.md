@@ -4,6 +4,54 @@ All notable repository changes are documented here.
 
 ## 2026-10-02
 
+### The program lead endpoint had no rate limit and no server-side address check
+
+`/api/leads/program` is a public write endpoint reachable from the NACA and Homes
+for Heroes pages, and it forwarded an anonymous submission to the CRM with a
+honeypot field and an elapsed-time check as its only abuse controls. Both are
+values the client sends, so a replayed request satisfied both. It also checked
+only that an email address was non-empty before forwarding it. AGENTS.md §6
+requires rate limiting and validated input on public forms.
+
+- `apps/web/lib/lead-validation.ts` now holds the address check once, imported by both lead endpoints. Only `/api/leads/next-step` had one, and two copies of an email validator drift.
+- `/api/leads/program` rate-limits on the caller's address in its own `leads:program` bucket before it reads the webhook URL, and returns 429 with `retry-after`.
+- `/api/leads/program` rejects an unusable address with 400 before forwarding.
+- `/api/leads/next-step` behaviour is unchanged; it imports the shared check instead of defining its own.
+- `tests/static/lead-endpoint.test.mjs` called the next-step route "the one public write endpoint", which is what let this sit unnoticed. It now drives both endpoints from a list, so a third added without these controls fails the suite. Verified by mutation in both directions.
+
+The limiter's scope is unchanged and still per serving instance, as documented at
+`apps/web/lib/rate-limit.ts`. No fleet-wide guarantee is claimed.
+
+### Closeout documentation completed against the project completion standard
+
+`docs/PROJECT_COMPLETION_STANDARD.md` arrived in `752b93e` requiring ten handoff
+documents. Only itself existed. The nine missing ones are now written, from
+current code rather than from the earlier documentation:
+
+- `docs/PROJECT_CLOSEOUT_STATUS.md` — the status register. Every requirement is PASS, FAIL, BLOCKED, NOT APPLICABLE or NON-BLOCKING FOLLOW-UP with evidence; every integration carries one of the standard's seven truth labels. Closure state: **`BLOCKED - OWNER ACTION REQUIRED`**.
+- `docs/CLIENT_USER_MANUAL.md`, `docs/ADMIN_OPERATIONS_MANUAL.md` — owner and administrator manuals, the second covering roles, environment variables and the five-route API surface.
+- `docs/SECURITY_AND_ACCESS_HANDOFF.md` — secrets by name only, account ownership, the shipped security baseline, and an explicit list of what is not covered.
+- `docs/DEPLOYMENT_AND_RECOVERY_RUNBOOK.md` — deploy, rollback, backup, restore, disaster recovery, each marked tested or untested.
+- `docs/DATA_LIFECYCLE_AND_OFFBOARDING.md` — what is collected, where it rests, subject requests, offboarding, safe shutdown.
+- `docs/TROUBLESHOOTING_AND_SUPPORT.md` — symptom to cause, escalation, and the support arrangements that do not exist.
+- `docs/CLIENT_ACCESS_HANDOFF_TEMPLATE.md` — blank, and labelled never to be completed inside this repository.
+- `docs/FINAL_CLIENT_ACCEPTANCE.md` — the acceptance record, unsigned.
+
+All ten are registered in `repository-health.yml`, so none can be silently
+deleted. `CLIENT_HANDOFF.md` gains an index of the set and remains the
+who-does-what-in-what-order document rather than duplicating them.
+
+### Production readiness summary corrected against current code
+
+`docs/12-governance/PRODUCTION_READINESS.md` was last assessed 2026-08-10 and had
+gone stale in ways that understated and overstated different gates.
+
+- Gate 6 said browser automation was pending. The four browser gates have run in CI on every pull request since 2026-09-27.
+- Gate 7 claimed no automated WCAG evidence. Landmarks, heading order, alt text, labels, focus visibility, touch targets and 36 contrast pairs are asserted across 33 routes and 5 viewports. The manual keyboard and screen-reader review genuinely is still pending, and now says so distinctly.
+- Gate 10 described npm audit findings from a toolchain the repository no longer uses, and called rate limiting pending when one endpoint had it.
+- Gate 12 did not mention that the duplicate Vercel project fails on every branch from its own configuration.
+- The priority list still referenced the Manus visual review and asked for browser coverage that exists. Rewritten and reordered by what actually blocks release, separating owner/external items from engineering ones.
+
 ### Service-area qualification finished across the interior routes and the quiz
 
 Follows the owner's `ac7c8ab`, which resolved the two service-area copy threads from PR #28 by replacing claims about where the practice operates with statements about what the site covers. That pass covered the homepage and both footers; five instances of the same class were still live elsewhere and now inconsistent with it.

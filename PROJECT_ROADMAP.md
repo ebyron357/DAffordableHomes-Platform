@@ -146,6 +146,12 @@ is `docs/12-governance/CLIENT_HANDOFF.md` Part 7 — these are its headings.
 - [ ] Rollback procedure demonstrated once on a real deployment
 - [ ] Owner sign-off recorded in `CLIENT_HANDOFF.md` Part 7
 
+The closeout documentation required by `docs/PROJECT_COMPLETION_STANDARD.md` is
+complete as of 2026-10-02; the status register with evidence per requirement is
+`docs/PROJECT_CLOSEOUT_STATUS.md`, and the formal acceptance record is
+`docs/FINAL_CLIENT_ACCEPTANCE.md`. Both are written; neither is signed. The
+current closure state is **`BLOCKED - OWNER ACTION REQUIRED`**.
+
 ## v1.1 — Optimization and accessibility hardening
 
 - [ ] Review real-user analytics and search behavior

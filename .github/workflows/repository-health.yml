@@ -39,6 +39,16 @@ jobs:
             docs/12-governance/ROLLBACK_CHECKLIST.md
             docs/12-governance/POST_RELEASE_MONITORING.md
             docs/12-governance/CLIENT_HANDOFF.md
+            docs/PROJECT_COMPLETION_STANDARD.md
+            docs/PROJECT_CLOSEOUT_STATUS.md
+            docs/CLIENT_USER_MANUAL.md
+            docs/ADMIN_OPERATIONS_MANUAL.md
+            docs/SECURITY_AND_ACCESS_HANDOFF.md
+            docs/DEPLOYMENT_AND_RECOVERY_RUNBOOK.md
+            docs/DATA_LIFECYCLE_AND_OFFBOARDING.md
+            docs/TROUBLESHOOTING_AND_SUPPORT.md
+            docs/CLIENT_ACCESS_HANDOFF_TEMPLATE.md
+            docs/FINAL_CLIENT_ACCEPTANCE.md
           )
 
           for file in "${required_files[@]}"; do

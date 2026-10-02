@@ -12,6 +12,23 @@ Two audiences, separated deliberately:
 > **Status of this document.** It describes the handover process. It is not a
 > record that handover happened. Part 7 is the sign-off, and it is unticked.
 
+### The rest of the closeout set
+
+This document stays the index for *who does what, in what order*. The documents
+required by `docs/PROJECT_COMPLETION_STANDARD.md` carry the detail:
+
+| Document | What it is for |
+| --- | --- |
+| `docs/PROJECT_CLOSEOUT_STATUS.md` | Every requirement with a status and evidence, and the current closure state |
+| `docs/CLIENT_USER_MANUAL.md` | The complete owner's manual. Part 4 below is its short version |
+| `docs/ADMIN_OPERATIONS_MANUAL.md` | Roles, invitations, environment variables, the API surface |
+| `docs/SECURITY_AND_ACCESS_HANDOFF.md` | Secrets by name, account ownership, the security baseline, and what is not covered |
+| `docs/DEPLOYMENT_AND_RECOVERY_RUNBOOK.md` | Deploying, rolling back, backup, restore, disaster recovery |
+| `docs/DATA_LIFECYCLE_AND_OFFBOARDING.md` | What is collected, where it rests, subject requests, offboarding, shutdown |
+| `docs/TROUBLESHOOTING_AND_SUPPORT.md` | Symptom to cause, escalation, and the support that does not exist |
+| `docs/CLIENT_ACCESS_HANDOFF_TEMPLATE.md` | Blank template. Complete it **outside** this repository — never commit a filled copy |
+| `docs/FINAL_CLIENT_ACCEPTANCE.md` | The acceptance record. Unsigned |
+
 ---
 
 ## Part 1 — What you are receiving
