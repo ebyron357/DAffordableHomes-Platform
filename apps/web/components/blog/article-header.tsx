@@ -11,6 +11,7 @@ import { formatArticleDate } from "@/lib/blog/format"
  * what makes the three guides feel individual without leaving the design system.
  */
 export function ArticleHeader({ article }: { article: Article }) {
+  const hero = heroImageOf(article)
   const authorLabel = article.author.role
     ? `${article.author.name}, ${article.author.role}`
     : article.author.name
@@ -71,9 +72,9 @@ export function ArticleHeader({ article }: { article: Article }) {
           </div>
 
           <figure className="relative aspect-[4/5] overflow-hidden rounded-xl border-4 border-white/10 bg-primary sm:aspect-[3/2] lg:aspect-[4/5]">
-            {article.featuredImage ? (
+            {hero ? (
               <BlogImage
-                image={article.featuredImage}
+                image={hero}
                 sizes="(min-width: 1024px) 38rem, (min-width: 640px) 90vw, 100vw"
                 priority
               />
@@ -88,4 +89,10 @@ export function ArticleHeader({ article }: { article: Article }) {
       </Container>
     </header>
   )
+}
+
+
+function heroImageOf(article: Article) {
+  const block = article.body.find((candidate) => candidate._type === "heroImage")
+  return block?.image ?? article.featuredImage
 }
