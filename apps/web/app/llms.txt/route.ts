@@ -18,9 +18,9 @@ export const revalidate = 3600
 const PAGES: ReadonlyArray<readonly [string, string, string]> = [
   ["Find your next step", "/start", "A short, education-first starting point for renters and buyers in Dallas–Fort Worth."],
   ["First-time buyers", "/first-time-buyers", "How buying a first home works, step by step, before you look at listings."],
-  ["Homebuyer programs", "/programs", "Program-specific guidance for buyers and community heroes in Garland and Dallas–Fort Worth."],
-  ["NACA homebuyer help", "/programs/naca", "Real-estate guidance for buyers using the NACA program. NACA controls qualification, financing terms and official requirements."],
-  ["Homes for Heroes help", "/programs/homes-for-heroes", "Buying and selling guidance for military, veterans, first responders, teachers and healthcare workers."],
+  ["Homebuyer programs", "/programs", "Program-specific guidance for buyers and community heroes in Garland and Dallas–Fort Worth, plus links to the official Texas (TDHCA, TSAHC), City of Garland, City of Dallas and Dallas County homebuyer assistance programs."],
+  ["NACA homebuyer help", "/programs/naca", "How the NACA program works (workshop, counseling, qualification) and real-estate guidance for NACA buyers. NACA controls qualification, financing terms and official requirements."],
+  ["Homes for Heroes help", "/programs/homes-for-heroes", "Buying and selling guidance for military, veterans, first responders, teachers and healthcare workers. Explains that the national Homes for Heroes program is separate from TSAHC's Homes for Texas Heroes loan program."],
   ["Garland, Texas homebuyer guide", "/areas/garland", "Search preparation, local home styles and evaluating a property in Garland."],
   ["Areas", "/areas", "Garland and the Dallas–Fort Worth communities around it, written from local knowledge."],
   ["Planning calculators", "/calculators", "Estimate a monthly payment, affordability, cash to close, down payment, and renting versus buying."],

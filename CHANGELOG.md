@@ -4,6 +4,28 @@ All notable repository changes are documented here.
 
 ## 2026-10-02
 
+### Keyword research applied: titles, program FAQs, official programs, search verification
+
+Research in OpenSEO (47 credits; `DFW_LOCAL_SEARCH_STRATEGY.md` §10) showed
+where the demand is: NACA (90,500 and 40,500 monthly searches at low
+difficulty), Texas first-time-buyer programs, "steps to buying a house", and
+the calculators.
+
+- Titles and headings now use the searcher's wording, with no new claims:
+  "Steps to Buying a House, Explained", "How Much House Can I Afford?
+  Calculator", "Closing Cost Calculator", "Down Payment Calculator and
+  Planner", "NACA Program Help in Garland and DFW".
+- New FAQs, which are also in each page's `FAQPage` markup:
+  - "How does the NACA program work?"
+  - "Where can I find a NACA workshop near Dallas?"
+  - "Is Homes for Heroes the same as Homes for Texas Heroes?" Garland searches
+    for "homes for heroes texas" mostly return TSAHC's separate state program.
+- `/programs` links to the official TDHCA, TSAHC, City of Garland, City of
+  Dallas and Dallas County assistance programs. It names who runs each one and
+  states no amount or eligibility rule of its own.
+- `GOOGLE_SITE_VERIFICATION` / `BING_SITE_VERIFICATION` emit the Search
+  Console and Bing ownership tags once set in Vercel.
+
 ### Contact form wired, privacy facts corrected, business facts ready to publish
 
 - **The `/contact` and `/consultation` message form now submits.** It used to

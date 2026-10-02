@@ -4,7 +4,7 @@ import { HideOnHome } from "@/components/layout/hide-on-home"
 import { SiteHeader } from "@/components/layout/site-header"
 import { SiteFooter } from "@/components/layout/site-footer"
 import { localBusinessJsonLd } from "@/lib/business-facts"
-import { SHARE_IMAGES } from "@/lib/seo"
+import { SHARE_IMAGES, searchVerification } from "@/lib/seo"
 import { SITE } from "@/lib/site"
 import "./globals.css"
 
@@ -83,6 +83,8 @@ export const metadata: Metadata = {
    * to 404 responses, giving the not-found page two contradictory directives.
    * Routes that must stay out of the index set `robots` themselves.
    */
+  // Search Console and Bing ownership tags, from Vercel environment variables.
+  verification: searchVerification(),
 }
 
 export const viewport: Viewport = {

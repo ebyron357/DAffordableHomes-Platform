@@ -65,3 +65,31 @@ export function shortenAtWord(text: string, limit: number): string {
   const cut = lastSpace >= room * 0.6 ? head.slice(0, lastSpace) : text.slice(0, room)
   return `${cut.replace(/[\s,.;:!?–—-]+$/u, "")}…`
 }
+
+/**
+ * Ownership tags for Google Search Console and Bing Webmaster Tools.
+ *
+ * Each service gives the owner a token to publish as a `<meta>` tag. Set it in
+ * Vercel as `GOOGLE_SITE_VERIFICATION` or `BING_SITE_VERIFICATION` and
+ * redeploy; nothing is emitted while a variable is unset. The values are not
+ * secrets (they are public by design), but they are read from the environment
+ * so no account identifier is committed. Owners often paste the whole tag the
+ * service shows, so the token is extracted from a pasted `content="…"` too.
+ */
+export function searchVerification(
+  env: Record<string, string | undefined> = process.env,
+): Metadata["verification"] | undefined {
+  const google = verificationToken(env.GOOGLE_SITE_VERIFICATION)
+  const bing = verificationToken(env.BING_SITE_VERIFICATION)
+  if (!google && !bing) return undefined
+  return {
+    ...(google ? { google } : {}),
+    ...(bing ? { other: { "msvalidate.01": bing } } : {}),
+  }
+}
+
+/** The bare token from a token or a pasted meta tag; anything else is ignored. */
+function verificationToken(raw: string | undefined): string | undefined {
+  const value = raw?.trim().match(/content=["']([^"']+)["']/)?.[1] ?? raw?.trim()
+  return value && /^[A-Za-z0-9_-]{8,128}$/.test(value) ? value : undefined
+}

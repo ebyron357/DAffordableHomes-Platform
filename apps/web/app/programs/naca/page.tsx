@@ -4,9 +4,9 @@ import { PROGRAMS } from "@/lib/programs"
 import { SHARE_IMAGES } from "@/lib/seo"
 
 export const metadata: Metadata = {
-  title: "NACA Homebuyer Help in Garland and DFW",
+  title: "NACA Program Help in Garland and DFW",
   description:
-    "Real-estate guidance for NACA homebuyers in Garland and Dallas–Fort Worth: search, offer, inspection, and closing support, without unsupported program promises.",
+    "How the NACA program works, and real-estate help for NACA buyers in Garland and Dallas–Fort Worth: search, offer, inspection and closing.",
   alternates: { canonical: "/programs/naca" },
   openGraph: {
     title: "NACA Homebuyer Help | D'Affordable Homes",

@@ -164,3 +164,115 @@ Profile and social profile URLs (`sameAs`); Search Console and Bing
 verification with sitemap submission; analytics; a featured image per article;
 real testimonials and market data before the two placeholder pages return to
 the index.
+
+## 10. Keyword research and the launch plan — 2026-10-02
+
+Research run in OpenSEO (project "D'Affordable Homes", `daffordablehomes.com`)
+for 47 credits. National US volumes and keyword difficulty (KD, 0–100) for 55
+candidate queries, then live top-10 results from Garland, Texas for eight of
+them. Local-area volumes were not bought (about 116 credits per seed), so the
+volumes below are national; treat them as relative demand, not Garland counts.
+
+### Where the demand is
+
+| Query | Monthly searches (US) | KD | Who ranks in Garland today | Our page |
+| --- | --- | --- | --- | --- |
+| naca | 90,500 | 14 | naca.com | `/programs/naca` |
+| how much house can i afford | 90,500 | 47 | national calculators | `/calculators/affordability` |
+| naca program | 40,500 | 26 | naca.com, lenders | `/programs/naca` |
+| rent vs buy calculator | 14,800 | 49 | national calculators | `/calculators/rent-vs-buy` |
+| credit score to buy a house | 8,100 | 24 | — | no page yet |
+| down payment calculator | 8,100 | 49 | national calculators | `/calculators/down-payment` |
+| first time home buyer texas | 6,600 | 9 | TDHCA, TSAHC, lenders; AI overview | `/programs`, `/first-time-buyers` |
+| first time home buyer programs texas | 6,600 | 33 | as above | `/programs` |
+| steps to buying a house | 6,600 | 9 | Garland results are off-topic (dance studio, a band) | `/first-time-buyers` |
+| homes for heroes | 6,600 | 38 | homesforheroes.com | `/programs/homes-for-heroes` |
+| down payment assistance texas | 1,900 | 18 | TDHCA, TSAHC | `/programs` |
+| my first texas home program | 720 | 0 | TDHCA | `/programs` |
+| closing cost calculator texas | 720 | 28 | — | `/calculators/closing-costs` |
+| naca dallas | 260 | 3 | naca.com, NACA workshop sign-up, NBC DFW | `/programs/naca` |
+| homes for texas heroes | 260 | 9 | TSAHC flyer, lenders, Reddit | `/programs/homes-for-heroes` |
+| dallas homebuyer assistance program | 210 | 0 | City of Dallas, BCL of Texas | `/programs` |
+| realtor garland tx | 170 | 0 | **Google local pack** (Westshore, Decorative, TexasSoldEm), then portals | none — needs a Google Business Profile |
+
+### What the results say
+
+1. **The biggest, easiest demand is NACA.** "naca" and "naca program" are high
+   volume at low difficulty, and the results are naca.com plus a thin layer of
+   lenders and news. An independent, plain-language explainer can earn a place
+   under the official site; it should never compete with naca.com on the brand
+   name itself.
+2. **"First time home buyer" searches in Texas are answered by agencies.**
+   TDHCA, TSAHC and the City of Dallas lead, with an AI overview on top. The way
+   in is to explain those programs honestly and link to them, not to restate
+   their amounts.
+3. **"Homes for heroes texas" is a mix-up.** Garland searchers mostly get
+   TSAHC's *Homes for Texas Heroes* loan program, which is a different program
+   from the national *Homes for Heroes*. Saying so plainly is useful and rare.
+4. **"Realtor garland tx" is won in the map pack, not the web results.** Three
+   local agents with Google Business Profiles hold the pack; the organic results
+   are Realtor.com and Redfin. No on-site change competes here; a verified
+   Business Profile does.
+5. **Calculator queries are big and hard (KD 47–49).** The pages now use the
+   searcher's wording, but expect them to rank slowly against national tools.
+
+### Changed on the site in this pass
+
+- Titles and headings use the searcher's wording, with no new claims:
+  "Steps to Buying a House, Explained" (`/first-time-buyers`), "How Much House
+  Can I Afford? Calculator", "Closing Cost Calculator", "Down Payment Calculator
+  and Planner", "NACA Program Help in Garland and DFW".
+- `/programs/naca` answers "How does the NACA program work?" and "Where can I
+  find a NACA workshop near Dallas?", in wording consistent with the sourced
+  NACA guide. Both are in the page's `FAQPage` markup.
+- `/programs/homes-for-heroes` answers "Is Homes for Heroes the same as Homes
+  for Texas Heroes?" — no, with who runs each.
+- `/programs` gains an "Official sources" section linking to TDHCA, TSAHC, the
+  City of Garland, the City of Dallas and Dallas County. It names who runs each
+  program and links to the agency's own page; it states no amount, limit or
+  eligibility rule of its own (`search-metadata.test.mjs` enforces that).
+- `/llms.txt` describes the same.
+- `GOOGLE_SITE_VERIFICATION` and `BING_SITE_VERIFICATION` emit the ownership
+  `<meta>` tags once set in Vercel (`lib/seo.ts`), so verification needs no code
+  change.
+
+### Owner launch plan, in order of effect
+
+1. **Point `daffordablehomes.com` at the new site.** Nothing ranks until it
+   does. After cutover, redirect any old GoHighLevel URLs that had traffic.
+2. **Verify the site with Google Search Console and Bing Webmaster Tools** —
+   paste each "HTML tag" token into the Vercel variables above, redeploy, click
+   Verify, then submit `https://daffordablehomes.com/sitemap.xml` to both.
+3. **Create and verify a Google Business Profile** for Debra as a real estate
+   agent. Use the exact name, address and phone that go into `lib/site.ts`, the
+   same everywhere. This is the only route into the "realtor garland tx" map
+   pack. Add the brokerage only once the broker approves the wording.
+4. **Supply the verified business facts** (`CLIENT_HANDOFF.md` §3.1). The
+   footer details and `RealEstateAgent` markup switch on by themselves.
+5. **Ask past clients for Google reviews** once the profile exists — real ones
+   only, never incentivised or written for them.
+6. **Consistent listings** on the major directories (Realtor.com and Zillow
+   agent profiles, HAR.com, Yelp, Bing Places, Apple Business Connect) with the
+   same name, address and phone, linking to the site.
+7. **Connect Search Console and GA4 to the OpenSEO project** so it can find
+   pages ranking 4–20 that are close to page one.
+
+### Content to write next (needs Debra's review and sources)
+
+Ranked by demand ÷ difficulty. Each must follow the publishing standard: one
+concern, official sources, no amounts that are not sourced and dated.
+
+1. **"What credit score do you need to buy a house?"** — 8,100/month, KD 24.
+   General ranges by loan type, from official sources, with "your lender
+   decides" up front.
+2. **"First-time homebuyer programs in Texas, explained"** — 6,600/month,
+   KD 9–33. A long-form guide around the official-sources list now on
+   `/programs`, sourced and dated.
+3. **"How the NACA program works, step by step"** — the existing NACA guide is
+   the natural home; extend it rather than adding a page.
+4. **"Homes for Texas Heroes vs. Homes for Heroes"** — 260 + 260/month, low KD,
+   and nobody explains the difference.
+5. **Garland homebuyer FAQs** once local volumes justify them; the national data
+   shows little Garland-specific demand beyond "homes for sale garland tx"
+   (3,600/month, transactional), which needs IDX listings this site does not
+   have.

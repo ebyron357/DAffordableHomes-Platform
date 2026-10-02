@@ -82,6 +82,16 @@ export const PROGRAMS: Record<ProgramSlug, ProgramDefinition> = {
     ],
     faqs: [
       {
+        question: "How does the NACA program work?",
+        answer:
+          "NACA (Neighborhood Assistance Corporation of America) is a nonprofit housing counseling organization. NACA says its free Homebuyer Workshop is open to everyone and is the first step. After the workshop, buyers prepare their financial documents and work through counseling, which looks at whether the expected payment is sustainable, before NACA qualifies them to search for a home. NACA controls every step and requirement; Debra's role is the real-estate side once you are ready to search.",
+      },
+      {
+        question: "Where can I find a NACA workshop near Dallas?",
+        answer:
+          "NACA lists its upcoming Homebuyer Workshops, including Dallas-area sessions and its larger Achieve the Dream events, on naca.com, where you can sign up. Check there for current dates and locations.",
+      },
+      {
         question: "How can a real-estate agent help a NACA buyer in Dallas–Fort Worth?",
         answer:
           "A real-estate agent can help define the search, identify and evaluate homes, prepare offers, coordinate inspections, and manage transaction deadlines. NACA controls program qualification, financing terms, and official requirements.",
@@ -172,6 +182,11 @@ export const PROGRAMS: Record<ProgramSlug, ProgramDefinition> = {
         question: "Who may qualify for Homes for Heroes?",
         answer:
           "Eligibility and benefit rules are set by Homes for Heroes and may change. Confirm your profession, service category, enrollment, and current program terms directly with the official program.",
+      },
+      {
+        question: "Is Homes for Heroes the same as Homes for Texas Heroes?",
+        answer:
+          "No. Homes for Texas Heroes is a separate home loan program from the Texas State Affordable Housing Corporation (TSAHC) for eligible Texas professionals in certain public-service roles, offered through participating lenders. Homes for Heroes is a different, national program. Confirm the terms of each directly with the organization that runs it; Debra can help with the real-estate side of either.",
       },
       {
         question: "How does Debra assist Homes for Heroes clients?",

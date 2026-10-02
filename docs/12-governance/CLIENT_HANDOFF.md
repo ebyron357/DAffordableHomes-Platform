@@ -180,7 +180,24 @@ so it looks in `apps/web/apps/web/.next` **after a completely successful build**
 No code change fixes it without breaking the working project.
 
 Delete that project, or correct its Root Directory. The working one is
-`daffordablehomes-platform`.
+`daffordablehomes-platform`. Deleting it detaches the unused `urltests.team`
+domain; the domain itself stays in your Vercel team.
+
+### 3.6 Search engines and Google Business Profile
+
+Do these after the domain points at the new site. The full plan, with the
+keyword data behind it, is `docs/10-seo-analytics/DFW_LOCAL_SEARCH_STRATEGY.md`
+§10.
+
+1. In Google Search Console, add `https://daffordablehomes.com`, choose the
+   **HTML tag** method and copy the token. In Bing Webmaster Tools, choose
+   **Meta tag** and copy that token.
+2. Set them in Vercel as `GOOGLE_SITE_VERIFICATION` and
+   `BING_SITE_VERIFICATION` (pasting the whole tag also works), then redeploy.
+3. Click **Verify** in each, then submit `https://daffordablehomes.com/sitemap.xml`.
+4. Create and verify a **Google Business Profile** for Debra as a real estate
+   agent, with exactly the name, address and phone you supply in 3.1. Searches
+   like "realtor garland tx" are won in that map listing, not on the website.
 
 ---
 

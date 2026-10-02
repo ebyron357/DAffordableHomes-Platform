@@ -196,3 +196,42 @@ test('the app icons are the brand monogram at the sizes browsers ask for, and st
   }
   assert.match(read('docs/05-content/IMAGE_ASSET_REGISTER.md'), /`icon\.png` \(512×512\) and `apple-icon\.png`/);
 });
+
+test('search engine ownership tags come from the environment and only when set', async () => {
+  const { searchVerification } = await import(pathToFileURL('apps/web/lib/seo.ts').href);
+  assert.equal(searchVerification({}), undefined, 'no tag while unset');
+  assert.deepEqual(searchVerification({ GOOGLE_SITE_VERIFICATION: ' abcDEF123_-xyz ' }), { google: 'abcDEF123_-xyz' });
+  // Owners usually paste the whole tag the service shows them.
+  assert.deepEqual(
+    searchVerification({ BING_SITE_VERIFICATION: '<meta name="msvalidate.01" content="0123456789ABCDEF0123456789ABCDEF" />' }),
+    { other: { 'msvalidate.01': '0123456789ABCDEF0123456789ABCDEF' } },
+  );
+  // Anything that is not a plain token is ignored rather than injected.
+  assert.equal(searchVerification({ GOOGLE_SITE_VERIFICATION: '"><script>' }), undefined);
+  assert.match(read(`${APP}/layout.tsx`), /verification: searchVerification\(\)/);
+  const example = read('.env.example');
+  assert.match(example, /^GOOGLE_SITE_VERIFICATION=$/m);
+  assert.match(example, /^BING_SITE_VERIFICATION=$/m);
+});
+
+test('program pages answer the questions searchers ask, and send them to the source', async () => {
+  const { PROGRAMS } = await import(pathToFileURL('apps/web/lib/programs.ts').href);
+  const naca = PROGRAMS.naca.faqs.map((f) => f.question);
+  assert.ok(naca.includes('How does the NACA program work?'));
+  const heroes = PROGRAMS['homes-for-heroes'].faqs.find((f) => f.question.includes('Homes for Texas Heroes'));
+  assert.ok(heroes, 'Homes for Heroes and Homes for Texas Heroes are different programs; the page says so');
+  assert.match(heroes.answer, /^No\./);
+
+  // The official-programs list links only to the agencies' own sites.
+  const programs = read(`${APP}/programs/page.tsx`);
+  const links = [...programs.matchAll(/href: "(https:\/\/[^"]+)"/g)].map((m) => new URL(m[1]).hostname);
+  assert.deepEqual(links, [
+    'welcomehome.tdhca.texas.gov',
+    'www.tsahc.org',
+    'www.garlandtx.gov',
+    'dallascityhall.com',
+    'www.dallascounty.org',
+  ]);
+  // It names who runs each program; it states no amount of its own.
+  assert.doesNotMatch(programs.slice(programs.indexOf('const officialPrograms'), programs.indexOf('const futurePrograms')), /\$\d|\d+%/);
+});

@@ -116,6 +116,8 @@
 - [x] Add structured data appropriate to each route — verified 2026-10-02; local-business markup waits on verified business facts
 - [ ] Create local internal-linking architecture
 - [ ] Connect GA4, Search Console, and Microsoft Clarity with consent handling where required
+- [x] Search Console and Bing ownership tags read from `GOOGLE_SITE_VERIFICATION` / `BING_SITE_VERIFICATION` (2026-10-02); verifying and submitting the sitemap is the owner's step after domain cutover
+- [x] Keyword research and on-page targeting for NACA, Texas first-time-buyer programs and the calculators (2026-10-02, `DFW_LOCAL_SEARCH_STRATEGY.md` §10)
 - [ ] Implement event taxonomy for bookings, form submissions, quiz completions, downloads, CTA clicks, property searches, and video engagement
 - [ ] Create launch dashboard
 

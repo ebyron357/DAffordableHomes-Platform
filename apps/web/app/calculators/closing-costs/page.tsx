@@ -4,8 +4,9 @@ import { PageHeader } from "@/components/page/page-header"
 import { Section } from "@/components/page/section"
 
 export const metadata: Metadata = {
-  title: "Closing Cost Estimator",
-  description: "Estimate cash needed at closing, including the down payment, closing costs, prepaid items, escrow funding, and known credits.",
+  title: "Closing Cost Calculator",
+  description:
+    "Estimate closing costs and the total cash you need to close: down payment, closing costs, prepaid items, escrow funding and known credits.",
   alternates: { canonical: "/calculators/closing-costs" },
 }
 
@@ -14,7 +15,7 @@ export default function ClosingCostCalculatorPage() {
     <>
       <PageHeader
         eyebrow="Planning tool"
-        title="Closing cost estimator"
+        title="Closing cost calculator"
         description="Estimate cash needed at closing, including the down payment, closing costs, prepaid items, escrow funding, and known credits."
       />
       <Section>
