@@ -206,7 +206,17 @@ async function main() {
   )
   notes.push(`sitemap routes: ${sitemapRoutes.length}`)
 
-  const crawlRoutes = [...new Set([...sitemapRoutes, ...VISUAL_ROUTES, "/faq", "/first-time-buyers"])]
+  // Live pages that are deliberately absent from the sitemap because they are
+  // `noindex` until they carry real content. Leaving the index is not leaving
+  // the site: they are still linked, so they are still audited.
+  const UNLISTED_ROUTES = ["/testimonials", "/market-reports"]
+  for (const route of UNLISTED_ROUTES) {
+    record(!sitemapRoutes.includes(route), `${route} is noindex and absent from the sitemap`)
+  }
+
+  const crawlRoutes = [
+    ...new Set([...sitemapRoutes, ...VISUAL_ROUTES, ...UNLISTED_ROUTES, "/faq", "/first-time-buyers"]),
+  ]
 
   /* -------------------- route crawl + console review -------------- */
 

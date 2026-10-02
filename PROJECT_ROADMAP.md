@@ -112,8 +112,8 @@
 
 ### SEO and analytics
 
-- [ ] Add metadata, canonical URLs, Open Graph, sitemap, and robots rules
-- [ ] Add structured data appropriate to each route
+- [x] Add metadata, canonical URLs, Open Graph, sitemap, and robots rules — verified 2026-10-02 (`docs/10-seo-analytics/DFW_LOCAL_SEARCH_STRATEGY.md` §9)
+- [x] Add structured data appropriate to each route — verified 2026-10-02; local-business markup waits on verified business facts
 - [ ] Create local internal-linking architecture
 - [ ] Connect GA4, Search Console, and Microsoft Clarity with consent handling where required
 - [ ] Implement event taxonomy for bookings, form submissions, quiz completions, downloads, CTA clicks, property searches, and video engagement

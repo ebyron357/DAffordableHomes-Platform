@@ -18,6 +18,7 @@ import {
 } from "@/lib/blog/structured-data"
 import type { Article } from "@/lib/blog/types"
 import { toSafeHref } from "@/lib/safe-path"
+import { SHARE_IMAGE, SHARE_IMAGES, fittedTitle } from "@/lib/seo"
 import { SITE } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
@@ -86,7 +87,7 @@ export async function generateMetadata({
   const socialImage = article.socialImage ?? article.featuredImage
 
   return {
-    title: article.seoTitle ?? article.title,
+    title: fittedTitle(article.seoTitle ?? article.title),
     description: article.seoDescription,
     alternates: { canonical },
     // Sanitised for the same reason as the JSON-LD author node: `author.url` is
@@ -103,16 +104,20 @@ export async function generateMetadata({
       modifiedTime: article.reviewedAt ?? article.publishedAt,
       authors: [article.author.name],
       section: article.category.title,
-      // Omitted rather than substituted when the article carries no image of
-      // its own. A share card showing an unrelated photograph is worse than
-      // the site-level default a consumer falls back to.
-      ...(socialImage ? { images: [{ url: socialImage.src, alt: socialImage.alt }] } : {}),
+      // Never an unrelated photograph. An article without an image of its own
+      // falls back to the site's branded share card, which carries no
+      // photograph and so cannot be read as depicting the article's subject.
+      // Declaring `openGraph` here replaces the layout's, so the fallback has to
+      // be named explicitly — see lib/seo.ts.
+      ...(socialImage
+        ? { images: [{ url: socialImage.src, alt: socialImage.alt }] }
+        : SHARE_IMAGES),
     },
     twitter: {
-      card: socialImage ? "summary_large_image" : "summary",
+      card: "summary_large_image",
       title: article.seoTitle ?? article.title,
       description: article.seoDescription,
-      ...(socialImage ? { images: [socialImage.src] } : {}),
+      images: [socialImage ? socialImage.src : SHARE_IMAGE.url],
     },
   }
 }

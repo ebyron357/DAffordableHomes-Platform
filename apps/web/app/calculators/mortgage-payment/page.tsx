@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = {
   title: "Mortgage Payment Calculator",
-  description: "Estimate mortgage principal, interest, PMI, taxes, and insurance.",
+  description:
+    "Estimate a monthly mortgage payment with principal, interest, PMI, property taxes, and homeowners insurance. A planning estimate only, not a loan quote.",
   alternates: { canonical: "/calculators/mortgage-payment" },
 }
 

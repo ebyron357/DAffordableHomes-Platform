@@ -6,11 +6,12 @@ import { Section } from "@/components/page/section"
 import { CtaBand } from "@/components/page/editorial"
 import { CLOSING_BAND_IMAGE } from "@/lib/content/imagery"
 import { Eyebrow } from "@/components/ui/eyebrow"
+import { SHARE_IMAGES } from "@/lib/seo"
 
 export const metadata: Metadata = {
   title: "Plan & Resources",
   description:
-    "Start with the four questions buyers ask first — what a payment costs, what you can afford, what cash you need at closing, and which programs apply — then go deeper with guides and additional planning tools.",
+    "Start with the four questions buyers ask first: the monthly payment, what you can afford, cash needed at closing, and which programs apply. Then go deeper.",
   alternates: { canonical: "/resources" },
   openGraph: {
     title: "Homebuyer Planning Tools & Resources | D'Affordable Homes",
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
       "Four high-value starting points for buyers, plus guides and additional planning tools from Debra Allen, REALTOR®.",
     url: "/resources",
     type: "website",
+    ...SHARE_IMAGES,
   },
 }
 

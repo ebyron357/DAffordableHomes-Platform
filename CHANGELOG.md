@@ -4,6 +4,32 @@ All notable repository changes are documented here.
 
 ## 2026-10-02
 
+### SEO, AEO and GEO audit: share metadata, titles, structured data, llms.txt
+
+An audit of every sitemap route on the merged `main` found the technical base
+sound but the share layer broken. The layout's static Open Graph block gave 23
+routes the homepage's share title, description and `og:url`, and 32 of 33
+routes had no share image at all. A route that declares its own `openGraph`
+replaces the layout's wholesale in Next, so a single default could not reach
+them. Now:
+
+- One branded share card (`lib/seo.ts`), named explicitly wherever a route
+  declares `openGraph`; share titles, descriptions and `og:url` come from each
+  route.
+- Titles fit in 60 characters and descriptions in 70–160, rewritten with no new
+  claims; CMS article titles drop the brand suffix when it would overflow.
+- `/testimonials` and `/market-reports` are `noindex` and out of the sitemap
+  until they have real content; `qa:audit` still crawls both.
+- The 404 page no longer carries contradictory robots directives.
+- Article JSON-LD links the byline to the site's Person entity, carries the
+  publisher logo, and spells topics as published ("NACA", not "Naca").
+- `/llms.txt`, generated from site sources, including what the site does not do.
+- `tests/static/search-metadata.test.mjs` pins each fix.
+
+The full scorecard, including what stays blocked on owner facts, is in
+`docs/10-seo-analytics/DFW_LOCAL_SEARCH_STRATEGY.md` §9. None of it counts until
+the domain is cut over.
+
 ### Release-captain verification: one compliance fix, documentation corrected to match the code
 
 Every gate was re-run on `21662ec` under Node 24 and the hosting state was read

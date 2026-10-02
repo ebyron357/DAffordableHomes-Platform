@@ -12,6 +12,11 @@ import { SITE } from "@/lib/site"
 
 export const revalidate = 3600
 
+/*
+ * `/testimonials` and `/market-reports` are deliberately absent: both are
+ * `noindex` until they carry real content, and a sitemap must not list a URL
+ * the page itself asks not to be indexed.
+ */
 const staticRoutes = [
   "",
   "/about",
@@ -33,7 +38,6 @@ const staticRoutes = [
   "/faq",
   "/first-time-buyers",
   "/homes",
-  "/market-reports",
   "/neighborhoods",
   "/privacy",
   "/programs",
@@ -42,7 +46,6 @@ const staticRoutes = [
   "/resources",
   "/start",
   "/terms",
-  "/testimonials",
 ] as const
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

@@ -5,7 +5,8 @@ import { Section } from "@/components/page/section"
 
 export const metadata: Metadata = {
   title: "Rent vs. Buy Calculator",
-  description: "Compare simplified renting and homeownership costs over time.",
+  description:
+    "Compare the simplified costs of renting and owning a home over time, so you can see how the numbers change before you make a decision.",
   alternates: { canonical: "/calculators/rent-vs-buy" },
 }
 

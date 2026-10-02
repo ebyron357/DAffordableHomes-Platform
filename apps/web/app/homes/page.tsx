@@ -19,7 +19,7 @@ import { CLOSING_BAND_IMAGE, HERO_FAMILY } from "@/lib/content/imagery"
 export const metadata: Metadata = {
   title: "Find a Home in Dallas–Fort Worth",
   description:
-    "Explore homes across Garland and the Dallas–Fort Worth metroplex with guidance. When a live MLS feed isn't connected, we say so plainly instead of showing placeholder homes.",
+    "Explore homes across Garland and Dallas–Fort Worth with guidance. Until a live MLS feed is connected, this page says so instead of showing placeholder homes.",
   alternates: { canonical: "/homes" },
 }
 

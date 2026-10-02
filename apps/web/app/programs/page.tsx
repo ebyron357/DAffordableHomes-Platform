@@ -6,9 +6,10 @@ import { Band, BandLead, CtaBand, Split, StatusStrip } from "@/components/page/e
 import { CLOSING_BAND_IMAGE, DEBRA_PORTRAIT } from "@/lib/content/imagery"
 import { PROGRAM_CARDS } from "@/lib/programs"
 import { SITE } from "@/lib/site"
+import { SHARE_IMAGES } from "@/lib/seo"
 
 export const metadata: Metadata = {
-  title: "Homebuyer Programs for Garland and Dallas–Fort Worth",
+  title: "Homebuyer Programs in Garland and DFW",
   description:
     "Explore independent NACA homebuyer guidance and Homes for Heroes real-estate support from D'Affordable Homes, with a practical North Texas focus.",
   alternates: { canonical: "/programs" },
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
       "Program-specific real-estate guidance for buyers and community heroes exploring Garland and the Dallas–Fort Worth region.",
     url: "/programs",
     type: "website",
+    ...SHARE_IMAGES,
   },
 }
 
