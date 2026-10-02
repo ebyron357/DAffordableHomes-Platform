@@ -51,7 +51,7 @@ const DEBRA_DESK = DEBRA_DESK_BAND
  */
 const TRUST_MARKS = [
   { label: "REALTOR®", detail: "Licensed residential representation" },
-  { label: "Garland + DFW", detail: "North Texas is the home market" },
+  { label: "Garland + DFW", detail: "North Texas is the site's local content focus" },
   { label: "Education first", detail: "You understand it before you sign it" },
   { label: "No pressure", detail: "Guidance that matches your timeline" },
 ] as const
@@ -118,8 +118,8 @@ function Hero() {
             Buying a home in <em>Dallas–Fort Worth</em>, with someone who explains it.
           </h1>
           <p className="fh-lede">
-            Buyer and seller representation across Garland and the DFW metroplex, done the way Debra teaches:
-            plainly, at your pace, and without pushing anyone toward a signature.
+            Buyer and seller guidance focused on Garland and the DFW metroplex, done the way Debra teaches: plainly,
+            at your pace, and without pushing anyone toward a signature.
           </p>
           <div className="fh-hero-actions">
             <Link href={FIGMA_HOME_CTA.consultation.href} className="fh-btn fh-btn-gold">
@@ -356,9 +356,9 @@ function MeetDebra() {
           <h2 id="figma-debra-heading">Guidance first. Pressure never.</h2>
           <p className="fh-meet-name">Debra Allen, REALTOR®</p>
           <p>
-            Debra works with buyers and sellers across the Dallas–Fort Worth metroplex, and she built her practice
-            around one idea: people make better decisions about a home when somebody takes the time to explain what is
-            actually happening.
+            This site is built for buyers and sellers navigating the Dallas–Fort Worth metroplex. Debra built her
+            practice around one idea: people make better decisions about a home when somebody takes the time to explain
+            what is actually happening.
           </p>
           <p>
             That means the trade-offs laid out plainly, the numbers tested before you fall for a house, and the parts
@@ -396,7 +396,7 @@ function Markets() {
     <section className="fh-section fh-markets" aria-labelledby="figma-markets-heading">
       <div className="fh-shell">
         <div className="fh-section-intro fh-section-intro-left fh-section-intro-dark">
-          <p className="fh-eyebrow fh-eyebrow-on-dark">Where we work</p>
+          <p className="fh-eyebrow fh-eyebrow-on-dark">Local market focus</p>
           <h2 id="figma-markets-heading">Garland, and the North Texas cities around it</h2>
           <p className="fh-section-lede fh-section-lede-dark">
             Start a search in any of these, or open the Garland guide for a closer local read.

@@ -49,12 +49,12 @@ export function FigmaHomeFooter() {
               />
             </span>
             <p className="fh-footer-blurb">
-              {SITE.realtorName} — professional representation and clear, unhurried guidance for buyers and sellers
-              across Garland and the Dallas–Fort Worth metroplex.
+              {SITE.realtorName} — clear, unhurried homebuying and selling guidance focused on Garland and the
+              Dallas–Fort Worth metroplex.
             </p>
           </div>
           <div className="footer-local">
-            <p className="footer-local-label">Where Debra works</p>
+            <p className="footer-local-label">Local market focus</p>
             <ul>
               <li>
                 <MapPin aria-hidden="true" />
@@ -67,7 +67,7 @@ export function FigmaHomeFooter() {
                 <Route aria-hidden="true" />
                 <span>
                   <strong>Dallas–Fort Worth</strong>
-                  Buyer and seller representation across the metroplex.
+                  Buyer and seller guidance focused on the metroplex.
                 </span>
               </li>
               <li>

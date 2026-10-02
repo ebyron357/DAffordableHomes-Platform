@@ -63,12 +63,11 @@ export function SiteFooter() {
               />
             </span>
             <p className="footer-copy">
-              {SITE.realtorName} — clear, practical guidance for the homeownership decisions in front of you, across
-              Garland and Dallas–Fort Worth.
+              {SITE.realtorName} — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.
             </p>
           </div>
           <div className="footer-local">
-            <p className="footer-local-label">Where Debra works</p>
+            <p className="footer-local-label">Local market focus</p>
             <ul>
               <li>
                 <MapPin aria-hidden="true" />
@@ -81,7 +80,7 @@ export function SiteFooter() {
                 <Route aria-hidden="true" />
                 <span>
                   <strong>Dallas–Fort Worth</strong>
-                  Buyer and seller representation across the metroplex.
+                  Buyer and seller guidance focused on the metroplex.
                 </span>
               </li>
               <li>
