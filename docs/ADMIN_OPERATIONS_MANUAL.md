@@ -192,8 +192,10 @@ free-text questions, and the consent flag.
 The Sanity publish webhook. Verifies the signature **before** revalidating
 anything. 503 without `SANITY_REVALIDATE_SECRET`, 400 on an unparseable
 payload, 401 on a bad signature, 200 and ignored for any document type other
-than `article`. On a valid article it expires the article cache tag and
-revalidates `/blog`, `/sitemap.xml` and that article's page.
+than `article`, `author` or `category` (the article queries dereference the
+last two). On any of the three it expires the article cache tag and
+revalidates `/blog` and `/sitemap.xml`; on an article it also revalidates that
+article's page.
 
 Configure it in Sanity as a POST to `https://yourdomain.com/api/revalidate` with
 the shared secret.

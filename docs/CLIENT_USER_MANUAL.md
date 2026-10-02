@@ -43,10 +43,17 @@ leads somewhere real.
 Two places collect an enquiry: the "Find My Next Step" form on `/start`, and the
 forms on the NACA and Homes for Heroes pages.
 
-**Today, neither delivers anywhere.** This is deliberate. Rather than accept an
-enquiry and lose it, each form tells the visitor that online delivery is not
-available and points them at the consultation page. It starts working the moment
-your CRM webhook addresses are set — `CLIENT_HANDOFF.md` Part 3.3.
+**Today, neither delivers anywhere.** Rather than accept an enquiry and lose it,
+each form tells the visitor that online delivery is not available and points
+them at the consultation page. Both start working the moment your CRM webhook
+addresses are set — `CLIENT_HANDOFF.md` Part 3.3.
+
+**The consultation page is not a fallback today.** Its message form — the same
+one on `/contact` — is not connected to anything: it says so and asks the
+visitor to reach out directly, and the site does not yet publish a phone number
+or email. So right now a visitor has **no working way to reach you from the
+site**. Setting the webhooks fixes the two forms above but not this one; it
+needs its own small code change once you decide where its messages go.
 
 ### What the site will not do
 
@@ -146,7 +153,8 @@ than showing a blank page. If it persists for more than a few minutes, see
 ### "Online lead delivery is not configured yet"
 
 Expected today — your CRM is not connected. The visitor is sent to the
-consultation page, so the enquiry is not simply lost.
+consultation page, but that page's form is not connected either, so the enquiry
+is **not captured anywhere**. See "The lead forms" above.
 
 ### "Too many submissions. Please wait a moment"
 

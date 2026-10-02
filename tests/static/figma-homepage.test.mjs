@@ -131,6 +131,18 @@ test("the homepage footer keeps compliance reachable and subordinate", () => {
   // Texas practice requires both TREC notices to be reachable.
   assert.match(map, /information-about-brokerage-services-form/);
   assert.match(map, /forms\/consumer-protection-notice/);
+  // AGENTS.md §5: Fair Housing and Equal Housing Opportunity are both release
+  // gates. The interior footer carries both through LEGAL_NAV; the homepage
+  // renders its own footer, so it must carry both too.
+  const nav = read("apps/web/lib/navigation.ts");
+  for (const [source, name] of [[map, "lib/figma-home.ts"], [nav, "lib/navigation.ts"]]) {
+    assert.match(source, /href: "\/fair-housing"/, `${name} footer is missing the Fair Housing link`);
+    assert.match(
+      source,
+      /href: "\/equal-housing-opportunity"/,
+      `${name} footer is missing the Equal Housing Opportunity link`,
+    );
+  }
   // They live in the small compliance row, not a navigation column.
   assert.match(footer, /className="fh-footer-legal"/);
   assert.match(css, /\.fh-footer-legal a \{[^}]*font-size: 12px;/);

@@ -28,8 +28,10 @@ if the content system is unavailable.
 ### A form says "Online lead delivery is not configured yet"
 
 **Expected today.** Your CRM is not connected. The visitor is sent to the
-consultation page, so the enquiry is not silently lost — but it is not captured
-either. `docs/12-governance/CLIENT_HANDOFF.md` Part 3.3 is how this gets fixed.
+consultation page — whose own message form is also not connected, and the site
+publishes no phone or email yet — so the enquiry is **not captured anywhere**.
+`docs/12-governance/CLIENT_HANDOFF.md` Part 3.3 fixes the `/start` and program
+forms; the `/contact` and `/consultation` form needs a separate code change.
 
 ### A form says "Lead delivery is temporarily unavailable"
 

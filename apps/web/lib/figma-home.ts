@@ -161,6 +161,11 @@ export const FIGMA_FOOTER_LINKS = [
  * bottom row, not in a column competing with primary navigation.
  *
  * `external` entries are TREC-hosted documents and render as plain anchors.
+ *
+ * Fair Housing and Equal Housing Opportunity are both listed. AGENTS.md §5
+ * treats each as a release gate, and the interior footer (`LEGAL_NAV`) already
+ * carried both; this row had only Fair Housing, so the most-visited page was
+ * the one page without the Equal Housing Opportunity link.
  */
 export const FIGMA_FOOTER_LEGAL = [
   {
@@ -177,4 +182,5 @@ export const FIGMA_FOOTER_LEGAL = [
   { label: "Terms", href: "/terms", external: false },
   { label: "Accessibility", href: "/accessibility", external: false },
   { label: "Fair Housing", href: "/fair-housing", external: false },
+  { label: "Equal Housing Opportunity", href: "/equal-housing-opportunity", external: false },
 ] as const

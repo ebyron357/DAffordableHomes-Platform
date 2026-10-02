@@ -4,6 +4,35 @@ All notable repository changes are documented here.
 
 ## 2026-10-02
 
+### Release-captain verification: one compliance fix, documentation corrected to match the code
+
+Every gate was re-run on `21662ec` under Node 24 and the hosting state was read
+from the Vercel API rather than from earlier notes. All automated gates pass.
+The pass found no code defect in the reconciliation, but it found places where
+the documentation said something the code does not do, and one compliance gap.
+
+- **Equal Housing Opportunity link added to the homepage footer.** The interior
+  footer carried both Fair Housing and Equal Housing Opportunity; the homepage
+  renders its own footer and carried only Fair Housing. A test now fails if
+  either footer drops either link.
+- **The `/contact` and `/consultation` message form has no delivery path.** It
+  shows "Message form isn't connected yet", the site publishes no phone or email,
+  and both lead endpoints send visitors there when delivery is unavailable. Four
+  documents said such enquiries were "not lost"; they now say what happens.
+  Recorded as blocker 6 in `docs/PROJECT_CLOSEOUT_STATUS.md`. Setting the CRM
+  webhooks does not fix it, so it waits on the owner choosing a destination.
+- `CLIENT_HANDOFF.md` claimed display logic for phone, address, brokerage and
+  licence already existed. Nothing displays them; corrected.
+- `IMAGE_ASSET_REGISTER.md` still described the rejected Gamma hero as the
+  "owner-approved" closed item. A dated supersession note now says the current
+  hero is **not** approved.
+- `qa-evidence/visual/` was refreshed: the committed captures predated the hero
+  replacement and showed the rejected image.
+- The status register gained §13, which records the evidence, the Vercel facts
+  (zero environment variables on the working project; the duplicate has never
+  produced a successful deployment in 57 attempts), the live GoHighLevel page
+  currently on `daffordablehomes.com`, and copy lines for the compliance reviewer.
+
 ### Copilot review: five real defects fixed, one recommendation declined
 
 Copilot reviewed `60c8695` and raised nine findings. Each was checked against the

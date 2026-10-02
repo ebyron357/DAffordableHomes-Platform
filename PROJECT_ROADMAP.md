@@ -140,6 +140,7 @@ is `docs/12-governance/CLIENT_HANDOFF.md` Part 7 — these are its headings.
 
 - [ ] Business facts supplied and live (`apps/web/lib/site.ts` no longer all `null`)
 - [ ] Lead delivery verified end to end with a test enquiry through every form
+- [ ] `/contact` and `/consultation` message form connected to a destination the owner chooses — today it has no delivery path at all, and setting the CRM webhooks does not change that (status register blocker 6)
 - [ ] Owner has published, previewed and unpublished an article unaided
 - [ ] Domain, Vercel, Sanity, CRM and repository ownership settled in the owner's name
 - [ ] Prior holders' access reduced or removed
@@ -150,7 +151,9 @@ The closeout documentation required by `docs/PROJECT_COMPLETION_STANDARD.md` is
 complete as of 2026-10-02; the status register with evidence per requirement is
 `docs/PROJECT_CLOSEOUT_STATUS.md`, and the formal acceptance record is
 `docs/FINAL_CLIENT_ACCEPTANCE.md`. Both are written; neither is signed. The
-current closure state is **`BLOCKED - OWNER ACTION REQUIRED`**.
+current closure state is **`BLOCKED - OWNER ACTION REQUIRED`**. Every automated
+gate was re-run and the hosting state read from the Vercel API on 2026-10-02;
+the results and the issues found are in the status register, §13.
 
 ## v1.1 — Optimization and accessibility hardening
 

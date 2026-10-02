@@ -34,8 +34,16 @@ required by `docs/PROJECT_COMPLETION_STANDARD.md` carry the detail:
 ## Part 1 — What you are receiving
 
 An education-first website for D'Affordable Homes: 33 public pages, a
-homebuying-path quiz, planning calculators, three long-form guides, and a lead
-form that routes enquiries to your CRM.
+homebuying-path quiz, planning calculators, three long-form guides, and two
+lead forms (`/start` and the program pages) built to route enquiries to your CRM
+once its webhook addresses are set.
+
+**Not included yet:** the message form on `/contact` and `/consultation` — the
+page every "Schedule a Consultation" and "Talk with Debra" button opens — has no
+delivery path at all. It tells the visitor it is not connected and asks them to
+reach out directly, and the site publishes no phone number or email to reach out
+to. Setting the CRM webhooks does **not** fix this form; it needs a small code
+change, after you decide where its messages should go (Part 3.3).
 
 **What you can change yourself, with no developer:** every article — write,
 edit, preview before publishing, unpublish. See Part 4.
@@ -99,8 +107,14 @@ brokerageName        licenseNumber        licenseState
 businessAddress      phoneNumber          serviceAreas
 ```
 
-Send your developer the real values. Wiring them in is a small change —
-the display logic already exists and is covered by tests.
+Send your developer the real values. Wiring them in is a small change, but it
+is a change: today the only code that reads these fields is the About page's
+"published once they are confirmed" notice, which hides itself once
+`brokerageName` is set. Nothing yet **displays** a phone number, address,
+brokerage or licence, so the brokerage/licence disclosure and the contact
+details need a display added, and your broker should approve where it sits.
+`tests/static/programs.test.mjs` asserts the service-area lists are empty today
+and changes with them.
 
 Three further fields are optional and stay `null` unless you want them shown,
 because an unverified number here would be a fabricated credential:

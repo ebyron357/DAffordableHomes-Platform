@@ -181,6 +181,13 @@ action. What was searched, and what was in it:
 
 The homepage hero item is now closed with the registered owner-approved generated still. Google Drive remains a usable transfer route for future cleared client assets, but it is no longer a blocker for the hero.
 
+> **Superseded 2026-09-24 — the hero item is open again.** The Gamma still
+> approved on 2026-09-22 was rejected by the owner on 2026-09-24 and removed.
+> The current hero is the Higgsfield candidate registered at the top of this
+> file, marked *Candidate awaiting owner review*. The two paragraphs above, and
+> the "owner-approved generated hero exterior" row in the table, describe the
+> 2026-09-22 state and must not be read as an approval of the current image.
+
 Remaining photography needs:
 
 - **Homes for Heroes card** — a cleared image appropriate to the article subject.
