@@ -159,13 +159,15 @@ jobs:
         shell: bash
         env:
           GATE: ${{ steps.audit.outputs.gate }}
+          COMMIT_SHA: ${{ steps.target.outputs.commit_sha }}
+          DEPLOYMENT_URL: ${{ steps.target.outputs.deployment_url }}
         run: |
           set -euo pipefail
           {
             echo "## ClientVerse audit"
             echo ""
-            echo "- Commit: \`${{ steps.target.outputs.commit_sha }}\`"
-            echo "- Deployment: ${{ steps.target.outputs.deployment_url }}"
+            echo "- Commit: \`$COMMIT_SHA\`"
+            echo "- Deployment: $DEPLOYMENT_URL"
             echo "- Release gate: \`$GATE\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
