@@ -1,8 +1,11 @@
 import type { Metadata } from "next"
-import Image from "next/image"
 import Link from "next/link"
+import { Calculator, CalendarCheck, ClipboardList, Compass, HeartHandshake, MapPin, MessageCircle, ShieldCheck } from "lucide-react"
 import { ContactForm } from "@/components/contact/contact-form"
 import { Container } from "@/components/ui/container"
+import { PageHeader } from "@/components/page/page-header"
+import { DEBRA_DESK_MASTHEAD } from "@/lib/content/imagery"
+import { Band, BandLead, Features, StatusStrip } from "@/components/page/editorial"
 
 export const metadata: Metadata = {
   title: "Book a Free Consultation",
@@ -10,75 +13,142 @@ export const metadata: Metadata = {
   alternates: { canonical: "/consultation" },
 }
 
-const expectations = [
-  "A focused planning conversation",
-  "A review of your current position",
-  "Clear next steps without pressure",
-  "Resources matched to your situation",
-]
+const EXPECTATIONS = [
+  {
+    title: "A focused planning conversation",
+    body: "About your situation, not a script. Bring the question you have actually been sitting on.",
+    icon: MessageCircle,
+  },
+  {
+    title: "A review of your current position",
+    body: "Where you are today with savings, timing and preparation — without judgement about any of it.",
+    icon: Compass,
+  },
+  {
+    title: "Clear next steps without pressure",
+    body: "One or two things worth doing next, and an honest note about which ones can wait.",
+    icon: ClipboardList,
+  },
+  {
+    title: "Resources matched to your situation",
+    body: "The guide, the calculator or the professional that fits what you described — not a generic packet.",
+    icon: HeartHandshake,
+  },
+] as const
+
+const NOT_READY = [
+  {
+    title: "Estimate a monthly payment",
+    body: "Principal, interest, taxes, insurance and HOA dues, with your own numbers in it.",
+    href: "/calculators/mortgage-payment",
+    icon: Calculator,
+    tone: "teal" as const,
+    action: "Open the calculator",
+  },
+  {
+    title: "Find your next step",
+    body: "A short set of questions about where you are, then one clear thing to do next.",
+    href: "/start",
+    icon: ClipboardList,
+    tone: "navy" as const,
+    action: "Start the assessment",
+  },
+  {
+    title: "Read a guide first",
+    body: "Plain-language answers on programs, preparation and buying locally in North Texas.",
+    href: "/blog",
+    icon: Compass,
+    tone: "gold" as const,
+    action: "Browse the guides",
+  },
+] as const
 
 export default function ConsultationPage() {
   return (
     <>
-      <section className="pt-12 md:pt-16">
+      <PageHeader
+        eyebrow="A clear next step"
+        eyebrowIcon={CalendarCheck}
+        title="Start with a conversation, not a sales pitch"
+        intro="Tell Debra enough to understand your starting point. You will leave with a clearer understanding of what to do next, even if buying is not your immediate next move."
+        crumbs={[{ label: "Home", href: "/" }, { label: "Consultation" }]}
+        facts={[
+          { label: "No cost, no commitment", icon: HeartHandshake },
+          { label: "Garland + Dallas–Fort Worth", icon: MapPin },
+        ]}
+        media={{
+          ...DEBRA_DESK_MASTHEAD,
+          priority: true,
+          caption: { label: "Your REALTOR®", title: "Debra Allen" },
+        }}
+      />
+
+      <section className="dh-band dh-band-white" aria-labelledby="consultation-form-heading">
         <Container>
-          <p className="text-xs font-semibold uppercase tracking-[0.1em] text-accent">A clear next step</p>
-          <h1 className="mt-4 max-w-3xl font-serif text-[42px] font-normal leading-[1.08] sm:text-[52px]">
-            Start with a conversation—not a sales pitch.
-          </h1>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
-            Tell Debra enough to understand your starting point. You will leave with a clearer understanding of what to do next, even if buying is not your immediate next move.
-          </p>
-        </Container>
-      </section>
-      <section className="py-12 md:py-16">
-        <Container className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-12">
-          <div>
-            <div className="bg-primary p-7 text-primary-foreground sm:p-9">
-              <h2 className="font-serif text-3xl font-normal">What to expect</h2>
-              <ol className="mt-6">
-                {expectations.map((item, index) => (
-                  <li key={item} className="flex gap-5 border-b border-primary-foreground/20 py-5 last:border-0">
-                    <span className="text-xs font-semibold text-accent-inverse">0{index + 1}</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ol>
-              <p className="mt-5 text-xs leading-5 text-primary-foreground/75">
-                You do not need perfect credit, a lender, or every answer before reaching out.
+          <div className="dh-consult">
+            <div className="dh-consult-form">
+              <h2 id="consultation-form-heading">Request a consultation</h2>
+              <p>
+                A short form so Debra can understand what you would like to discuss. Please do not include Social
+                Security numbers, account numbers, or other sensitive financial information.
               </p>
-            </div>
-            <div className="relative mt-8 aspect-[3/2] overflow-hidden border border-border">
-              <Image
-                src="/manus-storage/couple-consultation_25d3a592.jpg"
-                alt="A couple reviewing plans together at a consultation table"
-                fill
-                sizes="(min-width: 1024px) 38vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-            <div className="mt-8">
-              <h2 className="font-serif text-2xl font-normal">Not ready to schedule?</h2>
-              <p className="mt-3 leading-7 text-muted-foreground">
-                Use the free calculators and field guides first. Come back when you have a question worth discussing.
-              </p>
-              <div className="mt-5 flex gap-6 text-sm font-semibold text-primary">
-                <Link href="/calculators/mortgage-payment" className="hover:underline">Mortgage calculator →</Link>
-                <Link href="/calculators/affordability" className="hover:underline">Affordability calculator →</Link>
-              </div>
-            </div>
-          </div>
-          <div className="self-start border border-border bg-card p-6 sm:p-8">
-            <h2 className="font-serif text-3xl font-normal">Request a consultation</h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">
-              Complete the short form so Debra can understand what you would like to discuss. Do not include Social Security numbers, account numbers, or other sensitive financial information.
-            </p>
-            <div className="mt-7">
               <ContactForm context="consultation" />
             </div>
+
+            <aside className="dh-consult-aside" aria-labelledby="consultation-expect-heading">
+              <p className="dh-kicker">
+                <CalendarCheck aria-hidden="true" />
+                What to expect
+              </p>
+              <h2 id="consultation-expect-heading">Four things, every time</h2>
+              <ul className="dh-checklist">
+                {EXPECTATIONS.map((item) => (
+                  <li key={item.title}>
+                    <item.icon aria-hidden="true" />
+                    <span>
+                      <strong>{item.title}</strong>
+                      {item.body}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <StatusStrip icon={ShieldCheck} title="You do not need to be ready" onDark>
+                <p>
+                  Perfect credit, a lender, and every answer are not prerequisites for a conversation. Most people book
+                  one precisely because they do not have those yet.
+                </p>
+              </StatusStrip>
+            </aside>
           </div>
         </Container>
       </section>
+
+      <Band tone="alt" aria-labelledby="consultation-not-ready-heading">
+        <BandLead
+          eyebrow="Not ready to schedule?"
+          eyebrowIcon={Compass}
+          title="Come back when you have a question worth asking"
+          titleId="consultation-not-ready-heading"
+          lede="There is no wrong order here. Plenty of people work through one of these first and book afterwards."
+        />
+        <Features items={NOT_READY} rule="gold" />
+      </Band>
+
+      <Band tone="navy" tight aria-label="Other ways to reach Debra">
+        <div className="dh-lead-row">
+          <div className="dh-lead dh-lead-flush">
+            <p className="dh-kicker">
+              <MessageCircle aria-hidden="true" />
+              Prefer to write first?
+            </p>
+            <h2>Send a message instead</h2>
+            <p>A short note works just as well. Same person reads it, same absence of a sales pitch.</p>
+          </div>
+          <Link href="/contact" className="dh-btn dh-btn-light">
+            Contact Debra
+          </Link>
+        </div>
+      </Band>
     </>
   )
 }

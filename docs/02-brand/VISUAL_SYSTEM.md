@@ -1,6 +1,10 @@
 # D’Affordable Homes controlled production visual system
 
-Canonical editable source: [D’Affordable Homes — Controlled Production Redesign](https://www.figma.com/design/lHNOSrbAi46SccUZBrYpIF).
+Canonical editable source: [D’Affordable Homes — Final 3 Screens](https://www.figma.com/design/x8TpOO9gK5tsbcjkEsK18A/D%E2%80%99Affordable-Homes-%E2%80%94-Final-3-Screens?node-id=11-4). Production homepage frame: `daffordable-homes-home-page` (`11:4`).
+
+## Brand mark
+
+The current approved logo is `apps/web/public/images/daffordable-homes-official-logo.png` (640×427, opaque white background). It is the only logo asset that may appear in the UI: the homepage header (Figma frame `11:4`, brand slot at the left of the 94px header), the interior header, the interior footer, and the Organization JSON-LD. Render it at a fixed height with `width: auto`; never stretch, crop, invert, or redraw it as text. `apps/web/public/manus-storage/dah-logo_ff042b7b.png` is a Manus placeholder and is not the brand.
 
 ## Positioning
 
@@ -60,8 +64,141 @@ Primary buttons use deep navy with white text. Secondary emphasis may use dark t
 
 ## Photography
 
-The homepage hero uses licensed Pexels photo 7114188 by Monstera Production / Gabby K. Debra’s approved yellow-blazer portrait anchors the homepage trust section; the approved desk portrait supports consultation. No AI imagery or appearance alteration is permitted. See `docs/05-content/IMAGE_ASSET_REGISTER.md` for canonical provenance, licensing, crops, alt text, and repository paths.
+The homepage hero carries the owner-approved generated North Texas exterior (`hero-north-texas-exterior.webp`, registered as a generic residential exterior that depicts no real listing, address or client property), with the drawn brand roofline beneath it as the fallback. Debra’s approved yellow-blazer portrait appears twice on the homepage: at 56px in the hero byline, where it is decorative and the name beside it carries the meaning, and at scale as the Meet Debra composition. The approved desk portrait carries the closing band and consultation. The licensed Pexels interior (7114188) is retained for `/homes` only. No appearance alteration of any person is permitted. See `docs/05-content/IMAGE_ASSET_REGISTER.md` for canonical provenance, licensing, crops, alt text, and repository paths.
+
+## Homepage palette
+
+The production homepage (`11:4`) keeps the Figma frame's composition, spacing,
+section order and geometry, but is painted with the approved logo-derived
+system above rather than the frame's warm-cream screen tokens. Running two
+palettes meant the homepage read as a different brand from every interior
+route; there is now one system.
+
+The scoped tokens on `.figma-home`:
+
+| Token | Value | Role |
+| --- | --- | --- |
+| `--fh-page` | `#F7F9F8` | Near-white page background |
+| `--fh-alt` | `#EDF3F2` | Soft green-gray alternate sections |
+| `--fh-navy` | `#102B4E` | Navigation, headings, primary buttons, footer, CTA band |
+| `--fh-body` | `#10233F` | Body and heading text |
+| `--fh-muted` | `#52616F` | Secondary body text |
+| `--fh-teal` | `#077783` | Links, eyebrows, active nav, secondary buttons |
+| `--fh-teal-bright` | `#18A9B4` | Decorative accents and hover rules only |
+| `--fh-green` | `#66AD45` | Seller-pathway accent; paired with text, never alone |
+| `--fh-gold` | `#BF922D` | Header hairline, section rules, empty-state edge, footer divider |
+| `--fh-border` | `#CBD7D6` | Dividers and boundaries |
+| `--fh-white` | `#FFFFFF` | Cards, content surfaces, footer brand band |
+
+Desktop content lock: `1440` content width with `1256` inner content and `92px`
+side margins, carried by `.fh-shell` as a `max-width`. The page itself is
+**not** locked: fields (hero, trust band, Meet Debra, markets, closing band,
+footer) bleed to the viewport edge at every width, and only content is held to
+the shell. The earlier `.figma-home { width: 1440px }` lock boxed the whole site
+inside near-white margins on any wider monitor and made the hero read as a card
+floating in empty space. Per-section heights from the frame are `min-height`
+rather than `height`, because two sections no longer match the static mock —
+see below.
+
+### Hero composition
+
+The frame's hero is copy on the left and a picture well on the right. In
+production that is one composition rather than two panels:
+
+- A four-track grid — fluid gutter, copy track (564px), photograph track
+  (692px), fluid gutter — with the photograph spanning into the right gutter.
+  At 1440 the gutters are the shell's 92px; wider, they grow and the
+  photograph grows with them.
+- The seam between the navy field and the photograph is a 180px navy wash on
+  the picture's left edge, so the house emerges from the brand colour instead
+  of meeting it as a hard vertical line. A low vignette weights the bottom of
+  the frame. No scrim sits on the subject.
+- Nothing is laid over the photograph: no panel, badge, card or text. The
+  owner rejected a white quiz panel straddling the seam on 2026-09-24; the
+  two halves are tied together by the seam wash, the shared baseline and the
+  proportions, and the quiz has its own section further down the page.
+- The copy carries the mark's tagline behind a short gold rule, the headline,
+  the lede, two CTAs (gold primary, light outline), and Debra's byline with
+  her approved portrait — so the first viewport names the practice, the
+  person, the market and a next action without the logo.
+- The split holds from 900px up; under 900px the photograph stacks above the
+  copy with a bottom fade into the field.
+
+Gold at its brand value clears 4.5:1 against white but not against navy, so
+the outlined CTA on the navy band uses a lightened `#E6BD55` for its label and
+border while the brand value is kept for rules and dividers.
+
+## Sections that intentionally diverge from the frame
+
+The frame reserved image wells the approved asset library cannot fill, and
+reserved listing cards no MLS feed backs. Shipping either as a labelled empty
+box is a placeholder on a live site, so:
+
+- **Markets** is an editorial two-column list of DFW cities with each city's
+  county, replacing eight photo cards. It carries real local context and
+  invents no market statistic, price or inventory claim.
+- **Featured listings** renders a designed empty state when no MLS/IDX feed is
+  connected: the situation stated plainly plus the two actions that exist. It
+  never renders a listing-shaped card with bracketed price and address.
+- **Footers** (homepage and interior) are composed brand band → local column →
+  contact CTA → navigation → vendor credit → small compliance row. The logo is
+  an opaque PNG with no alpha, so it will always sit on white. Making the whole
+  band white to disguise that produced a mark apparently pasted onto a blank
+  card, with an empty middle column beside it. The band is now the brand's soft
+  green-gray and the plate is a designed sign with a gold rule under it.
+
+## Interior route visual system (`.dh-*`)
+
+The homepage composition did not extend past `/`. Interior routes were a navy
+masthead with type on the left and nothing on the right, then white boxes on
+near-white, each holding a heading, a paragraph and a button. Structurally
+correct and indistinguishable from a requirements document.
+
+The `.dh-*` layer in `app/globals.css` gives the interior the same vocabulary,
+using only the approved palette:
+
+- **Masthead** — two columns, always. The right column takes an approved
+  photograph or the brand's architectural linework (`components/page/brand-motif.tsx`),
+  so no route opens with half its first viewport empty. Navy field, teal wash,
+  gold rule beneath.
+- **Bands** — `page`, `white`, `alt`, `navy`, `teal`, `green`. A route
+  alternates fields rather than running near-white end to end.
+- **Splits** — a photograph and copy at equal weight, the photograph on an
+  offset teal or green plate so it reads as composition rather than a card
+  floating on white.
+- **Features** — icon-supported pathway rows. An icon is required by the type,
+  and it has to say what the thing *is*: a map pin for a place, a calculator for
+  a tool, a key for a purchase.
+- **Status strips** — where the site has to say a provider is not connected or
+  a fact is not verified. The words are unchanged; the shape is a brand-coloured
+  strip with a next action beside it rather than a warning panel adrift in an
+  empty page.
+- **Closing bands** — image-led, left-aligned, with a directional scrim. Centred
+  copy over a centred subject put the heading across Debra's face and needed a
+  scrim heavy enough to reduce her to a silhouette.
+
+### Ornament, not stock photography
+
+The approved register holds four photographs and three of them are Debra.
+Repeating one portrait across eighteen routes is the tiny-thumbnail treatment
+the brief rules out, and inventing city photography is fabrication. So the
+masthead's second column and the homepage pathways carry architectural linework
+— a North Texas roofline, the road from the mark, a key across a house. It says
+"residential real estate" at a glance and claims nothing. It is always
+`aria-hidden` and never stands in for a photograph in a content slot.
+
+### Measured, not asserted
+
+`scripts/qa/site-audit.mjs` measures painted brand area per route as a
+percentage of the rendered page, counting each field once, and fails below a
+floor (20% for content routes, 12% for long-form articles, which are reading
+surfaces). `scripts/qa/face-safety.mjs` computes the rendered crop of every
+Debra placement at all five breakpoints and fails if the top of a frame eats
+into her head. `scripts/check-contrast.mjs` holds every brand pair, including
+decorative icon badges, to 4.5:1.
 
 ## Controlled rollout
 
-This system currently governs the homepage, desktop/mobile navigation, footer, calculator hub, affordability calculator, and consultation page. Full-site rollout remains a separate approved implementation phase.
+The Figma homepage frame governs the public homepage header, sections and
+footer. Interior routes are composed from the `.dh-*` system above, which shares
+the homepage's palette and rhythm without copying its geometry.

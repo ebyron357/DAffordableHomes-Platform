@@ -1,6 +1,17 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import {
+  BadgeCheck,
+  ClipboardCheck,
+  Handshake,
+  MapPin,
+  MessageCircleQuestion,
+  ShieldCheck,
+  UserCheck,
+} from "lucide-react"
 import { Container } from "@/components/ui/container"
+import { PageHeader } from "@/components/page/page-header"
+import { DEBRA_DESK } from "@/lib/content/imagery"
+import { Band, BandLead, QaList, Split, StatusStrip, Steps } from "@/components/page/editorial"
 import { ProgramLeadForm } from "@/components/programs/program-lead-form"
 import { LOCAL_MARKET, verifiedAreaServedSchema } from "@/lib/local-market"
 import type { ProgramDefinition } from "@/lib/programs"
@@ -15,6 +26,19 @@ function JsonLd({ value }: { value: Record<string, unknown> }) {
   )
 }
 
+/**
+ * Shared program page.
+ *
+ * Previously a white page of bordered text grids — accurate, and indistinguishable
+ * from internal documentation. It is a consumer education page, so it now reads
+ * as one: a painted masthead, an icon-supported "who this is for" row, a numbered
+ * process, Debra's role shown beside her photograph, and the official-source
+ * boundary carried as a designed status strip rather than a grey aside.
+ *
+ * None of the program claims changed. The rule from AGENTS.md holds: this site
+ * never states eligibility, savings, approval or affiliation on a program's
+ * behalf, and every page says which organisation actually controls the rules.
+ */
 export function ProgramPage({ program }: { program: ProgramDefinition }) {
   const path = `/programs/${program.slug}`
   const areas = verifiedAreaServedSchema()
@@ -60,119 +84,150 @@ export function ProgramPage({ program }: { program: ProgramDefinition }) {
       <JsonLd value={faqSchema} />
       <JsonLd value={breadcrumbSchema} />
 
-      <section className="border-b border-border bg-card" aria-labelledby="program-title">
-        <Container className="py-12 md:py-20">
-          <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-primary hover:underline">Home</Link>
-            <span aria-hidden="true"> / </span>
-            <Link href="/programs" className="hover:text-primary hover:underline">Programs</Link>
-            <span aria-hidden="true"> / </span>
-            <span aria-current="page">{program.name}</span>
-          </nav>
-          <div className="mt-8 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">{program.eyebrow}</p>
-              <h1 id="program-title" className="mt-4 max-w-4xl font-serif text-[42px] font-normal leading-[1.08] sm:text-[56px]">
-                {program.title}
-              </h1>
-              <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{program.summary}</p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button href="#program-contact">{program.primaryCta}</Button>
-                <Button href="/" variant="outline">Explore D&apos;Affordable Homes</Button>
-              </div>
-            </div>
-            <aside className="border-l-4 border-accent bg-muted p-6" aria-label="Regional service note">
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">North Texas focus</p>
-              <p className="mt-3 text-lg font-semibold text-foreground">Garland and the Dallas–Fort Worth region</p>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">{LOCAL_MARKET.serviceAreaStatus}</p>
-            </aside>
-          </div>
-        </Container>
-      </section>
+      <PageHeader
+        eyebrow={program.eyebrow}
+        eyebrowIcon={BadgeCheck}
+        title={program.title}
+        intro={program.summary}
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: "Programs", href: "/programs" },
+          { label: program.name },
+        ]}
+        facts={[
+          { label: "Garland + Dallas–Fort Worth", icon: MapPin },
+          { label: "Real-estate role only", icon: ShieldCheck },
+        ]}
+        motif="keys"
+      >
+        <Link href="#program-contact" className="dh-btn dh-btn-gold">
+          {program.primaryCta}
+        </Link>
+        <Link href="/consultation" className="dh-btn dh-btn-light-outline">
+          Talk it through first
+        </Link>
+      </PageHeader>
 
-      <section className="py-14 md:py-20" aria-labelledby="audience-heading">
-        <Container className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">Who this is for</p>
-            <h2 id="audience-heading" className="mt-3 font-serif text-3xl font-normal sm:text-4xl">Start with your actual program stage</h2>
-            <p className="mt-4 leading-7 text-muted-foreground">You do not need to pretend you are further along. Clear status information helps Debra focus the conversation on the next useful real-estate decision.</p>
-          </div>
-          <ul className="grid gap-0 border-t border-border sm:grid-cols-2">
-            {program.audience.map((item) => (
-              <li key={item} className="border-b border-border py-5 sm:px-5 sm:odd:border-r">{item}</li>
-            ))}
-          </ul>
-        </Container>
-      </section>
+      <Band tone="white" tight aria-label="Where this applies">
+        <StatusStrip icon={MapPin} title="Garland and the Dallas–Fort Worth region">
+          <p>{LOCAL_MARKET.serviceAreaStatus}</p>
+        </StatusStrip>
+      </Band>
 
-      <section className="bg-card py-14 md:py-20" aria-labelledby="support-heading">
-        <Container>
-          <h2 id="support-heading" className="font-serif text-3xl font-normal sm:text-4xl">{program.supportTitle}</h2>
-          <div className="mt-8 grid border-t border-border md:grid-cols-2">
-            {program.supportItems.map((item, index) => (
-              <article key={item.title} className="border-b border-border py-7 md:px-7 md:odd:border-r md:odd:pl-0">
-                <p className="text-xs font-semibold text-accent">0{index + 1}</p>
-                <h3 className="mt-3 font-sans text-xl font-semibold">{item.title}</h3>
-                <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground">{item.description}</p>
-              </article>
-            ))}
-          </div>
-        </Container>
-      </section>
+      <Band tone="page" aria-labelledby="audience-heading">
+        <BandLead
+          eyebrow="Who this is for"
+          eyebrowIcon={UserCheck}
+          title="Start with your actual program stage"
+          titleId="audience-heading"
+          lede="You do not need to pretend you are further along. Clear status helps Debra focus the conversation on the next useful real-estate decision."
+        />
+        <ul className="dh-chips">
+          {program.audience.map((item) => (
+            <li key={item}>
+              <UserCheck aria-hidden="true" />
+              {item}
+            </li>
+          ))}
+        </ul>
+      </Band>
 
-      <section className="py-14 md:py-20" aria-labelledby="process-heading">
-        <Container>
-          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">What happens next</p>
-          <h2 id="process-heading" className="mt-3 font-serif text-3xl font-normal sm:text-4xl">A clear four-step real-estate process</h2>
-          <ol className="mt-8 grid gap-0 border-t border-border lg:grid-cols-4">
-            {program.process.map((step, index) => (
-              <li key={step.title} className="border-b border-border py-6 lg:border-r lg:px-6 lg:first:pl-0 lg:last:border-r-0">
-                <span className="text-xs font-semibold text-accent">0{index + 1}</span>
-                <h3 className="mt-3 font-sans text-lg font-semibold">{step.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">{step.description}</p>
+      <Band tone="alt" aria-labelledby="support-heading">
+        <Split
+          media={{
+            ...DEBRA_DESK,
+            caption: { label: "Your REALTOR®", title: "Debra Allen" },
+          }}
+          weight="copy"
+          ratio="3 / 4"
+          plate="teal"
+          sizes="(max-width: 1000px) 100vw, 460px"
+        >
+          <p className="dh-kicker">
+            <Handshake aria-hidden="true" />
+            Debra&apos;s role
+          </p>
+          <h2 id="support-heading">{program.supportTitle}</h2>
+          <ul className="dh-checklist">
+            {program.supportItems.map((item) => (
+              <li key={item.title}>
+                <ClipboardCheck aria-hidden="true" />
+                <span>
+                  <strong>{item.title}</strong>
+                  {item.description}
+                </span>
               </li>
             ))}
-          </ol>
-        </Container>
-      </section>
+          </ul>
+        </Split>
+      </Band>
 
-      <section className="border-y border-border bg-muted/50 py-12" aria-labelledby="local-heading">
-        <Container className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
-          <div>
-            <h2 id="local-heading" className="font-serif text-3xl font-normal">Planning a move in or near Garland?</h2>
-            <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Use the Garland guide for practical home-search questions, attainable North Texas housing context, and links to buyer-planning tools without unsupported market statistics.</p>
-          </div>
-          <Button href="/areas/garland" variant="outline">Explore the Garland guide</Button>
-        </Container>
-      </section>
+      <Band tone="white" aria-labelledby="process-heading">
+        <BandLead
+          eyebrow="What happens next"
+          eyebrowIcon={ClipboardCheck}
+          title="A clear four-step real-estate process"
+          titleId="process-heading"
+          lede="The real-estate side of the transaction, in order. The program's own approvals run alongside it and stay with the program."
+        />
+        <Steps items={program.process} />
+      </Band>
 
-      <section className="py-14 md:py-20" aria-labelledby="faq-heading">
-        <Container className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">Direct answers</p>
-            <h2 id="faq-heading" className="mt-3 font-serif text-3xl font-normal sm:text-4xl">Frequently asked questions</h2>
-            <p className="mt-4 leading-7 text-muted-foreground">Official program rules can change. These answers explain Debra&apos;s real-estate role and identify what must be confirmed elsewhere.</p>
+      <Band tone="navy" tight aria-labelledby="local-heading">
+        <div className="dh-lead-row">
+          <div className="dh-lead dh-lead-flush">
+            <p className="dh-kicker">
+              <MapPin aria-hidden="true" />
+              Local context
+            </p>
+            <h2 id="local-heading">Planning a move in or near Garland?</h2>
+            <p>
+              The Garland guide covers practical home-search questions, the North Texas housing you will actually tour,
+              and links to the planning tools — without unsupported market statistics.
+            </p>
           </div>
-          <div className="border-t border-border">
-            {program.faqs.map((faq) => (
-              <details key={faq.question} className="group border-b border-border py-5">
-                <summary className="cursor-pointer list-none pr-8 font-semibold marker:content-none">{faq.question}</summary>
-                <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">{faq.answer}</p>
-              </details>
-            ))}
-          </div>
-        </Container>
-      </section>
+          <Link href="/areas/garland" className="dh-btn dh-btn-light">
+            Explore the Garland guide
+          </Link>
+        </div>
+      </Band>
 
-      <section id="program-contact" className="bg-card py-14 md:py-20" aria-labelledby="contact-heading">
-        <Container className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-accent">Program-specific consultation</p>
-            <h2 id="contact-heading" className="mt-3 font-serif text-3xl font-normal sm:text-4xl">Tell Debra where you are now</h2>
-            <p className="mt-4 leading-7 text-muted-foreground">The form captures the program, source page, campaign details, location preferences, timeline, and contact consent so the follow-up starts with useful context.</p>
-            <p className="mt-5 text-sm leading-6 text-muted-foreground">{program.disclaimer}</p>
+      <Band tone="page" aria-labelledby="faq-heading">
+        <div className="dh-split dh-split-wide-copy">
+          <div className="dh-split-copy">
+            <p className="dh-kicker">
+              <MessageCircleQuestion aria-hidden="true" />
+              Direct answers
+            </p>
+            <h2 id="faq-heading">Frequently asked questions</h2>
+            <p>
+              Official program rules can change. These answers explain Debra&apos;s real-estate role and identify what
+              has to be confirmed with the program or another licensed professional.
+            </p>
           </div>
-          <ProgramLeadForm program={program.slug} leadSource={program.leadSource} cta={program.primaryCta} />
+          <QaList items={program.faqs} />
+        </div>
+      </Band>
+
+      <section id="program-contact" className="dh-band dh-band-alt" aria-labelledby="contact-heading">
+        <Container>
+          <div className="dh-split dh-split-wide-copy">
+            <div className="dh-split-copy">
+              <p className="dh-kicker">
+                <Handshake aria-hidden="true" />
+                Program-specific consultation
+              </p>
+              <h2 id="contact-heading">Tell Debra where you are now</h2>
+              <p>
+                The form captures the program, your location preferences, timeline and contact consent, so the follow-up
+                starts with useful context instead of starting over.
+              </p>
+              <StatusStrip icon={ShieldCheck} title="What this page does not decide">
+                <p>{program.disclaimer}</p>
+              </StatusStrip>
+            </div>
+            <ProgramLeadForm program={program.slug} leadSource={program.leadSource} cta={program.primaryCta} />
+          </div>
         </Container>
       </section>
     </>

@@ -94,7 +94,7 @@ const RESOURCE_LIBRARY: Record<string, Recommendation> = {
     description: "Practical education on budgeting, saving, and getting financially organized.",
   },
   programs: {
-    href: "/naca",
+    href: "/programs/naca",
     title: "NACA & first-time buyer education",
     description: "Introductory information about the NACA process and what to expect.",
   },

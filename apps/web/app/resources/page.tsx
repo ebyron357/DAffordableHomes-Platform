@@ -1,155 +1,195 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, Calculator, House, PiggyBank, ReceiptText } from "lucide-react"
+import { ArrowRight, BookOpen, Coins, Compass, GraduationCap, Home, Wallet } from "lucide-react"
 import { PageHeader } from "@/components/page/page-header"
 import { Section } from "@/components/page/section"
+import { CtaBand } from "@/components/page/editorial"
+import { CLOSING_BAND_IMAGE } from "@/lib/content/imagery"
 import { Eyebrow } from "@/components/ui/eyebrow"
 
 export const metadata: Metadata = {
   title: "Plan & Resources",
   description:
-    "Free homebuyer calculators and trustworthy resources for understanding monthly payments, affordability, closing costs, down payments, credit, and the buying process.",
+    "Start with the four questions buyers ask first — what a payment costs, what you can afford, what cash you need at closing, and which programs apply — then go deeper with guides and additional planning tools.",
+  alternates: { canonical: "/resources" },
+  openGraph: {
+    title: "Homebuyer Planning Tools & Resources | D'Affordable Homes",
+    description:
+      "Four high-value starting points for buyers, plus guides and additional planning tools from Debra Allen, REALTOR®.",
+    url: "/resources",
+    type: "website",
+  },
 }
 
-const calculatorLinks = [
+/**
+ * Primary visitor actions.
+ *
+ * The page previously presented every calculator at equal weight, which read
+ * as a tool dashboard rather than a place to get help. These four are the
+ * questions buyers actually arrive with; everything else is kept, but moved
+ * into the quieter "More planning tools" row below.
+ */
+const PRIMARY_ACTIONS = [
   {
-    title: "Mortgage payment calculator",
-    body: "Estimate principal, interest, taxes, insurance, mortgage insurance, HOA costs, and the total monthly housing payment.",
-    href: "/resources/calculators/mortgage-payment",
-    icon: Calculator,
+    icon: Wallet,
+    title: "Estimate a monthly payment",
+    body: "See what principal, interest, taxes, insurance, mortgage insurance and HOA dues add up to each month — the number that actually decides whether a house fits your life.",
+    href: "/calculators/mortgage-payment",
+    action: "Estimate a payment",
   },
   {
-    title: "Home affordability calculator",
-    body: "Create a conservative planning price using household income, monthly debts, down payment, and ownership costs.",
-    href: "/resources/calculators/affordability",
-    icon: House,
+    icon: Home,
+    title: "Understand what you can afford",
+    body: "Work from income, monthly debts and down payment toward a conservative planning price, so you shop in a range you can hold on to after closing.",
+    href: "/calculators/affordability",
+    action: "Find your range",
   },
   {
-    title: "Closing cost estimator",
-    body: "Plan for the down payment, estimated closing costs, prepaid items, escrow funding, and known credits.",
-    href: "/resources/calculators/closing-costs",
-    icon: ReceiptText,
+    icon: Coins,
+    title: "Prepare the cash for closing",
+    body: "Down payment is only part of it. Plan for closing costs, prepaid items and escrow funding so the amount due at the table is not a surprise.",
+    href: "/calculators/closing-costs",
+    action: "Plan cash to close",
   },
+  {
+    icon: GraduationCap,
+    title: "Explore buyer education and programs",
+    body: "Understand the sequence of a purchase, and learn what assistance programs such as NACA and Homes for Heroes do and do not cover before you apply.",
+    href: "/first-time-buyers",
+    action: "Start learning",
+  },
+] as const
+
+/** Kept and working, deliberately quieter. */
+const MORE_TOOLS = [
   {
     title: "Down payment planner",
-    body: "Compare common down-payment percentages, upfront cash, loan balances, mortgage insurance, and monthly costs.",
-    href: "/resources/calculators/down-payment",
-    icon: PiggyBank,
-  },
-]
-
-const groups = [
-  {
-    heading: "Understand your money",
-    items: [
-      { title: "Budgeting for a home", body: "See how monthly housing costs really work — beyond just the price tag." },
-      { title: "Building and repairing credit", body: "What lenders review, and steady ways to strengthen your profile." },
-      { title: "Saving for a down payment", body: "Realistic saving strategies and what assistance programs may do." },
-    ],
+    body: "Compare common down-payment percentages and what each does to your loan balance, mortgage insurance and monthly cost.",
+    href: "/calculators/down-payment",
   },
   {
-    heading: "Understand the process",
-    items: [
-      { title: "The homeownership roadmap", body: "Every step from renting to keys, explained in plain language." },
-      { title: "Assistance and special programs", body: "How programs such as NACA and first-time buyer support work." },
-      { title: "Working with a REALTOR®", body: "What guidance looks like and what to expect at each stage." },
-    ],
+    title: "Rent vs. buy comparison",
+    body: "A simplified side-by-side of renting and owning over time, useful when the decision is about timing rather than price.",
+    href: "/calculators/rent-vs-buy",
   },
-]
+  {
+    title: "All planning tools",
+    body: "The full calculator index in one place, with the assumptions each tool makes stated up front.",
+    href: "/calculators",
+  },
+] as const
 
-const guideLinks = [
-  { label: "First-Time Buyer Guide", href: "/first-time-buyers" },
-  { label: "NACA Education", href: "/naca" },
-  { label: "Frequently Asked Questions", href: "/faq" },
-  { label: "Find Your Next Step", href: "/start" },
-]
+const GUIDES = [
+  { label: "Guides & articles", href: "/blog", detail: "Practical reads on programs, local buying and preparation." },
+  { label: "First-time buyer guide", href: "/first-time-buyers", detail: "The sequence, start to keys." },
+  { label: "Homebuyer programs", href: "/programs", detail: "What to verify before applying." },
+  { label: "Garland area guide", href: "/areas/garland", detail: "A local starting point." },
+  { label: "Frequently asked questions", href: "/faq", detail: "Short answers to common worries." },
+  { label: "Find your next step", href: "/start", detail: "A short assessment, then one clear action." },
+] as const
 
 export default function ResourcesPage() {
   return (
     <>
       <PageHeader
         eyebrow="Plan"
-        title="Make the numbers clear before making a move"
-        description="Use the planning tools to test different scenarios, then use the guides to understand what the numbers mean and what to do next."
-      />
+        eyebrowIcon={Compass}
+        title="Start with the question you actually have"
+        description="Four places most buyers begin. Work through the one in front of you, then use the guides to understand what the number means and what to do next."
+        crumbs={[{ label: "Home", href: "/" }, { label: "Plan & resources" }]}
+        facts={[
+          { label: "Planning estimates only", icon: Wallet },
+          { label: "Plain-language guides", icon: BookOpen },
+        ]}
+        motif="route"
+      >
+        <Link href="/start" className="dh-btn dh-btn-gold">
+          Find your next step
+        </Link>
+        <Link href="/consultation" className="dh-btn dh-btn-light-outline">
+          Ask Debra directly
+        </Link>
+      </PageHeader>
 
       <Section>
-        <div>
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div>
-              <Eyebrow>Homebuyer planning tools</Eyebrow>
-              <h2 className="mt-3 max-w-2xl text-3xl font-semibold text-foreground">
-                Four tools for the questions buyers ask first
-              </h2>
-            </div>
-            <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-              Every result is a planning estimate. Change the assumptions, compare scenarios, and bring the results to a consultation or lender conversation.
-            </p>
-          </div>
-
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
-            {calculatorLinks.map((item) => {
-              const Icon = item.icon
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="group rounded-2xl border border-border bg-card p-6 transition hover:-translate-y-0.5 hover:border-primary hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-                >
-                  <div className="flex items-start gap-4">
-                    <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-                      <Icon className="size-5" aria-hidden="true" />
-                    </span>
-                    <div>
-                      <h3 className="text-xl font-semibold text-foreground">{item.title}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
-                      <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">
-                        Open tool
-                        <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
-        </div>
+        <ol className="resource-steps">
+          {PRIMARY_ACTIONS.map((item) => (
+            <li key={item.href}>
+              <Link href={item.href} className="resource-step">
+                <span className="resource-step-icon" aria-hidden="true">
+                  <item.icon />
+                </span>
+                <span className="resource-step-body">
+                  <span className="resource-step-title">{item.title}</span>
+                  <span className="resource-step-copy">{item.body}</span>
+                  <span className="resource-step-action">
+                    {item.action}
+                    <ArrowRight className="size-4" aria-hidden="true" />
+                  </span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+        <p className="resource-disclaimer">
+          Every result is a planning estimate, not an approval or a loan offer. Actual terms, taxes, insurance, fees and
+          eligibility vary by property, lender, borrower and program.
+        </p>
       </Section>
 
       <Section muted>
-        <div className="grid gap-12 lg:grid-cols-2">
-          {groups.map((group) => (
-            <div key={group.heading}>
-              <Eyebrow>{group.heading}</Eyebrow>
-              <div className="mt-5 flex flex-col gap-4">
-                {group.items.map((item) => (
-                  <div key={item.title} className="rounded-xl border border-border bg-card p-6">
-                    <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-14 rounded-2xl border border-border bg-card p-8">
-          <h2 className="text-xl font-semibold text-foreground">Continue with a guide</h2>
-          <ul className="mt-5 grid gap-3 sm:grid-cols-2">
-            {guideLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="block rounded-lg border border-border bg-background px-5 py-4 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
-                >
-                  {link.label}
+        <div className="resource-guides">
+          <div>
+            <Eyebrow>Keep reading</Eyebrow>
+            <h2 className="resource-heading">Understand what the numbers mean</h2>
+            <p className="resource-lede">
+              A payment estimate is only useful next to the context around it. These explain the process, the programs
+              and the local market in plain language.
+            </p>
+          </div>
+          <ul className="resource-guide-list">
+            {GUIDES.map((guide) => (
+              <li key={guide.href}>
+                <Link href={guide.href}>
+                  <span>{guide.label}</span>
+                  <span>{guide.detail}</span>
                 </Link>
               </li>
             ))}
           </ul>
         </div>
       </Section>
+
+      <Section>
+        <div className="resource-more">
+          <Eyebrow>More planning tools</Eyebrow>
+          <ul className="resource-more-list">
+            {MORE_TOOLS.map((tool) => (
+              <li key={tool.href}>
+                <Link href={tool.href}>
+                  <strong>{tool.title}</strong>
+                  <span>{tool.body}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Section>
+
+      <CtaBand
+        eyebrow="When the numbers raise a question"
+        title="Bring it to Debra before it becomes a decision"
+        titleId="resources-cta-heading"
+        body="Estimates are a starting point, not an answer. A short conversation is usually all it takes to find out which part is yours to solve and which part belongs to a lender."
+        image={CLOSING_BAND_IMAGE}
+      >
+        <Link href="/consultation" className="dh-btn dh-btn-gold">
+          Book a consultation
+        </Link>
+        <Link href="/blog" className="dh-btn dh-btn-light-outline">
+          Read the guides
+        </Link>
+      </CtaBand>
     </>
   )
 }

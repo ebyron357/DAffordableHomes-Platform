@@ -24,7 +24,8 @@ an encode is absent.
 
 | Surface | Expected files | Frame | Poster still | Status |
 | --- | --- | --- | --- | --- |
-| Homepage, "Local guidance should feel like local knowledge." | `video/home-neighborhood-1280.webm`, `video/home-neighborhood-1280.mp4`, `video/home-neighborhood-720.webm`, `video/home-neighborhood-720.mp4` | 16:9, silent, no audio track, 5–8s seamless loop, `object-position: center 42%` | `images/black-family-home-pexels-7114188.webp` | Not produced. Higgsfield generation requires a Plus plan or higher on the connected account. |
+| Homepage hero exterior | `video/hero-north-texas-exterior-1280.webm`, `video/hero-north-texas-exterior-1280.mp4`, `video/hero-north-texas-exterior-720.webm`, `video/hero-north-texas-exterior-720.mp4` | 16:9, silent, no audio track, 5–8s seamless loop, `object-fit: cover; object-position: 50% 50%` | `images/hero-north-texas-exterior.webp` (`-mobile.webp` at widths ≤1600px) | Not produced. No encode is approved, and none may be committed without its own row here. |
+| ~~Homepage, "Local guidance should feel like local knowledge."~~ | ~~`video/home-neighborhood-*`~~ | — | ~~`images/black-family-home-pexels-7114188.webp`~~ | **Superseded.** The section this surface belonged to was replaced by the Figma homepage composition and no longer renders. |
 
 ## Required register entry before any clip is committed
 

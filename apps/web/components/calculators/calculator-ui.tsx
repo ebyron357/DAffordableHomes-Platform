@@ -144,17 +144,22 @@ export function ResultRow({
   )
 }
 
-export function CalculatorActions({ secondaryHref }: { secondaryHref?: string }) {
+/**
+ * `tone` is the surface the actions sit on. Most calculators put them on the
+ * dark result panel ("dark"); the down-payment planner puts them under a light
+ * table ("light"), where the white outline button measured 1.04:1.
+ */
+export function CalculatorActions({ secondaryHref, tone = "dark" }: { secondaryHref?: string; tone?: "dark" | "light" }) {
   return (
     <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-      <Button href="/consultation" variant="secondary" className="w-full sm:w-auto">
+      <Button href="/consultation" variant={tone === "dark" ? "secondary" : "primary"} className="w-full sm:w-auto">
         Book consultation
       </Button>
       {secondaryHref && (
         <Button
           href={secondaryHref}
           variant="outline"
-          className="w-full border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 sm:w-auto"
+          className={tone === "dark" ? "w-full border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 sm:w-auto" : "w-full sm:w-auto"}
         >
           Continue planning
         </Button>

@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server"
+import { isValidEmail } from "@/lib/lead-validation"
+import { clientIdentifier, rateLimit } from "@/lib/rate-limit"
 import type { ProgramSlug } from "@/lib/programs"
 
 const ALLOWED_PROGRAMS = new Set<ProgramSlug>(["naca", "homes-for-heroes"])
@@ -30,6 +32,17 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true }, { status: 200 })
   }
 
+  // The honeypot above and the elapsed-time check below are both values the
+  // client sends, so a replayed request satisfies them both. This is the
+  // boundary the caller cannot set. See lib/rate-limit.ts for its real scope.
+  const limit = rateLimit("leads:program", clientIdentifier(request), { limit: 5, windowMs: 60_000 })
+  if (!limit.ok) {
+    return NextResponse.json(
+      { ok: false, error: "Too many submissions. Please wait a moment and try again." },
+      { status: 429, headers: { "retry-after": String(limit.retryAfter) } },
+    )
+  }
+
   const startedAt = Number(body.startedAt)
   if (Number.isFinite(startedAt) && startedAt > 0 && Date.now() - startedAt < 2000) {
     return NextResponse.json({ ok: false, error: "Please review the form and try again." }, { status: 429 })
@@ -44,6 +57,15 @@ export async function POST(request: Request) {
   if (!firstName || !lastName || !email || !phone || !consent) {
     return NextResponse.json(
       { ok: false, error: "Complete all required fields and provide contact consent." },
+      { status: 400 },
+    )
+  }
+
+  // Validated here as well as in the browser: `type="email"` is bypassable, and
+  // an unusable address forwarded to the CRM becomes a lead Debra cannot answer.
+  if (!isValidEmail(email)) {
+    return NextResponse.json(
+      { ok: false, error: "Enter an email address Debra can reply to." },
       { status: 400 },
     )
   }
