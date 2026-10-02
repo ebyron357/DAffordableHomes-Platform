@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { isValidEmail } from "@/lib/lead-validation"
 import { clientIdentifier, rateLimit } from "@/lib/rate-limit"
 
 const ALLOWED_NEXT_STEPS = new Set([
@@ -8,12 +9,6 @@ const ALLOWED_NEXT_STEPS = new Set([
   "Send me NACA information",
   "I’m just researching",
 ])
-
-// A deliberately permissive shape check: one @, something either side, a dot
-// in the domain, no whitespace. It rejects the values the client-side
-// `type="email"` was the only thing catching ("x", "@") without pretending to
-// decide whether a well-formed address is deliverable.
-const EMAIL = /^[^\s@]+@[^\s@.]+(?:\.[^\s@.]+)+$/
 
 function text(value: unknown, max = 500): string {
   return typeof value === "string" ? value.trim().slice(0, max) : ""
@@ -65,7 +60,7 @@ export async function POST(request: Request) {
   // Validated here as well as in the browser: `type="email"` is bypassable,
   // and an unusable address forwarded to the webhook becomes a lead Debra
   // cannot answer.
-  if (!EMAIL.test(email)) {
+  if (!isValidEmail(email)) {
     return NextResponse.json(
       { ok: false, error: "Enter an email address Debra can reply to." },
       { status: 400 },
