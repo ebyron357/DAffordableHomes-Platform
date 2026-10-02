@@ -3,6 +3,8 @@ import { Inter, Source_Serif_4 } from "next/font/google"
 import { HideOnHome } from "@/components/layout/hide-on-home"
 import { SiteHeader } from "@/components/layout/site-header"
 import { SiteFooter } from "@/components/layout/site-footer"
+import { localBusinessJsonLd } from "@/lib/business-facts"
+import { SHARE_IMAGES, searchVerification } from "@/lib/seo"
 import { SITE } from "@/lib/site"
 import "./globals.css"
 
@@ -57,19 +59,32 @@ export const metadata: Metadata = {
   authors: [{ name: SITE.realtorLegalName, url: `${SITE.url}/about` }],
   creator: SITE.realtorLegalName,
   publisher: SITE.name,
+  /**
+   * No `title` or `description` here on purpose. Next fills an absent Open
+   * Graph title and description from the route's own `title` and
+   * `description`, and Twitter from Open Graph. Setting them at this level
+   * gave every route without its own `openGraph` the same generic share text.
+   *
+   * `url: "./"` resolves against each route's path, exactly like the canonical
+   * above; a fixed `SITE.url` pointed 23 routes' `og:url` at the homepage.
+   */
   openGraph: {
     type: "website",
-    title: `${SITE.name} — Clear guidance for buying a home`,
-    description: SITE.description,
     siteName: SITE.name,
-    url: SITE.url,
+    url: "./",
+    ...SHARE_IMAGES,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name}`,
-    description: SITE.description,
   },
-  robots: { index: true, follow: true },
+  /*
+   * No site-wide `robots` default. Indexing is already the default, and an
+   * explicit `index, follow` here was emitted alongside the `noindex` Next adds
+   * to 404 responses, giving the not-found page two contradictory directives.
+   * Routes that must stay out of the index set `robots` themselves.
+   */
+  // Search Console and Bing ownership tags, from Vercel environment variables.
+  verification: searchVerification(),
 }
 
 export const viewport: Viewport = {
@@ -111,8 +126,24 @@ const entityGraph = {
       name: SITE.realtorLegalName,
       jobTitle: "REALTOR®",
       url: `${SITE.url}/about`,
+      // The client-approved portrait already published on /about and the
+      // homepage; see docs/05-content/IMAGE_ASSET_REGISTER.md.
+      image: `${SITE.url}/images/debra-allen-primary-about.webp`,
+      // Only subjects this site publishes guidance on. No service area,
+      // address, phone, licence or `sameAs` profile is asserted until those
+      // facts are verified — see UNVERIFIED_TRUST_FACTS in lib/site.ts.
+      knowsAbout: [
+        "First-time home buying",
+        "NACA homebuying program",
+        "Homes for Heroes program",
+        "Buying a home in Garland, Texas",
+        "Buying a home in Dallas–Fort Worth",
+      ],
       worksFor: { "@id": `${SITE.url}/#organization` },
     },
+    // The local listing appears only once the office address and phone number
+    // are both verified; until then this adds nothing. See lib/business-facts.ts.
+    ...[localBusinessJsonLd()].filter(Boolean),
   ],
 }
 

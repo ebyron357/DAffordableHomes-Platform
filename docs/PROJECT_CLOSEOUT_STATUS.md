@@ -32,11 +32,11 @@ not finished. Only blocker 6 involves code, and it waits on an owner decision.
 
 | # | Blocker | Who resolves it | Consequence today |
 | --- | --- | --- | --- |
-| 1 | **Verified business facts** — brokerage name, licence number and state, business address, phone number, confirmed service-area cities | Debra Allen | `apps/web/lib/site.ts` holds `null` for every one. The live site displays **no phone number, no brokerage, and no licence**. |
+| 1 | **Verified business facts** — brokerage name, licence number and state, business address, phone number, confirmed service-area cities | Debra Allen | `apps/web/lib/site.ts` holds `null` for every one. The live site displays **no phone number, no brokerage, and no licence**. The display and the local-business markup are built (`lib/business-facts.ts`, PR #32) and stay hidden until each value is set, so supplying them is the only remaining step. |
 | 2 | **Compliance sign-off** on brokerage, licensing, Fair Housing, Equal Housing Opportunity and REALTOR® language | Debra's broker, named in `docs/12-governance/RELEASE_CHECKLIST.md` | Release gate open. Required language cannot be certified by this repository. |
-| 3 | **CRM webhook URLs** — four environment variables, all unset | Debra / her GoHighLevel administrator | **The lead forms do not deliver.** Both endpoints return an honest 503 and send the visitor to the consultation page, whose own form does not deliver either (blocker 6). Vercel API, 2026-10-02: the working project has **zero** environment variables in any environment. |
+| 3 | **CRM webhook URLs** — four environment variables, all unset | Debra / her GoHighLevel administrator | **The lead forms do not deliver.** All three endpoints (`/start`, the program pages, and the `/contact` + `/consultation` message form) return an honest 503 and tell the visitor nothing was sent. One GoHighLevel webhook in `GHL_PROGRAM_LEAD_WEBHOOK_URL` now covers both the program forms and the message form. Vercel API, 2026-10-02: the working project has **zero** environment variables in any environment. |
 | 4 | **Hero crop approval** on the rendered homepage hero | Debra Allen | Roadmap gate open. No agent has marked it approved and none should. |
-| 6 | **No working route from the site to Debra** — the `/contact` and `/consultation` message form has no delivery path, and no phone or email is published | Debra decides where its messages go (CRM webhook or direct contact details); then a code change | Every "Schedule a Consultation" / "Talk with Debra" button, and both lead endpoints' 503 fallback, end at a form that says it is not connected. **Setting the four CRM webhooks does not fix this form.** Found 2026-10-02 (§13). |
+| 6 | **No working route from the site to Debra** — no form delivers and no phone or email is published | Debra: a webhook (blocker 3) **or** a phone number / office (blocker 1) | **Code side fixed 2026-10-02 (PR #32):** the `/contact` and `/consultation` form now posts to `POST /api/leads/contact` and delivers as soon as `LEAD_WEBHOOK_URL` or a program webhook is set; it no longer needs a code change. What remains is the owner's input in blocker 1 or 3. Found 2026-10-02 (§13). |
 
 A fifth item gates release but is not the owner's to supply:
 
@@ -163,7 +163,7 @@ Each integration carries one of the standard's seven labels.
 | **`/api/revalidate`** (Sanity publish webhook) | `CONFIGURATION REQUIRED` | Verifies the signature before revalidating anything; returns 503 when `SANITY_REVALIDATE_SECRET` is unset, 401 on a bad signature. Never exercised against a real Sanity project. |
 | **Draft-mode preview** (`/api/draft-mode/enable`, `/disable`) | `CONFIGURATION REQUIRED` | Uses `next-sanity`'s single-use Studio-minted secret. Returns 503 without `SANITY_API_READ_TOKEN`. An anonymous visitor cannot obtain a draft cookie. |
 | **Lead delivery — `/api/leads/next-step`** | `CONFIGURATION REQUIRED` | Rate-limited, address-validated, honeypot, timing check. Returns 503 without `NEXT_STEP_LEAD_WEBHOOK_URL`. **Delivers nowhere today.** |
-| **Contact / consultation message form** (`/contact`, `/consultation`) | `NOT IMPLEMENTED` | `components/contact/contact-form.tsx` validates, then a `setTimeout` shows "Message form isn't connected yet". There is no endpoint behind it. This is the page every primary CTA opens and the page both lead endpoints fall back to. |
+| **Lead delivery — `/api/leads/contact`** (`/contact`, `/consultation` message form) | `CONFIGURATION REQUIRED` | Added 2026-10-02 (PR #32); before that the form validated and then showed "not connected" from a `setTimeout`, with no endpoint behind it. Same controls as the other two endpoints. Returns 503 when none of `LEAD_WEBHOOK_URL`, `PROGRAM_LEAD_WEBHOOK_URL`, `GHL_PROGRAM_LEAD_WEBHOOK_URL` is set. Covered end to end by `tests/static/contact-endpoint.test.mjs`. **Delivers nowhere today.** The untested root `api/consultation.js`, which no page called, was retired. |
 | **Lead delivery — `/api/leads/program`** (NACA, Homes for Heroes) | `CONFIGURATION REQUIRED` | Same controls as of `d350db2`; it previously had neither a rate limit nor server-side address validation. Returns 503 without `PROGRAM_LEAD_WEBHOOK_URL` or `GHL_PROGRAM_LEAD_WEBHOOK_URL`. **Delivers nowhere today.** |
 | **GoHighLevel / CRM** | `NOT IMPLEMENTED` as a verified path | The application posts JSON to a webhook URL. No URL has ever been supplied, so no end-to-end delivery has been observed. Field-by-field mapping is in `docs/ADMIN_OPERATIONS_MANUAL.md`. |
 | **ClientVerse release certification** | `AVAILABLE BUT NOT CERTIFIED` | Workflow present and correct; fails `BLOCKED` without its three secrets. Has never executed. |
@@ -172,7 +172,7 @@ Each integration carries one of the standard's seven labels.
 | **Clara (AI assistant)** | `NOT IMPLEMENTED` | Specified in `docs/09-ai-clara/CLARA_SPEC.md`; no endpoint, no provider, no key. Nothing to rate-limit yet. |
 | **Analytics** | `NOT IMPLEMENTED` | No analytics provider is wired. `docs/12-governance/RELEASE_CHECKLIST.md` requires documented events; this is the documentation that none are emitted. |
 | **Booking / scheduling** | `NOT IMPLEMENTED` | `/consultation` is a page, not a calendar integration. `/book` permanently redirects to it. |
-| **Vercel hosting** | `LIVE + VERIFIED` for preview, `DEGRADED` overall | The working project deploys. A duplicate project fails on every branch and must be deleted. Vercel API, 2026-10-02: the duplicate has 57 deployments, **every one `ERROR`** (3 of them production), has never produced a `READY` deployment, and has no custom domain and no environment variables — nothing depends on it. |
+| **Vercel hosting** | `LIVE + VERIFIED` for preview, `DEGRADED` overall | The working project deploys. A duplicate project fails on every branch and must be deleted. Vercel API, 2026-10-02: the duplicate has 57 deployments, **every one `ERROR`** (3 of them production), has never produced a `READY` deployment, and has no environment variables. It does carry one custom domain, `urltests.team` (bought in the same team the day the project was created), which has therefore never served anything. Deleting the project detaches that domain; the domain itself stays registered to the team. |
 | **Email / notification delivery** | `NOT IMPLEMENTED` | The application sends no email. Enquiry notification is whatever the CRM does once a webhook exists. |
 
 ---
@@ -183,10 +183,10 @@ Each integration carries one of the standard's seven labels.
 | --- | --- | --- |
 | No secrets, client records or credentials committed | `PASS` | Governance job rejects any committed `.env` other than `.env.example`; `.env.example` holds names and no values |
 | Privileged integrations server-side only | `PASS` | `SANITY_API_READ_TOKEN`, `SANITY_REVALIDATE_SECRET` and all webhook URLs are read in route handlers; no presentation component calls a provider |
-| Input validation and sanitisation | `PASS` | Both lead endpoints bound every field by type and length, allow-list the enumerated values, and validate the address server-side. CMS citation and related-link URLs are sanitised before emission. |
-| Rate limiting on public forms | `PASS`, with a stated limit | Both lead endpoints, 5 requests per 60s per address, 429 with `retry-after`. The counter is **per serving instance** and resets on cold start — a real reduction in replay volume from one client, not a fleet-wide guarantee. A durable store is the production-grade version and needs provisioning this repository does not have. Documented at `apps/web/lib/rate-limit.ts`. |
+| Input validation and sanitisation | `PASS` | All three lead endpoints bound every field by type and length, allow-list the enumerated values, and validate the address server-side. CMS citation and related-link URLs are sanitised before emission. |
+| Rate limiting on public forms | `PASS`, with a stated limit | All three lead endpoints, 5 requests per 60s per address, 429 with `retry-after`. The counter is **per serving instance** and resets on cold start — a real reduction in replay volume from one client, not a fleet-wide guarantee. A durable store is the production-grade version and needs provisioning this repository does not have. Documented at `apps/web/lib/rate-limit.ts`. |
 | Rate limiting on AI endpoints | `NOT APPLICABLE` | No AI endpoint exists. Becomes required the moment Clara ships. |
-| Spam protection | `PASS` | Honeypot field and minimum-elapsed-time check on both forms, behind the rate limit, which is the boundary the caller cannot set |
+| Spam protection | `PASS` | Honeypot field and minimum-elapsed-time check on all three forms, behind the rate limit, which is the boundary the caller cannot set |
 | Secure headers | `PASS` | `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy` (camera, microphone, geolocation all denied), `X-Frame-Options: SAMEORIGIN`, `X-DNS-Prefetch-Control`; `poweredByHeader` disabled |
 | Restrictive CSP | `PASS` | Two policies. Public: `default-src 'self'`, no `unsafe-eval`, no third-party script origin, `object-src 'none'`, frames limited to `youtube-nocookie.com` and `player.vimeo.com`. Studio-only: scoped to `/studio` by negative lookahead so it cannot leak to public pages, and asserted against the **served header**, not the config text. |
 | Security-header tests in CI | `PASS` | `tests/static/repository.test.mjs` |
@@ -195,7 +195,7 @@ Each integration carries one of the standard's seven labels.
 | Retention documented | `PASS` as documentation, `BLOCKED` as practice | The application stores nothing. Retention is entirely the CRM's behaviour and cannot be documented concretely until a CRM is connected. |
 | Dependency audit in CI | `NON-BLOCKING FOLLOW-UP` | Not implemented |
 | Privacy policy reflects actual providers | `BLOCKED` | `/privacy` cannot be final while the CRM and analytics providers are undetermined |
-| Privacy policy reflects data actually collected | `FAIL` — for the reviewer, not self-edited | `/privacy` says only name, email and message are collected. The program form also collects phone, city, ZIP, timeline, UTM fields and referrer; `/start` collects mobile number and attribution. Legal text is the compliance reviewer's to correct; this records the fact they need. |
+| Privacy policy reflects data actually collected | `PASS` as to the facts, legal wording `BLOCKED` on the reviewer | Corrected 2026-10-02 (PR #32): `/privacy` said only name, email and message were collected. It now lists each form's fields, the page URL, referrer and campaign tags, the browser-tab storage on `/start`, and the hosting provider's request data, and states that no tracker is loaded. `tests/static/contact-endpoint.test.mjs` pins it. Only facts were changed; the page still says a finalized legal version is to come, and that wording is the compliance reviewer's. |
 | Secrets rotation procedure | `PASS` as documentation | `docs/SECURITY_AND_ACCESS_HANDOFF.md` |
 
 ---
@@ -316,19 +316,20 @@ on the PR head.
 | Project | Fact |
 | --- | --- |
 | `daffordablehomes-platform` | Preview `dpl_9Pa55FXJYDzvsFUAZWpsysigatHt` for `21662ec` is `READY`. Smoke: `/` 200, `/robots.txt` 200, `/sitemap.xml` 200 with 33 URLs, unknown article 404, `GET /api/leads/next-step` 405; CSP, HSTS and the other security headers present; both TREC links in the footer. Production target currently serves `main` `752b93e` (`dpl_5VaWWB4F4AcPLQB2hrGy4DzXFT2S`) on `*.vercel.app` only, SSO-protected. **Zero environment variables** in any environment. No custom domain. |
-| `d-affordable-homes-platform-web` | 57 deployments, all `ERROR`, never `READY`. No custom domain, no environment variables. Build succeeds; output lookup fails at `apps/web/apps/web/.next`. **Recommended action: delete it.** Correcting its Root Directory would only produce a second copy of the working project. |
+| `d-affordable-homes-platform-web` | 57 deployments, all `ERROR`, never `READY`. No environment variables. One custom domain attached, `urltests.team`, which has never served a page because no deployment ever succeeded (corrected 2026-10-02: the project summary lists only `*.vercel.app` aliases, so the first check missed it). Build succeeds; output lookup fails at `apps/web/apps/web/.next`. **Recommended action: delete it.** Correcting its Root Directory would only produce a second copy of the working project. |
 
 ### Found in this pass
 
 | Finding | Disposition |
 | --- | --- |
-| `/contact` and `/consultation` message form never submits; both lead endpoints' 503 fallback lands on it; no phone or email published anywhere | **Blocker 6** above. Docs that claimed enquiries were "not lost" corrected in `CLIENT_USER_MANUAL.md`, `TROUBLESHOOTING_AND_SUPPORT.md`, `DEPLOYMENT_AND_RECOVERY_RUNBOOK.md`, `CLIENT_HANDOFF.md` |
-| `CLIENT_HANDOFF.md` said display logic for phone, address, brokerage and licence "already exists and is covered by tests" | Untrue — nothing displays them. Corrected. |
+| `/contact` and `/consultation` message form never submits; both lead endpoints' 503 fallback lands on it; no phone or email published anywhere | **Blocker 6** above; the form itself was wired in PR #32. Docs that claimed enquiries were "not lost" corrected in `CLIENT_USER_MANUAL.md`, `TROUBLESHOOTING_AND_SUPPORT.md`, `DEPLOYMENT_AND_RECOVERY_RUNBOOK.md`, `CLIENT_HANDOFF.md` |
+| `CLIENT_HANDOFF.md` said display logic for phone, address, brokerage and licence "already exists and is covered by tests" | Untrue at the time — nothing displayed them. Corrected, and then built in PR #32 (`lib/business-facts.ts`, `tests/static/business-facts.test.mjs`). |
 | Homepage footer's legal row had Fair Housing but no Equal Housing Opportunity link (interior footer had both) | **Fixed** in `lib/figma-home.ts`; `figma-homepage.test.mjs` now fails if either footer drops either link (mutation-checked) |
 | Committed `qa-evidence/visual/` showed the rejected hero | Refreshed from the current build |
 | `IMAGE_ASSET_REGISTER.md` still read "the homepage hero item is now closed with the registered owner-approved generated still" | Dated supersession note added. **The current hero is not approved.** |
 | `ADMIN_OPERATIONS_MANUAL.md` described the pre-fix revalidate route | Corrected to `article`, `author`, `category` |
-| `/privacy` understates the data collected | §7, for the compliance reviewer |
+| `/privacy` understates the data collected | Facts corrected in PR #32 (§7); legal wording stays with the compliance reviewer |
+| The favicon and Apple touch icon were a red "n" mark carried from PR #20, not the brand | Replaced in PR #32 with the DA-and-house monogram cropped from the official logo (73 KB → 13 KB); registered in `IMAGE_ASSET_REGISTER.md` |
 | `daffordablehomes.com` is live on a GoHighLevel "Refind Realty" page | §8 — cutover is an owner decision |
 | CRM ownership is stated three different ways across the handoff docs | Left for the owner to settle; `FINAL_CLIENT_ACCEPTANCE.md` keeps it open |
 

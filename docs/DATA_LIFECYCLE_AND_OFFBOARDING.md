@@ -31,6 +31,12 @@ preferred contact method, intent, program stage, service category, a free-text
 questions field up to 2,000 characters, referrer, five UTM fields, and an explicit
 consent flag which must be `true`.
 
+**`/api/leads/contact`** (the message form on `/contact` and `/consultation`,
+added 2026-10-02): name and email (required), a message up to 3,000 characters
+(required), and optionally phone, preferred way to connect and buyer stage, both
+allow-listed; plus page URL and submission timestamp. It collects no referrer or
+campaign tags.
+
 **Not collected anywhere:** date of birth, Social Security number, income,
 credit score, bank or account details, uploaded documents, or any other
 protected financial information. The site has no field for any of it, and

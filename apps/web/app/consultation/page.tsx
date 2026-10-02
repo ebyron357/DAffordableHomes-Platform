@@ -9,7 +9,8 @@ import { Band, BandLead, Features, StatusStrip } from "@/components/page/editori
 
 export const metadata: Metadata = {
   title: "Book a Free Consultation",
-  description: "Request a free homebuyer consultation with Debra Allen.",
+  description:
+    "Request a free, no-pressure homebuyer consultation with Debra Allen, REALTOR®, about where you are now and a practical next step.",
   alternates: { canonical: "/consultation" },
 }
 

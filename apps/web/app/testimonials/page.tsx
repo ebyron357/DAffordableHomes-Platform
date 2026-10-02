@@ -9,6 +9,14 @@ export const metadata: Metadata = {
   title: "Testimonials",
   description:
     "Real stories from people Debra has guided toward homeownership. We publish only verified, consented reviews — never invented ones.",
+  /*
+   * Kept out of the index until the page has content of its own. Today it is an
+   * honest "not connected yet" notice, which a search engine reads as a thin
+   * page. It stays reachable from navigation and links are still followed.
+   * Remove this — and restore the route in app/sitemap.ts — once real content
+   * is published here.
+   */
+  robots: { index: false, follow: true },
 }
 
 /** Real things a visitor can do instead of reading reviews that do not exist yet. */

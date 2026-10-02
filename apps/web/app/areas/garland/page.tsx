@@ -16,11 +16,12 @@ import { PageHeader } from "@/components/page/page-header"
 import { Band, BandLead, CtaBand, Features, QaList } from "@/components/page/editorial"
 import { CLOSING_BAND_IMAGE } from "@/lib/content/imagery"
 import { SITE } from "@/lib/site"
+import { SHARE_IMAGES } from "@/lib/seo"
 
 export const metadata: Metadata = {
-  title: "Garland Texas Homebuyer Guide and Affordable-Homeownership Help",
+  title: "Garland, Texas Homebuyer Guide",
   description:
-    "A practical Garland, Texas homebuyer guide covering search preparation, attainable North Texas home styles, NACA and Homes for Heroes guidance, property evaluation, and next steps with Debra.",
+    "A practical Garland, Texas homebuyer guide: search preparation, local home styles, NACA and Homes for Heroes guidance, evaluating a property, and next steps.",
   alternates: { canonical: "/areas/garland" },
   openGraph: {
     title: "Garland Homebuyer Guide | D'Affordable Homes",
@@ -28,6 +29,7 @@ export const metadata: Metadata = {
       "Clear home-search and affordable-homeownership guidance for people exploring Garland, Texas.",
     url: "/areas/garland",
     type: "article",
+    ...SHARE_IMAGES,
   },
 }
 

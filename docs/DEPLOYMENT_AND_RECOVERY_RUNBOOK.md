@@ -177,7 +177,7 @@ something to measure against, not as a guarantee.
 | Sanity dataset lost or corrupted | Articles unavailable; the site serves the committed seed and shows an honest unavailable state for the rest | Import the most recent export (§4) | Hours, bounded by export age |
 | Sanity account lost | No editing; published content still served from cache and seed | Recreate the project, import an export, update `NEXT_PUBLIC_SANITY_PROJECT_ID`, redeploy | Hours |
 | Domain or DNS lost | Site unreachable by name | Recover at the registrar; re-point DNS. **No technical recovery substitutes for owning the domain.** | Hours to days, outside anyone's control |
-| CRM webhook broken | Lead forms return an honest error and direct visitors to the consultation page. **None is captured** — and that page's own message form has no delivery path, so until it is wired and contact details are published, the visitor has no working route to Debra. | Fix or reissue the webhook URL, update Vercel, redeploy | Hours |
+| CRM webhook broken | Lead forms, including the `/contact` and `/consultation` message form, return an honest error. **None is captured**, and until a phone number or office is published the visitor has no other route to Debra. | Fix or reissue the webhook URL, update Vercel, redeploy | Hours |
 | GitHub repository lost | No deployment pipeline; the running site is unaffected | Push a local clone to a new remote and reconnect Vercel | Hours |
 
 ### Single points of failure

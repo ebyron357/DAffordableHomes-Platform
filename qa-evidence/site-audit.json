@@ -13,7 +13,7 @@
   "consoleErrors": [],
   "failures": [],
   "notes": [
-    "sitemap routes: 33",
+    "sitemap routes: 31",
     "/ brand area: 77.3% {\"navy\":47.5,\"teal\":4.4,\"alt\":25.4}",
     "/about brand area: 74.8% {\"navy\":50.3,\"alt\":24.4,\"teal\":0.2}",
     "/accessibility brand area: 59.2% {\"navy\":59.2}",
@@ -34,19 +34,19 @@
     "/faq brand area: 74.5% {\"navy\":62.2,\"alt\":12.3}",
     "/first-time-buyers brand area: 58.1% {\"navy\":43.7,\"alt\":14.4}",
     "/homes brand area: 87.3% {\"navy\":62.9,\"alt\":24.3,\"teal\":0}",
-    "/market-reports brand area: 87.7% {\"navy\":63.4,\"teal\":0,\"alt\":24.3}",
     "/neighborhoods brand area: 87.6% {\"navy\":87.6,\"teal\":0}",
-    "/privacy brand area: 58.1% {\"navy\":58.1}",
-    "/programs brand area: 76.3% {\"navy\":58.3,\"alt\":18.1}",
-    "/programs/naca brand area: 66.2% {\"navy\":32.2,\"teal\":0,\"alt\":33.9}",
-    "/programs/homes-for-heroes brand area: 65.5% {\"navy\":32.5,\"teal\":0,\"alt\":33}",
+    "/privacy brand area: 43.5% {\"navy\":43.5}",
+    "/programs brand area: 62.6% {\"navy\":47.7,\"alt\":14.9}",
+    "/programs/naca brand area: 64.8% {\"navy\":31.6,\"teal\":0,\"alt\":33.2}",
+    "/programs/homes-for-heroes brand area: 64.9% {\"navy\":32.2,\"teal\":0,\"alt\":32.7}",
     "/resources brand area: 68.2% {\"navy\":49.2,\"teal\":18.9}",
     "/start brand area: 46.5% {\"navy\":24.2,\"gold\":0.2,\"alt\":22.2}",
     "/terms brand area: 57.4% {\"navy\":57.4}",
-    "/testimonials brand area: 88.4% {\"navy\":63.9,\"teal\":0,\"alt\":24.5}",
     "/blog/naca-homebuying-dallas-fort-worth brand area: 18.7% {\"navy\":15.9,\"teal\":0,\"alt\":2.8}",
     "/blog/homes-for-heroes-north-texas brand area: 18.2% {\"navy\":17.2,\"teal\":0,\"alt\":1}",
     "/blog/how-to-buy-home-garland-tx brand area: 15.4% {\"navy\":13.1,\"teal\":0,\"alt\":2.3}",
+    "/testimonials brand area: 88.4% {\"navy\":63.9,\"teal\":0,\"alt\":24.5}",
+    "/market-reports brand area: 87.7% {\"navy\":63.4,\"teal\":0,\"alt\":24.3}",
     "internal links checked: 29"
   ],
   "routes": [
@@ -296,8 +296,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -312,7 +312,7 @@
       },
       "ornaments": 1,
       "title": "North Texas Homebuyer Area Guides — D'Affordable Homes",
-      "description": "Useful, differentiated homebuyer guidance for Garland and the Dallas–Fort Worth communities around it — written from local knowledge rather than copied city pages or unsupported market statistics.",
+      "description": "Homebuyer guidance for Garland and the Dallas–Fort Worth communities around it, written from local knowledge, not copied city pages or unsupported statistics.",
       "internalLinkCount": 40,
       "headingCount": 10
     },
@@ -354,8 +354,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -370,8 +370,8 @@
         }
       },
       "ornaments": 2,
-      "title": "Garland Texas Homebuyer Guide and Affordable-Homeownership Help — D'Affordable Homes",
-      "description": "A practical Garland, Texas homebuyer guide covering search preparation, attainable North Texas home styles, NACA and Homes for Heroes guidance, property evaluation, and next steps with Debra.",
+      "title": "Garland, Texas Homebuyer Guide — D'Affordable Homes",
+      "description": "A practical Garland, Texas homebuyer guide: search preparation, local home styles, NACA and Homes for Heroes guidance, evaluating a property, and next steps.",
       "internalLinkCount": 34,
       "headingCount": 13
     },
@@ -420,8 +420,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -478,8 +478,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -506,7 +506,7 @@
         null
       ],
       "h1s": [
-        "Affordability calculator"
+        "How much house can I afford?"
       ],
       "imagesMissingAlt": 0,
       "unsafeHrefs": [],
@@ -518,7 +518,7 @@
       },
       "inputsMissingLabel": 0,
       "nestedInteractive": 0,
-      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\n\nPLANNING TOOL\n\nAffordability calculator\n\nEstimate a responsible planning range from income, debts, rate, and cash available.\n\nEstimate a planning price\n\nSee a conservative planning estimate based on household income, monthly debt, available down payment, and ownership costs.\n\nAnnual household income\n$\nMonthly debt payments\n$\n\nInclude recurring minimum payments such as auto, student, personal, and credit-card debt.\n\nAvailable down payment\n$\nInterest rate\n%\nLoan term\n15 years\n20 years\n30 years\nAnnual property tax rate\n%\nAnnual insurance estimate\n%\nMonthly HOA\n$\nEstimated annual mortgage insurance rate\n%\n\nESTIMATED PLANNING PRICE\n\n$254,400\n\nnot a pre-approval or lending decision\n\nMonthly housing budget\n$1,950\nEstimated monthly housing cost\n$1,949\nEstimated loan amount\n$234,400\nEstimated total debt-to-income\n36.0%\nBook consultation\nContinue planning\n\nUses 28% housing and 36% total-debt planning limits. Lenders use their own underwriting rules, verified income, credit, reserves, program requirements, and property data.\n\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
+      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\n\nPLANNING TOOL\n\nHow much house can I afford?\n\nEstimate a responsible planning range from income, debts, rate, and cash available.\n\nEstimate a planning price\n\nSee a conservative planning estimate based on household income, monthly debt, available down payment, and ownership costs.\n\nAnnual household income\n$\nMonthly debt payments\n$\n\nInclude recurring minimum payments such as auto, student, personal, and credit-card debt.\n\nAvailable down payment\n$\nInterest rate\n%\nLoan term\n15 years\n20 years\n30 years\nAnnual property tax rate\n%\nAnnual insurance estimate\n%\nMonthly HOA\n$\nEstimated annual mortgage insurance rate\n%\n\nESTIMATED PLANNING PRICE\n\n$254,400\n\nnot a pre-approval or lending decision\n\nMonthly housing budget\n$1,950\nEstimated monthly housing cost\n$1,949\nEstimated loan amount\n$234,400\nEstimated total debt-to-income\n36.0%\nBook consultation\nContinue planning\n\nUses 28% housing and 36% total-debt planning limits. Lenders use their own underwriting rules, verified income, credit, reserves, program requirements, and property data.\n\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
       "images": [
         {
           "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
@@ -528,8 +528,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -542,8 +542,8 @@
         }
       },
       "ornaments": 1,
-      "title": "Affordability Calculator — D'Affordable Homes",
-      "description": "Estimate a responsible planning range from income, debts, rate, and cash available.",
+      "title": "How Much House Can I Afford? Calculator — D'Affordable Homes",
+      "description": "How much house can you afford? Estimate a responsible price range from your income, debts, rate and cash on hand. A planning estimate, not a loan approval.",
       "internalLinkCount": 28,
       "headingCount": 3
     },
@@ -555,7 +555,7 @@
         null
       ],
       "h1s": [
-        "Closing cost estimator"
+        "Closing cost calculator"
       ],
       "imagesMissingAlt": 0,
       "unsafeHrefs": [],
@@ -567,7 +567,7 @@
       },
       "inputsMissingLabel": 0,
       "nestedInteractive": 0,
-      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\n\nPLANNING TOOL\n\nClosing cost estimator\n\nEstimate cash needed at closing, including the down payment, closing costs, prepaid items, escrow funding, and known credits.\n\nEstimate cash needed at closing\n\nBuild a planning estimate for the down payment, closing costs, prepaid items, escrow funding, and any known credits.\n\nPurchase price\n$\nDown payment\n$\nEstimated closing-cost rate\n%\n\nUse a lender estimate or local professional guidance when available.\n\nEstimated prepaids and escrow rate\n%\n\nMay include prepaid interest, initial escrow deposits, insurance, and taxes.\n\nSeller or lender credits\n$\n\nESTIMATED CASH TO CLOSE\n\n$31,500\n\nDown payment\n$17,500\nEstimated closing costs\n$10,500\nEstimated prepaids and escrow\n$3,500\nCredits applied\n−$0\nBook consultation\nContinue planning\n\nThis is not a Loan Estimate. Actual cash to close can include program-specific fees, inspections, deposits, title charges, tax adjustments, insurance, and other transaction costs.\n\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
+      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\n\nPLANNING TOOL\n\nClosing cost calculator\n\nEstimate cash needed at closing, including the down payment, closing costs, prepaid items, escrow funding, and known credits.\n\nEstimate cash needed at closing\n\nBuild a planning estimate for the down payment, closing costs, prepaid items, escrow funding, and any known credits.\n\nPurchase price\n$\nDown payment\n$\nEstimated closing-cost rate\n%\n\nUse a lender estimate or local professional guidance when available.\n\nEstimated prepaids and escrow rate\n%\n\nMay include prepaid interest, initial escrow deposits, insurance, and taxes.\n\nSeller or lender credits\n$\n\nESTIMATED CASH TO CLOSE\n\n$31,500\n\nDown payment\n$17,500\nEstimated closing costs\n$10,500\nEstimated prepaids and escrow\n$3,500\nCredits applied\n−$0\nBook consultation\nContinue planning\n\nThis is not a Loan Estimate. Actual cash to close can include program-specific fees, inspections, deposits, title charges, tax adjustments, insurance, and other transaction costs.\n\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
       "images": [
         {
           "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
@@ -591,8 +591,8 @@
         }
       },
       "ornaments": 1,
-      "title": "Closing Cost Estimator — D'Affordable Homes",
-      "description": "Estimate cash needed at closing, including the down payment, closing costs, prepaid items, escrow funding, and known credits.",
+      "title": "Closing Cost Calculator — D'Affordable Homes",
+      "description": "Estimate closing costs and the total cash you need to close: down payment, closing costs, prepaid items, escrow funding and known credits.",
       "internalLinkCount": 28,
       "headingCount": 3
     },
@@ -604,7 +604,7 @@
         null
       ],
       "h1s": [
-        "Down payment & closing cost planner"
+        "Down payment calculator and planner"
       ],
       "imagesMissingAlt": 0,
       "unsafeHrefs": [],
@@ -616,7 +616,7 @@
       },
       "inputsMissingLabel": 0,
       "nestedInteractive": 0,
-      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\n\nPLANNING TOOL\n\nDown payment & closing cost planner\n\nEstimate down payment, closing costs, and other cash needed.\n\nCompare common down-payment scenarios\n\nCompare upfront cash and estimated monthly housing costs. Available programs and required minimums depend on eligibility, property, lender, and loan type.\n\nHome price\n$\nInterest rate\n%\nLoan term\n15 years\n20 years\n30 years\nAnnual property taxes\n$\nAnnual homeowners insurance\n$\nMonthly HOA\n$\nEstimated annual mortgage insurance rate\n%\nDown-payment scenarios and estimated monthly costs\nDown payment\tCash amount\tLoan amount\tMortgage insurance\tEstimated monthly cost\n3%\t$10,500\t$339,500\t$156/mo\t$2,801/mo\n3.5%\t$12,250\t$337,750\t$155/mo\t$2,790/mo\n5%\t$17,500\t$332,500\t$152/mo\t$2,754/mo\n10%\t$35,000\t$315,000\t$144/mo\t$2,635/mo\n20%\t$70,000\t$280,000\tNot included\t$2,270/mo\nBook consultation\nContinue planning\n\nPlanning estimates only. A 20% down payment often removes conventional mortgage insurance, but program rules vary. Lower-down-payment programs may have different insurance structures and eligibility requirements.\n\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
+      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\n\nPLANNING TOOL\n\nDown payment calculator and planner\n\nEstimate down payment, closing costs, and other cash needed.\n\nCompare common down-payment scenarios\n\nCompare upfront cash and estimated monthly housing costs. Available programs and required minimums depend on eligibility, property, lender, and loan type.\n\nHome price\n$\nInterest rate\n%\nLoan term\n15 years\n20 years\n30 years\nAnnual property taxes\n$\nAnnual homeowners insurance\n$\nMonthly HOA\n$\nEstimated annual mortgage insurance rate\n%\nDown-payment scenarios and estimated monthly costs\nDown payment\tCash amount\tLoan amount\tMortgage insurance\tEstimated monthly cost\n3%\t$10,500\t$339,500\t$156/mo\t$2,801/mo\n3.5%\t$12,250\t$337,750\t$155/mo\t$2,790/mo\n5%\t$17,500\t$332,500\t$152/mo\t$2,754/mo\n10%\t$35,000\t$315,000\t$144/mo\t$2,635/mo\n20%\t$70,000\t$280,000\tNot included\t$2,270/mo\nBook consultation\nContinue planning\n\nPlanning estimates only. A 20% down payment often removes conventional mortgage insurance, but program rules vary. Lower-down-payment programs may have different insurance structures and eligibility requirements.\n\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
       "images": [
         {
           "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
@@ -626,8 +626,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -640,8 +640,8 @@
         }
       },
       "ornaments": 1,
-      "title": "Down Payment & Closing Cost Planner — D'Affordable Homes",
-      "description": "Estimate down payment, closing costs, and other cash needed.",
+      "title": "Down Payment Calculator and Planner — D'Affordable Homes",
+      "description": "Estimate your down payment, closing costs, and the other cash you may need to buy a home. A planning estimate only, not a loan quote or approval.",
       "internalLinkCount": 28,
       "headingCount": 3
     },
@@ -690,7 +690,7 @@
       },
       "ornaments": 0,
       "title": "Mortgage Payment Calculator — D'Affordable Homes",
-      "description": "Estimate mortgage principal, interest, PMI, taxes, and insurance.",
+      "description": "Estimate a monthly mortgage payment with principal, interest, PMI, property taxes, and homeowners insurance. A planning estimate only, not a loan quote.",
       "internalLinkCount": 29,
       "headingCount": 5
     },
@@ -724,8 +724,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -739,7 +739,7 @@
       },
       "ornaments": 1,
       "title": "Rent vs. Buy Calculator — D'Affordable Homes",
-      "description": "Compare simplified renting and homeownership costs over time.",
+      "description": "Compare the simplified costs of renting and owning a home over time, so you can see how the numbers change before you make a decision.",
       "internalLinkCount": 28,
       "headingCount": 3
     },
@@ -763,7 +763,7 @@
       },
       "inputsMissingLabel": 0,
       "nestedInteractive": 0,
-      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nConsultation\n\nA CLEAR NEXT STEP\n\nStart with a conversation, not a sales pitch\n\nTell Debra enough to understand your starting point. You will leave with a clearer understanding of what to do next, even if buying is not your immediate next move.\n\nNo cost, no commitment\nGarland + Dallas–Fort Worth\nYOUR REALTOR®\nDebra Allen\nRequest a consultation\n\nA short form so Debra can understand what you would like to discuss. Please do not include Social Security numbers, account numbers, or other sensitive financial information.\n\nYour name *\nPhone\nPreferred way to connect\nPhone or video call\nEmail\nWhere are you right now?\nChoose the option that fits best\nExploring whether buying is right for me\nPreparing finances and documents\nReady to begin a home search\nAlready touring or making offers\nEmail *\nWhat would you like help with? *\nRequest consultation\n\nWe respect your privacy. Your information is only used to respond to you.\n\nWHAT TO EXPECT\n\nFour things, every time\nA focused planning conversation\nAbout your situation, not a script. Bring the question you have actually been sitting on.\nA review of your current position\nWhere you are today with savings, timing and preparation — without judgement about any of it.\nClear next steps without pressure\nOne or two things worth doing next, and an honest note about which ones can wait.\nResources matched to your situation\nThe guide, the calculator or the professional that fits what you described — not a generic packet.\nYou do not need to be ready\n\nPerfect credit, a lender, and every answer are not prerequisites for a conversation. Most people book one precisely because they do not have those yet.\n\nNOT READY TO SCHEDULE?\n\nCome back when you have a question worth asking\n\nThere is no wrong order here. Plenty of people work through one of these first and book afterwards.\n\nEstimate a monthly payment\n\nPrincipal, interest, taxes, insurance and HOA dues, with your own numbers in it.\n\nOpen the calculator\nFind your next step\n\nA short set of questions about where you are, then one clear thing to do next.\n\nStart the assessment\nRead a guide first\n\nPlain-language answers on programs, preparation and buying locally in North Texas.\n\nBrowse the guides\n\nPREFER TO WRITE FIRST?\n\nSend a message instead\n\nA short note works just as well. Same person reads it, same absence of a sales pitch.\n\nContact Debra\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
+      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nConsultation\n\nA CLEAR NEXT STEP\n\nStart with a conversation, not a sales pitch\n\nTell Debra enough to understand your starting point. You will leave with a clearer understanding of what to do next, even if buying is not your immediate next move.\n\nNo cost, no commitment\nGarland + Dallas–Fort Worth\nYOUR REALTOR®\nDebra Allen\nRequest a consultation\n\nA short form so Debra can understand what you would like to discuss. Please do not include Social Security numbers, account numbers, or other sensitive financial information.\n\nWebsite\nYour name *\nPhone\nPreferred way to connect\nPhone or video call\nEmail\nWhere are you right now?\nChoose the option that fits best\nExploring whether buying is right for me\nPreparing finances and documents\nReady to begin a home search\nAlready touring or making offers\nEmail *\nWhat would you like help with? *\nRequest consultation\n\nWe respect your privacy. Your information is only used to respond to you.\n\nWHAT TO EXPECT\n\nFour things, every time\nA focused planning conversation\nAbout your situation, not a script. Bring the question you have actually been sitting on.\nA review of your current position\nWhere you are today with savings, timing and preparation — without judgement about any of it.\nClear next steps without pressure\nOne or two things worth doing next, and an honest note about which ones can wait.\nResources matched to your situation\nThe guide, the calculator or the professional that fits what you described — not a generic packet.\nYou do not need to be ready\n\nPerfect credit, a lender, and every answer are not prerequisites for a conversation. Most people book one precisely because they do not have those yet.\n\nNOT READY TO SCHEDULE?\n\nCome back when you have a question worth asking\n\nThere is no wrong order here. Plenty of people work through one of these first and book afterwards.\n\nEstimate a monthly payment\n\nPrincipal, interest, taxes, insurance and HOA dues, with your own numbers in it.\n\nOpen the calculator\nFind your next step\n\nA short set of questions about where you are, then one clear thing to do next.\n\nStart the assessment\nRead a guide first\n\nPlain-language answers on programs, preparation and buying locally in North Texas.\n\nBrowse the guides\n\nPREFER TO WRITE FIRST?\n\nSend a message instead\n\nA short note works just as well. Same person reads it, same absence of a sales pitch.\n\nContact Debra\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
       "images": [
         {
           "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
@@ -797,7 +797,7 @@
       },
       "ornaments": 0,
       "title": "Book a Free Consultation — D'Affordable Homes",
-      "description": "Request a free homebuyer consultation with Debra Allen.",
+      "description": "Request a free, no-pressure homebuyer consultation with Debra Allen, REALTOR®, about where you are now and a practical next step.",
       "internalLinkCount": 31,
       "headingCount": 9
     },
@@ -821,7 +821,7 @@
       },
       "inputsMissingLabel": 0,
       "nestedInteractive": 0,
-      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nContact\n\nCONNECT\n\nReach out — wherever you are in the process\n\nWhether you're years away or ready to start, Debra is glad to help you understand your next step. No pressure, no judgment.\n\nGarland + Dallas–Fort Worth\nNo pressure, no judgment\nREALTOR® · GARLAND\nDebra Allen\nSend Debra a message\n\nA sentence is plenty. Say where you are in the process and what you are trying to work out — that is enough for a useful reply.\n\nYour name *\nEmail *\nHow can Debra help? *\nSend message\n\nWe respect your privacy. Your information is only used to respond to you.\n\nBEFORE YOU WRITE\n\nTwo things worth knowing\nKeep sensitive details out of the form\nNo Social Security numbers, account numbers or financial account details. Nothing here needs them.\nYou do not need to be ready\n“I am not sure yet” is a completely normal place to start a message from.\nPrefer to talk it through?\n\nA consultation is a longer conversation about your situation, with a clear next step at the end of it.\n\nBook a consultation\n\nNOT SURE WHAT TO ASK?\n\nLet the assessment find the question for you\n\nSix short questions about where you are, then one clear next step you can act on.\n\nFind your next step\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
+      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nContact\n\nCONNECT\n\nReach out — wherever you are in the process\n\nWhether you're years away or ready to start, Debra is glad to help you understand your next step. No pressure, no judgment.\n\nGarland + Dallas–Fort Worth\nNo pressure, no judgment\nREALTOR® · GARLAND\nDebra Allen\nSend Debra a message\n\nA sentence is plenty. Say where you are in the process and what you are trying to work out — that is enough for a useful reply.\n\nWebsite\nYour name *\nEmail *\nHow can Debra help? *\nSend message\n\nWe respect your privacy. Your information is only used to respond to you.\n\nBEFORE YOU WRITE\n\nTwo things worth knowing\nKeep sensitive details out of the form\nNo Social Security numbers, account numbers or financial account details. Nothing here needs them.\nYou do not need to be ready\n“I am not sure yet” is a completely normal place to start a message from.\nPrefer to talk it through?\n\nA consultation is a longer conversation about your situation, with a clear next step at the end of it.\n\nBook a consultation\n\nNOT SURE WHAT TO ASK?\n\nLet the assessment find the question for you\n\nSix short questions about where you are, then one clear next step you can act on.\n\nFind your next step\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
       "images": [
         {
           "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
@@ -889,8 +889,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -945,8 +945,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1116,8 +1116,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1131,8 +1131,8 @@
         }
       },
       "ornaments": 1,
-      "title": "First-Time Buyer Education — D'Affordable Homes",
-      "description": "A plain-language introduction to the homebuying process for first-time buyers and renters. Understand the steps before you take them — no pressure, no jargon.",
+      "title": "Steps to Buying a House, Explained — D'Affordable Homes",
+      "description": "The steps to buying a house, in plain language for first-time buyers and renters: get ready, search, offer, inspect and close. No pressure, no jargon.",
       "internalLinkCount": 34,
       "headingCount": 17
     },
@@ -1197,67 +1197,9 @@
       },
       "ornaments": 1,
       "title": "Find a Home in Dallas–Fort Worth — D'Affordable Homes",
-      "description": "Explore homes across Garland and the Dallas–Fort Worth metroplex with guidance. When a live MLS feed isn't connected, we say so plainly instead of showing placeholder homes.",
+      "description": "Explore homes across Garland and Dallas–Fort Worth with guidance. Until a live MLS feed is connected, this page says so instead of showing placeholder homes.",
       "internalLinkCount": 45,
       "headingCount": 10
-    },
-    {
-      "route": "/market-reports",
-      "status": 200,
-      "canonical": "https://daffordablehomes.com/market-reports",
-      "jsonLd": [
-        null
-      ],
-      "h1s": [
-        "Market context, explained simply"
-      ],
-      "imagesMissingAlt": 0,
-      "unsafeHrefs": [],
-      "landmarks": {
-        "header": 1,
-        "nav": 6,
-        "main": 1,
-        "footer": 1
-      },
-      "inputsMissingLabel": 0,
-      "nestedInteractive": 0,
-      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nMarket reports\n\nMARKET CONTEXT\n\nMarket context, explained simply\n\nUnderstanding the market helps you plan with confidence. When reports are available here, they will come with an explanation of what the numbers mean for you.\n\nSourced data only\nReports are not connected yet\n\nMarket reports require a verified data source. Rather than publish estimated or invented figures, this page stays honest — real, sourced reports will appear once the data feed is connected.\n\nUNTIL THEN\n\nThree things that answer the question behind the question\n\nPeople rarely want a market report. They want to know whether now is a sensible time for them, specifically.\n\nAsk Debra what she is seeing\n\nA working REALTOR® in this market is a live data source. Tell her the area and price band and she can tell you how it is behaving.\n\nAsk Debra\nModel your own numbers\n\nPayment, affordability and cash to close, run with your figures. More useful for a decision than a regional average ever is.\n\nOpen the calculators\nRead the Garland guide\n\nLocal housing context written from knowledge rather than scraped statistics, with the questions a search there turns on.\n\nOpen the guide\n\nTHE MARKET, FOR YOUR SITUATION\n\nAsk about the market you are actually buying in\n\nA metro-wide figure rarely describes a single street or a single price band. Debra can tell you what she is seeing in yours.\n\nTalk with Debra\nExplore planning resources\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
-      "images": [
-        {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 640,
-          "naturalHeight": 427,
-          "alt": "D'Affordable Homes home",
-          "loading": "eager"
-        },
-        {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdebra-allen-advisor-desk.webp&w=1920&q=75",
-          "naturalWidth": 864,
-          "naturalHeight": 1152,
-          "alt": "",
-          "loading": "eager"
-        },
-        {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
-          "naturalHeight": 140,
-          "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
-          "loading": "eager"
-        }
-      ],
-      "brandArea": {
-        "total": 87.7,
-        "byColour": {
-          "navy": 63.4,
-          "teal": 0,
-          "alt": 24.3
-        }
-      },
-      "ornaments": 1,
-      "title": "Market Reports — D'Affordable Homes",
-      "description": "Clear, honest market context to help you plan. Reports publish here once the data source is connected — never estimated or fabricated.",
-      "internalLinkCount": 32,
-      "headingCount": 7
     },
     {
       "route": "/neighborhoods",
@@ -1296,8 +1238,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1336,7 +1278,7 @@
       },
       "inputsMissingLabel": 0,
       "nestedInteractive": 0,
-      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\n\nPOLICIES\n\nPrivacy Policy\n\nYour trust matters to us. This policy explains, in plain language, how D'Affordable Homes handles information you choose to share. A finalized legal version will be published prior to public launch.\n\nWhat we collect\n\nWe only collect information you provide directly — such as your name, email, and message when you contact us or request a consultation. We do not require you to create an account to learn on this site.\n\nHow we use it\nTo respond to your questions and consultation requests\nTo share resources you ask for\nTo improve our education and tools\nWhat we don't do\n\nWe do not sell your personal information. We do not send high-pressure marketing. You can ask us to delete your information at any time.\n\nContact\n\nQuestions about privacy? Reach outand we'll be glad to help.\n\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
+      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\n\nPOLICIES\n\nPrivacy Policy\n\nYour trust matters to us. This policy explains, in plain language, how D'Affordable Homes handles information you choose to share. A finalized legal version will be published prior to public launch.\n\nWhat we collect\n\nWe only collect what you choose to send through a form. You do not need an account to learn on this site, and the guides, calculators and quizzes work without asking who you are.\n\nContact and consultation form: your name, email and message, and, if you add them, your phone number, how you prefer to connect, and where you are in the homebuying process.\nNACA and Homes for Heroes forms: your first and last name, email, phone number, current city, the city and ZIP code you are interested in, your timeline, how you prefer to be contacted, your answers about the program, any questions you add, and your consent to be contacted.\nFind My Next Step: your first name, email, an optional mobile number, the next step you chose and the result of the guided check.\n\nEach form also records the page you sent it from. The program and Find My Next Step forms also record the page that referred you and any campaign tags in the link that brought you here (for example utm_source), so Debra knows how you found her.\n\nYour answers to a guided check stay in your browser unless you send a form. Find My Next Step keeps your progress in this browser tab only, and it is cleared when you close the tab. This site does not load advertising or analytics trackers.\n\nLike any website, our hosting provider receives standard technical details with each visit, such as your IP address and browser type. The site uses your IP address briefly to limit repeated form submissions and block spam. It is not sent along with your message.\n\nWhere it goes\n\nA form you send is passed straight to the system Debra uses to read and answer inquiries. This website does not keep its own copy. If that system is not connected, the form tells you your message was not sent, and nothing you typed is kept.\n\nHow we use it\nTo respond to your questions and consultation requests\nTo share resources you ask for\nTo improve our education and tools\nWhat we don't do\n\nWe do not sell your personal information. We do not send high-pressure marketing. You can ask us to delete your information at any time.\n\nContact\n\nQuestions about privacy? Reach outand we'll be glad to help.\n\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
       "images": [
         {
           "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
@@ -1346,24 +1288,24 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
         }
       ],
       "brandArea": {
-        "total": 58.1,
+        "total": 43.5,
         "byColour": {
-          "navy": 58.1
+          "navy": 43.5
         }
       },
       "ornaments": 1,
       "title": "Privacy Policy — D'Affordable Homes",
       "description": "How D'Affordable Homes collects, uses, and protects your information. We only use what you share to help you, and never sell your data.",
       "internalLinkCount": 27,
-      "headingCount": 6
+      "headingCount": 7
     },
     {
       "route": "/programs",
@@ -1386,7 +1328,7 @@
       },
       "inputsMissingLabel": 0,
       "nestedInteractive": 0,
-      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nPrograms\n\nSPECIALIZED HOMEBUYER GUIDANCE\n\nFind the homeownership path that fits your situation\n\nDebra helps buyers understand the real-estate decisions inside a larger homeownership program — the search, the offer, the inspection, the close — while the program keeps control of its own rules.\n\nGarland + Dallas–Fort Worth\nIndependent guidance\nTalk through your options\nFind your next step\n\nCHOOSE A STARTING POINT\n\nTwo programs, explained without the sales pitch\n\nEach page explains Debra's role, the real-estate process around the program, the questions worth preparing, and exactly what you must verify with the program itself.\n\nGarland homebuyer guidance\nINDEPENDENT PROGRAM GUIDANCE\nNACA Homebuyer Help\n\nDebra helps buyers translate an approved homebuying path into a practical search, offer, inspection, and closing plan. Program eligibility, qualification, mortgage terms, and official requirements remain controlled by NACA.\n\nBuyers considering the NACA homebuying program\nBuyers who have attended a NACA workshop\nNACA-qualified buyers preparing to search for a home\nExplore NACA homebuyer help\nSUPPORT FOR COMMUNITY HEROES\nHomes for Heroes Guidance\n\nDebra provides a clear real-estate process for military members, veterans, teachers, healthcare professionals, firefighters, EMS professionals, and law-enforcement professionals exploring a move in the Dallas–Fort Worth region.\n\nActive-duty military members and military families\nVeterans\nTeachers and education professionals\nExplore Homes for Heroes\nREALTOR® · GARLAND\nDebra Allen\n\nWHERE THE LINES ARE\n\nDebra handles the real estate. The program handles the program.\n\nQualification, eligibility, savings and mortgage terms belong to the organisation running the program, and to your lender. This site will never tell you that you qualify, or what you will save.\n\nWhat Debra does is the part in between: helping you define a search that fits the program you are in, structuring an offer that survives it, and keeping the inspection and closing on schedule.\n\nIndependent guidance\n\nD'Affordable Homes is independent from the programs described here. Current rules, eligibility and terms must be confirmed with each program directly.\n\nON THE WAY\n\nMore paths are being written\n\nEach gets a real page when there is something specific and verified to say about it. If yours is on this list, ask Debra now — she can still help with the real-estate side today.\n\nFirst-Time Homebuyer Assistance\nVA Homebuyers\nDown Payment Assistance\nFHA Buyers\nUSDA Buyers\nHomebuyer Education\nCommunity Hero Sellers\n\nNOT SURE WHICH PATH FITS?\n\nStart with a conversation, not an application\n\nYour goals, your current program status, the area you are looking in, and your timeline. That is enough for Debra to tell you what the next step actually is.\n\nBook a consultation\nFind your next step\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
+      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nPrograms\n\nSPECIALIZED HOMEBUYER GUIDANCE\n\nFind the homeownership path that fits your situation\n\nDebra helps buyers understand the real-estate decisions inside a larger homeownership program — the search, the offer, the inspection, the close — while the program keeps control of its own rules.\n\nGarland + Dallas–Fort Worth\nIndependent guidance\nTalk through your options\nFind your next step\n\nCHOOSE A STARTING POINT\n\nTwo programs, explained without the sales pitch\n\nEach page explains Debra's role, the real-estate process around the program, the questions worth preparing, and exactly what you must verify with the program itself.\n\nGarland homebuyer guidance\nINDEPENDENT PROGRAM GUIDANCE\nNACA Homebuyer Help\n\nDebra helps buyers translate an approved homebuying path into a practical search, offer, inspection, and closing plan. Program eligibility, qualification, mortgage terms, and official requirements remain controlled by NACA.\n\nBuyers considering the NACA homebuying program\nBuyers who have attended a NACA workshop\nNACA-qualified buyers preparing to search for a home\nExplore NACA homebuyer help\nSUPPORT FOR COMMUNITY HEROES\nHomes for Heroes Guidance\n\nDebra provides a clear real-estate process for military members, veterans, teachers, healthcare professionals, firefighters, EMS professionals, and law-enforcement professionals exploring a move in the Dallas–Fort Worth region.\n\nActive-duty military members and military families\nVeterans\nTeachers and education professionals\nExplore Homes for Heroes\nREALTOR® · GARLAND\nDebra Allen\n\nWHERE THE LINES ARE\n\nDebra handles the real estate. The program handles the program.\n\nQualification, eligibility, savings and mortgage terms belong to the organisation running the program, and to your lender. This site will never tell you that you qualify, or what you will save.\n\nWhat Debra does is the part in between: helping you define a search that fits the program you are in, structuring an offer that survives it, and keeping the inspection and closing on schedule.\n\nIndependent guidance\n\nD'Affordable Homes is independent from the programs described here. Current rules, eligibility and terms must be confirmed with each program directly.\n\nOFFICIAL SOURCES\n\nTexas, Dallas and Garland homebuyer assistance programs\n\nState, county and city agencies run their own down payment and mortgage assistance, each with its own eligibility and income limits. These are their official pages. A participating lender confirms what you qualify for, and Debra can help with the real-estate side of any of them.\n\nTexas Homebuyer Program (TDHCA)\n\nThe Texas Department of Housing and Community Affairs offers statewide mortgage and down payment assistance, including My First Texas Home, through participating lenders.\n\nTDHCA's official page\nTSAHC home loans and down payment assistance\n\nThe Texas State Affordable Housing Corporation runs statewide programs, including Homes for Texas Heroes and Home Sweet Texas, through participating lenders.\n\nTSAHC's official page\nCity of Garland Home Ownership Program\n\nThe City of Garland's homeownership option for eligible Housing Choice Voucher participants, run by the city.\n\nCity of Garland's page\nDallas Homebuyer Assistance Program\n\nCity of Dallas assistance for eligible low- and moderate-income households buying a home in the City of Dallas. Garland is a separate city.\n\nCity of Dallas page\nDallas County Home Loan Counseling Center\n\nDallas County Health and Human Services offers homebuyer education, mortgage counseling and down payment assistance programs.\n\nDallas County's page\n\nON THE WAY\n\nMore paths are being written\n\nEach gets a real page when there is something specific and verified to say about it. If yours is on this list, ask Debra now — she can still help with the real-estate side today.\n\nFirst-Time Homebuyer Assistance\nVA Homebuyers\nDown Payment Assistance\nFHA Buyers\nUSDA Buyers\nHomebuyer Education\nCommunity Hero Sellers\n\nNOT SURE WHICH PATH FITS?\n\nStart with a conversation, not an application\n\nYour goals, your current program status, the area you are looking in, and your timeline. That is enough for Debra to tell you what the next step actually is.\n\nBook a consultation\nFind your next step\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
       "images": [
         {
           "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
@@ -1410,25 +1352,25 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
         }
       ],
       "brandArea": {
-        "total": 76.3,
+        "total": 62.6,
         "byColour": {
-          "navy": 58.3,
-          "alt": 18.1
+          "navy": 47.7,
+          "alt": 14.9
         }
       },
       "ornaments": 1,
-      "title": "Homebuyer Programs for Garland and Dallas–Fort Worth — D'Affordable Homes",
-      "description": "Explore independent NACA homebuyer guidance and Homes for Heroes real-estate support from D'Affordable Homes, with a practical North Texas focus.",
+      "title": "Homebuyer Programs in Garland and DFW — D'Affordable Homes",
+      "description": "NACA and Homes for Heroes guidance from Debra Allen, REALTOR®, plus the official Texas, Dallas and Garland homebuyer assistance programs to check.",
       "internalLinkCount": 34,
-      "headingCount": 8
+      "headingCount": 14
     },
     {
       "route": "/programs/naca",
@@ -1453,7 +1395,7 @@
       },
       "inputsMissingLabel": 0,
       "nestedInteractive": 0,
-      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nPrograms\nNACA Homebuyer Help\n\nINDEPENDENT PROGRAM GUIDANCE\n\nReal-estate guidance for Dallas–Fort Worth buyers using NACA\n\nDebra helps buyers translate an approved homebuying path into a practical search, offer, inspection, and closing plan. Program eligibility, qualification, mortgage terms, and official requirements remain controlled by NACA.\n\nGarland + Dallas–Fort Worth\nReal-estate role only\nRequest NACA home-search guidance\nTalk it through first\nGarland and the Dallas–Fort Worth region\n\nService availability for a specific North Texas community must be confirmed directly with Debra before representation is promised.\n\nWHO THIS IS FOR\n\nStart with your actual program stage\n\nYou do not need to pretend you are further along. Clear status helps Debra focus the conversation on the next useful real-estate decision.\n\nBuyers considering the NACA homebuying program\nBuyers who have attended a NACA workshop\nNACA-qualified buyers preparing to search for a home\nFirst-time buyers who need a clearer real-estate process\nYOUR REALTOR®\nDebra Allen\n\nDEBRA'S ROLE\n\nHow Debra can support your home search\nSearch preparation\nClarify location priorities, housing needs, realistic tradeoffs, and the documents your real-estate search may require.\nProperty evaluation\nReview homes through the lens of condition, affordability, program instructions, and your long-term ownership goals.\nOffer and negotiation guidance\nPrepare a fact-based offer strategy and coordinate required program or lender communication without promising acceptance.\nInspection and closing coordination\nStay organized through inspections, repair decisions, deadlines, final walkthrough, and closing preparation.\n\nWHAT HAPPENS NEXT\n\nA clear four-step real-estate process\n\nThe real-estate side of the transaction, in order. The program's own approvals run alongside it and stay with the program.\n\n1\nConfirm your official program status\n\nUse NACA's official channels to verify current eligibility, qualification status, required documents, and program rules.\n\n2\nDefine your North Texas search\n\nDiscuss preferred communities, home type, timing, transportation needs, and the total monthly cost you are prepared to carry.\n\n3\nTour and evaluate homes\n\nCompare attainable homes carefully and confirm that each property can proceed under current program and lender requirements.\n\n4\nOffer, inspect, and close\n\nCoordinate the real-estate side of the transaction while NACA and other licensed professionals control their respective approvals and requirements.\n\nLOCAL CONTEXT\n\nPlanning a move in or near Garland?\n\nThe Garland guide covers practical home-search questions, the North Texas housing you will actually tour, and links to the planning tools — without unsupported market statistics.\n\nExplore the Garland guide\n\nDIRECT ANSWERS\n\nFrequently asked questions\n\nOfficial program rules can change. These answers explain Debra's real-estate role and identify what has to be confirmed with the program or another licensed professional.\n\nHow can a real-estate agent help a NACA buyer in Dallas–Fort Worth?\nCan I use NACA to buy a home in Garland, Texas?\nWhat types of homes can NACA buyers consider in North Texas?\nWhen should I contact Debra?\n\nPROGRAM-SPECIFIC CONSULTATION\n\nTell Debra where you are now\n\nThe form captures the program, your location preferences, timeline and contact consent, so the follow-up starts with useful context instead of starting over.\n\nWhat this page does not decide\n\nD'Affordable Homes and Debra Allen are independent from NACA. This page does not represent, operate, control, or guarantee the NACA program. Confirm current rules, eligibility, qualification, and financing terms with NACA directly.\n\nWebsite\nFirst name\n*\nLast name\n*\nEmail\n*\nPhone\n*\nCurrent city\nDesired city\nDesired ZIP code\nEstimated timeline\nChoose a timeframe\n0–3 months\n3–6 months\n6–12 months\nMore than 12 months\nStill exploring\nPreferred contact method\nChoose a method\nPhone\nText\nEmail\nWhere are you in the NACA process?\nChoose the closest answer\nResearching NACA\nWorkshop scheduled\nWorkshop attended\nWorking toward qualification\nNACA-qualified and preparing to search\nAdditional questions\nI consent to be contacted by D'Affordable Homes about my real-estate request. *\nRequest NACA home-search guidance\n\nProgram details, eligibility, lending decisions, savings, and transaction outcomes are not guaranteed.\n\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
+      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nPrograms\nNACA Homebuyer Help\n\nINDEPENDENT PROGRAM GUIDANCE\n\nReal-estate guidance for Dallas–Fort Worth buyers using NACA\n\nDebra helps buyers translate an approved homebuying path into a practical search, offer, inspection, and closing plan. Program eligibility, qualification, mortgage terms, and official requirements remain controlled by NACA.\n\nGarland + Dallas–Fort Worth\nReal-estate role only\nRequest NACA home-search guidance\nTalk it through first\nGarland and the Dallas–Fort Worth region\n\nService availability for a specific North Texas community must be confirmed directly with Debra before representation is promised.\n\nWHO THIS IS FOR\n\nStart with your actual program stage\n\nYou do not need to pretend you are further along. Clear status helps Debra focus the conversation on the next useful real-estate decision.\n\nBuyers considering the NACA homebuying program\nBuyers who have attended a NACA workshop\nNACA-qualified buyers preparing to search for a home\nFirst-time buyers who need a clearer real-estate process\nYOUR REALTOR®\nDebra Allen\n\nDEBRA'S ROLE\n\nHow Debra can support your home search\nSearch preparation\nClarify location priorities, housing needs, realistic tradeoffs, and the documents your real-estate search may require.\nProperty evaluation\nReview homes through the lens of condition, affordability, program instructions, and your long-term ownership goals.\nOffer and negotiation guidance\nPrepare a fact-based offer strategy and coordinate required program or lender communication without promising acceptance.\nInspection and closing coordination\nStay organized through inspections, repair decisions, deadlines, final walkthrough, and closing preparation.\n\nWHAT HAPPENS NEXT\n\nA clear four-step real-estate process\n\nThe real-estate side of the transaction, in order. The program's own approvals run alongside it and stay with the program.\n\n1\nConfirm your official program status\n\nUse NACA's official channels to verify current eligibility, qualification status, required documents, and program rules.\n\n2\nDefine your North Texas search\n\nDiscuss preferred communities, home type, timing, transportation needs, and the total monthly cost you are prepared to carry.\n\n3\nTour and evaluate homes\n\nCompare attainable homes carefully and confirm that each property can proceed under current program and lender requirements.\n\n4\nOffer, inspect, and close\n\nCoordinate the real-estate side of the transaction while NACA and other licensed professionals control their respective approvals and requirements.\n\nLOCAL CONTEXT\n\nPlanning a move in or near Garland?\n\nThe Garland guide covers practical home-search questions, the North Texas housing you will actually tour, and links to the planning tools — without unsupported market statistics.\n\nExplore the Garland guide\n\nDIRECT ANSWERS\n\nFrequently asked questions\n\nOfficial program rules can change. These answers explain Debra's real-estate role and identify what has to be confirmed with the program or another licensed professional.\n\nHow does the NACA program work?\nWhere can I find a NACA workshop near Dallas?\nHow can a real-estate agent help a NACA buyer in Dallas–Fort Worth?\nCan I use NACA to buy a home in Garland, Texas?\nWhat types of homes can NACA buyers consider in North Texas?\nWhen should I contact Debra?\n\nPROGRAM-SPECIFIC CONSULTATION\n\nTell Debra where you are now\n\nThe form captures the program, your location preferences, timeline and contact consent, so the follow-up starts with useful context instead of starting over.\n\nWhat this page does not decide\n\nD'Affordable Homes and Debra Allen are independent from NACA. This page does not represent, operate, control, or guarantee the NACA program. Confirm current rules, eligibility, qualification, and financing terms with NACA directly.\n\nWebsite\nFirst name\n*\nLast name\n*\nEmail\n*\nPhone\n*\nCurrent city\nDesired city\nDesired ZIP code\nEstimated timeline\nChoose a timeframe\n0–3 months\n3–6 months\n6–12 months\nMore than 12 months\nStill exploring\nPreferred contact method\nChoose a method\nPhone\nText\nEmail\nWhere are you in the NACA process?\nChoose the closest answer\nResearching NACA\nWorkshop scheduled\nWorkshop attended\nWorking toward qualification\nNACA-qualified and preparing to search\nAdditional questions\nI consent to be contacted by D'Affordable Homes about my real-estate request. *\nRequest NACA home-search guidance\n\nProgram details, eligibility, lending decisions, savings, and transaction outcomes are not guaranteed.\n\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
       "images": [
         {
           "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
@@ -1478,16 +1420,16 @@
         }
       ],
       "brandArea": {
-        "total": 66.2,
+        "total": 64.8,
         "byColour": {
-          "navy": 32.2,
+          "navy": 31.6,
           "teal": 0,
-          "alt": 33.9
+          "alt": 33.2
         }
       },
       "ornaments": 1,
-      "title": "NACA Homebuyer Help in Garland and Dallas–Fort Worth — D'Affordable Homes",
-      "description": "Independent real-estate guidance for buyers using the NACA homebuying program in Garland and the Dallas–Fort Worth area. Search, offer, inspection, and closing support without unsupported program promises.",
+      "title": "NACA Program Help in Garland and DFW — D'Affordable Homes",
+      "description": "How the NACA program works, and real-estate help for NACA buyers in Garland and Dallas–Fort Worth: search, offer, inspection and closing.",
       "internalLinkCount": 30,
       "headingCount": 12
     },
@@ -1514,7 +1456,7 @@
       },
       "inputsMissingLabel": 0,
       "nestedInteractive": 0,
-      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nPrograms\nHomes for Heroes Guidance\n\nSUPPORT FOR COMMUNITY HEROES\n\nBuying and selling guidance for North Texas community heroes\n\nDebra provides a clear real-estate process for military members, veterans, teachers, healthcare professionals, firefighters, EMS professionals, and law-enforcement professionals exploring a move in the Dallas–Fort Worth region.\n\nGarland + Dallas–Fort Worth\nReal-estate role only\nRequest hero-focused real-estate guidance\nTalk it through first\nGarland and the Dallas–Fort Worth region\n\nService availability for a specific North Texas community must be confirmed directly with Debra before representation is promised.\n\nWHO THIS IS FOR\n\nStart with your actual program stage\n\nYou do not need to pretend you are further along. Clear status helps Debra focus the conversation on the next useful real-estate decision.\n\nActive-duty military members and military families\nVeterans\nTeachers and education professionals\nHealthcare professionals\nFirefighters and EMS professionals\nLaw-enforcement professionals\nYOUR REALTOR®\nDebra Allen\n\nDEBRA'S ROLE\n\nReal-estate support built around your move\nBuying support\nClarify your timeline, location priorities, financing questions, home-search plan, offer strategy, and transaction milestones.\nSelling support\nPrepare the property, establish a fact-based launch plan, evaluate offers, coordinate deadlines, and plan the transition to your next home.\nBuy-and-sell coordination\nMap the dependencies between two transactions so timing, housing, financing, and contingency decisions are visible early.\nProgram clarification\nSeparate Debra's real-estate services from any third-party benefit, eligibility, savings, or rebate process that requires official confirmation.\n\nWHAT HAPPENS NEXT\n\nA clear four-step real-estate process\n\nThe real-estate side of the transaction, in order. The program's own approvals run alongside it and stay with the program.\n\n1\nIdentify your role and goal\n\nShare your service category, whether you are buying, selling, or both, and the outcome you are trying to achieve.\n\n2\nConfirm third-party program details\n\nVerify eligibility, enrollment, savings, rebate, or provider requirements directly with the official program before relying on them.\n\n3\nBuild the real-estate plan\n\nDefine location, timing, property, preparation, financing, and transaction priorities for the Dallas–Fort Worth market.\n\n4\nMove through the transaction\n\nUse clear milestones for search or listing preparation, offers, inspections, negotiations, closing, and transition planning.\n\nLOCAL CONTEXT\n\nPlanning a move in or near Garland?\n\nThe Garland guide covers practical home-search questions, the North Texas housing you will actually tour, and links to the planning tools — without unsupported market statistics.\n\nExplore the Garland guide\n\nDIRECT ANSWERS\n\nFrequently asked questions\n\nOfficial program rules can change. These answers explain Debra's real-estate role and identify what has to be confirmed with the program or another licensed professional.\n\nWho may qualify for Homes for Heroes?\nHow does Debra assist Homes for Heroes clients?\nCan Debra help a veteran or teacher buy in Garland?\nDoes this page guarantee a rebate or savings amount?\n\nPROGRAM-SPECIFIC CONSULTATION\n\nTell Debra where you are now\n\nThe form captures the program, your location preferences, timeline and contact consent, so the follow-up starts with useful context instead of starting over.\n\nWhat this page does not decide\n\nHomes for Heroes is a third-party program. D'Affordable Homes does not claim affiliation, approved-provider status, eligibility authority, savings amounts, rebates, or endorsement unless verified documentation is added to the project.\n\nWebsite\nFirst name\n*\nLast name\n*\nEmail\n*\nPhone\n*\nCurrent city\nDesired city\nDesired ZIP code\nEstimated timeline\nChoose a timeframe\n0–3 months\n3–6 months\n6–12 months\nMore than 12 months\nStill exploring\nPreferred contact method\nChoose a method\nPhone\nText\nEmail\nHero profession or service category\nChoose a category\nActive-duty military\nVeteran\nTeacher or education professional\nHealthcare professional\nFirefighter\nEMS professional\nLaw-enforcement professional\nOther or unsure\nAre you buying, selling, or both?\nChoose one\nBuying\nSelling\nBuying and selling\nStill deciding\nAdditional questions\nI consent to be contacted by D'Affordable Homes about my real-estate request. *\nRequest hero-focused real-estate guidance\n\nProgram details, eligibility, lending decisions, savings, and transaction outcomes are not guaranteed.\n\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
+      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nPrograms\nHomes for Heroes Guidance\n\nSUPPORT FOR COMMUNITY HEROES\n\nBuying and selling guidance for North Texas community heroes\n\nDebra provides a clear real-estate process for military members, veterans, teachers, healthcare professionals, firefighters, EMS professionals, and law-enforcement professionals exploring a move in the Dallas–Fort Worth region.\n\nGarland + Dallas–Fort Worth\nReal-estate role only\nRequest hero-focused real-estate guidance\nTalk it through first\nGarland and the Dallas–Fort Worth region\n\nService availability for a specific North Texas community must be confirmed directly with Debra before representation is promised.\n\nWHO THIS IS FOR\n\nStart with your actual program stage\n\nYou do not need to pretend you are further along. Clear status helps Debra focus the conversation on the next useful real-estate decision.\n\nActive-duty military members and military families\nVeterans\nTeachers and education professionals\nHealthcare professionals\nFirefighters and EMS professionals\nLaw-enforcement professionals\nYOUR REALTOR®\nDebra Allen\n\nDEBRA'S ROLE\n\nReal-estate support built around your move\nBuying support\nClarify your timeline, location priorities, financing questions, home-search plan, offer strategy, and transaction milestones.\nSelling support\nPrepare the property, establish a fact-based launch plan, evaluate offers, coordinate deadlines, and plan the transition to your next home.\nBuy-and-sell coordination\nMap the dependencies between two transactions so timing, housing, financing, and contingency decisions are visible early.\nProgram clarification\nSeparate Debra's real-estate services from any third-party benefit, eligibility, savings, or rebate process that requires official confirmation.\n\nWHAT HAPPENS NEXT\n\nA clear four-step real-estate process\n\nThe real-estate side of the transaction, in order. The program's own approvals run alongside it and stay with the program.\n\n1\nIdentify your role and goal\n\nShare your service category, whether you are buying, selling, or both, and the outcome you are trying to achieve.\n\n2\nConfirm third-party program details\n\nVerify eligibility, enrollment, savings, rebate, or provider requirements directly with the official program before relying on them.\n\n3\nBuild the real-estate plan\n\nDefine location, timing, property, preparation, financing, and transaction priorities for the Dallas–Fort Worth market.\n\n4\nMove through the transaction\n\nUse clear milestones for search or listing preparation, offers, inspections, negotiations, closing, and transition planning.\n\nLOCAL CONTEXT\n\nPlanning a move in or near Garland?\n\nThe Garland guide covers practical home-search questions, the North Texas housing you will actually tour, and links to the planning tools — without unsupported market statistics.\n\nExplore the Garland guide\n\nDIRECT ANSWERS\n\nFrequently asked questions\n\nOfficial program rules can change. These answers explain Debra's real-estate role and identify what has to be confirmed with the program or another licensed professional.\n\nWho may qualify for Homes for Heroes?\nIs Homes for Heroes the same as Homes for Texas Heroes?\nHow does Debra assist Homes for Heroes clients?\nCan Debra help a veteran or teacher buy in Garland?\nDoes this page guarantee a rebate or savings amount?\n\nPROGRAM-SPECIFIC CONSULTATION\n\nTell Debra where you are now\n\nThe form captures the program, your location preferences, timeline and contact consent, so the follow-up starts with useful context instead of starting over.\n\nWhat this page does not decide\n\nHomes for Heroes is a third-party program. D'Affordable Homes does not claim affiliation, approved-provider status, eligibility authority, savings amounts, rebates, or endorsement unless verified documentation is added to the project.\n\nWebsite\nFirst name\n*\nLast name\n*\nEmail\n*\nPhone\n*\nCurrent city\nDesired city\nDesired ZIP code\nEstimated timeline\nChoose a timeframe\n0–3 months\n3–6 months\n6–12 months\nMore than 12 months\nStill exploring\nPreferred contact method\nChoose a method\nPhone\nText\nEmail\nHero profession or service category\nChoose a category\nActive-duty military\nVeteran\nTeacher or education professional\nHealthcare professional\nFirefighter\nEMS professional\nLaw-enforcement professional\nOther or unsure\nAre you buying, selling, or both?\nChoose one\nBuying\nSelling\nBuying and selling\nStill deciding\nAdditional questions\nI consent to be contacted by D'Affordable Homes about my real-estate request. *\nRequest hero-focused real-estate guidance\n\nProgram details, eligibility, lending decisions, savings, and transaction outcomes are not guaranteed.\n\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
       "images": [
         {
           "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
@@ -1531,24 +1473,24 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
         }
       ],
       "brandArea": {
-        "total": 65.5,
+        "total": 64.9,
         "byColour": {
-          "navy": 32.5,
+          "navy": 32.2,
           "teal": 0,
-          "alt": 33
+          "alt": 32.7
         }
       },
       "ornaments": 1,
-      "title": "Homes for Heroes Real-Estate Guidance in North Texas — D'Affordable Homes",
-      "description": "Buying, selling, and move-planning guidance for veterans, military families, teachers, healthcare workers, firefighters, EMS, and law-enforcement professionals exploring Garland and Dallas–Fort Worth.",
+      "title": "Homes for Heroes Help in North Texas — D'Affordable Homes",
+      "description": "Buying, selling, and move guidance for veterans, military families, teachers, healthcare workers, firefighters, EMS, and law enforcement in Garland and DFW.",
       "internalLinkCount": 30,
       "headingCount": 12
     },
@@ -1605,7 +1547,7 @@
       },
       "ornaments": 1,
       "title": "Plan & Resources — D'Affordable Homes",
-      "description": "Start with the four questions buyers ask first — what a payment costs, what you can afford, what cash you need at closing, and which programs apply — then go deeper with guides and additional planning tools.",
+      "description": "Start with the four questions buyers ask first: the monthly payment, what you can afford, cash needed at closing, and which programs apply. Then go deeper.",
       "internalLinkCount": 44,
       "headingCount": 4
     },
@@ -1683,8 +1625,8 @@
         }
       },
       "ornaments": 1,
-      "title": "Find Your Next Step | DFW Homeownership Guidance — D'Affordable Homes",
-      "description": "Not sure where to start with homeownership in Dallas–Fort Worth? Explore your options, learn about NACA and homebuyer pathways, and find an educational next step with D’Affordable Homes.",
+      "title": "Find Your Next Homebuying Step in DFW — D'Affordable Homes",
+      "description": "Not sure where to start with homeownership in Dallas–Fort Worth? Explore your options, learn about NACA and other pathways, and find an educational next step.",
       "internalLinkCount": 30,
       "headingCount": 20
     },
@@ -1718,8 +1660,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1736,64 +1678,6 @@
       "description": "The terms for using the D'Affordable Homes website. Our content is educational and not legal, financial, or lending advice.",
       "internalLinkCount": 27,
       "headingCount": 6
-    },
-    {
-      "route": "/testimonials",
-      "status": 200,
-      "canonical": "https://daffordablehomes.com/testimonials",
-      "jsonLd": [
-        null
-      ],
-      "h1s": [
-        "Stories from the people Debra has guided"
-      ],
-      "imagesMissingAlt": 0,
-      "unsafeHrefs": [],
-      "landmarks": {
-        "header": 1,
-        "nav": 6,
-        "main": 1,
-        "footer": 1
-      },
-      "inputsMissingLabel": 0,
-      "nestedInteractive": 0,
-      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nTestimonials\n\nCLIENT STORIES\n\nStories from the people Debra has guided\n\nThe best measure of this work is how people feel walking through it. Verified stories will be shared here with permission.\n\nConsented stories only\nVerified reviews only\n\nWe do not publish invented or placeholder testimonials. Real, consented stories — and any connected Google reviews — will appear here as they are confirmed for release.\n\nIN THE MEANTIME\n\nThree better ways to judge whether this is a fit\n\nA page of quotes is easy to write and hard to verify. These are things you can check for yourself.\n\nRead how Debra works\n\nThe approach, the commitments, and what a conversation with her is actually like — in her own words rather than someone else's.\n\nAbout Debra\nRead the guides she writes\n\nThe clearest signal of how someone explains things is watching them explain something. Each guide carries an author and a reviewed date.\n\nOpen the guides\nHave the conversation yourself\n\nA consultation costs nothing and commits you to nothing. It is the most direct way to find out whether this is a fit.\n\nBook a consultation\n\nYOUR STORY IS THE NEXT ONE\n\nStart with a conversation about where you are\n\nNo pressure and no obligation — just a clear read on what your next step is, and whether now is even the right time for it.\n\nStart your own story\nMeet Debra\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
-      "images": [
-        {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 640,
-          "naturalHeight": 427,
-          "alt": "D'Affordable Homes home",
-          "loading": "eager"
-        },
-        {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdebra-allen-advisor-desk.webp&w=1920&q=75",
-          "naturalWidth": 864,
-          "naturalHeight": 1152,
-          "alt": "",
-          "loading": "eager"
-        },
-        {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
-          "naturalHeight": 140,
-          "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
-          "loading": "eager"
-        }
-      ],
-      "brandArea": {
-        "total": 88.4,
-        "byColour": {
-          "navy": 63.9,
-          "teal": 0,
-          "alt": 24.5
-        }
-      },
-      "ornaments": 1,
-      "title": "Testimonials — D'Affordable Homes",
-      "description": "Real stories from people Debra has guided toward homeownership. We publish only verified, consented reviews — never invented ones.",
-      "internalLinkCount": 32,
-      "headingCount": 7
     },
     {
       "route": "/blog/naca-homebuying-dallas-fort-worth",
@@ -1858,7 +1742,7 @@
         }
       },
       "ornaments": 2,
-      "title": "Using NACA to Buy a Home in Dallas–Fort Worth — D'Affordable Homes",
+      "title": "Using NACA to Buy a Home in Dallas–Fort Worth",
       "description": "Learn how the NACA homebuying process works, when to begin a DFW home search, and how Debra Allen supports the real-estate side of a purchase.",
       "internalLinkCount": 37,
       "headingCount": 23
@@ -1903,8 +1787,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1919,7 +1803,7 @@
         }
       },
       "ornaments": 2,
-      "title": "How Debra Allen Helps North Texas Heroes Buy or Sell a Home — D'Affordable Homes",
+      "title": "How Debra Allen Helps North Texas Heroes Buy or Sell a Home",
       "description": "A practical real-estate guide for North Texas military members, veterans, teachers, healthcare workers, firefighters, EMS, and law-enforcement professionals.",
       "internalLinkCount": 36,
       "headingCount": 29
@@ -1991,6 +1875,122 @@
       "description": "A step-by-step first-time buyer guide to budgeting, financing, touring, inspections, and closing on a home in Garland, Texas.",
       "internalLinkCount": 38,
       "headingCount": 32
+    },
+    {
+      "route": "/testimonials",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/testimonials",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Stories from the people Debra has guided"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 6,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nTestimonials\n\nCLIENT STORIES\n\nStories from the people Debra has guided\n\nThe best measure of this work is how people feel walking through it. Verified stories will be shared here with permission.\n\nConsented stories only\nVerified reviews only\n\nWe do not publish invented or placeholder testimonials. Real, consented stories — and any connected Google reviews — will appear here as they are confirmed for release.\n\nIN THE MEANTIME\n\nThree better ways to judge whether this is a fit\n\nA page of quotes is easy to write and hard to verify. These are things you can check for yourself.\n\nRead how Debra works\n\nThe approach, the commitments, and what a conversation with her is actually like — in her own words rather than someone else's.\n\nAbout Debra\nRead the guides she writes\n\nThe clearest signal of how someone explains things is watching them explain something. Each guide carries an author and a reviewed date.\n\nOpen the guides\nHave the conversation yourself\n\nA consultation costs nothing and commits you to nothing. It is the most direct way to find out whether this is a fit.\n\nBook a consultation\n\nYOUR STORY IS THE NEXT ONE\n\nStart with a conversation about where you are\n\nNo pressure and no obligation — just a clear read on what your next step is, and whether now is even the right time for it.\n\nStart your own story\nMeet Debra\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
+      "images": [
+        {
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 640,
+          "naturalHeight": 427,
+          "alt": "D'Affordable Homes home",
+          "loading": "eager"
+        },
+        {
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdebra-allen-advisor-desk.webp&w=1920&q=75",
+          "naturalWidth": 864,
+          "naturalHeight": 1152,
+          "alt": "",
+          "loading": "eager"
+        },
+        {
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
+          "naturalHeight": 140,
+          "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
+          "loading": "eager"
+        }
+      ],
+      "brandArea": {
+        "total": 88.4,
+        "byColour": {
+          "navy": 63.9,
+          "teal": 0,
+          "alt": 24.5
+        }
+      },
+      "ornaments": 1,
+      "title": "Testimonials — D'Affordable Homes",
+      "description": "Real stories from people Debra has guided toward homeownership. We publish only verified, consented reviews — never invented ones.",
+      "internalLinkCount": 32,
+      "headingCount": 7
+    },
+    {
+      "route": "/market-reports",
+      "status": 200,
+      "canonical": "https://daffordablehomes.com/market-reports",
+      "jsonLd": [
+        null
+      ],
+      "h1s": [
+        "Market context, explained simply"
+      ],
+      "imagesMissingAlt": 0,
+      "unsafeHrefs": [],
+      "landmarks": {
+        "header": 1,
+        "nav": 6,
+        "main": 1,
+        "footer": 1
+      },
+      "inputsMissingLabel": 0,
+      "nestedInteractive": 0,
+      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nMarket reports\n\nMARKET CONTEXT\n\nMarket context, explained simply\n\nUnderstanding the market helps you plan with confidence. When reports are available here, they will come with an explanation of what the numbers mean for you.\n\nSourced data only\nReports are not connected yet\n\nMarket reports require a verified data source. Rather than publish estimated or invented figures, this page stays honest — real, sourced reports will appear once the data feed is connected.\n\nUNTIL THEN\n\nThree things that answer the question behind the question\n\nPeople rarely want a market report. They want to know whether now is a sensible time for them, specifically.\n\nAsk Debra what she is seeing\n\nA working REALTOR® in this market is a live data source. Tell her the area and price band and she can tell you how it is behaving.\n\nAsk Debra\nModel your own numbers\n\nPayment, affordability and cash to close, run with your figures. More useful for a decision than a regional average ever is.\n\nOpen the calculators\nRead the Garland guide\n\nLocal housing context written from knowledge rather than scraped statistics, with the questions a search there turns on.\n\nOpen the guide\n\nTHE MARKET, FOR YOUR SITUATION\n\nAsk about the market you are actually buying in\n\nA metro-wide figure rarely describes a single street or a single price band. Debra can tell you what she is seeing in yours.\n\nTalk with Debra\nExplore planning resources\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
+      "images": [
+        {
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 640,
+          "naturalHeight": 427,
+          "alt": "D'Affordable Homes home",
+          "loading": "eager"
+        },
+        {
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdebra-allen-advisor-desk.webp&w=1920&q=75",
+          "naturalWidth": 864,
+          "naturalHeight": 1152,
+          "alt": "",
+          "loading": "eager"
+        },
+        {
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
+          "naturalHeight": 140,
+          "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
+          "loading": "eager"
+        }
+      ],
+      "brandArea": {
+        "total": 87.7,
+        "byColour": {
+          "navy": 63.4,
+          "teal": 0,
+          "alt": 24.3
+        }
+      },
+      "ornaments": 1,
+      "title": "Market Reports — D'Affordable Homes",
+      "description": "Clear, honest market context to help you plan. Reports publish here once the data source is connected — never estimated or fabricated.",
+      "internalLinkCount": 32,
+      "headingCount": 7
     }
   ],
   "internalLinks": [

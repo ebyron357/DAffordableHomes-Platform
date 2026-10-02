@@ -6,6 +6,7 @@ import { DEBRA_PORTRAIT } from "@/lib/content/imagery"
 import { Band, StatusStrip } from "@/components/page/editorial"
 import { Container } from "@/components/ui/container"
 import { ContactForm } from "@/components/contact/contact-form"
+import { ProfessionalDetails } from "@/components/layout/professional-details"
 
 export const metadata: Metadata = {
   title: "Contact Debra",
@@ -75,6 +76,8 @@ export default function ContactPage() {
               <Link href="/consultation" className="dh-btn dh-btn-gold">
                 Book a consultation
               </Link>
+              {/* Phone and office, once verified. Renders nothing until then. */}
+              <ProfessionalDetails label="Other ways to reach Debra" className="dh-professional-details" />
             </aside>
           </div>
         </Container>

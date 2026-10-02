@@ -112,10 +112,12 @@
 
 ### SEO and analytics
 
-- [ ] Add metadata, canonical URLs, Open Graph, sitemap, and robots rules
-- [ ] Add structured data appropriate to each route
+- [x] Add metadata, canonical URLs, Open Graph, sitemap, and robots rules — verified 2026-10-02 (`docs/10-seo-analytics/DFW_LOCAL_SEARCH_STRATEGY.md` §9)
+- [x] Add structured data appropriate to each route — verified 2026-10-02; local-business markup waits on verified business facts
 - [ ] Create local internal-linking architecture
 - [ ] Connect GA4, Search Console, and Microsoft Clarity with consent handling where required
+- [x] Search Console and Bing ownership tags read from `GOOGLE_SITE_VERIFICATION` / `BING_SITE_VERIFICATION` (2026-10-02); verifying and submitting the sitemap is the owner's step after domain cutover
+- [x] Keyword research and on-page targeting for NACA, Texas first-time-buyer programs and the calculators (2026-10-02, `DFW_LOCAL_SEARCH_STRATEGY.md` §10)
 - [ ] Implement event taxonomy for bookings, form submissions, quiz completions, downloads, CTA clicks, property searches, and video engagement
 - [ ] Create launch dashboard
 
@@ -140,7 +142,8 @@ is `docs/12-governance/CLIENT_HANDOFF.md` Part 7 — these are its headings.
 
 - [ ] Business facts supplied and live (`apps/web/lib/site.ts` no longer all `null`)
 - [ ] Lead delivery verified end to end with a test enquiry through every form
-- [ ] `/contact` and `/consultation` message form connected to a destination the owner chooses — today it has no delivery path at all, and setting the CRM webhooks does not change that (status register blocker 6)
+- [x] `/contact` and `/consultation` message form wired to `POST /api/leads/contact` (2026-10-02, PR #32); it delivers once `LEAD_WEBHOOK_URL` or a program webhook is set, which is the "Lead delivery verified" item above
+- [x] Business-facts display and local-business markup built, hidden until each value in `apps/web/lib/site.ts` is set (2026-10-02, PR #32)
 - [ ] Owner has published, previewed and unpublished an article unaided
 - [ ] Domain, Vercel, Sanity, CRM and repository ownership settled in the owner's name
 - [ ] Prior holders' access reduced or removed

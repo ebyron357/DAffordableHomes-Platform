@@ -9,6 +9,14 @@ export const metadata: Metadata = {
   title: "Market Reports",
   description:
     "Clear, honest market context to help you plan. Reports publish here once the data source is connected — never estimated or fabricated.",
+  /*
+   * Kept out of the index until the page has content of its own. Today it is an
+   * honest "not connected yet" notice, which a search engine reads as a thin
+   * page. It stays reachable from navigation and links are still followed.
+   * Remove this — and restore the route in app/sitemap.ts — once real content
+   * is published here.
+   */
+  robots: { index: false, follow: true },
 }
 
 const INSTEAD = [

@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { BadgeCheck, MapPin, Route } from "lucide-react"
 
+import { ProfessionalDetails } from "@/components/layout/professional-details"
 import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
 import { CLIENTVERSE } from "@/lib/clientverse"
@@ -172,6 +173,8 @@ export function SiteFooter() {
             &copy; {year} {SITE.name}. All rights reserved.
           </span>
           <span>Guidance led by Debra Allen, REALTOR&reg;</span>
+          {/* Brokerage, licence, phone and office: renders nothing until verified. */}
+          <ProfessionalDetails label="Professional details" />
           {/*
             Vendor attribution. The relationship is stated explicitly rather than
             implied, and `rel="noopener"` keeps the outbound link safe.

@@ -4,6 +4,81 @@ All notable repository changes are documented here.
 
 ## 2026-10-02
 
+### Keyword research applied: titles, program FAQs, official programs, search verification
+
+Research in OpenSEO (47 credits; `DFW_LOCAL_SEARCH_STRATEGY.md` §10) showed
+where the demand is: NACA (90,500 and 40,500 monthly searches at low
+difficulty), Texas first-time-buyer programs, "steps to buying a house", and
+the calculators.
+
+- Titles and headings now use the searcher's wording, with no new claims:
+  "Steps to Buying a House, Explained", "How Much House Can I Afford?
+  Calculator", "Closing Cost Calculator", "Down Payment Calculator and
+  Planner", "NACA Program Help in Garland and DFW".
+- New FAQs, which are also in each page's `FAQPage` markup:
+  - "How does the NACA program work?"
+  - "Where can I find a NACA workshop near Dallas?"
+  - "Is Homes for Heroes the same as Homes for Texas Heroes?" Garland searches
+    for "homes for heroes texas" mostly return TSAHC's separate state program.
+- `/programs` links to the official TDHCA, TSAHC, City of Garland, City of
+  Dallas and Dallas County assistance programs. It names who runs each one and
+  states no amount or eligibility rule of its own.
+- `GOOGLE_SITE_VERIFICATION` / `BING_SITE_VERIFICATION` emit the Search
+  Console and Bing ownership tags once set in Vercel.
+
+### Contact form wired, privacy facts corrected, business facts ready to publish
+
+- **The `/contact` and `/consultation` message form now submits.** It used to
+  validate, wait 400ms and say it was not connected, on the page every
+  "Schedule a Consultation" button opens. It posts to a new
+  `POST /api/leads/contact` with the same honeypot, per-caller rate limit,
+  timing check and server-side validation as the other two lead endpoints, and
+  delivers to `LEAD_WEBHOOK_URL`, falling back to the program webhook. With no
+  webhook it says plainly that nothing was sent and offers `/start` and
+  `/resources`. `tests/static/contact-endpoint.test.mjs` calls the real handler
+  (mutation-checked). The untested root `api/consultation.js`, which no page
+  called, is retired.
+- **`/privacy` now lists what the forms actually collect** — it said name,
+  email and message only. Facts only; the legal wording stays with the
+  compliance reviewer.
+- **Brokerage, licence, phone and office display is built and hidden.**
+  `lib/business-facts.ts` renders each fact in both footers, on `/contact` and
+  on `/about` the moment it is set in `lib/site.ts`, and adds a
+  `RealEstateAgent` listing to the search markup once the address and phone are
+  both verified. Nothing shows today; `tests/static/business-facts.test.mjs`
+  pins both states.
+- **The favicon is the brand.** It was a 73 KB red "n" from PR #20; it is now the
+  DA-and-house monogram from the official logo, 13 KB.
+- **Docs:** the duplicate Vercel project does carry a custom domain,
+  `urltests.team`, which deletion detaches (earlier wording said none). Client,
+  ops and closeout docs updated for the form.
+
+### SEO, AEO and GEO audit: share metadata, titles, structured data, llms.txt
+
+An audit of every sitemap route on the merged `main` found the technical base
+sound but the share layer broken. The layout's static Open Graph block gave 23
+routes the homepage's share title, description and `og:url`, and 32 of 33
+routes had no share image at all. A route that declares its own `openGraph`
+replaces the layout's wholesale in Next, so a single default could not reach
+them. Now:
+
+- One branded share card (`lib/seo.ts`), named explicitly wherever a route
+  declares `openGraph`; share titles, descriptions and `og:url` come from each
+  route.
+- Titles fit in 60 characters and descriptions in 70–160, rewritten with no new
+  claims; CMS article titles drop the brand suffix when it would overflow.
+- `/testimonials` and `/market-reports` are `noindex` and out of the sitemap
+  until they have real content; `qa:audit` still crawls both.
+- The 404 page no longer carries contradictory robots directives.
+- Article JSON-LD links the byline to the site's Person entity, carries the
+  publisher logo, and spells topics as published ("NACA", not "Naca").
+- `/llms.txt`, generated from site sources, including what the site does not do.
+- `tests/static/search-metadata.test.mjs` pins each fix.
+
+The full scorecard, including what stays blocked on owner facts, is in
+`docs/10-seo-analytics/DFW_LOCAL_SEARCH_STRATEGY.md` §9. None of it counts until
+the domain is cut over.
+
 ### Release-captain verification: one compliance fix, documentation corrected to match the code
 
 Every gate was re-run on `21662ec` under Node 24 and the hosting state was read

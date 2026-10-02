@@ -9,7 +9,7 @@ import { CLOSING_BAND_IMAGE, DEBRA_LIFESTYLE } from "@/lib/content/imagery"
 export const metadata: Metadata = {
   title: "North Texas Homebuyer Area Guides",
   description:
-    "Useful, differentiated homebuyer guidance for Garland and the Dallas–Fort Worth communities around it — written from local knowledge rather than copied city pages or unsupported market statistics.",
+    "Homebuyer guidance for Garland and the Dallas–Fort Worth communities around it, written from local knowledge, not copied city pages or unsupported statistics.",
   alternates: { canonical: "/areas" },
 }
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { BadgeCheck, BookOpen, HeartHandshake, MapPin, Scale, ShieldCheck, Sprout } from "lucide-react"
 import { UNVERIFIED_TRUST_FACTS } from "@/lib/site"
+import { ProfessionalDetails } from "@/components/layout/professional-details"
 import { PageHeader } from "@/components/page/page-header"
 import { Band, BandLead, CtaBand, Features, Split, StatusStrip } from "@/components/page/editorial"
 import { CLOSING_BAND_IMAGE, DEBRA_LIFESTYLE, DEBRA_PORTRAIT } from "@/lib/content/imagery"
@@ -107,16 +108,18 @@ export default function AboutPage() {
         <Features items={values} rule="gold" />
       </Band>
 
-      {!UNVERIFIED_TRUST_FACTS.brokerageName && (
-        <Band tone="white" tight aria-label="Professional details">
+      <Band tone="white" tight aria-label="Professional details">
+        {UNVERIFIED_TRUST_FACTS.brokerageName ? (
+          <ProfessionalDetails label="Professional details" className="dh-professional-details" />
+        ) : (
           <StatusStrip icon={ShieldCheck} title="Professional details are published once they are confirmed">
             <p>
               Brokerage affiliation, license number, service areas and professional certifications will appear here when
               they are verified for release. We publish credentials we can stand behind, and nothing before then.
             </p>
           </StatusStrip>
-        </Band>
-      )}
+        )}
+      </Band>
 
       <CtaBand
         eyebrow="Wherever you are in it"

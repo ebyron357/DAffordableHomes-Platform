@@ -209,8 +209,21 @@ export const article = defineType({
       title: "SEO title",
       type: "string",
       group: "seo",
-      description: "Optional. Falls back to the article title.",
-      validation: (rule) => rule.max(70),
+      description:
+        "Optional. Falls back to the article title. Search results show about 60 characters, so write one whenever the title is longer.",
+      validation: (rule) => [
+        rule.max(60),
+        // A warning, not an error: the site shortens an over-long title on its
+        // own (lib/seo.ts), but an editor's wording beats an automatic cut.
+        rule
+          .custom((value, context) => {
+            const title = (context.document as { title?: string } | undefined)?.title ?? ""
+            return !value && title.length > 60
+              ? "The article title is over 60 characters. Add an SEO title of 60 or fewer, or search results will cut it off."
+              : true
+          })
+          .warning(),
+      ],
     }),
     defineField({
       name: "seoDescription",

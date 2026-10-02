@@ -1,16 +1,30 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, BadgeCheck, ClipboardCheck, Compass, HeartHandshake, MapPin, ShieldCheck } from "lucide-react"
+import {
+  ArrowRight,
+  BadgeCheck,
+  Building2,
+  ClipboardCheck,
+  Compass,
+  GraduationCap,
+  HandCoins,
+  HeartHandshake,
+  Home,
+  Landmark,
+  MapPin,
+  ShieldCheck,
+} from "lucide-react"
 import { PageHeader } from "@/components/page/page-header"
-import { Band, BandLead, CtaBand, Split, StatusStrip } from "@/components/page/editorial"
+import { Band, BandLead, CtaBand, Features, Split, StatusStrip, type Feature } from "@/components/page/editorial"
 import { CLOSING_BAND_IMAGE, DEBRA_PORTRAIT } from "@/lib/content/imagery"
 import { PROGRAM_CARDS } from "@/lib/programs"
 import { SITE } from "@/lib/site"
+import { SHARE_IMAGES } from "@/lib/seo"
 
 export const metadata: Metadata = {
-  title: "Homebuyer Programs for Garland and Dallas–Fort Worth",
+  title: "Homebuyer Programs in Garland and DFW",
   description:
-    "Explore independent NACA homebuyer guidance and Homes for Heroes real-estate support from D'Affordable Homes, with a practical North Texas focus.",
+    "NACA and Homes for Heroes guidance from Debra Allen, REALTOR®, plus the official Texas, Dallas and Garland homebuyer assistance programs to check.",
   alternates: { canonical: "/programs" },
   openGraph: {
     title: "Homebuyer Programs | D'Affordable Homes",
@@ -18,6 +32,7 @@ export const metadata: Metadata = {
       "Program-specific real-estate guidance for buyers and community heroes exploring Garland and the Dallas–Fort Worth region.",
     url: "/programs",
     type: "website",
+    ...SHARE_IMAGES,
   },
 }
 
@@ -25,6 +40,59 @@ const PROGRAM_ICONS = {
   naca: ClipboardCheck,
   "homes-for-heroes": HeartHandshake,
 } as const
+
+/**
+ * Public assistance programs run by state, county and city agencies.
+ *
+ * Search demand for Texas and Dallas first-time-buyer programs is far higher
+ * than for any single program name (OpenSEO, 2026-10-02), and the results are
+ * led by these agencies' own pages. Listing them, with what each one is and a
+ * link to the source, answers that search honestly: the site names who runs
+ * each program and sends the reader there, and states no amount, limit or
+ * eligibility rule of its own. Each URL is the agency's own page, and each was
+ * confirmed live, with the program names used here, on 2026-10-02. Re-check
+ * them, and the date in the lede, whenever this list changes.
+ */
+const officialPrograms: Feature[] = [
+  {
+    title: "Texas Homebuyer Program (TDHCA)",
+    body: "The Texas Department of Housing and Community Affairs offers statewide down payment assistance and low-interest mortgages through a network of participating lenders.",
+    href: "https://welcomehome.tdhca.texas.gov/welcome-home",
+    icon: Landmark,
+    action: "TDHCA's official page",
+  },
+  {
+    title: "TSAHC home loans and down payment assistance",
+    body: "The Texas State Affordable Housing Corporation runs statewide programs, including Homes for Texas Heroes and Home Sweet Texas, through participating lenders.",
+    href: "https://www.tsahc.org/homebuyers-renters/loans-and-down-payment-assistance/",
+    icon: HandCoins,
+    tone: "gold",
+    action: "TSAHC's official page",
+  },
+  {
+    title: "City of Garland Home Ownership Program",
+    body: "The City of Garland's homeownership option for eligible Housing Choice Voucher participants, run by the city.",
+    href: "https://www.garlandtx.gov/478/Home-Ownership-Program",
+    icon: Home,
+    tone: "green",
+    action: "City of Garland's page",
+  },
+  {
+    title: "Dallas Homebuyer Assistance Program",
+    body: "City of Dallas assistance for eligible low- and moderate-income households buying a home in the City of Dallas. Garland is a separate city.",
+    href: "https://dallascityhall.com/departments/housing-and-homelessness/pages/dallas-homebuyer-assistance-program-dhap.aspx",
+    icon: Building2,
+    action: "City of Dallas page",
+  },
+  {
+    title: "Dallas County Home Loan Counseling Center",
+    body: "Dallas County Health and Human Services offers homebuyer education, mortgage counseling and down payment assistance programs.",
+    href: "https://www.dallascounty.org/departments/dchhs/human-services/home-loan.php",
+    icon: GraduationCap,
+    tone: "navy",
+    action: "Dallas County's page",
+  },
+]
 
 const futurePrograms = [
   "First-Time Homebuyer Assistance",
@@ -152,6 +220,17 @@ export default function ProgramsPage() {
             </p>
           </StatusStrip>
         </Split>
+      </Band>
+
+      <Band tone="white" aria-labelledby="official-programs-heading">
+        <BandLead
+          eyebrow="Official sources"
+          eyebrowIcon={Landmark}
+          title="Texas, Dallas and Garland homebuyer assistance programs"
+          titleId="official-programs-heading"
+          lede="State, county and city agencies run their own down payment and mortgage assistance, each with its own eligibility and income limits. These are their official pages. A participating lender confirms what you qualify for, and Debra can help with the real-estate side of any of them. Links checked October 2, 2026."
+        />
+        <Features items={officialPrograms} rule="teal" />
       </Band>
 
       <Band tone="navy" tight aria-labelledby="future-programs-heading">

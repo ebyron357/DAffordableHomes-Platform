@@ -7,7 +7,7 @@
 - NACA form: `/programs/naca`
 - Homes for Heroes form: `/programs/homes-for-heroes`
 - Server endpoint: `POST /api/leads/program`
-- Recovered public consultation form: `POST /api/consultation`
+- Contact and consultation message form (`/contact`, `/consultation`): `POST /api/leads/contact`
 
 ## Normalized values
 
@@ -22,9 +22,13 @@ Configure one of the following in Vercel. Do not expose either value through `NE
 
 - `PROGRAM_LEAD_WEBHOOK_URL` — preferred provider-neutral server webhook
 - `GHL_PROGRAM_LEAD_WEBHOOK_URL` — supported alias for a GoHighLevel workflow webhook
-- `LEAD_WEBHOOK_URL` — optional consultation-specific override used by the recovered public site
+- `LEAD_WEBHOOK_URL` — optional destination for the contact and consultation message form
 
-The recovered public consultation endpoint first uses `LEAD_WEBHOOK_URL`, then falls back to the existing program webhook variables. It can alternatively deliver through Resend when `RESEND_API_KEY` and `LEAD_NOTIFICATION_EMAIL` are configured.
+`POST /api/leads/contact` first uses `LEAD_WEBHOOK_URL`, then falls back to the program webhook variables, so setting only the GoHighLevel program webhook delivers both the program forms and the message form. With none of the three set it returns 503 and the form says plainly that the message was not sent.
+
+The message form sends `name`, `email`, `phone`, `preferredConnection`, `buyerStage`, `message`, `source` (`Consultation request` or `Contact form`), `submittedAt` and `pageUrl`. It follows the same contract as the program endpoint: honeypot, per-caller rate limit, elapsed-time check, bounded and allow-listed fields, eight-second timeout, no logging of the payload.
+
+The root `api/consultation.js` handler from the recovered site was retired on 2026-10-02. No page called it, it had no tests, and its optional Resend email path was never documented in `.env.example`; the message form now posts to `/api/leads/contact` instead.
 
 ## Captured fields
 

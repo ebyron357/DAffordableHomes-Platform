@@ -1,6 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
 import { BadgeCheck, MapPin, Route } from "lucide-react"
+import { ProfessionalDetails } from "@/components/layout/professional-details"
+import { hasDirectContact } from "@/lib/business-facts"
 import { CLIENTVERSE } from "@/lib/clientverse"
 import { FIGMA_FOOTER_LEGAL, FIGMA_FOOTER_LINKS } from "@/lib/figma-home"
 import { SITE } from "@/lib/site"
@@ -138,10 +140,13 @@ export function FigmaHomeFooter() {
             </li>
           </ul>
           {/* Stated rather than silently omitted: an empty contact column reads
-              as neglect, a fabricated phone number is worse than both. */}
-          <p className="fh-footer-note">
-            Direct phone and office details are published here once they are confirmed for release.
-          </p>
+              as neglect, a fabricated phone number is worse than both. Once a
+              phone or office is verified the details below replace this. */}
+          {!hasDirectContact() && (
+            <p className="fh-footer-note">
+              Direct phone and office details are published here once they are confirmed for release.
+            </p>
+          )}
         </nav>
       </div>
 
@@ -160,6 +165,8 @@ export function FigmaHomeFooter() {
             {CLIENTVERSE.relationshipNote}
           </span>
         </p>
+        {/* Brokerage, licence, phone and office: renders nothing until verified. */}
+        <ProfessionalDetails label="Professional details" className="fh-footer-details" />
         <nav aria-label="Legal and compliance" className="fh-footer-legal">
           <ul>
             {FIGMA_FOOTER_LEGAL.map((link) =>

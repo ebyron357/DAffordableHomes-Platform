@@ -1,11 +1,12 @@
 import type { Metadata } from "next"
 import { ProgramPage } from "@/components/programs/program-page"
 import { PROGRAMS } from "@/lib/programs"
+import { SHARE_IMAGES } from "@/lib/seo"
 
 export const metadata: Metadata = {
-  title: "Homes for Heroes Real-Estate Guidance in North Texas",
+  title: "Homes for Heroes Help in North Texas",
   description:
-    "Buying, selling, and move-planning guidance for veterans, military families, teachers, healthcare workers, firefighters, EMS, and law-enforcement professionals exploring Garland and Dallas–Fort Worth.",
+    "Buying, selling, and move guidance for veterans, military families, teachers, healthcare workers, firefighters, EMS, and law enforcement in Garland and DFW.",
   alternates: { canonical: "/programs/homes-for-heroes" },
   openGraph: {
     title: "Homes for Heroes Guidance | D'Affordable Homes",
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
       "North Texas real-estate guidance for eligible community heroes, without unsupported savings or affiliation claims.",
     url: "/programs/homes-for-heroes",
     type: "website",
+    ...SHARE_IMAGES,
   },
 }
 

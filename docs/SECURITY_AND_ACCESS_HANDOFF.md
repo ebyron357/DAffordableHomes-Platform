@@ -86,6 +86,7 @@ store. The complete list of privileged surfaces:
 | `/api/revalidate` | Only a caller with a valid Sanity webhook signature | Signature verified before anything is revalidated; 401 otherwise |
 | `/api/leads/next-step` | Anyone | Honeypot, rate limit, timing check, field validation, allow-listed enum, server-side address validation |
 | `/api/leads/program` | Anyone | The same, as of `d350db2` |
+| `/api/leads/contact` | Anyone | The same, plus allow-listed `preferredConnection` and `buyerStage`; added 2026-10-02 |
 
 ---
 

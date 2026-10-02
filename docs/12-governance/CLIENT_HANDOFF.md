@@ -34,16 +34,11 @@ required by `docs/PROJECT_COMPLETION_STANDARD.md` carry the detail:
 ## Part 1 — What you are receiving
 
 An education-first website for D'Affordable Homes: 33 public pages, a
-homebuying-path quiz, planning calculators, three long-form guides, and two
-lead forms (`/start` and the program pages) built to route enquiries to your CRM
-once its webhook addresses are set.
-
-**Not included yet:** the message form on `/contact` and `/consultation` — the
-page every "Schedule a Consultation" and "Talk with Debra" button opens — has no
-delivery path at all. It tells the visitor it is not connected and asks them to
-reach out directly, and the site publishes no phone number or email to reach out
-to. Setting the CRM webhooks does **not** fix this form; it needs a small code
-change, after you decide where its messages should go (Part 3.3).
+homebuying-path quiz, planning calculators, three long-form guides, and three
+forms — `/start`, the program pages, and the message form on `/contact` and
+`/consultation` — built to route enquiries to your CRM once its webhook
+addresses are set (Part 3.3). Until then each form tells the visitor plainly
+that it was not sent, rather than accepting a message and losing it.
 
 **What you can change yourself, with no developer:** every article — write,
 edit, preview before publishing, unpublish. See Part 4.
@@ -107,14 +102,21 @@ brokerageName        licenseNumber        licenseState
 businessAddress      phoneNumber          serviceAreas
 ```
 
-Send your developer the real values. Wiring them in is a small change, but it
-is a change: today the only code that reads these fields is the About page's
-"published once they are confirmed" notice, which hides itself once
-`brokerageName` is set. Nothing yet **displays** a phone number, address,
-brokerage or licence, so the brokerage/licence disclosure and the contact
-details need a display added, and your broker should approve where it sits.
-`tests/static/programs.test.mjs` asserts the service-area lists are empty today
-and changes with them.
+Send your developer the real values; filling them in is the whole change. Each
+one appears on its own once it is set, and nothing shows while it is `null`
+(`apps/web/lib/business-facts.ts`):
+
+- brokerage, licence, phone and office in both footers, on `/contact`, and on
+  `/about` in place of its "published once they are confirmed" notice;
+- the phone number as a tap-to-call link;
+- once **both** the address and the phone number are set, a local-business
+  listing (`RealEstateAgent`) in the site's search markup, with the service
+  areas and brokerage when those are set too.
+
+Your broker should approve the wording and placement before the values go in —
+Texas expects the sponsoring broker's name wherever a licence holder
+advertises. `tests/static/programs.test.mjs` asserts the service-area lists are
+empty today and changes with them.
 
 Three further fields are optional and stay `null` unless you want them shown,
 because an unverified number here would be a fabricated credential:
@@ -152,9 +154,15 @@ GHL_PROGRAM_LEAD_WEBHOOK_URL
 NEXT_STEP_LEAD_WEBHOOK_URL
 ```
 
+`LEAD_WEBHOOK_URL` receives the `/contact` and `/consultation` message form;
+when it is not set, that form uses the program webhook instead, so a single
+GoHighLevel webhook in `GHL_PROGRAM_LEAD_WEBHOOK_URL` is enough for both.
+`/start` needs its own `NEXT_STEP_LEAD_WEBHOOK_URL`.
+
 Until these exist the forms are honest about being unavailable rather than
 accepting an enquiry and dropping it. After setting them, send one test enquiry
-through each form and confirm it arrives.
+through each form — `/start`, `/programs/naca`, `/programs/homes-for-heroes`,
+`/contact` and `/consultation` — and confirm it arrives.
 
 ### 3.4 Content system
 
@@ -172,7 +180,24 @@ so it looks in `apps/web/apps/web/.next` **after a completely successful build**
 No code change fixes it without breaking the working project.
 
 Delete that project, or correct its Root Directory. The working one is
-`daffordablehomes-platform`.
+`daffordablehomes-platform`. Deleting it detaches the unused `urltests.team`
+domain; the domain itself stays in your Vercel team.
+
+### 3.6 Search engines and Google Business Profile
+
+Do these after the domain points at the new site. The full plan, with the
+keyword data behind it, is `docs/10-seo-analytics/DFW_LOCAL_SEARCH_STRATEGY.md`
+§10.
+
+1. In Google Search Console, add `https://daffordablehomes.com`, choose the
+   **HTML tag** method and copy the token. In Bing Webmaster Tools, choose
+   **Meta tag** and copy that token.
+2. Set them in Vercel as `GOOGLE_SITE_VERIFICATION` and
+   `BING_SITE_VERIFICATION` (pasting the whole tag also works), then redeploy.
+3. Click **Verify** in each, then submit `https://daffordablehomes.com/sitemap.xml`.
+4. Create and verify a **Google Business Profile** for Debra as a real estate
+   agent, with exactly the name, address and phone you supply in 3.1. Searches
+   like "realtor garland tx" are won in that map listing, not on the website.
 
 ---
 

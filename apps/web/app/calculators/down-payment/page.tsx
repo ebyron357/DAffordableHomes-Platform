@@ -4,8 +4,9 @@ import { PageHeader } from "@/components/page/page-header"
 import { Section } from "@/components/page/section"
 
 export const metadata: Metadata = {
-  title: "Down Payment & Closing Cost Planner",
-  description: "Estimate down payment, closing costs, and other cash needed.",
+  title: "Down Payment Calculator and Planner",
+  description:
+    "Estimate your down payment, closing costs, and the other cash you may need to buy a home. A planning estimate only, not a loan quote or approval.",
   alternates: { canonical: "/calculators/down-payment" },
 }
 
@@ -14,7 +15,7 @@ export default function DownPaymentPlannerPage() {
     <>
       <PageHeader
         eyebrow="Planning tool"
-        title="Down payment & closing cost planner"
+        title="Down payment calculator and planner"
         description="Estimate down payment, closing costs, and other cash needed."
       />
       <Section>

@@ -28,6 +28,53 @@ export function authorProfilePath(article: Article): string {
   return toSafeInternalPath(article.author.url, "/about")
 }
 
+/**
+ * Display names for the CMS topic values.
+ *
+ * Title-casing the slug produced "Naca" and "Dallas Fort Worth" — a misspelled
+ * program name published as the article's subject. These mirror the `title` of
+ * each option in `cms/schema/documents/article.ts`; a test fails if a schema
+ * value has no entry here. Unknown values still fall back to title case.
+ */
+export const TOPIC_LABELS: Record<string, string> = {
+  naca: "NACA",
+  "homes-for-heroes": "Homes for Heroes",
+  "first-time-buyers": "First-time buyer programs",
+  garland: "Garland",
+  "dallas-fort-worth": "Dallas–Fort Worth",
+  "north-texas": "North Texas",
+}
+
+function topicLabel(topic: string): string {
+  return (
+    TOPIC_LABELS[topic] ??
+    topic
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ")
+  )
+}
+
+/**
+ * The article's author as a schema.org Person.
+ *
+ * When the author is the site's own REALTOR®, the node carries the same `@id`
+ * as the Person in the site-wide graph (app/layout.tsx), so search and answer
+ * engines resolve the byline to one entity instead of an unlinked name. The
+ * role is published as `jobTitle`, not appended to the name: "Debra Allen,
+ * REALTOR®" is a person plus a title, not a different person.
+ */
+function authorNode(article: Article): Record<string, unknown> {
+  const isSiteRealtor = article.author.name === SITE.realtorLegalName
+  return {
+    "@type": "Person",
+    ...(isSiteRealtor ? { "@id": `${SITE.url}/#debra-allen` } : {}),
+    name: article.author.name,
+    ...(article.author.role ? { jobTitle: article.author.role } : {}),
+    url: absolute(authorProfilePath(article)),
+  }
+}
+
 export function articleJsonLd(article: Article): Record<string, unknown> {
   const url = `${SITE.url}/blog/${article.slug}`
   const image = article.socialImage ?? article.featuredImage
@@ -47,25 +94,17 @@ export function articleJsonLd(article: Article): Record<string, unknown> {
     // asserting that an unrelated photograph depicts it.
     ...(image ? { image: [absolute(image.src)] } : {}),
     inLanguage: "en-US",
-    author: {
-      "@type": "Person",
-      name: article.author.role
-        ? `${article.author.name}, ${article.author.role}`
-        : article.author.name,
-      url: absolute(authorProfilePath(article)),
-    },
+    author: authorNode(article),
     publisher: {
       "@type": "Organization",
       "@id": `${SITE.url}/#organization`,
       name: SITE.name,
       url: SITE.url,
+      logo: { "@type": "ImageObject", url: `${SITE.url}/images/daffordable-homes-official-logo.png` },
     },
     about: [...article.programs, ...article.areas].map((topic) => ({
       "@type": "Thing",
-      name: topic
-        .split("-")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" "),
+      name: topicLabel(topic),
     })),
     citation: citations(article),
   }

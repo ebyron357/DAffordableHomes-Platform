@@ -4,6 +4,7 @@ import { FAQ_PREVIEW } from "@/lib/content/home"
 import { listArticles } from "@/lib/blog/source"
 import { searchListings } from "@/lib/mls/provider"
 import { SITE } from "@/lib/site"
+import { SHARE_IMAGES } from "@/lib/seo"
 
 const HOME_TITLE = "Debra Allen, REALTOR® | Garland + DFW Home Guidance"
 const HOME_DESCRIPTION =
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
       "Clear, practical residential real-estate guidance for first-time buyers and families preparing to buy in Garland and Dallas–Fort Worth.",
     url: "/",
     type: "website",
+    ...SHARE_IMAGES,
   },
   twitter: {
     card: "summary_large_image",

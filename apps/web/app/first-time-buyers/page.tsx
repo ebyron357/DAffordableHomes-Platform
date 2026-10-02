@@ -18,9 +18,9 @@ import { Band, BandLead, CtaBand, Features, Split, StatusStrip, Steps } from "@/
 import { CLOSING_BAND_IMAGE, DEBRA_PORTRAIT } from "@/lib/content/imagery"
 
 export const metadata: Metadata = {
-  title: "First-Time Buyer Education",
+  title: "Steps to Buying a House, Explained",
   description:
-    "A plain-language introduction to the homebuying process for first-time buyers and renters. Understand the steps before you take them — no pressure, no jargon.",
+    "The steps to buying a house, in plain language for first-time buyers and renters: get ready, search, offer, inspect and close. No pressure, no jargon.",
   alternates: { canonical: "/first-time-buyers" },
 }
 
