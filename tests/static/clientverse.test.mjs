@@ -155,3 +155,31 @@ test('no ClientVerse credentials are committed', () => {
 
   assert.equal(existsSync('.env'), false);
 });
+
+
+test('no workflow step interpolates a GitHub expression into its shell body', () => {
+  const source = read('.github/workflows/clientverse-audit.yml');
+  const lines = source.split('\n');
+  const offenders = [];
+  let inRunBlock = false;
+  let runIndent = 0;
+
+  for (const [index, line] of lines.entries()) {
+    if (/^\s*#/.test(line)) continue;
+    const run = line.match(/^(\s*)run:\s*\|/);
+    if (run) {
+      inRunBlock = true;
+      runIndent = run[1].length;
+      continue;
+    }
+    if (!inRunBlock) continue;
+    const indent = line.match(/^(\s*)/)[1].length;
+    if (line.trim() !== '' && indent <= runIndent) {
+      inRunBlock = false;
+    } else if (line.includes('${{')) {
+      offenders.push(`${index + 1}: ${line.trim()}`);
+    }
+  }
+
+  assert.deepEqual(offenders, []);
+});
