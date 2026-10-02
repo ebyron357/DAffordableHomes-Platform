@@ -6,7 +6,7 @@
  * without a code change.
  */
 
-import { toSafeInternalPath } from "@/lib/safe-path"
+import { toSafeHref, toSafeInternalPath } from "@/lib/safe-path"
 import { SITE } from "@/lib/site"
 import type { Article, ArticleBlock, ArticleFaq } from "./types"
 
@@ -67,15 +67,25 @@ export function articleJsonLd(article: Article): Record<string, unknown> {
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(" "),
     })),
-    citation: article.sources.map((source) => ({
-      "@type": "CreativeWork",
-      name: source.label,
-      url: source.href,
-      ...(source.publisher
-        ? { publisher: { "@type": "Organization", name: source.publisher } }
-        : {}),
-    })),
+    citation: citations(article),
   }
+}
+
+function citations(article: Article): Record<string, unknown>[] {
+  return article.sources.flatMap((source) => {
+    const href = toSafeHref(source.href)
+    if (!href) return []
+    return [
+      {
+        "@type": "CreativeWork",
+        name: source.label,
+        url: href.startsWith("/") ? `${SITE.url}${href}` : href,
+        ...(source.publisher
+          ? { publisher: { "@type": "Organization", name: source.publisher } }
+          : {}),
+      },
+    ]
+  })
 }
 
 export function breadcrumbJsonLd(article: Article): Record<string, unknown> {
