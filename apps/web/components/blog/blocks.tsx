@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ArticlePlate, BlogFigure, plateVariantFor } from "@/components/blog/blog-image"
 import { Prose } from "@/components/blog/portable-text"
 import { Button } from "@/components/ui/button"
+import { toEmbedUrl } from "@/lib/blog/embeds"
 import { cn } from "@/lib/utils"
 import { toSafeHref } from "@/lib/safe-path"
 import type {
@@ -619,18 +620,3 @@ function slugify(value: string): string {
     .slice(0, 48)
 }
 
-function toEmbedUrl(url: string, provider: "youtube" | "vimeo"): string | null {
-  try {
-    const parsed = new URL(url)
-    if (provider === "youtube") {
-      const id =
-        parsed.searchParams.get("v") ??
-        (parsed.hostname.endsWith("youtu.be") ? parsed.pathname.slice(1) : null)
-      return id ? `https://www.youtube-nocookie.com/embed/${id}` : null
-    }
-    const id = parsed.pathname.split("/").filter(Boolean).pop()
-    return id ? `https://player.vimeo.com/video/${id}` : null
-  } catch {
-    return null
-  }
-}
