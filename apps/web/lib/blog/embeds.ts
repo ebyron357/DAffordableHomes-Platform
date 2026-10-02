@@ -15,8 +15,8 @@ const YOUTUBE_HOSTS = new Set([
 
 const VIMEO_HOSTS = new Set(["vimeo.com", "www.vimeo.com", "player.vimeo.com"])
 
-const YOUTUBE_ID = /^[\\w-]{11}$/
-const VIMEO_ID = /^\\d+$/
+const YOUTUBE_ID = /^[\w-]{11}$/
+const VIMEO_ID = /^\d+$/
 
 export function toEmbedUrl(
   url: string | null | undefined,
@@ -39,15 +39,15 @@ export function toEmbedUrl(
       parsed.hostname === "youtu.be"
         ? parsed.pathname.split("/").filter(Boolean)[0]
         : (parsed.searchParams.get("v") ??
-          (/^\\/(embed|shorts|v)\\//.test(parsed.pathname)
+          (/^\/(embed|shorts|v)\//.test(parsed.pathname)
             ? parsed.pathname.split("/").filter(Boolean)[1]
             : undefined))
-    return id && YOUTUBE_ID.test(id) ? `https://www.youtube-nocookie.com/embed/${id}` : null
+    return id && YOUTUBE_ID.test(id) ? \`https://www.youtube-nocookie.com/embed/\${id}\` : null
   }
 
   if (!VIMEO_HOSTS.has(parsed.hostname)) return null
   const id = parsed.pathname.split("/").filter(Boolean).pop()
-  return id && VIMEO_ID.test(id) ? `https://player.vimeo.com/video/${id}` : null
+  return id && VIMEO_ID.test(id) ? \`https://player.vimeo.com/video/\${id}\` : null
 }
 
 export function isEmbeddableVideoUrl(
