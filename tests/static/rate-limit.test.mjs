@@ -92,17 +92,20 @@ test("a refusal at capacity still carries a usable Retry-After", () => {
   assert.ok(refused.retryAfter >= 1, "a capacity refusal must not report Retry-After 0")
 })
 
-test("an expired window is replaced without consuming capacity", () => {
+test("an expired window is replaced without consuming capacity", (t) => {
   __resetRateLimitForTests()
+
+  // The clock is frozen. With real time the first two calls can straddle a
+  // millisecond boundary, the 1ms window then legitimately expires between
+  // them, and "inside the window" is false — measured at about 1 run in 9,000
+  // on an idle machine, more often on a loaded CI runner.
+  t.mock.timers.enable({ apis: ["Date"], now: 1_000_000 })
 
   const tiny = { limit: 1, windowMs: 1 }
   assert.equal(rateLimit("expiry", "3.3.3.3", tiny).ok, true)
   assert.equal(rateLimit("expiry", "3.3.3.3", tiny).ok, false, "a second request inside the window")
 
-  const start = Date.now()
-  while (Date.now() - start < 5) {
-    // Wait out the 1ms window without a timer, so the test stays synchronous.
-  }
+  t.mock.timers.tick(2)
 
   assert.equal(
     rateLimit("expiry", "3.3.3.3", tiny).ok,
