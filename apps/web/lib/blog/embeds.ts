@@ -42,12 +42,12 @@ export function toEmbedUrl(
           (/^\/(embed|shorts|v)\//.test(parsed.pathname)
             ? parsed.pathname.split("/").filter(Boolean)[1]
             : undefined))
-    return id && YOUTUBE_ID.test(id) ? \`https://www.youtube-nocookie.com/embed/\${id}\` : null
+    return id && YOUTUBE_ID.test(id) ? "https://www.youtube-nocookie.com/embed/" + id : null
   }
 
   if (!VIMEO_HOSTS.has(parsed.hostname)) return null
   const id = parsed.pathname.split("/").filter(Boolean).pop()
-  return id && VIMEO_ID.test(id) ? \`https://player.vimeo.com/video/\${id}\` : null
+  return id && VIMEO_ID.test(id) ? "https://player.vimeo.com/video/" + id : null
 }
 
 export function isEmbeddableVideoUrl(
