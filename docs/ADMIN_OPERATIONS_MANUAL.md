@@ -130,10 +130,11 @@ permits.
 | `NEXT_PUBLIC_SANITY_API_VERSION` | public | Vercel | Optional; defaults to 2026-08-01 |
 | `SANITY_API_READ_TOKEN` | **server only** | Vercel | Draft preview. Without it `/api/draft-mode/enable` returns 503 |
 | `SANITY_REVALIDATE_SECRET` | **server only** | Vercel, and the Sanity webhook | Publish-triggered revalidation. Must match on both sides |
-| `LEAD_WEBHOOK_URL` | **server only** | Vercel | `/api/leads/contact`; falls back to the program webhook |
-| `PROGRAM_LEAD_WEBHOOK_URL` | **server only** | Vercel | `/api/leads/program` |
-| `GHL_PROGRAM_LEAD_WEBHOOK_URL` | **server only** | Vercel | Fallback for the above |
-| `NEXT_STEP_LEAD_WEBHOOK_URL` | **server only** | Vercel | `/api/leads/next-step` |
+| `LEAD_WEBHOOK_URL` | **server only** | Vercel | `/api/leads/contact` first choice |
+| `PROGRAM_LEAD_WEBHOOK_URL` | **server only** | Vercel | `/api/leads/program` first choice |
+| `GHL_PROGRAM_LEAD_WEBHOOK_URL` | **server only** | Vercel | GoHighLevel alias; **any one of these four delivers every form** |
+| `NEXT_STEP_LEAD_WEBHOOK_URL` | **server only** | Vercel | `/api/leads/next-step` first choice |
+| `GHL_BOOKING_URL` | public by nature | Vercel | The booking calendar on `/consultation`, and its `frame-src` allowance. Redeploy after changing |
 | `CLIENTVERSE_ENDPOINT` | CI | GitHub repository **variable** | The ClientVerse audit |
 | `CLIENTVERSE_DEPLOYMENT_URL` | CI | GitHub repository **variable** | The ClientVerse audit |
 | `CLIENTVERSE_TOKEN` | CI | GitHub repository **secret** | The ClientVerse audit |
@@ -167,8 +168,12 @@ validation → webhook URL present.
 `submittedAt`, `pageUrl`.
 
 **Responses:** 200 delivered · 400 invalid · 429 rate-limited or too fast ·
-503 `NEXT_STEP_LEAD_WEBHOOK_URL` unset · 502 the CRM rejected it or timed out
-(8s).
+503 no usable lead webhook (see `lib/lead-delivery.ts` for the order) · 502 the
+CRM rejected it or timed out (8s).
+
+Every lead route also sends `first_name`, `last_name`, `full_name`, `email`,
+`phone` and `lead_type`, so one GoHighLevel mapping fits every form; see
+`docs/08-integrations/GHL_SETUP.md`.
 
 ### `POST /api/leads/program`
 

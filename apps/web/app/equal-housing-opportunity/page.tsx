@@ -15,7 +15,11 @@ export const metadata: Metadata = {
 export default function EqualHousingPage() {
   return (
     <>
-      <PageHeader eyebrow="Our commitment" title="Equal Housing Opportunity" />
+      <PageHeader
+        eyebrow="Our commitment"
+        title="Equal Housing Opportunity"
+        crumbs={[{ label: "Home", href: "/" }, { label: "Equal Housing Opportunity" }]}
+      />
       <Section>
         <Container>
           <div className="mb-8 flex items-center gap-4 rounded-xl border border-border bg-card p-6">

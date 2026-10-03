@@ -3,7 +3,7 @@ import { Inter, Source_Serif_4 } from "next/font/google"
 import { HideOnHome } from "@/components/layout/hide-on-home"
 import { SiteHeader } from "@/components/layout/site-header"
 import { SiteFooter } from "@/components/layout/site-footer"
-import { localBusinessJsonLd } from "@/lib/business-facts"
+import { localBusinessJsonLd, sameAs } from "@/lib/business-facts"
 import { SHARE_IMAGES, searchVerification } from "@/lib/seo"
 import { SITE } from "@/lib/site"
 import "./globals.css"
@@ -130,8 +130,8 @@ const entityGraph = {
       // homepage; see docs/05-content/IMAGE_ASSET_REGISTER.md.
       image: `${SITE.url}/images/debra-allen-primary-about.webp`,
       // Only subjects this site publishes guidance on. No service area,
-      // address, phone, licence or `sameAs` profile is asserted until those
-      // facts are verified — see UNVERIFIED_TRUST_FACTS in lib/site.ts.
+      // address, phone or licence is asserted until those facts are verified —
+      // see UNVERIFIED_TRUST_FACTS in lib/site.ts.
       knowsAbout: [
         "First-time home buying",
         "NACA homebuying program",
@@ -140,6 +140,8 @@ const entityGraph = {
         "Buying a home in Dallas–Fort Worth",
       ],
       worksFor: { "@id": `${SITE.url}/#organization` },
+      // Her own public profiles, once supplied in lib/site.ts; nothing until then.
+      ...sameAs(),
     },
     // The local listing appears only once the office address and phone number
     // are both verified; until then this adds nothing. See lib/business-facts.ts.

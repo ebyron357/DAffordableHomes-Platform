@@ -36,8 +36,8 @@ Each published page includes:
 - canonical URL
 - Open Graph metadata where appropriate
 - semantic heading structure
-- visible breadcrumb navigation
-- BreadcrumbList schema
+- visible breadcrumb navigation (every route with the shared masthead; §11)
+- BreadcrumbList schema, emitted from those same breadcrumbs
 - crawlable internal links
 - sitemap inclusion
 - robots discovery
@@ -280,3 +280,61 @@ concern, official sources, no amounts that are not sourced and dated.
    shows little Garland-specific demand beyond "homes for sale garland tx"
    (3,600/month, transactional), which needs IDX listings this site does not
    have.
+
+## 11. Structure and answer-readiness pass — 2026-10-03
+
+A crawl of every sitemap route's raw server HTML (no JavaScript) measured, per
+route, the words inside `<main>`, the internal links, visible breadcrumbs and
+the structured-data types. It found the pages aimed at the largest queries in
+§10 were the thinnest on the site, and that §3's "each published page includes
+BreadcrumbList schema" was true of four routes.
+
+| Route | Query it targets (§10) | Before | After |
+| --- | --- | --- | --- |
+| `/calculators/affordability` | how much house can i afford — 90,500 | 148 words, 2 links, no breadcrumbs, site graph only | 614 words, 6 links, BreadcrumbList + WebApplication + FAQPage |
+| `/calculators/rent-vs-buy` | rent vs buy calculator — 14,800 | 111 words, 2 links | 554 words, 6 links, same markup |
+| `/calculators/down-payment` | down payment calculator — 8,100 | 155 words, 2 links | 590 words, 6 links, same markup |
+| `/calculators/closing-costs` | closing cost calculator texas — 720 | 136 words, 2 links | 587 words, 6 links, same markup |
+| `/calculators/mortgage-payment` | — | 187 words, pre-redesign layout | 570 words, shared masthead, same markup |
+| `/first-time-buyers` | steps to buying a house — 6,600, KD 9 | 533 words, no page-level markup | 786 words, FAQPage + BreadcrumbList |
+| every masthead route | — | BreadcrumbList on 4 of 31 routes | on 28 of 31 (not `/`, `/blog`, `/start`, which have no trail) |
+
+### Changed
+
+- **Breadcrumbs from one source.** `PageHeader` emits `BreadcrumbList` from the
+  same `crumbs` it renders (`lib/seo.ts` → `breadcrumbJsonLd`), so the visible
+  trail and the markup cannot disagree. The three hand-written copies on
+  `/programs`, `/areas/garland` and the program pages are gone; a test fails if
+  one comes back. The calculators and the five policy pages gained trails.
+  Only the last crumb is `aria-current="page"` — "Learn" on
+  `/first-time-buyers` used to claim it too.
+- **Calculator guides.** After each tool: a direct answer to the question the
+  page is searched for, what the estimate includes and leaves out, three or four
+  questions people ask next (visible, and in `FAQPage`), and links to the two
+  most related tools and one guide. Every statement about method is built from
+  constants the arithmetic itself uses (`lib/calculators.ts` →
+  `lib/content/calculator-guides.ts`); a test re-derives them and fails on any
+  percentage that is not one of the calculators' own rules, any dollar amount,
+  or any "typical"/"average" market claim. `WebApplication` markup names each
+  tool as free and links its publisher to the site Organization.
+- **`/first-time-buyers` FAQ** answering "What are the steps to buying a
+  house?", when to talk to a lender, who is involved, and whether Texas has
+  first-time-buyer programs (named agencies, no amounts).
+- **Entities.** `/about` is a `ProfilePage` whose `mainEntity` is the site
+  Person. The program pages' `Service.provider` now references that Person by
+  `@id`; it was an anonymous Person named "Debra Allen, REALTOR®", which read
+  as a second entity. `sameAs` is emitted from `profileUrls` in `lib/site.ts`
+  (empty, so nothing today). The `RealEstateAgent` address is published as a
+  structured `PostalAddress` when written "Street, City, ST 12345"; a plain
+  string, which Google's local results do not accept, was what would have
+  shipped the day the address was filled in.
+- **`/llms.txt`** lists each calculator with a one-line description of its
+  method, from the same guide content.
+- FAQPage now covers 14 routes.
+
+### Still not measured
+
+The site is still not live on `daffordablehomes.com`, so §9's caveat stands: no
+Search Console, field Core Web Vitals or ranking data exists, and none of this
+earns a position until the domain is cut over. The owner's ordered list is
+`docs/REMAINING_STEPS.md`.

@@ -72,7 +72,16 @@ test("the local listing needs both an address and a phone number", () => {
   assert.equal(ld["@type"], "RealEstateAgent");
   assert.equal(ld["@id"], "https://daffordablehomes.com/#local-business");
   assert.equal(ld.telephone, "+12145550100");
-  assert.equal(ld.address, SAMPLE.businessAddress);
+  // Published as a structured postal address, which Google's local results
+  // expect, parsed from the "Street, City, ST 12345" text the footer shows.
+  assert.deepEqual(ld.address, {
+    "@type": "PostalAddress",
+    streetAddress: "100 Example St",
+    addressLocality: "Garland",
+    addressRegion: "TX",
+    postalCode: "75040",
+    addressCountry: "US",
+  });
   assert.deepEqual(ld.areaServed.map((p) => p.name), SAMPLE.serviceAreas);
   assert.equal(ld.parentOrganization.name, "Sample Brokerage LLC");
   assert.equal(ld.employee["@id"], "https://daffordablehomes.com/#debra-allen");

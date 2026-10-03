@@ -14,7 +14,8 @@ import {
   Users,
 } from "lucide-react"
 import { PageHeader } from "@/components/page/page-header"
-import { Band, BandLead, CtaBand, Features, Split, StatusStrip, Steps } from "@/components/page/editorial"
+import { Band, BandLead, CtaBand, Features, QaList, Split, StatusStrip, Steps } from "@/components/page/editorial"
+import { JsonLd } from "@/components/seo/json-ld"
 import { CLOSING_BAND_IMAGE, DEBRA_PORTRAIT } from "@/lib/content/imagery"
 
 export const metadata: Metadata = {
@@ -109,9 +110,51 @@ const NEXT = [
   },
 ] as const
 
+/**
+ * The questions this page is searched for, answered first and plainly.
+ *
+ * "Steps to buying a house" is the query the page is titled for, so the first
+ * answer restates the stages above in one paragraph a search or answer engine
+ * can quote whole. Nothing here states a timeline, a cost, an eligibility rule
+ * or a program amount; the programs answer sends readers to the agencies.
+ */
+const FAQS = [
+  {
+    question: "What are the steps to buying a house?",
+    answer:
+      "Most purchases move through the same stages. First, get your bearings on what owning costs beyond the price. Next, prepare: organise savings, understand how your credit is viewed, gather documents, and talk with a lender about what you may qualify for. Then build a search around a budget you can sustain. Finally, make an offer, have the home inspected, and close. The order matters more than the speed — each step makes the next one easier.",
+  },
+  {
+    question: "When should I talk to a lender?",
+    answer:
+      "Early, before you fall for a particular house. A lender's review of your income, debts, credit and documents is what turns a guessed price range into a real one. Approval, rates and terms are the lender's decision; Debra can help you prepare the questions.",
+  },
+  {
+    question: "Who is involved in buying a house?",
+    answer:
+      "Usually a REALTOR® who represents you through the search, offer and close; a lender who handles financing and approval; an inspector who reports on the home's condition; and, when a question is legal or tax-related, an attorney or tax professional. In Texas, a title company typically handles the closing itself.",
+  },
+  {
+    question: "Are there homebuyer programs for first-time buyers in Texas?",
+    answer:
+      "Yes. State agencies such as TDHCA and TSAHC, and some cities and counties, run homebuyer programs, each with its own rules. The programs page names who runs each one and links to the agency's own page rather than restating amounts or eligibility.",
+  },
+] as const
+
 export default function FirstTimeBuyersPage() {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQS.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  }
+
   return (
     <>
+      <JsonLd value={faqSchema} />
       <PageHeader
         eyebrow="For first-time buyers"
         eyebrowIcon={KeyRound}
@@ -178,6 +221,16 @@ export default function FirstTimeBuyersPage() {
 
       <Band tone="white" aria-label="The professionals involved">
         <Features items={TEAM} rule="green" />
+      </Band>
+
+      <Band tone="alt" aria-labelledby="ftb-faq-heading">
+        <BandLead
+          eyebrow="Questions buyers ask first"
+          eyebrowIcon={BookOpen}
+          title="Buying a house, in plain answers"
+          titleId="ftb-faq-heading"
+        />
+        <QaList items={FAQS} />
       </Band>
 
       <Band tone="page" aria-labelledby="ftb-next-heading">

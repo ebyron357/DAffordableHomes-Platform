@@ -132,14 +132,6 @@ export default function GarlandAreaPage() {
         isPartOf: { "@type": "WebSite", name: SITE.name, url: SITE.url },
       },
       {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
-          { "@type": "ListItem", position: 2, name: "Area guides", item: `${SITE.url}/areas` },
-          { "@type": "ListItem", position: 3, name: "Garland", item: `${SITE.url}/areas/garland` },
-        ],
-      },
-      {
         "@type": "FAQPage",
         mainEntity: faqs.map((faq) => ({
           "@type": "Question",

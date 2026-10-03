@@ -13,7 +13,11 @@ export const metadata: Metadata = {
 export default function FairHousingPage() {
   return (
     <>
-      <PageHeader eyebrow="Our commitment" title="Fair Housing Statement" />
+      <PageHeader
+        eyebrow="Our commitment"
+        title="Fair Housing Statement"
+        crumbs={[{ label: "Home", href: "/" }, { label: "Fair Housing" }]}
+      />
       <Section>
         <Container>
           <Prose>

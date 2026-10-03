@@ -1,9 +1,10 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { BadgeCheck, BookOpen, HeartHandshake, MapPin, Scale, ShieldCheck, Sprout } from "lucide-react"
-import { UNVERIFIED_TRUST_FACTS } from "@/lib/site"
+import { SITE, UNVERIFIED_TRUST_FACTS } from "@/lib/site"
 import { ProfessionalDetails } from "@/components/layout/professional-details"
 import { PageHeader } from "@/components/page/page-header"
+import { JsonLd } from "@/components/seo/json-ld"
 import { Band, BandLead, CtaBand, Features, Split, StatusStrip } from "@/components/page/editorial"
 import { CLOSING_BAND_IMAGE, DEBRA_LIFESTYLE, DEBRA_PORTRAIT } from "@/lib/content/imagery"
 
@@ -40,9 +41,28 @@ const values = [
   },
 ] as const
 
+/**
+ * This page as the profile of the site-wide Person. `ProfilePage` is how
+ * search engines and AI assistants recognise a page as being about one person, which
+ * is what an "about the author" link from every guide points to. It refers to
+ * the Person by `@id` rather than restating her, so every fact stays in the
+ * one entity the layout publishes.
+ */
+const profileSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${SITE.url}/about#profile`,
+  url: `${SITE.url}/about`,
+  name: `About ${SITE.realtorLegalName}`,
+  inLanguage: "en-US",
+  mainEntity: { "@id": `${SITE.url}/#debra-allen` },
+  isPartOf: { "@id": `${SITE.url}/#website` },
+}
+
 export default function AboutPage() {
   return (
     <>
+      <JsonLd value={profileSchema} />
       <PageHeader
         eyebrow="About Debra"
         eyebrowIcon={BadgeCheck}

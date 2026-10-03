@@ -61,6 +61,12 @@ const checks = [
   ['landing path label grey on white', '#5f6b73', '#ffffff'],
   ['landing footnote grey on white', '#5f6b73', '#ffffff'],
   ['landing dark outline CTA on white', '#102b4e', '#ffffff'],
+  /* Calculator guide scope columns, and the booking calendar's note. */
+  ['calculator scope list grey on the soft band', '#52616f', '#edf3f2'],
+  ['calculator scope heading navy on the soft band', '#102b4e', '#edf3f2'],
+  ['booking note grey on white', '#52616f', '#ffffff'],
+  ['booking note teal link on white', '#077783', '#ffffff'],
+  ['crumb label, 78% white blended over the navy masthead', '#cad0d8', '#102b4e'],
 ]
 let failed = 0
 for (const [name, foreground, background] of checks) {

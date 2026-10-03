@@ -1967,6 +1967,7 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 .dh-crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0; padding: 0; list-style: none; font-size: 14px; }
 .dh-crumbs a { display: inline-block; min-height: 24px; padding: 2px 0; color: rgba(255,255,255,.78); text-decoration: none; }
 .dh-crumbs a:hover { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.dh-crumbs li > span { color: rgba(255,255,255,.78); }
 .dh-crumbs [aria-current="page"] { color: #fff; }
 .dh-crumbs svg { color: rgba(255,255,255,.5); }
 .dh-kicker { display: inline-flex; align-items: center; gap: 9px; margin: 0; color: var(--dh-gold-light); font-size: 12px; font-weight: 700; letter-spacing: .16em; line-height: 1.4; text-transform: uppercase; }
@@ -2162,6 +2163,19 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 .dh-qa summary:hover { color: var(--dh-teal); }
 .dh-qa p { margin: 0 0 20px; max-width: 74ch; color: var(--dh-muted); font-size: 15.5px; line-height: 1.7; }
 
+/* -- Calculator scope: what an estimate counts, and what it leaves out ---- */
+.dh-scope { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.dh-scope-col { padding: 26px 28px; background: var(--dh-alt); border-top: 3px solid var(--dh-teal); }
+.dh-scope-col-out { border-top-color: var(--dh-gold); }
+.dh-scope h3 { margin: 0 0 14px; color: var(--dh-navy); font-family: var(--font-serif); font-size: 21px; font-weight: 600; line-height: 1.25; }
+.dh-scope ul { display: grid; gap: 10px; margin: 0; padding-left: 20px; }
+.dh-scope li { color: var(--dh-muted); font-size: 15.5px; line-height: 1.6; }
+
+/* -- Booking calendar (GoHighLevel frame on /consultation) --------------- */
+.dh-booking-frame { display: block; width: 100%; min-height: 820px; border: 1px solid var(--dh-border); background: #fff; }
+.dh-booking-note { margin: 14px 0 0; color: var(--dh-muted); font-size: 15px; line-height: 1.6; }
+.dh-booking-note a { color: var(--dh-teal); font-weight: 700; text-underline-offset: 3px; }
+
 /* -- Responsive ----------------------------------------------------------- */
 @media (max-width: 1000px) {
   .dh-masthead-inner { grid-template-columns: 1fr; gap: 34px; }
@@ -2172,6 +2186,8 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
   .dh-split-frame::before { left: -12px; top: 16px; bottom: -12px; width: 55%; }
 }
 @media (max-width: 720px) {
+  .dh-scope { grid-template-columns: 1fr; }
+  .dh-booking-frame { min-height: 1040px; }
   .dh-masthead h1 { font-size: clamp(31px, 8.4vw, 42px); }
   .dh-masthead-lede { font-size: 16px; }
   .dh-masthead-actions .dh-btn { width: 100%; }

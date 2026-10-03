@@ -66,6 +66,46 @@ export function shortenAtWord(text: string, limit: number): string {
   return `${cut.replace(/[\s,.;:!?–—-]+$/u, "")}…`
 }
 
+/** One step of a visible breadcrumb trail. The last step is the current page. */
+export type Crumb = { label: string; href?: string }
+
+/**
+ * The `BreadcrumbList` for a visible breadcrumb trail, or `null`.
+ *
+ * Built from the same `crumbs` the masthead renders, so the trail a reader
+ * sees and the one search engines are told about cannot disagree. Google
+ * requires a URL on every step except the last, so a step that is a label
+ * rather than a page (the "Learn" in Home › Learn › First-Time Buyers) is left
+ * out of the markup; the last step may go without one, in which case Google
+ * uses the page's own URL. A single step is not a trail and emits nothing.
+ */
+export function breadcrumbJsonLd(crumbs: readonly Crumb[]): Record<string, unknown> | null {
+  const last = crumbs.length - 1
+  const steps = crumbs.filter((crumb, index) => index === last || isInternalPath(crumb.href))
+  if (steps.length < 2) return null
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: steps.map((crumb, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: crumb.label,
+      ...(isInternalPath(crumb.href) ? { item: absoluteUrl(crumb.href) } : {}),
+    })),
+  }
+}
+
+/** A same-origin path such as `/calculators`; never a protocol-relative URL. */
+function isInternalPath(href: string | undefined): href is string {
+  return typeof href === "string" && href.startsWith("/") && !href.startsWith("//")
+}
+
+/** `SITE.url` joined to a same-origin path; the homepage is the bare origin. */
+export function absoluteUrl(path: string): string {
+  return path === "/" ? SITE.url : `${SITE.url}${path}`
+}
+
 /**
  * Ownership tags for Google Search Console and Bing Webmaster Tools.
  *

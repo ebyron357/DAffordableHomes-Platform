@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { AffordabilityCalculator } from "@/components/calculators/homebuyer-calculators"
+import { CalculatorGuide, calculatorCrumbs } from "@/components/calculators/calculator-guide"
 import { PageHeader } from "@/components/page/page-header"
 import { Section } from "@/components/page/section"
 
@@ -15,12 +16,14 @@ export default function AffordabilityCalculatorPage() {
     <>
       <PageHeader
         eyebrow="Planning tool"
+        crumbs={calculatorCrumbs("affordability")}
         title="How much house can I afford?"
         description="Estimate a responsible planning range from income, debts, rate, and cash available."
       />
       <Section>
         <AffordabilityCalculator />
       </Section>
+      <CalculatorGuide slug="affordability" />
     </>
   )
 }

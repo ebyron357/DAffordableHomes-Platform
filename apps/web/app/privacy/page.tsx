@@ -14,7 +14,11 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <>
-      <PageHeader eyebrow="Policies" title="Privacy Policy" />
+      <PageHeader
+        eyebrow="Policies"
+        title="Privacy Policy"
+        crumbs={[{ label: "Home", href: "/" }, { label: "Privacy Policy" }]}
+      />
       <Section>
         <Container>
           <Prose>
@@ -41,6 +45,12 @@ export default function PrivacyPage() {
                 <strong>Find My Next Step:</strong> your first name, email, an optional mobile number, the next step you
                 chose and the result of the guided check.
               </li>
+              <li>
+                <strong>Booking calendar:</strong> when the consultation page shows a calendar, it is Debra&apos;s
+                scheduling system (GoHighLevel) displayed inside the page. What you enter there to book a time goes
+                directly to that system, not through this website, and the calendar may use its own cookies under
+                GoHighLevel&apos;s terms.
+              </li>
             </ul>
             <p>
               Each form also records the page you sent it from. The program and Find My Next Step forms also record the
@@ -50,7 +60,7 @@ export default function PrivacyPage() {
             <p>
               Your answers to a guided check stay in your browser unless you send a form. Find My Next Step keeps your
               progress in this browser tab only, and it is cleared when you close the tab. This site does not load
-              advertising or analytics trackers.
+              advertising or analytics trackers of its own.
             </p>
             <p>
               Like any website, our hosting provider receives standard technical details with each visit, such as your

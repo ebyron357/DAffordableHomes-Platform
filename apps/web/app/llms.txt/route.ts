@@ -1,4 +1,5 @@
 import { listArticles } from "@/lib/blog/source"
+import { CALCULATOR_GUIDES, calculatorPath } from "@/lib/content/calculator-guides"
 import { SITE } from "@/lib/site"
 
 /**
@@ -59,6 +60,12 @@ export async function GET() {
     "## Start here",
     "",
     ...PAGES.map(([title, path, note]) => link(title, path, note)),
+    "",
+    "## Planning calculators",
+    "",
+    "Each runs in the browser, saves nothing, and is a planning estimate rather than a quote or approval.",
+    "",
+    ...Object.values(CALCULATOR_GUIDES).map((tool) => link(tool.name, calculatorPath(tool.slug), tool.summary)),
     "",
     "## Guides",
     "",

@@ -1,10 +1,12 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { Calculator, CalendarCheck, ClipboardList, Compass, HeartHandshake, MapPin, MessageCircle, ShieldCheck } from "lucide-react"
+import { BookingCalendar } from "@/components/contact/booking-calendar"
 import { ContactForm } from "@/components/contact/contact-form"
 import { Container } from "@/components/ui/container"
 import { PageHeader } from "@/components/page/page-header"
 import { DEBRA_DESK_MASTHEAD } from "@/lib/content/imagery"
+import { bookingEmbed } from "@/lib/ghl-booking.mjs"
 import { Band, BandLead, Features, StatusStrip } from "@/components/page/editorial"
 
 export const metadata: Metadata = {
@@ -65,6 +67,9 @@ const NOT_READY = [
 ] as const
 
 export default function ConsultationPage() {
+  // Read at build time, like the Content Security Policy that must allow it.
+  const booking = bookingEmbed()
+
   return (
     <>
       <PageHeader
@@ -84,11 +89,18 @@ export default function ConsultationPage() {
         }}
       />
 
-      <section className="dh-band dh-band-white" aria-labelledby="consultation-form-heading">
+      {booking && <BookingCalendar booking={booking} />}
+
+      <section
+        className={booking ? "dh-band dh-band-alt" : "dh-band dh-band-white"}
+        aria-labelledby="consultation-form-heading"
+      >
         <Container>
           <div className="dh-consult">
             <div className="dh-consult-form">
-              <h2 id="consultation-form-heading">Request a consultation</h2>
+              <h2 id="consultation-form-heading">
+                {booking ? "Rather send a note first?" : "Request a consultation"}
+              </h2>
               <p>
                 A short form so Debra can understand what you would like to discuss. Please do not include Social
                 Security numbers, account numbers, or other sensitive financial information.

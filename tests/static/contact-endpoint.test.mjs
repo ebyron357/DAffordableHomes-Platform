@@ -89,7 +89,7 @@ test("a set-but-empty variable falls through to the next one", async () => {
   );
 });
 
-test("a valid message is delivered once, with only the fields the form collects", async () => {
+test("a valid message is delivered once, with only the fields the form collects and the common CRM keys", async () => {
   await withDestination({ LEAD_WEBHOOK_URL: "https://hooks.example.test/lead" }, ok, async (calls) => {
     const response = await submit({ ...VALID, unexpected: "dropped" });
     assert.equal(response.status, 200);
@@ -101,6 +101,11 @@ test("a valid message is delivered once, with only the fields the form collects"
     const { submittedAt, ...payload } = calls[0].body;
     assert.ok(!Number.isNaN(Date.parse(submittedAt)));
     assert.deepEqual(payload, {
+      // The keys every lead shares, so one GoHighLevel mapping fits every form.
+      first_name: "Test",
+      last_name: "Visitor",
+      full_name: "Test Visitor",
+      lead_type: "consultation",
       name: "Test Visitor",
       email: "visitor@example.com",
       phone: "",

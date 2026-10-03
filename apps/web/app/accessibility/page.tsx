@@ -14,7 +14,11 @@ export const metadata: Metadata = {
 export default function AccessibilityPage() {
   return (
     <>
-      <PageHeader eyebrow="Our commitment" title="Accessibility Statement" />
+      <PageHeader
+        eyebrow="Our commitment"
+        title="Accessibility Statement"
+        crumbs={[{ label: "Home", href: "/" }, { label: "Accessibility" }]}
+      />
       <Section>
         <Container>
           <Prose>

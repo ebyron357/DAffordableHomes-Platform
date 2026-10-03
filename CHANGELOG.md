@@ -2,6 +2,40 @@
 
 All notable repository changes are documented here.
 
+## 2026-10-03
+
+### GoHighLevel: booking calendar, one webhook for every form, one field mapping
+
+- **Booking calendar on `/consultation`.** Set `GHL_BOOKING_URL` to a
+  GoHighLevel booking link (or paste the embed snippet) and redeploy; the page
+  frames the calendar above the message form, with a new-tab link beneath it.
+  The public Content Security Policy allows that one origin in `frame-src` and
+  nothing else from GoHighLevel. Unset or invalid, nothing changes.
+- **Fixed:** the NACA and Homes for Heroes forms returned 503 when
+  `PROGRAM_LEAD_WEBHOOK_URL` existed in Vercel with an empty value, even with a
+  GoHighLevel webhook in `GHL_PROGRAM_LEAD_WEBHOOK_URL`.
+- **One variable delivers every form**, `/start` included. Plain-http and
+  malformed values are skipped.
+- **Every lead carries `first_name`, `last_name`, `full_name`, `email`,
+  `phone` and `lead_type`**, so one GoHighLevel mapping fits every form. Each
+  form's existing fields are unchanged.
+- Setup guide: `docs/08-integrations/GHL_SETUP.md`.
+
+### Search: answer-ready calculators, breadcrumbs from one source, entity fixes
+
+- Each calculator now explains how it answers its question, what it counts and
+  leaves out, answers the next questions people ask (in `FAQPage` markup), and
+  links to related tools; `WebApplication` markup on all five. The copy is built
+  from the calculators' own rules.
+- `BreadcrumbList` comes from the visible breadcrumbs on every masthead route
+  (28 of 31, from 4); calculators and policy pages gained breadcrumbs.
+- `/first-time-buyers` answers "What are the steps to buying a house?" and
+  three related questions; `/about` is a `ProfilePage`.
+- Program pages name the site's Debra Allen entity as provider; the office
+  address will publish as a structured postal address; `sameAs` links publish
+  from a new `profileUrls` fact once supplied.
+- Ordered list of everything left: `docs/REMAINING_STEPS.md`.
+
 ## 2026-10-02
 
 ### Keyword research applied: titles, program FAQs, official programs, search verification

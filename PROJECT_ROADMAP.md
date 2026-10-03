@@ -85,8 +85,8 @@
 ### GHL integration
 
 - [ ] Define fields, tags, pipeline stages, and consent requirements
-- [ ] Implement server-side lead submission or approved accessible form embed
-- [ ] Connect consultation calendar
+- [ ] Implement server-side lead submission or approved accessible form embed — website side done and verified against a stand-in webhook (2026-10-03): every form delivers to one GoHighLevel webhook with common contact keys. Stays open until a real GoHighLevel workflow receives a test lead (`docs/08-integrations/GHL_SETUP.md`)
+- [ ] Connect consultation calendar — website side done (2026-10-03): `/consultation` frames the GoHighLevel calendar named by `GHL_BOOKING_URL`, with the CSP allowance and an accessible fallback. Stays open until the link is set and a test booking lands in GoHighLevel
 - [ ] Connect workshop registration
 - [ ] Verify email and SMS workflows
 - [ ] Add retry, duplicate prevention, spam protection, and failure reporting
@@ -114,7 +114,7 @@
 
 - [x] Add metadata, canonical URLs, Open Graph, sitemap, and robots rules — verified 2026-10-02 (`docs/10-seo-analytics/DFW_LOCAL_SEARCH_STRATEGY.md` §9)
 - [x] Add structured data appropriate to each route — verified 2026-10-02; local-business markup waits on verified business facts
-- [ ] Create local internal-linking architecture
+- [ ] Create local internal-linking architecture — calculators now link to each other and to the guides, and breadcrumbs (with BreadcrumbList) cover every masthead route (2026-10-03, `DFW_LOCAL_SEARCH_STRATEGY.md` §11); city-to-city linking waits on verified service areas
 - [ ] Connect GA4, Search Console, and Microsoft Clarity with consent handling where required
 - [x] Search Console and Bing ownership tags read from `GOOGLE_SITE_VERIFICATION` / `BING_SITE_VERIFICATION` (2026-10-02); verifying and submitting the sitemap is the owner's step after domain cutover
 - [x] Keyword research and on-page targeting for NACA, Texas first-time-buyer programs and the calculators (2026-10-02, `DFW_LOCAL_SEARCH_STRATEGY.md` §10)
@@ -149,6 +149,9 @@ is `docs/12-governance/CLIENT_HANDOFF.md` Part 7 — these are its headings.
 - [ ] Prior holders' access reduced or removed
 - [ ] Rollback procedure demonstrated once on a real deployment
 - [ ] Owner sign-off recorded in `CLIENT_HANDOFF.md` Part 7
+
+The ordered list of everything left, owner steps first, is
+`docs/REMAINING_STEPS.md` (2026-10-03).
 
 The closeout documentation required by `docs/PROJECT_COMPLETION_STANDARD.md` is
 complete as of 2026-10-02; the status register with evidence per requirement is

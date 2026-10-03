@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { crmContactFields, deliverLead, leadWebhookUrl } from "@/lib/lead-delivery"
 import { isValidEmail } from "@/lib/lead-validation"
 import { clientIdentifier, rateLimit } from "@/lib/rate-limit"
 
@@ -12,10 +13,10 @@ import { clientIdentifier, rateLimit } from "@/lib/rate-limit"
  * /api/leads/program: honeypot, per-caller rate limit, elapsed-time check,
  * server-side validation, and an honest 503 when no destination is configured.
  *
- * Destination: `LEAD_WEBHOOK_URL`, the general lead webhook `.env.example`
- * already documented, then the program webhook variables — the same order the
- * retired root `api/consultation.js` used, so an owner who sets only the
- * GoHighLevel program webhook still receives these messages.
+ * Destination: `LEAD_WEBHOOK_URL`, then the program webhook variables, so an
+ * owner who sets only the GoHighLevel program webhook still receives these
+ * messages. The order and the payload's common fields live in
+ * lib/lead-delivery.ts.
  */
 
 const CONNECTIONS = new Set(["", "Phone or video call", "Email"])
@@ -78,14 +79,20 @@ export async function POST(request: Request) {
     )
   }
 
-  // `||`, not `??`: a variable that is set but empty must fall through.
-  const webhookUrl =
-    process.env.LEAD_WEBHOOK_URL || process.env.PROGRAM_LEAD_WEBHOOK_URL || process.env.GHL_PROGRAM_LEAD_WEBHOOK_URL
+  // LEAD_WEBHOOK_URL, then the program webhooks. A set-but-empty variable
+  // falls through; see lib/lead-delivery.ts.
+  const webhookUrl = leadWebhookUrl("contact")
   if (!webhookUrl) {
     return NextResponse.json({ ok: false, error: NOT_CONFIGURED }, { status: 503 })
   }
 
   const payload = {
+    ...crmContactFields({
+      leadType: context === "consultation" ? "consultation" : "contact",
+      fullName: name,
+      email,
+      phone,
+    }),
     name,
     email,
     phone,
@@ -97,19 +104,8 @@ export async function POST(request: Request) {
     pageUrl: text(body.pageUrl, 500),
   }
 
-  try {
-    const response = await fetch(webhookUrl, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(payload),
-      signal: AbortSignal.timeout(8000),
-      cache: "no-store",
-    })
-    if (!response.ok) {
-      return NextResponse.json({ ok: false, error: UNAVAILABLE }, { status: 502 })
-    }
-    return NextResponse.json({ ok: true }, { status: 200 })
-  } catch {
+  if (!(await deliverLead(webhookUrl, payload))) {
     return NextResponse.json({ ok: false, error: UNAVAILABLE }, { status: 502 })
   }
+  return NextResponse.json({ ok: true }, { status: 200 })
 }

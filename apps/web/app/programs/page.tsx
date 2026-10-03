@@ -18,7 +18,6 @@ import { PageHeader } from "@/components/page/page-header"
 import { Band, BandLead, CtaBand, Features, Split, StatusStrip, type Feature } from "@/components/page/editorial"
 import { CLOSING_BAND_IMAGE, DEBRA_PORTRAIT } from "@/lib/content/imagery"
 import { PROGRAM_CARDS } from "@/lib/programs"
-import { SITE } from "@/lib/site"
 import { SHARE_IMAGES } from "@/lib/seo"
 
 export const metadata: Metadata = {
@@ -105,22 +104,8 @@ const futurePrograms = [
 ] as const
 
 export default function ProgramsPage() {
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
-      { "@type": "ListItem", position: 2, name: "Programs", item: `${SITE.url}/programs` },
-    ],
-  }
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c") }}
-      />
-
       <PageHeader
         eyebrow="Specialized homebuyer guidance"
         eyebrowIcon={BadgeCheck}
