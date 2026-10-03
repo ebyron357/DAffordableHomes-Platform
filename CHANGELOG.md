@@ -4,6 +4,28 @@ All notable repository changes are documented here.
 
 ## 2026-10-03
 
+### The rest of the conversion audit, and the business facts confirmed
+
+- The four business facts the conversion copy relies on — free consultation,
+  no commitment, Debra replies personally, phone or video — were confirmed by
+  the owner and are recorded as confirmed in
+  `docs/05-content/CONVERSION_COPY.md`.
+- No quiz result opens the empty listings page any more; "Moving to DFW" leads
+  to a new relocation section on `/areas`.
+- NACA shows the next step for each program stage; Homes for Heroes answers who
+  may qualify, military moves and Garland plainly.
+- `/programs` sorts visitors to the right guide and answers "haven't saved
+  much?"; calculators say the numbers stay private and that a low result is not
+  a verdict; About lists what Debra won't do; contact says what happens next;
+  first-time buyers answers which documents to have ready.
+- Unverified claims removed or qualified ("works the market every day",
+  "where Debra's practice is based", "Debra hosts workshops", "known for"), and
+  internal wording that had reached visitors is gone.
+- Fixed words running together where text containing an apostrophe followed
+  bold text or a link ("hoped?That's", "Selling?Include", and two lines on
+  `/privacy`); a test now rejects the pattern. Follow-on link rows keep the
+  arrow with the last word on narrow screens (`ArrowLink`).
+
 ### Conversion copy: next steps, how a consultation works, common worries
 
 - Every form's success message now says what happens next, and keyboard focus

@@ -266,7 +266,7 @@ export const heroesArticle: Article = {
           "Whether taxes, lender restrictions, or other conditions apply",
         ),
         p(
-          "The D'Affordable Homes page provides hero-focused real-estate guidance. It does not publish an unverified affiliation or promise a savings amount.",
+          "The D'Affordable Homes page provides hero-focused real-estate guidance. It does not claim an affiliation with Homes for Heroes or promise a savings amount.",
         ),
       ),
     ),

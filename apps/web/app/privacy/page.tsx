@@ -46,7 +46,8 @@ export default function PrivacyPage() {
                 chose and the result of the guided check.
               </li>
               <li>
-                <strong>Booking calendar:</strong> when the consultation page shows a calendar, it is Debra&apos;s
+                <strong>Booking calendar:</strong>{" "}
+                when the consultation page shows a calendar, it is Debra&apos;s
                 scheduling system (GoHighLevel) displayed inside the page. What you enter there to book a time goes
                 directly to that system, not through this website, and the calendar may use its own cookies under
                 GoHighLevel&apos;s terms.
@@ -86,7 +87,8 @@ export default function PrivacyPage() {
             </p>
             <h2>Contact</h2>
             <p>
-              Questions about privacy? <Link href="/contact">Reach out</Link> and we&apos;ll be glad to help.
+              Questions about privacy? <Link href="/contact">Reach out</Link>{" "}
+              and we&apos;ll be glad to help.
             </p>
           </Prose>
         </Container>

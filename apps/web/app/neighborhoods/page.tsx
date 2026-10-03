@@ -25,7 +25,7 @@ export default function NeighborhoodsPage() {
         description="Compare North Texas cities without fabricated prices, rankings or school scores. Where a guide exists, it is written from local knowledge; where it does not, this page says so."
         crumbs={[{ label: "Home", href: "/" }, { label: "Neighborhoods" }]}
         facts={[
-          { label: "Garland is home base", icon: MapPin },
+          { label: "Garland in depth", icon: MapPin },
           { label: "Dallas–Fort Worth metroplex", icon: Route },
         ]}
         /* No masthead photograph. The image this page used to carry —

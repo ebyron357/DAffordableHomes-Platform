@@ -40,7 +40,7 @@ function formatPrice(value: number) {
 const NEXT_STEPS = [
   {
     title: "Ask Debra what's available",
-    body: "Debra works the Dallas–Fort Worth market every day. Tell her the area, the budget and the timing, and she can tell you what is realistically out there.",
+    body: "Tell Debra the area, the budget and the timing, and she can tell you what is realistically out there.",
     href: "/consultation",
     icon: MessageCircle,
     tone: "teal" as const,

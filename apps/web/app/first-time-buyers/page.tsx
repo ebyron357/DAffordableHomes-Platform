@@ -137,6 +137,11 @@ const FAQS = [
       "Usually a REALTOR® who represents you through the search, offer and close; a lender who handles financing and approval; an inspector who reports on the home's condition; and, when a question is legal or tax-related, an attorney or tax professional. In Texas, a title company typically handles the closing itself.",
   },
   {
+    question: "What documents should I have ready?",
+    answer:
+      "For a first conversation with Debra, none. When you apply, lenders commonly ask for recent pay stubs, W-2s or tax returns, bank statements and photo ID, and your lender will tell you exactly what they need. Never send them through a website form — including the forms on this site.",
+  },
+  {
     question: "Are there homebuyer programs for first-time buyers in Texas?",
     answer:
       "Yes. State agencies such as TDHCA and TSAHC, and some cities and counties, run homebuyer programs, each with its own rules. The programs page names who runs each one and links to the agency's own page rather than restating amounts or eligibility.",

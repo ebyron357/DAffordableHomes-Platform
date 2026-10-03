@@ -123,7 +123,7 @@
 
 ### v1.0 launch gate
 
-- [ ] Content and factual approval by Debra — includes the promises the conversion copy repeats, listed with every place they appear in `docs/05-content/CONVERSION_COPY.md` §1
+- [ ] Content and factual approval by Debra — the four business facts the conversion copy relies on were confirmed on 2026-10-03 (`docs/05-content/CONVERSION_COPY.md` §1); the verified business facts in `lib/site.ts` (licence, brokerage, phone, address, service areas) are still owed
 - [ ] Brokerage and licensing review
 - [ ] Fair Housing and Equal Housing review
 - [ ] IDX provider approval

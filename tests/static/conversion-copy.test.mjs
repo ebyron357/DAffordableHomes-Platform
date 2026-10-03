@@ -60,13 +60,23 @@ test("the consultation promises are written once and imported where they appear"
   }
 });
 
-test("every promise awaiting approval is listed for Debra", () => {
+test("the four confirmed business facts are recorded as confirmed, not as awaiting approval", () => {
   const register = read("docs/05-content/CONVERSION_COPY.md");
-  for (const claim of ["no cost", "no commitment", "reads and replies", "phone or video call", "next workshop date"]) {
-    assert.match(register.toLowerCase(), new RegExp(claim), `the approval register names "${claim}"`);
+  assert.match(register, /Confirmed by the owner on \*\*2026-10-03\*\*/);
+  for (const fact of [
+    "The consultation is free",
+    "There is no commitment",
+    "Debra personally replies to each message",
+    "Consultations may happen by phone or video",
+  ]) {
+    assert.ok(register.includes(fact), `the register records "${fact}"`);
   }
-  // The module points to the register, so whoever edits one finds the other.
-  assert.match(read(`${WEB}/lib/content/conversion.ts`), /docs\/05-content\/CONVERSION_COPY\.md/);
+  assert.doesNotMatch(register, /Promises to confirm|awaiting Debra's (content )?approval/i);
+  // The module names the same four, so whoever edits one finds the other.
+  const module = read(`${WEB}/lib/content/conversion.ts`);
+  assert.match(module, /docs\/05-content\/CONVERSION_COPY\.md/);
+  assert.match(module, /confirmed by the owner on\s+\* 2026-10-03/);
+  assert.doesNotMatch(module, /APPROVAL/);
 });
 
 test("the worries are answered without an amount, an eligibility rule, a frequency or a promise", () => {

@@ -73,6 +73,7 @@ const checks = [
   ['homepage worries link, gold on navy', '#e6bd55', '#102b4e'],
   ['band note grey on the page background', '#52616f', '#f7f9f8'],
   ['worry card heading navy on white', '#102b4e', '#ffffff'],
+  ['programs sorter and boundaries text, ink on the page background', '#10233f', '#f7f9f8'],
 ]
 let failed = 0
 for (const [name, foreground, background] of checks) {

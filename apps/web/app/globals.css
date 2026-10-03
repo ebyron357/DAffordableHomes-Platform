@@ -2180,6 +2180,13 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 .dh-scope-spaced { margin-top: clamp(32px, 4vw, 48px); }
 .dh-scope p { margin: 0; color: var(--dh-muted); font-size: 15.5px; line-height: 1.65; }
 .dh-band-note { margin: 22px 0 0; color: var(--dh-muted); font-size: 15px; line-height: 1.6; }
+/* A short row of follow-on links under a band; each wraps like text and the
+   row stacks on a narrow screen instead of orphaning a separator. */
+.dh-band-links { display: flex; flex-wrap: wrap; gap: 10px 32px; margin: 22px 0 0; padding: 0; list-style: none; }
+.dh-band-links li { display: flex; margin: 0; }
+.dh-band-links .dh-arrow-link { padding: 2px 0; }
+.dh-arrow-link { display: inline; line-height: 1.6; }
+.dh-arrow-link svg { display: inline; margin-left: 6px; vertical-align: -3px; }
 
 /* -- Common worries: visible answers, not an accordion ------------------- */
 /* 340px minimum keeps it to three columns at full width, so five worries sit
@@ -2190,8 +2197,7 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 .dh-worries p { margin: 0; color: var(--dh-muted); font-size: 15.5px; line-height: 1.65; }
 /* Inline, so a label that wraps keeps its arrow at the end of the text
    instead of pushing it to the card's far edge. */
-.dh-worries .dh-textlink { display: inline; align-self: flex-start; margin-top: auto; padding-top: 4px; line-height: 1.5; }
-.dh-worries .dh-textlink svg { display: inline; margin-left: 6px; vertical-align: -3px; }
+.dh-worries .dh-textlink { align-self: flex-start; margin-top: auto; padding-top: 4px; }
 /* The cards are white on any band, so their links stay teal even where a navy
    band would otherwise turn text links gold (1.8:1 on white). */
 .dh-band-navy .dh-worries .dh-textlink, .dh-band-teal .dh-worries .dh-textlink { color: var(--dh-teal); }
@@ -2199,6 +2205,27 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 .dh-reassure { margin: 14px 0 0; color: var(--dh-muted); font-size: 14px; font-weight: 600; letter-spacing: .01em; }
 .dh-band-navy .dh-reassure, .dh-masthead .dh-reassure { color: #d7e2ec; }
 .dh-masthead .dh-reassure { margin-top: -6px; }
+
+/* -- Boundaries list on /about: what Debra won't do --------------------- */
+.dh-boundaries { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 14px 28px; margin: 0; padding: 0; list-style: none; }
+.dh-boundaries li { position: relative; padding: 14px 0 14px 34px; border-top: 1px solid var(--dh-border); color: var(--dh-ink); font-size: 16px; line-height: 1.6; }
+.dh-boundaries li::before { content: ""; position: absolute; left: 4px; top: 25px; width: 16px; height: 2px; background: var(--dh-gold); }
+
+/* -- "Which applies to me?" sorter on /programs -------------------------- */
+.dh-sort-heading { margin: 0 0 14px; color: var(--dh-navy); font-family: var(--font-serif); font-size: clamp(22px, 2.4vw, 28px); font-weight: 600; line-height: 1.2; }
+.dh-sort { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--dh-border); }
+.dh-sort li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 24px; padding: 14px 0; border-bottom: 1px solid var(--dh-border); }
+.dh-sort li > span { color: var(--dh-ink); font-size: 16px; line-height: 1.5; }
+.dh-band-note-lead { margin: 0 0 clamp(24px, 3vw, 32px); max-width: 70ch; }
+.dh-band-note-lead strong { color: var(--dh-navy); }
+
+/* -- Program stage guide: what to do next at each program stage ---------- */
+.dh-stage-guide { margin-top: clamp(28px, 3.5vw, 40px); }
+.dh-stage-guide h3 { margin: 0 0 16px; color: var(--dh-navy); font-family: var(--font-serif); font-size: 22px; font-weight: 600; line-height: 1.25; }
+.dh-stage-guide dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; margin: 0; }
+.dh-stage-guide dl > div { padding: 20px 22px; background: #fff; border: 1px solid var(--dh-border); border-left: 4px solid var(--dh-teal); }
+.dh-stage-guide dt { margin: 0 0 6px; color: var(--dh-navy); font-size: 16px; font-weight: 700; line-height: 1.35; }
+.dh-stage-guide dd { margin: 0; color: var(--dh-muted); font-size: 15.5px; line-height: 1.6; }
 
 /* -- Booking calendar (GoHighLevel frame on /consultation) --------------- */
 .dh-booking-frame { display: block; width: 100%; min-height: 820px; border: 1px solid var(--dh-border); background: #fff; }

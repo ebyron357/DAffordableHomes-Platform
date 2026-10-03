@@ -8,20 +8,19 @@
  * from Debra is a one-line change. `tests/static/conversion-copy.test.mjs`
  * fails if a route re-types one of these promises instead of importing it.
  *
- * ## Claims awaiting Debra's content approval
+ * ## Confirmed business facts
  *
- * Nothing here is new to the site except where noted. Each line marked
- * `APPROVAL` restates something the site already published before this file
- * existed, and is listed in `docs/05-content/CONVERSION_COPY.md` so it is
- * confirmed with the rest of the v1.0 content approval:
+ * Four statements here are business facts, confirmed by the owner on
+ * 2026-10-03 and recorded in `docs/05-content/CONVERSION_COPY.md`:
  *
- * - the first consultation has no cost and no commitment ("No cost, no
- *   commitment" on /consultation; "A consultation costs nothing and commits you
- *   to nothing" on /testimonials; the page title "Book a Free Consultation");
- * - Debra reads and replies to each message herself ("Debra will read it and
- *   reply personally", the message form's success state);
- * - a consultation is held by phone or video call (the consultation form's
- *   "Phone or video call" option).
+ * - the consultation is free;
+ * - there is no commitment;
+ * - Debra personally replies to each message;
+ * - consultations may happen by phone or video.
+ *
+ * Lines marked `CONFIRMED` rely on them. Anything else stated here is either a
+ * description of how the site works or general education with the deciding
+ * party named.
  *
  * Rules, from AGENTS.md: no response-time promise, no service-area claim, no
  * statement about compensation, eligibility or approval, and nothing a lender
@@ -29,10 +28,10 @@
  * "Client-fact-dependent copy" in the same document.
  */
 
-/** The three facts that sit under every primary consultation button. APPROVAL */
+/** The three facts that sit under every primary consultation button. CONFIRMED */
 export const CONSULTATION_TERMS = ["No cost", "No commitment", "Phone or video call"] as const
 
-/** One-line form of the above, for places that take a sentence. APPROVAL */
+/** One-line form of the above, for places that take a sentence. CONFIRMED */
 export const CONSULTATION_REASSURANCE = CONSULTATION_TERMS.join(" · ")
 
 /** How a consultation is arranged, in order. */
@@ -43,13 +42,13 @@ export const CONSULTATION_STEPS = [
       "Tell Debra where you are and what you are trying to work out. A sentence or two is enough.",
   },
   {
-    // APPROVAL: "reads every request herself"
+    // CONFIRMED: Debra personally replies to each message
     title: "Debra replies to set a time",
     description:
       "She reads every request herself and gets back to you using the details you share.",
   },
   {
-    // APPROVAL: phone or video call; no cost; no commitment
+    // CONFIRMED: phone or video; free; no commitment
     title: "Talk it through by phone or video call",
     description:
       "Your situation, your questions, and the one or two things worth doing next. You leave with a clear next step, whether or not you are ready to buy.",
@@ -110,7 +109,7 @@ export const COMMON_WORRIES: readonly Worry[] = [
       "Most of the work that makes a purchase go well happens before you look at houses. A consultation can be about next year's plan, and you won't be asked to commit to anything.",
   },
   {
-    // APPROVAL: no cost, no commitment
+    // CONFIRMED: free; no commitment
     worry: "Does it cost anything to talk?",
     question: "Does it cost anything to talk with Debra?",
     answer: "No. The consultation is free and doesn't commit you to working with Debra.",

@@ -49,6 +49,14 @@ const values = [
  * the Person by `@id` rather than restating her, so every fact stays in the
  * one entity the layout publishes.
  */
+const BOUNDARIES = [
+  "Tell you that you're approved, or what you qualify for. That is your lender's decision.",
+  "Push you to sign anything before you're ready.",
+  "Promise that a program will work for you. Each program decides that for itself.",
+  "Steer you toward or away from any neighborhood because of who lives there.",
+  "Invent urgency to hurry a decision that deserves care.",
+] as const
+
 const profileSchema = {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
@@ -109,7 +117,7 @@ export default function AboutPage() {
             helps them see the path in front of them clearly.
           </p>
           <p>
-            She is known for translating the confusing parts of the process into plain language, and for never rushing a
+            Her focus is translating the confusing parts of the process into plain language, and never rushing a
             decision that deserves care. When she teaches line dancing in the community, it is the same spirit: meet the
             rhythm, learn the steps, and enjoy the movement forward.
           </p>
@@ -130,14 +138,34 @@ export default function AboutPage() {
         <Features items={values} rule="gold" />
       </Band>
 
+      {/*
+        Boundaries build trust faster than adjectives. Each line restates a
+        commitment the site already makes elsewhere; the neighbourhood line is
+        the Fair Housing commitment from /fair-housing in plain words.
+      */}
+      <Band tone="white" aria-labelledby="about-boundaries-heading">
+        <BandLead
+          eyebrow="Boundaries"
+          eyebrowIcon={ShieldCheck}
+          title="What Debra won't do"
+          titleId="about-boundaries-heading"
+          lede="Part of trusting someone with a decision this size is knowing where their line is. These hold in every conversation."
+        />
+        <ul className="dh-boundaries">
+          {BOUNDARIES.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </Band>
+
       <Band tone="white" tight aria-label="Professional details">
         {UNVERIFIED_TRUST_FACTS.brokerageName ? (
           <ProfessionalDetails label="Professional details" className="dh-professional-details" />
         ) : (
           <StatusStrip icon={ShieldCheck} title="Professional details are published once they are confirmed">
             <p>
-              Brokerage affiliation, license number, service areas and professional certifications will appear here when
-              they are verified for release. We publish credentials we can stand behind, and nothing before then.
+              Brokerage affiliation, license number, service areas and professional certifications will appear here once
+              they are confirmed. We publish credentials we can stand behind, and nothing before then.
             </p>
           </StatusStrip>
         )}

@@ -110,6 +110,19 @@ export function ProgramPage({ program }: { program: ProgramDefinition }) {
             </li>
           ))}
         </ul>
+        {program.stageGuide && (
+          <div className="dh-stage-guide">
+            <h3>Your next step, by stage</h3>
+            <dl>
+              {program.stageGuide.map((item) => (
+                <div key={item.stage}>
+                  <dt>{item.stage}</dt>
+                  <dd>{item.next}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )}
       </Band>
 
       <Band tone="alt" aria-labelledby="support-heading">
@@ -128,6 +141,7 @@ export function ProgramPage({ program }: { program: ProgramDefinition }) {
             Debra&apos;s role
           </p>
           <h2 id="support-heading">{program.supportTitle}</h2>
+          {program.supportLede && <p>{program.supportLede}</p>}
           <ul className="dh-checklist">
             {program.supportItems.map((item) => (
               <li key={item.title}>
@@ -202,7 +216,7 @@ export function ProgramPage({ program }: { program: ProgramDefinition }) {
                 The form captures the program, your location preferences, timeline and contact consent, so the follow-up
                 starts with useful context instead of starting over.
               </p>
-              <StatusStrip icon={ShieldCheck} title="What this page does not decide">
+              <StatusStrip icon={ShieldCheck} title="Where the program's rules come from">
                 <p>{program.disclaimer}</p>
               </StatusStrip>
             </div>

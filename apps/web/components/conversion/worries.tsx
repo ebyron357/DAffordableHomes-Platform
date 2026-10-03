@@ -1,5 +1,4 @@
-import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import { ArrowLink } from "@/components/page/arrow-link"
 import { COMMON_WORRIES, type Worry } from "@/lib/content/conversion"
 
 /**
@@ -24,25 +23,9 @@ export function WorriesList({
         <li key={item.worry}>
           <Heading>&ldquo;{item.worry}&rdquo;</Heading>
           <p>{item.answer}</p>
-          {item.link && <WorryLink href={item.link.href} label={item.link.label} />}
+          {item.link && <ArrowLink href={item.link.href} label={item.link.label} />}
         </li>
       ))}
     </ul>
-  )
-}
-
-/** The last word and the arrow never separate when the label wraps. */
-function WorryLink({ href, label }: { href: string; label: string }) {
-  const split = label.lastIndexOf(" ")
-  const head = split === -1 ? "" : label.slice(0, split + 1)
-  const tail = split === -1 ? label : label.slice(split + 1)
-  return (
-    <Link href={href} className="dh-textlink">
-      {head}
-      <span className="whitespace-nowrap">
-        {tail}
-        <ArrowRight className="size-4" aria-hidden="true" />
-      </span>
-    </Link>
   )
 }

@@ -249,7 +249,7 @@ function sellerNote(answers: PathAnswers): string {
 }
 
 function areaSentence(answers: PathAnswers): string {
-  if (answers.area === "garland") return "Garland is Debra's home market, and there is a step-by-step guide written specifically for buying there."
+  if (answers.area === "garland") return "Garland is the site's home market, and there is a step-by-step guide written specifically for buying there."
   if (answers.area && AREA_NAME[answers.area]) return `You are focused on ${AREA_NAME[answers.area]}, which is one of the North Texas areas this site covers.`
   if (answers.area === "other") return "You have a DFW community in mind. The same process applies anywhere in the metroplex."
   return "You have not settled on an area yet, so comparing neighborhoods is part of the plan rather than a detail for later."
@@ -318,12 +318,13 @@ export function buildResult(answers: PathAnswers): PathResult {
           positionNote(answers),
         ),
         nextStep:
-          "Compare neighborhoods first, then start a search in one or two cities rather than the whole metroplex.",
-        primary: { label: "Compare DFW neighborhoods", href: "/neighborhoods" },
+          "Narrow the metroplex to one or two areas before you tour, starting from where you will work and how you like to live.",
+        primary: { label: "Plan a move to Dallas–Fort Worth", href: "/areas#moving-to-dfw" },
+        // The non-Garland link used to be /homes, which has no listings feed.
         resource:
           answers.area === "garland"
             ? { label: "Read the Garland area guide", href: "/areas/garland" }
-            : { label: "Search homes across DFW", href: "/homes" },
+            : { label: "Compare DFW neighborhoods", href: "/neighborhoods" },
         consultation: CONSULTATION,
       }
     case "selling":
@@ -369,12 +370,12 @@ export function buildResult(answers: PathAnswers): PathResult {
           areaSentence(answers),
         ),
         nextStep:
-          "Search the cities on your list, and check the monthly payment on anything you like before you tour it.",
-        primary: { label: "Search homes in DFW", href: "/homes" },
-        resource:
-          answers.area === "garland"
-            ? area
-            : { label: "Check a monthly payment", href: "/calculators/mortgage-payment" },
+          "Tell Debra the cities on your list and your budget so she can tell you what is realistically on the market, and check the monthly payment on anything you like before you tour it.",
+        // The primary used to be /homes, which has no listings feed; the
+        // consultation below this result is where "what's on the market" is
+        // answered until it does.
+        primary: { label: "Check a monthly payment", href: "/calculators/mortgage-payment" },
+        resource: answers.area === "garland" ? area : { label: "Compare North Texas areas", href: "/areas" },
         consultation: CONSULTATION,
       }
     case "researcher":

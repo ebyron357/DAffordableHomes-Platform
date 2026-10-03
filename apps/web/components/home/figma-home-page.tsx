@@ -234,6 +234,12 @@ function Pathways() {
         <div className="fh-section-intro fh-section-intro-left">
           <p className="fh-eyebrow">Two ways in</p>
           <h2 id="figma-services-heading">Whichever side of the move you are on</h2>
+          {/* Who this is for, named before anyone has to guess. */}
+          <p className="fh-section-lede">
+            For first-time buyers and renters getting ready, NACA buyers, teachers, veterans, first responders and
+            healthcare workers looking into Homes for Heroes, people relocating to Dallas–Fort Worth, and homeowners
+            ready to sell or move.
+          </p>
         </div>
 
         <div className="fh-path-grid">
@@ -465,6 +471,10 @@ function ListingsEmptyState({ reason, errored }: { reason: string; errored: bool
         <p className="fh-eyebrow">{errored ? "Search temporarily unavailable" : "Live listings not connected yet"}</p>
         <h3>{errored ? "The property search is having trouble right now." : "No live MLS feed is connected to this site yet."}</h3>
         <p>{reason}</p>
+        <p>
+          Want to know what&apos;s on the market right now? Tell Debra the area, your price range and your timing, and
+          she&apos;ll tell you what&apos;s realistically available.
+        </p>
       </div>
       <div className="fh-listing-empty-actions">
         <Link href={FIGMA_HOME_CTA.consultation.href} className="fh-btn fh-btn-navy">
@@ -585,6 +595,11 @@ function KnowledgeBase({ articles, state }: { articles: ArticleSummary[]; state:
         <div className="fh-section-intro fh-section-intro-left">
           <p className="fh-eyebrow">Learn before you commit</p>
           <h2 id="figma-knowledge-heading">Homebuyer guides and tools for Dallas–Fort Worth</h2>
+          {/* Proof a visitor can check, in place of testimonials the site does not yet have. */}
+          <p className="fh-section-lede">
+            Every guide lists its sources and the date it was reviewed, every calculator shows its method, and every
+            program page says plainly what Debra does and doesn&apos;t decide.
+          </p>
         </div>
 
         {state.status === "unavailable" ? (

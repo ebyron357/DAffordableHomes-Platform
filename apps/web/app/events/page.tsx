@@ -39,7 +39,7 @@ export default function EventsPage() {
         eyebrow="Events & workshops"
         eyebrowIcon={CalendarCheck}
         title="Learn together, in person and online"
-        description="Debra hosts workshops and community events designed to make the path to homeownership feel clear and shared."
+        description="Workshops and community events designed to make the path to homeownership feel clear and shared. Dates appear here once they are confirmed."
         crumbs={[{ label: "Home", href: "/" }, { label: "Events" }]}
         facts={[{ label: "Real sessions only", icon: CalendarCheck }]}
         motif="roofline"
@@ -53,7 +53,7 @@ export default function EventsPage() {
         <BandLead
           eyebrow="The three formats"
           eyebrowIcon={GraduationCap}
-          title="What a session usually looks like"
+          title="What each session is built around"
           titleId="events-formats-heading"
           lede="Different rooms for different questions. All of them are built around explaining, not selling."
         />

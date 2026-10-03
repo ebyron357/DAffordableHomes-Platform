@@ -17,6 +17,7 @@ import {
   Users,
 } from "lucide-react"
 import { trackEvent, type AnalyticsEventName } from "@/lib/analytics"
+import { COMMON_WORRIES } from "@/lib/content/conversion"
 import { BrandMotif } from "@/components/page/brand-motif"
 import { DEBRA_DESK } from "@/lib/content/imagery"
 /**
@@ -77,8 +78,8 @@ const PATHS: PathDefinition[] = [
 const FAQS = [
   {
     question: "Can I buy a home if I have credit concerns?",
-    answer:
-      "Credit is one part of preparation, not a reason to guess or count yourself out. Start by understanding which part of your plan needs attention and what resources may help.",
+    // The same answer the consultation page, first-time buyers and the FAQ give.
+    answer: COMMON_WORRIES.find((worry) => worry.worry === "My credit isn't perfect.")?.answer ?? "",
   },
   {
     question: "What is NACA?",
@@ -103,7 +104,7 @@ const FAQS = [
   {
     question: "Are there homebuyer assistance programs in Dallas?",
     answer:
-      "Depending on your location and circumstances, local or specialized homebuyer-assistance programs may deserve investigation. Program details change, so confirm current requirements with the official source or a qualified professional.",
+      "Yes. The City of Dallas, Dallas County, and the Texas agencies TDHCA and TSAHC each run homebuyer assistance programs with their own rules. The programs page links to each one's official page, and a participating lender confirms who qualifies.",
   },
   {
     question: "What if I’m still renting?",
@@ -570,7 +571,7 @@ export function NextStepLanding() {
               would walk into. The linework says "residential real estate" and claims
               nothing. */}
           <div className="dah-landing-image-frame dah-landing-image-frame-art"><BrandMotif variant="roofline" className="dh-motif" /></div>
-          <div><p className="dah-landing-eyebrow">NACA EDUCATION</p><h2 id="naca-heading">Considering NACA in Dallas? Start with understanding the process.</h2><p className="dah-landing-copy">NACA can offer significant homeownership benefits, but it isn’t simply a shortcut to buying a house. The process includes education, counseling, documentation, qualification, home selection, and mortgage processing.</p><div className="dah-landing-journey" aria-label="NACA journey"><span>Learn</span><i>→</i><span>Prepare</span><i>→</i><span>NACA process</span><i>→</i><span>Home search</span><i>→</i><span>Purchase</span></div><Link href="/programs/naca" className="dah-landing-text-button">Explore NACA with Debra <ArrowRight size={16} aria-hidden="true" /></Link><p className="dah-landing-footnote">D’Affordable Homes does not determine NACA qualification, mortgage approval, rates, terms, or eligibility.</p></div>
+          <div><p className="dah-landing-eyebrow">NACA EDUCATION</p><h2 id="naca-heading">Considering NACA in Dallas? Start with understanding the process.</h2><p className="dah-landing-copy">NACA is a nonprofit program with its own workshop, counseling and qualification process, and it isn’t simply a shortcut to buying a house. The process includes education, counseling, documentation, qualification, home selection, and mortgage processing.</p><div className="dah-landing-journey" aria-label="NACA journey"><span>Learn</span><i>→</i><span>Prepare</span><i>→</i><span>NACA process</span><i>→</i><span>Home search</span><i>→</i><span>Purchase</span></div><Link href="/programs/naca" className="dah-landing-text-button">Explore NACA with Debra <ArrowRight size={16} aria-hidden="true" /></Link><p className="dah-landing-footnote">D’Affordable Homes does not determine NACA qualification, mortgage approval, rates, terms, or eligibility.</p></div>
         </div>
       </section>
 

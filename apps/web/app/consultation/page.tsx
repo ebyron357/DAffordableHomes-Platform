@@ -142,6 +142,10 @@ export default function ConsultationPage() {
                 {booking ? "Rather send a note first?" : "Request a consultation"}
               </h2>
               <p>
+                Buying, selling, using NACA, looking into Homes for Heroes, relocating, weighing a new build, or not sure
+                yet — all of these are good reasons to book.
+              </p>
+              <p>
                 A short form so Debra can understand what you would like to discuss. Please do not include Social
                 Security numbers, account numbers, or other sensitive financial information.
               </p>

@@ -211,8 +211,8 @@ export function ContactForm({
             </>
           ) : (
             <>
-              <strong className="font-semibold text-foreground">Selling?</strong> Include the property address and when
-              you&apos;d like to move. <strong className="font-semibold text-foreground">Asking about a workshop?</strong>{" "}
+              <strong className="font-semibold text-foreground">Selling?</strong>{" "}
+              Include the property address and when you&apos;d like to move. <strong className="font-semibold text-foreground">Asking about a workshop?</strong>{" "}
               Say so, and Debra will let you know when the next date is confirmed.
             </>
           )}

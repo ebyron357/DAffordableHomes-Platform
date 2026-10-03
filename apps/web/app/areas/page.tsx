@@ -1,9 +1,11 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ClipboardCheck, Compass, Home, MapPin, Route, Wallet } from "lucide-react"
+import { ClipboardCheck, Compass, Home, MapPin, Plane, Route, Wallet } from "lucide-react"
 import { FIGMA_CITIES } from "@/lib/figma-home"
 import { PageHeader } from "@/components/page/page-header"
-import { Band, BandLead, CtaBand, Features, Split } from "@/components/page/editorial"
+import { Band, BandLead, CtaBand, Features, Split, Steps } from "@/components/page/editorial"
+import { ArrowLink } from "@/components/page/arrow-link"
+import { CONSULTATION_REASSURANCE } from "@/lib/content/conversion"
 import { CLOSING_BAND_IMAGE, DEBRA_LIFESTYLE } from "@/lib/content/imagery"
 
 export const metadata: Metadata = {
@@ -48,6 +50,25 @@ const GUIDE_CONTENTS = [
   },
 ] as const
 
+/** How a move from outside North Texas is narrowed down, in order. */
+const RELOCATION_STEPS = [
+  {
+    title: "Start from where you'll be",
+    description:
+      "Your workplace, school or base, and how far you are willing to drive, narrow the map faster than any list of cities.",
+  },
+  {
+    title: "Narrow it to one or two areas",
+    description:
+      "Compare them on monthly cost, the kind of housing you will actually tour and your daily routine — not on a ranking.",
+  },
+  {
+    title: "Tour with a plan",
+    description:
+      "When you can be here in person, the tours are for specific homes worth seeing, not for learning the metroplex from scratch.",
+  },
+] as const
+
 export default function AreasPage() {
   const garland = FIGMA_CITIES.find((city) => city.name === "Garland")
   const others = FIGMA_CITIES.filter((city) => city.name !== "Garland")
@@ -58,10 +79,10 @@ export default function AreasPage() {
         eyebrow="Local homebuyer guidance"
         eyebrowIcon={MapPin}
         title="Area guides for Garland and North Texas"
-        intro="Buying somewhere is a different decision from buying something. These guides cover the part of a home search that is about the place — the costs, the housing, the trade-offs — for the communities Debra works in."
+        intro="Buying somewhere is a different decision from buying something. These guides cover the part of a home search that is about the place — the costs, the housing, the trade-offs — for Garland and the North Texas communities around it."
         crumbs={[{ label: "Home", href: "/" }, { label: "Area guides" }]}
         facts={[
-          { label: "Garland is home base", icon: MapPin },
+          { label: "Garland in depth", icon: MapPin },
           { label: "Dallas–Fort Worth metroplex", icon: Route },
         ]}
         motif="roofline"
@@ -80,7 +101,7 @@ export default function AreasPage() {
           eyebrowIcon={MapPin}
           title="Start in Garland"
           titleId="areas-garland-heading"
-          lede="Garland is where Debra's practice is based and the community she can speak about in the most detail. It is the one area on this site with a full written guide behind it."
+          lede="Garland is the site's home market and the community it covers in the most detail. It is the one area on this site with a full written guide behind it."
         />
         <div className="dh-places-layout">
           {garland && (
@@ -158,6 +179,39 @@ export default function AreasPage() {
           New guides are published when there is something genuinely local to say about a community — not a dozen pages
           that only swap the city name. Representation for a specific area is confirmed with Debra before it is promised.
         </p>
+      </Band>
+
+      {/*
+        Relocation. People moving to DFW arrive from the quiz's "Moving to DFW"
+        result and used to be sent to the listings page, which has no feed.
+        Nothing here promises remote showings or video tours; those wait on
+        Debra confirming she offers them (docs/05-content/CONVERSION_COPY.md).
+      */}
+      <Band tone="white" id="moving-to-dfw" aria-labelledby="areas-moving-heading">
+        <BandLead
+          eyebrow="Relocating"
+          eyebrowIcon={Plane}
+          title="Moving to Dallas–Fort Worth? Start with the map, not the listings."
+          titleId="areas-moving-heading"
+          lede="The metroplex is big, and the right part of it depends on your work, your routine and your budget. Start with a phone or video conversation about where you'll be working, how you like to live and your timeline, and Debra will help you narrow it to one or two areas before you spend a weekend touring."
+          aside={
+            <div className="dh-cta-stack">
+              <Link href="/consultation" className="dh-btn dh-btn-navy">
+                Plan your move with Debra
+              </Link>
+              <p className="dh-reassure">{CONSULTATION_REASSURANCE}</p>
+            </div>
+          }
+        />
+        <Steps items={RELOCATION_STEPS} />
+        <ul className="dh-band-links">
+          <li>
+            <ArrowLink href="/neighborhoods" label="Compare DFW neighborhoods" />
+          </li>
+          <li>
+            <ArrowLink href="/programs/homes-for-heroes" label="On military orders? Read the Homes for Heroes guidance" />
+          </li>
+        </ul>
       </Band>
 
       <CtaBand

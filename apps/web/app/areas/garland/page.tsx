@@ -100,7 +100,7 @@ const faqs = [
   {
     question: "Does Debra help first-time homebuyers in Garland?",
     answer:
-      "Debra can discuss your Garland homebuying goals, current preparation, and program needs, then confirm whether representation is available for your specific transaction. The site does not publish an unverified blanket service-area promise.",
+      "Debra can talk with you about your Garland homebuying goals, where you are in your preparation and any program you are using, then confirm whether she can represent you for that specific purchase.",
   },
   {
     question: "What should I prepare before searching for a home in Garland?",
@@ -158,7 +158,7 @@ export default function GarlandAreaPage() {
         ]}
         facts={[
           { label: "Dallas County", icon: MapPin },
-          { label: "Debra's home market", icon: Home },
+          { label: "The site's home market", icon: Home },
           { label: "Dallas–Fort Worth metroplex", icon: Route },
         ]}
         motif="roofline"
@@ -177,7 +177,7 @@ export default function GarlandAreaPage() {
           eyebrowIcon={Compass}
           title="Define the search before touring homes"
           titleId="search-heading"
-          lede="Garland is where Debra's practice is based and the community she can speak about in the most detail. Availability for a specific property or transaction is still confirmed with her directly."
+          lede="Garland is the site's home market and the community it covers in the most detail. Availability for a specific property or transaction is confirmed with Debra directly."
         />
         <Features items={SEARCH_PREP} rule="teal" />
       </Band>
