@@ -64,6 +64,7 @@ export function PageHeader({
   media,
   motif = "roofline",
   tone = "navy",
+  note,
 }: {
   eyebrow?: string
   eyebrowIcon?: DecorativeIcon
@@ -81,6 +82,8 @@ export function PageHeader({
   media?: PageHeaderMedia
   motif?: BrandMotifVariant
   tone?: PageHeaderTone
+  /** One line under the action buttons — what pressing them commits you to. */
+  note?: string
 }) {
   const summary = intro ?? description
   const breadcrumbs = crumbs ? breadcrumbJsonLd(crumbs) : null
@@ -138,6 +141,7 @@ export function PageHeader({
             )}
 
             {children && <div className="dh-masthead-actions">{children}</div>}
+            {note && <p className="dh-reassure">{note}</p>}
           </div>
 
           <div className="dh-masthead-aside" aria-hidden={media ? undefined : "true"}>

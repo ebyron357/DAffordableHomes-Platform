@@ -4,6 +4,25 @@ All notable repository changes are documented here.
 
 ## 2026-10-03
 
+### Conversion copy: next steps, how a consultation works, common worries
+
+- Every form's success message now says what happens next, and keyboard focus
+  moves to it. `/start` no longer promises "Debra's team".
+- `/consultation` explains how a consultation works — three steps, what helps,
+  what it is not — before the form, and answers the common worries after it.
+  The worries also appear on `/first-time-buyers` and `/faq`, with a one-line
+  version on the homepage.
+- "No cost · No commitment · Phone or video call" under the main consultation
+  buttons. These promises were already on the site; they now come from one
+  file and are listed for Debra's approval in
+  `docs/05-content/CONVERSION_COPY.md`.
+- Dead ends removed: the homepage header button is "Talk with Debra"; `/start`'s
+  "Rather talk?" reaches a person; city tiles no longer promise a property
+  search that does not exist; the seller quiz result no longer links to an
+  empty page.
+- The homepage no longer publishes `FAQPage` markup for questions it does not
+  show.
+
 ### GoHighLevel: booking calendar, one webhook for every form, one field mapping
 
 - **Booking calendar on `/consultation`.** Set `GHL_BOOKING_URL` to a

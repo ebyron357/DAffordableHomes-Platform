@@ -136,7 +136,7 @@ export default function AreasPage() {
           eyebrowIcon={Route}
           title="The North Texas cities around it"
           titleId="areas-dfw-heading"
-          lede="Written guides for these are still being built one at a time. Until then, each opens the property search — and Debra can talk through any of them directly."
+          lede="Written guides for these are added one at a time. Until then, Debra can talk through any of them with you directly."
         />
         <ul className="dh-places">
           {others.map((city) => (
@@ -144,7 +144,10 @@ export default function AreasPage() {
               <Link href={city.href} className="dh-place">
                 <MapPin aria-hidden="true" />
                 <span>
-                  <span className="dh-place-name">{city.name}</span>
+                  <span className="dh-place-name">
+                    <span className="sr-only">Ask Debra about </span>
+                    {city.name}
+                  </span>
                   <span className="dh-place-county">{city.county}</span>
                 </span>
               </Link>

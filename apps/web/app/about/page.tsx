@@ -5,6 +5,7 @@ import { SITE, UNVERIFIED_TRUST_FACTS } from "@/lib/site"
 import { ProfessionalDetails } from "@/components/layout/professional-details"
 import { PageHeader } from "@/components/page/page-header"
 import { JsonLd } from "@/components/seo/json-ld"
+import { CONSULTATION_REASSURANCE } from "@/lib/content/conversion"
 import { Band, BandLead, CtaBand, Features, Split, StatusStrip } from "@/components/page/editorial"
 import { CLOSING_BAND_IMAGE, DEBRA_LIFESTYLE, DEBRA_PORTRAIT } from "@/lib/content/imagery"
 
@@ -78,6 +79,7 @@ export default function AboutPage() {
           priority: true,
           caption: { label: "REALTOR® · Garland", title: "Debra Allen" },
         }}
+        note={CONSULTATION_REASSURANCE}
       >
         <Link href="/consultation" className="dh-btn dh-btn-gold">
           Book a consultation

@@ -197,7 +197,7 @@ export default async function HomesPage() {
           eyebrowIcon={MapPin}
           title="Garland, and the North Texas cities around it"
           titleId="homes-areas-heading"
-          lede="Garland is the one community on this site with a full local guide behind it. The rest link into the property search while their guides are written."
+          lede="Garland is the one community on this site with a full local guide behind it. Until the others have theirs, Debra can talk through any of them with you directly."
         />
         <div className="dh-places-layout">
           {garland && (
@@ -217,7 +217,10 @@ export default async function HomesPage() {
                 <Link href={city.href} className="dh-place">
                   <MapPin aria-hidden="true" />
                   <span>
-                    <span className="dh-place-name">{city.name}</span>
+                    <span className="dh-place-name">
+                      <span className="sr-only">Ask Debra about </span>
+                      {city.name}
+                    </span>
                     <span className="dh-place-county">{city.county}</span>
                   </span>
                 </Link>

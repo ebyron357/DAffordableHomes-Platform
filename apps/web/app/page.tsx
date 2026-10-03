@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import { FigmaHomePage } from "@/components/home/figma-home-page"
-import { FAQ_PREVIEW } from "@/lib/content/home"
 import { listArticles } from "@/lib/blog/source"
 import { searchListings } from "@/lib/mls/provider"
 import { SITE } from "@/lib/site"
@@ -52,25 +51,15 @@ export default async function HomePage() {
       { "@type": "Place", name: "Dallas–Fort Worth" },
     ],
   }
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: FAQ_PREVIEW.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: { "@type": "Answer", text: item.answer },
-    })),
-  }
+  // No FAQPage here: the homepage shows no question-and-answer content, and
+  // structured data must describe only what the visitor can see. The FAQ
+  // markup lives on /faq, the program pages, the calculators and the guides.
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homePageJsonLd).replace(/</g, "\\u003c") }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }}
       />
       <FigmaHomePage
         listings={listings}

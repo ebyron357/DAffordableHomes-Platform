@@ -14,6 +14,7 @@ import { formatArticleDate } from "@/lib/blog/format"
 import type { ReadState } from "@/lib/blog/source"
 import type { ArticleSummary } from "@/lib/blog/types"
 import type { PropertySearchResult } from "@/lib/mls/provider"
+import { CONSULTATION_REASSURANCE, WORRIES_SHORT } from "@/lib/content/conversion"
 import { DEBRA_DESK_BAND } from "@/lib/content/imagery"
 import { BrandMotif } from "@/components/page/brand-motif"
 import { AmbientMotion } from "@/components/media/ambient-motion"
@@ -137,6 +138,8 @@ function Hero() {
               {FIGMA_HOME_CTA.startBuying.label}
             </Link>
           </div>
+          {/* What pressing "Schedule a Consultation" commits you to: nothing. */}
+          <p className="fh-hero-reassure">{CONSULTATION_REASSURANCE}</p>
           {/* The person behind the practice, in the first viewport. The
               portrait is the register's approved primary image at its crop
               rule; it is decorative here because the name beside it carries
@@ -373,6 +376,10 @@ function MeetDebra() {
             of the process that belong to a lender, an inspector or an attorney named as theirs. First home, moving
             equity you have already built, or weighing a new build — the pace is yours.
           </p>
+          <p className="fh-meet-worries">
+            {WORRIES_SHORT}{" "}
+            <Link href="/consultation#consultation-how-heading">See how a consultation works</Link>
+          </p>
           <div className="fh-meet-actions">
             <Link href={FIGMA_HOME_CTA.aboutDebra.href} className="fh-btn fh-btn-light">
               {FIGMA_HOME_CTA.aboutDebra.label}
@@ -407,7 +414,7 @@ function Markets() {
           <p className="fh-eyebrow fh-eyebrow-on-dark">Local market focus</p>
           <h2 id="figma-markets-heading">Garland, and the North Texas cities around it</h2>
           <p className="fh-section-lede fh-section-lede-dark">
-            Start a search in any of these, or open the Garland guide for a closer local read.
+            Open the Garland guide for a closer local read, or ask Debra about any of the others directly.
           </p>
         </div>
 
@@ -427,7 +434,10 @@ function Markets() {
             {others.map((city) => (
               <li key={city.name}>
                 <Link href={city.href} className="fh-market-row">
-                  <span className="fh-market-name">{city.name}</span>
+                  <span className="fh-market-name">
+                    <span className="sr-only">Ask Debra about </span>
+                    {city.name}
+                  </span>
                   <span className="fh-market-county">{city.county}</span>
                   <ArrowRight className="size-4 fh-market-arrow" aria-hidden="true" />
                 </Link>

@@ -17,6 +17,7 @@ import { JsonLd } from "@/components/seo/json-ld"
 import { LOCAL_MARKET, verifiedAreaServedSchema } from "@/lib/local-market"
 import type { ProgramDefinition } from "@/lib/programs"
 import { SITE } from "@/lib/site"
+import { CONSULTATION_REASSURANCE } from "@/lib/content/conversion"
 
 /**
  * Shared program page.
@@ -77,6 +78,7 @@ export function ProgramPage({ program }: { program: ProgramDefinition }) {
           { label: "Real-estate role only", icon: ShieldCheck },
         ]}
         motif="keys"
+        note={CONSULTATION_REASSURANCE}
       >
         <Link href="#program-contact" className="dh-btn dh-btn-gold">
           {program.primaryCta}

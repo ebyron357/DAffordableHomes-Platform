@@ -339,7 +339,8 @@ export function buildResult(answers: PathAnswers): PathResult {
         nextStep:
           "Request a valuation conversation so pricing starts from recent comparable sales, then decide what preparation is actually worth doing.",
         primary: { label: "Request a home valuation", href: "/contact" },
-        resource: { label: "Ask what Debra is seeing in the market", href: "/market-reports" },
+        // Was /market-reports, a placeholder with no reports on it.
+        resource: { label: "Read how Debra works", href: "/about" },
         consultation: CONSULTATION,
       }
     case "sell-buy":

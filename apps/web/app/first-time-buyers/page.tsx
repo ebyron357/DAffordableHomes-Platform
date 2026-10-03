@@ -15,7 +15,9 @@ import {
 } from "lucide-react"
 import { PageHeader } from "@/components/page/page-header"
 import { Band, BandLead, CtaBand, Features, QaList, Split, StatusStrip, Steps } from "@/components/page/editorial"
+import { WorriesList } from "@/components/conversion/worries"
 import { JsonLd } from "@/components/seo/json-ld"
+import { CONSULTATION_REASSURANCE, WORRIES_HEADING } from "@/lib/content/conversion"
 import { CLOSING_BAND_IMAGE, DEBRA_PORTRAIT } from "@/lib/content/imagery"
 
 export const metadata: Metadata = {
@@ -166,6 +168,7 @@ export default function FirstTimeBuyersPage() {
           { label: "No pressure, no jargon", icon: HeartHandshake },
         ]}
         motif="roofline"
+        note={CONSULTATION_REASSURANCE}
       >
         <Link href="/start" className="dh-btn dh-btn-gold">
           Find your next step
@@ -184,6 +187,28 @@ export default function FirstTimeBuyersPage() {
           lede="Before anyone talks about specific homes, it helps to see the shape of the whole process. When you know what is coming, each step feels smaller."
         />
         <Steps items={STAGES} />
+      </Band>
+
+      {/*
+        Straight after the stages, where a reader decides whether the process
+        is for someone in their position. Credit, savings and timing are the
+        reasons first-time buyers give for not getting in touch.
+      */}
+      <Band tone="navy" aria-labelledby="ftb-worries-heading">
+        <BandLead
+          eyebrow="Common worries"
+          title={WORRIES_HEADING}
+          titleId="ftb-worries-heading"
+          aside={
+            <div className="dh-cta-stack">
+              <Link href="/consultation" className="dh-btn dh-btn-gold">
+                Talk with Debra
+              </Link>
+              <p className="dh-reassure">{CONSULTATION_REASSURANCE}</p>
+            </div>
+          }
+        />
+        <WorriesList />
       </Band>
 
       <Band tone="alt" aria-labelledby="ftb-team-heading">

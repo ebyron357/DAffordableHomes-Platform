@@ -1,8 +1,10 @@
 "use client"
 
-import { useId, useState } from "react"
+import Link from "next/link"
+import { useEffect, useId, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Notice } from "@/components/states/notice"
+import { FORM_PRIVACY } from "@/lib/content/conversion"
 import type { ProgramSlug } from "@/lib/programs"
 
 type FormStatus = "idle" | "submitting" | "success" | "error"
@@ -29,6 +31,12 @@ export function ProgramLeadForm({
   const [startedAt] = useState(() => Date.now())
   const [status, setStatus] = useState<FormStatus>("idle")
   const [message, setMessage] = useState("")
+  // The success message replaces the form; move focus to it so keyboard and
+  // screen-reader users are not left on a button that no longer exists.
+  const successRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (status === "success") successRef.current?.focus()
+  }, [status])
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -98,9 +106,32 @@ export function ProgramLeadForm({
 
   if (status === "success") {
     return (
-      <Notice tone="success" title="Thank you — your request was received">
-        Debra can review your program, location, and timing details before following up. Keep official program documents and eligibility questions with the appropriate program or licensed professional.
-      </Notice>
+      <div ref={successRef} tabIndex={-1} className="outline-none">
+        {program === "naca" ? (
+          <Notice tone="success" title="Thank you — Debra has your NACA details">
+            <p>
+              Because you shared your NACA stage, location and timing, she can start where you actually are instead of
+              from scratch, and she&apos;ll follow up the way you asked to be contacted.
+            </p>
+            <p className="mt-2">
+              Haven&apos;t been to a NACA Homebuyer Workshop yet? That&apos;s NACA&apos;s first step, and you can sign
+              up on naca.com. Questions about qualification or your mortgage stay with your NACA counselor; questions
+              about homes, neighborhoods, offers and inspections are Debra&apos;s.
+            </p>
+          </Notice>
+        ) : (
+          <Notice tone="success" title="Thank you — Debra has your details">
+            <p>
+              She&apos;ll follow up the way you asked to be contacted, starting from your role and whether you&apos;re
+              buying, selling or both.
+            </p>
+            <p className="mt-2">
+              If you&apos;re also looking at TSAHC&apos;s Homes for Texas Heroes loan program, a participating lender
+              confirms eligibility; Debra handles the real-estate side either way.
+            </p>
+          </Notice>
+        )}
+      </div>
     )
   }
 
@@ -118,6 +149,10 @@ export function ProgramLeadForm({
           <p className="mt-2"><a href="/consultation" className="font-semibold text-primary underline">Use the main consultation page</a>.</p>
         </Notice>
       )}
+
+      <p className="text-sm leading-6 text-muted-foreground">
+        Only your name, email and phone are required. Everything else just helps Debra start where you are.
+      </p>
 
       <div className="sr-only" aria-hidden="true">
         <label htmlFor={`${formId}-website`}>Website</label>
@@ -140,10 +175,25 @@ export function ProgramLeadForm({
           Email <span aria-hidden="true" className="text-destructive">*</span>
           <input id={`${formId}-email`} name="email" type="email" required autoComplete="email" className={inputClass} />
         </label>
-        <label className="grid gap-2 text-sm font-medium" htmlFor={`${formId}-phone`}>
-          Phone <span aria-hidden="true" className="text-destructive">*</span>
-          <input id={`${formId}-phone`} name="phone" type="tel" required autoComplete="tel" className={inputClass} />
-        </label>
+        {/* The help text sits outside the label so it is announced once, as a
+            description, rather than folded into the field's name. */}
+        <div className="grid gap-2">
+          <label className="grid gap-2 text-sm font-medium" htmlFor={`${formId}-phone`}>
+            Phone <span aria-hidden="true" className="text-destructive">*</span>
+            <input
+              id={`${formId}-phone`}
+              name="phone"
+              type="tel"
+              required
+              autoComplete="tel"
+              aria-describedby={`${formId}-phone-help`}
+              className={inputClass}
+            />
+          </label>
+          <p id={`${formId}-phone-help`} className="text-xs leading-relaxed text-muted-foreground">
+            So Debra can reach you the way you prefer. Used only to reply about this request.
+          </p>
+        </div>
       </div>
 
       <div className="grid gap-5 sm:grid-cols-3">
@@ -239,8 +289,19 @@ export function ProgramLeadForm({
         <Button type="submit" disabled={status === "submitting"}>
           {status === "submitting" ? "Sending…" : cta}
         </Button>
+        {/*
+          Same boundary as before — nothing is guaranteed — said so that it
+          reassures rather than warns at the moment someone decides to send.
+        */}
         <p className="mt-3 text-xs leading-5 text-muted-foreground">
-          Program details, eligibility, lending decisions, savings, and transaction outcomes are not guaranteed.
+          Sending this doesn&apos;t commit you to anything. Eligibility, approval, savings and outcomes are decided by
+          the program and your lender, and aren&apos;t guaranteed.
+        </p>
+        <p className="mt-1 text-xs leading-5 text-muted-foreground">
+          {FORM_PRIVACY}{" "}
+          <Link href="/privacy" className="font-medium text-primary underline">
+            Privacy policy
+          </Link>
         </p>
       </div>
     </form>

@@ -330,7 +330,11 @@ BreadcrumbList schema" was true of four routes.
   shipped the day the address was filled in.
 - **`/llms.txt`** lists each calculator with a one-line description of its
   method, from the same guide content.
-- FAQPage now covers 14 routes.
+- FAQPage covers 13 routes. A later pass the same day removed it from the
+  homepage, where it described four questions the page no longer showed —
+  markup for content a visitor cannot see is a structured-data violation —
+  and added a visible "Common worries" group to `/faq`
+  (`docs/05-content/CONVERSION_COPY.md`).
 
 ### Still not measured
 

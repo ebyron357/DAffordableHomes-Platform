@@ -19,6 +19,7 @@ import { Band, BandLead, CtaBand, Features, Split, StatusStrip, type Feature } f
 import { CLOSING_BAND_IMAGE, DEBRA_PORTRAIT } from "@/lib/content/imagery"
 import { PROGRAM_CARDS } from "@/lib/programs"
 import { SHARE_IMAGES } from "@/lib/seo"
+import { CONSULTATION_REASSURANCE } from "@/lib/content/conversion"
 
 export const metadata: Metadata = {
   title: "Homebuyer Programs in Garland and DFW",
@@ -117,6 +118,7 @@ export default function ProgramsPage() {
           { label: "Independent guidance", icon: ShieldCheck },
         ]}
         motif="keys"
+        note={CONSULTATION_REASSURANCE}
       >
         <Link href="/consultation" className="dh-btn dh-btn-gold">
           Talk through your options

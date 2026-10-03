@@ -9,7 +9,10 @@ test("home and blog pages publish page-level, answer-ready schema", () => {
   const blog = read("apps/web/app/blog/page.tsx")
 
   assert.match(home, /"@type": "WebPage"/)
-  assert.match(home, /"@type": "FAQPage"/)
+  // The homepage shows no Q&A, so it must not publish FAQPage markup: Google
+  // treats markup for content a visitor cannot see as spam. Until 2026-10-03 it
+  // marked up four questions from a component that was no longer rendered.
+  assert.doesNotMatch(home, /"@type": "FAQPage"/)
   assert.match(home, /JSON\.stringify\(homePageJsonLd\)\.replace\(\/</)
   assert.match(blog, /"@type": "CollectionPage"/)
   assert.match(blog, /"@type": "ItemList"/)

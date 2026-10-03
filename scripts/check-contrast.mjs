@@ -67,6 +67,12 @@ const checks = [
   ['booking note grey on white', '#52616f', '#ffffff'],
   ['booking note teal link on white', '#077783', '#ffffff'],
   ['crumb label, 78% white blended over the navy masthead', '#cad0d8', '#102b4e'],
+  /* Conversion copy (2026-10-03): reassurance under buttons, worries, notes. */
+  ['reassurance line on a navy masthead or band', '#d7e2ec', '#102b4e'],
+  ['homepage hero reassurance on navy', '#dbe6ef', '#102b4e'],
+  ['homepage worries link, gold on navy', '#e6bd55', '#102b4e'],
+  ['band note grey on the page background', '#52616f', '#f7f9f8'],
+  ['worry card heading navy on white', '#102b4e', '#ffffff'],
 ]
 let failed = 0
 for (const [name, foreground, background] of checks) {

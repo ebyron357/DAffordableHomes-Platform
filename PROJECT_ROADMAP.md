@@ -123,7 +123,7 @@
 
 ### v1.0 launch gate
 
-- [ ] Content and factual approval by Debra
+- [ ] Content and factual approval by Debra — includes the promises the conversion copy repeats, listed with every place they appear in `docs/05-content/CONVERSION_COPY.md` §1
 - [ ] Brokerage and licensing review
 - [ ] Fair Housing and Equal Housing review
 - [ ] IDX provider approval
