@@ -170,6 +170,9 @@ test("no unverified frequency, base, reputation or internal claim reaches a visi
     /She is known for/,
     /added to the project/,
     /unverified blanket service-area promise/,
+    // An instruction to the site's editors, shown to visitors in the Homes for Heroes article.
+    /should not be represented as officially affiliated/,
+    /unless verified documentation is published/,
   ];
   const offenders = [];
   for (const file of sources()) {

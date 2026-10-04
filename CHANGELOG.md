@@ -21,6 +21,10 @@ All notable repository changes are documented here.
   `/start` FAQ answer is now in the page HTML, with matching FAQ markup.
 - IndexNow support (`INDEXNOW_KEY`, `/indexnow.txt`, `pnpm seo:indexnow`);
   `/llms.txt` gains a "Key facts" section.
+- The Homes for Heroes article's program notice no longer shows visitors an
+  instruction meant for editors ("should not be represented as officially
+  affiliated unless verified documentation is published"); it now says the
+  site does not claim an affiliation, as the program page does.
 
 ## 2026-10-03
 

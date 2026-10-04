@@ -40,7 +40,7 @@
     "/start brand area: 46.4% {\"navy\":24.1,\"gold\":0.2,\"alt\":22.1}",
     "/terms brand area: 57.4% {\"navy\":57.4}",
     "/blog/naca-homebuying-dallas-fort-worth brand area: 18.7% {\"navy\":15.9,\"teal\":0,\"alt\":2.8}",
-    "/blog/homes-for-heroes-north-texas brand area: 18.2% {\"navy\":17.2,\"teal\":0,\"alt\":1}",
+    "/blog/homes-for-heroes-north-texas brand area: 18.3% {\"navy\":17.2,\"teal\":0,\"alt\":1.1}",
     "/blog/how-to-buy-home-garland-tx brand area: 15.4% {\"navy\":13.1,\"teal\":0,\"alt\":2.3}",
     "/homes brand area: 87.4% {\"navy\":63.2,\"alt\":24.2,\"teal\":0}",
     "/testimonials brand area: 88.4% {\"navy\":63.9,\"teal\":0,\"alt\":24.5}",
@@ -234,8 +234,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -358,8 +358,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -483,8 +483,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -695,8 +695,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -748,8 +748,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -806,8 +806,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -917,8 +917,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1091,8 +1091,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1266,8 +1266,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1327,8 +1327,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1583,8 +1583,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1627,7 +1627,7 @@
       },
       "inputsMissingLabel": 0,
       "nestedInteractive": 0,
-      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\n/\nGuides\n/\nHow Debra Allen Helps North Texas Heroes Buy or Sell a Home\n\nREAL ESTATE FOR COMMUNITY HEROES\n\nHow Debra Allen Helps North Texas Heroes Buy or Sell a Home\n\nA practical real-estate guide for North Texas military members, veterans, teachers, healthcare workers, firefighters, EMS, and law-enforcement professionals.\n\nBy Debra Allen, REALTOR®\nPublished August 5, 2026\nReviewed August 5, 2026\n9 minute read\nHOMEBUYER PROGRAMS\n\nTHE QUICK ANSWER\n\nMilitary members, veterans, teachers, healthcare professionals, firefighters, EMS professionals, and law-enforcement professionals often face schedules and move requirements that generic real-estate advice does not fully address.\n\nDebra Allen helps organize the real-estate side of a North Texas purchase, sale, or coordinated move. Homes for Heroes controls its own enrollment, specialist network, eligibility rules, rewards, and disclosures.\n\nWho is considered a community hero?\n\nHomes for Heroes identifies five principal groups: military members and veterans, firefighters and EMS, law enforcement, healthcare professionals, and teachers. Its current information says eligibility may include current, former, and retired members of those groups and is not limited to first-time buyers.\n\nBelonging to one of those groups does not by itself guarantee a reward, rebate, savings amount, or transaction outcome. Separate two questions from the beginning:\n\nDoes the official third-party program apply to this person and transaction?\nWhat real-estate plan is needed to buy, sell, or move successfully?\n\nHomes for Heroes answers the first question. Debra helps with the second.\n\nWhy hero households may need a different plan\nMilitary members and veterans\n\nMilitary households may face relocation orders, deployment, training, remote searches, limited touring time, or a need to sell and move quickly. Veterans may also need to distinguish VA loan eligibility from the larger affordability decision. A possible zero-down transaction does not eliminate inspections, moving expenses, insurance, taxes, repairs, or the need for reserves.\n\nTeachers and education professionals\n\nTeachers may coordinate around contract dates, school calendars, summer availability, commute requirements, and family schedules. A desired summer closing still depends on inventory, lender timelines, inspections, appraisal, title, and the seller's needs.\n\nHealthcare professionals\n\nHealthcare workers may have overnight shifts, rotating days, on-call responsibilities, multiple work locations, or contract assignments. A search should test commute conditions at the hours the buyer actually travels.\n\nFirefighters, EMS, and law enforcement\n\nExtended shifts and callouts can make ordinary scheduling difficult. Concentrated tour blocks, digital document review, clear deadline reminders, parking, commute, and privacy needs may carry unusual weight.\n\nHow Debra helps hero homebuyers\nClarify the goal\n\nThe plan begins with why the buyer is moving, preferred timing, current housing, job location, commute limits, property needs, financing status, available savings, and a comfortable monthly cost.\n\nBuild a realistic location strategy\n\nDallas–Fort Worth is a large region. Debra can help compare communities using commute patterns, toll dependence, taxes, insurance, home age, inventory, association costs, property condition, and proximity to work or family.\n\nEvaluate the complete cost\n\nThe ownership budget may include principal, interest, taxes, insurance, mortgage insurance, association dues, utilities, transportation, maintenance, repairs, and special assessments. A lender's maximum approval does not include every expense in the household's life.\n\nTour and compare efficiently\n\nFor buyers with demanding schedules, the goal is not to see the largest number of homes. It is to prioritize the most relevant options, schedule efficient tours, document differences, and investigate concerns before emotion takes over.\n\nPrepare and manage the transaction\n\nDebra can help with comparable information, offer terms, contract deadlines, inspections, repair discussions, appraisal access, title communication, lender coordination, insurance questions, final walkthrough, and closing preparation. Each licensed or authorized professional remains responsible for their own decisions.\n\nExplore Debra's hero-focused real-estate guidance.\n\nHow Debra helps hero home sellers\nPrepare without renovating blindly\n\nPreparation may include decluttering, cleaning, minor repairs, safety concerns, curb appeal, photography readiness, showing access, and documentation. Not every property needs a costly renovation before sale.\n\nBuild a fact-based launch\n\nA listing strategy can consider condition, comparable sales, active competition, timing, photography, showings, pricing position, and the seller's objectives. Overpricing can reduce attention and weaken future negotiating leverage.\n\nCompare the whole offer\n\nThe highest price is not always the strongest offer. Financing, down payment, deposits, inspection terms, requested concessions, appraisal language, contingencies, closing date, and possession can materially change risk.\n\nBuying and selling at the same time\n\nA coordinated move creates dependencies involving equity, down payment, mortgage qualification, closing dates, possession, temporary housing, storage, contingencies, work schedules, and family logistics.\n\nCOMPARE\n\nThree ways to sequence a coordinated move\nEach sequence trades one kind of pressure for another.\nSEQUENCE\tWHAT IT CAN DO — AND WHAT IT COSTS\nSell first\tMay clarify available equity and reduce the risk of carrying two homes, but can create a temporary-housing need.\nBuy first\tMay reduce moving pressure, but the buyer must qualify while still owning the current home or use another approved structure.\nCoordinate both\tCan connect the transactions through timing and contract terms, but every dependency introduces risk.\n\nDebra's role is to make those dependencies visible before the first contract creates a deadline.\n\nHomes for Heroes benefits and real-estate service are separate\n\nHomes for Heroes controls its eligibility, enrollment, specialist network, reward structure, calculations, terms, and disclosures. Before relying on a benefit, a consumer should confirm:\n\nWhether the profession or service history qualifies\nWhether enrollment is required\nWhether the selected professional has the required official status\nWhether the location and transaction qualify\nHow any reward is calculated and issued\nWhether taxes, lender restrictions, or other conditions apply\n\nThe D'Affordable Homes page provides hero-focused real-estate guidance. It does not claim an affiliation with Homes for Heroes or promise a savings amount.\n\nCHECKLIST\n\nQuestions to answer before starting\nWhat is the complete estimated monthly payment?\nHow much cash and emergency reserve will remain after closing?\nWhich communities fit the real commute and shift schedule?\nHow much maintenance and repair risk is acceptable?\nIs a home sale required before the purchase can close?\nDoes an official Homes for Heroes benefit apply to this transaction?\nWho is responsible for each financing, program, inspection, appraisal, and legal decision?\nCommon mistakes to avoid\nAssuming professional status automatically guarantees a reward\nChoosing a home based only on the lender's maximum approval\nTesting a commute only during light weekend traffic\nWaiting until a transfer, lease end, or school break is too close\nOpening new credit before closing without discussing the effect\nSpending every available dollar and leaving no repair reserve\nTreating every hero household as though it has the same priorities\n\nDIRECT ANSWERS\n\nFrequently asked questions\nWho may qualify for Homes for Heroes?\n+\nIs Homes for Heroes only for first-time buyers?\n+\nDoes a profession automatically guarantee a reward?\n+\nCan Debra help a North Texas hero buy or sell?\n+\nCan Debra coordinate a sale and purchase?\n+\n\nVERIFY IT YOURSELF\n\nOfficial sources and review notes\n\nProgram rules and public resources can change. Confirm current requirements with the organization responsible for the decision.\n\nHomes for Heroes: Who We Serve\nHomes for Heroes\nHomes for Heroes: Program Disclosures\nHomes for Heroes\n\nPROGRAM BOUNDARY\n\nHomes for Heroes is a third-party program. This article does not guarantee enrollment, eligibility, specialist status, rewards, rebates, savings, or transaction results. D'Affordable Homes should not be represented as officially affiliated unless verified documentation is published.\n\nRELATED\n\nKeep reading\n\nHOMEBUYER PROGRAMS\n\nUsing NACA to Buy a Home in Dallas–Fort Worth\n\nLearn how the NACA homebuying process works, when to begin a DFW home search, and how Debra Allen supports the real-estate side of a purchase.\n\n10 minute read\n\nFIRST-TIME BUYERS\n\nFIRST-TIME BUYERS\n\nHow to Buy a Home in Garland, Texas\n\nA step-by-step first-time buyer guide to budgeting, financing, touring, inspections, and closing on a home in Garland, Texas.\n\n12 minute read\n\nNEXT STEP\n\nPlan the move around your schedule\n\nBring your timing, your shift pattern, and your must-haves. The consultation focuses on sequencing the transaction realistically.\n\nBook consultation\n\nCONTINUE YOUR PLAN\n\nHero-focused real-estate guidance\nSee Debra's buying, selling, and move-planning support.\nGarland homebuyer guide\nPlan a Garland search around cost, condition, commute, and timing.\nAffordability calculator\nEstimate a comfortable planning range before touring.\nClosing-cost calculator\nPrepare for costs beyond the down payment.\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nDown payment plan\nRent or buy\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nNACA homebuyer help\nHomes for Heroes\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
+      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\n/\nGuides\n/\nHow Debra Allen Helps North Texas Heroes Buy or Sell a Home\n\nREAL ESTATE FOR COMMUNITY HEROES\n\nHow Debra Allen Helps North Texas Heroes Buy or Sell a Home\n\nA practical real-estate guide for North Texas military members, veterans, teachers, healthcare workers, firefighters, EMS, and law-enforcement professionals.\n\nBy Debra Allen, REALTOR®\nPublished August 5, 2026\nReviewed August 5, 2026\n9 minute read\nHOMEBUYER PROGRAMS\n\nTHE QUICK ANSWER\n\nMilitary members, veterans, teachers, healthcare professionals, firefighters, EMS professionals, and law-enforcement professionals often face schedules and move requirements that generic real-estate advice does not fully address.\n\nDebra Allen helps organize the real-estate side of a North Texas purchase, sale, or coordinated move. Homes for Heroes controls its own enrollment, specialist network, eligibility rules, rewards, and disclosures.\n\nWho is considered a community hero?\n\nHomes for Heroes identifies five principal groups: military members and veterans, firefighters and EMS, law enforcement, healthcare professionals, and teachers. Its current information says eligibility may include current, former, and retired members of those groups and is not limited to first-time buyers.\n\nBelonging to one of those groups does not by itself guarantee a reward, rebate, savings amount, or transaction outcome. Separate two questions from the beginning:\n\nDoes the official third-party program apply to this person and transaction?\nWhat real-estate plan is needed to buy, sell, or move successfully?\n\nHomes for Heroes answers the first question. Debra helps with the second.\n\nWhy hero households may need a different plan\nMilitary members and veterans\n\nMilitary households may face relocation orders, deployment, training, remote searches, limited touring time, or a need to sell and move quickly. Veterans may also need to distinguish VA loan eligibility from the larger affordability decision. A possible zero-down transaction does not eliminate inspections, moving expenses, insurance, taxes, repairs, or the need for reserves.\n\nTeachers and education professionals\n\nTeachers may coordinate around contract dates, school calendars, summer availability, commute requirements, and family schedules. A desired summer closing still depends on inventory, lender timelines, inspections, appraisal, title, and the seller's needs.\n\nHealthcare professionals\n\nHealthcare workers may have overnight shifts, rotating days, on-call responsibilities, multiple work locations, or contract assignments. A search should test commute conditions at the hours the buyer actually travels.\n\nFirefighters, EMS, and law enforcement\n\nExtended shifts and callouts can make ordinary scheduling difficult. Concentrated tour blocks, digital document review, clear deadline reminders, parking, commute, and privacy needs may carry unusual weight.\n\nHow Debra helps hero homebuyers\nClarify the goal\n\nThe plan begins with why the buyer is moving, preferred timing, current housing, job location, commute limits, property needs, financing status, available savings, and a comfortable monthly cost.\n\nBuild a realistic location strategy\n\nDallas–Fort Worth is a large region. Debra can help compare communities using commute patterns, toll dependence, taxes, insurance, home age, inventory, association costs, property condition, and proximity to work or family.\n\nEvaluate the complete cost\n\nThe ownership budget may include principal, interest, taxes, insurance, mortgage insurance, association dues, utilities, transportation, maintenance, repairs, and special assessments. A lender's maximum approval does not include every expense in the household's life.\n\nTour and compare efficiently\n\nFor buyers with demanding schedules, the goal is not to see the largest number of homes. It is to prioritize the most relevant options, schedule efficient tours, document differences, and investigate concerns before emotion takes over.\n\nPrepare and manage the transaction\n\nDebra can help with comparable information, offer terms, contract deadlines, inspections, repair discussions, appraisal access, title communication, lender coordination, insurance questions, final walkthrough, and closing preparation. Each licensed or authorized professional remains responsible for their own decisions.\n\nExplore Debra's hero-focused real-estate guidance.\n\nHow Debra helps hero home sellers\nPrepare without renovating blindly\n\nPreparation may include decluttering, cleaning, minor repairs, safety concerns, curb appeal, photography readiness, showing access, and documentation. Not every property needs a costly renovation before sale.\n\nBuild a fact-based launch\n\nA listing strategy can consider condition, comparable sales, active competition, timing, photography, showings, pricing position, and the seller's objectives. Overpricing can reduce attention and weaken future negotiating leverage.\n\nCompare the whole offer\n\nThe highest price is not always the strongest offer. Financing, down payment, deposits, inspection terms, requested concessions, appraisal language, contingencies, closing date, and possession can materially change risk.\n\nBuying and selling at the same time\n\nA coordinated move creates dependencies involving equity, down payment, mortgage qualification, closing dates, possession, temporary housing, storage, contingencies, work schedules, and family logistics.\n\nCOMPARE\n\nThree ways to sequence a coordinated move\nEach sequence trades one kind of pressure for another.\nSEQUENCE\tWHAT IT CAN DO — AND WHAT IT COSTS\nSell first\tMay clarify available equity and reduce the risk of carrying two homes, but can create a temporary-housing need.\nBuy first\tMay reduce moving pressure, but the buyer must qualify while still owning the current home or use another approved structure.\nCoordinate both\tCan connect the transactions through timing and contract terms, but every dependency introduces risk.\n\nDebra's role is to make those dependencies visible before the first contract creates a deadline.\n\nHomes for Heroes benefits and real-estate service are separate\n\nHomes for Heroes controls its eligibility, enrollment, specialist network, reward structure, calculations, terms, and disclosures. Before relying on a benefit, a consumer should confirm:\n\nWhether the profession or service history qualifies\nWhether enrollment is required\nWhether the selected professional has the required official status\nWhether the location and transaction qualify\nHow any reward is calculated and issued\nWhether taxes, lender restrictions, or other conditions apply\n\nThe D'Affordable Homes page provides hero-focused real-estate guidance. It does not claim an affiliation with Homes for Heroes or promise a savings amount.\n\nCHECKLIST\n\nQuestions to answer before starting\nWhat is the complete estimated monthly payment?\nHow much cash and emergency reserve will remain after closing?\nWhich communities fit the real commute and shift schedule?\nHow much maintenance and repair risk is acceptable?\nIs a home sale required before the purchase can close?\nDoes an official Homes for Heroes benefit apply to this transaction?\nWho is responsible for each financing, program, inspection, appraisal, and legal decision?\nCommon mistakes to avoid\nAssuming professional status automatically guarantees a reward\nChoosing a home based only on the lender's maximum approval\nTesting a commute only during light weekend traffic\nWaiting until a transfer, lease end, or school break is too close\nOpening new credit before closing without discussing the effect\nSpending every available dollar and leaving no repair reserve\nTreating every hero household as though it has the same priorities\n\nDIRECT ANSWERS\n\nFrequently asked questions\nWho may qualify for Homes for Heroes?\n+\nIs Homes for Heroes only for first-time buyers?\n+\nDoes a profession automatically guarantee a reward?\n+\nCan Debra help a North Texas hero buy or sell?\n+\nCan Debra coordinate a sale and purchase?\n+\n\nVERIFY IT YOURSELF\n\nOfficial sources and review notes\n\nProgram rules and public resources can change. Confirm current requirements with the organization responsible for the decision.\n\nHomes for Heroes: Who We Serve\nHomes for Heroes\nHomes for Heroes: Program Disclosures\nHomes for Heroes\n\nPROGRAM BOUNDARY\n\nHomes for Heroes is a third-party program. This article does not guarantee enrollment, eligibility, specialist status, rewards, rebates, savings, or transaction results, and D'Affordable Homes does not claim an affiliation with the program.\n\nRELATED\n\nKeep reading\n\nHOMEBUYER PROGRAMS\n\nUsing NACA to Buy a Home in Dallas–Fort Worth\n\nLearn how the NACA homebuying process works, when to begin a DFW home search, and how Debra Allen supports the real-estate side of a purchase.\n\n10 minute read\n\nFIRST-TIME BUYERS\n\nFIRST-TIME BUYERS\n\nHow to Buy a Home in Garland, Texas\n\nA step-by-step first-time buyer guide to budgeting, financing, touring, inspections, and closing on a home in Garland, Texas.\n\n12 minute read\n\nNEXT STEP\n\nPlan the move around your schedule\n\nBring your timing, your shift pattern, and your must-haves. The consultation focuses on sequencing the transaction realistically.\n\nBook consultation\n\nCONTINUE YOUR PLAN\n\nHero-focused real-estate guidance\nSee Debra's buying, selling, and move-planning support.\nGarland homebuyer guide\nPlan a Garland search around cost, condition, commute, and timing.\nAffordability calculator\nEstimate a comfortable planning range before touring.\nClosing-cost calculator\nPrepare for costs beyond the down payment.\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nDown payment plan\nRent or buy\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nNACA homebuyer help\nHomes for Heroes\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
       "images": [
         {
           "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
@@ -1652,11 +1652,11 @@
         }
       ],
       "brandArea": {
-        "total": 18.2,
+        "total": 18.3,
         "byColour": {
           "navy": 17.2,
           "teal": 0,
-          "alt": 1
+          "alt": 1.1
         }
       },
       "ornaments": 2,
@@ -1712,8 +1712,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1837,8 +1837,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1896,8 +1896,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1955,8 +1955,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
