@@ -151,20 +151,33 @@ export function ResultRow({
  */
 export function CalculatorActions({ secondaryHref, tone = "dark" }: { secondaryHref?: string; tone?: "dark" | "light" }) {
   return (
-    <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-      <Button href="/consultation" variant={tone === "dark" ? "secondary" : "primary"} className="w-full sm:w-auto">
-        Book consultation
-      </Button>
-      {secondaryHref && (
-        <Button
-          href={secondaryHref}
-          variant="outline"
-          className={tone === "dark" ? "w-full border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 sm:w-auto" : "w-full sm:w-auto"}
-        >
-          Continue planning
+    <>
+      <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+        <Button href="/consultation" variant={tone === "dark" ? "secondary" : "primary"} className="w-full sm:w-auto">
+          Book consultation
         </Button>
-      )}
-    </div>
+        {secondaryHref && (
+          <Button
+            href={secondaryHref}
+            variant="outline"
+            className={tone === "dark" ? "w-full border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 sm:w-auto" : "w-full sm:w-auto"}
+          >
+            Continue planning
+          </Button>
+        )}
+      </div>
+      {/* The numbers live only in this tab, so say so, and say what to do with them. */}
+      <p
+        className={
+          tone === "dark"
+            ? "mt-3 text-xs leading-relaxed text-primary-foreground/75"
+            : "mt-3 text-xs leading-relaxed text-muted-foreground"
+        }
+      >
+        Your numbers aren&apos;t saved or sent anywhere. Want a second opinion? Note your result and bring it to a
+        consultation with Debra.
+      </p>
+    </>
   )
 }
 

@@ -209,7 +209,13 @@ async function main() {
   // Live pages that are deliberately absent from the sitemap because they are
   // `noindex` until they carry real content. Leaving the index is not leaving
   // the site: they are still linked, so they are still audited.
-  const UNLISTED_ROUTES = ["/testimonials", "/market-reports"]
+  // `/homes` and `/events` join them while they have nothing real to show
+  // (no listings feed, no confirmed session); the sitemap says which.
+  const UNLISTED_ROUTES = [
+    "/testimonials",
+    "/market-reports",
+    ...["/homes", "/events"].filter((route) => !sitemapRoutes.includes(route)),
+  ]
   // Sitemap absence is checked here; the rendered `noindex` itself is checked
   // per route in the crawl below, against the page the browser actually got.
   for (const route of UNLISTED_ROUTES) {

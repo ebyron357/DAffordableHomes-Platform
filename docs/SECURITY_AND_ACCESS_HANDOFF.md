@@ -20,6 +20,7 @@
 | `PROGRAM_LEAD_WEBHOOK_URL` | Webhook URL, treated as a secret | Vercel | The deployed app | As above |
 | `GHL_PROGRAM_LEAD_WEBHOOK_URL` | Webhook URL, treated as a secret | Vercel | The deployed app | As above |
 | `NEXT_STEP_LEAD_WEBHOOK_URL` | Webhook URL, treated as a secret | Vercel | The deployed app | As above |
+| `GHL_BOOKING_URL` | Public calendar link, not a secret | Vercel | The deployed app and the CSP | Change in GoHighLevel, update, redeploy |
 | `CLIENTVERSE_TOKEN` | Bearer token | GitHub Actions **secret** | CI only | Reissue with the audit operator, update the repository secret |
 | `CLIENTVERSE_ENDPOINT` | URL | GitHub Actions **variable** | CI only | Not a secret; update in place |
 | `CLIENTVERSE_DEPLOYMENT_URL` | URL | GitHub Actions **variable** | CI only | Not a secret; update in place |

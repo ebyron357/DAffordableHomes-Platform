@@ -14,6 +14,7 @@ import { formatArticleDate } from "@/lib/blog/format"
 import type { ReadState } from "@/lib/blog/source"
 import type { ArticleSummary } from "@/lib/blog/types"
 import type { PropertySearchResult } from "@/lib/mls/provider"
+import { CONSULTATION_REASSURANCE, WORRIES_SHORT } from "@/lib/content/conversion"
 import { DEBRA_DESK_BAND } from "@/lib/content/imagery"
 import { BrandMotif } from "@/components/page/brand-motif"
 import { AmbientMotion } from "@/components/media/ambient-motion"
@@ -137,6 +138,8 @@ function Hero() {
               {FIGMA_HOME_CTA.startBuying.label}
             </Link>
           </div>
+          {/* What pressing "Schedule a Consultation" commits you to: nothing. */}
+          <p className="fh-hero-reassure">{CONSULTATION_REASSURANCE}</p>
           {/* The person behind the practice, in the first viewport. The
               portrait is the register's approved primary image at its crop
               rule; it is decorative here because the name beside it carries
@@ -231,6 +234,12 @@ function Pathways() {
         <div className="fh-section-intro fh-section-intro-left">
           <p className="fh-eyebrow">Two ways in</p>
           <h2 id="figma-services-heading">Whichever side of the move you are on</h2>
+          {/* Who this is for, named before anyone has to guess. */}
+          <p className="fh-section-lede">
+            For first-time buyers and renters getting ready, NACA buyers, teachers, veterans, first responders and
+            healthcare workers looking into Homes for Heroes, people relocating to Dallas–Fort Worth, and homeowners
+            ready to sell or move.
+          </p>
         </div>
 
         <div className="fh-path-grid">
@@ -373,6 +382,10 @@ function MeetDebra() {
             of the process that belong to a lender, an inspector or an attorney named as theirs. First home, moving
             equity you have already built, or weighing a new build — the pace is yours.
           </p>
+          <p className="fh-meet-worries">
+            {WORRIES_SHORT}{" "}
+            <Link href="/consultation#consultation-how-heading">See how a consultation works</Link>
+          </p>
           <div className="fh-meet-actions">
             <Link href={FIGMA_HOME_CTA.aboutDebra.href} className="fh-btn fh-btn-light">
               {FIGMA_HOME_CTA.aboutDebra.label}
@@ -407,7 +420,7 @@ function Markets() {
           <p className="fh-eyebrow fh-eyebrow-on-dark">Local market focus</p>
           <h2 id="figma-markets-heading">Garland, and the North Texas cities around it</h2>
           <p className="fh-section-lede fh-section-lede-dark">
-            Start a search in any of these, or open the Garland guide for a closer local read.
+            Open the Garland guide for a closer local read, or ask Debra about any of the others directly.
           </p>
         </div>
 
@@ -427,7 +440,10 @@ function Markets() {
             {others.map((city) => (
               <li key={city.name}>
                 <Link href={city.href} className="fh-market-row">
-                  <span className="fh-market-name">{city.name}</span>
+                  <span className="fh-market-name">
+                    <span className="sr-only">Ask Debra about </span>
+                    {city.name}
+                  </span>
                   <span className="fh-market-county">{city.county}</span>
                   <ArrowRight className="size-4 fh-market-arrow" aria-hidden="true" />
                 </Link>
@@ -455,6 +471,10 @@ function ListingsEmptyState({ reason, errored }: { reason: string; errored: bool
         <p className="fh-eyebrow">{errored ? "Search temporarily unavailable" : "Live listings not connected yet"}</p>
         <h3>{errored ? "The property search is having trouble right now." : "No live MLS feed is connected to this site yet."}</h3>
         <p>{reason}</p>
+        <p>
+          Want to know what&apos;s on the market right now? Tell Debra the area, your price range and your timing, and
+          she&apos;ll tell you what&apos;s realistically available.
+        </p>
       </div>
       <div className="fh-listing-empty-actions">
         <Link href={FIGMA_HOME_CTA.consultation.href} className="fh-btn fh-btn-navy">
@@ -575,6 +595,11 @@ function KnowledgeBase({ articles, state }: { articles: ArticleSummary[]; state:
         <div className="fh-section-intro fh-section-intro-left">
           <p className="fh-eyebrow">Learn before you commit</p>
           <h2 id="figma-knowledge-heading">Homebuyer guides and tools for Dallas–Fort Worth</h2>
+          {/* Proof a visitor can check, in place of testimonials the site does not yet have. */}
+          <p className="fh-section-lede">
+            Every guide lists its sources and the date it was reviewed, every calculator shows its method, and every
+            program page says plainly what Debra does and doesn&apos;t decide.
+          </p>
         </div>
 
         {state.status === "unavailable" ? (

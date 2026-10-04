@@ -188,13 +188,15 @@ const AREA_NAME: Record<string, string> = {
   tarrant: "Fort Worth, Arlington and Irving",
 }
 
-/** Where a search for this area starts. Garland has a written guide; the rest go to the search. */
+/**
+ * Where reading about an area starts. Garland has a written guide; every other
+ * area starts from the area guides. (This used to send other areas to /homes,
+ * which has no listings feed, and undecided visitors to /neighborhoods, which
+ * now redirects to /areas.)
+ */
 function areaResource(answers: PathAnswers): PathLink {
   if (answers.area === "garland") return { label: "Read the Garland area guide", href: "/areas/garland" }
-  if (answers.area === "unsure" || answers.area === "other" || !answers.area) {
-    return { label: "Compare DFW neighborhoods", href: "/neighborhoods" }
-  }
-  return { label: `Search homes in ${AREA_NAME[answers.area]}`, href: "/homes" }
+  return { label: "Compare North Texas areas", href: "/areas" }
 }
 
 /** One sentence that reflects the visitor's timeline back to them, honestly. */
@@ -249,7 +251,7 @@ function sellerNote(answers: PathAnswers): string {
 }
 
 function areaSentence(answers: PathAnswers): string {
-  if (answers.area === "garland") return "Garland is Debra's home market, and there is a step-by-step guide written specifically for buying there."
+  if (answers.area === "garland") return "Garland is the site's home market, and there is a step-by-step guide written specifically for buying there."
   if (answers.area && AREA_NAME[answers.area]) return `You are focused on ${AREA_NAME[answers.area]}, which is one of the North Texas areas this site covers.`
   if (answers.area === "other") return "You have a DFW community in mind. The same process applies anywhere in the metroplex."
   return "You have not settled on an area yet, so comparing neighborhoods is part of the plan rather than a detail for later."
@@ -318,12 +320,15 @@ export function buildResult(answers: PathAnswers): PathResult {
           positionNote(answers),
         ),
         nextStep:
-          "Compare neighborhoods first, then start a search in one or two cities rather than the whole metroplex.",
-        primary: { label: "Compare DFW neighborhoods", href: "/neighborhoods" },
+          "Narrow the metroplex to one or two areas before you tour, starting from where you will work and how you like to live.",
+        primary: { label: "Plan a move to Dallas–Fort Worth", href: "/areas#moving-to-dfw" },
+        // The primary link already opens the area guides, so the second one is
+        // the budget question every move starts with. It used to be /homes (no
+        // listings feed), then /neighborhoods (now redirected to /areas).
         resource:
           answers.area === "garland"
             ? { label: "Read the Garland area guide", href: "/areas/garland" }
-            : { label: "Search homes across DFW", href: "/homes" },
+            : { label: "Check what you can afford", href: "/calculators/affordability" },
         consultation: CONSULTATION,
       }
     case "selling":
@@ -339,7 +344,8 @@ export function buildResult(answers: PathAnswers): PathResult {
         nextStep:
           "Request a valuation conversation so pricing starts from recent comparable sales, then decide what preparation is actually worth doing.",
         primary: { label: "Request a home valuation", href: "/contact" },
-        resource: { label: "Ask what Debra is seeing in the market", href: "/market-reports" },
+        // Was /market-reports, a placeholder with no reports on it.
+        resource: { label: "Read how Debra works", href: "/about" },
         consultation: CONSULTATION,
       }
     case "sell-buy":
@@ -368,12 +374,12 @@ export function buildResult(answers: PathAnswers): PathResult {
           areaSentence(answers),
         ),
         nextStep:
-          "Search the cities on your list, and check the monthly payment on anything you like before you tour it.",
-        primary: { label: "Search homes in DFW", href: "/homes" },
-        resource:
-          answers.area === "garland"
-            ? area
-            : { label: "Check a monthly payment", href: "/calculators/mortgage-payment" },
+          "Tell Debra the cities on your list and your budget so she can tell you what is realistically on the market, and check the monthly payment on anything you like before you tour it.",
+        // The primary used to be /homes, which has no listings feed; the
+        // consultation below this result is where "what's on the market" is
+        // answered until it does.
+        primary: { label: "Check a monthly payment", href: "/calculators/mortgage-payment" },
+        resource: area,
         consultation: CONSULTATION,
       }
     case "researcher":

@@ -13,10 +13,11 @@ import {
 } from "lucide-react"
 import { BrandMotif } from "@/components/page/brand-motif"
 import { PageHeader } from "@/components/page/page-header"
+import { ArrowLink } from "@/components/page/arrow-link"
 import { Band, BandLead, CtaBand, Features, QaList } from "@/components/page/editorial"
 import { CLOSING_BAND_IMAGE } from "@/lib/content/imagery"
 import { SITE } from "@/lib/site"
-import { SHARE_IMAGES } from "@/lib/seo"
+import { OPEN_GRAPH_BASE } from "@/lib/seo"
 
 export const metadata: Metadata = {
   title: "Garland, Texas Homebuyer Guide",
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
       "Clear home-search and affordable-homeownership guidance for people exploring Garland, Texas.",
     url: "/areas/garland",
     type: "article",
-    ...SHARE_IMAGES,
+    ...OPEN_GRAPH_BASE,
   },
 }
 
@@ -100,7 +101,7 @@ const faqs = [
   {
     question: "Does Debra help first-time homebuyers in Garland?",
     answer:
-      "Debra can discuss your Garland homebuying goals, current preparation, and program needs, then confirm whether representation is available for your specific transaction. The site does not publish an unverified blanket service-area promise.",
+      "Debra can talk with you about your Garland homebuying goals, where you are in your preparation and any program you are using, then confirm whether she can represent you for that specific purchase.",
   },
   {
     question: "What should I prepare before searching for a home in Garland?",
@@ -128,16 +129,16 @@ export default function GarlandAreaPage() {
         name: "Garland Texas Homebuyer Guide",
         description: metadata.description,
         url: `${SITE.url}/areas/garland`,
-        about: { "@type": "City", name: "Garland, Texas" },
-        isPartOf: { "@type": "WebSite", name: SITE.name, url: SITE.url },
-      },
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
-          { "@type": "ListItem", position: 2, name: "Area guides", item: `${SITE.url}/areas` },
-          { "@type": "ListItem", position: 3, name: "Garland", item: `${SITE.url}/areas/garland` },
-        ],
+        // The city, disambiguated for search engines and AI assistants: Garland,
+        // Texas, not one of the other Garlands. No claim about it is made here.
+        about: {
+          "@type": "City",
+          name: "Garland, Texas",
+          containedInPlace: { "@type": "State", name: "Texas" },
+          sameAs: "https://en.wikipedia.org/wiki/Garland,_Texas",
+        },
+        // The site-wide WebSite entity, by reference, as every other page does.
+        isPartOf: { "@id": `${SITE.url}/#website` },
       },
       {
         "@type": "FAQPage",
@@ -166,7 +167,7 @@ export default function GarlandAreaPage() {
         ]}
         facts={[
           { label: "Dallas County", icon: MapPin },
-          { label: "Debra's home market", icon: Home },
+          { label: "The site's home market", icon: Home },
           { label: "Dallas–Fort Worth metroplex", icon: Route },
         ]}
         motif="roofline"
@@ -185,9 +186,19 @@ export default function GarlandAreaPage() {
           eyebrowIcon={Compass}
           title="Define the search before touring homes"
           titleId="search-heading"
-          lede="Garland is where Debra's practice is based and the community she can speak about in the most detail. Availability for a specific property or transaction is still confirmed with her directly."
+          lede="Garland is the site's home market and the community it covers in the most detail. Availability for a specific property or transaction is confirmed with Debra directly."
         />
         <Features items={SEARCH_PREP} rule="teal" />
+        {/* The page and the long-form Garland guide link each other: the guide
+            already linked here, and this page never linked back. */}
+        <ul className="dh-band-links">
+          <li>
+            <ArrowLink href="/blog/how-to-buy-home-garland-tx" label="Read the full guide: How to buy a home in Garland, Texas" />
+          </li>
+          <li>
+            <ArrowLink href="/calculators/affordability" label="Check what you can afford" />
+          </li>
+        </ul>
       </Band>
 
       <Band tone="teal" aria-labelledby="homes-heading">

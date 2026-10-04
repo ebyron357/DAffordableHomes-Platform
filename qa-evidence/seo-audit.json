@@ -1,0 +1,652 @@
+{
+  "base": "http://127.0.0.1:3111",
+  "generatedFrom": "scripts/qa/seo-audit.mjs",
+  "routesAudited": 33,
+  "sitemapRoutes": [
+    "/",
+    "/about",
+    "/accessibility",
+    "/areas",
+    "/areas/garland",
+    "/blog",
+    "/calculators",
+    "/calculators/affordability",
+    "/calculators/closing-costs",
+    "/calculators/down-payment",
+    "/calculators/mortgage-payment",
+    "/calculators/rent-vs-buy",
+    "/consultation",
+    "/contact",
+    "/equal-housing-opportunity",
+    "/fair-housing",
+    "/faq",
+    "/first-time-buyers",
+    "/privacy",
+    "/programs",
+    "/programs/naca",
+    "/programs/homes-for-heroes",
+    "/resources",
+    "/start",
+    "/terms",
+    "/blog/naca-homebuying-dallas-fort-worth",
+    "/blog/homes-for-heroes-north-texas",
+    "/blog/how-to-buy-home-garland-tx"
+  ],
+  "redirectsChecked": 10,
+  "internalLinksChecked": 29,
+  "crawlersChecked": [
+    "Googlebot",
+    "Bingbot",
+    "Applebot",
+    "DuckDuckBot",
+    "OAI-SearchBot",
+    "ChatGPT-User",
+    "GPTBot",
+    "PerplexityBot",
+    "ClaudeBot",
+    "Claude-SearchBot",
+    "Google-Extended"
+  ],
+  "llmsTxtLinks": 24,
+  "schemaTypes": {
+    "WebSite": 28,
+    "Organization": 28,
+    "Person": 28,
+    "WebPage": 2,
+    "ProfilePage": 1,
+    "BreadcrumbList": 25,
+    "FAQPage": 15,
+    "CollectionPage": 1,
+    "WebApplication": 5,
+    "Service": 2,
+    "Article": 3
+  },
+  "pages": {
+    "/": {
+      "status": 200,
+      "title": "Debra Allen, REALTOR® | Garland + DFW Home Guidance",
+      "description": "Clear, practical residential real-estate guidance from Debra Allen, REALTOR®, for first-time buyers and families in Garland and Dallas–Fort Worth.",
+      "h1": "Buying a home in Dallas–Fort Worth, with someone who explains it.",
+      "words": 1170,
+      "questionHeadings": 1,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "WebPage"
+      ],
+      "inlinks": {
+        "main": 26,
+        "any": 28
+      }
+    },
+    "/about": {
+      "status": 200,
+      "title": "About Debra Allen — D'Affordable Homes",
+      "description": "Meet Debra Allen, REALTOR® — an education-first guide who believes homeownership has steps and no one should have to learn them alone.",
+      "h1": "A guide who believes preparation is a form of respect",
+      "words": 398,
+      "questionHeadings": 0,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "ProfilePage",
+        "BreadcrumbList"
+      ],
+      "inlinks": {
+        "main": 3,
+        "any": 28
+      }
+    },
+    "/accessibility": {
+      "status": 200,
+      "title": "Accessibility Statement — D'Affordable Homes",
+      "description": "D'Affordable Homes is committed to WCAG 2.2 AA accessibility so everyone can use our education and planning tools.",
+      "h1": "Accessibility Statement",
+      "words": 118,
+      "questionHeadings": 0,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "inlinks": {
+        "main": 2,
+        "any": 28
+      }
+    },
+    "/areas": {
+      "status": 200,
+      "title": "North Texas Homebuyer Area Guides — D'Affordable Homes",
+      "description": "Homebuyer guidance for Garland and the Dallas–Fort Worth communities around it, written from local knowledge, not copied city pages or unsupported statistics.",
+      "h1": "Area guides for Garland and North Texas",
+      "words": 994,
+      "questionHeadings": 0,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "inlinks": {
+        "main": 1,
+        "any": 27
+      }
+    },
+    "/areas/garland": {
+      "status": 200,
+      "title": "Garland, Texas Homebuyer Guide — D'Affordable Homes",
+      "description": "A practical Garland, Texas homebuyer guide: search preparation, local home styles, NACA and Homes for Heroes guidance, evaluating a property, and next steps.",
+      "h1": "Build a Garland home search around the life you can sustain",
+      "words": 554,
+      "questionHeadings": 2,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "WebPage",
+        "FAQPage",
+        "BreadcrumbList"
+      ],
+      "inlinks": {
+        "main": 10,
+        "any": 28
+      }
+    },
+    "/blog": {
+      "status": 200,
+      "title": "Homebuyer Guides for North Texas — D'Affordable Homes",
+      "description": "Practical homebuyer guides from Debra Allen, REALTOR® — clear answers, visible sources, and honest program boundaries for Garland and Dallas–Fort Worth.",
+      "h1": "Clear answers for the decisions ahead.",
+      "words": 368,
+      "questionHeadings": 0,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "CollectionPage"
+      ],
+      "inlinks": {
+        "main": 6,
+        "any": 28
+      }
+    },
+    "/calculators": {
+      "status": 200,
+      "title": "Homebuyer Calculators — D'Affordable Homes",
+      "description": "Plan affordability, cash needs, mortgage payments, and rent-versus-buy scenarios.",
+      "h1": "Plan with real numbers before you make a move",
+      "words": 316,
+      "questionHeadings": 0,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "inlinks": {
+        "main": 9,
+        "any": 28
+      }
+    },
+    "/calculators/affordability": {
+      "status": 200,
+      "title": "How Much House Can I Afford? Calculator — D'Affordable Homes",
+      "description": "How much house can you afford? Estimate a responsible price range from your income, debts, rate and cash on hand. A planning estimate, not a loan approval.",
+      "h1": "How much house can I afford?",
+      "words": 593,
+      "questionHeadings": 1,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "BreadcrumbList",
+        "WebApplication",
+        "FAQPage"
+      ],
+      "inlinks": {
+        "main": 10,
+        "any": 27
+      }
+    },
+    "/calculators/closing-costs": {
+      "status": 200,
+      "title": "Closing Cost Calculator — D'Affordable Homes",
+      "description": "Estimate closing costs and the total cash you need to close: down payment, closing costs, prepaid items, escrow funding and known credits.",
+      "h1": "Closing cost calculator",
+      "words": 540,
+      "questionHeadings": 1,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "BreadcrumbList",
+        "WebApplication",
+        "FAQPage"
+      ],
+      "inlinks": {
+        "main": 6,
+        "any": 27
+      }
+    },
+    "/calculators/down-payment": {
+      "status": 200,
+      "title": "Down Payment Calculator and Planner — D'Affordable Homes",
+      "description": "Estimate your down payment, closing costs, and the other cash you may need to buy a home. A planning estimate only, not a loan quote or approval.",
+      "h1": "Down payment calculator and planner",
+      "words": 510,
+      "questionHeadings": 1,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "BreadcrumbList",
+        "WebApplication",
+        "FAQPage"
+      ],
+      "inlinks": {
+        "main": 5,
+        "any": 27
+      }
+    },
+    "/calculators/mortgage-payment": {
+      "status": 200,
+      "title": "Mortgage Payment Calculator — D'Affordable Homes",
+      "description": "Estimate a monthly mortgage payment with principal, interest, PMI, property taxes, and homeowners insurance. A planning estimate only, not a loan quote.",
+      "h1": "Mortgage payment calculator",
+      "words": 513,
+      "questionHeadings": 1,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "BreadcrumbList",
+        "WebApplication",
+        "FAQPage"
+      ],
+      "inlinks": {
+        "main": 6,
+        "any": 27
+      }
+    },
+    "/calculators/rent-vs-buy": {
+      "status": 200,
+      "title": "Rent vs. Buy Calculator — D'Affordable Homes",
+      "description": "Compare the simplified costs of renting and owning a home over time, so you can see how the numbers change before you make a decision.",
+      "h1": "Rent vs. buy calculator",
+      "words": 508,
+      "questionHeadings": 1,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "BreadcrumbList",
+        "WebApplication",
+        "FAQPage"
+      ],
+      "inlinks": {
+        "main": 2,
+        "any": 27
+      }
+    },
+    "/consultation": {
+      "status": 200,
+      "title": "Book a Free Consultation — D'Affordable Homes",
+      "description": "Request a free, no-pressure homebuyer consultation with Debra Allen, REALTOR®, about where you are now and a practical next step.",
+      "h1": "Start with a conversation, not a sales pitch",
+      "words": 783,
+      "questionHeadings": 0,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "inlinks": {
+        "main": 21,
+        "any": 28
+      }
+    },
+    "/contact": {
+      "status": 200,
+      "title": "Contact Debra — D'Affordable Homes",
+      "description": "Reach out to Debra Allen, REALTOR®. Ask a question, share where you are in the process, or just say hello — no pressure.",
+      "h1": "Reach out — wherever you are in the process",
+      "words": 239,
+      "questionHeadings": 0,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "inlinks": {
+        "main": 7,
+        "any": 28
+      }
+    },
+    "/equal-housing-opportunity": {
+      "status": 200,
+      "title": "Equal Housing Opportunity — D'Affordable Homes",
+      "description": "D'Affordable Homes proudly supports Equal Housing Opportunity and the fair treatment of every person seeking a home.",
+      "h1": "Equal Housing Opportunity",
+      "words": 91,
+      "questionHeadings": 0,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "inlinks": {
+        "main": 2,
+        "any": 28
+      }
+    },
+    "/fair-housing": {
+      "status": 200,
+      "title": "Fair Housing Statement — D'Affordable Homes",
+      "description": "D'Affordable Homes is committed to fair housing for all. We do not discriminate and we support equal opportunity in housing.",
+      "h1": "Fair Housing Statement",
+      "words": 161,
+      "questionHeadings": 0,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "inlinks": {
+        "main": 2,
+        "any": 28
+      }
+    },
+    "/faq": {
+      "status": 200,
+      "title": "Frequently Asked Questions — D'Affordable Homes",
+      "description": "Answers to common questions about getting started with homeownership, the homebuying process, and working with Debra Allen, REALTOR.",
+      "h1": "Questions are a good sign",
+      "words": 636,
+      "questionHeadings": 0,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "FAQPage",
+        "BreadcrumbList"
+      ],
+      "inlinks": {
+        "main": 1,
+        "any": 27
+      }
+    },
+    "/first-time-buyers": {
+      "status": 200,
+      "title": "Steps to Buying a House, Explained — D'Affordable Homes",
+      "description": "The steps to buying a house, in plain language for first-time buyers and renters: get ready, search, offer, inspect and close. No pressure, no jargon.",
+      "h1": "Understand the process before you step into it",
+      "words": 990,
+      "questionHeadings": 0,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "FAQPage",
+        "BreadcrumbList"
+      ],
+      "inlinks": {
+        "main": 5,
+        "any": 28
+      }
+    },
+    "/privacy": {
+      "status": 200,
+      "title": "Privacy Policy — D'Affordable Homes",
+      "description": "How D'Affordable Homes collects, uses, and protects your information. We only use what you share to help you, and never sell your data.",
+      "h1": "Privacy Policy",
+      "words": 450,
+      "questionHeadings": 0,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "inlinks": {
+        "main": 5,
+        "any": 28
+      }
+    },
+    "/programs": {
+      "status": 200,
+      "title": "Homebuyer Programs in Garland and DFW — D'Affordable Homes",
+      "description": "NACA and Homes for Heroes guidance from Debra Allen, REALTOR®, plus the official Texas, Dallas and Garland homebuyer assistance programs to check.",
+      "h1": "Find the homeownership path that fits your situation",
+      "words": 642,
+      "questionHeadings": 2,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "inlinks": {
+        "main": 11,
+        "any": 28
+      }
+    },
+    "/programs/naca": {
+      "status": 200,
+      "title": "NACA Program Help in Garland and DFW — D'Affordable Homes",
+      "description": "How the NACA program works, and real-estate help for NACA buyers in Garland and Dallas–Fort Worth: search, offer, inspection and closing.",
+      "h1": "Real-estate guidance for Dallas–Fort Worth buyers using NACA",
+      "words": 955,
+      "questionHeadings": 1,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "Service",
+        "FAQPage",
+        "BreadcrumbList"
+      ],
+      "inlinks": {
+        "main": 7,
+        "any": 28
+      }
+    },
+    "/programs/homes-for-heroes": {
+      "status": 200,
+      "title": "Homes for Heroes Help in North Texas — D'Affordable Homes",
+      "description": "Buying, selling, and move guidance for veterans, military families, teachers, healthcare workers, firefighters, EMS, and law enforcement in Garland and DFW.",
+      "h1": "Buying and selling guidance for North Texas community heroes",
+      "words": 913,
+      "questionHeadings": 1,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "Service",
+        "FAQPage",
+        "BreadcrumbList"
+      ],
+      "inlinks": {
+        "main": 4,
+        "any": 27
+      }
+    },
+    "/resources": {
+      "status": 200,
+      "title": "Homebuyer Planning Tools & Resources — D'Affordable Homes",
+      "description": "Start with the four questions buyers ask first: the monthly payment, what you can afford, cash needed at closing, and which programs apply. Then go deeper.",
+      "h1": "Start with the question you actually have",
+      "words": 369,
+      "questionHeadings": 0,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "inlinks": {
+        "main": 3,
+        "any": 28
+      }
+    },
+    "/start": {
+      "status": 200,
+      "title": "Find Your Next Homebuying Step in DFW — D'Affordable Homes",
+      "description": "Not sure where to start with homeownership in Dallas–Fort Worth? Explore your options, learn about NACA and other pathways, and find an educational next step.",
+      "h1": "Not sure if homeownership is within reach?",
+      "words": 967,
+      "questionHeadings": 1,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "FAQPage"
+      ],
+      "inlinks": {
+        "main": 11,
+        "any": 11
+      }
+    },
+    "/terms": {
+      "status": 200,
+      "title": "Terms of Use — D'Affordable Homes",
+      "description": "The terms for using the D'Affordable Homes website. Our content is educational and not legal, financial, or lending advice.",
+      "h1": "Terms of Use",
+      "words": 134,
+      "questionHeadings": 0,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "inlinks": {
+        "main": 1,
+        "any": 28
+      }
+    },
+    "/blog/naca-homebuying-dallas-fort-worth": {
+      "status": 200,
+      "title": "Using NACA to Buy a Home in Dallas–Fort Worth",
+      "description": "Learn how the NACA homebuying process works, when to begin a DFW home search, and how Debra Allen supports the real-estate side of a purchase.",
+      "h1": "Using NACA to Buy a Home in Dallas–Fort Worth",
+      "words": 1420,
+      "questionHeadings": 4,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "Article",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "inlinks": {
+        "main": 5,
+        "any": 5
+      }
+    },
+    "/blog/homes-for-heroes-north-texas": {
+      "status": 200,
+      "title": "How Debra Allen Helps North Texas Heroes Buy or Sell a Home",
+      "description": "A practical real-estate guide for North Texas military members, veterans, teachers, healthcare workers, firefighters, EMS, and law-enforcement professionals.",
+      "h1": "How Debra Allen Helps North Texas Heroes Buy or Sell a Home",
+      "words": 1298,
+      "questionHeadings": 1,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "Article",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "inlinks": {
+        "main": 5,
+        "any": 5
+      }
+    },
+    "/blog/how-to-buy-home-garland-tx": {
+      "status": 200,
+      "title": "How to Buy a Home in Garland, Texas — D'Affordable Homes",
+      "description": "A step-by-step first-time buyer guide to budgeting, financing, touring, inspections, and closing on a home in Garland, Texas.",
+      "h1": "How to Buy a Home in Garland, Texas",
+      "words": 1871,
+      "questionHeadings": 0,
+      "schema": [
+        "WebSite",
+        "Organization",
+        "Person",
+        "Article",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "inlinks": {
+        "main": 5,
+        "any": 5
+      }
+    },
+    "/testimonials": {
+      "status": 200,
+      "title": "Testimonials — D'Affordable Homes",
+      "description": "Real stories from people Debra has guided toward homeownership. We publish only verified, consented reviews — never invented ones.",
+      "h1": "Stories from the people Debra has guided",
+      "words": 209,
+      "questionHeadings": 0,
+      "schema": []
+    },
+    "/market-reports": {
+      "status": 200,
+      "title": "Market Reports — D'Affordable Homes",
+      "description": "Clear, honest market context to help you plan. Reports publish here once the data source is connected — never estimated or fabricated.",
+      "h1": "Market context, explained simply",
+      "words": 212,
+      "questionHeadings": 0,
+      "schema": []
+    },
+    "/homes": {
+      "status": 200,
+      "title": "Find a Home in Dallas–Fort Worth — D'Affordable Homes",
+      "description": "Explore homes across Garland and Dallas–Fort Worth with guidance. Until a live MLS feed is connected, this page says so instead of showing placeholder homes.",
+      "h1": "Homes across Dallas–Fort Worth",
+      "words": 415,
+      "questionHeadings": 0,
+      "schema": []
+    },
+    "/events": {
+      "status": 200,
+      "title": "Events & Workshops — D'Affordable Homes",
+      "description": "Homebuyer education workshops and community events led by Debra Allen. Schedule is published here once dates are confirmed.",
+      "h1": "Learn together, in person and online",
+      "words": 182,
+      "questionHeadings": 0,
+      "schema": []
+    },
+    "/this-page-does-not-exist": {
+      "status": 404,
+      "title": "D'Affordable Homes — Trusted homeownership guidance",
+      "description": "D'Affordable Homes is an education-first digital homeownership platform led by Debra Allen, REALTOR®. Clear guidance, planning tools, and trustworthy resources for first-time buyers and renters preparing for ownership.",
+      "h1": "We couldn't find that page",
+      "words": 33,
+      "questionHeadings": 0,
+      "schema": []
+    }
+  },
+  "passed": 1524,
+  "failures": [],
+  "warnings": [
+    "/accessibility has substantive main content (300+ words) — 118 words",
+    "/contact has substantive main content (300+ words) — 239 words",
+    "/equal-housing-opportunity has substantive main content (300+ words) — 91 words",
+    "/fair-housing has substantive main content (300+ words) — 161 words",
+    "/terms has substantive main content (300+ words) — 134 words",
+    "/blog/homes-for-heroes-north-texas Article has an image (needed for Google's article rich result)",
+    "/blog/how-to-buy-home-garland-tx Article has an image (needed for Google's article rich result)"
+  ]
+}

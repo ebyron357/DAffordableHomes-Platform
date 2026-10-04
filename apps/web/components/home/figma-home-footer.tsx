@@ -139,12 +139,14 @@ export function FigmaHomeFooter() {
               <Link href="/about">About Debra Allen</Link>
             </li>
           </ul>
-          {/* Stated rather than silently omitted: an empty contact column reads
-              as neglect, a fabricated phone number is worse than both. Once a
-              phone or office is verified the details below replace this. */}
+          {/* Until a phone or office is verified, the column says how to reach
+              Debra today rather than what is missing ("published once
+              confirmed" read as unfinished), and never invents a number. The
+              verified details below replace this line once they exist. */}
           {!hasDirectContact() && (
             <p className="fh-footer-note">
-              Direct phone and office details are published here once they are confirmed for release.
+              Reach Debra through a consultation request or a message — she reads and replies to each one
+              personally.
             </p>
           )}
         </nav>

@@ -21,6 +21,8 @@ export type TrustFacts = {
   readonly businessAddress: string | null
   readonly phoneNumber: string | null
   readonly serviceAreas: readonly string[]
+  /** Optional so a caller describing only the contact facts can omit it. */
+  readonly profileUrls?: readonly string[]
 }
 
 export type ProfessionalDetail = {
@@ -77,12 +79,66 @@ export function localBusinessJsonLd(facts: TrustFacts = UNVERIFIED_TRUST_FACTS):
     logo,
     image: logo,
     telephone: telephone(facts.phoneNumber),
-    address: facts.businessAddress,
+    // Structured when the address follows the documented shape; the text as
+    // written otherwise, rather than guessing which part is the city.
+    address: postalAddress(facts.businessAddress) ?? facts.businessAddress,
+    ...sameAs(facts),
     ...(facts.serviceAreas.length > 0
       ? { areaServed: facts.serviceAreas.map((name) => ({ "@type": "Place", name })) }
       : {}),
     ...(facts.brokerageName ? { parentOrganization: { "@type": "Organization", name: facts.brokerageName } } : {}),
     employee: { "@id": `${SITE.url}/#debra-allen` },
+  }
+}
+
+/**
+ * "100 Example St, Suite 2, Garland, TX 75040" as a schema.org PostalAddress,
+ * or `null` when the text is not in that shape. Only a two-letter state code or
+ * "Texas" is read as the region; anything else is left for a person to fix
+ * rather than mis-parsed.
+ */
+export function postalAddress(display: string): Record<string, string> | null {
+  const parts = display
+    .split(",")
+    .map((part) => part.trim())
+    .filter(Boolean)
+  if (parts.length < 3) return null
+
+  const regionAndZip = parts[parts.length - 1]?.match(/^([A-Za-z]{2}|Texas)\s+(\d{5}(?:-\d{4})?)$/i)
+  const locality = parts[parts.length - 2]
+  if (!regionAndZip?.[1] || !regionAndZip[2] || !locality) return null
+
+  const region = regionAndZip[1]
+  return {
+    "@type": "PostalAddress",
+    streetAddress: parts.slice(0, -2).join(", "),
+    addressLocality: locality,
+    addressRegion: region.length === 2 ? region.toUpperCase() : "TX",
+    postalCode: regionAndZip[2],
+    addressCountry: "US",
+  }
+}
+
+/** The owner's own public profiles, https only and de-duplicated. */
+export function profileLinks(facts: TrustFacts = UNVERIFIED_TRUST_FACTS): string[] {
+  const links = (facts.profileUrls ?? []).map((url) => url.trim()).filter(isHttpsUrl)
+  return [...new Set(links)]
+}
+
+/**
+ * `{ sameAs: [...] }` once a profile is supplied, otherwise nothing at all, so
+ * the site-wide Person never publishes an empty or unverified `sameAs`.
+ */
+export function sameAs(facts: TrustFacts = UNVERIFIED_TRUST_FACTS): { sameAs?: string[] } {
+  const links = profileLinks(facts)
+  return links.length > 0 ? { sameAs: links } : {}
+}
+
+function isHttpsUrl(value: string): boolean {
+  try {
+    return new URL(value).protocol === "https:"
+  } catch {
+    return false
   }
 }
 

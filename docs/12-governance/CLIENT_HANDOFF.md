@@ -154,10 +154,12 @@ GHL_PROGRAM_LEAD_WEBHOOK_URL
 NEXT_STEP_LEAD_WEBHOOK_URL
 ```
 
-`LEAD_WEBHOOK_URL` receives the `/contact` and `/consultation` message form;
-when it is not set, that form uses the program webhook instead, so a single
-GoHighLevel webhook in `GHL_PROGRAM_LEAD_WEBHOOK_URL` is enough for both.
-`/start` needs its own `NEXT_STEP_LEAD_WEBHOOK_URL`.
+**One is enough.** Every form tries its own variable first and then the others,
+so a single GoHighLevel webhook in `GHL_PROGRAM_LEAD_WEBHOOK_URL` delivers all
+of them, `/start` included. The others exist only to send different forms to
+different workflows. The booking calendar on `/consultation` is a fifth value,
+`GHL_BOOKING_URL`. The step-by-step setup, including the field mapping, is
+`docs/08-integrations/GHL_SETUP.md`.
 
 Until these exist the forms are honest about being unavailable rather than
 accepting an enquiry and dropping it. After setting them, send one test enquiry

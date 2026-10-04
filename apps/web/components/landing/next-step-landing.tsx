@@ -12,12 +12,13 @@ import {
   CircleHelp,
   Home,
   KeyRound,
-  Mic,
   ShieldCheck,
   Sparkles,
   Users,
 } from "lucide-react"
 import { trackEvent, type AnalyticsEventName } from "@/lib/analytics"
+import { COMMON_WORRIES, FORM_PRIVACY } from "@/lib/content/conversion"
+import { JsonLd } from "@/components/seo/json-ld"
 import { BrandMotif } from "@/components/page/brand-motif"
 import { DEBRA_DESK } from "@/lib/content/imagery"
 /**
@@ -78,8 +79,8 @@ const PATHS: PathDefinition[] = [
 const FAQS = [
   {
     question: "Can I buy a home if I have credit concerns?",
-    answer:
-      "Credit is one part of preparation, not a reason to guess or count yourself out. Start by understanding which part of your plan needs attention and what resources may help.",
+    // The same answer the consultation page, first-time buyers and the FAQ give.
+    answer: COMMON_WORRIES.find((worry) => worry.worry === "My credit isn't perfect.")?.answer ?? "",
   },
   {
     question: "What is NACA?",
@@ -104,7 +105,7 @@ const FAQS = [
   {
     question: "Are there homebuyer assistance programs in Dallas?",
     answer:
-      "Depending on your location and circumstances, local or specialized homebuyer-assistance programs may deserve investigation. Program details change, so confirm current requirements with the official source or a qualified professional.",
+      "Yes. The City of Dallas, Dallas County, and the Texas agencies TDHCA and TSAHC each run homebuyer assistance programs with their own rules. The programs page links to each one's official page, and a participating lender confirms who qualifies.",
   },
   {
     question: "What if I’m still renting?",
@@ -117,6 +118,16 @@ const FAQS = [
       "No. It is an educational readiness tool, not a mortgage application, credit decision, preapproval, or guarantee of program eligibility.",
   },
 ]
+
+const FAQ_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: { "@type": "Answer", text: faq.answer },
+  })),
+}
 
 const CAMPAIGN_VARIANTS: Record<
   string,
@@ -202,9 +213,13 @@ export function NextStepLanding() {
   const [selectedPath, setSelectedPath] = useState<PathKey | null>(null)
   const [intent, setIntent] = useState("")
   const [attribution, setAttribution] = useState<Attribution>({})
-  const [voiceNotice, setVoiceNotice] = useState(false)
   const [leadOpen, setLeadOpen] = useState(false)
   const [leadStatus, setLeadStatus] = useState<LeadStatus>("idle")
+  // The confirmation replaces the form and its submit button; move focus to it.
+  const leadSuccessRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (leadStatus === "success") leadSuccessRef.current?.focus()
+  }, [leadStatus])
   const [leadError, setLeadError] = useState("")
   const [leadFields, setLeadFields] = useState({
     firstName: "",
@@ -446,12 +461,15 @@ export function NextStepLanding() {
               Explore my options
             </button>
           </div>
+          {/* This used to open a "live voice guidance is not connected yet" notice:
+              a dead end in the first screen. It now reaches a person. The
+              `actions` object below still exposes the same steps for a future
+              voice adapter. */}
           <div className="dah-landing-voice-entry">
-            <button type="button" className="dah-landing-voice-button" onClick={() => setVoiceNotice((open) => !open)} aria-expanded={voiceNotice}>
-              <span className="dah-landing-voice-icon"><Mic size={19} aria-hidden="true" /></span>
-              <span><strong>Rather talk?</strong> Ask D’Affordable: “Where should I start?”</span>
-            </button>
-            {voiceNotice && <p className="dah-landing-voice-notice" role="status">Live voice guidance is not connected yet. The guided path below is ready to use, and the same actions are exposed for a future voice adapter.</p>}
+            <Link href="/consultation" className="dah-landing-voice-button" onClick={() => trackEvent("schedule_opened", { source: "hero-talk" })}>
+              <span className="dah-landing-voice-icon"><Users size={19} aria-hidden="true" /></span>
+              <span><strong>Rather talk to a person?</strong> Book a free consultation with Debra.</span>
+            </Link>
           </div>
           <p className="dah-landing-microcopy">No mortgage application. No pressure. Start with a few simple questions.</p>
         </div>
@@ -564,7 +582,7 @@ export function NextStepLanding() {
               would walk into. The linework says "residential real estate" and claims
               nothing. */}
           <div className="dah-landing-image-frame dah-landing-image-frame-art"><BrandMotif variant="roofline" className="dh-motif" /></div>
-          <div><p className="dah-landing-eyebrow">NACA EDUCATION</p><h2 id="naca-heading">Considering NACA in Dallas? Start with understanding the process.</h2><p className="dah-landing-copy">NACA can offer significant homeownership benefits, but it isn’t simply a shortcut to buying a house. The process includes education, counseling, documentation, qualification, home selection, and mortgage processing.</p><div className="dah-landing-journey" aria-label="NACA journey"><span>Learn</span><i>→</i><span>Prepare</span><i>→</i><span>NACA process</span><i>→</i><span>Home search</span><i>→</i><span>Purchase</span></div><Link href="/programs/naca" className="dah-landing-text-button">Explore NACA with Debra <ArrowRight size={16} aria-hidden="true" /></Link><p className="dah-landing-footnote">D’Affordable Homes does not determine NACA qualification, mortgage approval, rates, terms, or eligibility.</p></div>
+          <div><p className="dah-landing-eyebrow">NACA EDUCATION</p><h2 id="naca-heading">Considering NACA in Dallas? Start with understanding the process.</h2><p className="dah-landing-copy">NACA is a nonprofit program with its own workshop, counseling and qualification process, and it isn’t simply a shortcut to buying a house. The process includes education, counseling, documentation, qualification, home selection, and mortgage processing.</p><div className="dah-landing-journey" aria-label="NACA journey"><span>Learn</span><i>→</i><span>Prepare</span><i>→</i><span>NACA process</span><i>→</i><span>Home search</span><i>→</i><span>Purchase</span></div><Link href="/programs/naca" className="dah-landing-text-button">Explore NACA with Debra <ArrowRight size={16} aria-hidden="true" /></Link><p className="dah-landing-footnote">D’Affordable Homes does not determine NACA qualification, mortgage approval, rates, terms, or eligibility.</p></div>
         </div>
       </section>
 
@@ -591,7 +609,7 @@ export function NextStepLanding() {
 
       <section className="dah-landing-section dah-landing-cream" aria-labelledby="debra-heading">
         <div className="dah-landing-container dah-landing-two-column">
-          <div><p className="dah-landing-eyebrow dah-landing-eyebrow-dark">A HUMAN GUIDE</p><h2 id="debra-heading">You don’t need another sales pitch. You need someone who can help you understand the path.</h2><p className="dah-landing-copy">Debra’s role is to help you slow the process down, understand what comes next, and move with a plan. The customer remains the hero; D’Affordable Homes is the navigator.</p><Link href="/about" className="dah-landing-text-button">Meet Debra <ArrowRight size={16} aria-hidden="true" /></Link></div>
+          <div><p className="dah-landing-eyebrow dah-landing-eyebrow-dark">A HUMAN GUIDE</p><h2 id="debra-heading">You don’t need another sales pitch. You need someone who can help you understand the path.</h2><p className="dah-landing-copy">Debra’s role is to help you slow the process down, understand what comes next, and move with a plan. You make the decisions. Debra makes sure you understand them first.</p><Link href="/about" className="dah-landing-text-button">Meet Debra <ArrowRight size={16} aria-hidden="true" /></Link></div>
           {/* Debra's own registered photograph, at the register's upright-frame crop.
               This slot previously carried `/images/hero-homeowner.png` under the alt
               text "Debra Allen standing outside a home". That picture is not Debra:
@@ -608,7 +626,7 @@ export function NextStepLanding() {
       <section className="dah-landing-section dah-landing-faq" aria-labelledby="faq-heading">
         <div className="dah-landing-container dah-landing-two-column">
           <div><p className="dah-landing-eyebrow">COMMON QUESTIONS</p><h2 id="faq-heading">Clear answers before you make a move.</h2><p className="dah-landing-copy">Good guidance should make the next decision easier, not make you feel behind.</p></div>
-          <div className="dah-landing-faq-list">{FAQS.map((faq, index) => <div key={faq.question} className="dah-landing-faq-item"><button type="button" aria-expanded={openFaq === index} onClick={() => { setOpenFaq(openFaq === index ? null : index); trackEvent("faq_opened", { question: faq.question }) }}><span>{faq.question}</span><ChevronDown size={18} aria-hidden="true" /></button>{openFaq === index && <p>{faq.answer}</p>}</div>)}</div>
+          {/* Every answer is in the HTML, closed ones `hidden`: crawlers and answer engines read all eight, and the FAQPage markup below describes content the page carries. */}<JsonLd value={FAQ_JSON_LD} /><div className="dah-landing-faq-list">{FAQS.map((faq, index) => <div key={faq.question} className="dah-landing-faq-item"><button type="button" aria-expanded={openFaq === index} aria-controls={`start-faq-${index}`} onClick={() => { setOpenFaq(openFaq === index ? null : index); trackEvent("faq_opened", { question: faq.question }) }}><span>{faq.question}</span><ChevronDown size={18} aria-hidden="true" /></button><p id={`start-faq-${index}`} hidden={openFaq !== index}>{faq.answer}</p></div>)}</div>
         </div>
       </section>
 
@@ -618,7 +636,7 @@ export function NextStepLanding() {
         <div className="dah-landing-container dah-landing-final-content"><p className="dah-landing-eyebrow dah-landing-eyebrow-gold">YOUR NEXT STEP IS ENOUGH FOR TODAY</p><h2 id="final-heading">You don’t need to have everything figured out.</h2><p>You just need to know your next step.</p><div><button type="button" className={ctaClass("gold")} onClick={startAssessment}>Find my next step <ArrowRight size={17} aria-hidden="true" /></button><Link href="/consultation" className={ctaClass("outline")}>Schedule with Debra</Link></div></div>
       </section>
 
-      {phase === "result" && leadOpen && <section id="lead-capture" className="dah-landing-section dah-landing-cream" aria-labelledby="lead-heading"><div className="dah-landing-container dah-landing-lead-card"><div><p className="dah-landing-eyebrow dah-landing-eyebrow-dark">VALUE FIRST. CONTACT SECOND.</p><h2 id="lead-heading">Want Debra to help you take the next step?</h2><p className="dah-landing-copy">Your educational result is already yours. Share a little context only if you want a follow-up.</p></div>{leadStatus === "success" ? <div className="dah-landing-success" role="status"><Check size={22} aria-hidden="true" /><div><strong>Thanks — your request is ready for follow-up.</strong><p>Debra’s team can use the path you selected to keep the conversation focused.</p></div></div> : <form onSubmit={handleLeadSubmit} className="dah-landing-lead-form"><div className="dah-landing-form-grid"><label>First name <input required name="firstName" value={leadFields.firstName} onChange={(event) => updateFormField("firstName", event.target.value)} autoComplete="given-name" /></label><label>Email <input required type="email" name="email" value={leadFields.email} onChange={(event) => updateFormField("email", event.target.value)} autoComplete="email" /></label><label>Mobile <span>(optional)</span><input type="tel" name="mobile" value={leadFields.mobile} onChange={(event) => updateFormField("mobile", event.target.value)} autoComplete="tel" /></label><label>Preferred next step <select name="preferredNextStep" value={leadFields.preferredNextStep} onChange={(event) => updateFormField("preferredNextStep", event.target.value)}><option>Schedule a consultation</option><option>Have Debra contact me</option><option>Email my results</option><option>Send me NACA information</option><option>I’m just researching</option></select></label></div><input className="dah-landing-honeypot" tabIndex={-1} aria-hidden="true" name="website" autoComplete="off" /><div className="dah-landing-form-actions"><button type="submit" className={ctaClass("gold")} disabled={leadStatus === "submitting"}>{leadStatus === "submitting" ? "Sending…" : "Send my next-step request"} <ArrowRight size={17} aria-hidden="true" /></button><p>No preapproval, qualification, or guarantee is provided by this form.</p></div>{leadStatus === "error" && <p className="dah-landing-form-error" role="alert">{leadError} <Link href="/consultation">Open the consultation page.</Link></p>}</form>}</div></section>}
+      {phase === "result" && leadOpen && <section id="lead-capture" className="dah-landing-section dah-landing-cream" aria-labelledby="lead-heading"><div className="dah-landing-container dah-landing-lead-card"><div><p className="dah-landing-eyebrow dah-landing-eyebrow-dark">VALUE FIRST. CONTACT SECOND.</p><h2 id="lead-heading">Want Debra to help you take the next step?</h2><p className="dah-landing-copy">Your educational result is already yours. Share a little context only if you want a follow-up.</p></div>{leadStatus === "success" ? <div ref={leadSuccessRef} tabIndex={-1} className="dah-landing-success" role="status"><Check size={22} aria-hidden="true" /><div><strong>Thanks — Debra has your next-step request.</strong><p>She’ll see the path you chose, so your conversation can start where you are.</p>{leadFields.preferredNextStep === "Schedule a consultation" && <p><Link href="/consultation" onClick={() => trackEvent("schedule_opened", { source: "lead-success" })}>Ready to book now? Open the consultation page.</Link></p>}</div></div> : <form onSubmit={handleLeadSubmit} className="dah-landing-lead-form"><div className="dah-landing-form-grid"><label>First name <input required name="firstName" value={leadFields.firstName} onChange={(event) => updateFormField("firstName", event.target.value)} autoComplete="given-name" /></label><label>Email <input required type="email" name="email" value={leadFields.email} onChange={(event) => updateFormField("email", event.target.value)} autoComplete="email" /></label><label>Mobile <span>(optional)</span><input type="tel" name="mobile" value={leadFields.mobile} onChange={(event) => updateFormField("mobile", event.target.value)} autoComplete="tel" /></label><label>Preferred next step <select name="preferredNextStep" value={leadFields.preferredNextStep} onChange={(event) => updateFormField("preferredNextStep", event.target.value)}><option>Schedule a consultation</option><option>Have Debra contact me</option><option>Email my results</option><option>Send me NACA information</option><option>I’m just researching</option></select></label></div><input className="dah-landing-honeypot" tabIndex={-1} aria-hidden="true" name="website" autoComplete="off" /><div className="dah-landing-form-actions"><button type="submit" className={ctaClass("gold")} disabled={leadStatus === "submitting"}>{leadStatus === "submitting" ? "Sending…" : "Send my next-step request"} <ArrowRight size={17} aria-hidden="true" /></button><p>No preapproval, qualification, or guarantee is provided by this form.</p><p>{FORM_PRIVACY}{" "}<Link href="/privacy">Privacy policy</Link></p></div>{leadStatus === "error" && <p className="dah-landing-form-error" role="alert">{leadError} <Link href="/consultation">Open the consultation page.</Link></p>}</form>}</div></section>}
 
       <div className="dah-landing-bottom-actions" aria-label="Quick actions"><button type="button" onClick={startAssessment}><Sparkles size={16} aria-hidden="true" /> Find my next step</button><Link href="/consultation" onClick={() => trackEvent("schedule_opened", { source: "sticky-cta" })}><Home size={16} aria-hidden="true" /> Schedule with Debra</Link></div>
     </div>

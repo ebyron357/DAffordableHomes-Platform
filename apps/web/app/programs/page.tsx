@@ -18,8 +18,8 @@ import { PageHeader } from "@/components/page/page-header"
 import { Band, BandLead, CtaBand, Features, Split, StatusStrip, type Feature } from "@/components/page/editorial"
 import { CLOSING_BAND_IMAGE, DEBRA_PORTRAIT } from "@/lib/content/imagery"
 import { PROGRAM_CARDS } from "@/lib/programs"
-import { SITE } from "@/lib/site"
-import { SHARE_IMAGES } from "@/lib/seo"
+import { OPEN_GRAPH_BASE } from "@/lib/seo"
+import { CONSULTATION_REASSURANCE } from "@/lib/content/conversion"
 
 export const metadata: Metadata = {
   title: "Homebuyer Programs in Garland and DFW",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
       "Program-specific real-estate guidance for buyers and community heroes exploring Garland and the Dallas–Fort Worth region.",
     url: "/programs",
     type: "website",
-    ...SHARE_IMAGES,
+    ...OPEN_GRAPH_BASE,
   },
 }
 
@@ -104,23 +104,25 @@ const futurePrograms = [
   "Community Hero Sellers",
 ] as const
 
-export default function ProgramsPage() {
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
-      { "@type": "ListItem", position: 2, name: "Programs", item: `${SITE.url}/programs` },
-    ],
-  }
+/** Situation → where to start. Names programs only; claims no eligibility. */
+const PROGRAM_SORT = [
+  { situation: "Thinking about NACA", label: "NACA guide", href: "/programs/naca" },
+  {
+    situation: "Military, veteran, teacher, healthcare, fire, EMS or police",
+    label: "Homes for Heroes guide",
+    href: "/programs/homes-for-heroes",
+  },
+  {
+    situation: "Short on a down payment",
+    label: "Official assistance programs",
+    href: "#official-programs-heading",
+  },
+  { situation: "Still not sure", label: "Find your next step", href: "/start" },
+] as const
 
+export default function ProgramsPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c") }}
-      />
-
       <PageHeader
         eyebrow="Specialized homebuyer guidance"
         eyebrowIcon={BadgeCheck}
@@ -132,6 +134,7 @@ export default function ProgramsPage() {
           { label: "Independent guidance", icon: ShieldCheck },
         ]}
         motif="keys"
+        note={CONSULTATION_REASSURANCE}
       >
         <Link href="/consultation" className="dh-btn dh-btn-gold">
           Talk through your options
@@ -140,6 +143,26 @@ export default function ProgramsPage() {
           Find your next step
         </Link>
       </PageHeader>
+
+      {/*
+        A visitor should not have to read both program pages to learn which one
+        applies. Each row names a situation and sends it to the right place.
+      */}
+      <Band tone="page" tight aria-labelledby="programs-sort-heading">
+        <h2 id="programs-sort-heading" className="dh-sort-heading">
+          Not sure which applies to you?
+        </h2>
+        <ul className="dh-sort">
+          {PROGRAM_SORT.map((row) => (
+            <li key={row.situation}>
+              <span>{row.situation}</span>
+              <Link href={row.href} className="dh-textlink">
+                {row.label} <ArrowRight className="size-4" aria-hidden="true" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Band>
 
       <Band tone="white" aria-labelledby="current-programs-heading">
         <BandLead
@@ -230,6 +253,11 @@ export default function ProgramsPage() {
           titleId="official-programs-heading"
           lede="State, county and city agencies run their own down payment and mortgage assistance, each with its own eligibility and income limits. These are their official pages. A participating lender confirms what you qualify for, and Debra can help with the real-estate side of any of them. Links checked October 2, 2026."
         />
+        <p className="dh-band-note dh-band-note-lead">
+          <strong>Haven&apos;t saved much?</strong> Down payment assistance exists for buyers in exactly that position.
+          Each agency decides who qualifies, and a participating lender confirms it; Debra helps with how assistance
+          fits into your search and your offer.
+        </p>
         <Features items={officialPrograms} rule="teal" />
       </Band>
 
@@ -240,11 +268,14 @@ export default function ProgramsPage() {
               <Compass aria-hidden="true" />
               On the way
             </p>
-            <h2 id="future-programs-heading">More paths are being written</h2>
+            <h2 id="future-programs-heading">Using FHA, VA, USDA or down payment assistance?</h2>
             <p>
-              Each gets a real page when there is something specific and verified to say about it. If yours is on this
-              list, ask Debra now — she can still help with the real-estate side today.
+              Those guides are still being written — each gets a page when there is something specific and verified to
+              say. Debra can help with the real-estate side of any of them today.
             </p>
+            <Link href="/consultation" className="dh-btn dh-btn-gold">
+              Talk with Debra
+            </Link>
           </div>
           <ul className="dh-chips">
             {futurePrograms.map((program) => (

@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { RentVsBuyCalculator } from "@/components/calculators/homebuyer-calculators"
+import { CalculatorGuide, calculatorCrumbs } from "@/components/calculators/calculator-guide"
 import { PageHeader } from "@/components/page/page-header"
 import { Section } from "@/components/page/section"
 
@@ -15,12 +16,14 @@ export default function RentVsBuyCalculatorPage() {
     <>
       <PageHeader
         eyebrow="Planning tool"
+        crumbs={calculatorCrumbs("rent-vs-buy")}
         title="Rent vs. buy calculator"
         description="Compare simplified renting and homeownership costs over time."
       />
       <Section>
         <RentVsBuyCalculator />
       </Section>
+      <CalculatorGuide slug="rent-vs-buy" />
     </>
   )
 }

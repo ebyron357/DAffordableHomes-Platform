@@ -2,6 +2,113 @@
 
 All notable repository changes are documented here.
 
+## 2026-10-04
+
+### Full-site search, answer-engine and AI-discoverability pass
+
+- New `pnpm qa:seo` audit reads every route as a crawler does and checks
+  metadata, structured data against visible content, breadcrumbs, the link
+  graph, redirects, 404s, robots.txt for eleven search and AI crawlers, and
+  `/llms.txt`. Final run: 1,524 checks, 0 failures.
+- Shared pages keep their site name and locale (`OPEN_GRAPH_BASE`).
+- `/neighborhoods` duplicated `/areas` and now redirects there. `/homes` and
+  `/events` stay out of search results until they have listings or a
+  confirmed date, then are indexed automatically.
+- The footer links the NACA, Homes for Heroes, down payment and rent-vs-buy
+  pages; the Garland page and both program pages link their long-form guides;
+  `/fair-housing` links onward.
+- `/areas` answers relocation and area questions in a visible FAQ; every
+  `/start` FAQ answer is now in the page HTML, with matching FAQ markup.
+- IndexNow support (`INDEXNOW_KEY`, `/indexnow.txt`, `pnpm seo:indexnow`);
+  `/llms.txt` gains a "Key facts" section.
+- The Homes for Heroes article's program notice no longer shows visitors an
+  instruction meant for editors ("should not be represented as officially
+  affiliated unless verified documentation is published"); it now says the
+  site does not claim an affiliation, as the program page does.
+
+## 2026-10-03
+
+### The rest of the conversion audit, and the business facts confirmed
+
+- The four business facts the conversion copy relies on — free consultation,
+  no commitment, Debra replies personally, phone or video — were confirmed by
+  the owner and are recorded as confirmed in
+  `docs/05-content/CONVERSION_COPY.md`.
+- No quiz result opens the empty listings page any more; "Moving to DFW" leads
+  to a new relocation section on `/areas`.
+- NACA shows the next step for each program stage; Homes for Heroes answers who
+  may qualify, military moves and Garland plainly.
+- `/programs` sorts visitors to the right guide and answers "haven't saved
+  much?"; calculators say the numbers stay private and that a low result is not
+  a verdict; About lists what Debra won't do; contact says what happens next;
+  first-time buyers answers which documents to have ready.
+- Unverified claims removed or qualified ("works the market every day",
+  "where Debra's practice is based", "Debra hosts workshops", "known for"), and
+  internal wording that had reached visitors is gone.
+- Fixed words running together where text containing an apostrophe followed
+  bold text or a link ("hoped?That's", "Selling?Include", and two lines on
+  `/privacy`); a test now rejects the pattern. Follow-on link rows keep the
+  arrow with the last word on narrow screens (`ArrowLink`).
+- From PR review: blank `last_name` and `phone` are left out of the CRM
+  payload instead of sent empty, so a repeat submission cannot erase what
+  GoHighLevel already holds (the setup guide adds a check for it). `/start`
+  gains the privacy line; its small print now meets AA contrast (was 3.36:1).
+  The program pages no longer claim Debra "focuses on" an area, the success
+  messages no longer promise the contact method the visitor chose, the privacy
+  line matches the policy, and the GoHighLevel guide treats the webhook and
+  calendar as independent and the calendar link as public.
+
+### Conversion copy: next steps, how a consultation works, common worries
+
+- Every form's success message now says what happens next, and keyboard focus
+  moves to it. `/start` no longer promises "Debra's team".
+- `/consultation` explains how a consultation works — three steps, what helps,
+  what it is not — before the form, and answers the common worries after it.
+  The worries also appear on `/first-time-buyers` and `/faq`, with a one-line
+  version on the homepage.
+- "No cost · No commitment · Phone or video call" under the main consultation
+  buttons. These promises were already on the site; they now come from one
+  file and are listed for Debra's approval in
+  `docs/05-content/CONVERSION_COPY.md`.
+- Dead ends removed: the homepage header button is "Talk with Debra"; `/start`'s
+  "Rather talk?" reaches a person; city tiles no longer promise a property
+  search that does not exist; the seller quiz result no longer links to an
+  empty page.
+- The homepage no longer publishes `FAQPage` markup for questions it does not
+  show.
+
+### GoHighLevel: booking calendar, one webhook for every form, one field mapping
+
+- **Booking calendar on `/consultation`.** Set `GHL_BOOKING_URL` to a
+  GoHighLevel booking link (or paste the embed snippet) and redeploy; the page
+  frames the calendar above the message form, with a new-tab link beneath it.
+  The public Content Security Policy allows that one origin in `frame-src` and
+  nothing else from GoHighLevel. Unset or invalid, nothing changes.
+- **Fixed:** the NACA and Homes for Heroes forms returned 503 when
+  `PROGRAM_LEAD_WEBHOOK_URL` existed in Vercel with an empty value, even with a
+  GoHighLevel webhook in `GHL_PROGRAM_LEAD_WEBHOOK_URL`.
+- **One variable delivers every form**, `/start` included. Plain-http and
+  malformed values are skipped.
+- **Every lead carries `first_name`, `last_name`, `full_name`, `email`,
+  `phone` and `lead_type`**, so one GoHighLevel mapping fits every form. Each
+  form's existing fields are unchanged.
+- Setup guide: `docs/08-integrations/GHL_SETUP.md`.
+
+### Search: answer-ready calculators, breadcrumbs from one source, entity fixes
+
+- Each calculator now explains how it answers its question, what it counts and
+  leaves out, answers the next questions people ask (in `FAQPage` markup), and
+  links to related tools; `WebApplication` markup on all five. The copy is built
+  from the calculators' own rules.
+- `BreadcrumbList` comes from the visible breadcrumbs on every masthead route
+  (28 of 31, from 4); calculators and policy pages gained breadcrumbs.
+- `/first-time-buyers` answers "What are the steps to buying a house?" and
+  three related questions; `/about` is a `ProfilePage`.
+- Program pages name the site's Debra Allen entity as provider; the office
+  address will publish as a structured postal address; `sameAs` links publish
+  from a new `profileUrls` fact once supplied.
+- Ordered list of everything left: `docs/REMAINING_STEPS.md`.
+
 ## 2026-10-02
 
 ### Keyword research applied: titles, program FAQs, official programs, search verification

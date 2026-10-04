@@ -61,6 +61,22 @@ const checks = [
   ['landing path label grey on white', '#5f6b73', '#ffffff'],
   ['landing footnote grey on white', '#5f6b73', '#ffffff'],
   ['landing dark outline CTA on white', '#102b4e', '#ffffff'],
+  /* Calculator guide scope columns, and the booking calendar's note. */
+  ['calculator scope list grey on the soft band', '#52616f', '#edf3f2'],
+  ['calculator scope heading navy on the soft band', '#102b4e', '#edf3f2'],
+  ['booking note grey on white', '#52616f', '#ffffff'],
+  ['booking note teal link on white', '#077783', '#ffffff'],
+  ['crumb label, 78% white blended over the navy masthead', '#cad0d8', '#102b4e'],
+  /* Conversion copy (2026-10-03): reassurance under buttons, worries, notes. */
+  ['reassurance line on a navy masthead or band', '#d7e2ec', '#102b4e'],
+  ['homepage hero reassurance on navy', '#dbe6ef', '#102b4e'],
+  ['homepage worries link, gold on navy', '#e6bd55', '#102b4e'],
+  ['band note grey on the page background', '#52616f', '#f7f9f8'],
+  ['worry card heading navy on white', '#102b4e', '#ffffff'],
+  ['programs sorter and boundaries text, ink on the page background', '#10233f', '#f7f9f8'],
+  /* /start lead form notes (was #7c8588, 3.36:1) and the privacy link. */
+  ['/start form notes, slate on the landing cream', '#5f686b', '#edf3f2'],
+  ['/start privacy link, navy on the landing cream', '#102b4e', '#edf3f2'],
 ]
 let failed = 0
 for (const [name, foreground, background] of checks) {

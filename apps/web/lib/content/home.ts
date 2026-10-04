@@ -74,28 +74,6 @@ export type FaqItem = {
   answer: string
 }
 
-export const FAQ_PREVIEW: FaqItem[] = [
-  {
-    question: "I'm not sure I'm ready to buy. Is this still for me?",
-    answer:
-      "Yes. Many people start here long before they are ready to buy. The first step is not always house hunting — sometimes it is simply understanding the process and making a plan. You are welcome to learn at your own pace.",
-  },
-  {
-    question: "Do I have to share my contact information to use the site?",
-    answer:
-      "No. You can read, learn, and use the educational resources without submitting any contact information. If and when you want to talk with Debra, you can choose to reach out.",
-  },
-  {
-    question: "Can this site tell me if I qualify for a loan?",
-    answer:
-      "No. D'Affordable Homes provides education and general information. It does not approve loans or provide legal, tax, lending, or individualized financial advice. When those questions come up, we point you to the right licensed professional.",
-  },
-  {
-    question: "What happens after I book a consultation?",
-    answer:
-      "A consultation is a conversation about where you are and what a practical next step could look like. Details about what it covers are confirmed before you book, so you always know what to expect.",
-  },
-]
 
 export type TrustPoint = {
   title: string
