@@ -143,7 +143,7 @@ export default function AboutPage() {
         commitment the site already makes elsewhere; the neighbourhood line is
         the Fair Housing commitment from /fair-housing in plain words.
       */}
-      <Band tone="white" aria-labelledby="about-boundaries-heading">
+      <Band tone="white" id="what-debra-wont-do" aria-labelledby="about-boundaries-heading">
         <BandLead
           eyebrow="Boundaries"
           eyebrowIcon={ShieldCheck}

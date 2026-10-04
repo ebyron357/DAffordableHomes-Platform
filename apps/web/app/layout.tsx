@@ -4,7 +4,7 @@ import { HideOnHome } from "@/components/layout/hide-on-home"
 import { SiteHeader } from "@/components/layout/site-header"
 import { SiteFooter } from "@/components/layout/site-footer"
 import { localBusinessJsonLd, sameAs } from "@/lib/business-facts"
-import { SHARE_IMAGES, searchVerification } from "@/lib/seo"
+import { OPEN_GRAPH_BASE, searchVerification } from "@/lib/seo"
 import { SITE } from "@/lib/site"
 import "./globals.css"
 
@@ -70,9 +70,8 @@ export const metadata: Metadata = {
    */
   openGraph: {
     type: "website",
-    siteName: SITE.name,
     url: "./",
-    ...SHARE_IMAGES,
+    ...OPEN_GRAPH_BASE,
   },
   twitter: {
     card: "summary_large_image",

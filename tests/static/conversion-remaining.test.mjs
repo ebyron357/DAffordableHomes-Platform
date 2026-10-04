@@ -55,7 +55,8 @@ test("people moving to DFW are sent to a relocation section that exists", () => 
   const relocating = buildResult({ goal: "relocate", area: "dallas", service: "none", buyerPosition: "search", timeline: "soon" });
   assert.equal(relocating.key, "relocating");
   assert.equal(relocating.primary.href, "/areas#moving-to-dfw");
-  assert.equal(relocating.resource.href, "/neighborhoods");
+  // /neighborhoods redirects to /areas, which the primary link already opens.
+  assert.equal(relocating.resource.href, "/calculators/affordability");
 
   const areas = read(`${WEB}/app/areas/page.tsx`);
   assert.match(areas, /<Band tone="white" id="moving-to-dfw"/);

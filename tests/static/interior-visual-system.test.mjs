@@ -30,7 +30,6 @@ const PUBLIC_ROUTES = [
   "first-time-buyers",
   "homes",
   "market-reports",
-  "neighborhoods",
   "programs",
   "resources",
   "testimonials",

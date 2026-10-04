@@ -18,7 +18,7 @@ import { PageHeader } from "@/components/page/page-header"
 import { Band, BandLead, CtaBand, Features, Split, StatusStrip, type Feature } from "@/components/page/editorial"
 import { CLOSING_BAND_IMAGE, DEBRA_PORTRAIT } from "@/lib/content/imagery"
 import { PROGRAM_CARDS } from "@/lib/programs"
-import { SHARE_IMAGES } from "@/lib/seo"
+import { OPEN_GRAPH_BASE } from "@/lib/seo"
 import { CONSULTATION_REASSURANCE } from "@/lib/content/conversion"
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
       "Program-specific real-estate guidance for buyers and community heroes exploring Garland and the Dallas–Fort Worth region.",
     url: "/programs",
     type: "website",
-    ...SHARE_IMAGES,
+    ...OPEN_GRAPH_BASE,
   },
 }
 

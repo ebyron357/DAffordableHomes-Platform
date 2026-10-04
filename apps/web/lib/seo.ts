@@ -28,6 +28,16 @@ export const SHARE_IMAGE = {
 
 export const SHARE_IMAGES = { images: [SHARE_IMAGE] }
 
+/**
+ * What every route's own `openGraph` must carry.
+ *
+ * The same replacement rule drops the layout's `og:site_name` and `og:locale`
+ * from any route that declares `openGraph`, so a shared homepage or program
+ * page went out with no site name. Routes spread this instead of
+ * `SHARE_IMAGES` alone; `tests/static/search-metadata.test.mjs` checks it.
+ */
+export const OPEN_GRAPH_BASE = { siteName: SITE.name, locale: "en_US", ...SHARE_IMAGES }
+
 /** What the layout's title template appends to every page title. */
 const TITLE_SUFFIX = ` — ${SITE.name}`
 

@@ -2,6 +2,26 @@
 
 All notable repository changes are documented here.
 
+## 2026-10-04
+
+### Full-site search, answer-engine and AI-discoverability pass
+
+- New `pnpm qa:seo` audit reads every route as a crawler does and checks
+  metadata, structured data against visible content, breadcrumbs, the link
+  graph, redirects, 404s, robots.txt for eleven search and AI crawlers, and
+  `/llms.txt`. Final run: 1,524 checks, 0 failures.
+- Shared pages keep their site name and locale (`OPEN_GRAPH_BASE`).
+- `/neighborhoods` duplicated `/areas` and now redirects there. `/homes` and
+  `/events` stay out of search results until they have listings or a
+  confirmed date, then are indexed automatically.
+- The footer links the NACA, Homes for Heroes, down payment and rent-vs-buy
+  pages; the Garland page and both program pages link their long-form guides;
+  `/fair-housing` links onward.
+- `/areas` answers relocation and area questions in a visible FAQ; every
+  `/start` FAQ answer is now in the page HTML, with matching FAQ markup.
+- IndexNow support (`INDEXNOW_KEY`, `/indexnow.txt`, `pnpm seo:indexnow`);
+  `/llms.txt` gains a "Key facts" section.
+
 ## 2026-10-03
 
 ### The rest of the conversion audit, and the business facts confirmed

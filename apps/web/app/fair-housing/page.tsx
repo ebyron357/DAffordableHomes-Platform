@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 import { PageHeader } from "@/components/page/page-header"
 import { Section } from "@/components/page/section"
 import { Container } from "@/components/ui/container"
@@ -45,6 +46,23 @@ export default function FairHousingPage() {
               </a>
               .
             </p>
+            <h2>Related</h2>
+            <ul>
+              <li>
+                <Link href="/equal-housing-opportunity">Equal Housing Opportunity statement</Link>
+              </li>
+              <li>
+                <Link href="/accessibility">Accessibility statement</Link>, including how to report a barrier on this
+                site
+              </li>
+              <li>
+                <Link href="/about#what-debra-wont-do">What Debra won&apos;t do</Link>, including never steering anyone toward or away from
+                a neighborhood
+              </li>
+              <li>
+                <Link href="/contact">Contact Debra</Link> with a question or a concern
+              </li>
+            </ul>
           </Prose>
         </Container>
       </Section>

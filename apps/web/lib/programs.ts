@@ -21,6 +21,8 @@ export type ProgramDefinition = {
    * actual program stage". Each step names who handles it.
    */
   stageGuide?: Array<{ stage: string; next: string }>
+  /** The long-form guide on the same subject; the guide already links back here. */
+  relatedGuide?: { label: string; href: string }
   process: Array<{ title: string; description: string }>
   faqs: ProgramFaq[]
   leadSource: string
@@ -43,6 +45,7 @@ export const PROGRAMS: Record<ProgramSlug, ProgramDefinition> = {
       "First-time buyers who need a clearer real-estate process",
     ],
     supportTitle: "How Debra can support your home search",
+    relatedGuide: { label: "Read the full guide: Using NACA to buy a home in Dallas–Fort Worth", href: "/blog/naca-homebuying-dallas-fort-worth" },
     supportLede:
       "NACA guides you through counseling and qualification. Debra is on your side for the house itself: which homes fit the purchase NACA approves, how to make an offer, and keeping every deadline on track.",
     stageGuide: [
@@ -156,6 +159,7 @@ export const PROGRAMS: Record<ProgramSlug, ProgramDefinition> = {
       "Law-enforcement professionals",
     ],
     supportTitle: "Real-estate support built around your move",
+    relatedGuide: { label: "Read the full guide: Buying or selling as a North Texas hero", href: "/blog/homes-for-heroes-north-texas" },
     supportLede:
       "Buying, selling or both, Debra handles the real-estate side — and helps you keep it separate from anything a benefit program decides.",
     supportItems: [

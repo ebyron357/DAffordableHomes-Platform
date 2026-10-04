@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { ProgramPage } from "@/components/programs/program-page"
 import { PROGRAMS } from "@/lib/programs"
-import { SHARE_IMAGES } from "@/lib/seo"
+import { OPEN_GRAPH_BASE } from "@/lib/seo"
 
 export const metadata: Metadata = {
   title: "Homes for Heroes Help in North Texas",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
       "North Texas real-estate guidance for eligible community heroes, without unsupported savings or affiliation claims.",
     url: "/programs/homes-for-heroes",
     type: "website",
-    ...SHARE_IMAGES,
+    ...OPEN_GRAPH_BASE,
   },
 }
 

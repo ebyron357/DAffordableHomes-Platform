@@ -13,6 +13,7 @@ import { PageHeader } from "@/components/page/page-header"
 import { DEBRA_DESK } from "@/lib/content/imagery"
 import { Band, BandLead, QaList, Split, StatusStrip, Steps } from "@/components/page/editorial"
 import { ProgramLeadForm } from "@/components/programs/program-lead-form"
+import { ArrowLink } from "@/components/page/arrow-link"
 import { JsonLd } from "@/components/seo/json-ld"
 import { LOCAL_MARKET, verifiedAreaServedSchema } from "@/lib/local-market"
 import type { ProgramDefinition } from "@/lib/programs"
@@ -198,6 +199,13 @@ export function ProgramPage({ program }: { program: ProgramDefinition }) {
               Official program rules can change. These answers explain Debra&apos;s real-estate role and identify what
               has to be confirmed with the program or another licensed professional.
             </p>
+            {program.relatedGuide && (
+              <ul className="dh-band-links">
+                <li>
+                  <ArrowLink href={program.relatedGuide.href} label={program.relatedGuide.label} />
+                </li>
+              </ul>
+            )}
           </div>
           <QaList items={program.faqs} />
         </div>

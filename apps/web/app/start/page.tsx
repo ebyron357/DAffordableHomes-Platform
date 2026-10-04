@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { NextStepLanding } from "@/components/landing/next-step-landing"
-import { SHARE_IMAGES } from "@/lib/seo"
+import { OPEN_GRAPH_BASE } from "@/lib/seo"
 
 export const metadata: Metadata = {
   title: "Find Your Next Homebuying Step in DFW",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: "Clear, education-first guidance for renters and buyers preparing for homeownership in Dallas–Fort Worth.",
     url: "/start",
     type: "website",
-    ...SHARE_IMAGES,
+    ...OPEN_GRAPH_BASE,
   },
 }
 

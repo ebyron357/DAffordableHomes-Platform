@@ -10,17 +10,21 @@ import {
   Search,
   SignalHigh,
 } from "lucide-react"
-import { searchListings } from "@/lib/mls/provider"
+import { isPropertySearchLive, searchListings } from "@/lib/mls/provider"
 import { FIGMA_CITIES } from "@/lib/figma-home"
 import { PageHeader } from "@/components/page/page-header"
 import { Band, BandLead, CtaBand, Features, Split, StatusStrip } from "@/components/page/editorial"
 import { CLOSING_BAND_IMAGE, HERO_FAMILY } from "@/lib/content/imagery"
 
-export const metadata: Metadata = {
-  title: "Find a Home in Dallas–Fort Worth",
-  description:
-    "Explore homes across Garland and Dallas–Fort Worth with guidance. Until a live MLS feed is connected, this page says so instead of showing placeholder homes.",
-  alternates: { canonical: "/homes" },
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Find a Home in Dallas–Fort Worth",
+    description:
+      "Explore homes across Garland and Dallas–Fort Worth with guidance. Until a live MLS feed is connected, this page says so instead of showing placeholder homes.",
+    alternates: { canonical: "/homes" },
+    // Kept out of search results until listings are real; see lib/mls/provider.ts.
+    ...((await isPropertySearchLive()) ? {} : { robots: { index: false, follow: true } }),
+  }
 }
 
 function formatPrice(value: number) {

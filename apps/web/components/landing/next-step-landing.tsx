@@ -18,6 +18,7 @@ import {
 } from "lucide-react"
 import { trackEvent, type AnalyticsEventName } from "@/lib/analytics"
 import { COMMON_WORRIES, FORM_PRIVACY } from "@/lib/content/conversion"
+import { JsonLd } from "@/components/seo/json-ld"
 import { BrandMotif } from "@/components/page/brand-motif"
 import { DEBRA_DESK } from "@/lib/content/imagery"
 /**
@@ -117,6 +118,16 @@ const FAQS = [
       "No. It is an educational readiness tool, not a mortgage application, credit decision, preapproval, or guarantee of program eligibility.",
   },
 ]
+
+const FAQ_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: { "@type": "Answer", text: faq.answer },
+  })),
+}
 
 const CAMPAIGN_VARIANTS: Record<
   string,
@@ -615,7 +626,7 @@ export function NextStepLanding() {
       <section className="dah-landing-section dah-landing-faq" aria-labelledby="faq-heading">
         <div className="dah-landing-container dah-landing-two-column">
           <div><p className="dah-landing-eyebrow">COMMON QUESTIONS</p><h2 id="faq-heading">Clear answers before you make a move.</h2><p className="dah-landing-copy">Good guidance should make the next decision easier, not make you feel behind.</p></div>
-          <div className="dah-landing-faq-list">{FAQS.map((faq, index) => <div key={faq.question} className="dah-landing-faq-item"><button type="button" aria-expanded={openFaq === index} onClick={() => { setOpenFaq(openFaq === index ? null : index); trackEvent("faq_opened", { question: faq.question }) }}><span>{faq.question}</span><ChevronDown size={18} aria-hidden="true" /></button>{openFaq === index && <p>{faq.answer}</p>}</div>)}</div>
+          {/* Every answer is in the HTML, closed ones `hidden`: crawlers and answer engines read all eight, and the FAQPage markup below describes content the page carries. */}<JsonLd value={FAQ_JSON_LD} /><div className="dah-landing-faq-list">{FAQS.map((faq, index) => <div key={faq.question} className="dah-landing-faq-item"><button type="button" aria-expanded={openFaq === index} aria-controls={`start-faq-${index}`} onClick={() => { setOpenFaq(openFaq === index ? null : index); trackEvent("faq_opened", { question: faq.question }) }}><span>{faq.question}</span><ChevronDown size={18} aria-hidden="true" /></button><p id={`start-faq-${index}`} hidden={openFaq !== index}>{faq.answer}</p></div>)}</div>
         </div>
       </section>
 

@@ -1,9 +1,10 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ClipboardCheck, Compass, Home, MapPin, Plane, Route, Wallet } from "lucide-react"
+import { ClipboardCheck, Compass, Home, MapPin, MessageCircleQuestion, Plane, Route, ShieldCheck, Wallet } from "lucide-react"
 import { FIGMA_CITIES } from "@/lib/figma-home"
 import { PageHeader } from "@/components/page/page-header"
-import { Band, BandLead, CtaBand, Features, Split, Steps } from "@/components/page/editorial"
+import { Band, BandLead, CtaBand, Features, QaList, Split, StatusStrip, Steps } from "@/components/page/editorial"
+import { JsonLd } from "@/components/seo/json-ld"
 import { ArrowLink } from "@/components/page/arrow-link"
 import { CONSULTATION_REASSURANCE } from "@/lib/content/conversion"
 import { CLOSING_BAND_IMAGE, DEBRA_LIFESTYLE } from "@/lib/content/imagery"
@@ -68,6 +69,54 @@ const RELOCATION_STEPS = [
       "When you can be here in person, the tours are for specific homes worth seeing, not for learning the metroplex from scratch.",
   },
 ] as const
+
+/** The cities listed without a guide of their own, named in the FAQ from the same list the page shows. */
+const UNGUIDED_CITIES = FIGMA_CITIES.filter((city) => city.name !== "Garland").map((city) => city.name)
+const cityList = `${UNGUIDED_CITIES.slice(0, -1).join(", ")} and ${UNGUIDED_CITIES[UNGUIDED_CITIES.length - 1]}`
+
+/**
+ * Direct answers to what people ask before choosing where to buy in North
+ * Texas. Each uses only facts the site already states: the free first
+ * conversation by phone or video (CONVERSION_COPY.md §1), the service-area
+ * boundary (lib/local-market.ts), and the VA-lender boundary from the Homes for
+ * Heroes page. No remote showings, school ratings or prices are claimed.
+ */
+const AREA_FAQS = [
+  {
+    question: "How do I choose where to live in Dallas–Fort Worth?",
+    answer:
+      "Start from the fixed points: where you will work, study or report for duty, and how long a commute you will accept. That narrows the metroplex faster than any list of cities. Then compare the one or two areas that fit on monthly cost, the kind of homes you would actually tour and your daily routine, and talk them through with Debra before you spend a weekend touring.",
+  },
+  {
+    question: "Can I plan a move to Dallas–Fort Worth before I arrive?",
+    answer:
+      "Yes. A first conversation with Debra can be by phone or video, so you can talk through areas, budget and timing from wherever you live now. A lender can review your finances before you travel, so the homes you tour are ones that fit your real budget.",
+  },
+  {
+    question: "Which North Texas areas does this site cover?",
+    answer: `Garland has a full written guide. ${cityList} are listed without guides of their own yet. Tell Debra where you are hoping to buy, and she will confirm whether she can help with that area before anything else.`,
+  },
+  {
+    question: "What should I check before buying in a particular Garland or DFW neighborhood?",
+    answer:
+      "Check what changes from one address to the next: property taxes, homeowners association dues and rules, the cost of insurance, flood-zone status, the commute at the hours you would actually drive it, and what the inspection finds. Those come from official records, your insurer and your inspector, not from a city-level summary.",
+  },
+  {
+    question: "I'm moving to North Texas on military orders. Where do I start?",
+    answer:
+      "Start from your base and the commute you will accept, then talk to a VA-approved lender, who confirms your entitlement and terms. The Homes for Heroes page explains how Debra fits in on the real-estate side.",
+  },
+] as const
+
+const areaFaqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: AREA_FAQS.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: { "@type": "Answer", text: faq.answer },
+  })),
+}
 
 export default function AreasPage() {
   const garland = FIGMA_CITIES.find((city) => city.name === "Garland")
@@ -181,6 +230,17 @@ export default function AreasPage() {
         </p>
       </Band>
 
+      {/* Moved from /neighborhoods, which now redirects here. */}
+      <Band tone="alt" tight aria-label="What is not published here">
+        <StatusStrip icon={ShieldCheck} title="What this site will not publish about a neighborhood">
+          <p>
+            No fabricated rankings, price ranges, school scores or unsupported market claims. Conditions vary street by
+            street and change constantly, so every address still needs current verification — which is exactly the part
+            Debra does with you.
+          </p>
+        </StatusStrip>
+      </Band>
+
       {/*
         Relocation. People moving to DFW arrive from the quiz's "Moving to DFW"
         result and used to be sent to the listings page, which has no feed.
@@ -206,12 +266,30 @@ export default function AreasPage() {
         <Steps items={RELOCATION_STEPS} />
         <ul className="dh-band-links">
           <li>
-            <ArrowLink href="/neighborhoods" label="Compare DFW neighborhoods" />
+            <ArrowLink href="/calculators/affordability" label="Check what you can afford before you choose an area" />
           </li>
           <li>
             <ArrowLink href="/programs/homes-for-heroes" label="On military orders? Read the Homes for Heroes guidance" />
           </li>
         </ul>
+      </Band>
+
+      <Band tone="page" aria-labelledby="areas-faq-heading">
+        <JsonLd value={areaFaqJsonLd} />
+        <div className="dh-split dh-split-wide-copy">
+          <div className="dh-split-copy">
+            <p className="dh-kicker">
+              <MessageCircleQuestion aria-hidden="true" />
+              Direct answers
+            </p>
+            <h2 id="areas-faq-heading">Questions about choosing where to buy</h2>
+            <p>
+              What people ask before they pick a part of North Texas — answered without rankings, price claims or
+              promises about an area Debra has not confirmed she covers.
+            </p>
+          </div>
+          <QaList items={AREA_FAQS} />
+        </div>
       </Band>
 
       <CtaBand

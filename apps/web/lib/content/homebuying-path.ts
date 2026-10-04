@@ -188,13 +188,15 @@ const AREA_NAME: Record<string, string> = {
   tarrant: "Fort Worth, Arlington and Irving",
 }
 
-/** Where a search for this area starts. Garland has a written guide; the rest go to the search. */
+/**
+ * Where reading about an area starts. Garland has a written guide; every other
+ * area starts from the area guides. (This used to send other areas to /homes,
+ * which has no listings feed, and undecided visitors to /neighborhoods, which
+ * now redirects to /areas.)
+ */
 function areaResource(answers: PathAnswers): PathLink {
   if (answers.area === "garland") return { label: "Read the Garland area guide", href: "/areas/garland" }
-  if (answers.area === "unsure" || answers.area === "other" || !answers.area) {
-    return { label: "Compare DFW neighborhoods", href: "/neighborhoods" }
-  }
-  return { label: `Search homes in ${AREA_NAME[answers.area]}`, href: "/homes" }
+  return { label: "Compare North Texas areas", href: "/areas" }
 }
 
 /** One sentence that reflects the visitor's timeline back to them, honestly. */
@@ -320,11 +322,13 @@ export function buildResult(answers: PathAnswers): PathResult {
         nextStep:
           "Narrow the metroplex to one or two areas before you tour, starting from where you will work and how you like to live.",
         primary: { label: "Plan a move to Dallas–Fort Worth", href: "/areas#moving-to-dfw" },
-        // The non-Garland link used to be /homes, which has no listings feed.
+        // The primary link already opens the area guides, so the second one is
+        // the budget question every move starts with. It used to be /homes (no
+        // listings feed), then /neighborhoods (now redirected to /areas).
         resource:
           answers.area === "garland"
             ? { label: "Read the Garland area guide", href: "/areas/garland" }
-            : { label: "Compare DFW neighborhoods", href: "/neighborhoods" },
+            : { label: "Check what you can afford", href: "/calculators/affordability" },
         consultation: CONSULTATION,
       }
     case "selling":
@@ -375,7 +379,7 @@ export function buildResult(answers: PathAnswers): PathResult {
         // consultation below this result is where "what's on the market" is
         // answered until it does.
         primary: { label: "Check a monthly payment", href: "/calculators/mortgage-payment" },
-        resource: answers.area === "garland" ? area : { label: "Compare North Texas areas", href: "/areas" },
+        resource: area,
         consultation: CONSULTATION,
       }
     case "researcher":

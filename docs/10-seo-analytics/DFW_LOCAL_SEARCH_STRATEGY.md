@@ -342,3 +342,47 @@ The site is still not live on `daffordablehomes.com`, so §9's caveat stands: no
 Search Console, field Core Web Vitals or ranking data exists, and none of this
 earns a position until the domain is cut over. The owner's ordered list is
 `docs/REMAINING_STEPS.md`.
+
+## 12. Full-site search, answer-engine and AI-discoverability pass — 2026-10-04
+
+A new audit, `pnpm qa:seo` (`scripts/qa/seo-audit.mjs`), reads every route the
+way a crawler does — server HTML, JavaScript off — and checks what decides
+whether a page is found, understood and quoted. It covers:
+
+- **Metadata:** title, description, self-canonical, Open Graph and Twitter
+  tags, one H1, alt text.
+- **Structured data:** every block parses, and each FAQ question and answer
+  and each breadcrumb appears on the visible page.
+- **Links:** the link graph (orphans, dead ends) and every internal link.
+- **Edges:** legacy redirects, the trailing-slash redirect, and real 404s.
+- **Crawler access:** robots.txt for eleven search and AI crawlers, including
+  OAI-SearchBot, ChatGPT-User and Bingbot, plus every `/llms.txt` link.
+
+The first run found 10 failures. The final run on the same routes has
+**1,524 passes, 0 failures** and 7 warnings: five policy and contact pages are
+short by nature, and two articles have no image of their own (§3, owner).
+
+| Found | Fixed |
+| --- | --- |
+| Eight routes declaring their own `openGraph` dropped `og:site_name` (Next replaces the object) | `OPEN_GRAPH_BASE` in `lib/seo.ts` carries site name, `en_US` locale and the share card; a test fails on any route without it |
+| `/events` linked from nowhere; `/neighborhoods`, `/homes`, `/calculators/rent-vs-buy`, `/calculators/down-payment` and both program pages linked from one to seven pages — `lib/navigation.ts` defined three link lists nothing rendered | Footer links NACA, Homes for Heroes, down payment and rent-vs-buy on every interior page |
+| `/neighborhoods` repeated `/areas` (same Garland feature, same city list, 178 words) | 308 to `/areas`; its one unique passage moved there; quiz and next-step links updated |
+| `/homes` titled "Find a Home…" with no listings feed; `/events` with no dates | `noindex, follow` and out of the sitemap until listings are live / a confirmed session exists, then indexed automatically (`isPropertySearchLive`, `lib/content/events.ts`, which also emits `Event` markup) |
+| `/fair-housing` linked onward to one page | Related links: EHO, accessibility, "What Debra won't do", contact (compliance wording unchanged) |
+| `/start` rendered only the open FAQ answer, so seven of eight answers were not in the HTML | Every answer rendered, closed ones `hidden`; `FAQPage` added |
+| No direct answers for relocation or choosing an area | Visible FAQ + `FAQPage` on `/areas`: choosing where to live, planning before arriving, which areas the site covers, what to check per address, military orders — confirmed facts only |
+| `/areas/garland` never linked the 1,871-word Garland guide that links to it; the program pages never linked their long-form guides | Hub ↔ guide links both ways |
+| Garland `WebPage` referenced an inline WebSite and an undisambiguated City | `isPartOf` → `#website`; City carries `containedInPlace` Texas and `sameAs` Wikipedia |
+| `/resources` titled "Plan & Resources" | "Homebuyer Planning Tools & Resources" |
+| No way to notify Bing / Copilot / ChatGPT search of changes | IndexNow: `INDEXNOW_KEY` → `/indexnow.txt`; `pnpm seo:indexnow` submits the live sitemap after verifying the key file |
+| `/llms.txt` had no statement of facts | "Key facts": the four confirmed business facts, and the facts an assistant must not infer (brokerage, licence, address, phone, service areas) |
+
+Verified as already correct and left alone: robots.txt allows every search and
+AI-search crawler (one `*` group; `/api/` and `/studio` disallowed); every
+legacy URL redirects in one hop (`/naca` added to `next.config.mjs` alongside
+its page redirect); unknown URLs and article slugs return 404 with `noindex`;
+the entity graph (WebSite → Organization → Person by `@id`, ProfilePage,
+Article author and Service provider by reference); `RealEstateAgent`, address,
+`areaServed` and `sameAs` stay off until verified.
+
+FAQPage now covers 15 routes, every one on questions the page shows.
