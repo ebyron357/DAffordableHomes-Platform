@@ -1,16 +1,21 @@
 # GoHighLevel setup — forms and booking calendar
 
 **Status:** Website side complete and verified end to end against a stand-in
-webhook on 2026-10-03 (see "How this was verified"). **Live delivery is
-blocked on two values only the owner can supply:** a GoHighLevel workflow
-webhook URL and a booking calendar link. Nothing reaches GoHighLevel until
-both are set in Vercel and the site is redeployed.
+webhook on 2026-10-03 (see "How this was verified"). **Live use waits on two
+values only the owner can supply,** and each works on its own: the GoHighLevel
+workflow webhook URL (`GHL_PROGRAM_LEAD_WEBHOOK_URL`) turns on form delivery,
+and the booking calendar link (`GHL_BOOKING_URL`) turns on the calendar on
+`/consultation`. Set either in Vercel and redeploy, and that half works without
+the other.
 
 ## What the website sends to GoHighLevel
 
 Every form on the site posts to the site's own server, which forwards the lead
-to GoHighLevel. Visitors never talk to GoHighLevel directly, and no
-GoHighLevel key or URL is exposed in the browser.
+to GoHighLevel. Visitors never talk to GoHighLevel directly, and the webhook
+URL stays on the server; no GoHighLevel key is used at all. The booking
+calendar link is different: it is the calendar's own public share link, so it
+appears in the page as the calendar frame and the "open in a new tab" link.
+That is expected and is not a secret.
 
 | Form | Page | Server route | `lead_type` | `source` |
 | --- | --- | --- | --- | --- |
@@ -54,6 +59,8 @@ ignored, so a blank variable left in Vercel cannot block delivery.
 1. Submit one test enquiry from `/consultation` on the Preview deployment.
 2. In the workflow's Inbound Webhook trigger, click **Fetch sample requests**
    and pick the one you just sent.
+   Fill in **every** field for that test, including a first and last name and
+   a phone number, so the sample shows every key.
 3. Add **Create Contact** (or **Create/Update Contact**) and map:
 
    | GoHighLevel field | Webhook key |
@@ -64,8 +71,17 @@ ignored, so a blank variable left in Vercel cannot block delivery.
    | Phone | `phone` |
    | Source | `source` |
 
-   These five keys are on every lead from every form, so this one mapping
-   works for all of them.
+   `first_name`, `email` and `source` are on every lead from every form.
+   `last_name` and `phone` are sent **only when the visitor gave them**: a
+   one-word name or a blank phone leaves the key out rather than sending it
+   empty, so this one mapping works for every form.
+
+   **Check that a repeat submission cannot erase data.** Submit a second test
+   with the same email, a one-word name and no phone, then open the contact:
+   the surname and phone from the first test must still be there. If
+   GoHighLevel cleared them, take Last Name and Phone out of this step and set
+   each with an **Update Contact Field** action behind an **If/Else** that runs
+   only when the webhook value is not empty.
 4. Add **If/Else** on `lead_type` to route each kind of lead — for example, add
    the tag `naca` and create an opportunity in the NACA pipeline when
    `lead_type` is `program-naca`.
@@ -76,16 +92,17 @@ ignored, so a blank variable left in Vercel cannot block delivery.
 
 ### Every key a lead can carry
 
-Common to all forms: `first_name`, `last_name`, `full_name`, `email`, `phone`,
-`lead_type`, `source`, `submittedAt`, `pageUrl`.
+Common to all forms: `first_name`, `full_name`, `email`, `lead_type`,
+`source`, `submittedAt`, `pageUrl`; and `last_name` and `phone` whenever the
+visitor gave them.
 
 | Form | Additional keys |
 | --- | --- |
-| Consultation / contact | `name`, `preferredConnection`, `buyerStage`, `message` |
+| Consultation / contact | `name`, `preferredConnection`, `buyerStage`, `message` (the phone, when given, is `phone`) |
 | NACA / Homes for Heroes | `firstName`, `lastName`, `program`, `sourcePage`, `campaign`, `referrer`, `utmSource`, `utmMedium`, `utmCampaign`, `utmContent`, `utmTerm`, `currentCity`, `desiredCity`, `desiredZip`, `timeline`, `preferredContactMethod`, `intent`, `programStage`, `serviceCategory`, `questions`, `consent` |
 | Find My Next Step | `firstName`, `mobile`, `preferredNextStep`, `selectedPath`, `resultKey`, `landingIntent`, `attribution` (UTM values) |
 
-A one-word name ("Cher") arrives as `first_name` with an empty `last_name`. A
+A one-word name ("Cher") arrives as `first_name` with no `last_name` key. A
 message-form name is split at the first space: "Mary Ann Jones" arrives as
 first `Mary`, last `Ann Jones`, and `full_name` keeps it exactly as typed.
 
@@ -157,7 +174,8 @@ GoHighLevel inbound webhook (TLS verification on):
   submitted in Chromium and showed their success states only after delivery;
 - `/api/leads/next-step` delivered;
 - the stand-in received exactly three JSON posts with the expected
-  `lead_type`, `first_name`, `last_name`, `email`, `phone` and `source`.
+  `lead_type`, `first_name`, `last_name`, `email`, `phone` and `source`
+  (after review on the same day, `last_name` and `phone` are left out when blank).
 
 `tests/static/ghl-integration.test.mjs` keeps these behaviours pinned. What
 this cannot verify is GoHighLevel itself. The test environment's network

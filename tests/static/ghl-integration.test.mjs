@@ -78,15 +78,24 @@ test("a single name field is split for the CRM without losing what was typed", (
       last_name: "Ann Jones",
       full_name: "Mary Ann Jones",
       email: "m@example.com",
-      phone: "",
       lead_type: "contact",
     },
   );
-  assert.equal(crmContactFields({ leadType: "contact", fullName: "Cher", email: "c@example.com" }).last_name, "");
+  assert.equal("last_name" in crmContactFields({ leadType: "contact", fullName: "Cher", email: "c@example.com" }), false);
   assert.equal(
     crmContactFields({ leadType: "next-step", firstName: "Ana", lastName: "", email: "a@example.com" }).full_name,
     "Ana",
   );
+});
+
+test("a blank optional field is left out, so a repeat submission cannot erase CRM data", () => {
+  const blank = crmContactFields({ leadType: "next-step", firstName: "Ana", lastName: "", email: "a@example.com", phone: "  " });
+  assert.deepEqual(Object.keys(blank).sort(), ["email", "first_name", "full_name", "lead_type"]);
+  const full = crmContactFields({ leadType: "program-naca", firstName: "Test", lastName: "Buyer", email: "b@example.com", phone: " 214-555-0100 " });
+  assert.equal(full.last_name, "Buyer");
+  assert.equal(full.phone, "214-555-0100");
+  // The setup guide tells the owner to check a repeat submission keeps the data.
+  assert.match(read("docs/08-integrations/GHL_SETUP.md"), /Check that a repeat submission cannot erase data/);
 });
 
 /* ---- the real handlers ------------------------------------------------- */
@@ -201,7 +210,7 @@ test("every form reaches the same GoHighLevel webhook with the same contact keys
     });
     assert.deepEqual(contactKeys(nextStep), {
       first_name: "Ana",
-      last_name: "",
+      last_name: undefined,
       full_name: "Ana",
       email: "ana@example.com",
       phone: "214-555-0101",
@@ -212,9 +221,13 @@ test("every form reaches the same GoHighLevel webhook with the same contact keys
       last_name: "Visitor",
       full_name: "Sam Visitor",
       email: "sam@example.com",
-      phone: "",
+      phone: undefined,
       lead_type: "contact",
     });
+    // Absent, not empty: a blank mapped into "Create/Update Contact" could
+    // clear a surname or phone an earlier submission stored.
+    assert.equal("last_name" in nextStep, false);
+    assert.equal("phone" in contact, false);
 
     // Each form's own fields still arrive, so existing mappings keep working.
     assert.equal(program.source, "NACA Landing Page");

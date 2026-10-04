@@ -74,6 +74,9 @@ const checks = [
   ['band note grey on the page background', '#52616f', '#f7f9f8'],
   ['worry card heading navy on white', '#102b4e', '#ffffff'],
   ['programs sorter and boundaries text, ink on the page background', '#10233f', '#f7f9f8'],
+  /* /start lead form notes (was #7c8588, 3.36:1) and the privacy link. */
+  ['/start form notes, slate on the landing cream', '#5f686b', '#edf3f2'],
+  ['/start privacy link, navy on the landing cream', '#102b4e', '#edf3f2'],
 ]
 let failed = 0
 for (const [name, foreground, background] of checks) {

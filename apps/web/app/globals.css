@@ -1776,7 +1776,8 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 .dah-landing-lead-form input,.dah-landing-lead-form select { min-height:48px; border:1px solid #c7cbc6; border-radius:0; padding:10px 12px; color:var(--dah-charcoal); background:#fff; font:inherit; font-size:14px; }
 .dah-landing-honeypot { position:absolute; left:-9999px; }
 .dah-landing-form-actions { margin-top:20px; }
-.dah-landing-form-actions p { max-width:250px; margin:0; color:#7c8588; font-size:12px; line-height:1.45; }
+.dah-landing-form-actions p { max-width:250px; margin:0; color:#5f686b; font-size:12px; line-height:1.45; }
+.dah-landing-form-actions p a { color:var(--dah-navy); font-weight:700; text-decoration:underline; text-underline-offset:2px; }
 .dah-landing-form-error { margin:16px 0 0; color:#9b3e3e; font-size:13px; line-height:1.5; }
 .dah-landing-form-error a { color:inherit; font-weight:800; }
 .dah-landing-success { display:flex; gap:14px; border:1px solid #a9c9a8; padding:20px; color:#315f2f; background:#f2f8ef; }

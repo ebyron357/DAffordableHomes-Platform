@@ -23,20 +23,26 @@ They are not blockers and need no further approval.
 | **Debra personally replies to each message** | Consultation steps and success message; contact success message and side panel; homepage footer |
 | **Consultations may happen by phone or video** | Under the consultation buttons; consultation steps, success message and FAQ; the relocation section |
 
-Two smaller operating statements are already true by how the site and
-GoHighLevel are set up, and are recorded so they stay true:
+Two smaller operating statements are true by how the site is built, and are
+recorded so they stay true:
 
-- The NACA and Homes for Heroes success messages say Debra follows up "the way
-  you asked to be contacted". The form sends `preferredContactMethod` to
-  GoHighLevel, where the workflow can route on it (`GHL_SETUP.md` Step 3).
+- The NACA and Homes for Heroes success messages say Debra follows up "using
+  the contact details you gave". They used to say "the way you asked to be
+  contacted", which the site cannot guarantee: the contact-method field is
+  optional and the GoHighLevel setup does not route on it. Changed after PR
+  review.
 - The contact form's help text says Debra will say when the next workshop date
   is confirmed, as `/events` already did before this work.
+
+The privacy line under every form, `/start` included, says details "are used as
+the privacy policy describes, and never sold" and links the policy. It used to
+say "used only to reply to you", which was narrower than the policy itself.
 
 ## 2. What was added, by page
 
 | Page | Added |
 | --- | --- |
-| Every form | A success message that says what happens next, with focus moved to it; a privacy line linking the policy |
+| Every form | A success message that says what happens next, with focus moved to it; a privacy line linking the policy (added to `/start` after PR review) |
 | `/consultation` | "How a consultation works" (three steps, what helps, what it is not) before the form; who it is for; "Worried you're not ready?" after it; field help on phone and message |
 | `/contact` | Help text for sellers and workshop requests; "What happens next" in the side panel |
 | `/first-time-buyers` | The worries with a "Talk with Debra" button after the stages; "What documents should I have ready?" in the FAQ |
@@ -64,6 +70,7 @@ GoHighLevel are set up, and are recorded so they stay true:
 | "She is known for translating…" (`/about`) | "Her focus is translating…" |
 | "NACA can offer significant homeownership benefits" (`/start`) | "NACA is a nonprofit program with its own workshop, counseling and qualification process" |
 | "…unless verified documentation is added to the project" (Homes for Heroes disclaimer) | Removed |
+| "Debra focuses on Garland and the wider Dallas–Fort Worth area" (program pages' area line, added in QW4) | "Tell Debra where in North Texas you're hoping to buy, and she'll confirm whether she can help with that area" — a focus is a service-area claim, and none is verified (found in PR review) |
 
 ## 3. Copy that waits on verified facts
 

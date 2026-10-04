@@ -25,6 +25,14 @@ All notable repository changes are documented here.
   bold text or a link ("hoped?That's", "Selling?Include", and two lines on
   `/privacy`); a test now rejects the pattern. Follow-on link rows keep the
   arrow with the last word on narrow screens (`ArrowLink`).
+- From PR review: blank `last_name` and `phone` are left out of the CRM
+  payload instead of sent empty, so a repeat submission cannot erase what
+  GoHighLevel already holds (the setup guide adds a check for it). `/start`
+  gains the privacy line; its small print now meets AA contrast (was 3.36:1).
+  The program pages no longer claim Debra "focuses on" an area, the success
+  messages no longer promise the contact method the visitor chose, the privacy
+  line matches the policy, and the GoHighLevel guide treats the webhook and
+  calendar as independent and the calendar link as public.
 
 ### Conversion copy: next steps, how a consultation works, common worries
 

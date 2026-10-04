@@ -171,9 +171,10 @@ validation → webhook URL present.
 503 no usable lead webhook (see `lib/lead-delivery.ts` for the order) · 502 the
 CRM rejected it or timed out (8s).
 
-Every lead route also sends `first_name`, `last_name`, `full_name`, `email`,
-`phone` and `lead_type`, so one GoHighLevel mapping fits every form; see
-`docs/08-integrations/GHL_SETUP.md`.
+Every lead route also sends `first_name`, `full_name`, `email` and
+`lead_type`, plus `last_name` and `phone` when the visitor gave them (a blank
+is left out, never sent empty, so it cannot clear a CRM contact), so one
+GoHighLevel mapping fits every form; see `docs/08-integrations/GHL_SETUP.md`.
 
 ### `POST /api/leads/program`
 

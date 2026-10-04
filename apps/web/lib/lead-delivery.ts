@@ -21,10 +21,13 @@
  *
  * The four forms collect different things (`name` on the message form,
  * `firstName` + `lastName` on the program forms, `mobile` on /start). Each
- * payload keeps its own fields and also carries `first_name`, `last_name`,
- * `full_name`, `email`, `phone` and `lead_type`, so the GoHighLevel "Create or
- * update contact" step maps the same keys whichever form sent the lead, and an
- * If/Else on `lead_type` routes it. No payload is ever logged.
+ * payload keeps its own fields and also carries `first_name`, `full_name`,
+ * `email` and `lead_type`, plus `last_name` and `phone` when the visitor gave
+ * them, so the GoHighLevel "Create or update contact" step maps the same keys
+ * whichever form sent the lead, and an If/Else on `lead_type` routes it. A blank
+ * optional field is left out rather than sent empty, so a repeat submission
+ * cannot clear a surname or phone number the contact already has. No payload
+ * is ever logged.
  */
 
 export type LeadRoute = "contact" | "program" | "next-step"
@@ -91,7 +94,9 @@ export type LeadType = "contact" | "consultation" | "program-naca" | "program-ho
  * The keys every payload shares, named the way GoHighLevel names contact
  * fields. A form that collects one name field has it split at the first space:
  * "Mary Ann Jones" becomes first `Mary`, last `Ann Jones`, and `full_name`
- * keeps exactly what was typed.
+ * keeps exactly what was typed. `last_name` and `phone` are present only when
+ * they have a value: an empty string mapped into "Create/Update Contact" could
+ * erase what an earlier submission stored.
  */
 export function crmContactFields(input: {
   leadType: LeadType
@@ -106,12 +111,14 @@ export function crmContactFields(input: {
   const firstName = input.firstName ?? (space === -1 ? typed : typed.slice(0, space))
   const lastName = input.lastName ?? (space === -1 ? "" : typed.slice(space + 1))
 
+  const phone = (input.phone ?? "").trim()
+
   return {
     first_name: firstName,
-    last_name: lastName,
+    ...(lastName ? { last_name: lastName } : {}),
     full_name: typed || [firstName, lastName].filter(Boolean).join(" "),
     email: input.email,
-    phone: input.phone ?? "",
+    ...(phone ? { phone } : {}),
     lead_type: input.leadType,
   }
 }

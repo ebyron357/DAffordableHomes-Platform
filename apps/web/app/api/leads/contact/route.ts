@@ -95,7 +95,6 @@ export async function POST(request: Request) {
     }),
     name,
     email,
-    phone,
     preferredConnection,
     buyerStage,
     message,

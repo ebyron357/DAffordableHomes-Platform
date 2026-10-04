@@ -129,4 +129,5 @@ export const WORRIES_SHORT =
   "Credit still a work in progress? Little saved? Not ready for months? None of those is a reason to wait to talk."
 
 /** Under every form's submit button. */
-export const FORM_PRIVACY = "Your details go straight to Debra's inquiry system and are used only to reply to you."
+export const FORM_PRIVACY =
+  "Your details go straight to Debra's inquiry system. They are used as the privacy policy describes, and never sold."

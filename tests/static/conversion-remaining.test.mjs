@@ -209,3 +209,25 @@ test("follow-on link rows keep the arrow with the last word and drop the orphan 
   assert.doesNotMatch(areas, /dh-band-note-sep/);
   assert.match(read(`${WEB}/components/conversion/worries.tsx`), /<ArrowLink href=\{item\.link\.href\}/);
 });
+
+/* ---- PR review (Copilot, 2026-10-03) ------------------------------------------ */
+
+test("copy promises only what the data and the workflow guarantee", async () => {
+  const program = read(`${WEB}/components/programs/program-lead-form.tsx`);
+  // The contact-method field is optional and nothing routes on it.
+  assert.doesNotMatch(program, /the way you asked to be contacted/);
+  assert.match(program, /follow up using the contact details you gave/);
+
+  const { FORM_PRIVACY } = await load("lib/content/conversion.ts");
+  // The policy lists more uses than replying; the line must not be narrower.
+  assert.doesNotMatch(FORM_PRIVACY, /only to reply/);
+  assert.match(FORM_PRIVACY, /as the privacy policy describes/);
+});
+
+test("the GoHighLevel guide treats the webhook and calendar as independent, and the calendar link as public", () => {
+  const guide = read("docs/08-integrations/GHL_SETUP.md");
+  assert.doesNotMatch(guide, /Nothing reaches GoHighLevel until\s+both are set/);
+  assert.match(guide, /each works on its own/);
+  assert.doesNotMatch(guide, /no\s+GoHighLevel key or URL is exposed/);
+  assert.match(guide, /public share link/);
+});

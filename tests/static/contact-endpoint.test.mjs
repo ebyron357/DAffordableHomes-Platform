@@ -108,7 +108,6 @@ test("a valid message is delivered once, with only the fields the form collects 
       lead_type: "consultation",
       name: "Test Visitor",
       email: "visitor@example.com",
-      phone: "",
       preferredConnection: "Email",
       buyerStage: "Preparing finances and documents",
       message: "I would like to talk about getting ready to buy.",

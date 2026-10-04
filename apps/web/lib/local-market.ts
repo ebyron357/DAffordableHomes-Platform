@@ -4,10 +4,10 @@ export const LOCAL_MARKET = {
   stateName: "Texas",
   targetCommunities: ["Garland", "Dallas"] as const,
   verifiedServiceAreas: [] as string[],
-  // Same boundary as before — no service area is claimed — written as an
-  // invitation rather than a legal notice. Verified areas replace it.
+  // Same boundary as before — no service area is claimed, not even a "focus" —
+  // written as an invitation rather than a legal notice. Verified areas replace it.
   serviceAreaStatus:
-    "Debra focuses on Garland and the wider Dallas–Fort Worth area. Tell her where you're hoping to buy, and she'll confirm whether she can help with that area before anything else.",
+    "Tell Debra where in North Texas you're hoping to buy, and she'll confirm whether she can help with that area before anything else.",
 } as const
 
 export function hasVerifiedServiceAreas(): boolean {

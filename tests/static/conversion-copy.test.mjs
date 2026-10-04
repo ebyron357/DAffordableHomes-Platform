@@ -184,7 +184,8 @@ test("the forms explain themselves, and the program form keeps its boundary and 
   const contact = read(`${WEB}/components/contact/contact-form.tsx`);
   const program = read(`${WEB}/components/programs/program-lead-form.tsx`);
 
-  for (const [file, source] of [["contact-form", contact], ["program-lead-form", program]]) {
+  const start = read(`${WEB}/components/landing/next-step-landing.tsx`);
+  for (const [file, source] of [["contact-form", contact], ["program-lead-form", program], ["next-step-landing", start]]) {
     assert.match(source, /\{FORM_PRIVACY\}/, `${file} privacy line`);
     assert.match(source, /href="\/privacy"/, `${file} links the privacy policy`);
   }
@@ -248,10 +249,11 @@ test("the FAQ answers 'what happens next' and 'do you help me search' directly",
 });
 
 test("the area line invites rather than warns, and still claims no service area", () => {
-  assert.match(LOCAL_MARKET.serviceAreaStatus, /Tell her where you're hoping to buy/);
+  assert.match(LOCAL_MARKET.serviceAreaStatus, /Tell Debra where in North Texas you're hoping to buy/);
   assert.doesNotMatch(LOCAL_MARKET.serviceAreaStatus, /before representation is promised/);
   assert.deepEqual([...LOCAL_MARKET.verifiedServiceAreas], []);
-  assert.doesNotMatch(LOCAL_MARKET.serviceAreaStatus, /serves|service area includes|we cover/i);
+  // A "focus" is a service-area claim too, until areas are verified.
+  assert.doesNotMatch(LOCAL_MARKET.serviceAreaStatus, /serves|service area includes|we cover|focus|works in/i);
 });
 
 test("the homepage footer says how to reach Debra today, and still yields to verified details", () => {

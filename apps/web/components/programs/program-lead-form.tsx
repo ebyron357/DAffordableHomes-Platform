@@ -111,7 +111,7 @@ export function ProgramLeadForm({
           <Notice tone="success" title="Thank you — Debra has your NACA details">
             <p>
               Because you shared your NACA stage, location and timing, she can start where you actually are instead of
-              from scratch, and she&apos;ll follow up the way you asked to be contacted.
+              from scratch, and she&apos;ll follow up using the contact details you gave.
             </p>
             <p className="mt-2">
               Haven&apos;t been to a NACA Homebuyer Workshop yet? That&apos;s NACA&apos;s first step, and you can sign
@@ -122,7 +122,7 @@ export function ProgramLeadForm({
         ) : (
           <Notice tone="success" title="Thank you — Debra has your details">
             <p>
-              She&apos;ll follow up the way you asked to be contacted, starting from your role and whether you&apos;re
+              She&apos;ll follow up using the contact details you gave, starting from your role and whether you&apos;re
               buying, selling or both.
             </p>
             <p className="mt-2">
