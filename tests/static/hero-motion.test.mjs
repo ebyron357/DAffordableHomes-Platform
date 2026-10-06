@@ -27,7 +27,12 @@ test("the drawn hero scene remains a safe fallback behind the approved exterior"
   assert.match(hero, /<div className="fh-hero-scene" aria-hidden="true">/);
   assert.match(hero, /fh-hero-roofs-far/);
   assert.match(hero, /fh-hero-roofs-near/);
-  assert.match(hero, /\{heroMotion \? <AmbientMotion/);
+  // Whitespace-tolerant on purpose: what matters is that the exterior is the
+  // conditional branch, not that the ternary fits on one line. The previous
+  // form asserted `{heroMotion ? <AmbientMotion` adjacently and broke when the
+  // element was wrapped across lines to take a `quality` prop, even though the
+  // fallback behaviour was untouched.
+  assert.match(hero, /\{heroMotion \?\s*\(?\s*<AmbientMotion/s);
 
   // The still is the hero image, and on mobile `.fh-hero-media { order: -1 }`
   // puts it above the copy, so it is the LCP element and must not be lazy.

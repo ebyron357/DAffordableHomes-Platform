@@ -151,6 +151,72 @@ test('public production routes use the Manus-aligned canonical paths and preserv
   assert.match(redirects, /source: '\/calculator', destination: '\/calculators\/mortgage-payment'/);
 });
 
+test('HSTS ships with a long max-age and no unreviewed subdomain scope', () => {
+  const config = readFileSync('apps/web/next.config.mjs', 'utf8');
+  const hsts = /'Strict-Transport-Security', value: '([^']+)'/.exec(config);
+  assert.ok(hsts, 'the base security headers must set Strict-Transport-Security');
+
+  const maxAge = Number(/max-age=(\d+)/.exec(hsts[1])?.[1] ?? 0);
+  assert.ok(maxAge >= 31536000, `HSTS max-age must be at least a year, got ${maxAge}`);
+
+  /*
+   * `includeSubDomains` and `preload` are withheld on purpose: they would bind
+   * every subdomain of the production domain to HTTPS-only for the whole
+   * max-age window, which cannot be undone and cannot be verified safe from
+   * this repository. Adding either is an owner decision about their actual
+   * subdomain inventory, so it should break this test and be taken
+   * deliberately rather than slip in as a security tidy-up.
+   */
+  assert.doesNotMatch(hsts[1], /includeSubDomains/);
+  assert.doesNotMatch(hsts[1], /preload/);
+});
+
+test('the image optimizer declares the hero quality it is asked for', () => {
+  const config = readFileSync('apps/web/next.config.mjs', 'utf8');
+  const qualities = /qualities: \[([^\]]*)\]/.exec(config);
+  assert.ok(qualities, 'images.qualities must be declared');
+  const allowed = qualities[1].split(',').map((value) => Number(value.trim()));
+
+  /*
+   * Next serves only the qualities listed here and errors on any other, so a
+   * `quality` prop in a component and this list have to agree or the image
+   * silently fails to render. The hero stills on / and /start are the LCP
+   * elements of those routes and both ask for 60.
+   */
+  for (const file of [
+    'apps/web/components/home/figma-home-page.tsx',
+    'apps/web/components/landing/next-step-landing.tsx',
+  ]) {
+    for (const [, asked] of readFileSync(file, 'utf8').matchAll(/quality=\{(\d+)\}/g)) {
+      assert.ok(
+        allowed.includes(Number(asked)),
+        `${file} asks for quality ${asked}, which images.qualities does not allow`,
+      );
+    }
+  }
+});
+
+test('serif italic is registered but not preloaded', () => {
+  const layout = readFileSync('apps/web/app/layout.tsx', 'utf8');
+
+  /*
+   * One Source_Serif_4 call asking for ["normal","italic"] makes Next preload
+   * both faces on every route — ~50KB of bandwidth, ahead of the homepage
+   * hero, to serve <em> inside blog bodies. The italic therefore gets its own
+   * call with preload: false, and both variables are bound on <html> so the
+   * @font-face stays registered under the same family.
+   */
+  const italicCall = /Source_Serif_4\(\{[^}]*style: \["italic"\][^}]*\}\)/s.exec(layout);
+  assert.ok(italicCall, 'serif italic must be declared in its own call');
+  assert.match(italicCall[0], /preload: false/);
+
+  const normalCall = /Source_Serif_4\(\{[^}]*style: \["normal"\][^}]*\}\)/s.exec(layout);
+  assert.ok(normalCall, 'serif normal must be declared separately');
+  assert.doesNotMatch(normalCall[0], /preload: false/);
+
+  assert.match(layout, /sourceSerifItalic\.variable/);
+});
+
 test('security headers include CSP and anti-sniffing controls', () => {
   const config = readFileSync('apps/web/next.config.mjs', 'utf8');
   assert.match(config, /Content-Security-Policy/);

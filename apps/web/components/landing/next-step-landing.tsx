@@ -420,11 +420,20 @@ export function NextStepLanding() {
   return (
     <div className="dah-landing">
       <section className="dah-landing-hero" aria-labelledby="landing-heading">
+        {/* This still is this route's Largest Contentful Paint element.
+            `priority` alone makes it eager and emits the preload link, but in
+            this Next version it does not set fetchPriority, so the hint is
+            passed explicitly — the same workaround the homepage hero uses.
+            quality 60 halves an AVIF photograph of this size with no visible
+            difference behind the navy scrim; see `images.qualities` in
+            next.config.mjs. */}
         <Image
           src="/manus-storage/hero-family_b1fab939.jpg"
           alt="A family smiling together outside their home"
           fill
           priority
+          fetchPriority="high"
+          quality={60}
           sizes="100vw"
           className="dah-landing-hero-image"
         />

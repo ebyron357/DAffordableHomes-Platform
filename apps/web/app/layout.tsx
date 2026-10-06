@@ -25,8 +25,34 @@ const inter = Inter({
 const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
   display: "swap",
-  style: ["normal", "italic"],
+  style: ["normal"],
   variable: "--font-source-serif",
+})
+
+/**
+ * Serif italic, registered but deliberately not preloaded.
+ *
+ * Asking one `Source_Serif_4()` call for `["normal", "italic"]` makes Next
+ * preload both faces on every page: three `<link rel=preload as=font>` tags,
+ * ~146KB, all at high priority. On a throttled mobile connection that
+ * bandwidth competes with the homepage hero still, which is the Largest
+ * Contentful Paint element — so the italic was being paid for up front on
+ * every route to serve `<em>` inside blog article bodies, the only place it is
+ * used, and never above the fold.
+ *
+ * Splitting it into its own call with `preload: false` keeps the @font-face
+ * registered under the same "Source Serif 4" family, so `font-style: italic`
+ * still resolves to the real italic; the file is simply fetched when a page
+ * actually uses it. The variable is bound on <html> rather than a className
+ * because variable mode only defines a custom property and so cannot change
+ * any element's font-family by being mounted.
+ */
+const sourceSerifItalic = Source_Serif_4({
+  subsets: ["latin"],
+  display: "swap",
+  style: ["italic"],
+  preload: false,
+  variable: "--font-source-serif-italic",
 })
 
 export const metadata: Metadata = {
@@ -149,7 +175,10 @@ const entityGraph = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${sourceSerif.variable} bg-background`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${sourceSerif.variable} ${sourceSerifItalic.variable} bg-background`}
+    >
       <body className="flex min-h-dvh flex-col antialiased">
         <script
           type="application/ld+json"

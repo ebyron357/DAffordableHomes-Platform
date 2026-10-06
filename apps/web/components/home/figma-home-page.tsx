@@ -182,7 +182,12 @@ function Hero() {
             replacing it in the markup. The scene above is the fallback if the
             still is ever absent; the still renders alone while no motion
             encodes are approved. */}
-        {heroMotion ? <AmbientMotion asset={heroMotion} sizes="(min-width: 900px) 58vw, 100vw" priority /> : null}
+        {/* quality 60: this still is the homepage LCP element, and on a
+            throttled mobile connection its transfer size is essentially the
+            entire LCP. See the note on `images.qualities` in next.config.mjs. */}
+        {heroMotion ? (
+          <AmbientMotion asset={heroMotion} sizes="(min-width: 900px) 58vw, 100vw" priority quality={60} />
+        ) : null}
         {/* Mobile only: the copy sits beneath the scene there, so a short
             bottom fade carries it into the navy panel. */}
         <span className="fh-hero-fade" aria-hidden="true" />

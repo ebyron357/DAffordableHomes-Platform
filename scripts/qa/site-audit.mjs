@@ -727,6 +727,20 @@ async function main() {
       publicCsp,
     )
 
+    // HSTS. Asserted on the real response for the same reason as the CSP: it
+    // is set in `baseSecurityHeaders`, which every route group spreads, so a
+    // route group that forgets the spread loses it silently. `includeSubDomains`
+    // and `preload` are deliberately absent — see the note in next.config.mjs —
+    // so this checks the directive is present and carries a long max-age
+    // without asserting the stricter form the owner has not opted into.
+    const hsts = publicHeaders.headers.get("strict-transport-security") ?? ""
+    const hstsMaxAge = Number(/max-age=(\d+)/.exec(hsts)?.[1] ?? 0)
+    record(
+      hstsMaxAge >= 31536000,
+      "public pages send HSTS with at least a one-year max-age",
+      hsts || "(header absent)",
+    )
+
     const studioHeaders = await fetch(`${BASE}/studio`, { redirect: "manual" })
     const studioCsp = studioHeaders.headers.get("content-security-policy") ?? ""
     record(
@@ -737,6 +751,45 @@ async function main() {
     record(
       (studioHeaders.headers.get("x-robots-tag") ?? "").includes("noindex"),
       "/studio is marked noindex",
+    )
+  }
+
+  /* -------------------- critical-path budget ---------------------- */
+
+  /*
+   * The homepage's Largest Contentful Paint is its hero still, and what used
+   * to delay it was bandwidth spent before it: three preloaded font faces
+   * (~146KB) and a hero that no preload hint pointed at, so it was discovered
+   * only after the render-blocking stylesheet had parsed. Both are invisible
+   * in a page that still looks correct, which is why they are asserted here
+   * against the real document rather than left to a source-text check.
+   */
+  {
+    const html = await (await fetch(`${BASE}/`)).text()
+    const preloads = html.match(/<link[^>]+rel="preload"[^>]*>/g) ?? []
+
+    const fontPreloads = preloads.filter((tag) => tag.includes('as="font"'))
+    record(
+      fontPreloads.length <= 2,
+      "the homepage preloads no more than two font faces",
+      `${fontPreloads.length} font preloads`,
+    )
+
+    // Art-directed hero: one hint per still, each scoped by the media query
+    // that selects it. An unscoped image preload here would mean every visitor
+    // downloads both the portrait and the landscape still.
+    const heroPreloads = preloads.filter(
+      (tag) => tag.includes('as="image"') && tag.includes("hero-north-texas"),
+    )
+    record(
+      heroPreloads.length > 0,
+      "the homepage preloads its hero still (the LCP element)",
+      `${heroPreloads.length} hero preloads`,
+    )
+    record(
+      heroPreloads.every((tag) => tag.includes("media=")),
+      "every hero still preload is media-scoped, so only one is ever fetched",
+      heroPreloads.map((tag) => /media="([^"]*)"/.exec(tag)?.[1] ?? "(none)").join(" | "),
     )
   }
 

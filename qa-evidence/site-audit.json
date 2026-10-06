@@ -36,7 +36,7 @@
     "/homes brand area: 87.3% {\"navy\":62.9,\"alt\":24.3,\"teal\":0}",
     "/neighborhoods brand area: 87.6% {\"navy\":87.6,\"teal\":0}",
     "/privacy brand area: 43.5% {\"navy\":43.5}",
-    "/programs brand area: 62.6% {\"navy\":47.7,\"alt\":14.9}",
+    "/programs brand area: 62.2% {\"navy\":47.4,\"alt\":14.8}",
     "/programs/naca brand area: 64.8% {\"navy\":31.6,\"teal\":0,\"alt\":33.2}",
     "/programs/homes-for-heroes brand area: 64.9% {\"navy\":32.2,\"teal\":0,\"alt\":32.7}",
     "/resources brand area: 68.2% {\"navy\":49.2,\"teal\":18.9}",
@@ -89,7 +89,7 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fhero-north-texas-exterior-mobile.webp&w=1080&q=75",
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fhero-north-texas-exterior-mobile.webp&w=1080&q=60",
           "naturalWidth": 835,
           "naturalHeight": 1119,
           "alt": "A single-story brick suburban home with a front lawn and mature trees",
@@ -233,8 +233,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -420,8 +420,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -528,8 +528,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -577,8 +577,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -626,8 +626,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -675,8 +675,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -724,8 +724,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1116,8 +1116,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1180,8 +1180,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1238,8 +1238,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1328,7 +1328,7 @@
       },
       "inputsMissingLabel": 0,
       "nestedInteractive": 0,
-      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nPrograms\n\nSPECIALIZED HOMEBUYER GUIDANCE\n\nFind the homeownership path that fits your situation\n\nDebra helps buyers understand the real-estate decisions inside a larger homeownership program — the search, the offer, the inspection, the close — while the program keeps control of its own rules.\n\nGarland + Dallas–Fort Worth\nIndependent guidance\nTalk through your options\nFind your next step\n\nCHOOSE A STARTING POINT\n\nTwo programs, explained without the sales pitch\n\nEach page explains Debra's role, the real-estate process around the program, the questions worth preparing, and exactly what you must verify with the program itself.\n\nGarland homebuyer guidance\nINDEPENDENT PROGRAM GUIDANCE\nNACA Homebuyer Help\n\nDebra helps buyers translate an approved homebuying path into a practical search, offer, inspection, and closing plan. Program eligibility, qualification, mortgage terms, and official requirements remain controlled by NACA.\n\nBuyers considering the NACA homebuying program\nBuyers who have attended a NACA workshop\nNACA-qualified buyers preparing to search for a home\nExplore NACA homebuyer help\nSUPPORT FOR COMMUNITY HEROES\nHomes for Heroes Guidance\n\nDebra provides a clear real-estate process for military members, veterans, teachers, healthcare professionals, firefighters, EMS professionals, and law-enforcement professionals exploring a move in the Dallas–Fort Worth region.\n\nActive-duty military members and military families\nVeterans\nTeachers and education professionals\nExplore Homes for Heroes\nREALTOR® · GARLAND\nDebra Allen\n\nWHERE THE LINES ARE\n\nDebra handles the real estate. The program handles the program.\n\nQualification, eligibility, savings and mortgage terms belong to the organisation running the program, and to your lender. This site will never tell you that you qualify, or what you will save.\n\nWhat Debra does is the part in between: helping you define a search that fits the program you are in, structuring an offer that survives it, and keeping the inspection and closing on schedule.\n\nIndependent guidance\n\nD'Affordable Homes is independent from the programs described here. Current rules, eligibility and terms must be confirmed with each program directly.\n\nOFFICIAL SOURCES\n\nTexas, Dallas and Garland homebuyer assistance programs\n\nState, county and city agencies run their own down payment and mortgage assistance, each with its own eligibility and income limits. These are their official pages. A participating lender confirms what you qualify for, and Debra can help with the real-estate side of any of them.\n\nTexas Homebuyer Program (TDHCA)\n\nThe Texas Department of Housing and Community Affairs offers statewide mortgage and down payment assistance, including My First Texas Home, through participating lenders.\n\nTDHCA's official page\nTSAHC home loans and down payment assistance\n\nThe Texas State Affordable Housing Corporation runs statewide programs, including Homes for Texas Heroes and Home Sweet Texas, through participating lenders.\n\nTSAHC's official page\nCity of Garland Home Ownership Program\n\nThe City of Garland's homeownership option for eligible Housing Choice Voucher participants, run by the city.\n\nCity of Garland's page\nDallas Homebuyer Assistance Program\n\nCity of Dallas assistance for eligible low- and moderate-income households buying a home in the City of Dallas. Garland is a separate city.\n\nCity of Dallas page\nDallas County Home Loan Counseling Center\n\nDallas County Health and Human Services offers homebuyer education, mortgage counseling and down payment assistance programs.\n\nDallas County's page\n\nON THE WAY\n\nMore paths are being written\n\nEach gets a real page when there is something specific and verified to say about it. If yours is on this list, ask Debra now — she can still help with the real-estate side today.\n\nFirst-Time Homebuyer Assistance\nVA Homebuyers\nDown Payment Assistance\nFHA Buyers\nUSDA Buyers\nHomebuyer Education\nCommunity Hero Sellers\n\nNOT SURE WHICH PATH FITS?\n\nStart with a conversation, not an application\n\nYour goals, your current program status, the area you are looking in, and your timeline. That is enough for Debra to tell you what the next step actually is.\n\nBook a consultation\nFind your next step\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
+      "visibleText": "Skip to main content\nDebra Allen\nREALTOR® · Garland + DFW\nBuying\nAreas\nResources\nAbout Debra\nTalk with Debra\nHome\nPrograms\n\nSPECIALIZED HOMEBUYER GUIDANCE\n\nFind the homeownership path that fits your situation\n\nDebra helps buyers understand the real-estate decisions inside a larger homeownership program — the search, the offer, the inspection, the close — while the program keeps control of its own rules.\n\nGarland + Dallas–Fort Worth\nIndependent guidance\nTalk through your options\nFind your next step\n\nCHOOSE A STARTING POINT\n\nTwo programs, explained without the sales pitch\n\nEach page explains Debra's role, the real-estate process around the program, the questions worth preparing, and exactly what you must verify with the program itself.\n\nGarland homebuyer guidance\nINDEPENDENT PROGRAM GUIDANCE\nNACA Homebuyer Help\n\nDebra helps buyers translate an approved homebuying path into a practical search, offer, inspection, and closing plan. Program eligibility, qualification, mortgage terms, and official requirements remain controlled by NACA.\n\nBuyers considering the NACA homebuying program\nBuyers who have attended a NACA workshop\nNACA-qualified buyers preparing to search for a home\nExplore NACA homebuyer help\nSUPPORT FOR COMMUNITY HEROES\nHomes for Heroes Guidance\n\nDebra provides a clear real-estate process for military members, veterans, teachers, healthcare professionals, firefighters, EMS professionals, and law-enforcement professionals exploring a move in the Dallas–Fort Worth region.\n\nActive-duty military members and military families\nVeterans\nTeachers and education professionals\nExplore Homes for Heroes\nREALTOR® · GARLAND\nDebra Allen\n\nWHERE THE LINES ARE\n\nDebra handles the real estate. The program handles the program.\n\nQualification, eligibility, savings and mortgage terms belong to the organisation running the program, and to your lender. This site will never tell you that you qualify, or what you will save.\n\nWhat Debra does is the part in between: helping you define a search that fits the program you are in, structuring an offer that survives it, and keeping the inspection and closing on schedule.\n\nIndependent guidance\n\nD'Affordable Homes is independent from the programs described here. Current rules, eligibility and terms must be confirmed with each program directly.\n\nOFFICIAL SOURCES\n\nTexas, Dallas and Garland homebuyer assistance programs\n\nState, county and city agencies run their own down payment and mortgage assistance, each with its own eligibility and income limits. These are their official pages. A participating lender confirms what you qualify for, and Debra can help with the real-estate side of any of them. Links checked October 2, 2026.\n\nTexas Homebuyer Program (TDHCA)\n\nThe Texas Department of Housing and Community Affairs offers statewide down payment assistance and low-interest mortgages through a network of participating lenders.\n\nTDHCA's official page\nTSAHC home loans and down payment assistance\n\nThe Texas State Affordable Housing Corporation runs statewide programs, including Homes for Texas Heroes and Home Sweet Texas, through participating lenders.\n\nTSAHC's official page\nCity of Garland Home Ownership Program\n\nThe City of Garland's homeownership option for eligible Housing Choice Voucher participants, run by the city.\n\nCity of Garland's page\nDallas Homebuyer Assistance Program\n\nCity of Dallas assistance for eligible low- and moderate-income households buying a home in the City of Dallas. Garland is a separate city.\n\nCity of Dallas page\nDallas County Home Loan Counseling Center\n\nDallas County Health and Human Services offers homebuyer education, mortgage counseling and down payment assistance programs.\n\nDallas County's page\n\nON THE WAY\n\nMore paths are being written\n\nEach gets a real page when there is something specific and verified to say about it. If yours is on this list, ask Debra now — she can still help with the real-estate side today.\n\nFirst-Time Homebuyer Assistance\nVA Homebuyers\nDown Payment Assistance\nFHA Buyers\nUSDA Buyers\nHomebuyer Education\nCommunity Hero Sellers\n\nNOT SURE WHICH PATH FITS?\n\nStart with a conversation, not an application\n\nYour goals, your current program status, the area you are looking in, and your timeline. That is enough for Debra to tell you what the next step actually is.\n\nBook a consultation\nFind your next step\nSite footer\n\nDebra Allen, REALTOR® — clear, practical homeownership guidance focused on Garland and Dallas–Fort Worth.\n\nLOCAL MARKET FOCUS\n\nGarland, Texas\nThe home market, and the one with a full area guide.\nDallas–Fort Worth\nBuyer and seller guidance focused on the metroplex.\nREALTOR®\nAvailability for a specific transaction is confirmed with Debra.\n\nSTART A CONVERSATION\n\nBring a question, not a commitment. No pressure and no judgment about where you are in the process.\n\nTalk with Debra\n\nEXPLORE\n\nBuying\nAreas\nResources\nAbout Debra\nGuides & Articles\nContact Debra\n\nPLAN\n\nMonthly payment\nWhat you can afford\nCash to close\nAll planning tools\n\nLEARN\n\nFirst-time buyers\nHomebuyer programs\nGarland area guide\nFrequently asked questions\n© 2026 D'Affordable Homes. All rights reserved.\nGuidance led by Debra Allen, REALTOR®\nMade by ClientVerse — website design and build vendor\nTREC Information About Brokerage Services\nTREC Consumer Protection Notice\nPrivacy Policy\nTerms of Use\nAccessibility Statement\nFair Housing\nEqual Housing Opportunity",
       "images": [
         {
           "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
@@ -1360,10 +1360,10 @@
         }
       ],
       "brandArea": {
-        "total": 62.6,
+        "total": 62.2,
         "byColour": {
-          "navy": 47.7,
-          "alt": 14.9
+          "navy": 47.4,
+          "alt": 14.8
         }
       },
       "ornaments": 1,
@@ -1412,8 +1412,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
-          "naturalWidth": 209,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
+          "naturalWidth": 210,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1581,7 +1581,7 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fmanus-storage%2Fhero-family_b1fab939.jpg&w=1920&q=75",
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fmanus-storage%2Fhero-family_b1fab939.jpg&w=1920&q=60",
           "naturalWidth": 1440,
           "naturalHeight": 810,
           "alt": "A family smiling together outside their home",
@@ -1660,8 +1660,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"
@@ -1971,8 +1971,8 @@
           "loading": "eager"
         },
         {
-          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=640&q=75",
-          "naturalWidth": 210,
+          "src": "http://127.0.0.1:3111/_next/image?url=%2Fimages%2Fdaffordable-homes-official-logo.png&w=256&q=75",
+          "naturalWidth": 209,
           "naturalHeight": 140,
           "alt": "D'Affordable Homes — Affordable, Accessible, Achievable",
           "loading": "eager"

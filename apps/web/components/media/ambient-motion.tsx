@@ -1,6 +1,7 @@
 "use client"
 
 import { getImageProps } from "next/image"
+import { preload } from "react-dom"
 import { useCallback, useRef, useState, useSyncExternalStore } from "react"
 import type { AmbientMotionAsset, AmbientMotionSource } from "@/lib/media/ambient-motion"
 
@@ -9,6 +10,10 @@ const WIDE_VIEWPORT = "(min-width: 768px)"
 // Up to this width the hero frame is too narrow for the landscape still to keep
 // the full roofline, so the portrait of the same house is shown instead.
 const MOBILE_POSTER_MEDIA = "(max-width: 1600px)"
+// The complement of MOBILE_POSTER_MEDIA. The two must stay mutually exclusive:
+// they scope the preload hints below, and an overlap would make a visitor fetch
+// both stills.
+const WIDE_POSTER_MEDIA = "(min-width: 1600.05px)"
 
 function useMediaQuery(query: string) {
   const subscribe = useCallback(
@@ -35,10 +40,17 @@ export function AmbientMotion({
   asset,
   sizes,
   priority = false,
+  quality,
 }: {
   asset: AmbientMotionAsset
   sizes: string
   priority?: boolean
+  /**
+   * Optimizer quality for both stills. Must be a value declared in
+   * `images.qualities` in next.config.mjs, or the optimizer errors instead of
+   * serving the image. Left unset, the Next default (75) applies.
+   */
+  quality?: number
 }) {
   const [started, setStarted] = useState(false)
   const [playing, setPlaying] = useState(false)
@@ -63,11 +75,45 @@ export function AmbientMotion({
     sizes,
     priority,
     fetchPriority: priority ? ("high" as const) : undefined,
+    ...(quality === undefined ? {} : { quality }),
   }
   const poster = getImageProps({ ...shared, src: asset.poster, className: "object-cover" }).props
   const mobilePoster = asset.mobilePoster
     ? getImageProps({ ...shared, src: asset.mobilePoster }).props.srcSet
     : undefined
+
+  /*
+   * Media-scoped preload for the still that is actually going to render.
+   *
+   * Without this the hero is discovered only once the render-blocking
+   * stylesheet has been fetched and parsed, which on a throttled connection
+   * is most of the Largest Contentful Paint. `getImageProps` deliberately
+   * emits no preload of its own because a single unconditional hint would
+   * make every visitor fetch both art-directed stills; scoping each hint with
+   * the same media query that selects the source keeps that guarantee — the
+   * two queries above are mutually exclusive, so exactly one hint ever
+   * matches. Only done for the priority (above-the-fold) case.
+   */
+  if (priority) {
+    if (mobilePoster) {
+      preload(asset.mobilePoster as string, {
+        as: "image",
+        imageSrcSet: mobilePoster,
+        imageSizes: sizes,
+        media: MOBILE_POSTER_MEDIA,
+        fetchPriority: "high",
+      })
+    }
+    if (poster.srcSet) {
+      preload(asset.poster, {
+        as: "image",
+        imageSrcSet: poster.srcSet,
+        imageSizes: sizes,
+        media: mobilePoster ? WIDE_POSTER_MEDIA : undefined,
+        fetchPriority: "high",
+      })
+    }
+  }
 
   const toggle = () => {
     const element = clip.current
