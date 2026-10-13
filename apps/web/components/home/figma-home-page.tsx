@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { ScrollCraft } from "@/components/motion/scroll-craft"
 import Link from "next/link"
 import { ArrowRight, Check, Home, KeyRound } from "lucide-react"
 import {
@@ -76,7 +77,8 @@ export function FigmaHomePage({
   latestArticlesState: ReadState
 }) {
   return (
-    <div className="figma-home">
+    <div className="figma-home" id="home-scroll-experience">
+      <ScrollCraft rootId="home-scroll-experience" />
       <FigmaHomeHeader />
       <Hero />
       <TrustBand />
@@ -226,15 +228,15 @@ function Pathways() {
   const [buy, sell, ...rest] = FIGMA_SERVICES
 
   return (
-    <section className="fh-section fh-pathways" aria-labelledby="figma-services-heading">
+    <section data-sc-track className="fh-section fh-pathways" aria-labelledby="figma-services-heading">
       <div className="fh-shell">
-        <div className="fh-section-intro fh-section-intro-left">
+        <div data-sc-in className="fh-section-intro fh-section-intro-left">
           <p className="fh-eyebrow">Two ways in</p>
           <h2 id="figma-services-heading">Whichever side of the move you are on</h2>
         </div>
 
         <div className="fh-path-grid">
-          <article className="fh-path fh-path-buy">
+          <article data-sc-in className="fh-path fh-path-buy">
             <BrandMotif variant="keys" className="dh-motif fh-path-art" />
             <div className="fh-path-body">
               <span className="fh-path-badge">
@@ -257,7 +259,7 @@ function Pathways() {
             </div>
           </article>
 
-          <article className="fh-path fh-path-sell">
+          <article data-sc-in data-sc-delay="100" className="fh-path fh-path-sell">
             <BrandMotif variant="route" className="dh-motif fh-path-art" />
             <div className="fh-path-body">
               <span className="fh-path-badge">
@@ -310,7 +312,7 @@ function FindYourPath() {
   return (
     <section id="find-your-path" className="fh-section fh-pathquiz" aria-labelledby="figma-path-heading">
       <div className="fh-shell fh-pathquiz-grid">
-        <div className="fh-pathquiz-intro">
+        <div data-sc-in className="fh-pathquiz-intro">
           <p className="fh-eyebrow">Find your homebuying path</p>
           <h2 id="figma-path-heading">Not sure what your next move in DFW should be?</h2>
           <p className="fh-pathquiz-lede">
@@ -359,7 +361,7 @@ function MeetDebra() {
           />
         </figure>
 
-        <div className="fh-meet-panel">
+        <div data-sc-in className="fh-meet-panel">
           <p className="fh-eyebrow fh-eyebrow-on-dark">Your REALTOR® &amp; local guide</p>
           <h2 id="figma-debra-heading">Guidance first. Pressure never.</h2>
           <p className="fh-meet-name">Debra Allen, REALTOR®</p>
@@ -403,7 +405,7 @@ function Markets() {
   return (
     <section className="fh-section fh-markets" aria-labelledby="figma-markets-heading">
       <div className="fh-shell">
-        <div className="fh-section-intro fh-section-intro-left fh-section-intro-dark">
+        <div data-sc-in className="fh-section-intro fh-section-intro-left fh-section-intro-dark">
           <p className="fh-eyebrow fh-eyebrow-on-dark">Local market focus</p>
           <h2 id="figma-markets-heading">Garland, and the North Texas cities around it</h2>
           <p className="fh-section-lede fh-section-lede-dark">
@@ -572,7 +574,7 @@ function KnowledgeBase({ articles, state }: { articles: ArticleSummary[]; state:
   return (
     <section className="fh-section fh-knowledge" aria-labelledby="figma-knowledge-heading">
       <div className="fh-shell">
-        <div className="fh-section-intro fh-section-intro-left">
+        <div data-sc-in className="fh-section-intro fh-section-intro-left">
           <p className="fh-eyebrow">Learn before you commit</p>
           <h2 id="figma-knowledge-heading">Homebuyer guides and tools for Dallas–Fort Worth</h2>
         </div>
