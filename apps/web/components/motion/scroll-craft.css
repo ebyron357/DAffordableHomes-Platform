@@ -1,0 +1,7 @@
+/* Scroll Craft: restrained depth only on the existing decorative key/roofline
+   artwork. Approved photographs, text layout, forms and quiz stay stationary. */
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  [data-sc-motion="on"] [data-sc-track] .fh-path-art {
+    translate: 0 calc((var(--sc-p, .5) - .5) * -24px);
+  }
+}
