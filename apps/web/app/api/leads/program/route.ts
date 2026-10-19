@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { crmContactFields, deliverLead, leadWebhookUrl } from "@/lib/lead-delivery"
 import { isValidEmail } from "@/lib/lead-validation"
 import { clientIdentifier, rateLimit } from "@/lib/rate-limit"
 import type { ProgramSlug } from "@/lib/programs"
@@ -70,7 +71,9 @@ export async function POST(request: Request) {
     )
   }
 
-  const webhookUrl = process.env.PROGRAM_LEAD_WEBHOOK_URL ?? process.env.GHL_PROGRAM_LEAD_WEBHOOK_URL
+  // `??` here once treated a set-but-empty PROGRAM_LEAD_WEBHOOK_URL as
+  // configured and never reached the GoHighLevel alias. See lib/lead-delivery.ts.
+  const webhookUrl = leadWebhookUrl("program")
   if (!webhookUrl) {
     return NextResponse.json(
       {
@@ -83,6 +86,7 @@ export async function POST(request: Request) {
 
   const program = body.program
   const payload = {
+    ...crmContactFields({ leadType: `program-${program}`, firstName, lastName, email, phone }),
     firstName,
     lastName,
     email,
@@ -111,27 +115,11 @@ export async function POST(request: Request) {
     consent,
   }
 
-  try {
-    const response = await fetch(webhookUrl, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(payload),
-      signal: AbortSignal.timeout(8000),
-      cache: "no-store",
-    })
-
-    if (!response.ok) {
-      return NextResponse.json(
-        { ok: false, error: "Lead delivery is temporarily unavailable. Please use the consultation page." },
-        { status: 502 },
-      )
-    }
-
-    return NextResponse.json({ ok: true }, { status: 200 })
-  } catch {
+  if (!(await deliverLead(webhookUrl, payload))) {
     return NextResponse.json(
       { ok: false, error: "Lead delivery is temporarily unavailable. Please use the consultation page." },
       { status: 502 },
     )
   }
+  return NextResponse.json({ ok: true }, { status: 200 })
 }

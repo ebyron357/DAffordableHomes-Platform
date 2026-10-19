@@ -7,6 +7,8 @@ import {
   calculateClosingCosts,
   calculateDownPaymentScenarios,
   calculateMortgage,
+  HOUSING_RATIO_LIMIT,
+  TOTAL_DEBT_RATIO_LIMIT,
 } from "@/lib/calculators"
 import {
   CalculatorActions,
@@ -183,9 +185,18 @@ export function AffordabilityCalculator() {
             <ResultRow label="Estimated loan amount" value={formatCurrency(result.estimatedLoanAmount)} />
             <ResultRow label="Estimated total debt-to-income" value={`${result.estimatedDebtToIncomeRatio.toFixed(1)}%`} emphasized />
           </div>
+          {/* Said to everyone, because a low number is the moment people give up. */}
+          <p className="mt-6 text-sm leading-relaxed text-primary-foreground/85">
+            <strong className="font-semibold text-primary-foreground">Lower than you hoped?</strong>{" "}
+            That&apos;s useful
+            information, not a verdict. A larger down payment, less monthly debt, an assistance program or a different
+            area can change the picture, and a lender confirms what&apos;s actually possible.
+          </p>
           <CalculatorActions secondaryHref="/calculators/down-payment" />
           <EstimateNotice>
-            Uses 28% housing and 36% total-debt planning limits. Lenders use their own underwriting rules, verified income, credit, reserves, program requirements, and property data.
+            Uses {Math.round(HOUSING_RATIO_LIMIT * 100)}% housing and {Math.round(TOTAL_DEBT_RATIO_LIMIT * 100)}%
+            total-debt planning limits. Lenders use their own underwriting rules, verified income, credit, reserves,
+            program requirements, and property data.
           </EstimateNotice>
         </div>
       }

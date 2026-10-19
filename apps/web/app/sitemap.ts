@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next"
 
 import { listArticles } from "@/lib/blog/source"
+import { hasConfirmedSessions } from "@/lib/content/events"
+import { isPropertySearchLive } from "@/lib/mls/provider"
 import { SITE } from "@/lib/site"
 
 /**
@@ -15,7 +17,10 @@ export const revalidate = 3600
 /*
  * `/testimonials` and `/market-reports` are deliberately absent: both are
  * `noindex` until they carry real content, and a sitemap must not list a URL
- * the page itself asks not to be indexed.
+ * the page itself asks not to be indexed. `/homes` and `/events` follow the
+ * same rule conditionally — listed once the listings feed is live or a
+ * confirmed session exists (see `conditionalRoutes`). `/neighborhoods`
+ * redirects to `/areas`.
  */
 const staticRoutes = [
   "",
@@ -33,12 +38,9 @@ const staticRoutes = [
   "/consultation",
   "/contact",
   "/equal-housing-opportunity",
-  "/events",
   "/fair-housing",
   "/faq",
   "/first-time-buyers",
-  "/homes",
-  "/neighborhoods",
   "/privacy",
   "/programs",
   "/programs/naca",
@@ -70,7 +72,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     )
   }
 
-  const staticEntries = staticRoutes.map((route) => ({
+  const conditionalRoutes = [
+    ...((await isPropertySearchLive()) ? ["/homes"] : []),
+    ...(hasConfirmedSessions() ? ["/events"] : []),
+  ]
+
+  const staticEntries = [...staticRoutes, ...conditionalRoutes].map((route) => ({
     url: `${SITE.url}${route}`,
     changeFrequency:
       route.startsWith("/blog") || route.startsWith("/programs") || route.startsWith("/areas")

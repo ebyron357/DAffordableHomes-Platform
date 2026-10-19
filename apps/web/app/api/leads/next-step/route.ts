@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { crmContactFields, deliverLead, leadWebhookUrl } from "@/lib/lead-delivery"
 import { isValidEmail } from "@/lib/lead-validation"
 import { clientIdentifier, rateLimit } from "@/lib/rate-limit"
 
@@ -67,7 +68,9 @@ export async function POST(request: Request) {
     )
   }
 
-  const webhookUrl = process.env.NEXT_STEP_LEAD_WEBHOOK_URL
+  // NEXT_STEP_LEAD_WEBHOOK_URL first, then the shared lead webhooks, so one
+  // GoHighLevel webhook can receive this form too. See lib/lead-delivery.ts.
+  const webhookUrl = leadWebhookUrl("next-step")
   if (!webhookUrl) {
     return NextResponse.json(
       { ok: false, error: "Online lead delivery is not configured yet. Please use the consultation page." },
@@ -76,6 +79,7 @@ export async function POST(request: Request) {
   }
 
   const payload = {
+    ...crmContactFields({ leadType: "next-step", firstName, lastName: "", email, phone: mobile }),
     firstName,
     email,
     mobile,
@@ -89,27 +93,11 @@ export async function POST(request: Request) {
     pageUrl: text(body.pageUrl, 500),
   }
 
-  try {
-    const response = await fetch(webhookUrl, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(payload),
-      signal: AbortSignal.timeout(8000),
-      cache: "no-store",
-    })
-
-    if (!response.ok) {
-      return NextResponse.json(
-        { ok: false, error: "Lead delivery is temporarily unavailable. Please use the consultation page." },
-        { status: 502 },
-      )
-    }
-
-    return NextResponse.json({ ok: true }, { status: 200 })
-  } catch {
+  if (!(await deliverLead(webhookUrl, payload))) {
     return NextResponse.json(
       { ok: false, error: "Lead delivery is temporarily unavailable. Please use the consultation page." },
       { status: 502 },
     )
   }
+  return NextResponse.json({ ok: true }, { status: 200 })
 }

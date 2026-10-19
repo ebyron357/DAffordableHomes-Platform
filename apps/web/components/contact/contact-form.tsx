@@ -1,8 +1,10 @@
 "use client"
 
-import { useId, useState } from "react"
+import Link from "next/link"
+import { useEffect, useId, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Notice } from "@/components/states/notice"
+import { CONSULTATION_TERMS, FORM_PRIVACY } from "@/lib/content/conversion"
 
 type Status = "idle" | "invalid" | "submitting" | "success" | "error" | "unavailable"
 
@@ -11,18 +13,33 @@ function field(form: FormData, name: string): string {
   return typeof value === "string" ? value : ""
 }
 
-export function ContactForm({ context = "general" }: { context?: "general" | "consultation" }) {
+export function ContactForm({
+  context = "general",
+  calendarAvailable = false,
+}: {
+  context?: "general" | "consultation"
+  /** True when /consultation shows the booking calendar above this form. */
+  calendarAvailable?: boolean
+}) {
   const nameId = useId()
   const emailId = useId()
   const phoneId = useId()
   const stageId = useId()
   const connectionId = useId()
   const messageId = useId()
+  const phoneHelpId = useId()
+  const messageHelpId = useId()
   const errId = useId()
   const honeypotId = useId()
   const [status, setStatus] = useState<Status>("idle")
   const [error, setError] = useState("")
   const [startedAt] = useState(() => Date.now())
+  // The success message replaces the form, taking the focused button with it.
+  // Focus moves to the message so keyboard and screen-reader users land on it.
+  const successRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (status === "success") successRef.current?.focus()
+  }, [status])
 
   // Posts to /api/leads/contact. Success is shown only when the server says the
   // message was delivered; a 503 (no destination configured) keeps the honest
@@ -75,10 +92,50 @@ export function ContactForm({ context = "general" }: { context?: "general" | "co
   }
 
   if (status === "success") {
+    const [cost, commitment] = CONSULTATION_TERMS
     return (
-      <Notice tone="success" title="Thank you — your message was sent">
-        <p>Debra will read it and reply personally. There is nothing else you need to do.</p>
-      </Notice>
+      <div ref={successRef} tabIndex={-1} className="outline-none">
+        {context === "consultation" ? (
+          <Notice tone="success" title="Thank you — your consultation request is in">
+            <p>Here&apos;s what happens next:</p>
+            <ol className="mt-2 list-decimal space-y-1 pl-5">
+              <li>Debra reads your request herself.</li>
+              <li>She replies using the contact details you gave, to find a time that suits you.</li>
+              <li>
+                You talk it through by phone or video call. {cost}, and {commitment.toLowerCase()}.
+              </li>
+            </ol>
+            {calendarAvailable && (
+              <p className="mt-3">Prefer to pick a time yourself? Use the booking calendar above.</p>
+            )}
+            <p className="mt-3">
+              There&apos;s nothing else you need to do right now. While you wait:{" "}
+              <Link href="/calculators/mortgage-payment" className="font-semibold text-primary underline">
+                estimate a monthly payment
+              </Link>{" "}
+              or{" "}
+              <Link href="/first-time-buyers" className="font-semibold text-primary underline">
+                read the steps to buying a house
+              </Link>
+              .
+            </p>
+          </Notice>
+        ) : (
+          <Notice tone="success" title="Thank you — your message is with Debra">
+            <p>
+              She reads every message herself and will reply to the email you gave. There&apos;s nothing else you need
+              to do.
+            </p>
+            <p className="mt-2">
+              If it turns into a bigger conversation, you can{" "}
+              <Link href="/consultation" className="font-semibold text-primary underline">
+                book a consultation
+              </Link>{" "}
+              at any time.
+            </p>
+          </Notice>
+        )}
+      </div>
     )
   }
 
@@ -121,7 +178,7 @@ export function ContactForm({ context = "general" }: { context?: "general" | "co
       </div>
 
       {context === "consultation" && <div className="grid gap-5 sm:grid-cols-2">
-        <div className="flex flex-col gap-2"><label htmlFor={phoneId} className="text-sm font-medium text-foreground">Phone</label><input id={phoneId} name="phone" type="tel" autoComplete="tel" className="min-h-12 rounded-md border border-input bg-card px-4 py-2.5 text-sm" /></div>
+        <div className="flex flex-col gap-2"><label htmlFor={phoneId} className="text-sm font-medium text-foreground">Phone</label><input id={phoneId} name="phone" type="tel" autoComplete="tel" aria-describedby={phoneHelpId} className="min-h-12 rounded-md border border-input bg-card px-4 py-2.5 text-sm" /><p id={phoneHelpId} className="text-xs leading-relaxed text-muted-foreground">Optional. Add it if you&apos;d prefer a phone or video call.</p></div>
         <div className="flex flex-col gap-2"><label htmlFor={connectionId} className="text-sm font-medium text-foreground">Preferred way to connect</label><select id={connectionId} name="preferredConnection" className="min-h-12 rounded-md border border-input bg-card px-4 py-2.5 text-sm"><option>Phone or video call</option><option>Email</option></select></div>
       </div>}
 
@@ -146,11 +203,26 @@ export function ContactForm({ context = "general" }: { context?: "general" | "co
           {context === "consultation" ? "What would you like help with?" : "How can Debra help?"}{" "}
           <span className="text-destructive">*</span>
         </label>
+        <p id={messageHelpId} className="text-xs leading-relaxed text-muted-foreground">
+          {context === "consultation" ? (
+            <>
+              For example: &ldquo;We rent in Garland and want to know what to do first,&rdquo; or &ldquo;We went to a
+              NACA workshop — what happens next?&rdquo;
+            </>
+          ) : (
+            <>
+              <strong className="font-semibold text-foreground">Selling?</strong>{" "}
+              Include the property address and when you&apos;d like to move. <strong className="font-semibold text-foreground">Asking about a workshop?</strong>{" "}
+              Say so, and Debra will let you know when the next date is confirmed.
+            </>
+          )}
+        </p>
         <textarea
           id={messageId}
           name="message"
           required
           rows={5}
+          aria-describedby={messageHelpId}
           className="rounded-md border border-input bg-card px-4 py-2.5 text-sm text-foreground"
         />
       </div>
@@ -173,7 +245,10 @@ export function ContactForm({ context = "general" }: { context?: "general" | "co
             {status === "submitting" ? "Sending…" : context === "consultation" ? "Request consultation" : "Send message"}
           </Button>
           <p className="mt-3 text-xs text-muted-foreground">
-            We respect your privacy. Your information is only used to respond to you.
+            {FORM_PRIVACY}{" "}
+            <Link href="/privacy" className="font-medium text-primary underline">
+              Privacy policy
+            </Link>
           </p>
         </div>
       )}

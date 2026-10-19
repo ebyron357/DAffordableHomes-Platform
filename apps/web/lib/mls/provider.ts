@@ -28,6 +28,15 @@ export function isPropertyProviderConfigured(): boolean {
   return REQUIRED_ENV.every((key) => Boolean(process.env[key]))
 }
 
+/**
+ * Whether /homes shows real listings. Until it does, the page is `noindex` and
+ * left out of the sitemap: a "find a home" page with no homes on it is the
+ * thin, intent-mismatched page search engines treat as a soft 404.
+ */
+export async function isPropertySearchLive(): Promise<boolean> {
+  return (await searchListings()).status === "connected"
+}
+
 export async function searchListings(): Promise<PropertySearchResult> {
   if (!isPropertyProviderConfigured()) {
     return {

@@ -27,11 +27,13 @@ const LEAD_ENDPOINTS = [
   {
     route: "apps/web/app/api/leads/next-step/route.ts",
     bucket: "leads:next-step",
+    destination: "next-step",
     webhookEnv: "NEXT_STEP_LEAD_WEBHOOK_URL",
   },
   {
     route: "apps/web/app/api/leads/program/route.ts",
     bucket: "leads:program",
+    destination: "program",
     webhookEnv: "PROGRAM_LEAD_WEBHOOK_URL",
   },
   {
@@ -39,11 +41,25 @@ const LEAD_ENDPOINTS = [
     // nowhere at all.
     route: "apps/web/app/api/leads/contact/route.ts",
     bucket: "leads:contact",
+    destination: "contact",
     webhookEnv: "LEAD_WEBHOOK_URL",
   },
 ];
 
-for (const { route, bucket, webhookEnv } of LEAD_ENDPOINTS) {
+/*
+ * Every route reads its destination through lib/lead-delivery.ts, so the point
+ * at which the webhook is read is the `leadWebhookUrl(...)` call.
+ */
+for (const { route, bucket, destination, webhookEnv } of LEAD_ENDPOINTS) {
+  const READ = `leadWebhookUrl("${destination}")`;
+
+  test(`${bucket} reads ${webhookEnv} first, through the shared destination list`, async () => {
+    const { LEAD_DESTINATIONS } = await import(new URL("../../apps/web/lib/lead-delivery.ts", import.meta.url).href);
+    assert.equal(LEAD_DESTINATIONS[destination][0], webhookEnv);
+    assert.ok(read(route).includes(READ), `${route} must read its webhook with ${READ}`);
+    assert.doesNotMatch(read(route), /process\.env\./, `${route} must not read webhook variables itself`);
+  });
+
   test(`${bucket} rate-limits before it forwards anything`, () => {
     const source = read(route);
 
@@ -57,7 +73,7 @@ for (const { route, bucket, webhookEnv } of LEAD_ENDPOINTS) {
 
     // The limit has to be reached before the webhook call, not after it.
     assert.ok(
-      source.indexOf("rateLimit(") < source.indexOf(`process.env.${webhookEnv}`),
+      source.indexOf("rateLimit(") < source.indexOf(READ),
       `${route} must apply the rate limit before the webhook URL is read`,
     );
   });
@@ -71,7 +87,7 @@ for (const { route, bucket, webhookEnv } of LEAD_ENDPOINTS) {
     // A non-empty check is not validation. This is the assertion that fails if
     // the program endpoint's original `!email` test ever comes back.
     assert.ok(
-      source.indexOf("isValidEmail(email)") < source.indexOf(`process.env.${webhookEnv}`),
+      source.indexOf("isValidEmail(email)") < source.indexOf(READ),
       `${route} must reject an unusable address before it reads the webhook URL`,
     );
   });

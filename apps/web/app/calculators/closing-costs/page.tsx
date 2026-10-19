@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { ClosingCostCalculator } from "@/components/calculators/homebuyer-calculators"
+import { CalculatorGuide, calculatorCrumbs } from "@/components/calculators/calculator-guide"
 import { PageHeader } from "@/components/page/page-header"
 import { Section } from "@/components/page/section"
 
@@ -15,12 +16,14 @@ export default function ClosingCostCalculatorPage() {
     <>
       <PageHeader
         eyebrow="Planning tool"
+        crumbs={calculatorCrumbs("closing-costs")}
         title="Closing cost calculator"
         description="Estimate cash needed at closing, including the down payment, closing costs, prepaid items, escrow funding, and known credits."
       />
       <Section>
         <ClosingCostCalculator />
       </Section>
+      <CalculatorGuide slug="closing-costs" />
     </>
   )
 }

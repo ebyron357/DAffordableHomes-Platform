@@ -3,10 +3,12 @@ import Link from "next/link"
 import { Fragment, type ComponentType, type ReactNode } from "react"
 import { ChevronRight } from "lucide-react"
 import { BrandMotif, type BrandMotifVariant } from "@/components/page/brand-motif"
+import { JsonLd } from "@/components/seo/json-ld"
 import { Container } from "@/components/ui/container"
+import { breadcrumbJsonLd, type Crumb } from "@/lib/seo"
 import { cn } from "@/lib/utils"
 
-export type Crumb = { label: string; href?: string }
+export type { Crumb }
 
 /**
  * Masthead tone.
@@ -62,24 +64,33 @@ export function PageHeader({
   media,
   motif = "roofline",
   tone = "navy",
+  note,
 }: {
   eyebrow?: string
   eyebrowIcon?: DecorativeIcon
   title: string
   intro?: string
   description?: string
-  crumbs?: Crumb[]
+  /**
+   * Visible breadcrumb trail. Its `BreadcrumbList` markup is emitted from the
+   * same array, so a route passes crumbs here and nowhere else.
+   */
+  crumbs?: readonly Crumb[]
   children?: ReactNode
   /** Verified positioning qualifiers. Never metrics — see lib/site.ts. */
   facts?: readonly PageHeaderFact[]
   media?: PageHeaderMedia
   motif?: BrandMotifVariant
   tone?: PageHeaderTone
+  /** One line under the action buttons — what pressing them commits you to. */
+  note?: string
 }) {
   const summary = intro ?? description
+  const breadcrumbs = crumbs ? breadcrumbJsonLd(crumbs) : null
 
   return (
     <section className={cn("dh-masthead", tone === "teal" ? "dh-masthead-teal" : "dh-masthead-navy")}>
+      {breadcrumbs && <JsonLd value={breadcrumbs} />}
       <Container>
         <div className="dh-masthead-inner">
           <div className="dh-masthead-copy">
@@ -92,7 +103,9 @@ export function PageHeader({
                         {crumb.href ? (
                           <Link href={crumb.href}>{crumb.label}</Link>
                         ) : (
-                          <span aria-current="page">{crumb.label}</span>
+                          /* Only the last step is the current page. An earlier
+                             step without a link ("Learn") is a section label. */
+                          <span aria-current={i === crumbs.length - 1 ? "page" : undefined}>{crumb.label}</span>
                         )}
                       </li>
                       {i < crumbs.length - 1 && (
@@ -128,6 +141,7 @@ export function PageHeader({
             )}
 
             {children && <div className="dh-masthead-actions">{children}</div>}
+            {note && <p className="dh-reassure">{note}</p>}
           </div>
 
           <div className="dh-masthead-aside" aria-hidden={media ? undefined : "true"}>

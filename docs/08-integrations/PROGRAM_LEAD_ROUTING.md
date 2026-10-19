@@ -18,13 +18,7 @@
 
 ## Environment variables
 
-Configure one of the following in Vercel. Do not expose either value through `NEXT_PUBLIC_*` variables.
-
-- `PROGRAM_LEAD_WEBHOOK_URL` — preferred provider-neutral server webhook
-- `GHL_PROGRAM_LEAD_WEBHOOK_URL` — supported alias for a GoHighLevel workflow webhook
-- `LEAD_WEBHOOK_URL` — optional destination for the contact and consultation message form
-
-`POST /api/leads/contact` first uses `LEAD_WEBHOOK_URL`, then falls back to the program webhook variables, so setting only the GoHighLevel program webhook delivers both the program forms and the message form. With none of the three set it returns 503 and the form says plainly that the message was not sent.
+Any one of `LEAD_WEBHOOK_URL`, `PROGRAM_LEAD_WEBHOOK_URL`, `GHL_PROGRAM_LEAD_WEBHOOK_URL` or `NEXT_STEP_LEAD_WEBHOOK_URL` delivers every form; each route tries its own variable first. The order, the https requirement and the common payload keys live in `apps/web/lib/lead-delivery.ts`; the GoHighLevel setup, field mapping and booking calendar are in [`GHL_SETUP.md`](GHL_SETUP.md). Do not expose any of them through `NEXT_PUBLIC_*` variables. With none usable, every route returns 503 and the form says plainly that nothing was sent.
 
 The message form sends `name`, `email`, `phone`, `preferredConnection`, `buyerStage`, `message`, `source` (`Consultation request` or `Contact form`), `submittedAt` and `pageUrl`. It follows the same contract as the program endpoint: honeypot, per-caller rate limit, elapsed-time check, bounded and allow-listed fields, eight-second timeout, no logging of the payload.
 

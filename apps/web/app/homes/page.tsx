@@ -10,17 +10,21 @@ import {
   Search,
   SignalHigh,
 } from "lucide-react"
-import { searchListings } from "@/lib/mls/provider"
+import { isPropertySearchLive, searchListings } from "@/lib/mls/provider"
 import { FIGMA_CITIES } from "@/lib/figma-home"
 import { PageHeader } from "@/components/page/page-header"
 import { Band, BandLead, CtaBand, Features, Split, StatusStrip } from "@/components/page/editorial"
 import { CLOSING_BAND_IMAGE, HERO_FAMILY } from "@/lib/content/imagery"
 
-export const metadata: Metadata = {
-  title: "Find a Home in Dallas–Fort Worth",
-  description:
-    "Explore homes across Garland and Dallas–Fort Worth with guidance. Until a live MLS feed is connected, this page says so instead of showing placeholder homes.",
-  alternates: { canonical: "/homes" },
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Find a Home in Dallas–Fort Worth",
+    description:
+      "Explore homes across Garland and Dallas–Fort Worth with guidance. Until a live MLS feed is connected, this page says so instead of showing placeholder homes.",
+    alternates: { canonical: "/homes" },
+    // Kept out of search results until listings are real; see lib/mls/provider.ts.
+    ...((await isPropertySearchLive()) ? {} : { robots: { index: false, follow: true } }),
+  }
 }
 
 function formatPrice(value: number) {
@@ -40,7 +44,7 @@ function formatPrice(value: number) {
 const NEXT_STEPS = [
   {
     title: "Ask Debra what's available",
-    body: "Debra works the Dallas–Fort Worth market every day. Tell her the area, the budget and the timing, and she can tell you what is realistically out there.",
+    body: "Tell Debra the area, the budget and the timing, and she can tell you what is realistically out there.",
     href: "/consultation",
     icon: MessageCircle,
     tone: "teal" as const,
@@ -197,7 +201,7 @@ export default async function HomesPage() {
           eyebrowIcon={MapPin}
           title="Garland, and the North Texas cities around it"
           titleId="homes-areas-heading"
-          lede="Garland is the one community on this site with a full local guide behind it. The rest link into the property search while their guides are written."
+          lede="Garland is the one community on this site with a full local guide behind it. Until the others have theirs, Debra can talk through any of them with you directly."
         />
         <div className="dh-places-layout">
           {garland && (
@@ -217,7 +221,10 @@ export default async function HomesPage() {
                 <Link href={city.href} className="dh-place">
                   <MapPin aria-hidden="true" />
                   <span>
-                    <span className="dh-place-name">{city.name}</span>
+                    <span className="dh-place-name">
+                      <span className="sr-only">Ask Debra about </span>
+                      {city.name}
+                    </span>
                     <span className="dh-place-county">{city.county}</span>
                   </span>
                 </Link>

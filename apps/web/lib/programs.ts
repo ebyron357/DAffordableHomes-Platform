@@ -13,7 +13,16 @@ export type ProgramDefinition = {
   summary: string
   audience: string[]
   supportTitle: string
+  /** One sentence under the support heading: what Debra is for, in plain terms. */
+  supportLede?: string
   supportItems: Array<{ title: string; description: string }>
+  /**
+   * What to do next at each stage of the program, shown under "Start with your
+   * actual program stage". Each step names who handles it.
+   */
+  stageGuide?: Array<{ stage: string; next: string }>
+  /** The long-form guide on the same subject; the guide already links back here. */
+  relatedGuide?: { label: string; href: string }
   process: Array<{ title: string; description: string }>
   faqs: ProgramFaq[]
   leadSource: string
@@ -36,6 +45,23 @@ export const PROGRAMS: Record<ProgramSlug, ProgramDefinition> = {
       "First-time buyers who need a clearer real-estate process",
     ],
     supportTitle: "How Debra can support your home search",
+    relatedGuide: { label: "Read the full guide: Using NACA to buy a home in Dallas–Fort Worth", href: "/blog/naca-homebuying-dallas-fort-worth" },
+    supportLede:
+      "NACA guides you through counseling and qualification. Debra is on your side for the house itself: which homes fit the purchase NACA approves, how to make an offer, and keeping every deadline on track.",
+    stageGuide: [
+      {
+        stage: "Researching NACA",
+        next: "Start with NACA's free Homebuyer Workshop; sign-up is on naca.com. You're welcome to talk with Debra now about what the home-search side will look like.",
+      },
+      {
+        stage: "Workshop attended, or working toward qualification",
+        next: "Keep working with your NACA counselor. In the meantime, Debra can help you decide where and what to search for, so you're ready when NACA says go.",
+      },
+      {
+        stage: "NACA-qualified",
+        next: "This is when Debra's role starts in earnest: the search, tours, offer, inspection and closing.",
+      },
+    ],
     supportItems: [
       {
         title: "Search preparation",
@@ -133,6 +159,9 @@ export const PROGRAMS: Record<ProgramSlug, ProgramDefinition> = {
       "Law-enforcement professionals",
     ],
     supportTitle: "Real-estate support built around your move",
+    relatedGuide: { label: "Read the full guide: Buying or selling as a North Texas hero", href: "/blog/homes-for-heroes-north-texas" },
+    supportLede:
+      "Buying, selling or both, Debra handles the real-estate side — and helps you keep it separate from anything a benefit program decides.",
     supportItems: [
       {
         title: "Buying support",
@@ -181,7 +210,7 @@ export const PROGRAMS: Record<ProgramSlug, ProgramDefinition> = {
       {
         question: "Who may qualify for Homes for Heroes?",
         answer:
-          "Eligibility and benefit rules are set by Homes for Heroes and may change. Confirm your profession, service category, enrollment, and current program terms directly with the official program.",
+          "Each program sets its own list of eligible professions and its own rules, and they can change. If you serve in the military, are a veteran, or work in education, healthcare, fire, EMS or law enforcement, it's worth checking two places: the national Homes for Heroes program, and TSAHC's Homes for Texas Heroes home loan program for eligible Texas professionals. Debra can help you work out what to ask each one, and she handles the real-estate side either way.",
       },
       {
         question: "Is Homes for Heroes the same as Homes for Texas Heroes?",
@@ -196,7 +225,12 @@ export const PROGRAMS: Record<ProgramSlug, ProgramDefinition> = {
       {
         question: "Can Debra help a veteran or teacher buy in Garland?",
         answer:
-          "Debra can discuss your goals and confirm whether representation is available for the specific community and transaction. This site does not publish an unverified blanket service-area promise.",
+          "Debra can talk with you about buying in Garland. Tell her the area, your timing and what you're looking for, and she'll confirm whether she can represent you for that specific purchase.",
+      },
+      {
+        question: "I'm on military orders to Dallas–Fort Worth. Can Debra help?",
+        answer:
+          "Military moves often come with short timelines and searching from a distance. Tell Debra your report date and how much of the search you can do in person, and she'll plan around it. If you'll use a VA home loan, a VA-approved lender confirms your entitlement and terms; Debra handles the real-estate side.",
       },
       {
         question: "Does this page guarantee a rebate or savings amount?",
@@ -206,7 +240,7 @@ export const PROGRAMS: Record<ProgramSlug, ProgramDefinition> = {
     ],
     leadSource: "Homes for Heroes Landing Page",
     disclaimer:
-      "Homes for Heroes is a third-party program. D'Affordable Homes does not claim affiliation, approved-provider status, eligibility authority, savings amounts, rebates, or endorsement unless verified documentation is added to the project.",
+      "Homes for Heroes is a third-party program. D'Affordable Homes does not claim affiliation with it, approved-provider status, the authority to decide eligibility, or any savings, rebate or endorsement. Confirm current terms with the program directly.",
     primaryCta: "Request hero-focused real-estate guidance",
   },
 }

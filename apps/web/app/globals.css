@@ -709,6 +709,7 @@
   line-height: 1.65;
 }
 .fh-hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 6px; }
+.fh-hero-reassure { margin: -8px 0 0; color: #dbe6ef; font-size: 14px; font-weight: 600; letter-spacing: 0.01em; }
 
 /* Byline: the person, in the first viewport. */
 .fh-hero-byline {
@@ -914,6 +915,8 @@
 }
 .fh-meet-panel p { margin: 0; max-width: 56ch; font-size: 16px; line-height: 1.7; }
 .fh-meet-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; }
+.fh-meet-panel .fh-meet-worries { padding-top: 16px; border-top: 1px solid rgba(255,255,255,.18); color: var(--fh-white); }
+.fh-meet-worries a { color: var(--fh-gold-light); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 
 /* ------------------------------------------------------------------ markets */
 .fh-markets { background: var(--fh-navy-deep); }
@@ -1663,7 +1666,10 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 .dah-landing-cta-turquoise { background:var(--dah-turquoise); color:var(--dah-navy); }
 .dah-landing-voice-entry { margin-top:28px; }
 .dah-landing-voice-button { display:inline-flex; max-width:560px; align-items:center; gap:12px; border:0; padding:0; color:#fff; background:transparent; font:inherit; font-size:14px; line-height:1.45; text-align:left; cursor:pointer; }
+.dah-landing-voice-button { text-decoration:none; }
 .dah-landing-voice-button strong { color:#8de7f3; }
+.dah-landing-voice-button:hover strong, .dah-landing-voice-button:focus-visible strong { text-decoration:underline; text-underline-offset:3px; }
+.dah-landing-success:focus { outline:none; }
 .dah-landing-voice-icon { display:grid; min-width:38px; min-height:38px; place-items:center; border:1px solid rgba(6,182,212,.8); border-radius:50%; color:#8de7f3; }
 .dah-landing-voice-notice { max-width:520px; margin:12px 0 0 50px; color:rgba(255,255,255,.75); font-size:13px; line-height:1.5; }
 .dah-landing-microcopy { margin:18px 0 0; color:rgba(255,255,255,.62); font-size:12px; }
@@ -1770,7 +1776,8 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 .dah-landing-lead-form input,.dah-landing-lead-form select { min-height:48px; border:1px solid #c7cbc6; border-radius:0; padding:10px 12px; color:var(--dah-charcoal); background:#fff; font:inherit; font-size:14px; }
 .dah-landing-honeypot { position:absolute; left:-9999px; }
 .dah-landing-form-actions { margin-top:20px; }
-.dah-landing-form-actions p { max-width:250px; margin:0; color:#7c8588; font-size:12px; line-height:1.45; }
+.dah-landing-form-actions p { max-width:250px; margin:0; color:#5f686b; font-size:12px; line-height:1.45; }
+.dah-landing-form-actions p a { color:var(--dah-navy); font-weight:700; text-decoration:underline; text-underline-offset:2px; }
 .dah-landing-form-error { margin:16px 0 0; color:#9b3e3e; font-size:13px; line-height:1.5; }
 .dah-landing-form-error a { color:inherit; font-weight:800; }
 .dah-landing-success { display:flex; gap:14px; border:1px solid #a9c9a8; padding:20px; color:#315f2f; background:#f2f8ef; }
@@ -1967,6 +1974,7 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 .dh-crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0; padding: 0; list-style: none; font-size: 14px; }
 .dh-crumbs a { display: inline-block; min-height: 24px; padding: 2px 0; color: rgba(255,255,255,.78); text-decoration: none; }
 .dh-crumbs a:hover { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.dh-crumbs li > span { color: rgba(255,255,255,.78); }
 .dh-crumbs [aria-current="page"] { color: #fff; }
 .dh-crumbs svg { color: rgba(255,255,255,.5); }
 .dh-kicker { display: inline-flex; align-items: center; gap: 9px; margin: 0; color: var(--dh-gold-light); font-size: 12px; font-weight: 700; letter-spacing: .16em; line-height: 1.4; text-transform: uppercase; }
@@ -2162,6 +2170,69 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 .dh-qa summary:hover { color: var(--dh-teal); }
 .dh-qa p { margin: 0 0 20px; max-width: 74ch; color: var(--dh-muted); font-size: 15.5px; line-height: 1.7; }
 
+/* -- Calculator scope: what an estimate counts, and what it leaves out ---- */
+.dh-scope { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.dh-scope-col { padding: 26px 28px; background: var(--dh-alt); border-top: 3px solid var(--dh-teal); }
+.dh-scope-col-out { border-top-color: var(--dh-gold); }
+.dh-scope h3 { margin: 0 0 14px; color: var(--dh-navy); font-family: var(--font-serif); font-size: 21px; font-weight: 600; line-height: 1.25; }
+.dh-scope ul { display: grid; gap: 10px; margin: 0; padding-left: 20px; }
+.dh-scope li { color: var(--dh-muted); font-size: 15.5px; line-height: 1.6; }
+
+.dh-scope-spaced { margin-top: clamp(32px, 4vw, 48px); }
+.dh-scope p { margin: 0; color: var(--dh-muted); font-size: 15.5px; line-height: 1.65; }
+.dh-band-note { margin: 22px 0 0; color: var(--dh-muted); font-size: 15px; line-height: 1.6; }
+/* A short row of follow-on links under a band; each wraps like text and the
+   row stacks on a narrow screen instead of orphaning a separator. */
+.dh-band-links { display: flex; flex-wrap: wrap; gap: 10px 32px; margin: 22px 0 0; padding: 0; list-style: none; }
+.dh-band-links li { display: flex; margin: 0; }
+.dh-band-links .dh-arrow-link { padding: 2px 0; }
+.dh-arrow-link { display: inline; line-height: 1.6; }
+.dh-arrow-link svg { display: inline; margin-left: 6px; vertical-align: -3px; }
+
+/* -- Common worries: visible answers, not an accordion ------------------- */
+/* 340px minimum keeps it to three columns at full width, so five worries sit
+   3 + 2 rather than leaving one card alone on a second row. */
+.dh-worries { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 20px; margin: 0; padding: 0; list-style: none; }
+.dh-worries li { display: flex; flex-direction: column; gap: 10px; padding: 24px 26px; background: #fff; border: 1px solid var(--dh-border); border-top: 3px solid var(--dh-gold); }
+.dh-worries h3, .dh-worries h4 { margin: 0; color: var(--dh-navy); font-family: var(--font-serif); font-size: 20px; font-weight: 600; line-height: 1.3; }
+.dh-worries p { margin: 0; color: var(--dh-muted); font-size: 15.5px; line-height: 1.65; }
+/* Inline, so a label that wraps keeps its arrow at the end of the text
+   instead of pushing it to the card's far edge. */
+.dh-worries .dh-textlink { align-self: flex-start; margin-top: auto; padding-top: 4px; }
+/* The cards are white on any band, so their links stay teal even where a navy
+   band would otherwise turn text links gold (1.8:1 on white). */
+.dh-band-navy .dh-worries .dh-textlink, .dh-band-teal .dh-worries .dh-textlink { color: var(--dh-teal); }
+.dh-cta-stack { display: flex; flex-direction: column; align-items: flex-start; }
+.dh-reassure { margin: 14px 0 0; color: var(--dh-muted); font-size: 14px; font-weight: 600; letter-spacing: .01em; }
+.dh-band-navy .dh-reassure, .dh-masthead .dh-reassure { color: #d7e2ec; }
+.dh-masthead .dh-reassure { margin-top: -6px; }
+
+/* -- Boundaries list on /about: what Debra won't do --------------------- */
+.dh-boundaries { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 14px 28px; margin: 0; padding: 0; list-style: none; }
+.dh-boundaries li { position: relative; padding: 14px 0 14px 34px; border-top: 1px solid var(--dh-border); color: var(--dh-ink); font-size: 16px; line-height: 1.6; }
+.dh-boundaries li::before { content: ""; position: absolute; left: 4px; top: 25px; width: 16px; height: 2px; background: var(--dh-gold); }
+
+/* -- "Which applies to me?" sorter on /programs -------------------------- */
+.dh-sort-heading { margin: 0 0 14px; color: var(--dh-navy); font-family: var(--font-serif); font-size: clamp(22px, 2.4vw, 28px); font-weight: 600; line-height: 1.2; }
+.dh-sort { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--dh-border); }
+.dh-sort li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 24px; padding: 14px 0; border-bottom: 1px solid var(--dh-border); }
+.dh-sort li > span { color: var(--dh-ink); font-size: 16px; line-height: 1.5; }
+.dh-band-note-lead { margin: 0 0 clamp(24px, 3vw, 32px); max-width: 70ch; }
+.dh-band-note-lead strong { color: var(--dh-navy); }
+
+/* -- Program stage guide: what to do next at each program stage ---------- */
+.dh-stage-guide { margin-top: clamp(28px, 3.5vw, 40px); }
+.dh-stage-guide h3 { margin: 0 0 16px; color: var(--dh-navy); font-family: var(--font-serif); font-size: 22px; font-weight: 600; line-height: 1.25; }
+.dh-stage-guide dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; margin: 0; }
+.dh-stage-guide dl > div { padding: 20px 22px; background: #fff; border: 1px solid var(--dh-border); border-left: 4px solid var(--dh-teal); }
+.dh-stage-guide dt { margin: 0 0 6px; color: var(--dh-navy); font-size: 16px; font-weight: 700; line-height: 1.35; }
+.dh-stage-guide dd { margin: 0; color: var(--dh-muted); font-size: 15.5px; line-height: 1.6; }
+
+/* -- Booking calendar (GoHighLevel frame on /consultation) --------------- */
+.dh-booking-frame { display: block; width: 100%; min-height: 820px; border: 1px solid var(--dh-border); background: #fff; }
+.dh-booking-note { margin: 14px 0 0; color: var(--dh-muted); font-size: 15px; line-height: 1.6; }
+.dh-booking-note a { color: var(--dh-teal); font-weight: 700; text-underline-offset: 3px; }
+
 /* -- Responsive ----------------------------------------------------------- */
 @media (max-width: 1000px) {
   .dh-masthead-inner { grid-template-columns: 1fr; gap: 34px; }
@@ -2172,6 +2243,8 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
   .dh-split-frame::before { left: -12px; top: 16px; bottom: -12px; width: 55%; }
 }
 @media (max-width: 720px) {
+  .dh-scope { grid-template-columns: 1fr; }
+  .dh-booking-frame { min-height: 1040px; }
   .dh-masthead h1 { font-size: clamp(31px, 8.4vw, 42px); }
   .dh-masthead-lede { font-size: 16px; }
   .dh-masthead-actions .dh-btn { width: 100%; }

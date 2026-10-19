@@ -100,6 +100,7 @@ export async function generateMetadata({
       description: article.seoDescription,
       url: canonical,
       siteName: SITE.name,
+      locale: "en_US",
       publishedTime: article.publishedAt,
       modifiedTime: article.reviewedAt ?? article.publishedAt,
       authors: [article.author.name],

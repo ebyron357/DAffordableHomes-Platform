@@ -30,8 +30,23 @@ export const UNVERIFIED_TRUST_FACTS = {
   brokerageName: null as string | null,
   licenseNumber: null as string | null,
   licenseState: null as string | null,
+  /**
+   * The office, written "Street, City, ST 12345" (a suite may follow the
+   * street: "100 Main St, Suite 2, Garland, TX 75040"). That shape is what lets
+   * the local-business markup publish it as a structured postal address, which
+   * Google expects; the footer shows it exactly as written.
+   */
   businessAddress: null as string | null,
   phoneNumber: null as string | null,
+  /**
+   * Public profiles that are Debra's or the business's own, as full https
+   * links: Google Business Profile, Realtor.com / Zillow / HAR agent pages,
+   * LinkedIn, the business Facebook page. They become `sameAs` in the site's
+   * structured data, which is how search and answer engines connect this site
+   * to the same person elsewhere. Only profiles she controls; never a
+   * directory listing someone else wrote.
+   */
+  profileUrls: [] as string[],
   serviceAreas: [] as string[],
   yearsOfExperience: null as number | null,
   familiesServed: null as number | null,

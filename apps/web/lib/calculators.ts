@@ -76,6 +76,23 @@ export type RentVsBuyResult = {
   monthlyMortgagePayment: number
 }
 
+/*
+ * The rules these estimates apply, named so the explanations published beside
+ * each calculator (lib/content/calculator-guides.ts) are built from the same
+ * values the arithmetic uses and cannot drift from it.
+ */
+
+/** Housing cost as a share of gross monthly income: the "28" in 28/36. */
+export const HOUSING_RATIO_LIMIT = 0.28
+/** Housing plus other monthly debt as a share of gross income: the "36". */
+export const TOTAL_DEBT_RATIO_LIMIT = 0.36
+/** Down payment, as a percentage of price, at which mortgage insurance is dropped. */
+export const MORTGAGE_INSURANCE_CUTOFF_PERCENT = 20
+/** Down-payment percentages the planner compares side by side. */
+export const DOWN_PAYMENT_SCENARIOS: readonly number[] = [3, 3.5, 5, 10, 20]
+/** Loan term the rent-versus-buy comparison assumes. */
+export const RENT_VS_BUY_TERM_YEARS = 30
+
 function finiteOrZero(value: number) {
   return Number.isFinite(value) ? value : 0
 }
@@ -120,7 +137,7 @@ export function calculateMortgage(input: MortgageInput): MortgageResult {
   const propertyTax = nonNegative(input.annualPropertyTax) / 12
   const homeInsurance = nonNegative(input.annualHomeInsurance) / 12
   const pmi =
-    downPaymentPercentage >= 20
+    downPaymentPercentage >= MORTGAGE_INSURANCE_CUTOFF_PERCENT
       ? 0
       : (loanAmount * (nonNegative(input.annualPmiRate) / 100)) / 12
   const hoa = nonNegative(input.monthlyHoa)
@@ -141,8 +158,8 @@ export function calculateMortgage(input: MortgageInput): MortgageResult {
 export function calculateAffordability(input: AffordabilityInput): AffordabilityResult {
   const monthlyIncome = nonNegative(input.annualHouseholdIncome) / 12
   const monthlyDebt = nonNegative(input.monthlyDebtPayments)
-  const frontEndHousingLimit = monthlyIncome * 0.28
-  const backEndHousingLimit = Math.max(0, monthlyIncome * 0.36 - monthlyDebt)
+  const frontEndHousingLimit = monthlyIncome * HOUSING_RATIO_LIMIT
+  const backEndHousingLimit = Math.max(0, monthlyIncome * TOTAL_DEBT_RATIO_LIMIT - monthlyDebt)
   const monthlyHousingBudget = Math.min(frontEndHousingLimit, backEndHousingLimit)
   const downPayment = nonNegative(input.downPayment)
 
@@ -217,7 +234,7 @@ export function calculateClosingCosts(input: ClosingCostInput): ClosingCostResul
 
 export function calculateDownPaymentScenarios(
   mortgageInput: Omit<MortgageInput, "downPayment">,
-  percentages: number[] = [3, 3.5, 5, 10, 20],
+  percentages: readonly number[] = DOWN_PAYMENT_SCENARIOS,
 ): DownPaymentScenario[] {
   const homePrice = nonNegative(mortgageInput.homePrice)
 
@@ -243,7 +260,7 @@ export function calculateRentVsBuy(input: RentVsBuyInput): RentVsBuyResult {
   const monthlyMortgagePayment = calculatePrincipalAndInterest(
     homePrice - downPayment,
     input.annualInterestRate,
-    30,
+    RENT_VS_BUY_TERM_YEARS,
   )
   const rentCost = monthlyRent * years * 12
   const ownershipCost =

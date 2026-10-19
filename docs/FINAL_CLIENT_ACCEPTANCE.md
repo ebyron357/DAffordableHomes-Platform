@@ -91,7 +91,7 @@ project is accepting it as it is, with nothing hidden.
 | No MLS/IDX property feed; the listings area shows an honest unavailable state | `PROJECT_CLOSEOUT_STATUS.md` §6 |
 | Clara, the AI assistant, is specified but not built | `docs/09-ai-clara/CLARA_SPEC.md` |
 | No analytics provider is wired; no visitor is tracked | `DATA_LIFECYCLE_AND_OFFBOARDING.md` §1 |
-| No booking or calendar integration; `/consultation` is a page | `PROJECT_CLOSEOUT_STATUS.md` §6 |
+| Booking calendar built but not connected until `GHL_BOOKING_URL` is set (`docs/08-integrations/GHL_SETUP.md`) | `PROJECT_CLOSEOUT_STATUS.md` §6 |
 | The rate limiter is per serving instance, not fleet-wide | `SECURITY_AND_ACCESS_HANDOFF.md` §4 |
 | No alerting, uptime monitoring or error tracking | `TROUBLESHOOTING_AND_SUPPORT.md` §5 |
 | No support contract or response-time commitment | `TROUBLESHOOTING_AND_SUPPORT.md` §5 |

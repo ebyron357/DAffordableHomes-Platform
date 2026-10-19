@@ -51,7 +51,7 @@ export default function ContactPage() {
                 <Compass aria-hidden="true" />
                 Before you write
               </p>
-              <h2 id="contact-aside-heading">Two things worth knowing</h2>
+              <h2 id="contact-aside-heading">Three things worth knowing</h2>
               <ul className="dh-checklist">
                 <li>
                   <ShieldCheck aria-hidden="true" />
@@ -65,6 +65,13 @@ export default function ContactPage() {
                   <span>
                     <strong>You do not need to be ready</strong>
                     &ldquo;I am not sure yet&rdquo; is a completely normal place to start a message from.
+                  </span>
+                </li>
+                <li>
+                  <MessageCircle aria-hidden="true" />
+                  <span>
+                    <strong>What happens next</strong>
+                    Your message goes straight to Debra. She reads it herself and replies to the email you give.
                   </span>
                 </li>
               </ul>

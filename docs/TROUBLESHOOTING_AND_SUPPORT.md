@@ -127,9 +127,12 @@ draft cookie.
 
 ### A lead form returns 503
 
-The relevant webhook variable is unset: `NEXT_STEP_LEAD_WEBHOOK_URL` for
-`/start`, or `PROGRAM_LEAD_WEBHOOK_URL` / `GHL_PROGRAM_LEAD_WEBHOOK_URL` for the
-program forms. **This is the state today for all of them.**
+No usable lead webhook is set. Any one of `LEAD_WEBHOOK_URL`,
+`PROGRAM_LEAD_WEBHOOK_URL`, `GHL_PROGRAM_LEAD_WEBHOOK_URL` or
+`NEXT_STEP_LEAD_WEBHOOK_URL` delivers every form; a value that is empty, not
+`https://` or not a URL is skipped. Set one and redeploy
+(`docs/08-integrations/GHL_SETUP.md`). **This is the state today for all of
+them.**
 
 ### A lead form returns 502
 

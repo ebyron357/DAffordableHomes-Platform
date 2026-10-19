@@ -63,6 +63,7 @@ and where it is stored.
 | `SANITY_API_READ_TOKEN` | Vercel env | | | |
 | `SANITY_REVALIDATE_SECRET` | Vercel env + Sanity webhook | | | |
 | `NEXT_STEP_LEAD_WEBHOOK_URL` | Vercel env | | | |
+| `GHL_BOOKING_URL` | Vercel env | | | |
 | `PROGRAM_LEAD_WEBHOOK_URL` | Vercel env | | | |
 | `GHL_PROGRAM_LEAD_WEBHOOK_URL` | Vercel env | | | |
 | `LEAD_WEBHOOK_URL` | Vercel env | | | |
