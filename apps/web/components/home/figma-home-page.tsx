@@ -1,3 +1,4 @@
+import { ScrollCraftGroup } from "./scroll-craft-paths"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Check, Home, KeyRound } from "lucide-react"
@@ -233,8 +234,9 @@ function Pathways() {
           <h2 id="figma-services-heading">Whichever side of the move you are on</h2>
         </div>
 
-        <div className="fh-path-grid">
-          <article className="fh-path fh-path-buy">
+        <ScrollCraftGroup className="fh-path-grid">
+          <article data-sc-entry className="fh-path fh-path-buy">
+            <span data-sc-rule aria-hidden="true" />
             <BrandMotif variant="keys" className="dh-motif fh-path-art" />
             <div className="fh-path-body">
               <span className="fh-path-badge">
@@ -257,7 +259,8 @@ function Pathways() {
             </div>
           </article>
 
-          <article className="fh-path fh-path-sell">
+          <article data-sc-entry className="fh-path fh-path-sell">
+            <span data-sc-rule aria-hidden="true" />
             <BrandMotif variant="route" className="dh-motif fh-path-art" />
             <div className="fh-path-body">
               <span className="fh-path-badge">
@@ -279,7 +282,7 @@ function Pathways() {
               </Link>
             </div>
           </article>
-        </div>
+        </ScrollCraftGroup>
 
         <ul className="fh-service-row">
           {rest.map((service) => (

@@ -290,3 +290,9 @@ Every quarter, review:
 - privacy and retention
 - local market information
 - visitor feedback and usability
+
+## Scoped enhancement — 2026-10-19
+
+- [x] Scroll Craft pathway rule entry with reduced-motion and static fallbacks.
+- Verification/release evidence: `docs/SCROLL_CRAFT_IMPLEMENTATION.md`. This does
+  not close any outstanding business-fact, provider, domain or handover gate.
