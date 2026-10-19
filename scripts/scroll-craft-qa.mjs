@@ -41,7 +41,7 @@ try {
       assert.equal(await last.evaluate(e=>getComputedStyle(e).opacity),'1');
       if(mode==='normal') {
         await page.screenshot({path:`qa-evidence/scroll-${width}.png`});
-        await page.locator('a[href="/first-time-buyers"]:visible').first().focus();
+        await entries.first().locator('a[href="/first-time-buyers"]').focus();
         await page.keyboard.press('Enter');
         await page.waitForURL('**/first-time-buyers');
         await page.goBack({waitUntil:'networkidle'});
