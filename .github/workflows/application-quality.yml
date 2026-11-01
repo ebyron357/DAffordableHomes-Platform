@@ -88,6 +88,9 @@ jobs:
       - name: Route crawl, structure and responsive audit
         run: pnpm qa:audit
 
+      - name: Scroll Craft entry and fallbacks
+        run: node scripts/scroll-craft-qa.mjs
+
       - name: Quiz end-to-end
         run: pnpm qa:quiz
 
