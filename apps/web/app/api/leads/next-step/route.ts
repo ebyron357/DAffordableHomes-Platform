@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import { crmContactFields, deliverLead, leadWebhookUrl } from "@/lib/lead-delivery"
 import { isValidEmail } from "@/lib/lead-validation"
 import { clientIdentifier, rateLimit } from "@/lib/rate-limit"
+import { rejectCrossSite } from "@/lib/request-guard"
 
 const ALLOWED_NEXT_STEPS = new Set([
   "Schedule a consultation",
@@ -25,6 +26,9 @@ function record(value: unknown): Record<string, string> {
 }
 
 export async function POST(request: Request) {
+  const crossSite = rejectCrossSite(request)
+  if (crossSite) return crossSite
+
   const raw = await request.json().catch(() => null)
   if (!raw || typeof raw !== "object") {
     return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 })

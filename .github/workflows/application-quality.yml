@@ -88,6 +88,10 @@ jobs:
       - name: Route crawl, structure and responsive audit
         run: pnpm qa:audit
 
+      # Canonicals, sitemap, robots, redirects and JSON-LD on every route.
+      - name: SEO, AEO and structured data
+        run: pnpm qa:seo
+
       - name: Scroll Craft entry and fallbacks
         run: node scripts/scroll-craft-qa.mjs
 
