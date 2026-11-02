@@ -5,7 +5,7 @@
 **Default branch:** `main`
 **Integration branch for this closeout:** `claude/reconcile-20-into-28` (PR #31)
 **Assessed at commit:** `d350db2`; re-verified on `21662ec` and its successor (§13)
-**Assessed on:** 2026-10-02
+**Assessed on:** 2026-10-02; ClientVerse integration re-investigated 2026-11-02 (see `12-governance/CLIENTVERSE_AUDIT_RECOVERY.md`)
 
 > **Final closure state: `BLOCKED - OWNER ACTION REQUIRED`.**
 >
@@ -28,7 +28,7 @@ repeating it.
 ## 1. The blockers, stated first
 
 Everything else in this document is detail. These are the reasons the project is
-not finished. Only blocker 6 involves code, and it waits on an owner decision.
+not finished. ClientVerse blocker 5 also includes engineering work; it must not be represented as only an owner credential task.
 
 | # | Blocker | Who resolves it | Consequence today |
 | --- | --- | --- | --- |
@@ -42,7 +42,7 @@ A fifth item gates release but is not the owner's to supply:
 
 | # | Blocker | Who resolves it | Consequence today |
 | --- | --- | --- | --- |
-| 5 | **ClientVerse release certification** — `CLIENTVERSE_ENDPOINT`, `CLIENTVERSE_DEPLOYMENT_URL`, `CLIENTVERSE_TOKEN` | Whoever operates the central audit engine | The check reports `BLOCKED` and fails wherever it runs. **It has never executed against this repository.** Its absence on a pull request is not a pass. |
+| 5 | **ClientVerse release certification** | Central-service owner for credentials/access; engineering for protocol, runner compatibility, deployment and verification | Endpoint now configured; client transport repaired. Central API is unconfigured, no project token exists, no deployment was found for the inspected main SHA, and the runner contract differs from this repository. **No completed audit or website certification.** Full evidence and responsibility split: `12-governance/CLIENTVERSE_AUDIT_RECOVERY.md`. |
 
 ---
 
@@ -144,7 +144,7 @@ noted (§13).
 | `Governance and repository integrity` | every PR, push | expected `PASS` |
 | `Typecheck, lint, test, and build` | every PR, push | expected `PASS` |
 | `Browser QA (audit, quiz, contrast, faces)` | every PR, push | expected `PASS` |
-| `Centralized ClientVerse audit` | push to `main`, manual dispatch only | **`BLOCKED`** — three secrets unset |
+| `Centralized ClientVerse audit` | push to `main`, manual dispatch only | **`BLOCKED`** — historical configuration failure; see the 2026-11-02 recovery record for current prerequisites |
 
 The ClientVerse workflow does not run on pull requests, so it is **absent** from
 PR checks rather than green. The `Browser QA` job does **not** satisfy the
@@ -166,7 +166,7 @@ Each integration carries one of the standard's seven labels.
 | **Lead delivery — `/api/leads/contact`** (`/contact`, `/consultation` message form) | `CONFIGURATION REQUIRED` | Added 2026-10-02 (PR #32); before that the form validated and then showed "not connected" from a `setTimeout`, with no endpoint behind it. Same controls as the other two endpoints. Returns 503 when none of `LEAD_WEBHOOK_URL`, `PROGRAM_LEAD_WEBHOOK_URL`, `GHL_PROGRAM_LEAD_WEBHOOK_URL` is set. Covered end to end by `tests/static/contact-endpoint.test.mjs`. **Delivers nowhere today.** The untested root `api/consultation.js`, which no page called, was retired. |
 | **Lead delivery — `/api/leads/program`** (NACA, Homes for Heroes) | `CONFIGURATION REQUIRED` | Same controls as of `d350db2`; it previously had neither a rate limit nor server-side address validation. Returns 503 when no lead webhook is usable. Until 2026-10-03 it read `PROGRAM_LEAD_WEBHOOK_URL ?? GHL_…`, so a blank `PROGRAM_LEAD_WEBHOOK_URL` hid a configured GoHighLevel webhook; fixed and pinned in `tests/static/ghl-integration.test.mjs`. **Delivers nowhere today.** |
 | **GoHighLevel / CRM** | `CONFIGURATION REQUIRED` | Every form posts JSON with common GoHighLevel keys (`first_name`, `email`, `lead_type`, and `last_name` and `phone` when given) to one webhook. Verified 2026-10-03 against a local HTTPS stand-in: the consultation and NACA forms submitted in Chromium and `/start`'s endpoint all delivered. No real GoHighLevel URL has been supplied, so delivery into GoHighLevel itself has not been observed. Setup: `docs/08-integrations/GHL_SETUP.md`. |
-| **ClientVerse release certification** | `AVAILABLE BUT NOT CERTIFIED` | Workflow present and correct; fails `BLOCKED` without its three secrets. Has never executed. |
+| **ClientVerse release certification** | `AVAILABLE BUT NOT CERTIFIED` | Client protocol corrected on 2026-11-02; service runtime, project credential, target deployment, and central runner compatibility remain unresolved. No completed central audit. See `12-governance/CLIENTVERSE_AUDIT_RECOVERY.md`. |
 | **ClientVerse attribution** (site footer) | `LIVE + VERIFIED` | Rendered site-wide, asserted by `tests/static/clientverse.test.mjs`. |
 | **MLS / IDX property data** | `NOT IMPLEMENTED` | No approved provider. The listings area shows an honest unavailable state. Required attribution cannot be displayed for a feed that does not exist. |
 | **Clara (AI assistant)** | `NOT IMPLEMENTED` | Specified in `docs/09-ai-clara/CLARA_SPEC.md`; no endpoint, no provider, no key. Nothing to rate-limit yet. |
@@ -255,7 +255,7 @@ closeout.
 
 ## 12. What would change this verdict
 
-In order. Items 1–6 are not code; item 7 is code that waits on a decision:
+These conditions include both owner decisions and engineering work. ClientVerse recovery is detailed separately in its current recovery record:
 
 1. Debra supplies the business facts in §1.1 → trust facts populate, structured data gains a service area.
 2. Her broker signs off on the compliance language in §1.2 → the compliance release gate closes.
@@ -264,10 +264,10 @@ In order. Items 1–6 are not code; item 7 is code that waits on a decision:
 5. A Sanity project is created and transferred to her → the CMS moves to `LIVE + VERIFIED` and she can edit articles herself.
 6. The duplicate Vercel project is deleted and the domain is attached → hosting stops being `DEGRADED`.
 7. Debra decides where `/contact` and `/consultation` messages go, and that form is wired → blocker 6 closes. This one **is** code, and it waits on her decision.
-7. ClientVerse's three secrets are configured and the audit runs and passes → the release certification gate closes.
-8. Lighthouse and Core Web Vitals evidence is recorded against the production deployment.
-9. A manual WCAG 2.2 AA review is performed and recorded.
-10. Accounts transfer, then `FINAL_CLIENT_ACCEPTANCE.md` and `CLIENT_HANDOFF.md` Part 7 are signed.
+8. Complete the central-service recovery and runner compatibility work, configure a project-scoped token and an exact-commit deployment, then observe a completed APPROVED audit with retained evidence → the ClientVerse gate closes. Configuration checks alone do not close it.
+9. Lighthouse and Core Web Vitals evidence is recorded against the production deployment.
+10. A manual WCAG 2.2 AA review is performed and recorded.
+11. Accounts transfer, then `FINAL_CLIENT_ACCEPTANCE.md` and `CLIENT_HANDOFF.md` Part 7 are signed.
 
 Until items 1 to 7 are done, the correct closure state is
 `BLOCKED - OWNER ACTION REQUIRED`, and no agent should report otherwise.
