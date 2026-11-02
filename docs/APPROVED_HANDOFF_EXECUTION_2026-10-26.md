@@ -22,6 +22,7 @@ Approved by project owner: 2026-10-26. This document tracks execution, not compl
 - [ ] Record Lighthouse/Core Web Vitals, privacy and security evidence against production-like deployment.
 
 ## Phase 5 — Launch
+> **Launch gate:** public launch and domain cutover are blocked until every release gate in `docs/FINAL_CLIENT_ACCEPTANCE.md` (Part 1) is met, including the observed CRM test lead (Phase 6) and the named brokerage/compliance approval (Phase 7). Follow the order in `docs/12-governance/CLIENT_HANDOFF.md` Part 5. Preparation and verification below may continue while those gates are open.
 - [ ] Verify correct Vercel project, domain and DNS; do not change live domain without approval.
 - [ ] Verify HTTPS, form behavior and production smoke tests.
 - [ ] Confirm duplicate project can be safely removed, then remove only with owner authorization.
