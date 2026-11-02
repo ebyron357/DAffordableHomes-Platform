@@ -103,48 +103,64 @@ jobs:
           CLIENTVERSE_TOKEN: ${{ secrets.CLIENTVERSE_TOKEN }}
           COMMIT_SHA: ${{ steps.target.outputs.commit_sha }}
           DEPLOYMENT_URL: ${{ steps.target.outputs.deployment_url }}
-          AUDIT_CONFIG_PATH: qa-config/clientverse-audit.yaml
           REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
           mkdir -p clientverse-evidence
-
-          jq -n \
-            --arg repository "$REPOSITORY" \
+          # Central service accepts an asynchronous certification request at /api/audits.
+          # Never interpret HTTP 202 as an approved release.
+          jq -n --arg repository "$REPOSITORY" \
             --arg commit_sha "$COMMIT_SHA" \
             --arg deployment_url "$DEPLOYMENT_URL" \
-            --arg audit_config_path "$AUDIT_CONFIG_PATH" \
-            '{repository: $repository, commit_sha: $commit_sha, deployment_url: $deployment_url, audit_config_path: $audit_config_path}' \
+            --arg application_path "apps/web" \
+            --arg policy_version "2026-08-25" \
+            '{repository: $repository, commit_sha: $commit_sha, deployment_url: $deployment_url, application_path: $application_path, policy_version: $policy_version}' \
             > clientverse-evidence/request.json
-
-          status_code="$(curl -sS --max-time 600 \
-            -o clientverse-evidence/response.json -w '%{http_code}' \
-            -X POST "$CLIENTVERSE_ENDPOINT" \
+          status_code="$(curl -sS --max-time 60 -o clientverse-evidence/submission.json -w '%{http_code}' \
+            -X POST "${CLIENTVERSE_ENDPOINT%/}/api/audits" \
             -H "Authorization: Bearer ${CLIENTVERSE_TOKEN}" \
             -H "Content-Type: application/json" \
             -d @clientverse-evidence/request.json)" || status_code="000"
-
-          echo "$status_code" > clientverse-evidence/http_status.txt
-          echo "ClientVerse responded with HTTP $status_code"
-          cat clientverse-evidence/response.json || true
-
-          if [ "$status_code" -lt 200 ] || [ "$status_code" -ge 300 ]; then
-            echo "::error::ClientVerse audit request failed with HTTP $status_code"
-            echo "gate=REQUEST_FAILED" >> "$GITHUB_OUTPUT"
+          echo "$status_code" > clientverse-evidence/submission-http-status.txt
+          if [ "$status_code" != "202" ]; then
+            echo "::error::ClientVerse submission failed (HTTP $status_code)"
             exit 1
           fi
-
-          gate="$(RESPONSE=clientverse-evidence/response.json node -e "
-            const fs = require('node:fs');
-            try {
-              const body = JSON.parse(fs.readFileSync(process.env.RESPONSE, 'utf8'));
-              process.stdout.write(String(body.release_gate ?? body.status ?? 'UNKNOWN'));
-            } catch {
-              process.stdout.write('UNPARSEABLE');
-            }
-          ")"
-          echo "gate=$gate" >> "$GITHUB_OUTPUT"
-          echo "Release gate: $gate"
+          audit_id="$(jq -er '.audit_id | select(type == "string" and startswith("aud_"))' clientverse-evidence/submission.json)"
+          echo "audit_id=$audit_id" >> "$GITHUB_OUTPUT"
+          echo "Audit accepted: $audit_id (not yet certified)"
+          # Poll the authenticated server-side verdict. The job deadline is 20 min.
+          end=$((SECONDS + 780))
+          while [ "$SECONDS" -lt "$end" ]; do
+            status_code="$(curl -sS --max-time 20 -o clientverse-evidence/status.json -w '%{http_code}' \
+              -H "Authorization: Bearer ${CLIENTVERSE_TOKEN}" \
+              "${CLIENTVERSE_ENDPOINT%/}/api/audits/$audit_id")" || status_code="000"
+            echo "$status_code" > clientverse-evidence/poll-http-status.txt
+            if [ "$status_code" != "200" ]; then
+              echo "::error::ClientVerse status read failed (HTTP $status_code)"
+              exit 1
+            fi
+            state="$(jq -r '.status // "UNKNOWN"' clientverse-evidence/status.json)"
+            verdict="$(jq -r '.decision // "UNKNOWN"' clientverse-evidence/status.json)"
+            if [ "$state" = "completed" ] || [ "$state" = "error" ]; then
+              echo "Central audit finished: state=$state decision=$verdict"
+              echo "gate=$verdict" >> "$GITHUB_OUTPUT"
+              evidence_status="$(curl -sS --max-time 60 -o clientverse-evidence/evidence.json -w '%{http_code}' \
+                -H "Authorization: Bearer ${CLIENTVERSE_TOKEN}" \
+                "${CLIENTVERSE_ENDPOINT%/}/api/audits/$audit_id/evidence")" || evidence_status="000"
+              echo "$evidence_status" > clientverse-evidence/evidence-http-status.txt
+              if [ "$evidence_status" != "200" ]; then
+                echo "::error::Unable to retain certified audit evidence (HTTP $evidence_status)"
+                exit 1
+              fi
+              # Never print raw response bodies: findings and evidence may be sensitive.
+              if [ "$state" != "completed" ]; then exit 1; fi
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "::error::ClientVerse audit timed out before a final decision"
+          exit 1
 
       - name: Preserve audit evidence
         if: always()
