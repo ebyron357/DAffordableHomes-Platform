@@ -22,7 +22,7 @@ test("/neighborhoods, a thin duplicate of /areas, redirects there in one hop", (
   assert.doesNotMatch(read(`${WEB}/app/sitemap.ts`), /"\/neighborhoods"/);
   // Its one unique passage moved, and nothing links to the old URL.
   assert.match(read(`${WEB}/app/areas/page.tsx`), /What this site will not publish about a neighborhood/);
-  for (const file of ["lib/content/homebuying-path.ts", "lib/content/next-step.ts", "lib/navigation.ts", "app/areas/page.tsx"]) {
+  for (const file of ["lib/content/homebuying-path.ts", "lib/navigation.ts", "app/areas/page.tsx"]) {
     assert.doesNotMatch(read(`${WEB}/${file}`), /href: "\/neighborhoods"|href="\/neighborhoods"/, file);
   }
 });

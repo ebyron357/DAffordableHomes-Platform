@@ -42,8 +42,9 @@ test('workspace installs are isolated and reproducible', () => {
 });
 
 test('approved photography remains wired to public pages', () => {
-  const hero = readFileSync('apps/web/components/home/hero.tsx', 'utf8');
-  const aboutHome = readFileSync('apps/web/components/home/about-debra.tsx', 'utf8');
+  // Read the components pages actually render. This used to read hero.tsx and
+  // about-debra.tsx, which no page mounted, so it passed whatever the site showed.
+  const startLanding = readFileSync('apps/web/components/landing/next-step-landing.tsx', 'utf8');
   const aboutPage = readFileSync('apps/web/app/about/page.tsx', 'utf8');
   const consultation = readFileSync('apps/web/app/consultation/page.tsx', 'utf8');
   const header = readFileSync('apps/web/components/layout/site-header.tsx', 'utf8');
@@ -53,11 +54,10 @@ test('approved photography remains wired to public pages', () => {
   const figmaHome = readFileSync('apps/web/components/home/figma-home-page.tsx', 'utf8');
   const figmaHeader = readFileSync('apps/web/components/home/figma-home-header.tsx', 'utf8');
 
-  assert.match(hero, /hero-family_b1fab939\.jpg/);
+  assert.match(startLanding, /hero-family_b1fab939\.jpg/);
   assert.match(header, /dah-logo_ff042b7b\.png/);
   assert.match(header, /daffordable-homes-official-logo\.png/);
   assert.match(figmaHeader, /daffordable-homes-official-logo\.png/);
-  assert.match(aboutHome, /debra-allen-primary-about\.webp/);
   // The homepage renders the approved assets themselves. It used to render
   // bracketed labels where the photographs belong, and this test asserted
   // that it did — which is how an audit passed over visible placeholders.

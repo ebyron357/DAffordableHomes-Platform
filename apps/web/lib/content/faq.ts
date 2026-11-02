@@ -1,5 +1,9 @@
 import { COMMON_WORRIES, CONSULTATION_TERMS } from "@/lib/content/conversion"
-import type { FaqItem } from "@/lib/content/home"
+
+export type FaqItem = {
+  question: string
+  answer: string
+}
 
 const [COST, COMMITMENT] = CONSULTATION_TERMS
 

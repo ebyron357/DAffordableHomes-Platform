@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@daffordablehomes/integrations": "workspace:*",
-    "@sanity/image-url": "^1.2.0",
     "@sanity/vision": "^4.22.0",
     "lucide-react": "^1.24.0",
     "next": "^16.2.11",
