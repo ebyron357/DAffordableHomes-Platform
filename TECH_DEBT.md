@@ -39,3 +39,33 @@
 - **Reason:** Residue of the npm-to-pnpm consolidation recorded in TD-004. CI passes because the runner has npm as well as pnpm.
 - **Recommended Fix:** Rewrite the root scripts to `pnpm --filter`, and drop the redundant `workspaces` array. Verify `pnpm test:all` and every `qa:*` script afterwards, and update `docs/12-governance/CI_PLAN.md` if the commands change.
 - **Status:** Open
+
+## TD-006 — Duplicate colour-token systems and heading scales
+
+- **Severity:** Medium
+- **Impact:** Brand drift: one colour change must be made in four places, and page headings use different size scales.
+- **Reason:** `apps/web/app/globals.css` defines `@theme --color-brand-*`, `--fh-*`, `--dh-*` and `--dah-*` with the same values, plus about 200 raw hex values; the blog uses fixed pixel heading sizes.
+- **Recommended Fix:** Alias `--fh-*`, `--dh-*` and `--dah-*` to the `@theme` tokens, replace raw hex with tokens, and define one heading scale. Verify with a pixel comparison across routes.
+- **Status:** Open (audit finding Q-13)
+
+## TD-007 — Security headers: inline-script CSP and HSTS
+
+- **Severity:** Low
+- **Impact:** The public CSP allows `script-src 'unsafe-inline'`, so it gives no backstop if an HTML-injection bug appears; the repository sets no `Strict-Transport-Security` header.
+- **Recommended Fix:** Move to a nonce-based CSP through middleware; add HSTS (after confirming what Vercel's edge already sends on the production domain).
+- **Status:** Open (audit findings Q-15, Q-16)
+
+## TD-008 — No browser tests for lead forms, visual regression or rollback
+
+- **Severity:** Medium
+- **Impact:** A client-side break in the main conversion path (`/contact`, program forms, `/start`) would not be caught; screenshots are captured but never compared; rollback is a manual checklist only.
+- **Recommended Fix:** Playwright end-to-end tests for each form (valid, invalid, server error with a mocked route); a screenshot comparison step; one rehearsed rollback recorded against a preview deployment.
+- **Status:** Open (audit findings Q-10, Q-20)
+
+## TD-009 — High advisories in build and admin tooling
+
+- **Severity:** Low
+- **Impact:** Since PR #40 (merged), `pnpm audit --prod` reports 0 critical and 24 high advisories, all in the Sanity CLI chain (adm-zip, undici, brace-expansion, vite, zod, js-yaml, markdown-it) and Next's compiler chain (postcss, nanoid, source-map-js, browserslist). None run on public routes.
+- **Recommended Fix:** Re-audit after each Sanity and Next upgrade; add `pnpm-workspace.yaml` overrides where a patched version is compatible.
+- **Status:** Open (audit finding Q-21)
+
