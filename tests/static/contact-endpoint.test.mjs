@@ -143,7 +143,8 @@ test("invalid submissions are refused before anything is sent", async () => {
         body: "name=x",
       }),
     );
-    assert.equal(notJson.status, 400);
+    // Not declared as JSON: refused before parsing (lib/request-guard.ts).
+    assert.equal(notJson.status, 415);
     assert.equal(calls.length, 0);
   });
 });
