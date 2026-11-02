@@ -177,7 +177,7 @@ const NOINDEX_ROUTES = [
   ...["/homes", "/events"].filter((route) => !sitemapRoutes.includes(route)),
 ]
 const pages = new Map()
-const browser = await chromium.launch({ executablePath: process.env.PLAYWRIGHT_CHROMIUM ?? "/opt/pw-browsers/chromium" })
+const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH ?? process.env.PLAYWRIGHT_CHROMIUM ?? "/opt/pw-browsers/chromium" })
 const context = await browser.newContext({ javaScriptEnabled: false })
 const page = await context.newPage()
 

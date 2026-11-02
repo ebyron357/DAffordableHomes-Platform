@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import { crmContactFields, deliverLead, leadWebhookUrl } from "@/lib/lead-delivery"
 import { isValidEmail } from "@/lib/lead-validation"
 import { clientIdentifier, rateLimit } from "@/lib/rate-limit"
+import { rejectCrossSite } from "@/lib/request-guard"
 
 /**
  * The message form on /contact and /consultation.
@@ -37,6 +38,9 @@ const NOT_CONFIGURED =
 const UNAVAILABLE = "Message delivery is temporarily unavailable. Please try again in a few minutes."
 
 export async function POST(request: Request) {
+  const crossSite = rejectCrossSite(request)
+  if (crossSite) return crossSite
+
   const raw = await request.json().catch(() => null)
   if (!raw || typeof raw !== "object") {
     return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 })

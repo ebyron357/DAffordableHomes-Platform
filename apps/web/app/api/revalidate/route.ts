@@ -4,6 +4,7 @@ import type { NextRequest } from "next/server"
 
 import { ARTICLE_CACHE_TAG } from "@/lib/blog/source"
 import { SANITY_REVALIDATE_SECRET } from "@/cms/env"
+import { isFreshSignature, SANITY_SIGNATURE_HEADER } from "@/lib/webhook-freshness"
 
 export const dynamic = "force-dynamic"
 
@@ -54,15 +55,20 @@ export async function POST(request: NextRequest) {
       request,
       SANITY_REVALIDATE_SECRET,
     ))
-  } catch (error) {
-    return Response.json(
-      { revalidated: false, reason: error instanceof Error ? error.message : "Invalid payload." },
-      { status: 400 },
-    )
+  } catch {
+    // Parser messages are not echoed back; they describe internals, not the fix.
+    return Response.json({ revalidated: false, reason: "Invalid payload." }, { status: 400 })
   }
 
   if (!isValidSignature) {
     return Response.json({ revalidated: false, reason: "Invalid signature." }, { status: 401 })
+  }
+
+  // The signature covers its own timestamp, so once it is valid the timestamp
+  // is authentic. Refusing old ones stops a captured request being replayed
+  // indefinitely to force revalidation.
+  if (!isFreshSignature(request.headers.get(SANITY_SIGNATURE_HEADER))) {
+    return Response.json({ revalidated: false, reason: "Stale signature." }, { status: 401 })
   }
 
   if (!REVALIDATING_TYPES.has(body?._type ?? "")) {

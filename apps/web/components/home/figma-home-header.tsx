@@ -52,8 +52,29 @@ export function FigmaHomeHeader() {
     return () => document.removeEventListener("keydown", onKeyDown)
   }, [open])
 
+  /**
+   * Closing when focus leaves the header keeps keyboard focus visible.
+   *
+   * The open menu locks body scroll, so Tab past its last link used to move
+   * focus to page content that could not scroll into view (WCAG 2.4.7). Closing
+   * here unlocks the page, and the browser brings the newly focused element
+   * into view as usual.
+   */
+  function closeWhenFocusLeaves(event: React.FocusEvent<HTMLElement>) {
+    if (!open) return
+    const next = event.relatedTarget
+    if (next instanceof Node && event.currentTarget.contains(next)) return
+    if (next === null) return
+    setOpen(false)
+    // Focus moved while the page was still scroll-locked, so the browser did not
+    // bring it into view. Do that once the lock is released on the next frame.
+    if (next instanceof HTMLElement) {
+      requestAnimationFrame(() => next.scrollIntoView({ block: "nearest" }))
+    }
+  }
+
   return (
-    <header className="fh-header">
+    <header className="fh-header" onBlur={closeWhenFocusLeaves}>
       <div className="fh-shell fh-header-inner">
         <Link href="/" className="fh-brand" aria-label="D'Affordable Homes — Home">
           {/* Current approved brand asset (640×427). Rendered at a fixed height so the

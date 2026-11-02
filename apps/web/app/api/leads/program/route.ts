@@ -3,6 +3,7 @@ import { crmContactFields, deliverLead, leadWebhookUrl } from "@/lib/lead-delive
 import { isValidEmail } from "@/lib/lead-validation"
 import { clientIdentifier, rateLimit } from "@/lib/rate-limit"
 import type { ProgramSlug } from "@/lib/programs"
+import { rejectCrossSite } from "@/lib/request-guard"
 
 const ALLOWED_PROGRAMS = new Set<ProgramSlug>(["naca", "homes-for-heroes"])
 const SOURCE_BY_PROGRAM: Record<ProgramSlug, string> = {
@@ -19,6 +20,9 @@ function isProgram(value: unknown): value is ProgramSlug {
 }
 
 export async function POST(request: Request) {
+  const crossSite = rejectCrossSite(request)
+  if (crossSite) return crossSite
+
   const raw = await request.json().catch(() => null)
   if (!raw || typeof raw !== "object") {
     return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 })
