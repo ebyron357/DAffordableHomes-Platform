@@ -65,7 +65,7 @@
 ## TD-009 — High advisories in build and admin tooling
 
 - **Severity:** Low
-- **Impact:** After PR #40, `pnpm audit --prod` reports 0 critical and 24 high advisories, all in the Sanity CLI chain (adm-zip, undici, brace-expansion, vite, zod, js-yaml, markdown-it) and Next's compiler chain (postcss, nanoid, source-map-js, browserslist). None run on public routes.
+- **Impact:** Since PR #40 (merged), `pnpm audit --prod` reports 0 critical and 24 high advisories, all in the Sanity CLI chain (adm-zip, undici, brace-expansion, vite, zod, js-yaml, markdown-it) and Next's compiler chain (postcss, nanoid, source-map-js, browserslist). None run on public routes.
 - **Recommended Fix:** Re-audit after each Sanity and Next upgrade; add `pnpm-workspace.yaml` overrides where a patched version is compatible.
 - **Status:** Open (audit finding Q-21)
 

@@ -9,7 +9,7 @@ Canonical governing standard: https://github.com/ebyron357/AI-Operating-Standard
 Legend: `[x]` verified with evidence below · `[~]` audited, open findings remain · `[ ]` not yet verified · N/A with reason.
 
 - [~] Visual consistency: typography, spacing, colors, gradients, shadows, cards and branding. *(Q-13: four duplicate colour-token systems, inconsistent heading scale.)*
-- [~] Code hygiene: duplicate components, unused imports, dead routes, conflicting CSS, obsolete packages and AI-generated debris. *(Q-11, Q-12 fixed in PR #42; duplicate footer legal data open.)*
+- [~] Code hygiene: duplicate components, unused imports, dead routes, conflicting CSS, obsolete packages and AI-generated debris. *(Q-11, Q-12 fixed in PR #42; Q-18 duplicate footer legal data open.)*
 - [x] Functional UI: no dead controls, fake charts, fabricated testimonials, production mock data, nonfunctional settings or false success messages. *(Verified; one wording item, Q-19.)*
 - [~] Responsive design and accessibility: mobile navigation, dialogs, tables, tap targets, keyboard, labels, contrast, WCAG 2.2 AA evaluation. *(Automated pass clean after PR #41; manual screen-reader and cross-browser review pending.)*
 - [~] Security: secret scanning, least-privilege server-side authorization, tenant isolation, safe rendering, protected uploads and APIs. *(Q-01, Q-03, Q-14 fixed in PR #40; Q-04, Q-15, Q-16 open.)*
@@ -36,23 +36,23 @@ Inventory and verify first. Record severity P0-P3, evidence, reproduction, root 
 
 | ID | Sev | Finding | Evidence | Status |
 | --- | --- | --- | --- | --- |
-| Q-01 | P1 | Next.js 16.2.11 had critical/high advisories (image optimizer RCE and SSRF, ISR cache poisoning, Server Actions DoS); `pnpm audit --prod` 6 critical | `apps/web/package.json`, `pnpm-lock.yaml`; image optimization enabled in `next.config.mjs` | **Fix in PR #40** — Next 16.4.3, sharp 0.35.5, DOMPurify 3.4.17; critical 6 → 0 |
+| Q-01 | P1 | Next.js 16.2.11 had critical/high advisories (image optimizer RCE and SSRF, ISR cache poisoning, Server Actions DoS); `pnpm audit --prod` 6 critical | `apps/web/package.json`, `pnpm-lock.yaml`; image optimization enabled in `next.config.mjs` | **Fixed (PR #40)** — Next 16.4.3, sharp 0.35.5, DOMPurify 3.4.17; critical 6 → 0 |
 | Q-02 | P1 | Footer "Information About Brokerage Services" links to TREC's blank form page, not the brokerage's completed IABS | `components/layout/site-footer.tsx:35`, `lib/figma-home.ts:179` | **Open** — needs verified brokerage details (TD-003, RISK-006); confirm rule with the broker |
-| Q-03 | P2 | Lead endpoints accepted cross-site `text/plain` POSTs without preflight, so any page could make visitors submit fabricated leads | `app/api/leads/*/route.ts` (no content-type or Origin check) | **Fix in PR #40** — `lib/request-guard.ts`: 415 non-JSON, 403 foreign Origin |
+| Q-03 | P2 | Lead endpoints accepted cross-site `text/plain` POSTs without preflight, so any page could make visitors submit fabricated leads | `app/api/leads/*/route.ts` (no content-type or Origin check) | **Fixed (PR #40)** — `lib/request-guard.ts`: 415 non-JSON, 403 foreign Origin |
 | Q-04 | P2 | Rate limit is in-memory per instance; resets on cold start and scale-out | `lib/rate-limit.ts:44` | **Open** — RISK-004; needs a durable store or Vercel WAF rule |
 | Q-05 | P2 | Lead delivery has one 8s attempt, no retry, no failure log, no idempotency key; slow CRM replies can create duplicates | `lib/lead-delivery.ts:75-88` | **Open** — RISK-005 |
-| Q-06 | P2 | Wide tables not keyboard-scrollable on phones (axe `scrollable-region-focusable`, WCAG 2.1.1) | `components/blog/blocks.tsx:165`, `components/calculators/homebuyer-calculators.tsx:319` | **Fix in PR #41** |
-| Q-07 | P2 | Focus left the open mobile menu and landed off-screen behind the scroll lock (WCAG 2.4.7) | `components/home/figma-home-header.tsx:30` | **Fix in PR #41** |
-| Q-08 | P2 | No automated accessibility scan in CI | no axe usage in `.github`, `scripts`, `tests` | **Fix in PR #41** — `pnpm qa:a11y`, 44 scans, 0 violations |
-| Q-09 | P2 | SEO audit not in CI and read the wrong browser-path variable | `scripts/qa/seo-audit.mjs:180` | **Fix in PR #40** |
+| Q-06 | P2 | Wide tables not keyboard-scrollable on phones (axe `scrollable-region-focusable`, WCAG 2.1.1) | `components/blog/blocks.tsx:165`, `components/calculators/homebuyer-calculators.tsx:319` | **Fixed (PR #41)** |
+| Q-07 | P2 | Focus left the open mobile menu and landed off-screen behind the scroll lock (WCAG 2.4.7) | `components/home/figma-home-header.tsx:30` | **Fixed (PR #41)** |
+| Q-08 | P2 | No automated accessibility scan in CI | no axe usage in `.github`, `scripts`, `tests` | **Fixed (PR #41)** — `pnpm qa:a11y`, 44 scans, 0 violations, runs in Browser QA |
+| Q-09 | P2 | SEO audit not in CI and read the wrong browser-path variable | `scripts/qa/seo-audit.mjs:180` | **Fixed (PR #40)** — `pnpm qa:seo` runs in Browser QA |
 | Q-10 | P2 | No browser test submits any lead form | `scripts/qa/*` | **Open** — TD-008 |
-| Q-11 | P2 | 13 unrendered components (~640 lines), unused data, `src/lib/integration-status.ts`, unused `@sanity/image-url`, dead CSS | no importers | **Fix in PR #42** — 63/63 screenshots pixel-identical |
-| Q-12 | P2 | Photography test read components no page renders, so it gave false assurance | `tests/static/repository.test.mjs:44-46` | **Fix in PR #42** |
+| Q-11 | P2 | 13 unrendered components (~640 lines), unused data, `src/lib/integration-status.ts`, unused `@sanity/image-url`, dead CSS | no importers | **Fixed (PR #42)** — 63/63 screenshots pixel-identical |
+| Q-12 | P2 | Photography test read components no page renders, so it gave false assurance | `tests/static/repository.test.mjs:44-46` | **Fixed (PR #42)** |
 | Q-13 | P2 | Four parallel colour-token systems with the same values, ~200 raw hex values, inconsistent heading scale | `app/globals.css` (`@theme`, `--fh-*`, `--dh-*`, `--dah-*`) | **Open** — TD-006 |
-| Q-14 | P3 | Revalidate webhook accepted valid signatures of any age and echoed parser errors | `app/api/revalidate/route.ts:53-62` | **Fix in PR #40** — 5-minute window, generic error |
+| Q-14 | P3 | Revalidate webhook accepted valid signatures of any age and echoed parser errors | `app/api/revalidate/route.ts:53-62` | **Fixed (PR #40)** — 5-minute window, generic error |
 | Q-15 | P3 | Public CSP allows `script-src 'unsafe-inline'` | `next.config.mjs:37` | **Open** — TD-007 |
 | Q-16 | P3 | No HSTS header in repository config | `next.config.mjs`, `vercel.json` | **Open** — TD-007; check whether Vercel's edge adds it |
-| Q-17 | P3 | Contact form gave one generic error and no per-field `aria-invalid` (WCAG 3.3.1) | `components/contact/contact-form.tsx:145-152` | **Fix in PR #41** |
+| Q-17 | P3 | Contact form gave one generic error and no per-field `aria-invalid` (WCAG 3.3.1) | `components/contact/contact-form.tsx:145-152` | **Fixed (PR #41)** |
 | Q-18 | P3 | Footer legal links duplicated in two modules | `site-footer.tsx:32`, `lib/figma-home.ts:179` | **Open** |
 | Q-19 | P3 | `/testimonials` heading implies stories exist; the page has none yet (the status strip is honest) | `app/testimonials/page.tsx:56` | **Open** — reword or remove from nav until a verified story exists |
 | Q-20 | P3 | No visual regression, post-deploy smoke test or rollback drill | `docs/12-governance/ROLLBACK_CHECKLIST.md` is manual only | **Open** — TD-008 |
@@ -76,5 +76,6 @@ Inventory and verify first. Record severity P0-P3, evidence, reproduction, root 
 - `clientverse-audit` workflow (needs its external service).
 
 ## Change log
-- 2026-11-02 — First audit pass recorded (Q-01 to Q-21). Fixes opened as PRs #40 (security), #41 (accessibility) and #42 (cleanup); statuses above say "Fix in PR" until those merge.
+- 2026-11-02 — PRs #40 (security), #41 (accessibility) and #42 (cleanup) merged: Q-01, Q-03, Q-06, Q-07, Q-08, Q-09, Q-11, Q-12, Q-14 and Q-17 fixed. Open: Q-02, Q-04, Q-05, Q-10, Q-13, Q-15, Q-16, Q-18, Q-19, Q-20, Q-21.
+- 2026-11-02 — First audit pass recorded (Q-01 to Q-21) against `main` at `1ede04f`.
 - 2026-10-28 — Standard adopted (PR #38). Status: NOT INSPECTED.

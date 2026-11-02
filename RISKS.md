@@ -24,7 +24,7 @@
 - **Likelihood:** Medium
 - **Impact:** High
 - **Mitigation:** Build with accessible components, add automated accessibility tests early, and schedule manual WCAG 2.2 AA review before launch.
-- **Progress (2026-11-02):** Automated axe-core WCAG 2.0–2.2 A/AA scan of 22 routes at two widths added to CI (`pnpm qa:a11y`, PR #41), with the three issues the first audit found fixed (Q-06, Q-07, Q-17 in `docs/AI_SOFTWARE_QUALITY_ADOPTION.md`). Manual screen-reader, 400% zoom and cross-browser review are still outstanding.
+- **Progress (2026-11-02):** Automated axe-core WCAG 2.0–2.2 A/AA scan of 22 routes at two widths added to CI (`pnpm qa:a11y`, merged in PR #41), with the three issues the first audit found fixed (Q-06, Q-07, Q-17 in `docs/AI_SOFTWARE_QUALITY_ADOPTION.md`). Manual screen-reader, 400% zoom and cross-browser review are still outstanding.
 - **Current Status:** Open (manual review pending)
 - **Owner:** Engineering
 
