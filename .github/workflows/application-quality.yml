@@ -88,6 +88,10 @@ jobs:
       - name: Route crawl, structure and responsive audit
         run: pnpm qa:audit
 
+      # Canonicals, sitemap, robots, redirects and JSON-LD on every route.
+      - name: SEO, AEO and structured data
+        run: pnpm qa:seo
+
       - name: Scroll Craft entry and fallbacks
         run: node scripts/scroll-craft-qa.mjs
 
@@ -96,6 +100,10 @@ jobs:
 
       - name: Portrait crop safety
         run: pnpm qa:faces
+
+      # axe-core WCAG 2.0-2.2 A/AA rules on public routes at 390px and 1280px.
+      - name: Accessibility scan (axe)
+        run: pnpm qa:a11y
 
       - name: Upload QA evidence
         if: always()

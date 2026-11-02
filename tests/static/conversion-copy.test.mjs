@@ -191,7 +191,12 @@ test("the forms explain themselves, and the program form keeps its boundary and 
   }
   // Help text is tied to its field, not floating beside it.
   assert.match(contact, /aria-describedby=\{phoneHelpId\}/);
-  assert.match(contact, /aria-describedby=\{messageHelpId\}/);
+  // The message help stays linked; a field error is added to it when shown.
+  assert.match(contact, /aria-describedby=\{invalid\.message \? `\$\{messageHelpId\} \$\{messageErrId\}` : messageHelpId\}/);
+  // Each required field says what is wrong with it (WCAG 3.3.1).
+  for (const name of ["name", "email", "message"]) {
+    assert.match(contact, new RegExp(`aria-invalid=\\{invalid\\.${name} \\? true : undefined\\}`), `${name} aria-invalid`);
+  }
   assert.match(program, /aria-describedby=\{`\$\{formId\}-phone-help`\}/);
   assert.match(program, /Only your name, email and phone are required/);
 

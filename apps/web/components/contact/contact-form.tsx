@@ -8,6 +8,21 @@ import { CONSULTATION_TERMS, FORM_PRIVACY } from "@/lib/content/conversion"
 
 type Status = "idle" | "invalid" | "submitting" | "success" | "error" | "unavailable"
 
+type FieldName = "name" | "email" | "message"
+type FieldErrors = Partial<Record<FieldName, string>>
+
+/** Says which required field is wrong and why, so the form meets WCAG 3.3.1. */
+function fieldErrors(form: HTMLFormElement): FieldErrors {
+  const errors: FieldErrors = {}
+  const control = (name: FieldName) => form.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement | null
+  if (control("name")?.validity.valueMissing) errors.name = "Enter your name."
+  const email = control("email")?.validity
+  if (email?.valueMissing) errors.email = "Enter your email address."
+  else if (email?.typeMismatch) errors.email = "Enter an email address in the form name@example.com."
+  if (control("message")?.validity.valueMissing) errors.message = "Tell Debra what you'd like help with."
+  return errors
+}
+
 function field(form: FormData, name: string): string {
   const value = form.get(name)
   return typeof value === "string" ? value : ""
@@ -30,9 +45,13 @@ export function ContactForm({
   const phoneHelpId = useId()
   const messageHelpId = useId()
   const errId = useId()
+  const nameErrId = useId()
+  const emailErrId = useId()
+  const messageErrId = useId()
   const honeypotId = useId()
   const [status, setStatus] = useState<Status>("idle")
   const [error, setError] = useState("")
+  const [invalid, setInvalid] = useState<FieldErrors>({})
   const [startedAt] = useState(() => Date.now())
   // The success message replaces the form, taking the focused button with it.
   // Focus moves to the message so keyboard and screen-reader users land on it.
@@ -48,10 +67,12 @@ export function ContactForm({
     event.preventDefault()
     const form = event.currentTarget
     if (!form.checkValidity()) {
+      setInvalid(fieldErrors(form))
       setStatus("invalid")
       form.reportValidity()
       return
     }
+    setInvalid({})
 
     const data = new FormData(form)
     setStatus("submitting")
@@ -173,8 +194,11 @@ export function ContactForm({
           type="text"
           required
           autoComplete="name"
+          aria-invalid={invalid.name ? true : undefined}
+          aria-describedby={invalid.name ? nameErrId : undefined}
           className="min-h-12 rounded-md border border-input bg-card px-4 py-2.5 text-sm text-foreground"
         />
+        {invalid.name && <p id={nameErrId} className="text-sm text-destructive">{invalid.name}</p>}
       </div>
 
       {context === "consultation" && <div className="grid gap-5 sm:grid-cols-2">
@@ -194,8 +218,11 @@ export function ContactForm({
           type="email"
           required
           autoComplete="email"
+          aria-invalid={invalid.email ? true : undefined}
+          aria-describedby={invalid.email ? emailErrId : undefined}
           className="min-h-12 rounded-md border border-input bg-card px-4 py-2.5 text-sm text-foreground"
         />
+        {invalid.email && <p id={emailErrId} className="text-sm text-destructive">{invalid.email}</p>}
       </div>
 
       <div className="flex flex-col gap-2">
@@ -222,9 +249,11 @@ export function ContactForm({
           name="message"
           required
           rows={5}
-          aria-describedby={messageHelpId}
+          aria-invalid={invalid.message ? true : undefined}
+          aria-describedby={invalid.message ? `${messageHelpId} ${messageErrId}` : messageHelpId}
           className="rounded-md border border-input bg-card px-4 py-2.5 text-sm text-foreground"
         />
+        {invalid.message && <p id={messageErrId} className="text-sm text-destructive">{invalid.message}</p>}
       </div>
 
       {status === "unavailable" ? (

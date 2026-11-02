@@ -161,8 +161,14 @@ function ComparisonTable({
       <h2 id={headingId} className="mt-3 font-serif text-[26px] leading-tight sm:text-[30px]">
         {heading}
       </h2>
-      {/* Horizontal scroll is confined to the table, never the page body. */}
-      <div className="mt-6 -mx-6 overflow-x-auto px-6 sm:mx-0 sm:px-0">
+      {/* Horizontal scroll is confined to the table, never the page body. The
+          wrapper is focusable so keyboard users can scroll it too (WCAG 2.1.1). */}
+      <div
+        className="mt-6 -mx-6 overflow-x-auto px-6 sm:mx-0 sm:px-0"
+        tabIndex={0}
+        role="region"
+        aria-labelledby={headingId}
+      >
         <table className="w-full min-w-[34rem] border-collapse text-left text-[15px]">
           {caption && (
             <caption className="caption-bottom pt-4 text-left text-sm leading-6 text-muted-foreground">

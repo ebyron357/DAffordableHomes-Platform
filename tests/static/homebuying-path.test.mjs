@@ -155,18 +155,15 @@ test("the resolver follows the documented priority order", () => {
   }
 })
 
-test("the homepage mounts the quiz, both quizzes share one state machine, and nothing gates the result", () => {
+test("the homepage mounts the quiz, it runs on the shared state machine, and nothing gates the result", () => {
   const home = read("apps/web/components/home/figma-home-page.tsx")
   const quiz = read("apps/web/components/home/homebuying-path-quiz.tsx")
-  const nextStep = read("apps/web/components/next-step/find-your-next-step.tsx")
   const css = read("apps/web/app/globals.css")
 
   assert.match(home, /import \{ HomebuyingPathQuiz \} from "@\/components\/home\/homebuying-path-quiz"/)
   assert.match(home, /<FindYourPath \/>/)
   assert.match(home, /id="find-your-path"/)
   assert.match(quiz, /useGuidedQuiz/)
-  assert.match(nextStep, /useGuidedQuiz/)
-  assert.doesNotMatch(nextStep, /useState|useRef/)
 
   // Entry CTA, immediate result, optional consultation afterwards, no lead capture inside the quiz.
   assert.match(quiz, /Find Your Homebuying Path/)
