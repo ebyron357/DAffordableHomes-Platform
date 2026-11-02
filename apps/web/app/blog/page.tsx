@@ -11,7 +11,7 @@ import { formatArticleDate } from "@/lib/blog/format"
 import { listArticles } from "@/lib/blog/source"
 import type { ArticleSummary } from "@/lib/blog/types"
 import { SITE } from "@/lib/site"
-import { SHARE_IMAGES } from "@/lib/seo"
+import { OPEN_GRAPH_BASE } from "@/lib/seo"
 
 /**
  * Blog index, driven entirely by the CMS.
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
       "Clear, practical homebuyer guides for Garland and Dallas–Fort Worth, with visible sources and honest program boundaries.",
     url: "/blog",
     type: "website",
-    ...SHARE_IMAGES,
+    ...OPEN_GRAPH_BASE,
   },
 }
 

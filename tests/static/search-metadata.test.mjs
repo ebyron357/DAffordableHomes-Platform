@@ -46,7 +46,7 @@ test('the layout does not give every page the same share text or URL', () => {
   assert.doesNotMatch(tw, /\bdescription:/, 'layout twitter must not set a description');
   // "./" resolves per route, like the canonical; SITE.url pointed og:url at "/".
   assert.match(og, /url: "\.\/"/);
-  assert.match(og, /\.\.\.SHARE_IMAGES/);
+  assert.match(og, /\.\.\.OPEN_GRAPH_BASE/);
 });
 
 test('the layout sets no site-wide robots directive', () => {
@@ -60,9 +60,23 @@ test('every route that declares openGraph also declares its image', () => {
   // A route's `openGraph` replaces the layout's wholesale, images included.
   const offenders = pages()
     .filter(([, source]) => /openGraph:\s*\{/.test(source))
-    .filter(([, source]) => !/SHARE_IMAGES|images:/.test(source.slice(source.indexOf('openGraph'))))
+    .filter(([, source]) => !/OPEN_GRAPH_BASE|SHARE_IMAGES|images:/.test(source.slice(source.indexOf('openGraph'))))
     .map(([route]) => route);
   assert.deepEqual(offenders, [], `routes with openGraph but no image: ${offenders.join(', ')}`);
+});
+
+test('every route that declares openGraph keeps the site name and locale', () => {
+  // The same replacement dropped og:site_name from the homepage, the program
+  // pages, /blog, /start, /resources and the Garland guide.
+  const offenders = pages()
+    .filter(([, source]) => /openGraph:\s*\{/.test(source))
+    .filter(([, source]) => {
+      const og = source.slice(source.indexOf('openGraph'))
+      return !/OPEN_GRAPH_BASE/.test(og) && !(/siteName:/.test(og) && /locale:/.test(og))
+    })
+    .map(([route]) => route);
+  assert.deepEqual(offenders, [], `routes with openGraph but no site name or locale: ${offenders.join(', ')}`);
+  assert.match(read('apps/web/lib/seo.ts'), /OPEN_GRAPH_BASE = \{ siteName: SITE\.name, locale: "en_US", \.\.\.SHARE_IMAGES \}/);
 });
 
 test('the share card exists at the size the metadata declares', () => {

@@ -99,8 +99,8 @@ const RESOURCE_LIBRARY: Record<string, Recommendation> = {
     description: "Introductory information about the NACA process and what to expect.",
   },
   area: {
-    href: "/neighborhoods",
-    title: "Neighborhood guides",
+    href: "/areas",
+    title: "North Texas area guides",
     description: "Get to know the area with neutral, verified local context.",
   },
   roadmap: {

@@ -20,7 +20,9 @@
     "qa:faces": "node scripts/qa/face-safety.mjs",
     "qa:quiz": "node scripts/qa/quiz-e2e.mjs",
     "qa:contrast": "node scripts/check-contrast.mjs",
-    "qa:serve": "sh scripts/qa/serve.sh"
+    "qa:serve": "sh scripts/qa/serve.sh",
+    "qa:seo": "node scripts/qa/seo-audit.mjs",
+    "seo:indexnow": "node scripts/seo/indexnow.mjs"
   },
   "engines": {
     "node": "24.x"

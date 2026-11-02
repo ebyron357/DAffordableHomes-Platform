@@ -97,7 +97,7 @@ export default function CalculatorHubPage() {
           eyebrowIcon={Calculator}
           title="The three questions buyers ask first"
           titleId="calculators-primary-heading"
-          lede="What will it cost each month, what can I sensibly spend, and how much cash do I need on the day. Answer these and the rest of the search gets much calmer."
+          lede="What will it cost each month, what can I sensibly spend, and how much cash do I need on the day. Don't have a price in mind yet? Start with affordability. Already looking at a home? Start with the monthly payment."
         />
         <Features items={PRIMARY} rule="teal" />
       </Band>

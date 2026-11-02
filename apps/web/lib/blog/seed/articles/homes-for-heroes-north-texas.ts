@@ -105,7 +105,7 @@ export const heroesArticle: Article = {
   sources: articleSources,
   notice: richText(
     p(
-      "Homes for Heroes is a third-party program. This article does not guarantee enrollment, eligibility, specialist status, rewards, rebates, savings, or transaction results. D'Affordable Homes should not be represented as officially affiliated unless verified documentation is published.",
+      "Homes for Heroes is a third-party program. This article does not guarantee enrollment, eligibility, specialist status, rewards, rebates, savings, or transaction results, and D'Affordable Homes does not claim an affiliation with the program.",
     ),
   ),
   relatedLinks: [
@@ -266,7 +266,7 @@ export const heroesArticle: Article = {
           "Whether taxes, lender restrictions, or other conditions apply",
         ),
         p(
-          "The D'Affordable Homes page provides hero-focused real-estate guidance. It does not publish an unverified affiliation or promise a savings amount.",
+          "The D'Affordable Homes page provides hero-focused real-estate guidance. It does not claim an affiliation with Homes for Heroes or promise a savings amount.",
         ),
       ),
     ),
@@ -307,7 +307,7 @@ export const heroesArticle: Article = {
       "Program boundary",
       richText(
         p(
-          "Homes for Heroes is a third-party program. This article does not guarantee enrollment, eligibility, specialist status, rewards, rebates, savings, or transaction results. D'Affordable Homes should not be represented as officially affiliated unless verified documentation is published.",
+          "Homes for Heroes is a third-party program. This article does not guarantee enrollment, eligibility, specialist status, rewards, rebates, savings, or transaction results, and D'Affordable Homes does not claim an affiliation with the program.",
         ),
       ),
     ),

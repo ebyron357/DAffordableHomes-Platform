@@ -26,8 +26,8 @@ one-page version for when you just need reminding.
 | Home | `/` | The entry point: who you are, who the site is for, and the quiz |
 | Finding your path | `/start`, `/first-time-buyers`, `/programs`, `/programs/naca`, `/programs/homes-for-heroes` | Helps a visitor work out which route fits them |
 | Planning numbers | `/calculators` and five calculators — affordability, closing costs, down payment, mortgage payment, rent vs buy | Lets someone plan before they ever speak to you |
-| Learning | `/blog` and three long-form guides, `/resources`, `/faq`, `/market-reports`, `/events` | The educational core |
-| Local | `/areas`, `/areas/garland`, `/neighborhoods`, `/homes` | Local content focus, carefully worded — see Part 4 |
+| Learning | `/blog` and three long-form guides, `/resources`, `/faq`, `/market-reports`, `/events` | The educational core. `/events` appears in search results once a confirmed session is added to `apps/web/lib/content/events.ts` |
+| Local | `/areas`, `/areas/garland`, `/homes` | Local content focus, carefully worded — see Part 4. `/neighborhoods` now redirects to `/areas`; `/homes` stays out of search results until a live listings feed is connected |
 | Getting in touch | `/consultation`, `/contact`, `/testimonials` | Where a ready visitor goes |
 | Required notices | `/privacy`, `/terms`, `/accessibility`, `/fair-housing`, `/equal-housing-opportunity` | Legal and compliance pages |
 

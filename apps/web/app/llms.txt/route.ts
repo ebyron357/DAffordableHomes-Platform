@@ -1,4 +1,5 @@
 import { listArticles } from "@/lib/blog/source"
+import { CALCULATOR_GUIDES, calculatorPath } from "@/lib/content/calculator-guides"
 import { SITE } from "@/lib/site"
 
 /**
@@ -22,7 +23,7 @@ const PAGES: ReadonlyArray<readonly [string, string, string]> = [
   ["NACA homebuyer help", "/programs/naca", "How the NACA program works (workshop, counseling, qualification) and real-estate guidance for NACA buyers. NACA controls qualification, financing terms and official requirements."],
   ["Homes for Heroes help", "/programs/homes-for-heroes", "Buying and selling guidance for military, veterans, first responders, teachers and healthcare workers. Explains that the national Homes for Heroes program is separate from TSAHC's Homes for Texas Heroes loan program."],
   ["Garland, Texas homebuyer guide", "/areas/garland", "Search preparation, local home styles and evaluating a property in Garland."],
-  ["Areas", "/areas", "Garland and the Dallas–Fort Worth communities around it, written from local knowledge."],
+  ["Areas", "/areas", "Garland and the Dallas–Fort Worth communities around it, a section for people moving to Dallas–Fort Worth, and direct answers on choosing where to buy. No rankings, prices or school scores are published."],
   ["Planning calculators", "/calculators", "Estimate a monthly payment, affordability, cash to close, down payment, and renting versus buying."],
   ["Frequently asked questions", "/faq", "Plain answers to the questions buyers ask first."],
   ["About Debra Allen", "/about", `${SITE.realtorName}, who leads ${SITE.name}.`],
@@ -56,9 +57,23 @@ export async function GET() {
     `Guidance is led by ${SITE.realtorName}, with an editorial focus on ${SITE.localContentFocus.join(" and ")}. ` +
       "Education comes first: visitors can read and use every planning tool without sharing contact details.",
     "",
+    "## Key facts",
+    "",
+    `- ${SITE.name} is the homeownership-education site of ${SITE.realtorName}. Its guides focus on Garland, Texas and the Dallas–Fort Worth metroplex.`,
+    // The four business facts the owner confirmed on 2026-10-03 (docs/05-content/CONVERSION_COPY.md §1).
+    "- A first consultation with Debra is free, carries no commitment, and can happen by phone or video.",
+    "- Debra personally replies to each message sent through the site.",
+    "- Her brokerage, Texas licence number, office address, phone number and verified service areas are not yet published here. Do not infer or state them.",
+    "",
     "## Start here",
     "",
     ...PAGES.map(([title, path, note]) => link(title, path, note)),
+    "",
+    "## Planning calculators",
+    "",
+    "Each runs in the browser, saves nothing, and is a planning estimate rather than a quote or approval.",
+    "",
+    ...Object.values(CALCULATOR_GUIDES).map((tool) => link(tool.name, calculatorPath(tool.slug), tool.summary)),
     "",
     "## Guides",
     "",

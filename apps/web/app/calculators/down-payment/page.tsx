@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { DownPaymentPlanner } from "@/components/calculators/homebuyer-calculators"
+import { CalculatorGuide, calculatorCrumbs } from "@/components/calculators/calculator-guide"
 import { PageHeader } from "@/components/page/page-header"
 import { Section } from "@/components/page/section"
 
@@ -15,12 +16,14 @@ export default function DownPaymentPlannerPage() {
     <>
       <PageHeader
         eyebrow="Planning tool"
+        crumbs={calculatorCrumbs("down-payment")}
         title="Down payment calculator and planner"
         description="Estimate down payment, closing costs, and other cash needed."
       />
       <Section>
         <DownPaymentPlanner />
       </Section>
+      <CalculatorGuide slug="down-payment" />
     </>
   )
 }

@@ -31,8 +31,11 @@ test('program values and lead-source labels remain normalized', () => {
   assert.match(programs, /type ProgramSlug = "naca" \| "homes-for-heroes"/);
   assert.match(programs, /NACA Landing Page/);
   assert.match(programs, /Homes for Heroes Landing Page/);
-  assert.match(endpoint, /PROGRAM_LEAD_WEBHOOK_URL/);
-  assert.match(endpoint, /GHL_PROGRAM_LEAD_WEBHOOK_URL/);
+  // Both names are honoured, through the shared destination list.
+  const delivery = readFileSync('apps/web/lib/lead-delivery.ts', 'utf8');
+  const programDestinations = delivery.slice(delivery.indexOf('program: ['), delivery.indexOf(']', delivery.indexOf('program: [')));
+  assert.match(programDestinations, /"PROGRAM_LEAD_WEBHOOK_URL", "GHL_PROGRAM_LEAD_WEBHOOK_URL"/);
+  assert.match(endpoint, /leadWebhookUrl\("program"\)/);
   assert.match(form, /program === "naca" \? "buying"/);
   assert.match(form, /utm_source/);
   assert.match(form, /utm_medium/);

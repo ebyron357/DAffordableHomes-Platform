@@ -14,7 +14,11 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <>
-      <PageHeader eyebrow="Policies" title="Terms of Use" />
+      <PageHeader
+        eyebrow="Policies"
+        title="Terms of Use"
+        crumbs={[{ label: "Home", href: "/" }, { label: "Terms of Use" }]}
+      />
       <Section>
         <Container>
           <Prose>

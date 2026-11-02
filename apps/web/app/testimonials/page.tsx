@@ -64,7 +64,7 @@ export default function TestimonialsPage() {
         <StatusStrip icon={ShieldCheck} title="Verified reviews only">
           <p>
             We do not publish invented or placeholder testimonials. Real, consented stories — and any connected Google
-            reviews — will appear here as they are confirmed for release.
+            reviews — will appear here as they are confirmed.
           </p>
         </StatusStrip>
       </Band>

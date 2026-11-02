@@ -1,14 +1,32 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { bookingEmbed } from './lib/ghl-booking.mjs';
+
 const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+
+/**
+ * The GoHighLevel booking calendar's origin, when `GHL_BOOKING_URL` holds a
+ * valid booking link; otherwise nothing is added. Read with the same parser the
+ * /consultation page uses (lib/ghl-booking.mjs), so the frame the page renders
+ * is always one this policy allows.
+ */
+const booking = bookingEmbed();
+const frameSources = [
+  "'self'",
+  'https://www.youtube-nocookie.com',
+  'https://player.vimeo.com',
+  ...(booking ? [booking.origin] : [])
+];
 
 /**
  * Public-site Content Security Policy.
  *
  * Deliberately strict: no `unsafe-eval`, no third-party script origins. The
- * only additions over the previous policy are the frame origins needed by the
- * CMS video-embed block, which renders privacy-friendly players.
+ * only additions over the original policy are frame origins: the
+ * privacy-friendly players the CMS video-embed block renders, and the
+ * GoHighLevel booking calendar when one is configured. The calendar runs inside
+ * its own frame, so no GoHighLevel script, style or connection is allowed here.
  */
 const publicContentSecurityPolicy = [
   "default-src 'self'",
@@ -20,7 +38,7 @@ const publicContentSecurityPolicy = [
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' data:",
   "connect-src 'self'",
-  "frame-src 'self' https://www.youtube-nocookie.com https://player.vimeo.com",
+  `frame-src ${frameSources.join(' ')}`,
   "object-src 'none'",
   'upgrade-insecure-requests'
 ].join('; ');
@@ -116,7 +134,9 @@ const nextConfig = {
       { source: '/resources/calculators/closing-costs', destination: '/calculators/closing-costs', permanent: true },
       { source: '/resources/calculators/down-payment', destination: '/calculators/down-payment', permanent: true },
       { source: '/resources/calculators/mortgage-payment', destination: '/calculators/mortgage-payment', permanent: true },
-      { source: '/calculator', destination: '/calculators/mortgage-payment', permanent: true }
+      { source: '/calculator', destination: '/calculators/mortgage-payment', permanent: true },
+      { source: '/naca', destination: '/programs/naca', permanent: true },
+      { source: '/neighborhoods', destination: '/areas', permanent: true }
     ];
   }
 };

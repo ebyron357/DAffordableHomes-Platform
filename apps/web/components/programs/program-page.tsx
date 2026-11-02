@@ -13,18 +13,12 @@ import { PageHeader } from "@/components/page/page-header"
 import { DEBRA_DESK } from "@/lib/content/imagery"
 import { Band, BandLead, QaList, Split, StatusStrip, Steps } from "@/components/page/editorial"
 import { ProgramLeadForm } from "@/components/programs/program-lead-form"
+import { ArrowLink } from "@/components/page/arrow-link"
+import { JsonLd } from "@/components/seo/json-ld"
 import { LOCAL_MARKET, verifiedAreaServedSchema } from "@/lib/local-market"
 import type { ProgramDefinition } from "@/lib/programs"
 import { SITE } from "@/lib/site"
-
-function JsonLd({ value }: { value: Record<string, unknown> }) {
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(value).replace(/</g, "\\u003c") }}
-    />
-  )
-}
+import { CONSULTATION_REASSURANCE } from "@/lib/content/conversion"
 
 /**
  * Shared program page.
@@ -48,12 +42,9 @@ export function ProgramPage({ program }: { program: ProgramDefinition }) {
     name: program.name,
     description: program.summary,
     url: `${SITE.url}${path}`,
-    provider: {
-      "@type": "Person",
-      name: SITE.realtorName,
-      url: `${SITE.url}/about`,
-      worksFor: { "@type": "Organization", name: SITE.name, url: SITE.url },
-    },
+    // The site-wide Person from the layout graph, by reference. An inline
+    // Person named "Debra Allen, REALTOR®" read as a second, unrelated entity.
+    provider: { "@id": `${SITE.url}/#debra-allen` },
     serviceType: "Real-estate buyer and seller guidance",
   }
   if (areas.length > 0) serviceSchema.areaServed = areas
@@ -68,21 +59,10 @@ export function ProgramPage({ program }: { program: ProgramDefinition }) {
     })),
   }
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
-      { "@type": "ListItem", position: 2, name: "Programs", item: `${SITE.url}/programs` },
-      { "@type": "ListItem", position: 3, name: program.name, item: `${SITE.url}${path}` },
-    ],
-  }
-
   return (
     <>
       <JsonLd value={serviceSchema} />
       <JsonLd value={faqSchema} />
-      <JsonLd value={breadcrumbSchema} />
 
       <PageHeader
         eyebrow={program.eyebrow}
@@ -99,6 +79,7 @@ export function ProgramPage({ program }: { program: ProgramDefinition }) {
           { label: "Real-estate role only", icon: ShieldCheck },
         ]}
         motif="keys"
+        note={CONSULTATION_REASSURANCE}
       >
         <Link href="#program-contact" className="dh-btn dh-btn-gold">
           {program.primaryCta}
@@ -130,6 +111,19 @@ export function ProgramPage({ program }: { program: ProgramDefinition }) {
             </li>
           ))}
         </ul>
+        {program.stageGuide && (
+          <div className="dh-stage-guide">
+            <h3>Your next step, by stage</h3>
+            <dl>
+              {program.stageGuide.map((item) => (
+                <div key={item.stage}>
+                  <dt>{item.stage}</dt>
+                  <dd>{item.next}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )}
       </Band>
 
       <Band tone="alt" aria-labelledby="support-heading">
@@ -148,6 +142,7 @@ export function ProgramPage({ program }: { program: ProgramDefinition }) {
             Debra&apos;s role
           </p>
           <h2 id="support-heading">{program.supportTitle}</h2>
+          {program.supportLede && <p>{program.supportLede}</p>}
           <ul className="dh-checklist">
             {program.supportItems.map((item) => (
               <li key={item.title}>
@@ -204,6 +199,13 @@ export function ProgramPage({ program }: { program: ProgramDefinition }) {
               Official program rules can change. These answers explain Debra&apos;s real-estate role and identify what
               has to be confirmed with the program or another licensed professional.
             </p>
+            {program.relatedGuide && (
+              <ul className="dh-band-links">
+                <li>
+                  <ArrowLink href={program.relatedGuide.href} label={program.relatedGuide.label} />
+                </li>
+              </ul>
+            )}
           </div>
           <QaList items={program.faqs} />
         </div>
@@ -222,7 +224,7 @@ export function ProgramPage({ program }: { program: ProgramDefinition }) {
                 The form captures the program, your location preferences, timeline and contact consent, so the follow-up
                 starts with useful context instead of starting over.
               </p>
-              <StatusStrip icon={ShieldCheck} title="What this page does not decide">
+              <StatusStrip icon={ShieldCheck} title="Where the program's rules come from">
                 <p>{program.disclaimer}</p>
               </StatusStrip>
             </div>

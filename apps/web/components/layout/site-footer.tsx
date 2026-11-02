@@ -18,7 +18,8 @@ import { SITE } from "@/lib/site"
  *   1. Brand band — logo, promise, primary next action. The band is the light
  *      page surface, which is what lets the opaque logo PNG sit flush instead
  *      of on the white plate it used to need against navy.
- *   2. Navigation band.
+ *   2. Navigation band. Every indexable page that matters to a buyer is
+ *      linked here, so none depends on one in-content link to be found.
  *   3. Vendor credit.
  *   4. A small compliance row: the two TREC notices Texas practice requires to
  *      be reachable, plus the policy pages. Reachable and legible, and no
@@ -140,6 +141,12 @@ export function SiteFooter() {
                 <Link href="/calculators/closing-costs">Cash to close</Link>
               </li>
               <li>
+                <Link href="/calculators/down-payment">Down payment plan</Link>
+              </li>
+              <li>
+                <Link href="/calculators/rent-vs-buy">Rent or buy</Link>
+              </li>
+              <li>
                 <Link href="/calculators">All planning tools</Link>
               </li>
             </ul>
@@ -155,6 +162,12 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link href="/programs">Homebuyer programs</Link>
+              </li>
+              <li>
+                <Link href="/programs/naca">NACA homebuyer help</Link>
+              </li>
+              <li>
+                <Link href="/programs/homes-for-heroes">Homes for Heroes</Link>
               </li>
               <li>
                 <Link href="/areas/garland">Garland area guide</Link>

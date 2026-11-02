@@ -27,7 +27,9 @@ export const FIGMA_HOME_NAV = [
 ] as const
 
 export const FIGMA_HOME_CTA = {
-  searchHomes: { label: "Search Homes", href: "/homes" },
+  // The header's one button. It was "Search Homes", which opened a page with
+  // no listings feed connected; the interior header already says this.
+  talkWithDebra: { label: "Talk with Debra", href: "/consultation" },
   startBuying: { label: "Start Buying", href: "/first-time-buyers" },
   sellMyHome: { label: "Sell My Home", href: "/contact" },
   aboutDebra: { label: "Learn More About Debra", href: "/about" },
@@ -69,14 +71,20 @@ export const FIGMA_SERVICES = [
  * asset library has no licensed city photography, and a labelled empty frame
  * is worse than a well-set row of type.
  */
+/*
+ * Cities without a written guide open the consultation page, where Debra can
+ * talk about them directly. They used to open /homes, promised as "the
+ * property search", which has no listings feed connected (and on /homes
+ * itself, linked to the page the visitor was already on).
+ */
 export const FIGMA_CITIES = [
-  { name: "Dallas", county: "Dallas County", href: "/homes" },
-  { name: "Fort Worth", county: "Tarrant County", href: "/homes" },
-  { name: "Arlington", county: "Tarrant County", href: "/homes" },
-  { name: "Plano", county: "Collin County", href: "/homes" },
-  { name: "Frisco", county: "Collin and Denton counties", href: "/homes" },
-  { name: "McKinney", county: "Collin County", href: "/homes" },
-  { name: "Irving", county: "Dallas County", href: "/homes" },
+  { name: "Dallas", county: "Dallas County", href: "/consultation" },
+  { name: "Fort Worth", county: "Tarrant County", href: "/consultation" },
+  { name: "Arlington", county: "Tarrant County", href: "/consultation" },
+  { name: "Plano", county: "Collin County", href: "/consultation" },
+  { name: "Frisco", county: "Collin and Denton counties", href: "/consultation" },
+  { name: "McKinney", county: "Collin County", href: "/consultation" },
+  { name: "Irving", county: "Dallas County", href: "/consultation" },
   { name: "Garland", county: "Dallas County", href: "/areas/garland" },
 ] as const
 

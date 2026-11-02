@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { MessageCircleQuestion } from "lucide-react"
 import { PageHeader } from "@/components/page/page-header"
+import { JsonLd } from "@/components/seo/json-ld"
 import { Band, CtaBand, QaList } from "@/components/page/editorial"
 import { CLOSING_BAND_IMAGE } from "@/lib/content/imagery"
 import { FAQ_GROUPS } from "@/lib/content/faq"
@@ -29,7 +30,7 @@ export default function FaqPage() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd value={jsonLd} />
       <PageHeader
         eyebrow="Common questions"
         eyebrowIcon={MessageCircleQuestion}

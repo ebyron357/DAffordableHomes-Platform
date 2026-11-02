@@ -86,8 +86,8 @@ export function FigmaHomeHeader() {
           </ul>
         </nav>
 
-        <Link href={FIGMA_HOME_CTA.searchHomes.href} className="fh-btn fh-btn-navy fh-header-cta">
-          {FIGMA_HOME_CTA.searchHomes.label}
+        <Link href={FIGMA_HOME_CTA.talkWithDebra.href} className="fh-btn fh-btn-navy fh-header-cta">
+          {FIGMA_HOME_CTA.talkWithDebra.label}
         </Link>
 
         <button
@@ -123,11 +123,11 @@ export function FigmaHomeHeader() {
               })}
             </ul>
             <Link
-              href={FIGMA_HOME_CTA.searchHomes.href}
+              href={FIGMA_HOME_CTA.talkWithDebra.href}
               className="fh-btn fh-btn-navy fh-btn-block"
               onClick={() => setOpen(false)}
             >
-              {FIGMA_HOME_CTA.searchHomes.label}
+              {FIGMA_HOME_CTA.talkWithDebra.label}
             </Link>
           </nav>
         </div>

@@ -46,7 +46,6 @@ test('approved photography remains wired to public pages', () => {
   const aboutHome = readFileSync('apps/web/components/home/about-debra.tsx', 'utf8');
   const aboutPage = readFileSync('apps/web/app/about/page.tsx', 'utf8');
   const consultation = readFileSync('apps/web/app/consultation/page.tsx', 'utf8');
-  const neighborhoods = readFileSync('apps/web/app/neighborhoods/page.tsx', 'utf8');
   const header = readFileSync('apps/web/components/layout/site-header.tsx', 'utf8');
   const footer = readFileSync('apps/web/components/layout/site-footer.tsx', 'utf8');
 
@@ -78,7 +77,6 @@ test('approved photography remains wired to public pages', () => {
   // should not be the place it appears.
   assert.match(imagery, /debra-allen-advisor-desk\.webp/);
   assert.match(consultation, /DEBRA_DESK_MASTHEAD/);
-  assert.match(neighborhoods, /neighborhood-community_101d8dfe\.jpg/);
   assert.match(footer, /TREC Information About Brokerage Services/);
 });
 

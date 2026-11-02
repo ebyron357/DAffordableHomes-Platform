@@ -36,8 +36,8 @@ Each published page includes:
 - canonical URL
 - Open Graph metadata where appropriate
 - semantic heading structure
-- visible breadcrumb navigation
-- BreadcrumbList schema
+- visible breadcrumb navigation (every route with the shared masthead; §11)
+- BreadcrumbList schema, emitted from those same breadcrumbs
 - crawlable internal links
 - sitemap inclusion
 - robots discovery
@@ -280,3 +280,109 @@ concern, official sources, no amounts that are not sourced and dated.
    shows little Garland-specific demand beyond "homes for sale garland tx"
    (3,600/month, transactional), which needs IDX listings this site does not
    have.
+
+## 11. Structure and answer-readiness pass — 2026-10-03
+
+A crawl of every sitemap route's raw server HTML (no JavaScript) measured, per
+route, the words inside `<main>`, the internal links, visible breadcrumbs and
+the structured-data types. It found the pages aimed at the largest queries in
+§10 were the thinnest on the site, and that §3's "each published page includes
+BreadcrumbList schema" was true of four routes.
+
+| Route | Query it targets (§10) | Before | After |
+| --- | --- | --- | --- |
+| `/calculators/affordability` | how much house can i afford — 90,500 | 148 words, 2 links, no breadcrumbs, site graph only | 614 words, 6 links, BreadcrumbList + WebApplication + FAQPage |
+| `/calculators/rent-vs-buy` | rent vs buy calculator — 14,800 | 111 words, 2 links | 554 words, 6 links, same markup |
+| `/calculators/down-payment` | down payment calculator — 8,100 | 155 words, 2 links | 590 words, 6 links, same markup |
+| `/calculators/closing-costs` | closing cost calculator texas — 720 | 136 words, 2 links | 587 words, 6 links, same markup |
+| `/calculators/mortgage-payment` | — | 187 words, pre-redesign layout | 570 words, shared masthead, same markup |
+| `/first-time-buyers` | steps to buying a house — 6,600, KD 9 | 533 words, no page-level markup | 786 words, FAQPage + BreadcrumbList |
+| every masthead route | — | BreadcrumbList on 4 of 31 routes | on 28 of 31 (not `/`, `/blog`, `/start`, which have no trail) |
+
+### Changed
+
+- **Breadcrumbs from one source.** `PageHeader` emits `BreadcrumbList` from the
+  same `crumbs` it renders (`lib/seo.ts` → `breadcrumbJsonLd`), so the visible
+  trail and the markup cannot disagree. The three hand-written copies on
+  `/programs`, `/areas/garland` and the program pages are gone; a test fails if
+  one comes back. The calculators and the five policy pages gained trails.
+  Only the last crumb is `aria-current="page"` — "Learn" on
+  `/first-time-buyers` used to claim it too.
+- **Calculator guides.** After each tool: a direct answer to the question the
+  page is searched for, what the estimate includes and leaves out, three or four
+  questions people ask next (visible, and in `FAQPage`), and links to the two
+  most related tools and one guide. Every statement about method is built from
+  constants the arithmetic itself uses (`lib/calculators.ts` →
+  `lib/content/calculator-guides.ts`); a test re-derives them and fails on any
+  percentage that is not one of the calculators' own rules, any dollar amount,
+  or any "typical"/"average" market claim. `WebApplication` markup names each
+  tool as free and links its publisher to the site Organization.
+- **`/first-time-buyers` FAQ** answering "What are the steps to buying a
+  house?", when to talk to a lender, who is involved, and whether Texas has
+  first-time-buyer programs (named agencies, no amounts).
+- **Entities.** `/about` is a `ProfilePage` whose `mainEntity` is the site
+  Person. The program pages' `Service.provider` now references that Person by
+  `@id`; it was an anonymous Person named "Debra Allen, REALTOR®", which read
+  as a second entity. `sameAs` is emitted from `profileUrls` in `lib/site.ts`
+  (empty, so nothing today). The `RealEstateAgent` address is published as a
+  structured `PostalAddress` when written "Street, City, ST 12345"; a plain
+  string, which Google's local results do not accept, was what would have
+  shipped the day the address was filled in.
+- **`/llms.txt`** lists each calculator with a one-line description of its
+  method, from the same guide content.
+- FAQPage covers 13 routes. A later pass the same day removed it from the
+  homepage, where it described four questions the page no longer showed —
+  markup for content a visitor cannot see is a structured-data violation —
+  and added a visible "Common worries" group to `/faq`
+  (`docs/05-content/CONVERSION_COPY.md`).
+
+### Still not measured
+
+The site is still not live on `daffordablehomes.com`, so §9's caveat stands: no
+Search Console, field Core Web Vitals or ranking data exists, and none of this
+earns a position until the domain is cut over. The owner's ordered list is
+`docs/REMAINING_STEPS.md`.
+
+## 12. Full-site search, answer-engine and AI-discoverability pass — 2026-10-04
+
+A new audit, `pnpm qa:seo` (`scripts/qa/seo-audit.mjs`), reads every route the
+way a crawler does — server HTML, JavaScript off — and checks what decides
+whether a page is found, understood and quoted. It covers:
+
+- **Metadata:** title, description, self-canonical, Open Graph and Twitter
+  tags, one H1, alt text.
+- **Structured data:** every block parses, and each FAQ question and answer
+  and each breadcrumb appears on the visible page.
+- **Links:** the link graph (orphans, dead ends) and every internal link.
+- **Edges:** legacy redirects, the trailing-slash redirect, and real 404s.
+- **Crawler access:** robots.txt for eleven search and AI crawlers, including
+  OAI-SearchBot, ChatGPT-User and Bingbot, plus every `/llms.txt` link.
+
+The first run found 10 failures. The final run on the same routes has
+**1,524 passes, 0 failures** and 7 warnings: five policy and contact pages are
+short by nature, and two articles have no image of their own (§3, owner).
+
+| Found | Fixed |
+| --- | --- |
+| Eight routes declaring their own `openGraph` dropped `og:site_name` (Next replaces the object) | `OPEN_GRAPH_BASE` in `lib/seo.ts` carries site name, `en_US` locale and the share card; a test fails on any route without it |
+| `/events` linked from nowhere; `/neighborhoods`, `/homes`, `/calculators/rent-vs-buy`, `/calculators/down-payment` and both program pages linked from one to seven pages — `lib/navigation.ts` defined three link lists nothing rendered | Footer links NACA, Homes for Heroes, down payment and rent-vs-buy on every interior page |
+| `/neighborhoods` repeated `/areas` (same Garland feature, same city list, 178 words) | 308 to `/areas`; its one unique passage moved there; quiz and next-step links updated |
+| `/homes` titled "Find a Home…" with no listings feed; `/events` with no dates | `noindex, follow` and out of the sitemap until listings are live / a confirmed session exists, then indexed automatically (`isPropertySearchLive`, `lib/content/events.ts`, which also emits `Event` markup) |
+| `/fair-housing` linked onward to one page | Related links: EHO, accessibility, "What Debra won't do", contact (compliance wording unchanged) |
+| `/start` rendered only the open FAQ answer, so seven of eight answers were not in the HTML | Every answer rendered, closed ones `hidden`; `FAQPage` added |
+| No direct answers for relocation or choosing an area | Visible FAQ + `FAQPage` on `/areas`: choosing where to live, planning before arriving, which areas the site covers, what to check per address, military orders — confirmed facts only |
+| `/areas/garland` never linked the 1,871-word Garland guide that links to it; the program pages never linked their long-form guides | Hub ↔ guide links both ways |
+| Garland `WebPage` referenced an inline WebSite and an undisambiguated City | `isPartOf` → `#website`; City carries `containedInPlace` Texas and `sameAs` Wikipedia |
+| `/resources` titled "Plan & Resources" | "Homebuyer Planning Tools & Resources" |
+| No way to notify Bing / Copilot / ChatGPT search of changes | IndexNow: `INDEXNOW_KEY` → `/indexnow.txt`; `pnpm seo:indexnow` submits the live sitemap after verifying the key file |
+| `/llms.txt` had no statement of facts | "Key facts": the four confirmed business facts, and the facts an assistant must not infer (brokerage, licence, address, phone, service areas) |
+
+Verified as already correct and left alone: robots.txt allows every search and
+AI-search crawler (one `*` group; `/api/` and `/studio` disallowed); every
+legacy URL redirects in one hop (`/naca` added to `next.config.mjs` alongside
+its page redirect); unknown URLs and article slugs return 404 with `noindex`;
+the entity graph (WebSite → Organization → Person by `@id`, ProfilePage,
+Article author and Service provider by reference); `RealEstateAgent`, address,
+`areaServed` and `sameAs` stay off until verified.
+
+FAQPage now covers 15 routes, every one on questions the page shows.
