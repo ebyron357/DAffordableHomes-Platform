@@ -97,6 +97,10 @@ jobs:
       - name: Portrait crop safety
         run: pnpm qa:faces
 
+      # axe-core WCAG 2.0-2.2 A/AA rules on public routes at 390px and 1280px.
+      - name: Accessibility scan (axe)
+        run: pnpm qa:a11y
+
       - name: Upload QA evidence
         if: always()
         uses: actions/upload-artifact@v4

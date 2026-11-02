@@ -316,7 +316,8 @@ export function DownPaymentPlanner() {
       </div>
 
       <div className="border-t border-border bg-muted/40 p-4 sm:p-8">
-        <div className="overflow-x-auto">
+        {/* Focusable so keyboard users can scroll the wide table on phones (WCAG 2.1.1). */}
+        <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Down-payment scenarios table">
           <table className="w-full min-w-[760px] border-separate border-spacing-0 text-left text-sm">
             <caption className="sr-only">Down-payment scenarios and estimated monthly costs</caption>
             <thead>
