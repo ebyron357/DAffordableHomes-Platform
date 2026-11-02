@@ -279,7 +279,8 @@ export function NextStepLanding() {
   }, [phase, questionIndex])
 
   function scrollToId(id: string) {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" })
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    document.getElementById(id)?.scrollIntoView({ behavior: reduceMotion ? "instant" : "smooth", block: "start" })
   }
 
   function startAssessment() {
