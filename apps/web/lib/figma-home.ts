@@ -15,6 +15,8 @@
  * and a menu button. The condensed set keeps the five paths people actually
  * come for, and the mobile menu still carries everything.
  */
+import { TREC_LINKS } from "@/lib/legal-links"
+
 export const FIGMA_HOME_NAV = [
   { label: "Home", href: "/", condensed: false },
   { label: "Buy", href: "/first-time-buyers", condensed: true },
@@ -176,16 +178,8 @@ export const FIGMA_FOOTER_LINKS = [
  * the one page without the Equal Housing Opportunity link.
  */
 export const FIGMA_FOOTER_LEGAL = [
-  {
-    label: "TREC Information About Brokerage Services",
-    href: "https://www.trec.texas.gov/information-about-brokerage-services-form",
-    external: true,
-  },
-  {
-    label: "TREC Consumer Protection Notice",
-    href: "https://www.trec.texas.gov/forms/consumer-protection-notice",
-    external: true,
-  },
+  // Shared with the interior footer: lib/legal-links.ts.
+  ...TREC_LINKS.map((link) => ({ ...link, external: true as const })),
   { label: "Privacy", href: "/privacy", external: false },
   { label: "Terms", href: "/terms", external: false },
   { label: "Accessibility", href: "/accessibility", external: false },
