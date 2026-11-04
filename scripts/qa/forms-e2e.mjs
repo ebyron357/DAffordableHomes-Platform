@@ -8,7 +8,7 @@
  *
  *   invalid      required fields empty: no request is sent and the form says so
  *   delivered    API 200: the success state appears and the request carried the
- *                visitor's fields as JSON
+ *                visitor's fields and a submission ID as JSON
  *   unavailable  API 503 (no webhook configured): an honest "not sent" state,
  *                never a success
  *   failed       API 502 with an error message: the message is shown, the form
@@ -75,6 +75,8 @@ async function open(route, endpoint, reply) {
   return { context, page, requests, consoleErrors }
 }
 
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
+
 const OK = () => ({ status: 200, body: { ok: true } })
 const UNAVAILABLE = () => ({ status: 503, body: { ok: false, error: "Online messages are not connected yet, so this was not sent." } })
 const FAILED = () => ({ status: 502, body: { ok: false, error: "Message delivery is temporarily unavailable. Please try again in a few minutes." } })
@@ -114,6 +116,7 @@ async function messageForm(route, successTitle) {
       sent?.body.name === `${VISITOR.first} ${VISITOR.last}` && sent?.body.email === VISITOR.email && sent?.body.website === "",
       JSON.stringify(sent?.body),
     )
+    check(`${route} delivered: submission ID sent`, UUID.test(sent?.body.submissionId ?? ""), String(sent?.body.submissionId))
     await context.close()
   }
   {
@@ -137,6 +140,10 @@ async function messageForm(route, successTitle) {
     await submit(page)
     await page.waitForTimeout(400)
     check(`${route} failed: form can be resubmitted`, requests.length === 2, `${requests.length} requests`)
+    check(
+      `${route} failed: resubmit reuses the submission ID`,
+      UUID.test(requests[0]?.body.submissionId ?? "") && requests[0]?.body.submissionId === requests[1]?.body.submissionId,
+    )
     await context.close()
   }
 }
@@ -182,6 +189,7 @@ async function programForm(route, successTitle) {
         sent?.body.consent === true,
       JSON.stringify(sent?.body),
     )
+    check(`${route} delivered: submission ID sent`, UUID.test(sent?.body.submissionId ?? ""), String(sent?.body.submissionId))
     await context.close()
   }
   for (const [label, reply, text] of [
@@ -258,6 +266,7 @@ async function startForm() {
         sent?.body.resultKey.length > 0,
       JSON.stringify(sent?.body),
     )
+    check(`${route} delivered: submission ID sent`, UUID.test(sent?.body.submissionId ?? ""), String(sent?.body.submissionId))
     await context.close()
   }
   for (const [label, reply, text] of [
