@@ -8,6 +8,7 @@ import { Container } from "@/components/ui/container"
 import { CLIENTVERSE } from "@/lib/clientverse"
 import { LEGAL_NAV, PRIMARY_NAV } from "@/lib/navigation"
 import { SITE } from "@/lib/site"
+import { TREC_LINKS } from "@/lib/legal-links"
 
 /**
  * Shared site footer for every interior route.
@@ -28,17 +29,6 @@ import { SITE } from "@/lib/site"
  * The vendor attribution is a release requirement; `tests/static/clientverse.test.mjs`
  * asserts its text, destination and single placement.
  */
-
-const TREC_LINKS = [
-  {
-    label: "TREC Information About Brokerage Services",
-    href: "https://www.trec.texas.gov/information-about-brokerage-services-form",
-  },
-  {
-    label: "TREC Consumer Protection Notice",
-    href: "https://www.trec.texas.gov/forms/consumer-protection-notice",
-  },
-] as const
 
 export function SiteFooter() {
   const year = new Date().getFullYear()

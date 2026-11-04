@@ -77,7 +77,8 @@ test('approved photography remains wired to public pages', () => {
   // should not be the place it appears.
   assert.match(imagery, /debra-allen-advisor-desk\.webp/);
   assert.match(consultation, /DEBRA_DESK_MASTHEAD/);
-  assert.match(footer, /TREC Information About Brokerage Services/);
+  assert.match(footer, /TREC_LINKS\.map/);
+  assert.match(readFileSync('apps/web/lib/legal-links.ts', 'utf8'), /TREC Information About Brokerage Services/);
 });
 
 test('application shell includes core accessibility landmarks', () => {
