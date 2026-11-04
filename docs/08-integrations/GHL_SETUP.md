@@ -87,14 +87,25 @@ ignored, so a blank variable left in Vercel cannot block delivery.
    `lead_type` is `program-naca`.
 5. Add an **internal notification** to Debra so a new lead is seen the same
    day.
+5b. **Optional: skip repeats.** Create a contact custom field "Last submission
+   ID" and map `submission_id` into it in the Create/Update Contact step. Add
+   an **If/Else** before the notification and pipeline steps: when the
+   contact's "Last submission ID" already equals the incoming `submission_id`,
+   end the workflow. This drops the duplicate a slow reply can cause, without
+   dropping a genuinely new message from the same person.
 6. Publish the workflow, then submit one test from each form in the table
    above and confirm each arrives with the right `lead_type`.
 
 ### Every key a lead can carry
 
 Common to all forms: `first_name`, `full_name`, `email`, `lead_type`,
-`source`, `submittedAt`, `pageUrl`; and `last_name` and `phone` whenever the
-visitor gave them.
+`source`, `submittedAt`, `pageUrl`, `submission_id`; and `last_name` and
+`phone` whenever the visitor gave them.
+
+`submission_id` is a UUID the form creates when it loads, also sent as the
+`Idempotency-Key` header. A visitor who resubmits after an "unavailable" reply
+sends the same value again, so it identifies one lead however many times it
+arrives (see Step 3, item 5b).
 
 | Form | Additional keys |
 | --- | --- |
@@ -144,17 +155,25 @@ payload. Email and internal notifications need nothing further.
 - **GoHighLevel chat widget, tracking script and embedded forms.** Each needs a
   third-party script on every page and a wider security policy. The site's own
   forms already deliver to GoHighLevel. Ask before adding any of them.
-- **Retry queue.** If GoHighLevel is down or slower than eight seconds, the
-  visitor is told the message was not sent and offered the consultation page;
-  the lead is not stored and retried later. Nothing is ever shown as sent that
-  was not.
+- **Retry queue.** The site retries a failed delivery **once**, after a short
+  pause, when GoHighLevel answers with a network error, 408, 429 or 5xx. A
+  timeout (over eight seconds) is not retried, because GoHighLevel may already
+  have stored the lead; the visitor is told it was not sent and can resubmit,
+  and `submission_id` lets the workflow drop the repeat. Nothing is stored for
+  a later retry, and nothing is ever shown as sent that was not.
+- **Failure log.** Every failed delivery writes one line to the Vercel function
+  log: `{"event":"lead_delivery_failed","route":"contact","reason":"http_502","attempts":2,"submissionId":"…"}`.
+  A delivery that succeeded on its retry writes `lead_delivery_recovered`. The
+  line never contains the visitor's name, email, phone or message. Search the
+  project's Logs for `lead_delivery_failed` to see whether leads are failing.
 
 ## Troubleshooting
 
 | What you see | Cause | Fix |
 | --- | --- | --- |
 | Form says online messages "are not connected yet" (HTTP 503) | No usable webhook variable | Set `GHL_PROGRAM_LEAD_WEBHOOK_URL` to the `https://` webhook URL and redeploy |
-| Form says delivery is "temporarily unavailable" (HTTP 502) | GoHighLevel returned an error or took over 8 seconds | Check the workflow is published and the trigger URL is current; try again |
+| Form says delivery is "temporarily unavailable" (HTTP 502) | GoHighLevel returned an error twice, rejected the lead, or took over 8 seconds | Search Vercel Logs for `lead_delivery_failed`: `reason` says `timeout`, `network` or the HTTP status. Check the workflow is published and the trigger URL is current; try again |
+| The same lead appears twice | The visitor resubmitted after a slow reply | Step 3, item 5b: skip a repeated `submission_id` |
 | Lead arrives but the contact is blank | Fields not mapped | Step 3 — map `first_name`, `last_name`, `email`, `phone` |
 | No calendar on `/consultation` | `GHL_BOOKING_URL` unset, not a `/widget/booking/` or `/widget/group/` link, or not redeployed | Copy the link again from Share / Embed and redeploy |
 | Calendar box is blank | The calendar was deleted or its link changed | Copy the current link and redeploy |

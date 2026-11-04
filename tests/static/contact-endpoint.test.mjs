@@ -98,8 +98,11 @@ test("a valid message is delivered once, with only the fields the form collects 
     assert.equal(calls.length, 1);
     assert.equal(calls[0].url, "https://hooks.example.test/lead");
     assert.equal(calls[0].init.method, "POST");
-    const { submittedAt, ...payload } = calls[0].body;
+    const { submittedAt, submission_id, ...payload } = calls[0].body;
     assert.ok(!Number.isNaN(Date.parse(submittedAt)));
+    // Generated server-side when the form sent none; the CRM can de-duplicate on it.
+    assert.match(submission_id, /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);
+    assert.equal(calls[0].init.headers["idempotency-key"], submission_id);
     assert.deepEqual(payload, {
       // The keys every lead shares, so one GoHighLevel mapping fits every form.
       first_name: "Test",

@@ -53,8 +53,8 @@ export default function TestimonialsPage() {
       <PageHeader
         eyebrow="Client stories"
         eyebrowIcon={Quote}
-        title="Stories from the people Debra has guided"
-        description="The best measure of this work is how people feel walking through it. Verified stories will be shared here with permission."
+        title="Client stories, published only with permission"
+        description="None are published yet. When clients agree to share how their move went, their verified stories will appear here."
         crumbs={[{ label: "Home", href: "/" }, { label: "Testimonials" }]}
         facts={[{ label: "Consented stories only", icon: ShieldCheck }]}
         motif="route"
