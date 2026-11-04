@@ -5,6 +5,7 @@ import { useEffect, useId, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Notice } from "@/components/states/notice"
 import { CONSULTATION_TERMS, FORM_PRIVACY } from "@/lib/content/conversion"
+import { newSubmissionId } from "@/lib/submission-id"
 
 type Status = "idle" | "invalid" | "submitting" | "success" | "error" | "unavailable"
 
@@ -53,6 +54,7 @@ export function ContactForm({
   const [error, setError] = useState("")
   const [invalid, setInvalid] = useState<FieldErrors>({})
   const [startedAt] = useState(() => Date.now())
+  const [submissionId] = useState(newSubmissionId)
   // The success message replaces the form, taking the focused button with it.
   // Focus moves to the message so keyboard and screen-reader users land on it.
   const successRef = useRef<HTMLDivElement>(null)
@@ -85,6 +87,7 @@ export function ContactForm({
         body: JSON.stringify({
           context,
           startedAt,
+          submissionId,
           website: field(data, "website"),
           name: field(data, "name"),
           email: field(data, "email"),

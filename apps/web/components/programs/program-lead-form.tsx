@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Notice } from "@/components/states/notice"
 import { FORM_PRIVACY } from "@/lib/content/conversion"
 import type { ProgramSlug } from "@/lib/programs"
+import { newSubmissionId } from "@/lib/submission-id"
 
 type FormStatus = "idle" | "submitting" | "success" | "error"
 
@@ -29,6 +30,7 @@ export function ProgramLeadForm({
   const formId = useId()
   const errorId = `${formId}-error`
   const [startedAt] = useState(() => Date.now())
+  const [submissionId] = useState(newSubmissionId)
   const [status, setStatus] = useState<FormStatus>("idle")
   const [message, setMessage] = useState("")
   // The success message replaces the form; move focus to it so keyboard and
@@ -55,6 +57,7 @@ export function ProgramLeadForm({
       program,
       sourcePage: leadSource,
       startedAt,
+      submissionId,
       website: getText(formData, "website"),
       firstName: getText(formData, "firstName"),
       lastName: getText(formData, "lastName"),
