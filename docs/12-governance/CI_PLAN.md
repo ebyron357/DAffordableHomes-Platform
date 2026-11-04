@@ -13,7 +13,7 @@ Read the list below as the target, not as a description of the current pipeline.
 | `Governance and repository integrity` (`repository-health.yml`) | Running — required files, conflict markers, committed env files |
 | `Typecheck, lint, test, and build` (`application-quality.yml`) | Running — `pnpm test:all` |
 | `Browser QA (audit, quiz, contrast, faces)` (`application-quality.yml`) | Running — see **Browser QA gates** |
-| `Centralized ClientVerse audit` (`clientverse-audit.yml`) | **`BLOCKED`** — its three secrets are unset, and it triggers only on push to `main` and `workflow_dispatch` |
+| `Centralized ClientVerse audit` (`clientverse-audit.yml`) | **`BLOCKED`** — client protocol repaired; central runtime, credential, candidate deployment, and runner-contract prerequisites remain. See `CLIENTVERSE_AUDIT_RECOVERY.md`. Runs on push to `main` and `workflow_dispatch` only |
 
 Not yet implemented from the target list: formatting check, dependency audit, CodeQL or equivalent, secret scanning, security-header tests, bundle-size budget, and the Lighthouse release workflow. Items 9 and 10 below are therefore unmet, and no check should be reported as covering them.
 
@@ -128,18 +128,43 @@ A failed required check blocks merge. Re-running a job is appropriate only for a
 
 ## Centralized ClientVerse audit connection
 
-Discovery, browser/accessibility/performance/security testing, findings normalization, repair policy enforcement, verification, and evidence reporting are owned by the centralized **ClientVerse Website Audit & Release Certification System**, not by this repository. This repository provides:
+Discovery, browser/accessibility/performance/security testing, findings normalization,
+repair policy enforcement, and release decisions remain owned by the centralized
+**ClientVerse Website Audit & Release Certification System**.
 
-- `qa-config/clientverse-audit.yaml` — project-specific audit configuration (critical routes, the three preserved article URLs, expected-404 route, journeys, viewports, and business/compliance review areas) consumed by the central engine.
-- `.github/workflows/clientverse-audit.yml` — an integration workflow that sends the commit SHA, deployment URL, and audit configuration path to the central engine, uploads the request/response as a `clientverse-audit-evidence` artifact, and enforces the returned release gate.
+- `qa-config/clientverse-audit.yaml` preserves this project's routes, journeys,
+  viewports, and review requirements. The deployed central runner does **not** yet
+  consume this schema; its current control-file and package-manager contract must
+  be reconciled centrally before acceptance. Do not copy scanners into this repo.
+- `.github/workflows/clientverse-audit.yml` and `scripts/clientverse-audit.mjs`
+  provide transport only: authenticated submission, bounded polling, candidate
+  identity checks, manifest verification, evidence retention, and fail-closed exit.
+- The request carries repository, exact workflow commit, deployment URL,
+  `application_path: apps/web`, and an immutable `policy_version` reference to the
+  project configuration. The policy reference is provenance, not policy approval.
+- Only a completed audit with central decision `APPROVED`, matching candidate
+  identity, and consistent evidence manifest satisfies the release gate. HTTP 202,
+  preflight success, watchdog success, and ordinary CI success do not.
+- `clientverse-audit-evidence` retains request/configuration identity, submission,
+  latest status, terminal evidence/findings when available, HTTP status, and result
+  for 30 days. Configuration and transport failures retain diagnostic results;
+  those files are explicitly **not** proof that website scanning executed.
 
-Configure the `CLIENTVERSE_ENDPOINT` and `CLIENTVERSE_DEPLOYMENT_URL` repository variables and the `CLIENTVERSE_TOKEN` repository secret under **Settings → Secrets and variables → Actions** to activate the connection.
+Repository variables are `CLIENTVERSE_ENDPOINT` and
+`CLIENTVERSE_DEPLOYMENT_URL`; the secret is `CLIENTVERSE_TOKEN`. The endpoint may
+be a service base URL or the `/api/audits` submission route. The deployment must
+serve the exact workflow commit, verified using hosting-provider metadata.
+The token must be issued by this central service for this exact repository.
 
-**Until all three are configured the check reports `BLOCKED` and fails.** This is deliberate. An earlier draft of this workflow exited 0 with a notice when unconfigured, which reported a green check for an audit that had never executed. A release gate that cannot distinguish "passed" from "never ran" is not a gate. `UNKNOWN` and unparseable responses fail for the same reason.
+The complete, current recovery record is
+[`CLIENTVERSE_AUDIT_RECOVERY.md`](CLIENTVERSE_AUDIT_RECOVERY.md). It supersedes
+prior claims that supplying three values alone restores certification. The endpoint
+is configured; the central API returned HTTP 503 with six missing runtime values
+on November 2, 2026. There is no real audit verdict or retained scan evidence yet.
 
-Do not write new Playwright, Lighthouse, axe, Lychee, Semgrep, or other scanner logic in this repository — extend the central ClientVerse engine instead. This rule is unchanged and still binding.
-
-The four browser scripts that already exist are a separate matter: they now **run in CI** as the `runtime-qa` job, because a gate that does not run in CI does not gate, and the central engine cannot gate anything while it is `BLOCKED` for want of its three secrets. See `DECISIONS.md`, 2026-09-27. **That job does not satisfy the ClientVerse release gate and must never be represented as doing so.** The central audit stays `BLOCKED` until its secrets exist, and no other means of turning it green is acceptable.
+Existing local browser gates remain separate. They do not satisfy ClientVerse
+release certification. Never disable the central check, weaken service access
+controls, or treat an unexecuted audit as passed.
 
 ## Browser QA gates
 

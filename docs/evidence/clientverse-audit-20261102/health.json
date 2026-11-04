@@ -1,0 +1,18 @@
+{
+  "observed_at": "Mon, 02 Nov 2026 13:18:54 GMT",
+  "route": "https://clientverse-audit.vercel.app/api/health",
+  "access": "Authenticated Vercel connector fetch; not proof of runner access",
+  "http_status": 503,
+  "body": {
+    "status": "unconfigured",
+    "missing": [
+      "DATABASE_URL",
+      "TOKEN_HASH_PEPPER",
+      "RUNNER_CALLBACK_SECRET",
+      "GITHUB_APP_ID",
+      "GITHUB_APP_PRIVATE_KEY",
+      "GITHUB_APP_INSTALLATION_ID"
+    ],
+    "request_id": "9908d54c-d8a5-4546-baba-d20ce318d086"
+  }
+}

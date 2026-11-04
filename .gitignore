@@ -25,3 +25,6 @@ qa-evidence/screenshots/
 # Raw Chromium captures; the compressed set in qa-evidence/visual is committed.
 qa-evidence/quiz/
 qa-evidence/shots/
+
+# Diagnostic and audit responses are retained as Actions artifacts, not source.
+clientverse-evidence/

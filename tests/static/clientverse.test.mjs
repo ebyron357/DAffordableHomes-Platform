@@ -130,18 +130,22 @@ test('the ClientVerse certification runs only in release contexts', () => {
 
 test('an unconfigured or uncertified audit fails instead of reporting success', () => {
   const workflow = read('.github/workflows/clientverse-audit.yml');
+  const client = read('scripts/clientverse-audit.mjs');
 
   // Missing configuration must fail the check, not emit a notice and exit 0.
   assert.match(workflow, /ClientVerse audit BLOCKED/);
   assert.doesNotMatch(workflow, /::notice::.*Skipping the central audit/);
 
   // Only an explicit certified pass may pass the gate.
-  assert.match(workflow, /PASS\|PASSED\|APPROVED\|CERTIFIED\|OK/);
+  assert.match(workflow, /result\.release_gate !== 'APPROVED'/);
+  assert.match(workflow, /result\.audit_completed !== true/);
   assert.match(workflow, /not a certified pass/);
 
   // A failed request or an unreadable response must not fall through as success.
-  assert.match(workflow, /gate=REQUEST_FAILED/);
-  assert.match(workflow, /UNPARSEABLE/);
+  assert.match(client, /UNPARSEABLE_RESPONSE/);
+  assert.match(client, /AUDIT_TIMEOUT/);
+  assert.match(workflow, /if: always\(\)/);
+  assert.match(workflow, /if-no-files-found: error/);
 });
 
 test('no ClientVerse credentials are committed', () => {

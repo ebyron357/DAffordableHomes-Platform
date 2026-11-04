@@ -1,6 +1,6 @@
 # Remaining steps to complete the project
 
-**As of:** 2026-10-04
+**As of:** 2026-10-04; ClientVerse item refreshed 2026-11-02
 **Closure state:** `BLOCKED - OWNER ACTION REQUIRED` (unchanged; see `PROJECT_CLOSEOUT_STATUS.md`)
 
 This is the one ordered list of what is left. The detailed instructions already
@@ -56,7 +56,7 @@ Steps 1–4 below are those levers, in order of effect.
 | 11 | **List the business consistently** — Bing Places, Apple Business Connect, Realtor.com, Zillow, HAR.com, Yelp — same name, address and phone, each linking to the site | Consistency is what local search trusts | `DFW_LOCAL_SEARCH_STRATEGY.md` §10 owner plan |
 | 12 | **Ask past clients for Google reviews** — real ones, never incentivised or written for them | Reviews drive map-pack position and are what AI assistants quote | — |
 | 13 | **Choose analytics** (GA4 and/or Microsoft Clarity) and whether a consent banner is required | No traffic or conversion data exists until then; the privacy page will need updating | `ARCHITECTURE.md` → Analytics |
-| 14 | **Supply the ClientVerse audit values** (`CLIENTVERSE_ENDPOINT`, `CLIENTVERSE_DEPLOYMENT_URL`, `CLIENTVERSE_TOKEN`) | Release-certification gate that has never run | `PROJECT_CLOSEOUT_STATUS.md` blocker 5 |
+| 14 | **Central-service owner supplies credentials/access; engineering completes recovery** | Endpoint is configured, but runtime bring-up, project token issuance, a matching deployment, and runner compatibility are still required. This is not solely an owner task. | `12-governance/CLIENTVERSE_AUDIT_RECOVERY.md` — current evidence, responsibility split, and completion criteria |
 | 15 | **Sign off** | Handover is not complete until it is recorded | `CLIENT_HANDOFF.md` Part 7, `FINAL_CLIENT_ACCEPTANCE.md` |
 
 ## Part B — Search, answer-engine and AI-assistant readiness, by area

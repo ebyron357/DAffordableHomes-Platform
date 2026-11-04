@@ -2,8 +2,10 @@
 #
 # Project-specific configuration only. This file implements no audit logic.
 # Discovery, testing, findings normalization, repair policy enforcement,
-# verification and evidence reporting are performed by the centralized
-# ClientVerse audit engine, which reads this file.
+# verification and evidence reporting belong to the centralized ClientVerse
+# audit engine. As verified 2026-11-02, the deployed runner still requires its
+# legacy control files; an adapter for this schema has not been implemented.
+# See docs/12-governance/CLIENTVERSE_AUDIT_RECOVERY.md.
 #
 # Do not add scanner, Playwright, Lighthouse, axe, Lychee or Semgrep logic here
 # or elsewhere in this repository. See .github/workflows/clientverse-audit.yml

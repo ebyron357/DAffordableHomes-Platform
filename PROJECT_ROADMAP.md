@@ -38,7 +38,7 @@
 - [ ] Initialize Next.js App Router application with TypeScript strict mode
 - [ ] Configure Tailwind CSS and semantic design tokens
 - [ ] Add linting, formatting, type checking, unit tests, browser tests, and accessibility tests
-- [ ] Configure GitHub Actions build and quality checks
+- [ ] Configure GitHub Actions build and quality checks — central audit transport repaired on 2026-11-02; live certification remains blocked by runtime credentials, an exact-commit target, and central runner compatibility. See `docs/12-governance/CLIENTVERSE_AUDIT_RECOVERY.md`
 - [ ] Configure Vercel preview deployments
 - [ ] Add environment validation with no public exposure of server credentials
 - [ ] Add secure headers and initial Content Security Policy

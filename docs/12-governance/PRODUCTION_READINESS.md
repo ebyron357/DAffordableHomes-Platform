@@ -42,7 +42,7 @@ Owner and external, and not resolvable in code:
 2. Compliance sign-off by a **named** reviewer on brokerage, licensing, Fair Housing, Equal Housing Opportunity and REALTOR® language.
 3. CRM webhook URLs, then a test lead **observed arriving**. All four webhook variables are unset, so neither lead form delivers.
 4. Hero crop approval.
-5. ClientVerse release certification: its three values are unset, so the check reports `BLOCKED` and has never executed. Its absence from a pull request is not a pass.
+5. ClientVerse release certification: the service owner must supply secure runtime credentials and authorize the service identity. The endpoint is configured, but this is also an engineering dependency: protocol repair, central runner compatibility, a matching deployment, and real audit evidence are required. See `CLIENTVERSE_AUDIT_RECOVERY.md` (2026-11-02). Its absence from a pull request is not a pass.
 
 Engineering, once the above are unblocked or in parallel:
 
