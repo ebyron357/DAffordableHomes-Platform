@@ -60,7 +60,8 @@
 - **Severity:** Medium
 - **Impact:** A client-side break in the main conversion path (`/contact`, program forms, `/start`) would not be caught; screenshots are captured but never compared; rollback is a manual checklist only.
 - **Recommended Fix:** Playwright end-to-end tests for each form (valid, invalid, server error with a mocked route); a screenshot comparison step; one rehearsed rollback recorded against a preview deployment.
-- **Status:** Open (audit findings Q-10, Q-20)
+- **Progress (2026-11-04):** Lead-form end-to-end tests added in PR #47 (`pnpm qa:forms`, in CI). Screenshot comparison and a rehearsed rollback remain.
+- **Status:** Open, partly resolved (Q-10 fixed; Q-20 open)
 
 ## TD-009 — High advisories in build and admin tooling
 

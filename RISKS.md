@@ -43,7 +43,8 @@
 - **Likelihood:** Medium
 - **Impact:** High
 - **Mitigation:** Log a PII-free delivery-failure event, add one bounded retry, send a submission ID for de-duplication, and consider a durable fallback queue. Verify with the live webhook (TD-002).
-- **Current Status:** Open (audit finding Q-05)
+- **Progress (2026-11-04):** PR #46 added the retry, the `lead_delivery_failed` / `lead_delivery_recovered` log line and a per-form `submission_id` (also sent as `Idempotency-Key`). GoHighLevel drops repeats only once its workflow checks that ID (`docs/08-integrations/GHL_SETUP.md`, Step 3 item 5b). A lead is still lost if the CRM stays down past the retry; there is no durable queue.
+- **Current Status:** Mitigated, residual (audit finding Q-05)
 - **Owner:** Engineering
 
 ## RISK-006 — Brokerage services disclosure links to a blank form
