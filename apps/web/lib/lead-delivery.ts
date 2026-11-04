@@ -26,8 +26,9 @@
  * them, so the GoHighLevel "Create or update contact" step maps the same keys
  * whichever form sent the lead, and an If/Else on `lead_type` routes it. A blank
  * optional field is left out rather than sent empty, so a repeat submission
- * cannot clear a surname or phone number the contact already has. No payload
- * is ever logged.
+ * cannot clear a surname or phone number the contact already has. Every
+ * payload also carries a `submission_id` the CRM can de-duplicate on. No
+ * payload is ever logged; delivery failures are, without visitor data.
  */
 
 export type LeadRoute = "contact" | "program" | "next-step"
@@ -64,27 +65,96 @@ function isHttpsUrl(value: string): boolean {
   }
 }
 
-/** How long a route waits for the CRM before telling the visitor it failed. */
+/** How long one attempt waits for the CRM before it counts as failed. */
 export const DELIVERY_TIMEOUT_MS = 8000
 
+/** Pause before the single retry, so a CRM that is briefly overloaded can recover. */
+export const RETRY_DELAY_MS = 400
+
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+
 /**
- * POSTs one lead as JSON. True only for a 2xx response; a timeout, a network
- * error or any other status is false, and the route shows an honest failure
- * rather than a success the visitor would wait on.
+ * The ID that lets the CRM recognise the same lead twice.
+ *
+ * Each form generates one when it loads and sends it with every attempt, so a
+ * visitor who resubmits after a slow "unavailable" reply sends the same ID
+ * again, and a GoHighLevel workflow can skip a `submission_id` it has already
+ * seen. Anything that is not a UUID is replaced with a fresh one: the value is
+ * client-supplied and only ever used as an opaque key.
  */
-export async function deliverLead(url: string, payload: Record<string, unknown>): Promise<boolean> {
+export function submissionId(value: unknown): string {
+  return typeof value === "string" && UUID.test(value.trim()) ? value.trim().toLowerCase() : crypto.randomUUID()
+}
+
+type Outcome = { ok: true } | { ok: false; reason: string; retryable: boolean }
+
+async function attempt(url: string, body: string, id: string): Promise<Outcome> {
   try {
     const response = await fetch(url, {
       method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(payload),
+      headers: { "content-type": "application/json", "idempotency-key": id },
+      body,
       signal: AbortSignal.timeout(DELIVERY_TIMEOUT_MS),
       cache: "no-store",
     })
-    return response.ok
-  } catch {
-    return false
+    if (response.ok) return { ok: true }
+    const status = response.status
+    // 408, 429 and 5xx are the CRM saying "not now"; any other status is a
+    // rejection that would fail the same way again.
+    return { ok: false, reason: `http_${status}`, retryable: status === 408 || status === 429 || status >= 500 }
+  } catch (error) {
+    // A timeout is ambiguous: the CRM may have stored the lead and only been
+    // slow to answer, so it is not retried here. The visitor is told it failed
+    // and can resubmit; the shared submission_id lets the CRM drop the repeat.
+    const timedOut = error instanceof Error && (error.name === "TimeoutError" || error.name === "AbortError")
+    return { ok: false, reason: timedOut ? "timeout" : "network", retryable: !timedOut }
   }
+}
+
+/**
+ * Records a delivery problem for the owner without recording the visitor.
+ *
+ * Only the route, the reason, the attempt count and the opaque submission ID
+ * are logged, never the payload, so Vercel's function logs show that leads are
+ * failing (and which form) while holding no names, emails or phone numbers.
+ */
+function logDelivery(event: "lead_delivery_failed" | "lead_delivery_recovered", detail: Record<string, unknown>) {
+  const line = JSON.stringify({ event, ...detail })
+  if (event === "lead_delivery_failed") console.error(line)
+  else console.warn(line)
+}
+
+/**
+ * POSTs one lead as JSON, with `submission_id` added to the payload and sent
+ * as an `Idempotency-Key` header.
+ *
+ * True only for a 2xx response. A network error, 408, 429 or 5xx is retried
+ * once after a short pause; a timeout or any other status is not. On failure
+ * the route shows an honest "not sent" message rather than a success the
+ * visitor would wait on.
+ */
+export async function deliverLead(
+  url: string,
+  payload: Record<string, unknown>,
+  context: { route: LeadRoute; submissionId?: unknown } = { route: "contact" },
+): Promise<boolean> {
+  const id = submissionId(context.submissionId ?? payload.submission_id)
+  const body = JSON.stringify({ ...payload, submission_id: id })
+
+  let outcome = await attempt(url, body, id)
+  let attempts = 1
+  if (!outcome.ok && outcome.retryable) {
+    await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS))
+    outcome = await attempt(url, body, id)
+    attempts = 2
+  }
+
+  if (outcome.ok) {
+    if (attempts > 1) logDelivery("lead_delivery_recovered", { route: context.route, attempts, submissionId: id })
+    return true
+  }
+  logDelivery("lead_delivery_failed", { route: context.route, reason: outcome.reason, attempts, submissionId: id })
+  return false
 }
 
 /** What a GoHighLevel workflow can branch on. */

@@ -21,6 +21,7 @@ import { COMMON_WORRIES, FORM_PRIVACY } from "@/lib/content/conversion"
 import { JsonLd } from "@/components/seo/json-ld"
 import { BrandMotif } from "@/components/page/brand-motif"
 import { DEBRA_DESK } from "@/lib/content/imagery"
+import { newSubmissionId } from "@/lib/submission-id"
 /**
  * Questions, attribution keys, storage key and the result engine live in
  * `lib/content/readiness.ts` so the homepage quiz runs the same assessment
@@ -214,6 +215,7 @@ export function NextStepLanding() {
   const [intent, setIntent] = useState("")
   const [attribution, setAttribution] = useState<Attribution>({})
   const [leadOpen, setLeadOpen] = useState(false)
+  const [submissionId] = useState(newSubmissionId)
   const [leadStatus, setLeadStatus] = useState<LeadStatus>("idle")
   // The confirmation replaces the form and its submit button; move focus to it.
   const leadSuccessRef = useRef<HTMLDivElement>(null)
@@ -365,6 +367,7 @@ export function NextStepLanding() {
         landingIntent: intent,
         attribution,
         startedAt: formStartedAt.current,
+        submissionId,
         pageUrl: window.location.href,
         website: "",
       }),
