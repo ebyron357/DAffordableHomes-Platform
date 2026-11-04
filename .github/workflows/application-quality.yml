@@ -98,6 +98,11 @@ jobs:
       - name: Quiz end-to-end
         run: pnpm qa:quiz
 
+      # Every lead form: invalid, delivered, unavailable (503) and failed (502),
+      # with the lead API stubbed in the browser so nothing reaches the CRM.
+      - name: Lead forms end-to-end
+        run: pnpm qa:forms
+
       - name: Portrait crop safety
         run: pnpm qa:faces
 
