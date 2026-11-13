@@ -287,7 +287,9 @@ Following owner approval, the review branch was updated to `f0443cf` before edit
 - [x] Add calculator empty/range feedback, invalid-result suppression, mobile result navigation, readable caveats, and an explicit consultation handoff without changing formulas.
 - [x] Gate contact/consultation data collection on server-side delivery configuration; keep actual success conditional on API delivery.
 - [x] Pass web/integration type checks, zero-warning lint, and all 262 static/unit tests; record hosted-browser input/fallback spot checks and mobile/desktop captures in the QC report.
-- [ ] Complete automated browser/axe suites (local Chromium libraries unavailable), reconcile existing CI `qa:*`/browser-tooling configuration gaps, and obtain matching deployment, assistive-technology, performance and owner-review evidence. This does not close existing provider-delivery, business-fact, photo-provenance, analytics, or full-site approval gates.
+- [x] Verify CI run `43376349818` on application commit `3a882ac`: all five calculators pass at 375/768/1440px, lead-form journeys pass with intercepted requests, and axe reports zero violations on its existing 22-route/2-viewport suite. The earlier claim of missing CI scripts/dependencies was incorrect; they are present and the workflow passed.
+- [x] Add the four missing calculator detail routes to the axe suite (26 routes / 52 scans); execution of this expanded coverage remains pending.
+- [ ] Complete authenticated deployed-preview review (browser currently reaches Vercel sign-in), pass the expanded axe suite, supported-browser/assistive-technology/200-percent text-resize checks, performance and owner-review evidence. Existing provider-delivery, business-fact, photo-provenance, analytics and full-site approval gates remain open; PR #50 stays draft.
 
 ## Quarterly operating review
 
