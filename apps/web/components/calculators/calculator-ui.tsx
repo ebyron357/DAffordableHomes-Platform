@@ -41,7 +41,7 @@ export function NumberField({
   const describedBy = [helpId, error ? errorId : undefined].filter(Boolean).join(" ") || undefined
 
   return (
-    <div>
+    <div className="min-w-0">
       <label htmlFor={id} className="block text-sm font-medium text-foreground">
         {label}
       </label>
@@ -87,7 +87,7 @@ export function SelectField({
   options: { label: string; value: number }[]
 }) {
   return (
-    <div>
+    <div className="min-w-0">
       <label htmlFor={id} className="block text-sm font-medium text-foreground">
         {label}
       </label>
@@ -121,13 +121,13 @@ export function CalculatorPanel({
   const resultsId = useId()
 
   return (
-    <div className="group/calculator grid overflow-hidden rounded-md border border-border bg-card lg:grid-cols-[0.9fr_1.1fr]">
+    <div className="group/calculator grid grid-cols-1 overflow-hidden rounded-md border border-border bg-card [overflow-wrap:anywhere] lg:grid-cols-[0.9fr_1.1fr]">
       <div className="min-w-0 p-5 sm:p-8 lg:p-12">
         <h2 className="font-serif text-2xl font-normal text-foreground">{title}</h2>
         <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">{description}</p>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Starting values are examples, not current rates or quotes. Change them to explore your own scenario.</p>
         <a href={`#${resultsId}`} className="mt-3 inline-flex min-h-11 items-center text-sm font-semibold text-primary underline lg:hidden">Jump to your estimate</a>
-        <div className="mt-5 grid gap-5">{fields}</div>
+        <div className="mt-5 grid grid-cols-1 gap-5">{fields}</div>
       </div>
       <section id={resultsId} tabIndex={-1} aria-label="Planning results" className="m-3 min-w-0 scroll-mt-24 border-t border-border bg-primary p-5 text-primary-foreground sm:m-8 sm:p-8 lg:ml-0 lg:border-0 lg:p-10">
         <CalculatorResults>{results}</CalculatorResults>
@@ -182,7 +182,7 @@ export function CalculatorActions({ secondaryHref, tone = "dark" }: { secondaryH
           <Button
             href={secondaryHref}
             variant="outline"
-            className={tone === "dark" ? "w-full border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 sm:w-auto" : "w-full sm:w-auto"}
+            className={tone === "dark" ? "w-full whitespace-normal text-center border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 sm:w-auto" : "w-full whitespace-normal text-center sm:w-auto"}
           >
             Continue planning
           </Button>

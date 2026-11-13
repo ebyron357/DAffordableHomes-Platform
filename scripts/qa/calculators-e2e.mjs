@@ -57,6 +57,29 @@ try {
         assert.deepEqual(errors, [])
         await page.screenshot({ path: `/tmp/agent-browser/qc-${route}-${width}.png`, fullPage: true })
         console.log(`PASS ${route} ${width}: empty, range, recovery, layout, next step`)
+        if (width === 375) {
+          await page.evaluate(() => { document.documentElement.style.fontSize = "200%" })
+          await input.fill("")
+          await page.getByText("Enter a number to update your estimate.", { exact: true }).waitFor()
+          const resized = await page.evaluate(() => {
+            const panel = document.querySelector('[class~="group/calculator"]')
+            const bounds = panel.getBoundingClientRect()
+            const elements = [...panel.querySelectorAll("label, input, select, [id$='-error']")]
+            return {
+              fontSize: parseFloat(getComputedStyle(panel.querySelector("input")).fontSize),
+              clipped: elements.filter((el) => {
+                const rect = el.getBoundingClientRect()
+                return rect.left < bounds.left - 1 || rect.right > bounds.right + 1
+              }).map((el) => el.id || el.textContent),
+            }
+          })
+          assert.ok(resized.fontSize >= 32, `${route}: inputs resize to 200%`)
+          assert.deepEqual(resized.clipped, [], `${route}: fields and errors must not be clipped at 200%`)
+          await input.fill(original)
+          await page.getByRole("link", { name: "Discuss these estimates with Debra" }).waitFor()
+          await page.screenshot({ path: `/tmp/agent-browser/qc-${route}-375-text-200.png`, fullPage: true })
+          console.log(`PASS ${route} 375: 200% text resizing, unclipped fields/errors, recovery`)
+        }
         await page.close()
       }
     } finally {
