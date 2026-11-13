@@ -66,14 +66,23 @@ try {
             const bounds = panel.getBoundingClientRect()
             const elements = [...panel.querySelectorAll("label, input, select, [id$='-error']")]
             return {
+              rootFontSize: getComputedStyle(document.documentElement).fontSize,
+              rootStyle: document.documentElement.getAttribute("style"),
               fontSize: parseFloat(getComputedStyle(panel.querySelector("input")).fontSize),
+              inputFonts: [...panel.querySelectorAll("input, select")].map((el) => ({
+                id: el.id,
+                fontSize: getComputedStyle(el).fontSize,
+                style: el.getAttribute("style"),
+              })),
               clipped: elements.filter((el) => {
                 const rect = el.getBoundingClientRect()
                 return rect.left < bounds.left - 1 || rect.right > bounds.right + 1
               }).map((el) => el.id || el.textContent),
             }
           })
-          assert.ok(resized.fontSize >= 32, `${route}: inputs resize to 200%`)
+          console.log(`RESIZE ${route}: ${JSON.stringify(resized)}`)
+          await page.screenshot({ path: `/tmp/agent-browser/qc-${route}-375-text-200-error.png`, fullPage: true })
+          assert.ok(resized.fontSize >= 32, `${route}: inputs resize to 200%: ${JSON.stringify(resized)}`)
           assert.deepEqual(resized.clipped, [], `${route}: fields and errors must not be clipped at 200%`)
           await input.fill(original)
           await page.getByRole("link", { name: "Discuss these estimates with Debra" }).waitFor()
