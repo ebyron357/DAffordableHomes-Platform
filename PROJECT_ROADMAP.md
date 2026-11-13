@@ -292,14 +292,15 @@ Following owner approval, the review branch was updated to `f0443cf` before edit
 - [x] Record the owner's explicit preview approval for calculators, Contact and Consultation; this is not merge authorization.
 - [x] Confirm both linked Vercel projects automatically deploy `main` to production; merging is not staging-only.
 - [x] Reproduce and fix mobile calculator field clipping at 200% text size; add panel-bound regression assertions for all five calculators. Hosted-browser spot checks, type checking, lint and 262 tests pass after the fix.
-- [ ] Pass CI on the text-resize fix and complete applicable supported-browser/assistive-technology and production-performance acceptance. The QC report now separates those checks from unchanged site-launch/provider-activation obligations; no production exception has been granted. PR #50 remains unmerged.
+- [x] Pass CI on application revision `74f5a36`: run `43462492472` passed the calculator text-resize checks and the full Application Quality workflow; repository health also passed in `43462492232`. See the QC report for revision-specific evidence and limits.
+- [ ] Complete applicable supported-browser/assistive-technology and production-performance acceptance. These are separate from the passing Chromium suite and unchanged site-launch/provider-activation obligations; no production exception has been granted. PR #50 remains unmerged.
 
 ## Disclosure and CI follow-up — 2026-11-13
 
 - [x] Correct both footer variants to use scalable disclosure links with a 12pt minimum, 44px touch targets, underlines and wrapping; update the shared official TREC IABS reference and regression tests. This still references a generic form, not Debra's completed IABS.
 - [x] Record the brokerage/IABS, final legal-policy, privacy contact, retention and messaging-consent evidence required from the owner and qualified reviewers in `docs/12-governance/CLIENT_HANDOFF.md` §3.2.
 - [x] Pass the local full quality gate (type checking, zero-warning lint, 262 tests and production build), contrast checks and hosted-browser footer checks at 375px and 1440px; enlarged homepage legal links measure 32px and remain within their container at 200% text size.
-- [ ] Resolve the calculator 200% input-font assertion from CI run `43396012567`. Hosted preview measures 32px, but the failing CI condition is not yet reproduced. Added computed root/input measurements and a screenshot before the unchanged strict assertion. Local Playwright cannot launch because `libnspr4.so` is missing; the single dependency recovery attempt failed because this image has no `apt-get`. New CI evidence is required; diagnostics are not a fix.
+- [x] Verify the unchanged strict 200% input-font assertion in CI run `43462492472`, browser job `132012754884`, on `74f5a36`. All five calculators report 32px root/control text and no clipped fields at 375px, and all 15 normal-size route/viewport combinations pass. The earlier failure in `43396012567` did not recur; its root cause is not established, so retain diagnostics rather than claiming a diagnosed fix. The prior local Playwright library limitation does not invalidate this remote CI evidence.
 - [ ] Receive verified business facts, completed IABS, a working privacy/accessibility contact process and named broker/legal approval before launch. No public legal policy, provider, production setting or deployment was changed. PR #50 remains a draft and must not be merged on the strength of these checks alone.
 
 ## Quarterly operating review
