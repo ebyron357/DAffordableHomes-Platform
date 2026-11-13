@@ -16,7 +16,10 @@ import {
 } from "@/lib/content/conversion"
 import { DEBRA_DESK_MASTHEAD } from "@/lib/content/imagery"
 import { bookingEmbed } from "@/lib/ghl-booking.mjs"
+import { leadWebhookUrl } from "@/lib/lead-delivery"
 import { Band, BandLead, Features, StatusStrip, Steps } from "@/components/page/editorial"
+
+export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
   title: "Book a Free Consultation",
@@ -76,7 +79,7 @@ const NOT_READY = [
 ] as const
 
 export default function ConsultationPage() {
-  // Read at build time, like the Content Security Policy that must allow it.
+  // The calendar's origin must also be permitted by the build-time CSP.
   const booking = bookingEmbed()
 
   return (
@@ -146,10 +149,10 @@ export default function ConsultationPage() {
                 yet — all of these are good reasons to book.
               </p>
               <p>
-                A short form so Debra can understand what you would like to discuss. Please do not include Social
+                When online messages are available, use the short form below to tell Debra what you would like to discuss. Please do not include Social
                 Security numbers, account numbers, or other sensitive financial information.
               </p>
-              <ContactForm context="consultation" calendarAvailable={Boolean(booking)} />
+              <ContactForm context="consultation" calendarAvailable={Boolean(booking)} deliveryAvailable={Boolean(leadWebhookUrl("contact"))} />
             </div>
 
             <aside className="dh-consult-aside" aria-labelledby="consultation-expect-heading">

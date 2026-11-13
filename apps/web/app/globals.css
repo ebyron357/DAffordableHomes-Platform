@@ -211,7 +211,7 @@
 .fh-footer .professional-details a { text-decoration:underline; text-underline-offset:3px; }
 .dh-professional-details { flex-direction:column; gap:6px; font-size:15px; line-height:1.5; }
 .footer-compliance ul { display:flex; flex-wrap:wrap; gap:6px 20px; margin:0; padding:0; list-style:none; }
-.footer-compliance a { display:inline-block; padding:3px 0; color:rgba(255,255,255,.62); font-size:12px; text-decoration:none; }
+.footer-compliance a { display:inline-flex; align-items:center; min-height:44px; padding:8px 0; color:var(--color-primary-foreground); font-size:max(1rem,12pt); line-height:1.5; text-decoration:underline; text-underline-offset:3px; overflow-wrap:anywhere; }
 .footer-compliance a:hover { color:white; text-decoration:underline; text-underline-offset:3px; }
 /* Vendor attribution sits on the navy band, so it needs its own contrast. */
 .footer-attribution { color:rgba(255,255,255,.9); font-weight:600; text-decoration:underline; text-underline-offset:3px; }
@@ -1404,7 +1404,7 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 .fh-footer-attribution a { color: #dfe8ee; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .fh-footer-attribution a:hover { color: var(--fh-white); }
 .fh-footer-legal ul { flex-direction: row; flex-wrap: wrap; gap: 6px 20px; }
-.fh-footer-legal a { color: #a9bccd; font-size: 12px; }
+.fh-footer .fh-footer-legal a { display:inline-flex; align-items:center; min-height:44px; padding:8px 0; color:var(--fh-white); font-size:max(1rem,12pt); line-height:1.5; text-decoration:underline; text-underline-offset:3px; overflow-wrap:anywhere; }
 .fh-footer-legal a:hover { color: var(--fh-white); }
 
 /* -------------------------------------------------------------- responsive */

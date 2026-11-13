@@ -278,6 +278,31 @@ These items require a separate business and architecture decision before impleme
 - advanced customer data platform
 - direct document uploads containing sensitive financial information
 
+## Controlled QC follow-up — 2026-11-12
+
+Following owner approval, the review branch was updated to `f0443cf` before editing; PR #5 is already merged. A follow-up draft PR, not a rollout, contains this work.
+
+- [x] Preserve registered client-approved Debra portraits and verify the Pexels 7114188 license-page restrictions; no new imagery or palette substitution.
+- [x] Record six named, inspected mobile benchmarks and a bounded scoring matrix in `docs/04-design-system/QC_REVIEW_2026-11-12.md`.
+- [x] Add calculator empty/range feedback, invalid-result suppression, mobile result navigation, readable caveats, and an explicit consultation handoff without changing formulas.
+- [x] Gate contact/consultation data collection on server-side delivery configuration; keep actual success conditional on API delivery.
+- [x] Pass web/integration type checks, zero-warning lint, and all 262 static/unit tests; record hosted-browser input/fallback spot checks and mobile/desktop captures in the QC report.
+- [x] Verify CI run `43376349818` on application commit `3a882ac`: all five calculators pass at 375/768/1440px, lead-form journeys pass with intercepted requests, and axe reports zero violations on its existing 22-route/2-viewport suite. The earlier claim of missing CI scripts/dependencies was incorrect; they are present and the workflow passed.
+- [x] Pass the expanded axe suite: CI run `43379040188` on `7c4bb1f` reports 26 routes / 52 scans / zero violations; all other checks also passed.
+- [x] Record the owner's explicit preview approval for calculators, Contact and Consultation; this is not merge authorization.
+- [x] Confirm both linked Vercel projects automatically deploy `main` to production; merging is not staging-only.
+- [x] Reproduce and fix mobile calculator field clipping at 200% text size; add panel-bound regression assertions for all five calculators. Hosted-browser spot checks, type checking, lint and 262 tests pass after the fix.
+- [x] Pass CI on application revision `74f5a36`: run `43462492472` passed the calculator text-resize checks and the full Application Quality workflow; repository health also passed in `43462492232`. See the QC report for revision-specific evidence and limits.
+- [ ] Complete applicable supported-browser/assistive-technology and production-performance acceptance. These are separate from the passing Chromium suite and unchanged site-launch/provider-activation obligations; no production exception has been granted. PR #50 remains unmerged.
+
+## Disclosure and CI follow-up — 2026-11-13
+
+- [x] Correct both footer variants to use scalable disclosure links with a 12pt minimum, 44px touch targets, underlines and wrapping; update the shared official TREC IABS reference and regression tests. This still references a generic form, not Debra's completed IABS.
+- [x] Record the brokerage/IABS, final legal-policy, privacy contact, retention and messaging-consent evidence required from the owner and qualified reviewers in `docs/12-governance/CLIENT_HANDOFF.md` §3.2.
+- [x] Pass the local full quality gate (type checking, zero-warning lint, 262 tests and production build), contrast checks and hosted-browser footer checks at 375px and 1440px; enlarged homepage legal links measure 32px and remain within their container at 200% text size.
+- [x] Verify the unchanged strict 200% input-font assertion in CI run `43462492472`, browser job `132012754884`, on `74f5a36`. All five calculators report 32px root/control text and no clipped fields at 375px, and all 15 normal-size route/viewport combinations pass. The earlier failure in `43396012567` did not recur; its root cause is not established, so retain diagnostics rather than claiming a diagnosed fix. The prior local Playwright library limitation does not invalidate this remote CI evidence.
+- [ ] Receive verified business facts, completed IABS, a working privacy/accessibility contact process and named broker/legal approval before launch. No public legal policy, provider, production setting or deployment was changed. PR #50 remains a draft and must not be merged on the strength of these checks alone.
+
 ## Quarterly operating review
 
 Every quarter, review:

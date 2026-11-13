@@ -142,6 +142,49 @@ exact set is your broker's call, not ours.** Ask your brokerage's compliance
 contact what must appear and where. No legal text has been drafted or guessed at
 in this repository, and none should be.
 
+#### Disclosure follow-up — November 13, 2026
+
+The footer links are being corrected to use scalable text with a 12pt minimum,
+44px touch targets, underlines and narrow-screen wrapping on both footer variants.
+This is a presentation correction, not compliance approval. The current IABS URL
+in `apps/web/lib/legal-links.ts` still links to TREC's **generic form page**, not
+the completed disclosure required for this business.
+
+Before launch, supply and record all of the following:
+
+- [ ] **Debra / sponsoring broker:** verified brokerage identity, applicable licence
+  details, business contact information and any required advertising disclosures.
+  Confirm broker-name prominence against all advertised agent/team names, not
+  merely that a footer field is populated.
+- [ ] **Sponsoring broker:** the completed, current IABS PDF or approved public URL.
+  Replace the shared IABS URL, check both footers, and confirm it opens without
+  authentication. Confirm the current Consumer Protection Notice link and the
+  required homepage labels, size and placement. Sources:
+  [TREC IABS](https://www.trec.texas.gov/forms/information-about-brokerage-services)
+  and [Consumer Protection Notice](https://www.trec.texas.gov/forms/consumer-protection-notice).
+- [ ] **Broker / qualified legal reviewer:** final approved Privacy and Terms text,
+  reviewer name, approval date and effective date. The published pages currently
+  describe themselves as awaiting final legal versions. Review education-only
+  boundaries, brokerage relationship formation, warranty/accuracy disclaimers,
+  third-party services and appropriate limitation-of-liability language. Do not
+  invent monetary caps, arbitration requirements, indemnities or approved legal
+  wording; disclaimers do not remove statutory duties or all liability.
+- [ ] **Business owner / privacy reviewer:** actual service providers, data purposes,
+  retention periods, deletion-request handling and a verified working privacy and
+  accessibility contact channel. A link to a disconnected Contact form is not
+  a working request process. Test the channel without submitting client data.
+- [ ] **Business owner / messaging reviewer:** approve consent wording and recordkeeping
+  before enabling marketing, automated calls or SMS. General inquiry consent is
+  not blanket permission for promotional messaging. Confirm withdrawal/opt-out
+  handling and any applicable carrier requirements before activation.
+- [ ] **Named reviewer:** Fair Housing, Equal Housing Opportunity, REALTOR® use,
+  program independence and any future approved IDX attribution. Record final
+  approval and evidence in `RELEASE_CHECKLIST.md`.
+
+No legal approval, verified business fact or live-provider delivery is inferred
+from this checklist. Public legal text and collection behavior are unchanged by
+this disclosure-presentation pass; these remain open launch gates.
+
 ### 3.3 CRM delivery
 
 Four webhook URLs, from your CRM, set in Vercel → Settings → Environment

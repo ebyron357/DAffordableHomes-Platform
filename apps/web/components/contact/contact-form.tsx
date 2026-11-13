@@ -32,7 +32,9 @@ function field(form: FormData, name: string): string {
 export function ContactForm({
   context = "general",
   calendarAvailable = false,
+  deliveryAvailable,
 }: {
+  deliveryAvailable: boolean
   context?: "general" | "consultation"
   /** True when /consultation shows the booking calendar above this form. */
   calendarAvailable?: boolean
@@ -115,6 +117,19 @@ export function ContactForm({
     }
   }
 
+  if (!deliveryAvailable) {
+    return (
+      <Notice tone="info" title="Online messages aren't connected yet">
+        <p>You cannot send a message from this page right now. No contact details are being collected.</p>
+        {calendarAvailable && <p className="mt-3">You can use the booking calendar above to choose an available time instead.</p>}
+        <p className="mt-3">
+          While online messages are unavailable, <Link href="/start" className="font-semibold text-primary underline">find your next homebuying step</Link>{" "}
+          or <Link href="/resources" className="font-semibold text-primary underline">browse the homebuyer guides</Link>.
+        </p>
+      </Notice>
+    )
+  }
+
   if (status === "success") {
     const [cost, commitment] = CONSULTATION_TERMS
     return (
@@ -181,6 +196,12 @@ export function ContactForm({
         </p>
       )}
 
+      <p className="text-sm leading-relaxed text-muted-foreground">
+        Fields marked * are required. {context === "consultation"
+          ? "This sends a request, not a confirmed appointment. Debra will reply to arrange a time. No financial documents are needed."
+          : "Debra will reply using the contact details you provide. Please do not include sensitive financial information."}
+      </p>
+
       {/* Honeypot: hidden from people and assistive technology, filled by bots. */}
       <div className="sr-only" aria-hidden="true">
         <label htmlFor={honeypotId}>Website</label>
@@ -199,17 +220,17 @@ export function ContactForm({
           autoComplete="name"
           aria-invalid={invalid.name ? true : undefined}
           aria-describedby={invalid.name ? nameErrId : undefined}
-          className="min-h-12 rounded-md border border-input bg-card px-4 py-2.5 text-sm text-foreground"
+          className="min-h-12 rounded-md border border-input bg-card px-4 py-2.5 text-base text-foreground"
         />
         {invalid.name && <p id={nameErrId} className="text-sm text-destructive">{invalid.name}</p>}
       </div>
 
       {context === "consultation" && <div className="grid gap-5 sm:grid-cols-2">
-        <div className="flex flex-col gap-2"><label htmlFor={phoneId} className="text-sm font-medium text-foreground">Phone</label><input id={phoneId} name="phone" type="tel" autoComplete="tel" aria-describedby={phoneHelpId} className="min-h-12 rounded-md border border-input bg-card px-4 py-2.5 text-sm" /><p id={phoneHelpId} className="text-xs leading-relaxed text-muted-foreground">Optional. Add it if you&apos;d prefer a phone or video call.</p></div>
-        <div className="flex flex-col gap-2"><label htmlFor={connectionId} className="text-sm font-medium text-foreground">Preferred way to connect</label><select id={connectionId} name="preferredConnection" className="min-h-12 rounded-md border border-input bg-card px-4 py-2.5 text-sm"><option>Phone or video call</option><option>Email</option></select></div>
+        <div className="flex flex-col gap-2"><label htmlFor={phoneId} className="text-sm font-medium text-foreground">Phone</label><input id={phoneId} name="phone" type="tel" autoComplete="tel" aria-describedby={phoneHelpId} className="min-h-12 rounded-md border border-input bg-card px-4 py-2.5 text-base" /><p id={phoneHelpId} className="text-xs leading-relaxed text-muted-foreground">Optional. Add it if you&apos;d prefer a phone or video call.</p></div>
+        <div className="flex flex-col gap-2"><label htmlFor={connectionId} className="text-sm font-medium text-foreground">Preferred way to connect</label><select id={connectionId} name="preferredConnection" className="min-h-12 rounded-md border border-input bg-card px-4 py-2.5 text-base"><option>Phone or video call</option><option>Email</option></select></div>
       </div>}
 
-      {context === "consultation" && <div className="flex flex-col gap-2"><label htmlFor={stageId} className="text-sm font-medium text-foreground">Where are you right now?</label><select id={stageId} name="buyerStage" className="min-h-12 rounded-md border border-input bg-card px-4 py-2.5 text-sm"><option value="">Choose the option that fits best</option><option>Exploring whether buying is right for me</option><option>Preparing finances and documents</option><option>Ready to begin a home search</option><option>Already touring or making offers</option></select></div>}
+      {context === "consultation" && <div className="flex flex-col gap-2"><label htmlFor={stageId} className="text-sm font-medium text-foreground">Where are you right now?</label><select id={stageId} name="buyerStage" className="min-h-12 rounded-md border border-input bg-card px-4 py-2.5 text-base"><option value="">Choose the option that fits best</option><option>Exploring whether buying is right for me</option><option>Preparing finances and documents</option><option>Ready to begin a home search</option><option>Already touring or making offers</option></select></div>}
 
       <div className="flex flex-col gap-2">
         <label htmlFor={emailId} className="text-sm font-medium text-foreground">
@@ -223,7 +244,7 @@ export function ContactForm({
           autoComplete="email"
           aria-invalid={invalid.email ? true : undefined}
           aria-describedby={invalid.email ? emailErrId : undefined}
-          className="min-h-12 rounded-md border border-input bg-card px-4 py-2.5 text-sm text-foreground"
+          className="min-h-12 rounded-md border border-input bg-card px-4 py-2.5 text-base text-foreground"
         />
         {invalid.email && <p id={emailErrId} className="text-sm text-destructive">{invalid.email}</p>}
       </div>
@@ -254,7 +275,7 @@ export function ContactForm({
           rows={5}
           aria-invalid={invalid.message ? true : undefined}
           aria-describedby={invalid.message ? `${messageHelpId} ${messageErrId}` : messageHelpId}
-          className="rounded-md border border-input bg-card px-4 py-2.5 text-sm text-foreground"
+          className="rounded-md border border-input bg-card px-4 py-2.5 text-base text-foreground"
         />
         {invalid.message && <p id={messageErrId} className="text-sm text-destructive">{invalid.message}</p>}
       </div>
