@@ -351,8 +351,8 @@ test("the consultation page renders the calendar only when configured, with an a
   const page = read("apps/web/app/consultation/page.tsx");
   assert.match(page, /const booking = bookingEmbed\(\)/);
   assert.match(page, /\{booking && <BookingCalendar booking=\{booking\} \/>\}/);
-  // The message form is always there, calendar or not.
-  assert.match(page, /<ContactForm context="consultation" calendarAvailable=\{Boolean\(booking\)\} \/>/);
+  // The message area stays available; collection is gated by the same resolver as delivery.
+  assert.match(page, /<ContactForm context="consultation" calendarAvailable=\{Boolean\(booking\)\} deliveryAvailable=\{Boolean\(leadWebhookUrl\("contact"\)\)\} \/>/);
 
   const calendar = read("apps/web/components/contact/booking-calendar.tsx");
   assert.match(calendar, /<iframe[\s\S]*?title="[^"]+"/);

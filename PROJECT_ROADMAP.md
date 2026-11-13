@@ -278,6 +278,17 @@ These items require a separate business and architecture decision before impleme
 - advanced customer data platform
 - direct document uploads containing sensitive financial information
 
+## Controlled QC follow-up — 2026-11-12
+
+Following owner approval, the review branch was updated to `f0443cf` before editing; PR #5 is already merged. A follow-up draft PR, not a rollout, contains this work.
+
+- [x] Preserve registered client-approved Debra portraits and verify the Pexels 7114188 license-page restrictions; no new imagery or palette substitution.
+- [x] Record six named, inspected mobile benchmarks and a bounded scoring matrix in `docs/04-design-system/QC_REVIEW_2026-11-12.md`.
+- [x] Add calculator empty/range feedback, invalid-result suppression, mobile result navigation, readable caveats, and an explicit consultation handoff without changing formulas.
+- [x] Gate contact/consultation data collection on server-side delivery configuration; keep actual success conditional on API delivery.
+- [x] Pass web/integration type checks, zero-warning lint, and all 262 static/unit tests; record hosted-browser input/fallback spot checks and mobile/desktop captures in the QC report.
+- [ ] Complete automated browser/axe suites (local Chromium libraries unavailable), reconcile existing CI `qa:*`/browser-tooling configuration gaps, and obtain matching deployment, assistive-technology, performance and owner-review evidence. This does not close existing provider-delivery, business-fact, photo-provenance, analytics, or full-site approval gates.
+
 ## Quarterly operating review
 
 Every quarter, review:

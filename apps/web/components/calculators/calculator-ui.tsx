@@ -1,5 +1,8 @@
-import type { ReactNode } from "react"
+"use client"
+
+import { useId, type ReactNode } from "react"
 import { Button } from "@/components/ui/button"
+import { calculatorInputError } from "@/lib/calculator-input"
 
 export function formatCurrency(value: number) {
   return new Intl.NumberFormat("en-US", {
@@ -33,6 +36,9 @@ export function NumberField({
   help?: string
 }) {
   const helpId = help ? `${id}-help` : undefined
+  const error = calculatorInputError(value, min, max)
+  const errorId = `${id}-error`
+  const describedBy = [helpId, error ? errorId : undefined].filter(Boolean).join(" ") || undefined
 
   return (
     <div>
@@ -48,18 +54,21 @@ export function NumberField({
           min={min}
           max={max}
           step={step}
-          value={value}
-          aria-describedby={helpId}
-          onChange={(event) => onValueChange(event.target.valueAsNumber || 0)}
+          value={Number.isFinite(value) ? value : ""}
+          required
+          aria-invalid={Boolean(error)}
+          aria-describedby={describedBy}
+          onChange={(event) => onValueChange(event.target.valueAsNumber)}
           className="min-w-0 flex-1 bg-transparent px-3 py-2.5 text-base text-foreground outline-none"
         />
         {suffix && <span className="pr-3 text-sm text-muted-foreground">{suffix}</span>}
       </div>
       {help && (
-        <p id={helpId} className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
+        <p id={helpId} className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
           {help}
         </p>
       )}
+      {error && <p id={errorId} className="mt-2 text-sm text-destructive">{error}</p>}
     </div>
   )
 }
@@ -109,17 +118,30 @@ export function CalculatorPanel({
   fields: ReactNode
   results: ReactNode
 }) {
+  const resultsId = useId()
+
   return (
-    <div className="grid overflow-hidden rounded-md border border-border bg-card lg:grid-cols-[0.9fr_1.1fr]">
-      <div className="p-6 sm:p-8 lg:p-12">
+    <div className="group/calculator grid overflow-hidden rounded-md border border-border bg-card lg:grid-cols-[0.9fr_1.1fr]">
+      <div className="min-w-0 p-5 sm:p-8 lg:p-12">
         <h2 className="font-serif text-2xl font-normal text-foreground">{title}</h2>
         <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">{description}</p>
-        <div className="mt-7 grid gap-5">{fields}</div>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Starting values are examples, not current rates or quotes. Change them to explore your own scenario.</p>
+        <a href={`#${resultsId}`} className="mt-3 inline-flex min-h-11 items-center text-sm font-semibold text-primary underline lg:hidden">Jump to your estimate</a>
+        <div className="mt-5 grid gap-5">{fields}</div>
       </div>
-      <div className="m-5 border-t border-border bg-primary p-6 text-primary-foreground sm:m-8 sm:p-8 lg:ml-0 lg:border-0 lg:p-12">
-        {results}
-      </div>
+      <section id={resultsId} tabIndex={-1} aria-label="Planning results" className="m-3 min-w-0 scroll-mt-24 border-t border-border bg-primary p-5 text-primary-foreground sm:m-8 sm:p-8 lg:ml-0 lg:border-0 lg:p-10">
+        <CalculatorResults>{results}</CalculatorResults>
+      </section>
     </div>
+  )
+}
+
+export function CalculatorResults({ children }: { children: ReactNode }) {
+  return (
+    <>
+      <p role="status" className="hidden text-base leading-relaxed group-has-[[aria-invalid=true]]/calculator:block">Your estimate is paused. Correct the highlighted inputs above to see updated results.</p>
+      <div className="group-has-[[aria-invalid=true]]/calculator:hidden">{children}</div>
+    </>
   )
 }
 
@@ -138,8 +160,8 @@ export function ResultRow({
         emphasized ? "text-lg font-semibold" : "text-sm"
       }`}
     >
-      <span className="text-primary-foreground/75">{label}</span>
-      <span className="text-right tabular-nums text-primary-foreground">{value}</span>
+      <span className="min-w-0 flex-1 text-primary-foreground/75">{label}</span>
+      <span className="min-w-0 max-w-[45%] shrink-0 break-words text-right tabular-nums text-primary-foreground">{value}</span>
     </div>
   )
 }
@@ -152,9 +174,9 @@ export function ResultRow({
 export function CalculatorActions({ secondaryHref, tone = "dark" }: { secondaryHref?: string; tone?: "dark" | "light" }) {
   return (
     <>
-      <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-        <Button href="/consultation" variant={tone === "dark" ? "secondary" : "primary"} className="w-full sm:w-auto">
-          Book consultation
+      <div className="mt-7 flex flex-col gap-3">
+        <Button href="/consultation" variant={tone === "dark" ? "secondary" : "primary"} className="min-h-12 w-full whitespace-normal text-center">
+          Discuss these estimates with Debra
         </Button>
         {secondaryHref && (
           <Button
@@ -170,8 +192,8 @@ export function CalculatorActions({ secondaryHref, tone = "dark" }: { secondaryH
       <p
         className={
           tone === "dark"
-            ? "mt-3 text-xs leading-relaxed text-primary-foreground/75"
-            : "mt-3 text-xs leading-relaxed text-muted-foreground"
+            ? "mt-3 text-sm leading-relaxed text-primary-foreground/75"
+            : "mt-3 text-sm leading-relaxed text-muted-foreground"
         }
       >
         Your numbers aren&apos;t saved or sent anywhere. Want a second opinion? Note your result and bring it to a
@@ -183,7 +205,7 @@ export function CalculatorActions({ secondaryHref, tone = "dark" }: { secondaryH
 
 export function EstimateNotice({ children }: { children?: ReactNode }) {
   return (
-    <p className="mt-6 border-t border-primary-foreground/20 pt-5 text-xs leading-relaxed text-primary-foreground/70">
+    <p className="mt-6 border-t border-primary-foreground/20 pt-5 text-sm leading-relaxed text-primary-foreground/70">
       {children ??
         "Planning estimate only. Actual loan terms, taxes, insurance, mortgage insurance, fees, and eligibility vary by property, lender, and borrower."}
     </p>
