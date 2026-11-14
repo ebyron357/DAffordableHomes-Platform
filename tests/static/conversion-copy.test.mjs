@@ -24,7 +24,7 @@ const load = (file) => import(pathToFileURL(`${WEB}/${file}`).href);
 
 const conversion = await load("lib/content/conversion.ts");
 const { FAQ_GROUPS } = await load("lib/content/faq.ts");
-const { FIGMA_CITIES, FIGMA_HOME_CTA } = await load("lib/figma-home.ts");
+const { FIGMA_CITIES, FIGMA_HOME_CTA, FIGMA_HOME_NAV, FIGMA_FOOTER_LINKS, FIGMA_PATHWAY_HIGHLIGHTS, FIGMA_SELLER_POINTS } = await load("lib/figma-home.ts");
 const { LOCAL_MARKET } = await load("lib/local-market.ts");
 const { buildResult } = await load("lib/content/homebuying-path.ts");
 
@@ -130,11 +130,16 @@ test("the worries appear in full on the consultation page, first-time buyers and
 
 /* ---- QW2: how a consultation works ------------------------------------- */
 
-test("the consultation page explains the process before asking for anything", () => {
+test("the consultation action precedes details but explains the request before collecting data", () => {
   const page = read(`${WEB}/app/consultation/page.tsx`);
   const how = page.indexOf('aria-labelledby="consultation-how-heading"');
   const form = page.indexOf('aria-labelledby="consultation-form-heading"');
-  assert.ok(how > 0 && how < form, "the explanation comes before the form");
+  assert.ok(form > 0 && form < how, "preparation guidance follows the form");
+  assert.ok(page.indexOf("Sending this form requests a conversation") < page.indexOf("<ContactForm"));
+  assert.ok(page.indexOf("This is not a loan application or credit check") < page.indexOf("<ContactForm"));
+  assert.match(page, /href="#consultation-actions"/);
+  assert.match(page, /id="consultation-actions"[^>]*tabIndex=\{-1\}/);
+  assert.match(page, /booking \? "Choose a time" : deliveryAvailable \? "Request a consultation" : "View contact options"/);
   assert.match(page, /<Steps items=\{CONSULTATION_STEPS\} \/>/);
   assert.match(page, /CONSULTATION_HELPFUL\.map/);
   assert.match(page, /\{CONSULTATION_IS_NOT\}/);
@@ -214,6 +219,23 @@ test("primary consultation buttons say what pressing them commits you to", () =>
   assert.match(header, /\{note && <p className="dh-reassure">\{note\}<\/p>\}/);
   const home = read(`${WEB}/components/home/figma-home-page.tsx`);
   assert.match(home, /<p className="fh-hero-reassure">\{CONSULTATION_REASSURANCE\}<\/p>/);
+});
+
+test("navigation prioritizes guidance and copy does not promise booking or outcomes", () => {
+  assert.equal(FIGMA_HOME_CTA.consultation.label, "Talk with Debra");
+  for (const links of [FIGMA_HOME_NAV, FIGMA_FOOTER_LINKS]) {
+    assert.ok(links.some((link) => link.label === "Start Here" && link.href === "/start"));
+    assert.ok(!links.some((link) => link.href === "/homes"));
+  }
+  assert.doesNotMatch(JSON.stringify([FIGMA_PATHWAY_HIGHLIGHTS, FIGMA_SELLER_POINTS]), /kept on schedule|so you keep the equity/);
+  const home = withoutComments(read(`${WEB}/components/home/figma-home-page.tsx`));
+  assert.match(home, /listings\.status === "connected" \? \(\s*<Link href=\{FIGMA_HOME_CTA\.searchAllHomes\.href\}/);
+  assert.match(home, /No homes to show right now/);
+  assert.match(home, /Online home search is temporarily unavailable/);
+  assert.doesNotMatch(home, /\{reason\}|listings\.reason/);
+  for (const file of ["lib/figma-home.ts", "lib/content/homebuying-path.ts", "app/areas/page.tsx", "app/homes/page.tsx", "components/home/figma-home-footer.tsx"]) {
+    assert.doesNotMatch(withoutComments(read(`${WEB}/${file}`)), /Schedule a [Cc]onsultation/);
+  }
 });
 
 /* ---- QW5: dead ends ------------------------------------------------------- */

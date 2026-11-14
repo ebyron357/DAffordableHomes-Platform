@@ -18,7 +18,7 @@ They are not blockers and need no further approval.
 
 | Fact | Where it appears |
 | --- | --- |
-| **The consultation is free** | Under the main consultation buttons (homepage hero, About, First-time buyers, Programs, both program pages, the relocation section); consultation steps; common worries; FAQ; consultation success message; the `/start` hero link; page title "Book a Free Consultation" |
+| **The consultation is free** | Under the main consultation buttons (homepage hero, About, First-time buyers, Programs, both program pages, the relocation section); consultation steps; common worries; FAQ; consultation success message; the `/start` hero link; page title "Talk with Debra — Free Consultation" |
 | **There is no commitment** | Same places |
 | **Debra personally replies to each message** | Consultation steps and success message; contact success message and side panel; homepage footer |
 | **Consultations may happen by phone or video** | Under the consultation buttons; consultation steps, success message and FAQ; the relocation section |
@@ -43,7 +43,7 @@ say "used only to reply to you", which was narrower than the policy itself.
 | Page | Added |
 | --- | --- |
 | Every form | A success message that says what happens next, with focus moved to it; a privacy line linking the policy (added to `/start` after PR review) |
-| `/consultation` | "How a consultation works" (three steps, what helps, what it is not) before the form; who it is for; "Worried you're not ready?" after it; field help on phone and message |
+| `/consultation` | Brief process and privacy explanation beside the request form; full "How a consultation works" and preparation guidance after the action (updated 2026-11-14); "Worried you're not ready?" below; field help on phone and message |
 | `/contact` | Help text for sellers and workshop requests; "What happens next" in the side panel |
 | `/first-time-buyers` | The worries with a "Talk with Debra" button after the stages; "What documents should I have ready?" in the FAQ |
 | `/faq` | "Common worries" group; direct answers to "What happens after I book?" and "Do you help with the home search?"; the NACA answer from the NACA page's sourced wording |
@@ -104,3 +104,27 @@ they are plausible and brand-consistent rather than demonstrably wrong:
   standard allows dance references "only when authentic").
 - `/events`: that the formats include credit and budget clinics and
   gatherings with line dancing.
+
+## 4. Mobile conversion and wording pass — 2026-11-14
+
+Implemented on the working branch; not a production deployment or launch approval.
+
+- Kept the approved design, assets, typography and colors. The mobile hero photo now uses a 2:1 crop, with shorter introductory copy and a readable 14px tagline. At 375×812, the primary 48px-high action ends at approximately 649px, with both hero buttons visible and no horizontal overflow.
+- Navigation and service links prioritize `/start` rather than unavailable search. The homepage search button appears only for a connected listing result. Disconnected, error and connected-but-empty states have distinct visitor-facing wording; provider diagnostic reasons are not printed in the UI. Approved-provider data and indexing gates remain unchanged.
+- Consultation links use “Talk with Debra.” The consultation masthead offers “Choose a time” only when the existing booking resolver returns a calendar, “Request a consultation” when message delivery is configured, and “View contact options” otherwise. No credentials or provider setup were added by this pass.
+- Calendar/form actions precede the detailed preparation section. A brief request-versus-booking explanation and sensitive-data warning remain before collection. The redundant closing message invitation was removed; full preparation guidance and common worries remain available.
+- Removed the inspection/closing schedule guarantee, equity-retention implication, unsupported frequency statement and judgmental “question worth asking” heading. No unverified service, response time, testimonial or business fact was added.
+
+### Changed files and boundaries
+
+Application changes: `apps/web/app/{globals.css,consultation/page.tsx,homes/page.tsx,areas/page.tsx}`, `apps/web/components/home/{figma-home-page.tsx,figma-home-footer.tsx}`, `apps/web/components/landing/next-step-landing.tsx`, and `apps/web/lib/{figma-home.ts,navigation.ts,content/homebuying-path.ts}`. Regression coverage: `tests/static/{conversion-copy,conversion-remaining,figma-homepage,interior-visual-system,qc-inputs,ghl-integration}.test.mjs`. Documentation: this file and `PROJECT_ROADMAP.md`.
+
+No form payloads, consent text, API handlers, secrets, security headers, calculations or provider adapters changed. Existing analytics event names and handlers are retained, including `schedule_opened` for consultation-link clicks; it does not mean a booking succeeded. Analytics provider verification remains an open release gate. Rollback: revert the conversion-pass commit without altering provider configuration.
+
+### Validation and remaining gates
+
+Browser checks covered `/`, `/consultation`, `/homes`, `/areas` and `/start` at 375×812 and 1280×900 in development. The mobile menu, consultation anchor and subsequent keyboard focus were exercised; no browser errors were reported in that session. This is not a screen-reader or cross-browser certification.
+
+All 263 static tests, TypeScript checks for both workspaces, ESLint and `git diff --check` passed. Updated copy assertions retain provider, privacy and collection-gating checks rather than deleting those guards. Mobile button labels and section headings can wrap when text is enlarged. A browser-injected 200% text-size simulation on the homepage passed reflow at 375px (document width remained 375px); this is a targeted check, not native Safari zoom certification.
+
+The automated axe scan could not start: the repository's configured Chromium path was absent; the installed Playwright browser also failed to launch because `libnspr4.so` is missing. No WCAG pass is claimed. Live GHL lead delivery/calendar booking, MLS approval, factual/brokerage approval, production analytics, production performance and deployment verification remain separate release gates. Owner: Debra Allen for business approval; implementation reviewer approval is still pending. Confidence: high in the scoped copy/layout behavior, incomplete for production readiness.

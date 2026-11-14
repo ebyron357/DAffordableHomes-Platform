@@ -25,7 +25,7 @@ export const EXPLORE_LINKS: NavItem[] = [
   { label: "Garland Area Guide", href: "/areas/garland" },
   { label: "North Texas Area Guides", href: "/areas" },
   { label: "Market Reports", href: "/market-reports" },
-  { label: "Home Search", href: "/homes" },
+  { label: "Home Search Availability", href: "/homes" },
 ]
 
 export const CONNECT_LINKS: NavItem[] = [

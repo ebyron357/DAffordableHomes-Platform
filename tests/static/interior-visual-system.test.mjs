@@ -104,8 +104,10 @@ test("the honest states are designed, not error boxes", () => {
   const homes = pageSource("homes")
 
   // The MLS truth is unchanged and still unconditional.
-  assert.match(homes, /No MLS or IDX feed is connected to this site yet/)
-  assert.match(homes, /approved MLS or IDX provider/)
+  assert.match(homes, /Online home search isn’t available yet/)
+  assert.doesNotMatch(homes, /\{result\.reason\}/)
+  assert.match(homes, /const result = await searchListings\(\)/)
+  assert.match(homes, /Online home search is temporarily unavailable/)
   // But it is now a status strip inside a composition, with real next steps.
   assert.match(homes, /<StatusStrip/)
   assert.match(homes, /<Split/)

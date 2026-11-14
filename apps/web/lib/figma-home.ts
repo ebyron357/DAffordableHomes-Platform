@@ -21,7 +21,7 @@ export const FIGMA_HOME_NAV = [
   { label: "Home", href: "/", condensed: false },
   { label: "Buy", href: "/first-time-buyers", condensed: true },
   { label: "Sell", href: "/contact", condensed: true },
-  { label: "Search Homes", href: "/homes", condensed: true },
+  { label: "Start Here", href: "/start", condensed: true },
   { label: "New Construction", href: "/consultation", condensed: false },
   { label: "Resources", href: "/resources", condensed: true },
   { label: "About", href: "/about", condensed: true },
@@ -35,7 +35,7 @@ export const FIGMA_HOME_CTA = {
   startBuying: { label: "Start Buying", href: "/first-time-buyers" },
   sellMyHome: { label: "Sell My Home", href: "/contact" },
   aboutDebra: { label: "Learn More About Debra", href: "/about" },
-  consultation: { label: "Schedule a Consultation", href: "/consultation" },
+  consultation: { label: "Talk with Debra", href: "/consultation" },
   searchAllHomes: { label: "Search All Homes", href: "/homes" },
   buyerResources: { label: "Explore Buyer Resources", href: "/first-time-buyers" },
   homeValuation: { label: "Request Home Valuation", href: "/contact" },
@@ -53,9 +53,9 @@ export const FIGMA_SERVICES = [
     href: "/contact",
   },
   {
-    title: "Search Homes",
-    body: "Search by city across DFW, from Garland and Dallas to Plano and Frisco, and ask Debra what is actually on the market before you tour.",
-    href: "/homes",
+    title: "Find Your Next Step",
+    body: "Answer a few questions to find buyer guidance that fits your starting point. No contact details required.",
+    href: "/start",
   },
   {
     title: "New Construction",
@@ -102,7 +102,7 @@ export const FIGMA_PATHWAY_HIGHLIGHTS = {
   buy: [
     "A search built around your real monthly number",
     "Offers explained in full before you sign one",
-    "Inspection and closing kept on schedule",
+    "Understand inspection and closing milestones",
   ],
   sell: [
     "Pricing discussed with the evidence in front of you",
@@ -125,7 +125,7 @@ export const FIGMA_BUYER_POINTS = [
 export const FIGMA_SELLER_POINTS = [
   "Pricing built from recent comparable sales in your neighborhood, with the evidence in front of you.",
   "A preparation plan aimed at what North Texas buyers actually pay for, not a renovation for its own sake.",
-  "Inspection requests, the appraisal and the closing timeline negotiated so you keep the equity you have built.",
+  "Understand how inspection requests, the appraisal and closing costs can affect your sale proceeds.",
 ] as const
 
 export const FIGMA_KNOWLEDGE = [
@@ -159,7 +159,7 @@ export const FIGMA_KNOWLEDGE = [
 export const FIGMA_FOOTER_LINKS = [
   { label: "Buy", href: "/first-time-buyers" },
   { label: "Sell", href: "/contact" },
-  { label: "Search Homes", href: "/homes" },
+  { label: "Start Here", href: "/start" },
   { label: "New Construction", href: "/consultation" },
   { label: "Resources", href: "/resources" },
   { label: "About", href: "/about" },

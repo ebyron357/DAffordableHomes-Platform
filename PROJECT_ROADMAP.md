@@ -56,6 +56,7 @@
 ### Core routes
 
 - [x] Home
+- [x] Mobile conversion and copy pass (2026-11-14): shorter hero, clearer consultation actions, guidance-first navigation, plain-language search fallbacks, earlier consultation action, and removal of timeline/equity guarantees. See `docs/05-content/CONVERSION_COPY.md` §4 for validation and remaining release gates.
 - [ ] About Debra
 - [ ] First-Time Buyers
 - [ ] NACA education

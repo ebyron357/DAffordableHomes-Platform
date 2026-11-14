@@ -140,7 +140,7 @@ export type PathResult = {
   consultation: PathLink
 }
 
-const CONSULTATION: PathLink = { label: "Schedule a Consultation", href: "/consultation" }
+const CONSULTATION: PathLink = { label: "Talk with Debra", href: "/consultation" }
 const HEROES_GROUPS = new Set(["military", "responder", "educator", "healthcare"])
 
 /**

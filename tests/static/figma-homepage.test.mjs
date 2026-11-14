@@ -82,7 +82,8 @@ test("the listings band never fabricates a listing", () => {
   assert.doesNotMatch(home, /ListingPlaceholderCard/);
   assert.match(home, /ListingsEmptyState/);
   // The empty state states the situation and offers a real next action.
-  assert.match(home, /No live MLS feed is connected to this site yet/);
+  assert.match(home, /Online home search isn’t available yet/);
+  assert.match(home, /No homes to show right now/);
   assert.match(home, /listings\.status === "connected"/);
 });
 

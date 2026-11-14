@@ -1507,12 +1507,14 @@ button.fh-btn:disabled:hover { background: var(--fh-navy); }
 }
 
 @media (max-width: 760px) {
+  .fh-btn { white-space: normal; text-align: center; overflow-wrap: anywhere; }
+  .fh-section-intro h2 { min-width: 0; overflow-wrap: anywhere; }
   .fh-header-inner { min-height: 76px; }
   .fh-logo { height: 60px; }
   .fh-hero-inner { padding: 32px 24px 48px; }
-  .fh-hero-media { aspect-ratio: 4 / 3; }
+  .fh-hero-media { aspect-ratio: 2 / 1; }
   /* Keep the tagline legible on a narrow phone. */
-  .fh-hero-tagline { font-size: 11px; letter-spacing: 0.16em; }
+  .fh-hero-tagline { font-size: 14px; letter-spacing: 0; }
   .fh-lede { font-size: 16px; }
   .fh-hero-byline { padding-top: 18px; }
   .fh-hero-byline-portrait { width: 48px; height: 48px; }

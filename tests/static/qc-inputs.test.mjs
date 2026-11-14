@@ -36,7 +36,12 @@ test("calculator outputs are hidden when an input is invalid, including the comp
 test("contact collection is gated on the server and only the availability boolean reaches the client", () => {
   for (const route of ["contact", "consultation"]) {
     const page = read(`app/${route}/page.tsx`)
-    assert.match(page, /deliveryAvailable=\{Boolean\(leadWebhookUrl\("contact"\)\)\}/)
+    if (route === "consultation") {
+      assert.match(page, /const deliveryAvailable = Boolean\(leadWebhookUrl\("contact"\)\)/)
+      assert.match(page, /deliveryAvailable=\{deliveryAvailable\}/)
+    } else {
+      assert.match(page, /deliveryAvailable=\{Boolean\(leadWebhookUrl\("contact"\)\)\}/)
+    }
     assert.match(page, /dynamic = "force-dynamic"/)
   }
   const form = read("components/contact/contact-form.tsx")

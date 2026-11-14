@@ -300,7 +300,7 @@ export default function AreasPage() {
         image={CLOSING_BAND_IMAGE}
       >
         <Link href="/consultation" className="dh-btn dh-btn-gold">
-          Schedule a consultation
+          Talk with Debra
         </Link>
         <Link href="/start" className="dh-btn dh-btn-light-outline">
           Find your next step

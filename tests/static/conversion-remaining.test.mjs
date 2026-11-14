@@ -132,7 +132,8 @@ test("About states Debra's boundaries; contact and consultation say what happens
   assert.match(contact, /<strong>What happens next<\/strong>/);
 
   const consultation = read(`${WEB}/app/consultation/page.tsx`);
-  assert.match(consultation, /weighing a new build, or not sure\s+yet — all of these are good reasons to book/);
+  assert.match(consultation, /Talk through your buying or selling questions with Debra/);
+  assert.match(consultation, /Sending this form requests a conversation; it does not book a time/);
 
   const ftb = read(`${WEB}/app/first-time-buyers/page.tsx`);
   assert.match(ftb, /question: "What documents should I have ready\?"/);
@@ -141,9 +142,9 @@ test("About states Debra's boundaries; contact and consultation say what happens
 
 test("the homepage names who it is for, offers checkable proof, and turns the empty listings block into a next step", () => {
   const home = read(`${WEB}/components/home/figma-home-page.tsx`);
-  assert.match(home, /For first-time buyers and renters getting ready, NACA buyers/);
+  assert.match(home, /Buying your first home, planning a move, or preparing to sell\?/);
   assert.match(home, /Every guide lists its sources and the date it was reviewed/);
-  assert.match(home, /Want to know what&apos;s on the market right now\?/);
+  assert.match(home, /explore buyer guidance and plan what matters in your next home/);
 });
 
 /* ---- /start ------------------------------------------------------------------ */
