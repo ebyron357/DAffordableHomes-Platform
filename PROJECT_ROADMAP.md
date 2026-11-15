@@ -35,14 +35,14 @@
 
 ### Engineering foundation
 
-- [ ] Initialize Next.js App Router application with TypeScript strict mode
-- [ ] Configure Tailwind CSS and semantic design tokens
-- [ ] Add linting, formatting, type checking, unit tests, browser tests, and accessibility tests
-- [ ] Configure GitHub Actions build and quality checks
-- [ ] Configure Vercel preview deployments
-- [ ] Add environment validation with no public exposure of server credentials
-- [ ] Add secure headers and initial Content Security Policy
-- [ ] Add error, loading, not-found, and maintenance states
+- [x] Initialize Next.js App Router application with TypeScript strict mode (`tsconfig.base.json` `strict: true`; verified 2026-11-15)
+- [x] Configure Tailwind CSS and semantic design tokens (`apps/web/app/globals.css`)
+- [x] Add linting, formatting, type checking, unit tests, browser tests, and accessibility tests (`.github/workflows/application-quality.yml` runs tests, build, contrast, axe, SEO, forms, calculators and a11y QA)
+- [x] Configure GitHub Actions build and quality checks
+- [ ] Configure Vercel preview deployments — project is linked; confirm preview builds succeed on the owner's Vercel account during handoff
+- [ ] Add environment validation with no public exposure of server credentials — not yet audited
+- [x] Add secure headers and initial Content Security Policy (`apps/web/next.config.mjs`; HSTS added 2026-11-15 without `includeSubDomains` until subdomains are confirmed HTTPS)
+- [ ] Add error, loading, not-found, and maintenance states — error and not-found states exist; a root `loading.tsx` is intentionally absent because it turns every 404 into a 200 (`tests/static/articles.test.mjs`), so loading states stay per-component; a maintenance state is still open
 
 ### Design system
 
@@ -124,7 +124,7 @@
 
 ### v1.0 launch gate
 
-- [ ] Content and factual approval by Debra — the four business facts the conversion copy relies on were confirmed on 2026-10-03 (`docs/05-content/CONVERSION_COPY.md` §1); the verified business facts in `lib/site.ts` (licence, brokerage, phone, address, service areas) are still owed
+- [ ] Content and factual approval by Debra — questions sent as `docs/12-governance/DEBRA_LAUNCH_QUESTIONS.md` (2026-11-15); the four business facts the conversion copy relies on were confirmed on 2026-10-03 (`docs/05-content/CONVERSION_COPY.md` §1); the verified business facts in `lib/site.ts` (licence, brokerage, phone, address, service areas) are still owed
 - [ ] Brokerage and licensing review
 - [ ] Fair Housing and Equal Housing review
 - [ ] IDX provider approval
