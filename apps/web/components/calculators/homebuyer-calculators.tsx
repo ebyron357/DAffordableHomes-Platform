@@ -13,6 +13,7 @@ import {
 import {
   CalculatorActions,
   CalculatorPanel,
+  CalculatorResults,
   EstimateNotice,
   formatCurrency,
   NumberField,
@@ -92,7 +93,7 @@ export function MortgageCalculator() {
       results={
         <div aria-live="polite">
           <p className="text-sm font-medium text-primary-foreground/80">Estimated monthly payment</p>
-          <p className="mt-3 font-serif text-5xl font-normal tabular-nums text-primary-foreground">{formatCurrency(result.totalMonthlyPayment)}</p>
+          <p className="mt-3 font-serif text-5xl font-normal break-words tabular-nums text-primary-foreground">{formatCurrency(result.totalMonthlyPayment)}</p>
           <p className="mt-1 text-sm text-primary-foreground/75">per month</p>
           <div className="mt-6">
             <ResultRow label="Principal and interest" value={formatCurrency(result.principalAndInterest)} />
@@ -176,8 +177,8 @@ export function AffordabilityCalculator() {
       }
       results={
         <div aria-live="polite">
-          <p className="text-sm font-medium uppercase tracking-[0.16em] text-accent-inverse">Estimated planning price</p>
-          <p className="mt-2 text-4xl font-semibold tabular-nums text-primary-foreground">{formatCurrency(result.estimatedHomePrice)}</p>
+          <p className="text-sm font-medium uppercase tracking-[0.16em] text-primary-foreground">Estimated planning price</p>
+          <p className="mt-2 text-4xl font-semibold break-words tabular-nums text-primary-foreground">{formatCurrency(result.estimatedHomePrice)}</p>
           <p className="mt-1 text-sm text-primary-foreground/75">not a pre-approval or lending decision</p>
           <div className="mt-6">
             <ResultRow label="Monthly housing budget" value={formatCurrency(result.monthlyHousingBudget)} />
@@ -238,8 +239,8 @@ export function ClosingCostCalculator() {
       }
       results={
         <div aria-live="polite">
-          <p className="text-sm font-medium uppercase tracking-[0.16em] text-accent-inverse">Estimated cash to close</p>
-          <p className="mt-2 text-4xl font-semibold tabular-nums text-primary-foreground">{formatCurrency(result.estimatedCashToClose)}</p>
+          <p className="text-sm font-medium uppercase tracking-[0.16em] text-primary-foreground">Estimated cash to close</p>
+          <p className="mt-2 text-4xl font-semibold break-words tabular-nums text-primary-foreground">{formatCurrency(result.estimatedCashToClose)}</p>
           <div className="mt-6">
             <ResultRow label="Down payment" value={formatCurrency(result.downPayment)} />
             <ResultRow label="Estimated closing costs" value={formatCurrency(result.estimatedClosingCosts)} />
@@ -288,7 +289,7 @@ export function DownPaymentPlanner() {
   )
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+    <div className="group/calculator overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
       <div className="p-6 sm:p-8">
         <h2 className="text-2xl font-semibold text-foreground">Compare common down-payment scenarios</h2>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
@@ -315,7 +316,8 @@ export function DownPaymentPlanner() {
         </div>
       </div>
 
-      <div className="border-t border-border bg-muted/40 p-4 sm:p-8">
+      <div className="border-t border-border bg-muted/40 p-4 text-foreground sm:p-8">
+        <CalculatorResults>
         {/* Focusable so keyboard users can scroll the wide table on phones (WCAG 2.1.1). */}
         <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Down-payment scenarios table">
           <table className="w-full min-w-[760px] border-separate border-spacing-0 text-left text-sm">
@@ -348,6 +350,7 @@ export function DownPaymentPlanner() {
         <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
           Planning estimates only. A 20% down payment often removes conventional mortgage insurance, but program rules vary. Lower-down-payment programs may have different insurance structures and eligibility requirements.
         </p>
+        </CalculatorResults>
       </div>
     </div>
   )
@@ -405,7 +408,7 @@ export function RentVsBuyCalculator() {
       }
       results={
         <div aria-live="polite">
-          <p className="text-sm font-medium uppercase tracking-[0.16em] text-accent-inverse">Simplified {years}-year cash outflow</p>
+          <p className="text-sm font-medium uppercase tracking-[0.16em] text-primary-foreground">Simplified {years}-year cash outflow</p>
           <div className="mt-6">
             <ResultRow label="Rent" value={formatCurrency(result.rentCost)} emphasized />
             <ResultRow label="Ownership" value={formatCurrency(result.ownershipCost)} emphasized />

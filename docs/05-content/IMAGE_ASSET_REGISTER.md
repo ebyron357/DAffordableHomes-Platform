@@ -15,6 +15,8 @@ Canonical register for approved public-site imagery. Debra Allen's photographs m
 
 The Pexels family image was downloaded on 2026-07-20. Pexels permits free website and commercial promotional use; the site does not imply that the pictured family endorses D'Affordable Homes.
 
+**License-page verification, 2026-11-12:** the linked photo page identifies Monstera Production and photo 7114188. The linked Pexels license permits website/promotional use and modification without mandatory attribution. It prohibits implied endorsement, offensive portrayal of identifiable people, unaltered resale, stock redistribution, and use as a trademark. This page check is not an asset-specific model/property-release certificate. Keep this family as illustrative stock, never as Debra's clients, a testimonial, or evidence of a transaction. Preserve its existing `/homes` placement and the later owner-directed homepage composition. The registered client-approved portraits above supersede the earlier chat's missing-portrait blocker; they were not altered in this QC pass.
+
 The homepage exterior is a generated candidate. It is generic residential imagery, not a real listing, transaction, client property, verified address, or specific neighbourhood. The original Gamma asset was removed from the active hero after the owner's rejection.
 
 

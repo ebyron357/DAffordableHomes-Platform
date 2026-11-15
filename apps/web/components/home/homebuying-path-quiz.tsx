@@ -6,7 +6,6 @@ import { useGuidedQuiz, type GuidedQuizPhase } from "@/components/quiz/use-guide
 import { trackEvent } from "@/lib/analytics"
 import {
   buildResult,
-  HEROES_HINT,
   PATH_NAMES,
   PATH_ORDER,
   timelineNote,
@@ -19,7 +18,7 @@ const INTRO: GuidedQuizPhase = { kind: "intro" }
 /**
  * "Find Your Homebuying Path" — the homepage's guided quiz.
  *
- * Five questions, one at a time and branched on the visitor's goal,
+ * Four questions, one at a time and branched on the visitor's goal,
  * then an immediate result: a heading, an explanation written from the
  * answers, a recommended next step, one existing resource, a primary action
  * and an optional consultation. No contact details are asked for. Built on
@@ -107,13 +106,6 @@ export function HomebuyingPathQuiz() {
             {result.resource.label}
           </Link>
         </div>
-        {answers.service === "notsure" && result.key !== "hero" && (
-          <p className="fh-pathquiz-secondary fh-pathquiz-enter" style={{ animationDelay: "280ms" }}>
-            <Link href={HEROES_HINT.href} className="fh-text-link">
-              {HEROES_HINT.label} <ArrowRight className="size-3.5" aria-hidden="true" />
-            </Link>
-          </p>
-        )}
         <div className="fh-pathquiz-review fh-pathquiz-enter" style={{ animationDelay: "320ms" }}>
           <div>
             <p className="fh-pathquiz-review-title">Want Debra to review your plan?</p>

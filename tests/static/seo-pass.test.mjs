@@ -70,7 +70,7 @@ test("every /start FAQ answer is in the HTML, and the FAQPage markup describes t
 
 test("the footer links every buyer-facing page that only one or two pages linked before", () => {
   const footer = read(`${WEB}/components/layout/site-footer.tsx`);
-  for (const href of ["/programs/naca", "/programs/homes-for-heroes", "/calculators/down-payment", "/calculators/rent-vs-buy"]) {
+  for (const href of ["/programs/naca", "/calculators/down-payment", "/calculators/rent-vs-buy"]) {
     assert.ok(footer.includes(`href="${href}"`), href);
   }
 });

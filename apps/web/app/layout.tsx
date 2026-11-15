@@ -52,7 +52,6 @@ export const metadata: Metadata = {
     "Garland homebuyer guidance",
     "Dallas Fort Worth homebuyer programs",
     "NACA real estate guidance",
-    "Homes for Heroes real estate guidance",
     "REALTOR",
     "Debra Allen",
   ],
@@ -134,7 +133,6 @@ const entityGraph = {
       knowsAbout: [
         "First-time home buying",
         "NACA homebuying program",
-        "Homes for Heroes program",
         "Buying a home in Garland, Texas",
         "Buying a home in Dallas–Fort Worth",
       ],

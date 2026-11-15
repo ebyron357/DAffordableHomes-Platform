@@ -82,7 +82,8 @@ test("the listings band never fabricates a listing", () => {
   assert.doesNotMatch(home, /ListingPlaceholderCard/);
   assert.match(home, /ListingsEmptyState/);
   // The empty state states the situation and offers a real next action.
-  assert.match(home, /No live MLS feed is connected to this site yet/);
+  assert.match(home, /Online home search isn’t available yet/);
+  assert.match(home, /No homes to show right now/);
   assert.match(home, /listings\.status === "connected"/);
 });
 
@@ -131,7 +132,7 @@ test("the homepage footer keeps compliance reachable and subordinate", () => {
   // Texas practice requires both TREC notices to be reachable. Both footers
   // take them from one list, so a change cannot reach only one of them.
   const legal = read("apps/web/lib/legal-links.ts");
-  assert.match(legal, /information-about-brokerage-services-form/);
+  assert.match(legal, /forms\/information-about-brokerage-services/);
   assert.match(legal, /forms\/consumer-protection-notice/);
   assert.match(map, /import \{ TREC_LINKS \} from "@\/lib\/legal-links"/);
   assert.match(map, /\.\.\.TREC_LINKS\.map/);
@@ -148,9 +149,15 @@ test("the homepage footer keeps compliance reachable and subordinate", () => {
       `${name} footer is missing the Equal Housing Opportunity link`,
     );
   }
-  // They live in the small compliance row, not a navigation column.
+  // Preserve the compliance row, but never shrink abbreviated TREC notices below 12pt.
   assert.match(footer, /className="fh-footer-legal"/);
-  assert.match(css, /\.fh-footer-legal a \{[^}]*font-size: 12px;/);
+  for (const selector of [".footer-compliance a", ".fh-footer .fh-footer-legal a"]) {
+    const rule = css.slice(css.indexOf(`${selector} {`)).split("}")[0];
+    assert.match(rule, /font-size:max\(1rem,12pt\)/, `${selector}: scalable 12pt minimum`);
+    assert.match(rule, /min-height:44px/, `${selector}: touch target`);
+    assert.match(rule, /text-decoration:underline/, `${selector}: visible link affordance`);
+    assert.match(rule, /overflow-wrap:anywhere/, `${selector}: narrow-screen wrapping`);
+  }
   // Vendor credit survives the recomposition.
   assert.match(footer, /CLIENTVERSE\.attributionText/);
   assert.match(footer, /new Date\(\)\.getFullYear\(\)/);

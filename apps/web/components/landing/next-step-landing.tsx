@@ -60,16 +60,8 @@ const PATHS: PathDefinition[] = [
     icon: KeyRound,
   },
   {
-    key: "heroes",
-    number: "03",
-    title: "I serve my community",
-    body: "You’re military, a veteran, teacher, healthcare professional, firefighter/EMS, or law-enforcement professional and want to understand options that may apply.",
-    cta: "Explore Homes for Heroes",
-    icon: ShieldCheck,
-  },
-  {
     key: "unsure",
-    number: "04",
+    number: "03",
     title: "I’m not sure yet",
     body: "You’re renting, working on finances, concerned about credit, or simply don’t know which route fits you.",
     cta: "Find my next step",
@@ -97,11 +89,6 @@ const FAQS = [
     question: "Do I need to be ready to buy before talking to Debra?",
     answer:
       "No. The purpose of this page is to help you get oriented before you feel ready. You can keep learning on your own or ask for guidance when the time feels right.",
-  },
-  {
-    question: "Who can explore Homes for Heroes?",
-    answer:
-      "Military members and veterans, educators, healthcare professionals, firefighters/EMS, and law-enforcement professionals can explore whether a relevant benefit or resource is worth investigating. Eligibility is determined by the applicable program, not this page.",
   },
   {
     question: "Are there homebuyer assistance programs in Dallas?",
@@ -152,12 +139,6 @@ const CAMPAIGN_VARIANTS: Record<
     promise: "Start with clarity about what to understand and prepare next.",
     highlight: "unsure",
   },
-  hero: {
-    eyebrow: "HOMES FOR HEROES IN DALLAS–FORT WORTH",
-    headline: "You serve your community. Let’s make your homebuying options easier to understand.",
-    promise: "Explore a path that recognizes where you serve without making promises about eligibility.",
-    highlight: "heroes",
-  },
   "down-payment": {
     eyebrow: "DFW HOMEBUYER EDUCATION",
     headline: "Need help understanding down-payment options?",
@@ -190,7 +171,7 @@ type WebsiteActions = {
   goBackAssessment: () => void
   updateAssessment: (questionId: string, value: string) => void
   getAssessmentState: () => { phase: Phase; answers: Record<string, string>; selectedPath: PathKey | null }
-  showProgram: (program: "naca" | "traditional" | "heroes") => void
+  showProgram: (program: "naca" | "traditional") => void
   showListings: () => void
   applyListingFilters: (filters?: Record<string, string>) => { available: false; reason: string }
   openCalculator: () => void
@@ -472,7 +453,7 @@ export function NextStepLanding() {
           <div className="dah-landing-voice-entry">
             <Link href="/consultation" className="dah-landing-voice-button" onClick={() => trackEvent("schedule_opened", { source: "hero-talk" })}>
               <span className="dah-landing-voice-icon"><Users size={19} aria-hidden="true" /></span>
-              <span><strong>Rather talk to a person?</strong> Book a free consultation with Debra.</span>
+              <span><strong>Rather talk to a person?</strong> Talk with Debra about your next step.</span>
             </Link>
           </div>
           <p className="dah-landing-microcopy">No mortgage application. No pressure. Start with a few simple questions.</p>
@@ -597,13 +578,6 @@ export function NextStepLanding() {
         </div>
       </section>
 
-      <section id="heroes" className="dah-landing-section dah-landing-navy" aria-labelledby="heroes-heading">
-        <div className="dah-landing-container dah-landing-two-column">
-          <div><p className="dah-landing-eyebrow dah-landing-eyebrow-gold">HOMES FOR HEROES</p><h2 id="heroes-heading">You serve your community. Your homebuying plan should recognize that.</h2><p className="dah-landing-copy dah-landing-copy-light">Explore whether a benefit or resource connected to your role deserves attention. Current requirements and eligibility belong with the applicable program.</p><button type="button" className={ctaClass("turquoise")} onClick={() => startAssessment()}>Explore my hero options <ArrowRight size={17} aria-hidden="true" /></button></div>
-          <div className="dah-landing-hero-list">{["Military & Veterans", "Teachers & Educators", "Healthcare Professionals", "Firefighters & EMS", "Law Enforcement"].map((item) => <div key={item}><Users size={18} aria-hidden="true" /><span>{item}</span></div>)}</div>
-        </div>
-      </section>
-
       <section id="explore" className="dah-landing-section" aria-labelledby="explore-heading">
         <div className="dah-landing-container dah-landing-two-column">
           <div className="dah-landing-image-frame dah-landing-image-frame-short"><Image src="/manus-storage/home-keys-moment_20083d77.jpg" alt="A homeowner holding keys at the doorway of a house" fill sizes="(max-width: 800px) 100vw, 50vw" loading="lazy" /></div>
@@ -637,12 +611,12 @@ export function NextStepLanding() {
       <section className="dah-landing-final" aria-labelledby="final-heading">
         <Image src="/manus-storage/home-keys-moment_20083d77.jpg" alt="" fill sizes="100vw" loading="lazy" className="dah-landing-final-image" />
         <div className="dah-landing-final-overlay" aria-hidden="true" />
-        <div className="dah-landing-container dah-landing-final-content"><p className="dah-landing-eyebrow dah-landing-eyebrow-gold">YOUR NEXT STEP IS ENOUGH FOR TODAY</p><h2 id="final-heading">You don’t need to have everything figured out.</h2><p>You just need to know your next step.</p><div><button type="button" className={ctaClass("gold")} onClick={startAssessment}>Find my next step <ArrowRight size={17} aria-hidden="true" /></button><Link href="/consultation" className={ctaClass("outline")}>Schedule with Debra</Link></div></div>
+        <div className="dah-landing-container dah-landing-final-content"><p className="dah-landing-eyebrow dah-landing-eyebrow-gold">YOUR NEXT STEP IS ENOUGH FOR TODAY</p><h2 id="final-heading">You don’t need to have everything figured out.</h2><p>You just need to know your next step.</p><div><button type="button" className={ctaClass("gold")} onClick={startAssessment}>Find my next step <ArrowRight size={17} aria-hidden="true" /></button><Link href="/consultation" className={ctaClass("outline")}>Talk with Debra</Link></div></div>
       </section>
 
       {phase === "result" && leadOpen && <section id="lead-capture" className="dah-landing-section dah-landing-cream" aria-labelledby="lead-heading"><div className="dah-landing-container dah-landing-lead-card"><div><p className="dah-landing-eyebrow dah-landing-eyebrow-dark">VALUE FIRST. CONTACT SECOND.</p><h2 id="lead-heading">Want Debra to help you take the next step?</h2><p className="dah-landing-copy">Your educational result is already yours. Share a little context only if you want a follow-up.</p></div>{leadStatus === "success" ? <div ref={leadSuccessRef} tabIndex={-1} className="dah-landing-success" role="status"><Check size={22} aria-hidden="true" /><div><strong>Thanks — Debra has your next-step request.</strong><p>She’ll see the path you chose, so your conversation can start where you are.</p>{leadFields.preferredNextStep === "Schedule a consultation" && <p><Link href="/consultation" onClick={() => trackEvent("schedule_opened", { source: "lead-success" })}>Ready to book now? Open the consultation page.</Link></p>}</div></div> : <form onSubmit={handleLeadSubmit} className="dah-landing-lead-form"><div className="dah-landing-form-grid"><label>First name <input required name="firstName" value={leadFields.firstName} onChange={(event) => updateFormField("firstName", event.target.value)} autoComplete="given-name" /></label><label>Email <input required type="email" name="email" value={leadFields.email} onChange={(event) => updateFormField("email", event.target.value)} autoComplete="email" /></label><label>Mobile <span>(optional)</span><input type="tel" name="mobile" value={leadFields.mobile} onChange={(event) => updateFormField("mobile", event.target.value)} autoComplete="tel" /></label><label>Preferred next step <select name="preferredNextStep" value={leadFields.preferredNextStep} onChange={(event) => updateFormField("preferredNextStep", event.target.value)}><option>Schedule a consultation</option><option>Have Debra contact me</option><option>Email my results</option><option>Send me NACA information</option><option>I’m just researching</option></select></label></div><input className="dah-landing-honeypot" tabIndex={-1} aria-hidden="true" name="website" autoComplete="off" /><div className="dah-landing-form-actions"><button type="submit" className={ctaClass("gold")} disabled={leadStatus === "submitting"}>{leadStatus === "submitting" ? "Sending…" : "Send my next-step request"} <ArrowRight size={17} aria-hidden="true" /></button><p>No preapproval, qualification, or guarantee is provided by this form.</p><p>{FORM_PRIVACY}{" "}<Link href="/privacy">Privacy policy</Link></p></div>{leadStatus === "error" && <p className="dah-landing-form-error" role="alert">{leadError} <Link href="/consultation">Open the consultation page.</Link></p>}</form>}</div></section>}
 
-      <div className="dah-landing-bottom-actions" aria-label="Quick actions"><button type="button" onClick={startAssessment}><Sparkles size={16} aria-hidden="true" /> Find my next step</button><Link href="/consultation" onClick={() => trackEvent("schedule_opened", { source: "sticky-cta" })}><Home size={16} aria-hidden="true" /> Schedule with Debra</Link></div>
+      <div className="dah-landing-bottom-actions" aria-label="Quick actions"><button type="button" onClick={startAssessment}><Sparkles size={16} aria-hidden="true" /> Find my next step</button><Link href="/consultation" onClick={() => trackEvent("schedule_opened", { source: "sticky-cta" })}><Home size={16} aria-hidden="true" /> Talk with Debra</Link></div>
     </div>
   )
 }

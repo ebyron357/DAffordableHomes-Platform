@@ -7,6 +7,9 @@ import { Band, StatusStrip } from "@/components/page/editorial"
 import { Container } from "@/components/ui/container"
 import { ContactForm } from "@/components/contact/contact-form"
 import { ProfessionalDetails } from "@/components/layout/professional-details"
+import { leadWebhookUrl } from "@/lib/lead-delivery"
+
+export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
   title: "Contact Debra",
@@ -43,7 +46,7 @@ export default function ContactPage() {
                 A sentence is plenty. Say where you are in the process and what you are trying to work out — that is
                 enough for a useful reply.
               </p>
-              <ContactForm context="general" />
+              <ContactForm context="general" deliveryAvailable={Boolean(leadWebhookUrl("contact"))} />
             </div>
 
             <aside className="dh-consult-aside" aria-labelledby="contact-aside-heading">
@@ -71,7 +74,7 @@ export default function ContactPage() {
                   <MessageCircle aria-hidden="true" />
                   <span>
                     <strong>What happens next</strong>
-                    Your message goes straight to Debra. She reads it herself and replies to the email you give.
+                    When online messages are available, your message goes straight to Debra. She reads it herself and replies to the email you give.
                   </span>
                 </li>
               </ul>

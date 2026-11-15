@@ -83,6 +83,10 @@ jobs:
         run: pnpm qa:contrast
 
       - name: Start the production server
+        # Enables the form UI only. Browser tests intercept every lead request;
+        # this reserved .invalid host can never deliver a real message.
+        env:
+          LEAD_WEBHOOK_URL: https://qa.example.invalid/leads
         run: sh scripts/qa/serve.sh 3111 "$RUNNER_TEMP/qa-server.log"
 
       - name: Route crawl, structure and responsive audit
@@ -103,6 +107,9 @@ jobs:
       - name: Lead forms end-to-end
         run: pnpm qa:forms
 
+      - name: Calculator validation and mobile results
+        run: node scripts/qa/calculators-e2e.mjs
+
       - name: Portrait crop safety
         run: pnpm qa:faces
 
@@ -117,6 +124,7 @@ jobs:
           name: browser-qa-evidence
           path: |
             qa-evidence/
+            /tmp/agent-browser/qc-*.png
             ${{ runner.temp }}/qa-server.log
           if-no-files-found: ignore
           retention-days: 14

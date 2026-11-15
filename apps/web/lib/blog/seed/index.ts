@@ -18,13 +18,11 @@
 
 import type { Article } from "../types"
 import { garlandArticle } from "./articles/how-to-buy-home-garland-tx"
-import { heroesArticle } from "./articles/homes-for-heroes-north-texas"
 import { nacaArticle } from "./articles/naca-homebuying-dallas-fort-worth"
 
 /** Ordered newest-first for listing pages. */
 export const SEED_ARTICLES: Article[] = [
   nacaArticle,
-  heroesArticle,
   garlandArticle,
 ]
 

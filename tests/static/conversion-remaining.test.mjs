@@ -79,21 +79,9 @@ test("NACA shows the next step for each program stage, and who handles it", () =
   assert.match(page, /title="Where the program&apos;s rules come from"|title="Where the program's rules come from"/);
 });
 
-test("Homes for Heroes answers who may qualify, military moves and Garland without brushing anyone off", () => {
-  const faqs = Object.fromEntries(PROGRAMS["homes-for-heroes"].faqs.map((f) => [f.question, f.answer]));
-  const qualify = faqs["Who may qualify for Homes for Heroes?"];
-  assert.match(qualify, /national Homes for Heroes program/);
-  assert.match(qualify, /TSAHC's Homes for Texas Heroes/);
-  assert.match(qualify, /Debra can help you work out what to ask each one/);
-
-  const orders = faqs["I'm on military orders to Dallas–Fort Worth. Can Debra help?"];
-  assert.ok(orders, "the military-orders question is answered");
-  assert.match(orders, /a VA-approved lender confirms your entitlement and terms/);
-
-  assert.doesNotMatch(faqs["Can Debra help a veteran or teacher buy in Garland?"], /blanket|unverified/);
-  // Internal project language does not reach visitors.
-  assert.doesNotMatch(PROGRAMS["homes-for-heroes"].disclaimer, /added to the project/);
-  assert.match(PROGRAMS["homes-for-heroes"].disclaimer, /does not claim affiliation/);
+test("Homes for Heroes is no longer offered as a program", () => {
+  assert.equal(PROGRAMS["homes-for-heroes"], undefined);
+  assert.deepEqual(Object.keys(PROGRAMS), ["naca"]);
 });
 
 /* ---- hub, calculators, about, contact, consultation, first-time buyers ---- */
@@ -102,7 +90,7 @@ test("the programs hub sorts visitors to the right place and answers the savings
   const hub = read(`${WEB}/app/programs/page.tsx`);
   assert.match(hub, /Not sure which applies to you\?/);
   assert.match(hub, /PROGRAM_SORT\.map/);
-  for (const href of ["/programs/naca", "/programs/homes-for-heroes", "#official-programs-heading", "/start"]) {
+  for (const href of ["/programs/naca", "#official-programs-heading", "/start"]) {
     assert.ok(hub.includes(`href: "${href}"`), href);
   }
   assert.match(hub, /Haven&apos;t saved much\?/);
@@ -132,7 +120,8 @@ test("About states Debra's boundaries; contact and consultation say what happens
   assert.match(contact, /<strong>What happens next<\/strong>/);
 
   const consultation = read(`${WEB}/app/consultation/page.tsx`);
-  assert.match(consultation, /weighing a new build, or not sure\s+yet — all of these are good reasons to book/);
+  assert.match(consultation, /Talk through your buying or selling questions with Debra/);
+  assert.match(consultation, /Sending this form requests a conversation; it does not book a time/);
 
   const ftb = read(`${WEB}/app/first-time-buyers/page.tsx`);
   assert.match(ftb, /question: "What documents should I have ready\?"/);
@@ -141,9 +130,9 @@ test("About states Debra's boundaries; contact and consultation say what happens
 
 test("the homepage names who it is for, offers checkable proof, and turns the empty listings block into a next step", () => {
   const home = read(`${WEB}/components/home/figma-home-page.tsx`);
-  assert.match(home, /For first-time buyers and renters getting ready, NACA buyers/);
+  assert.match(home, /Buying your first home, planning a move, or preparing to sell\?/);
   assert.match(home, /Every guide lists its sources and the date it was reviewed/);
-  assert.match(home, /Want to know what&apos;s on the market right now\?/);
+  assert.match(home, /explore buyer guidance and plan what matters in your next home/);
 });
 
 /* ---- /start ------------------------------------------------------------------ */
@@ -209,7 +198,7 @@ test("text after a closing inline tag keeps its space when it contains an entity
 test("follow-on link rows keep the arrow with the last word and drop the orphan separator", () => {
   const areas = read(`${WEB}/app/areas/page.tsx`);
   assert.match(areas, /<ul className="dh-band-links">/);
-  assert.match(areas, /<ArrowLink href="\/programs\/homes-for-heroes"/);
+  assert.match(areas, /<ArrowLink href="\/calculators\/affordability"/);
   assert.doesNotMatch(areas, /dh-band-note-sep/);
   assert.match(read(`${WEB}/components/conversion/worries.tsx`), /<ArrowLink href=\{item\.link\.href\}/);
 });

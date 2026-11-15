@@ -15,7 +15,6 @@ export const LEARN_LINKS: NavItem[] = [
   { label: "First-Time Buyers", href: "/first-time-buyers" },
   { label: "Homebuyer Programs", href: "/programs" },
   { label: "NACA Homebuyer Help", href: "/programs/naca" },
-  { label: "Homes for Heroes", href: "/programs/homes-for-heroes" },
   { label: "Resource Library", href: "/resources" },
   { label: "Blog & Articles", href: "/blog" },
   { label: "FAQ", href: "/faq" },
@@ -25,7 +24,7 @@ export const EXPLORE_LINKS: NavItem[] = [
   { label: "Garland Area Guide", href: "/areas/garland" },
   { label: "North Texas Area Guides", href: "/areas" },
   { label: "Market Reports", href: "/market-reports" },
-  { label: "Home Search", href: "/homes" },
+  { label: "Home Search Availability", href: "/homes" },
 ]
 
 export const CONNECT_LINKS: NavItem[] = [

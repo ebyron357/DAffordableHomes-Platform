@@ -14,9 +14,9 @@
  *   failed       API 502 with an error message: the message is shown, the form
  *                stays usable, and nothing claims the lead was sent
  *
- * Forms: /contact and /consultation (message form), /programs/naca and
- * /programs/homes-for-heroes (program form), /start (next-step lead form,
- * reached by completing the readiness assessment).
+ * Forms: /contact and /consultation (message form), /programs/naca (program
+ * form), /start (next-step lead form, reached by completing the readiness
+ * assessment).
  *
  * Usage:
  *   node scripts/qa/forms-e2e.mjs [--base http://127.0.0.1:3111]
@@ -289,7 +289,6 @@ const RUNS = [
   ["/contact", () => messageForm("/contact", "Thank you — your message is with Debra")],
   ["/consultation", () => messageForm("/consultation", "Thank you — your consultation request is in")],
   ["/programs/naca", () => programForm("/programs/naca", "Thank you — Debra has your NACA details")],
-  ["/programs/homes-for-heroes", () => programForm("/programs/homes-for-heroes", "Thank you — Debra has your details")],
   ["/start", () => startForm()],
 ]
 try {

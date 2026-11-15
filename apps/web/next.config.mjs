@@ -72,7 +72,9 @@ const baseSecurityHeaders = [
   { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-  { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' }
+  { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+  // No includeSubDomains until every daffordablehomes.com subdomain is confirmed HTTPS.
+  { key: 'Strict-Transport-Security', value: 'max-age=63072000' }
 ];
 
 /** @type {import('next').NextConfig} */
@@ -136,6 +138,8 @@ const nextConfig = {
       { source: '/resources/calculators/mortgage-payment', destination: '/calculators/mortgage-payment', permanent: true },
       { source: '/calculator', destination: '/calculators/mortgage-payment', permanent: true },
       { source: '/naca', destination: '/programs/naca', permanent: true },
+      { source: '/programs/homes-for-heroes', destination: '/programs', permanent: true },
+      { source: '/blog/homes-for-heroes-north-texas', destination: '/blog', permanent: true },
       { source: '/neighborhoods', destination: '/areas', permanent: true }
     ];
   }

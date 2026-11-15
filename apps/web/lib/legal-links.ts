@@ -12,7 +12,7 @@
 export const TREC_LINKS = [
   {
     label: "TREC Information About Brokerage Services",
-    href: "https://www.trec.texas.gov/information-about-brokerage-services-form",
+    href: "https://www.trec.texas.gov/forms/information-about-brokerage-services",
   },
   {
     label: "TREC Consumer Protection Notice",

@@ -89,7 +89,7 @@ export function FigmaHomeFooter() {
               take it.
             </p>
             <Link href="/consultation" className="fh-btn fh-btn-navy">
-              Schedule a Consultation
+              Talk with Debra
             </Link>
             <Link href="/contact" className="fh-text-link fh-footer-contact-link">
               Or send a message instead
@@ -133,7 +133,7 @@ export function FigmaHomeFooter() {
               <Link href="/contact">Send Debra a message</Link>
             </li>
             <li>
-              <Link href="/consultation">Book a consultation</Link>
+              <Link href="/consultation">Talk with Debra</Link>
             </li>
             <li>
               <Link href="/about">About Debra Allen</Link>

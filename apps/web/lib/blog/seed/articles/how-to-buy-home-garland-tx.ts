@@ -136,7 +136,7 @@ export const garlandArticle: Article = {
       description: "Understand Debra's role when exploring or using NACA.",
     },
   ],
-  relatedArticleSlugs: ["naca-homebuying-dallas-fort-worth", "homes-for-heroes-north-texas"],
+  relatedArticleSlugs: ["naca-homebuying-dallas-fort-worth"],
   body: [
     quickAnswer(
       "The quick answer",

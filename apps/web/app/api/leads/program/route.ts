@@ -5,10 +5,9 @@ import { clientIdentifier, rateLimit } from "@/lib/rate-limit"
 import type { ProgramSlug } from "@/lib/programs"
 import { rejectCrossSite } from "@/lib/request-guard"
 
-const ALLOWED_PROGRAMS = new Set<ProgramSlug>(["naca", "homes-for-heroes"])
+const ALLOWED_PROGRAMS = new Set<ProgramSlug>(["naca"])
 const SOURCE_BY_PROGRAM: Record<ProgramSlug, string> = {
   naca: "NACA Landing Page",
-  "homes-for-heroes": "Homes for Heroes Landing Page",
 }
 
 function text(value: unknown, max = 500): string {

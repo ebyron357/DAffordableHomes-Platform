@@ -54,7 +54,7 @@ const DEBRA_DESK = DEBRA_DESK_BAND
  */
 const TRUST_MARKS = [
   { label: "REALTOR®", detail: "Licensed residential representation" },
-  { label: "Garland + DFW", detail: "North Texas is the site's local content focus" },
+  { label: "Garland + DFW", detail: "Guides to buying in North Texas" },
   { label: "Education first", detail: "You understand it before you sign it" },
   { label: "No pressure", detail: "Guidance that matches your timeline" },
 ] as const
@@ -128,8 +128,7 @@ function Hero() {
             Buying a home in <em>Dallas–Fort Worth</em>, with someone who explains it.
           </h1>
           <p className="fh-lede">
-            Buyer and seller guidance focused on Garland and the DFW metroplex, done the way Debra teaches: plainly,
-            at your pace, and without pushing anyone toward a signature.
+            Understand your options with Debra Allen, REALTOR®. Clear steps for buying or selling, at your pace.
           </p>
           <div className="fh-hero-actions">
             <Link href={FIGMA_HOME_CTA.consultation.href} className="fh-btn fh-btn-gold">
@@ -237,9 +236,7 @@ function Pathways() {
           <h2 id="figma-services-heading">Whichever side of the move you are on</h2>
           {/* Who this is for, named before anyone has to guess. */}
           <p className="fh-section-lede">
-            For first-time buyers and renters getting ready, NACA buyers, teachers, veterans, first responders and
-            healthcare workers looking into Homes for Heroes, people relocating to Dallas–Fort Worth, and homeowners
-            ready to sell or move.
+            Buying your first home, planning a move, or preparing to sell? Start with the guidance that fits you.
           </p>
         </div>
 
@@ -326,14 +323,14 @@ function FindYourPath() {
           <p className="fh-eyebrow">Find your homebuying path</p>
           <h2 id="figma-path-heading">Not sure what your next move in DFW should be?</h2>
           <p className="fh-pathquiz-lede">
-            Buying a first home in Garland, selling in Plano, relocating to Dallas–Fort Worth from out of state, or
-            checking whether a Homes for Heroes program applies: each starts in a different place. Answer a few
+            Buying a first home in Garland, selling in Plano, or relocating to Dallas–Fort Worth from out of state:
+            each starts in a different place. Answer a few
             questions the way you would answer Debra, and the quiz tells you where to begin on this site.
           </p>
           <ul className="fh-pathquiz-facts">
             <li>
               <Check className="size-4" aria-hidden="true" />
-              <span>Five questions, about a minute</span>
+              <span>Four questions, about a minute</span>
             </li>
             <li>
               <Check className="size-4" aria-hidden="true" />
@@ -467,16 +464,15 @@ function Markets() {
  * off. When no MLS/IDX feed is connected the section says so plainly and offers
  * the two things that are genuinely available.
  */
-function ListingsEmptyState({ reason, errored }: { reason: string; errored: boolean }) {
+function ListingsEmptyState({ status }: { status: PropertySearchResult["status"] }) {
   return (
     <div className="fh-listing-empty" role="status">
       <div className="fh-listing-empty-copy">
-        <p className="fh-eyebrow">{errored ? "Search temporarily unavailable" : "Live listings not connected yet"}</p>
-        <h3>{errored ? "The property search is having trouble right now." : "No live MLS feed is connected to this site yet."}</h3>
-        <p>{reason}</p>
+        <p className="fh-eyebrow">Plan your search</p>
+        <h3>{status === "error" ? "Online home search is temporarily unavailable." : status === "connected" ? "No homes to show right now." : "Online home search isn’t available yet."}</h3>
         <p>
-          Want to know what&apos;s on the market right now? Tell Debra the area, your price range and your timing, and
-          she&apos;ll tell you what&apos;s realistically available.
+          {status === "error" ? "Please try again later. " : ""}
+          In the meantime, explore buyer guidance and plan what matters in your next home.
         </p>
       </div>
       <div className="fh-listing-empty-actions">
@@ -502,9 +498,13 @@ function FeaturedListings({ listings }: { listings: PropertySearchResult }) {
             <p className="fh-eyebrow">Find a home</p>
             <h2 id="figma-listings-heading">Homes across Dallas–Fort Worth</h2>
           </div>
-          <Link href={FIGMA_HOME_CTA.searchAllHomes.href} className="fh-btn fh-btn-navy">
-            {FIGMA_HOME_CTA.searchAllHomes.label}
-          </Link>
+          {listings.status === "connected" ? (
+            <Link href={FIGMA_HOME_CTA.searchAllHomes.href} className="fh-btn fh-btn-navy">
+              {FIGMA_HOME_CTA.searchAllHomes.label}
+            </Link>
+          ) : (
+            <Link href="/start" className="fh-btn fh-btn-navy">Find your next step</Link>
+          )}
         </div>
 
         {connected.length > 0 ? (
@@ -530,10 +530,7 @@ function FeaturedListings({ listings }: { listings: PropertySearchResult }) {
             ))}
           </ul>
         ) : (
-          <ListingsEmptyState
-            errored={listings.status === "error"}
-            reason={listings.status === "connected" ? "" : listings.reason}
-          />
+          <ListingsEmptyState status={listings.status} />
         )}
       </div>
     </section>

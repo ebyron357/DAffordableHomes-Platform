@@ -4,7 +4,6 @@ import { articleBodyBlocks } from "../objects/blocks"
 
 const PROGRAMS = [
   { title: "NACA", value: "naca" },
-  { title: "Homes for Heroes", value: "homes-for-heroes" },
   { title: "First-time buyer programs", value: "first-time-buyers" },
 ]
 

@@ -16,10 +16,13 @@ import {
 } from "@/lib/content/conversion"
 import { DEBRA_DESK_MASTHEAD } from "@/lib/content/imagery"
 import { bookingEmbed } from "@/lib/ghl-booking.mjs"
+import { leadWebhookUrl } from "@/lib/lead-delivery"
 import { Band, BandLead, Features, StatusStrip, Steps } from "@/components/page/editorial"
 
+export const dynamic = "force-dynamic"
+
 export const metadata: Metadata = {
-  title: "Book a Free Consultation",
+  title: "Talk with Debra — Free Consultation",
   description:
     "Request a free, no-pressure homebuyer consultation with Debra Allen, REALTOR®, about where you are now and a practical next step.",
   alternates: { canonical: "/consultation" },
@@ -76,8 +79,9 @@ const NOT_READY = [
 ] as const
 
 export default function ConsultationPage() {
-  // Read at build time, like the Content Security Policy that must allow it.
+  // The calendar's origin must also be permitted by the build-time CSP.
   const booking = bookingEmbed()
+  const deliveryAvailable = Boolean(leadWebhookUrl("contact"))
 
   return (
     <>
@@ -85,7 +89,7 @@ export default function ConsultationPage() {
         eyebrow="A clear next step"
         eyebrowIcon={CalendarCheck}
         title="Start with a conversation, not a sales pitch"
-        intro="Tell Debra enough to understand your starting point. You will leave with a clearer understanding of what to do next, even if buying is not your immediate next move."
+        intro="Talk through your buying or selling questions with Debra. A free phone or video conversation, with no commitment to work together."
         crumbs={[{ label: "Home", href: "/" }, { label: "Consultation" }]}
         facts={[
           { label: "No cost, no commitment", icon: HeartHandshake },
@@ -96,20 +100,75 @@ export default function ConsultationPage() {
           priority: true,
           caption: { label: "Your REALTOR®", title: "Debra Allen" },
         }}
-      />
+      >
+        <Link href="#consultation-actions" className="dh-btn dh-btn-gold">
+          {booking ? "Choose a time" : deliveryAvailable ? "Request a consultation" : "View contact options"}
+        </Link>
+      </PageHeader>
 
-      {/*
-        How a consultation is arranged, before anyone is asked for anything.
-        Visitors who cannot picture what happens after "Request consultation"
-        tend not to press it.
-      */}
+      {/* Explain the immediate next step before collecting details; fuller preparation guidance follows the action. */}
+      <div id="consultation-actions" className="scroll-mt-24" tabIndex={-1}>
+      {booking && <BookingCalendar booking={booking} />}
+
+      <section
+        className={booking ? "dh-band dh-band-alt" : "dh-band dh-band-white"}
+        aria-labelledby="consultation-form-heading"
+      >
+        <Container>
+          <div className="dh-consult">
+            <div className="dh-consult-form">
+              <h2 id="consultation-form-heading">
+                {deliveryAvailable ? (booking ? "Rather send a note first?" : "Request a consultation") : "Other ways to get started"}
+              </h2>
+              {deliveryAvailable && (
+                <p>
+                  Send a short note about your questions. Debra personally replies to arrange a phone or video call.
+                  Sending this form requests a conversation; it does not book a time.
+                </p>
+              )}
+              <p>
+                No cost or commitment. This is not a loan application or credit check. Please do not send Social
+                Security numbers, account numbers, or financial documents.
+              </p>
+              <ContactForm context="consultation" calendarAvailable={Boolean(booking)} deliveryAvailable={deliveryAvailable} />
+            </div>
+
+            <aside className="dh-consult-aside" aria-labelledby="consultation-expect-heading">
+              <p className="dh-kicker">
+                <CalendarCheck aria-hidden="true" />
+                What to expect
+              </p>
+              <h2 id="consultation-expect-heading">A conversation about your next step</h2>
+              <ul className="dh-checklist">
+                {EXPECTATIONS.map((item) => (
+                  <li key={item.title}>
+                    <item.icon aria-hidden="true" />
+                    <span>
+                      <strong>{item.title}</strong>
+                      {item.body}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <StatusStrip icon={ShieldCheck} title="You do not need to be ready" onDark>
+                <p>
+                  You do not need perfect credit, a lender, or every answer to ask a question.
+                </p>
+              </StatusStrip>
+            </aside>
+          </div>
+        </Container>
+      </section>
+
+      </div>
+
       <Band tone="page" aria-labelledby="consultation-how-heading">
         <BandLead
           eyebrow="How it works"
           eyebrowIcon={ClipboardList}
           title="How a consultation works"
           titleId="consultation-how-heading"
-          lede={`Three steps — ${CONSULTATION_TERMS[0].toLowerCase()} and ${CONSULTATION_TERMS[1].toLowerCase()} at any point.`}
+          lede={`Three steps — ${CONSULTATION_TERMS[0].toLowerCase()} and ${CONSULTATION_TERMS[1].toLowerCase()}.`}
         />
         <Steps items={CONSULTATION_STEPS} />
         {booking && <p className="dh-band-note">{CONSULTATION_CALENDAR_NOTE}</p>}
@@ -129,57 +188,6 @@ export default function ConsultationPage() {
         </div>
       </Band>
 
-      {booking && <BookingCalendar booking={booking} />}
-
-      <section
-        className={booking ? "dh-band dh-band-alt" : "dh-band dh-band-white"}
-        aria-labelledby="consultation-form-heading"
-      >
-        <Container>
-          <div className="dh-consult">
-            <div className="dh-consult-form">
-              <h2 id="consultation-form-heading">
-                {booking ? "Rather send a note first?" : "Request a consultation"}
-              </h2>
-              <p>
-                Buying, selling, using NACA, looking into Homes for Heroes, relocating, weighing a new build, or not sure
-                yet — all of these are good reasons to book.
-              </p>
-              <p>
-                A short form so Debra can understand what you would like to discuss. Please do not include Social
-                Security numbers, account numbers, or other sensitive financial information.
-              </p>
-              <ContactForm context="consultation" calendarAvailable={Boolean(booking)} />
-            </div>
-
-            <aside className="dh-consult-aside" aria-labelledby="consultation-expect-heading">
-              <p className="dh-kicker">
-                <CalendarCheck aria-hidden="true" />
-                What to expect
-              </p>
-              <h2 id="consultation-expect-heading">Four things, every time</h2>
-              <ul className="dh-checklist">
-                {EXPECTATIONS.map((item) => (
-                  <li key={item.title}>
-                    <item.icon aria-hidden="true" />
-                    <span>
-                      <strong>{item.title}</strong>
-                      {item.body}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <StatusStrip icon={ShieldCheck} title="You do not need to be ready" onDark>
-                <p>
-                  Perfect credit, a lender, and every answer are not prerequisites for a conversation. Most people book
-                  one precisely because they do not have those yet.
-                </p>
-              </StatusStrip>
-            </aside>
-          </div>
-        </Container>
-      </section>
-
       <Band tone="alt" aria-labelledby="consultation-worries-heading">
         <BandLead eyebrow="Common worries" title={WORRIES_HEADING} titleId="consultation-worries-heading" />
         <WorriesList />
@@ -187,30 +195,15 @@ export default function ConsultationPage() {
 
       <Band tone="page" aria-labelledby="consultation-not-ready-heading">
         <BandLead
-          eyebrow="Not ready to schedule?"
+          eyebrow="Prefer to explore first?"
           eyebrowIcon={Compass}
-          title="Come back when you have a question worth asking"
+          title="Start with a guide or a planning tool"
           titleId="consultation-not-ready-heading"
-          lede="There is no wrong order here. Plenty of people work through one of these first and book afterwards."
+          lede="Explore at your own pace. You can return whenever you want to talk."
         />
         <Features items={NOT_READY} rule="gold" />
       </Band>
 
-      <Band tone="navy" tight aria-label="Other ways to reach Debra">
-        <div className="dh-lead-row">
-          <div className="dh-lead dh-lead-flush">
-            <p className="dh-kicker">
-              <MessageCircle aria-hidden="true" />
-              Prefer to write first?
-            </p>
-            <h2>Send a message instead</h2>
-            <p>A short note works just as well. Same person reads it, same absence of a sales pitch.</p>
-          </div>
-          <Link href="/contact" className="dh-btn dh-btn-light">
-            Contact Debra
-          </Link>
-        </div>
-      </Band>
     </>
   )
 }

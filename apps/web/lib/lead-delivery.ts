@@ -158,7 +158,7 @@ export async function deliverLead(
 }
 
 /** What a GoHighLevel workflow can branch on. */
-export type LeadType = "contact" | "consultation" | "program-naca" | "program-homes-for-heroes" | "next-step"
+export type LeadType = "contact" | "consultation" | "program-naca" | "next-step"
 
 /**
  * The keys every payload shares, named the way GoHighLevel names contact

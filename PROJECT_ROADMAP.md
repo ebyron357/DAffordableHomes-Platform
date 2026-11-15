@@ -35,14 +35,14 @@
 
 ### Engineering foundation
 
-- [ ] Initialize Next.js App Router application with TypeScript strict mode
-- [ ] Configure Tailwind CSS and semantic design tokens
-- [ ] Add linting, formatting, type checking, unit tests, browser tests, and accessibility tests
-- [ ] Configure GitHub Actions build and quality checks
-- [ ] Configure Vercel preview deployments
-- [ ] Add environment validation with no public exposure of server credentials
-- [ ] Add secure headers and initial Content Security Policy
-- [ ] Add error, loading, not-found, and maintenance states
+- [x] Initialize Next.js App Router application with TypeScript strict mode (`tsconfig.base.json` `strict: true`; verified 2026-11-15)
+- [x] Configure Tailwind CSS and semantic design tokens (`apps/web/app/globals.css`)
+- [x] Add linting, formatting, type checking, unit tests, browser tests, and accessibility tests (`.github/workflows/application-quality.yml` runs tests, build, contrast, axe, SEO, forms, calculators and a11y QA)
+- [x] Configure GitHub Actions build and quality checks
+- [ ] Configure Vercel preview deployments — project is linked; confirm preview builds succeed on the owner's Vercel account during handoff
+- [ ] Add environment validation with no public exposure of server credentials — not yet audited
+- [x] Add secure headers and initial Content Security Policy (`apps/web/next.config.mjs`; HSTS added 2026-11-15 without `includeSubDomains` until subdomains are confirmed HTTPS)
+- [ ] Add error, loading, not-found, and maintenance states — error and not-found states exist; a root `loading.tsx` is intentionally absent because it turns every 404 into a 200 (`tests/static/articles.test.mjs`), so loading states stay per-component; a maintenance state is still open
 
 ### Design system
 
@@ -56,6 +56,7 @@
 ### Core routes
 
 - [x] Home
+- [x] Mobile conversion and copy pass (2026-11-14): shorter hero, clearer consultation actions, guidance-first navigation, plain-language search fallbacks, earlier consultation action, and removal of timeline/equity guarantees. See `docs/05-content/CONVERSION_COPY.md` §4 for validation and remaining release gates.
 - [ ] About Debra
 - [ ] First-Time Buyers
 - [ ] NACA education
@@ -123,7 +124,7 @@
 
 ### v1.0 launch gate
 
-- [ ] Content and factual approval by Debra — the four business facts the conversion copy relies on were confirmed on 2026-10-03 (`docs/05-content/CONVERSION_COPY.md` §1); the verified business facts in `lib/site.ts` (licence, brokerage, phone, address, service areas) are still owed
+- [ ] Content and factual approval by Debra — questions sent as `docs/12-governance/DEBRA_LAUNCH_QUESTIONS.md` (2026-11-15); the four business facts the conversion copy relies on were confirmed on 2026-10-03 (`docs/05-content/CONVERSION_COPY.md` §1); the verified business facts in `lib/site.ts` (licence, brokerage, phone, address, service areas) are still owed
 - [ ] Brokerage and licensing review
 - [ ] Fair Housing and Equal Housing review
 - [ ] IDX provider approval
@@ -229,6 +230,10 @@ the results and the issues found are in the status register, §13.
 - [x] Take Debra Allen's portrait off the Homes for Heroes and Garland guide
       cards, with `featuredImage` optional end to end so a photograph can be
       restored from Sanity without a code change
+- [x] Remove Homes for Heroes site-wide at the owner's request: program page,
+      article, nav, footer, quiz path and service question, readiness and
+      landing references, sitemap, llms.txt and QA route lists. Old URLs
+      308-redirect to `/programs` and `/blog`
 - [ ] Confirm provenance and licence for the three unregistered photographs still
       served (`hero-family`, `home-keys-moment`, `planning-table`), or approve
       replacements
@@ -277,6 +282,31 @@ These items require a separate business and architecture decision before impleme
 - paid courses or membership experiences
 - advanced customer data platform
 - direct document uploads containing sensitive financial information
+
+## Controlled QC follow-up — 2026-11-12
+
+Following owner approval, the review branch was updated to `f0443cf` before editing; PR #5 is already merged. A follow-up draft PR, not a rollout, contains this work.
+
+- [x] Preserve registered client-approved Debra portraits and verify the Pexels 7114188 license-page restrictions; no new imagery or palette substitution.
+- [x] Record six named, inspected mobile benchmarks and a bounded scoring matrix in `docs/04-design-system/QC_REVIEW_2026-11-12.md`.
+- [x] Add calculator empty/range feedback, invalid-result suppression, mobile result navigation, readable caveats, and an explicit consultation handoff without changing formulas.
+- [x] Gate contact/consultation data collection on server-side delivery configuration; keep actual success conditional on API delivery.
+- [x] Pass web/integration type checks, zero-warning lint, and all 262 static/unit tests; record hosted-browser input/fallback spot checks and mobile/desktop captures in the QC report.
+- [x] Verify CI run `43376349818` on application commit `3a882ac`: all five calculators pass at 375/768/1440px, lead-form journeys pass with intercepted requests, and axe reports zero violations on its existing 22-route/2-viewport suite. The earlier claim of missing CI scripts/dependencies was incorrect; they are present and the workflow passed.
+- [x] Pass the expanded axe suite: CI run `43379040188` on `7c4bb1f` reports 26 routes / 52 scans / zero violations; all other checks also passed.
+- [x] Record the owner's explicit preview approval for calculators, Contact and Consultation; this is not merge authorization.
+- [x] Confirm both linked Vercel projects automatically deploy `main` to production; merging is not staging-only.
+- [x] Reproduce and fix mobile calculator field clipping at 200% text size; add panel-bound regression assertions for all five calculators. Hosted-browser spot checks, type checking, lint and 262 tests pass after the fix.
+- [x] Pass CI on application revision `74f5a36`: run `43462492472` passed the calculator text-resize checks and the full Application Quality workflow; repository health also passed in `43462492232`. See the QC report for revision-specific evidence and limits.
+- [ ] Complete applicable supported-browser/assistive-technology and production-performance acceptance. These are separate from the passing Chromium suite and unchanged site-launch/provider-activation obligations; no production exception has been granted. PR #50 remains unmerged.
+
+## Disclosure and CI follow-up — 2026-11-13
+
+- [x] Correct both footer variants to use scalable disclosure links with a 12pt minimum, 44px touch targets, underlines and wrapping; update the shared official TREC IABS reference and regression tests. This still references a generic form, not Debra's completed IABS.
+- [x] Record the brokerage/IABS, final legal-policy, privacy contact, retention and messaging-consent evidence required from the owner and qualified reviewers in `docs/12-governance/CLIENT_HANDOFF.md` §3.2.
+- [x] Pass the local full quality gate (type checking, zero-warning lint, 262 tests and production build), contrast checks and hosted-browser footer checks at 375px and 1440px; enlarged homepage legal links measure 32px and remain within their container at 200% text size.
+- [x] Verify the unchanged strict 200% input-font assertion in CI run `43462492472`, browser job `132012754884`, on `74f5a36`. All five calculators report 32px root/control text and no clipped fields at 375px, and all 15 normal-size route/viewport combinations pass. The earlier failure in `43396012567` did not recur; its root cause is not established, so retain diagnostics rather than claiming a diagnosed fix. The prior local Playwright library limitation does not invalidate this remote CI evidence.
+- [ ] Receive verified business facts, completed IABS, a working privacy/accessibility contact process and named broker/legal approval before launch. No public legal policy, provider, production setting or deployment was changed. PR #50 remains a draft and must not be merged on the strength of these checks alone.
 
 ## Quarterly operating review
 

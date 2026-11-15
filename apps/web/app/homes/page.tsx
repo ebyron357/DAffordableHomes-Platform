@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Find a Home in Dallas–Fort Worth",
     description:
-      "Explore homes across Garland and Dallas–Fort Worth with guidance. Until a live MLS feed is connected, this page says so instead of showing placeholder homes.",
+      "Check online home search availability and explore practical buying guides for Garland and Dallas–Fort Worth.",
     alternates: { canonical: "/homes" },
     // Kept out of search results until listings are real; see lib/mls/provider.ts.
     ...((await isPropertySearchLive()) ? {} : { robots: { index: false, follow: true } }),
@@ -79,7 +79,7 @@ const NEXT_STEPS = [
 const MASTHEAD_FACTS = [
   { label: "Garland + DFW", icon: MapPin },
   { label: "Buyer representation", icon: KeyRound },
-  { label: "No placeholder listings", icon: Home },
+  { label: "Planning before house hunting", icon: Home },
 ] as const
 
 export default async function HomesPage() {
@@ -155,23 +155,19 @@ export default async function HomesPage() {
             </p>
             <h2 id="homes-status-heading">
               {result.status === "error"
-                ? "The property search is having trouble right now"
-                : "Live listings are being connected"}
+                ? "Online home search is temporarily unavailable"
+                : "Online home search isn’t available yet"}
             </h2>
             <StatusStrip
               icon={SignalHigh}
-              title={
-                result.status === "error"
-                  ? "Search is temporarily unavailable"
-                  : "No MLS or IDX feed is connected to this site yet"
-              }
+              title="You can still prepare for your search"
             >
-              <p>{result.reason}</p>
+              <p>
+                {result.status === "error"
+                  ? "Please try again later. In the meantime, explore the buyer guides or estimate a monthly payment."
+                  : "Explore the buyer guides, estimate a monthly payment, or make a list of what matters in your next home."}
+              </p>
             </StatusStrip>
-            <p>
-              We would rather tell you that than fill this page with invented homes. Every listing shown here will come
-              from an approved MLS or IDX provider, with the attribution that provider requires.
-            </p>
             <div className="dh-masthead-actions">
               <Link href="/consultation" className="dh-btn dh-btn-navy">
                 Ask Debra what&apos;s on the market
@@ -233,8 +229,7 @@ export default async function HomesPage() {
           </ul>
         </div>
         <p className="dh-note">
-          Representation for a specific community or property is confirmed with Debra before it is promised. No service
-          area beyond that is claimed here.
+          Tell Debra where you hope to buy, and she can confirm whether she can help with that area.
         </p>
       </Band>
 
@@ -246,7 +241,7 @@ export default async function HomesPage() {
         image={CLOSING_BAND_IMAGE}
       >
         <Link href="/consultation" className="dh-btn dh-btn-gold">
-          Schedule a consultation
+          Talk with Debra
         </Link>
         <Link href="/contact" className="dh-btn dh-btn-light-outline">
           Send a message

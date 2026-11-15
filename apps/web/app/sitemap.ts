@@ -44,7 +44,6 @@ const staticRoutes = [
   "/privacy",
   "/programs",
   "/programs/naca",
-  "/programs/homes-for-heroes",
   "/resources",
   "/start",
   "/terms",

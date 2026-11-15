@@ -3,7 +3,6 @@ import Link from "next/link"
 import {
   ClipboardCheck,
   Compass,
-  HeartHandshake,
   Home,
   MapPin,
   MessageCircleQuestion,
@@ -22,7 +21,7 @@ import { OPEN_GRAPH_BASE } from "@/lib/seo"
 export const metadata: Metadata = {
   title: "Garland, Texas Homebuyer Guide",
   description:
-    "A practical Garland, Texas homebuyer guide: search preparation, local home styles, NACA and Homes for Heroes guidance, evaluating a property, and next steps.",
+    "A practical Garland, Texas homebuyer guide: search preparation, local home styles, NACA guidance, evaluating a property, and next steps.",
   alternates: { canonical: "/areas/garland" },
   openGraph: {
     title: "Garland Homebuyer Guide | D'Affordable Homes",
@@ -86,14 +85,6 @@ const PROGRAM_PATHS = [
     icon: ClipboardCheck,
     tone: "teal" as const,
     action: "Explore NACA homebuyer help",
-  },
-  {
-    title: "A community hero?",
-    body: "Build a buying, selling or coordinated move plan without unsupported promises about eligibility, savings, rebates or provider status.",
-    href: "/programs/homes-for-heroes",
-    icon: HeartHandshake,
-    tone: "green" as const,
-    action: "Explore Homes for Heroes guidance",
   },
 ] as const
 

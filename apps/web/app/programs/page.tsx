@@ -8,7 +8,6 @@ import {
   Compass,
   GraduationCap,
   HandCoins,
-  HeartHandshake,
   Home,
   Landmark,
   MapPin,
@@ -24,12 +23,12 @@ import { CONSULTATION_REASSURANCE } from "@/lib/content/conversion"
 export const metadata: Metadata = {
   title: "Homebuyer Programs in Garland and DFW",
   description:
-    "NACA and Homes for Heroes guidance from Debra Allen, REALTOR®, plus the official Texas, Dallas and Garland homebuyer assistance programs to check.",
+    "NACA guidance from Debra Allen, REALTOR®, plus the official Texas, Dallas and Garland homebuyer assistance programs to check.",
   alternates: { canonical: "/programs" },
   openGraph: {
     title: "Homebuyer Programs | D'Affordable Homes",
     description:
-      "Program-specific real-estate guidance for buyers and community heroes exploring Garland and the Dallas–Fort Worth region.",
+      "Program-specific real-estate guidance for buyers exploring Garland and the Dallas–Fort Worth region.",
     url: "/programs",
     type: "website",
     ...OPEN_GRAPH_BASE,
@@ -38,7 +37,6 @@ export const metadata: Metadata = {
 
 const PROGRAM_ICONS = {
   naca: ClipboardCheck,
-  "homes-for-heroes": HeartHandshake,
 } as const
 
 /**
@@ -101,17 +99,11 @@ const futurePrograms = [
   "FHA Buyers",
   "USDA Buyers",
   "Homebuyer Education",
-  "Community Hero Sellers",
 ] as const
 
 /** Situation → where to start. Names programs only; claims no eligibility. */
 const PROGRAM_SORT = [
   { situation: "Thinking about NACA", label: "NACA guide", href: "/programs/naca" },
-  {
-    situation: "Military, veteran, teacher, healthcare, fire, EMS or police",
-    label: "Homes for Heroes guide",
-    href: "/programs/homes-for-heroes",
-  },
   {
     situation: "Short on a down payment",
     label: "Official assistance programs",
@@ -168,9 +160,9 @@ export default function ProgramsPage() {
         <BandLead
           eyebrow="Choose a starting point"
           eyebrowIcon={Compass}
-          title="Two programs, explained without the sales pitch"
+          title="NACA, explained without the sales pitch"
           titleId="current-programs-heading"
-          lede="Each page explains Debra's role, the real-estate process around the program, the questions worth preparing, and exactly what you must verify with the program itself."
+          lede="The NACA page explains Debra's role, the real-estate process around the program, the questions worth preparing, and exactly what you must verify with NACA itself."
           aside={
             <Link href="/areas/garland" className="dh-textlink">
               Garland homebuyer guidance <ArrowRight className="size-4" aria-hidden="true" />
@@ -201,7 +193,7 @@ export default function ProgramsPage() {
                     ))}
                   </ul>
                   <span className="dh-program-cta">
-                    {program.slug === "naca" ? "Explore NACA homebuyer help" : "Explore Homes for Heroes"}
+                    Explore NACA homebuyer help
                     <ArrowRight className="size-4" aria-hidden="true" />
                   </span>
                 </Link>

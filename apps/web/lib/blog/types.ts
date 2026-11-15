@@ -204,7 +204,7 @@ export type Article = ArticleSummary & {
   notice: RichText
   relatedLinks: ArticleRelatedLink[]
   relatedArticleSlugs: string[]
-  /** Program associations, e.g. `naca`, `homes-for-heroes`. */
+  /** Program associations, e.g. `naca`. */
   programs: string[]
   /** Area associations, e.g. `garland`, `dallas-fort-worth`. */
   areas: string[]
