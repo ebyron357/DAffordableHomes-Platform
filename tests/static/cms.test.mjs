@@ -317,7 +317,7 @@ test('no Sanity credentials or project identifiers are committed', () => {
 
 test('the migration seed is reproducible and covers every launch article', () => {
   const files = readdirSync('apps/web/lib/blog/seed/articles');
-  assert.equal(files.length, 3);
+  assert.equal(files.length, 2);
 
   const builders = read('apps/web/lib/blog/seed/builders.ts');
   const portableText = read('apps/web/lib/blog/seed/portable-text.ts');

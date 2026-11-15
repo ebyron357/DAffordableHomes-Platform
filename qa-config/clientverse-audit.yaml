@@ -35,11 +35,9 @@ audit:
     - "/"
     - "/blog"
     - "/blog/naca-homebuying-dallas-fort-worth"
-    - "/blog/homes-for-heroes-north-texas"
     - "/blog/how-to-buy-home-garland-tx"
     - "/programs"
     - "/programs/naca"
-    - "/programs/homes-for-heroes"
     - "/areas/garland"
     - "/calculators"
     - "/consultation"
@@ -50,7 +48,6 @@ audit:
   # resolving at the same paths.
   preserved_routes:
     - "/blog/naca-homebuying-dallas-fort-worth"
-    - "/blog/homes-for-heroes-north-texas"
     - "/blog/how-to-buy-home-garland-tx"
 
   expected_not_found:

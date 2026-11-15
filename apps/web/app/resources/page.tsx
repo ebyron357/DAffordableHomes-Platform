@@ -56,7 +56,7 @@ const PRIMARY_ACTIONS = [
   {
     icon: GraduationCap,
     title: "Explore buyer education and programs",
-    body: "Understand the sequence of a purchase, and learn what assistance programs such as NACA and Homes for Heroes do and do not cover before you apply.",
+    body: "Understand the sequence of a purchase, and learn what assistance programs such as NACA do and do not cover before you apply.",
     href: "/first-time-buyers",
     action: "Start learning",
   },

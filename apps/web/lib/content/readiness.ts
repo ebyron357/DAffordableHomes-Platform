@@ -16,7 +16,7 @@
 
 import type { LucideIcon } from "lucide-react"
 
-export type PathKey = "traditional" | "naca" | "heroes" | "unsure"
+export type PathKey = "traditional" | "naca" | "unsure"
 
 export type AssessmentAnswer = {
   id: string
@@ -85,7 +85,6 @@ export const QUESTIONS: Question[] = [
       { id: "credit", label: "Credit / financial preparation", value: "credit" },
       { id: "down", label: "Down-payment options", value: "down-payment" },
       { id: "naca", label: "NACA", value: "naca" },
-      { id: "heroes", label: "Homes for Heroes", value: "heroes" },
       { id: "process", label: "The buying process", value: "process" },
       { id: "unsure", label: "I’m not sure", value: "unsure" },
     ],
@@ -101,18 +100,6 @@ export const QUESTIONS: Question[] = [
     ],
   },
   {
-    id: "hero",
-    label: "Do any of these describe you?",
-    answers: [
-      { id: "military", label: "Military / Veteran", value: "military" },
-      { id: "teacher", label: "Teacher / Educator", value: "teacher" },
-      { id: "healthcare", label: "Healthcare Professional", value: "healthcare" },
-      { id: "fire", label: "Firefighter / EMS", value: "fire" },
-      { id: "law", label: "Law Enforcement", value: "law" },
-      { id: "none", label: "None of these", value: "none" },
-    ],
-  },
-  {
     id: "naca",
     label: "Are you already participating in NACA?",
     answers: [
@@ -125,7 +112,6 @@ export const QUESTIONS: Question[] = [
 ]
 
 export function getResult(answers: Record<string, string>, selectedPath: PathKey | null) {
-  const isHero = answers.hero && answers.hero !== "none"
   const isNaca = answers.help === "naca" || answers.naca === "yes" || answers.naca === "considering"
   const isTraditional = selectedPath === "traditional" || answers.timeline === "0-3" || answers.timeline === "3-6"
 
@@ -137,19 +123,6 @@ export function getResult(answers: Record<string, string>, selectedPath: PathKey
       body: "Based on what you shared, NACA may be worth exploring. The useful next step is learning how preparation, documentation, counseling, home selection, and mortgage processing fit together.",
       primaryHref: "#naca",
       primaryLabel: "Explore the NACA path",
-      secondary: isHero ? "Homes for Heroes may also be worth exploring." : undefined,
-    }
-  }
-
-  if (selectedPath === "heroes" || isHero) {
-    return {
-      key: "hero",
-      label: "Homes for Heroes exploration",
-      heading: "Explore the homebuying options connected to your service.",
-      body: "Your service may make a Homes for Heroes resource worth investigating. Start with the details that apply to your role and confirm current requirements with the applicable program.",
-      primaryHref: "#heroes",
-      primaryLabel: "Explore hero options",
-      secondary: isTraditional ? "Traditional purchase planning may also be useful." : undefined,
     }
   }
 

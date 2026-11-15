@@ -38,7 +38,6 @@ export function authorProfilePath(article: Article): string {
  */
 export const TOPIC_LABELS: Record<string, string> = {
   naca: "NACA",
-  "homes-for-heroes": "Homes for Heroes",
   "first-time-buyers": "First-time buyer programs",
   garland: "Garland",
   "dallas-fort-worth": "Dallas–Fort Worth",

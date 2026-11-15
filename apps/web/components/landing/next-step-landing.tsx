@@ -60,16 +60,8 @@ const PATHS: PathDefinition[] = [
     icon: KeyRound,
   },
   {
-    key: "heroes",
-    number: "03",
-    title: "I serve my community",
-    body: "You’re military, a veteran, teacher, healthcare professional, firefighter/EMS, or law-enforcement professional and want to understand options that may apply.",
-    cta: "Explore Homes for Heroes",
-    icon: ShieldCheck,
-  },
-  {
     key: "unsure",
-    number: "04",
+    number: "03",
     title: "I’m not sure yet",
     body: "You’re renting, working on finances, concerned about credit, or simply don’t know which route fits you.",
     cta: "Find my next step",
@@ -97,11 +89,6 @@ const FAQS = [
     question: "Do I need to be ready to buy before talking to Debra?",
     answer:
       "No. The purpose of this page is to help you get oriented before you feel ready. You can keep learning on your own or ask for guidance when the time feels right.",
-  },
-  {
-    question: "Who can explore Homes for Heroes?",
-    answer:
-      "Military members and veterans, educators, healthcare professionals, firefighters/EMS, and law-enforcement professionals can explore whether a relevant benefit or resource is worth investigating. Eligibility is determined by the applicable program, not this page.",
   },
   {
     question: "Are there homebuyer assistance programs in Dallas?",
@@ -151,12 +138,6 @@ const CAMPAIGN_VARIANTS: Record<
     headline: "Credit concerns don’t mean you should guess about homeownership.",
     promise: "Start with clarity about what to understand and prepare next.",
     highlight: "unsure",
-  },
-  hero: {
-    eyebrow: "HOMES FOR HEROES IN DALLAS–FORT WORTH",
-    headline: "You serve your community. Let’s make your homebuying options easier to understand.",
-    promise: "Explore a path that recognizes where you serve without making promises about eligibility.",
-    highlight: "heroes",
   },
   "down-payment": {
     eyebrow: "DFW HOMEBUYER EDUCATION",

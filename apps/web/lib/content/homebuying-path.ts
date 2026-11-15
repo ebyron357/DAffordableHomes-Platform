@@ -1,7 +1,7 @@
 /**
  * "Find Your Homebuying Path" — the homepage's guided quiz.
  *
- * Five short questions, branched on the visitor's goal, identify which
+ * Four short questions, branched on the visitor's goal, identify which
  * of the site's existing pathways fits and turn the answers into a concrete
  * next move. Every destination is a route that already exists in this
  * repository; `tests/static/homebuying-path.test.mjs` resolves each one
@@ -9,15 +9,13 @@
  *
  * Boundaries (PRODUCT_REQUIREMENTS §6.2): nothing here asks about income,
  * credit, or any protected characteristic; no result implies loan approval,
- * program eligibility, a valuation, or affordability. The Homes for Heroes
- * groups below are the ones `lib/programs.ts` already publishes; the program,
- * not this quiz, confirms who qualifies. Results are shown immediately and no
- * contact details are collected.
+ * program eligibility, a valuation, or affordability. Results are shown
+ * immediately and no contact details are collected.
  */
 
 export type PathChoice = { value: string; label: string }
 
-export type PathQuestionId = "goal" | "area" | "timeline" | "buyerPosition" | "sellerPosition" | "service"
+export type PathQuestionId = "goal" | "area" | "timeline" | "buyerPosition" | "sellerPosition"
 
 export type PathAnswers = Partial<Record<PathQuestionId, string>>
 
@@ -93,20 +91,6 @@ export const PATH_QUESTIONS: PathQuestion[] = [
       { value: "ready", label: "Ready to list soon" },
     ],
   },
-  {
-    id: "service",
-    legend: "Could a North Texas Heroes homebuying program apply to you or someone in your household?",
-    help:
-      "Homes for Heroes works with these groups. Your answer only changes which guide we point you to; the program confirms eligibility, not this quiz.",
-    choices: [
-      { value: "military", label: "Active-duty military, military family or veteran" },
-      { value: "responder", label: "Firefighter, EMS or law enforcement" },
-      { value: "educator", label: "Teacher or education professional" },
-      { value: "healthcare", label: "Healthcare professional" },
-      { value: "none", label: "None of these" },
-      { value: "notsure", label: "Not sure" },
-    ],
-  },
 ]
 
 /** The questions a visitor with these answers actually sees, in order. */
@@ -116,7 +100,6 @@ export function visibleQuestions(answers: PathAnswers): PathQuestion[] {
 
 export type PathKey =
   | "first-time"
-  | "hero"
   | "relocating"
   | "selling"
   | "sell-buy"
@@ -141,14 +124,12 @@ export type PathResult = {
 }
 
 const CONSULTATION: PathLink = { label: "Talk with Debra", href: "/consultation" }
-const HEROES_GROUPS = new Set(["military", "responder", "educator", "healthcare"])
 
 /**
  * Decide which path fits a set of answers.
  *
- * Priority is deliberate. A Homes for Heroes group applies whether the person
- * is buying, selling or relocating, so it wins whenever it applies. Relocation
- * comes next because "where" changes every later step. Selling before buying
+ * Priority is deliberate. Relocation comes first because "where" changes
+ * every later step. Selling before buying
  * beats a plain sale; a sale beats a purchase; someone ready to search or
  * already pre-approved goes to the search; a first purchase goes to buyer
  * education; a repeat buyer still working out financing, or anyone exploring
@@ -168,7 +149,6 @@ const HEROES_GROUPS = new Set(["military", "responder", "educator", "healthcare"
 export function resolvePath(answers: PathAnswers): PathKey {
   const buyerPosition = BUYING_GOALS.has(answers.goal ?? "") ? answers.buyerPosition : undefined
 
-  if (HEROES_GROUPS.has(answers.service ?? "")) return "hero"
   if (answers.goal === "relocate") return "relocating"
   if (answers.goal === "sellbuy" || buyerPosition === "sellfirst") return "sell-buy"
   if (answers.goal === "sell") return "selling"
@@ -292,24 +272,6 @@ export function buildResult(answers: PathAnswers): PathResult {
             : { label: "Test a monthly payment", href: "/calculators/affordability" },
         consultation: CONSULTATION,
       }
-    case "hero":
-      return {
-        key,
-        name: "North Texas Hero",
-        heading: "Your next move: see whether Homes for Heroes fits your move.",
-        summary: joinSentences(
-          "You or someone in your household works in one of the groups Homes for Heroes serves: military and veterans, firefighters, EMS and law enforcement, teachers, and healthcare professionals.",
-          answers.goal === "sell" || answers.goal === "sellbuy"
-            ? "The program covers sellers as well as buyers, so it is worth reading before you list."
-            : "The program is worth understanding before you buy, and the guide explains what it does and does not do.",
-          areaSentence(answers),
-        ),
-        nextStep:
-          "Read how the program works and who confirms eligibility, then decide whether to use it for your purchase or sale.",
-        primary: { label: "Explore the Homes for Heroes program", href: "/programs/homes-for-heroes" },
-        resource: { label: "Read: How Debra helps North Texas heroes", href: "/blog/homes-for-heroes-north-texas" },
-        consultation: CONSULTATION,
-      }
     case "relocating":
       return {
         key,
@@ -418,10 +380,9 @@ export function buildResult(answers: PathAnswers): PathResult {
   }
 }
 
-/** Ordered list of the eight paths, used to introduce the quiz. */
+/** Ordered list of the seven paths, used to introduce the quiz. */
 export const PATH_ORDER: PathKey[] = [
   "first-time",
-  "hero",
   "relocating",
   "selling",
   "sell-buy",
@@ -432,7 +393,6 @@ export const PATH_ORDER: PathKey[] = [
 
 export const PATH_NAMES: Record<PathKey, string> = {
   "first-time": "First-Time Buyer",
-  hero: "North Texas Hero",
   relocating: "Moving to DFW",
   selling: "Selling a Home",
   "sell-buy": "Selling and Buying",
@@ -441,8 +401,3 @@ export const PATH_NAMES: Record<PathKey, string> = {
   unsure: "Not Sure Yet",
 }
 
-/** Shown when the visitor answered "Not sure" to the Heroes question. */
-export const HEROES_HINT: PathLink = {
-  label: "Not sure whether Homes for Heroes applies? See who the program serves",
-  href: "/programs/homes-for-heroes",
-}

@@ -37,7 +37,7 @@ export default function PrivacyPage() {
                 phone number, how you prefer to connect, and where you are in the homebuying process.
               </li>
               <li>
-                <strong>NACA and Homes for Heroes forms:</strong> your first and last name, email, phone number, current
+                <strong>NACA program form:</strong> your first and last name, email, phone number, current
                 city, the city and ZIP code you are interested in, your timeline, how you prefer to be contacted, your
                 answers about the program, any questions you add, and your consent to be contacted.
               </li>

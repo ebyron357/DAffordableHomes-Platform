@@ -10,15 +10,13 @@ test("Debra's head is not cropped by a landscape card frame", () => {
   // portrait source in a landscape frame starts below the top of her head —
   // which is what shipped, and what these values correct. Each vertical figure
   // is well above the top of her head in its source.
-  const heroes = read("apps/web/lib/blog/seed/articles/homes-for-heroes-north-texas.ts");
   const naca = read("apps/web/lib/blog/seed/articles/naca-homebuying-dallas-fort-worth.ts");
   const garland = read("apps/web/lib/blog/seed/articles/how-to-buy-home-garland-tx.ts");
   const home = read("apps/web/components/home/figma-home-page.tsx");
 
-  // The Heroes and Garland guides no longer carry a portrait at all — the
-  // owner asked for Debra to come off those two cards — so there is no crop
-  // left to get wrong. `articles.test.mjs` holds them to that.
-  assert.doesNotMatch(heroes, /focalPoint:/);
+  // The Garland guide no longer carries a portrait at all — the owner asked
+  // for Debra to come off that card — so there is no crop left to get wrong.
+  // `articles.test.mjs` holds it to that.
   assert.doesNotMatch(garland, /focalPoint:/);
   assert.match(naca, /focalPoint: "48% 35%"/);
   // The homepage frame crops horizontally only, so the register's rule stands.

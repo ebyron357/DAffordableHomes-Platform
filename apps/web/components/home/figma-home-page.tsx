@@ -323,14 +323,14 @@ function FindYourPath() {
           <p className="fh-eyebrow">Find your homebuying path</p>
           <h2 id="figma-path-heading">Not sure what your next move in DFW should be?</h2>
           <p className="fh-pathquiz-lede">
-            Buying a first home in Garland, selling in Plano, relocating to Dallas–Fort Worth from out of state, or
-            checking whether a Homes for Heroes program applies: each starts in a different place. Answer a few
+            Buying a first home in Garland, selling in Plano, or relocating to Dallas–Fort Worth from out of state:
+            each starts in a different place. Answer a few
             questions the way you would answer Debra, and the quiz tells you where to begin on this site.
           </p>
           <ul className="fh-pathquiz-facts">
             <li>
               <Check className="size-4" aria-hidden="true" />
-              <span>Five questions, about a minute</span>
+              <span>Four questions, about a minute</span>
             </li>
             <li>
               <Check className="size-4" aria-hidden="true" />

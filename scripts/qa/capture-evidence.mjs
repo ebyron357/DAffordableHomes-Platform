@@ -39,7 +39,6 @@ const ROUTES = [
   ["calculators", "/calculators"],
   ["blog-index", "/blog"],
   ["article-naca", "/blog/naca-homebuying-dallas-fort-worth"],
-  ["article-heroes", "/blog/homes-for-heroes-north-texas"],
   ["article-garland", "/blog/how-to-buy-home-garland-tx"],
   ["about", "/about"],
   ["consultation", "/consultation"],

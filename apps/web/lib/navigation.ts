@@ -15,7 +15,6 @@ export const LEARN_LINKS: NavItem[] = [
   { label: "First-Time Buyers", href: "/first-time-buyers" },
   { label: "Homebuyer Programs", href: "/programs" },
   { label: "NACA Homebuyer Help", href: "/programs/naca" },
-  { label: "Homes for Heroes", href: "/programs/homes-for-heroes" },
   { label: "Resource Library", href: "/resources" },
   { label: "Blog & Articles", href: "/blog" },
   { label: "FAQ", href: "/faq" },

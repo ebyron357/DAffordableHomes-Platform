@@ -48,7 +48,6 @@ const VISUAL_ROUTES = [
   "/programs/naca",
   "/blog",
   "/blog/naca-homebuying-dallas-fort-worth",
-  "/blog/homes-for-heroes-north-texas",
   "/blog/how-to-buy-home-garland-tx",
   "/programs",
   "/areas/garland",

@@ -13,7 +13,6 @@ import { test } from 'node:test';
 
 const PRESERVED_SLUGS = [
   'naca-homebuying-dallas-fort-worth',
-  'homes-for-heroes-north-texas',
   'how-to-buy-home-garland-tx'
 ];
 
@@ -45,7 +44,7 @@ test('the blog is served by one CMS-driven route, not per-article route files', 
   assert.equal(existsSync('apps/web/components/articles/article-feature.tsx'), false);
 });
 
-test('all three article URLs are preserved by the migration seed', () => {
+test('the article URLs are preserved by the migration seed', () => {
   for (const slug of PRESERVED_SLUGS) {
     const file = `apps/web/lib/blog/seed/articles/${slug}.ts`;
     assert.equal(existsSync(file), true, `${file} should exist`);
@@ -61,7 +60,6 @@ test('all three article URLs are preserved by the migration seed', () => {
 test('migrated articles keep their authorship, dates, reading time and metadata', () => {
   const expected = {
     'naca-homebuying-dallas-fort-worth': '10 minute read',
-    'homes-for-heroes-north-texas': '9 minute read',
     'how-to-buy-home-garland-tx': '12 minute read'
   };
 
@@ -76,13 +74,12 @@ test('migrated articles keep their authorship, dates, reading time and metadata'
   }
 });
 
-test('the Heroes and Garland guides carry no photograph of Debra', () => {
-  // The owner asked for Debra's portrait to come off these two cards: an
-  // article about the Homes for Heroes programme, or about buying in Garland,
-  // is not a profile of its author. Neither seed sets `featuredImage`, so both
-  // render `ArticlePlate` until an editor supplies a photograph of the actual
-  // subject through Sanity.
-  for (const slug of ['homes-for-heroes-north-texas', 'how-to-buy-home-garland-tx']) {
+test('the Garland guide carries no photograph of Debra', () => {
+  // The owner asked for Debra's portrait to come off this card: an article
+  // about buying in Garland is not a profile of its author. The seed sets no
+  // `featuredImage`, so it renders `ArticlePlate` until an editor supplies a
+  // photograph of the actual subject through Sanity.
+  for (const slug of ['how-to-buy-home-garland-tx']) {
     const source = read(`apps/web/lib/blog/seed/articles/${slug}.ts`);
     assert.doesNotMatch(source, /featuredImage: \{/, slug);
     assert.doesNotMatch(source, /socialImage: \{/, slug);
@@ -98,10 +95,7 @@ test('no route publishes the fabricated-brand consultation photograph', () => {
   // `manus-storage/couple-consultation_25d3a592.jpg` shows a poster and a mug
   // carrying an invented agency logo and tagline. It is not D'Affordable
   // Homes' branding, so it must not be served as though it were.
-  for (const file of [
-    'apps/web/components/landing/next-step-landing.tsx',
-    'apps/web/lib/blog/seed/articles/homes-for-heroes-north-texas.ts'
-  ]) {
+  for (const file of ['apps/web/components/landing/next-step-landing.tsx']) {
     assert.doesNotMatch(codeOf(file), /couple-consultation_25d3a592/, file);
   }
 });
@@ -121,10 +115,9 @@ test('no route presents a generated portrait as Debra Allen', () => {
 
 test('migrated articles retain FAQs, official sources and compliance notices', () => {
   const naca = read('apps/web/lib/blog/seed/articles/naca-homebuying-dallas-fort-worth.ts');
-  const heroes = read('apps/web/lib/blog/seed/articles/homes-for-heroes-north-texas.ts');
   const garland = read('apps/web/lib/blog/seed/articles/how-to-buy-home-garland-tx.ts');
 
-  for (const [name, source] of Object.entries({ naca, heroes, garland })) {
+  for (const [name, source] of Object.entries({ naca, garland })) {
     assert.match(source, /const articleFaqs = faqs\(\[/, name);
     assert.match(source, /const articleSources = sources\(\[/, name);
     assert.match(source, /notice: richText\(/, name);
@@ -134,23 +127,17 @@ test('migrated articles retain FAQs, official sources and compliance notices', (
   assert.match(naca, /https:\/\/www\.naca\.com\/10steps\//);
   assert.match(naca, /independent from NACA/i);
   assert.match(naca, /NACA controls/i);
-  assert.match(heroes, /https:\/\/www\.homesforheroes\.com\/heroes\//);
-  assert.match(heroes, /third-party program/i);
-  assert.match(heroes, /does not guarantee/i);
   assert.match(garland, /garlandtx\.gov\/478\/Home-Ownership-Program/);
   assert.match(garland, /welcomehome\.tdhca\.texas\.gov/);
 });
 
 test('articles route readers into programs, areas, calculators and consultation', () => {
   const naca = read('apps/web/lib/blog/seed/articles/naca-homebuying-dallas-fort-worth.ts');
-  const heroes = read('apps/web/lib/blog/seed/articles/homes-for-heroes-north-texas.ts');
   const garland = read('apps/web/lib/blog/seed/articles/how-to-buy-home-garland-tx.ts');
   const blocks = read('apps/web/components/blog/blocks.tsx');
 
   assert.match(naca, /\/programs\/naca/);
   assert.match(naca, /\/areas\/garland/);
-  assert.match(heroes, /\/programs\/homes-for-heroes/);
-  assert.match(heroes, /\/calculators\/closing-costs/);
   assert.match(garland, /\/areas\/garland/);
   assert.match(garland, /\/calculators\/affordability/);
 

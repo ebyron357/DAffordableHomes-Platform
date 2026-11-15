@@ -5,7 +5,6 @@ import { test } from 'node:test';
 const requiredProgramFiles = [
   'apps/web/app/programs/page.tsx',
   'apps/web/app/programs/naca/page.tsx',
-  'apps/web/app/programs/homes-for-heroes/page.tsx',
   'apps/web/app/areas/page.tsx',
   'apps/web/app/areas/garland/page.tsx',
   'apps/web/app/api/leads/program/route.ts',
@@ -28,15 +27,15 @@ test('program values and lead-source labels remain normalized', () => {
   const endpoint = readFileSync('apps/web/app/api/leads/program/route.ts', 'utf8');
   const form = readFileSync('apps/web/components/programs/program-lead-form.tsx', 'utf8');
 
-  assert.match(programs, /type ProgramSlug = "naca" \| "homes-for-heroes"/);
+  assert.match(programs, /type ProgramSlug = "naca"$/m);
   assert.match(programs, /NACA Landing Page/);
-  assert.match(programs, /Homes for Heroes Landing Page/);
+  assert.equal(existsSync('apps/web/app/programs/homes-for-heroes/page.tsx'), false);
   // Both names are honoured, through the shared destination list.
   const delivery = readFileSync('apps/web/lib/lead-delivery.ts', 'utf8');
   const programDestinations = delivery.slice(delivery.indexOf('program: ['), delivery.indexOf(']', delivery.indexOf('program: [')));
   assert.match(programDestinations, /"PROGRAM_LEAD_WEBHOOK_URL", "GHL_PROGRAM_LEAD_WEBHOOK_URL"/);
   assert.match(endpoint, /leadWebhookUrl\("program"\)/);
-  assert.match(form, /program === "naca" \? "buying"/);
+  assert.match(form, /intent: "buying"/);
   assert.match(form, /utm_source/);
   assert.match(form, /utm_medium/);
   assert.match(form, /utm_campaign/);
@@ -61,7 +60,6 @@ test('program pages avoid unsupported outcome and affiliation claims', () => {
   const content = readFileSync('apps/web/lib/programs.ts', 'utf8');
   assert.doesNotMatch(content, /number one|best agent|guaranteed savings|guaranteed approval/i);
   assert.match(content, /independent from NACA/i);
-  assert.match(content, /does not claim affiliation/i);
 });
 
 test('navigation, homepage, redirect, sitemap, and robots integrate the new routes', () => {
@@ -82,9 +80,9 @@ test('navigation, homepage, redirect, sitemap, and robots integrate the new rout
   assert.match(figmaMap, /NACA Information/);
   assert.match(figmaMap, /\/programs\/naca/);
   assert.match(homepage, /FIGMA_KNOWLEDGE/);
-  assert.match(navigation, /\/programs\/homes-for-heroes/);
+  assert.doesNotMatch(navigation, /homes-for-heroes/);
   assert.match(legacyNaca, /permanentRedirect\("\/programs\/naca"\)/);
   assert.match(sitemap, /\/areas\/garland/);
-  assert.match(sitemap, /\/programs\/homes-for-heroes/);
+  assert.doesNotMatch(sitemap, /homes-for-heroes/);
   assert.match(robots, /sitemap\.xml/);
 });

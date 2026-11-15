@@ -230,6 +230,10 @@ the results and the issues found are in the status register, §13.
 - [x] Take Debra Allen's portrait off the Homes for Heroes and Garland guide
       cards, with `featuredImage` optional end to end so a photograph can be
       restored from Sanity without a code change
+- [x] Remove Homes for Heroes site-wide at the owner's request: program page,
+      article, nav, footer, quiz path and service question, readiness and
+      landing references, sitemap, llms.txt and QA route lists. Old URLs
+      308-redirect to `/programs` and `/blog`
 - [ ] Confirm provenance and licence for the three unregistered photographs still
       served (`hero-family`, `home-keys-moment`, `planning-table`), or approve
       replacements

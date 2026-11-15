@@ -84,9 +84,9 @@ export function BlogFigure({
  *
  * The register (`docs/05-content/IMAGE_ASSET_REGISTER.md`) allows four
  * photographs, three of which are Debra. Using her portrait as the picture for
- * a guide about Garland, or about the Homes for Heroes programme, said the
- * article was about her rather than about the subject — so those two articles
- * now carry no `featuredImage` at all, and land here.
+ * a guide about Garland said the article was about her rather than about the
+ * subject — so that article now carries no `featuredImage` at all, and lands
+ * here.
  *
  * This is the same answer the interior mastheads already give when no licensed
  * photograph exists for a slot: brand field, architectural linework, and the

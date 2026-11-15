@@ -132,7 +132,7 @@ export const nacaArticle: Article = {
       description: "Compare principal, interest, tax, and insurance assumptions.",
     },
   ],
-  relatedArticleSlugs: ["how-to-buy-home-garland-tx", "homes-for-heroes-north-texas"],
+  relatedArticleSlugs: ["how-to-buy-home-garland-tx"],
   body: [
     heroImage({
       src: "/images/debra-allen-primary-about.webp",

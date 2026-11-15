@@ -68,9 +68,8 @@ export function ProgramLeadForm({
       desiredZip: getText(formData, "desiredZip"),
       timeline: getText(formData, "timeline"),
       preferredContactMethod: getText(formData, "preferredContactMethod"),
-      intent: program === "naca" ? "buying" : getText(formData, "intent"),
+      intent: "buying",
       programStage: getText(formData, "programStage"),
-      serviceCategory: getText(formData, "serviceCategory"),
       questions: getText(formData, "questions"),
       consent: formData.get("consent") === "yes",
       pageUrl: window.location.href,
@@ -110,30 +109,17 @@ export function ProgramLeadForm({
   if (status === "success") {
     return (
       <div ref={successRef} tabIndex={-1} className="outline-none">
-        {program === "naca" ? (
-          <Notice tone="success" title="Thank you — Debra has your NACA details">
-            <p>
-              Because you shared your NACA stage, location and timing, she can start where you actually are instead of
-              from scratch, and she&apos;ll follow up using the contact details you gave.
-            </p>
-            <p className="mt-2">
-              Haven&apos;t been to a NACA Homebuyer Workshop yet? That&apos;s NACA&apos;s first step, and you can sign
-              up on naca.com. Questions about qualification or your mortgage stay with your NACA counselor; questions
-              about homes, neighborhoods, offers and inspections are Debra&apos;s.
-            </p>
-          </Notice>
-        ) : (
-          <Notice tone="success" title="Thank you — Debra has your details">
-            <p>
-              She&apos;ll follow up using the contact details you gave, starting from your role and whether you&apos;re
-              buying, selling or both.
-            </p>
-            <p className="mt-2">
-              If you&apos;re also looking at TSAHC&apos;s Homes for Texas Heroes loan program, a participating lender
-              confirms eligibility; Debra handles the real-estate side either way.
-            </p>
-          </Notice>
-        )}
+        <Notice tone="success" title="Thank you — Debra has your NACA details">
+          <p>
+            Because you shared your NACA stage, location and timing, she can start where you actually are instead of
+            from scratch, and she&apos;ll follow up using the contact details you gave.
+          </p>
+          <p className="mt-2">
+            Haven&apos;t been to a NACA Homebuyer Workshop yet? That&apos;s NACA&apos;s first step, and you can sign
+            up on naca.com. Questions about qualification or your mortgage stay with your NACA counselor; questions
+            about homes, neighborhoods, offers and inspections are Debra&apos;s.
+          </p>
+        </Notice>
       </div>
     )
   }
@@ -237,46 +223,17 @@ export function ProgramLeadForm({
         </label>
       </div>
 
-      {program === "naca" ? (
-        <label className="grid gap-2 text-sm font-medium" htmlFor={`${formId}-program-stage`}>
-          Where are you in the NACA process?
-          <select id={`${formId}-program-stage`} name="programStage" className={inputClass} defaultValue="">
-            <option value="">Choose the closest answer</option>
-            <option>Researching NACA</option>
-            <option>Workshop scheduled</option>
-            <option>Workshop attended</option>
-            <option>Working toward qualification</option>
-            <option>NACA-qualified and preparing to search</option>
-          </select>
-        </label>
-      ) : (
-        <div className="grid gap-5 sm:grid-cols-2">
-          <label className="grid gap-2 text-sm font-medium" htmlFor={`${formId}-service-category`}>
-            Hero profession or service category
-            <select id={`${formId}-service-category`} name="serviceCategory" className={inputClass} defaultValue="">
-              <option value="">Choose a category</option>
-              <option>Active-duty military</option>
-              <option>Veteran</option>
-              <option>Teacher or education professional</option>
-              <option>Healthcare professional</option>
-              <option>Firefighter</option>
-              <option>EMS professional</option>
-              <option>Law-enforcement professional</option>
-              <option>Other or unsure</option>
-            </select>
-          </label>
-          <label className="grid gap-2 text-sm font-medium" htmlFor={`${formId}-intent`}>
-            Are you buying, selling, or both?
-            <select id={`${formId}-intent`} name="intent" className={inputClass} defaultValue="">
-              <option value="">Choose one</option>
-              <option>Buying</option>
-              <option>Selling</option>
-              <option>Buying and selling</option>
-              <option>Still deciding</option>
-            </select>
-          </label>
-        </div>
-      )}
+      <label className="grid gap-2 text-sm font-medium" htmlFor={`${formId}-program-stage`}>
+        Where are you in the NACA process?
+        <select id={`${formId}-program-stage`} name="programStage" className={inputClass} defaultValue="">
+          <option value="">Choose the closest answer</option>
+          <option>Researching NACA</option>
+          <option>Workshop scheduled</option>
+          <option>Workshop attended</option>
+          <option>Working toward qualification</option>
+          <option>NACA-qualified and preparing to search</option>
+        </select>
+      </label>
 
       <label className="grid gap-2 text-sm font-medium" htmlFor={`${formId}-questions`}>
         Additional questions

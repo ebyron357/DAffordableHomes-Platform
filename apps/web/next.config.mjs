@@ -138,6 +138,8 @@ const nextConfig = {
       { source: '/resources/calculators/mortgage-payment', destination: '/calculators/mortgage-payment', permanent: true },
       { source: '/calculator', destination: '/calculators/mortgage-payment', permanent: true },
       { source: '/naca', destination: '/programs/naca', permanent: true },
+      { source: '/programs/homes-for-heroes', destination: '/programs', permanent: true },
+      { source: '/blog/homes-for-heroes-north-texas', destination: '/blog', permanent: true },
       { source: '/neighborhoods', destination: '/areas', permanent: true }
     ];
   }

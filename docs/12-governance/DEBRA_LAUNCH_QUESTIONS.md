@@ -34,7 +34,7 @@ it can say you work with them, we need to know your actual relationship.
 
 | # | Question | Your answer |
 |---|----------|-------------|
-| 2.1 | Are you a registered Homes for Heroes affiliate agent? If yes, since when, and may we use their name and logo? | |
+| 2.1 | ~~Are you a registered Homes for Heroes affiliate agent?~~ No longer needed: Homes for Heroes was removed from the site. | n/a |
 | 2.2 | What is your relationship with NACA? (Do you regularly represent NACA buyers, attend their workshops, or have a contact there?) | |
 | 2.3 | Are there other down payment assistance or first-time buyer programs you want featured? Please name them so we can link to the official source. | |
 | 2.4 | Are there lenders, inspectors or attorneys you refer people to? If yes, do you want them listed, and do any referral relationships need to be disclosed? | |

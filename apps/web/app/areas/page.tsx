@@ -45,7 +45,7 @@ const GUIDE_CONTENTS = [
   },
   {
     title: "Which programs fit",
-    body: "Where NACA, Homes for Heroes and similar programs intersect with a local search, and what has to be confirmed with the program itself.",
+    body: "Where NACA and similar programs intersect with a local search, and what has to be confirmed with the program itself.",
     icon: ClipboardCheck,
     tone: "green" as const,
   },
@@ -78,8 +78,8 @@ const cityList = `${UNGUIDED_CITIES.slice(0, -1).join(", ")} and ${UNGUIDED_CITI
  * Direct answers to what people ask before choosing where to buy in North
  * Texas. Each uses only facts the site already states: the free first
  * conversation by phone or video (CONVERSION_COPY.md §1), the service-area
- * boundary (lib/local-market.ts), and the VA-lender boundary from the Homes for
- * Heroes page. No remote showings, school ratings or prices are claimed.
+ * boundary (lib/local-market.ts), and the VA-lender boundary. No remote
+ * showings, school ratings or prices are claimed.
  */
 const AREA_FAQS = [
   {
@@ -104,7 +104,7 @@ const AREA_FAQS = [
   {
     question: "I'm moving to North Texas on military orders. Where do I start?",
     answer:
-      "Start from your base and the commute you will accept, then talk to a VA-approved lender, who confirms your entitlement and terms. The Homes for Heroes page explains how Debra fits in on the real-estate side.",
+      "Start from your base and the commute you will accept, then talk to a VA-approved lender, who confirms your entitlement and terms. Debra helps on the real-estate side: areas, homes and the purchase itself.",
   },
 ] as const
 
@@ -267,9 +267,6 @@ export default function AreasPage() {
         <ul className="dh-band-links">
           <li>
             <ArrowLink href="/calculators/affordability" label="Check what you can afford before you choose an area" />
-          </li>
-          <li>
-            <ArrowLink href="/programs/homes-for-heroes" label="On military orders? Read the Homes for Heroes guidance" />
           </li>
         </ul>
       </Band>

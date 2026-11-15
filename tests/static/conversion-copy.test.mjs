@@ -160,8 +160,6 @@ test("every form's success message says what happens next, and moves focus to it
   const program = read(`${WEB}/components/programs/program-lead-form.tsx`);
   assert.match(program, /Thank you — Debra has your NACA details/);
   assert.match(program, /sign\s+up on naca\.com/);
-  assert.match(program, /Thank you — Debra has your details/);
-  assert.match(program, /Homes for Texas Heroes/);
 
   const start = read(`${WEB}/components/landing/next-step-landing.tsx`);
   assert.match(start, /Thanks — Debra has your next-step request\./);

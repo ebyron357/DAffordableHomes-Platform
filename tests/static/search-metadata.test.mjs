@@ -165,7 +165,7 @@ test('article topics publish the CMS display names, not title-cased slugs', asyn
   // Only the topic lists: the schema's other option lists are not topics.
   const lists = schema.slice(schema.indexOf('const PROGRAMS'), schema.indexOf('export const article'));
   const options = [...lists.matchAll(/\{ title: "([^"]+)", value: "([^"]+)" \}/g)];
-  assert.ok(options.length >= 6, 'expected the PROGRAMS and AREAS option lists');
+  assert.ok(options.length >= 5, 'expected the PROGRAMS and AREAS option lists');
   for (const [, title, value] of options) {
     assert.equal(TOPIC_LABELS[value], title, `topic "${value}" should publish as "${title}"`);
   }
@@ -232,9 +232,6 @@ test('program pages answer the questions searchers ask, and send them to the sou
   const { PROGRAMS } = await import(pathToFileURL('apps/web/lib/programs.ts').href);
   const naca = PROGRAMS.naca.faqs.map((f) => f.question);
   assert.ok(naca.includes('How does the NACA program work?'));
-  const heroes = PROGRAMS['homes-for-heroes'].faqs.find((f) => f.question.includes('Homes for Texas Heroes'));
-  assert.ok(heroes, 'Homes for Heroes and Homes for Texas Heroes are different programs; the page says so');
-  assert.match(heroes.answer, /^No\./);
 
   // The official-programs list links only to the agencies' own sites.
   const programs = read(`${APP}/programs/page.tsx`);

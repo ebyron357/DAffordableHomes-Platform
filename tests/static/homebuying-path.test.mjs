@@ -17,7 +17,7 @@ register("../../scripts/sanity/ts-resolver.mjs", import.meta.url)
 const read = (file) => readFileSync(file, "utf8")
 
 const content = await import(pathToFileURL("apps/web/lib/content/homebuying-path.ts").href)
-const { PATH_QUESTIONS, PATH_ORDER, PATH_NAMES, HEROES_HINT, visibleQuestions, resolvePath, buildResult, timelineNote } =
+const { PATH_QUESTIONS, PATH_ORDER, PATH_NAMES, visibleQuestions, resolvePath, buildResult, timelineNote } =
   content
 
 /** A site route exists when its App Router page file does, or it is a seeded article slug. */
@@ -35,9 +35,8 @@ const choices = (id) => PATH_QUESTIONS.find((question) => question.id === id).ch
 function* answerSets() {
   for (const goal of choices("goal"))
     for (const area of choices("area"))
-      for (const timeline of choices("timeline"))
-        for (const service of choices("service")) {
-          const base = { goal, area, timeline, service }
+      for (const timeline of choices("timeline")) {
+          const base = { goal, area, timeline }
           const ids = visibleQuestions(base).map((question) => question.id)
           if (ids.includes("buyerPosition")) {
             for (const buyerPosition of choices("buyerPosition")) yield { ...base, buyerPosition }
@@ -52,13 +51,13 @@ function* answerSets() {
 test("the quiz asks real-estate intent, branches on goal, and never asks a qualification or protected-class question", () => {
   assert.deepEqual(
     PATH_QUESTIONS.map((question) => question.id),
-    ["goal", "area", "timeline", "buyerPosition", "sellerPosition", "service"],
+    ["goal", "area", "timeline", "buyerPosition", "sellerPosition"],
   )
   // Buyers see the buyer-position question; sellers see the seller one; nobody sees both.
-  assert.deepEqual(visibleQuestions({ goal: "first" }).map((q) => q.id), ["goal", "area", "timeline", "buyerPosition", "service"])
-  assert.deepEqual(visibleQuestions({ goal: "sell" }).map((q) => q.id), ["goal", "area", "timeline", "sellerPosition", "service"])
-  assert.deepEqual(visibleQuestions({}).map((q) => q.id), ["goal", "area", "timeline", "service"])
-  // Every goal yields exactly five questions, because the buyer- and
+  assert.deepEqual(visibleQuestions({ goal: "first" }).map((q) => q.id), ["goal", "area", "timeline", "buyerPosition"])
+  assert.deepEqual(visibleQuestions({ goal: "sell" }).map((q) => q.id), ["goal", "area", "timeline", "sellerPosition"])
+  assert.deepEqual(visibleQuestions({}).map((q) => q.id), ["goal", "area", "timeline"])
+  // Every goal yields exactly four questions, because the buyer- and
   // seller-position questions are mutually exclusive. The quiz section states
   // that count, so the copy is checked against the data rather than against
   // someone's memory of it: a seventh question, or a dropped `showIf`, has to
@@ -66,12 +65,12 @@ test("the quiz asks real-estate intent, branches on goal, and never asks a quali
   // carried it was removed at the owner's direction on 2026-09-24.)
   const goals = PATH_QUESTIONS.find((question) => question.id === "goal").choices.map((choice) => choice.value)
   for (const goal of goals) {
-    assert.equal(visibleQuestions({ goal }).length, 5, `${goal} should ask five questions`)
+    assert.equal(visibleQuestions({ goal }).length, 4, `${goal} should ask four questions`)
   }
 
   const homepage = read("apps/web/components/home/figma-home-page.tsx")
-  assert.match(homepage, /<span>Five questions, about a minute<\/span>/)
-  assert.doesNotMatch(homepage, /Five or six/)
+  assert.match(homepage, /<span>Four questions, about a minute<\/span>/)
+  assert.doesNotMatch(homepage, /Five questions|Five or six/)
 
   for (const question of PATH_QUESTIONS) {
     assert.ok(question.choices.length >= 4 && question.choices.length <= 6, `${question.id} has 4–6 choices`)
@@ -85,17 +84,11 @@ test("the quiz asks real-estate intent, branches on goal, and never asks a quali
   for (const name of ["Garland", "Dallas", "Plano", "Frisco", "McKinney", "Fort Worth", "Arlington", "Irving"]) {
     assert.match(cities, new RegExp(`name: "${name}"`), `${name} is a published market`)
   }
-  // The Heroes groups are the ones the program page publishes.
-  const programs = read("apps/web/lib/programs.ts")
-  for (const group of ["military", "Veterans", "Teachers", "Healthcare", "Firefighters", "law-enforcement"]) {
-    assert.match(programs, new RegExp(group), `${group} is a published Homes for Heroes group`)
-  }
 })
 
-test("all eight result paths exist, every destination is a real route, and results carry the required parts", () => {
+test("all seven result paths exist, every destination is a real route, and results carry the required parts", () => {
   assert.deepEqual(PATH_ORDER, [
     "first-time",
-    "hero",
     "relocating",
     "selling",
     "sell-buy",
@@ -104,7 +97,6 @@ test("all eight result paths exist, every destination is a real route, and resul
     "unsure",
   ])
   for (const key of PATH_ORDER) assert.ok(PATH_NAMES[key], `${key} has a name`)
-  assert.ok(routeExists(HEROES_HINT.href))
 
   const seen = new Map()
   for (const answers of answerSets()) {
@@ -132,8 +124,6 @@ test("all eight result paths exist, every destination is a real route, and resul
 })
 
 test("the resolver follows the documented priority order", () => {
-  assert.equal(resolvePath({ goal: "first", service: "military", buyerPosition: "preapproved" }), "hero")
-  assert.equal(resolvePath({ goal: "sell", service: "educator" }), "hero")
   assert.equal(resolvePath({ goal: "relocate", service: "none", buyerPosition: "search" }), "relocating")
   assert.equal(resolvePath({ goal: "sellbuy", service: "none" }), "sell-buy")
   assert.equal(resolvePath({ goal: "next", buyerPosition: "sellfirst", service: "none" }), "sell-buy")

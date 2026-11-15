@@ -109,7 +109,6 @@ test('the audit workflow targets the canonical app and preserves evidence', () =
   assert.match(config, /canonical_origin: "https:\/\/daffordablehomes\.com"/);
   for (const slug of [
     'naca-homebuying-dallas-fort-worth',
-    'homes-for-heroes-north-texas',
     'how-to-buy-home-garland-tx'
   ]) {
     assert.match(config, new RegExp(slug));

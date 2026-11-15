@@ -157,9 +157,6 @@ export function SiteFooter() {
                 <Link href="/programs/naca">NACA homebuyer help</Link>
               </li>
               <li>
-                <Link href="/programs/homes-for-heroes">Homes for Heroes</Link>
-              </li>
-              <li>
                 <Link href="/areas/garland">Garland area guide</Link>
               </li>
               <li>
