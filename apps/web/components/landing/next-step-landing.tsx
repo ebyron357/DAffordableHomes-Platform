@@ -190,7 +190,7 @@ type WebsiteActions = {
   goBackAssessment: () => void
   updateAssessment: (questionId: string, value: string) => void
   getAssessmentState: () => { phase: Phase; answers: Record<string, string>; selectedPath: PathKey | null }
-  showProgram: (program: "naca" | "traditional" | "heroes") => void
+  showProgram: (program: "naca" | "traditional") => void
   showListings: () => void
   applyListingFilters: (filters?: Record<string, string>) => { available: false; reason: string }
   openCalculator: () => void
@@ -594,13 +594,6 @@ export function NextStepLanding() {
         <div className="dah-landing-container dah-landing-two-column">
           <div><p className="dah-landing-eyebrow dah-landing-eyebrow-dark">TRADITIONAL HOMEBUYING</p><h2 id="traditional-heading">You don’t need a special program to need a better plan.</h2><p className="dah-landing-copy">Whether you’re considering FHA, VA, conventional financing, down-payment assistance, or haven’t selected financing yet, the first objective is the same: understand what you’re working toward before you start shopping.</p><button type="button" className={ctaClass("gold")} onClick={() => startAssessment()}>Build my homebuying path <ArrowRight size={17} aria-hidden="true" /></button></div>
           <div className="dah-landing-transition-card"><span>Maybe someday</span><ArrowRight size={26} aria-hidden="true" /><strong>Here’s what I need to do next</strong></div>
-        </div>
-      </section>
-
-      <section id="heroes" className="dah-landing-section dah-landing-navy" aria-labelledby="heroes-heading">
-        <div className="dah-landing-container dah-landing-two-column">
-          <div><p className="dah-landing-eyebrow dah-landing-eyebrow-gold">HOMES FOR HEROES</p><h2 id="heroes-heading">You serve your community. Your homebuying plan should recognize that.</h2><p className="dah-landing-copy dah-landing-copy-light">Explore whether a benefit or resource connected to your role deserves attention. Current requirements and eligibility belong with the applicable program.</p><button type="button" className={ctaClass("turquoise")} onClick={() => startAssessment()}>Explore my hero options <ArrowRight size={17} aria-hidden="true" /></button></div>
-          <div className="dah-landing-hero-list">{["Military & Veterans", "Teachers & Educators", "Healthcare Professionals", "Firefighters & EMS", "Law Enforcement"].map((item) => <div key={item}><Users size={18} aria-hidden="true" /><span>{item}</span></div>)}</div>
         </div>
       </section>
 
